@@ -23,8 +23,8 @@ O número da fase (e, se houver, a lista de arquivos alterados). Se não receber
    - dependência de hover (`:hover` como único meio, `title=` como única explicação, tooltip do Chart.js habilitado);
    - textos de UI fora do pt-BR ou identificadores de código em português;
    - `any` implícito, `VITE_*` com segredos, chamadas `fetch` para dados.
-3. **Escopo fechado (princípio 14):** dependências novas no `package.json` que não estão na §6.1; telas/rotas fora da §6.6.
-4. **Testes:** funções de `src/domain/` e `src/lib/` têm testes; os exemplos numéricos dos CAs aplicáveis estão testados; IDs citados nos testes.
+3. **Escopo fechado (princípio 14):** telas/rotas fora da §6.6. A página de arquitetura (`src/dev/architecture/`, rota `/__dev/arquitetura`) está prevista na §6.12; confira só que ela é registrada apenas em `import.meta.env.DEV`, carregada com `React.lazy` e não aparece no `dist/`. **Dependências:** compare o `package.json` com o último commit (`git diff HEAD -- package.json`); todo pacote novo que não esteja citado na spec (§6.1 e §6.11 — veja a lista em "Política de dependências" do agente `spec-implementer`) é **bloqueante**, a menos que o usuário tenha autorizado a instalação na conversa (se não souber, liste-o como "precisa confirmar autorização").
+4. **Testes:** todos usam **Vitest** (imports de `vitest`, mocks com `vi`); uso de Jest (`jest.fn`, `@jest/globals`) ou outro runner é bloqueante. Funções de `src/domain/` e `src/lib/` têm testes; os exemplos numéricos dos CAs aplicáveis estão testados; IDs citados nos testes.
 5. **Checklist §8.3:** rode `node .claude/skills/verificar-fase/check-consistency.mjs` e inclua o resultado.
 6. Se possível, rode `npm run lint`, `npm run typecheck` e `npm test` e reporte o resultado real.
 

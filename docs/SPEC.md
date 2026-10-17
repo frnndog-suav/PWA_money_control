@@ -1,6 +1,6 @@
 # Especificação — App de Controle de Gastos (PWA)
 
-> **Versão do documento:** 1.2 — 17/10/2026 (interação dos gráficos no celular — RF-06 / D-16)
+> **Versão do documento:** 1.3 — 17/10/2026 (página de arquitetura e timeline somente em DEV — §6.12 / D-17; pacotes pré-autorizados — D-18)
 > **Tipo:** Especificação para desenvolvimento orientado por especificação (*spec-driven development*)
 > **Uso:** fonte única da verdade para a implementação por um agente de IA, em fases incrementais e testáveis.
 
@@ -30,6 +30,7 @@
    - rode `npm run lint`, `npm run typecheck` e `npm test` sem erros;
    - marque as tarefas concluídas (`[x]`) na seção 7;
    - liste para o humano **o que testar manualmente** (copie o "Roteiro de teste" da fase);
+   - atualize a página de arquitetura e a linha do tempo (§6.12);
    - **não comece a próxima fase** até o humano confirmar.
 3. Respeite os princípios da seção 2 em todas as fases.
 4. Cada requisito tem um ID (ex.: `RF-04`). Cite os IDs nas mensagens de commit e nos comentários de testes (ex.: `// RF-04 / CA-04.3`).
@@ -478,6 +479,8 @@ src/
   stores/
     uiStore.ts         # Zustand
   test/                # setup do Vitest, fábricas de dados de teste
+  dev/                 # Somente desenvolvimento (fora do build de produção)
+    architecture/      # Página de arquitetura e timeline (§6.12)
 docs/
   SPEC.md              # este documento
 ```
@@ -625,6 +628,7 @@ db.version(1).stores({
 | `/ajustes/recorrentes/:id` | Detalhes, alterar valor, encerrar, excluir, meses pulados | RF-07 |
 | `/ajustes/backup` | Exportar / importar | RF-10 |
 | `/ajustes/sobre` | Versão, esquema, armazenamento | RF-11 |
+| `/__dev/arquitetura` | Arquitetura e timeline — **somente em desenvolvimento**, sem link na interface | §6.12 / D-17 |
 
 Modais (não são rotas): confirmar ocorrência recorrente, confirmações de exclusão, senha de backup.
 
@@ -753,6 +757,16 @@ Casos obrigatórios de teste unitário (mínimo): todos os exemplos numéricos d
 
 **Dados de teste:** criar um script/ação **somente em desenvolvimento** (`import.meta.env.DEV`) para gerar dados de exemplo (ex.: 12 tags, 5.000 lançamentos em 3 anos, 4 recorrentes, 3 parcelamentos) e outro para apagar tudo. Não incluir no build de produção.
 
+### 6.12 Página de arquitetura e timeline (somente desenvolvimento)
+
+Ferramenta interna para o desenvolvedor, mantida pelo agente `architecture-mapper` (`.claude/agents/architecture-mapper.md`). Não é funcionalidade do produto.
+
+- **Rota:** `/__dev/arquitetura`, registrada somente quando `import.meta.env.DEV` é verdadeiro e carregada com `React.lazy`. Sem link na barra inferior nem em Ajustes. **Nada desta página entra no build de produção** (verificar no `dist/`).
+- **Conteúdo:** a topologia da aplicação inteira — camadas e direções de dependência permitidas, grafo de módulos com inspetor, rotas e telas, árvore de composição de componentes, fluxos de dados e interações por funcionalidade (diagramas de sequência), modelo de dados (tabelas Dexie, índices, quem lê/escreve), estado do Zustand, funções de domínio, rastreabilidade requisito → código → teste, dependências externas, saúde da arquitetura (violações, ciclos, órfãos) — e a **linha do tempo** das implementações (data, fase, commits, requisitos, decisões e arquivos de cada entrega).
+- **Dados:** `src/dev/architecture/data/module-graph.json` é **gerado** por `.claude/skills/atualizar-arquitetura/scan-architecture.mjs` a partir do código (não editar à mão); fluxos, explicações e timeline são escritos pelo agente em `curated.ts` e `timeline.ts`, com um teste Vitest que garante que toda referência aponta para um módulo existente.
+- **Restrições:** sem bibliotecas de diagrama sem autorização (SVG inline com React + Tailwind); nunca exibe dados do usuário; segue os princípios da seção 2 (pt-BR, tema claro/escuro, sem depender de hover).
+- **Atualização:** ao fim de cada fase (seção 0, item 2) e após mudanças estruturais.
+
 ---
 
 ## 7. Plano de implementação em fases
@@ -775,6 +789,7 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 - [ ] Layout com barra inferior de 5 itens e rotas vazias (páginas com título) — seção 6.6.
 - [ ] Tema Automático/Claro/Escuro em `/ajustes` (persistência temporária em `localStorage`; migra para Dexie na Fase 2), sem piscar ao abrir.
 - [ ] Respeitar *safe areas* do iPhone.
+- [ ] Criar a página de arquitetura e timeline em `/__dev/arquitetura`, somente em DEV (§6.12), com as entradas da linha do tempo desde o primeiro commit.
 
 **Roteiro de teste:**
 1. `npm run dev` → abrir `http://localhost:5173` no PC.
@@ -1026,6 +1041,8 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 | D-16 | Gráficos **sem tooltip flutuante**: detalhes num painel fixo abaixo do gráfico, legenda em lista nas pizzas, seleção por coluna nas barras e marcador arrastável na linha (RF-06). | No iPhone o dedo cobre o tooltip e fatias/barras pequenas são difíceis de tocar. **Confirmado pelo dono.** |
 | D-14 | Ao confirmar uma ocorrência recorrente, a data padrão é **hoje** se a ocorrência for do mês atual; senão, o **dia 1 do mês da ocorrência**. A regra é explicada no app por um ícone "ⓘ" com balão e uma linha de ajuda (CA-07.8). | **Confirmado pelo dono**, com a exigência da explicação na interface. |
 | D-15 | Um recorrente só pode ser **excluído** se nunca teve ocorrência confirmada; caso contrário, ele é **encerrado**. | **Confirmado pelo dono.** |
+| D-17 | Página interna de **arquitetura e timeline** em `/__dev/arquitetura`, somente em desenvolvimento e fora do build de produção (§6.12), mantida pelo agente `architecture-mapper` ao fim de cada fase. | Dar ao desenvolvedor uma visão detalhada e sempre atual da topologia e do histórico do projeto. **Confirmado pelo dono.** (17/10/2026) |
+| D-18 | Pacotes **pré-autorizados** além da seção 6.1: `@tailwindcss/vite`, `jsdom`, `@vitest/coverage-v8` e `react-router-dom`. Qualquer outro pacote fora da especificação exige autorização do dono antes da instalação. | Necessários para Tailwind com Vite, ambiente DOM dos testes, cobertura (RNF-07) e rotas. **Confirmado pelo dono.** (17/10/2026) |
 
 ### 8.2 Pontos em aberto (perguntar ao dono antes da fase indicada)
 
@@ -1044,6 +1061,8 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 - [ ] Toda tabela nova está incluída no backup e no teste de ida e volta.
 - [ ] Nenhuma requisição de rede para dados do usuário.
 - [ ] Textos da interface em pt-BR; código em inglês.
+- [ ] Nenhum pacote fora da seção 6.1 e da D-18 sem autorização do dono.
+- [ ] Página de arquitetura e timeline atualizadas (§6.12) e ausentes do `dist/`.
 
 ---
 

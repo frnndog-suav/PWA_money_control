@@ -32,12 +32,13 @@ Delegue ao agente `spec-implementer` (ou implemente diretamente, seguindo as mes
 
 ## 5. Encerramento
 
-1. Marque `[x]` nas tarefas concluídas da Fase $ARGUMENTS em `docs/SPEC.md` §7 (tarefas *(Humano)* ficam como estão).
-2. Se houve decisões novas, confirme que estão na §8.1 com data.
-3. Responda ao usuário com:
+1. Atualize a página de arquitetura e a timeline com a skill `atualizar-arquitetura` (agente `architecture-mapper`), informando a fase $ARGUMENTS e o que foi criado/alterado. Na Fase 0, essa etapa **cria** a página.
+2. Marque `[x]` nas tarefas concluídas da Fase $ARGUMENTS em `docs/SPEC.md` §7 (tarefas *(Humano)* ficam como estão).
+3. Se houve decisões novas, confirme que estão na §8.1 com data.
+4. Responda ao usuário com:
    - resumo do que foi feito (com IDs de requisito);
    - decisões registradas e dúvidas pendentes;
    - tarefas *(Humano)* da fase, se houver;
    - o **"Roteiro de teste"** da fase, copiado da spec;
    - sugestão de mensagem de commit citando os IDs (não faça commit sem o usuário pedir).
-4. **Pare.** Não comece a próxima fase até o usuário confirmar que o roteiro de teste passou.
+5. **Pare.** Não comece a próxima fase até o usuário confirmar que o roteiro de teste passou.

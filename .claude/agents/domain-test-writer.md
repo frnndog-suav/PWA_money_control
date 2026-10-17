@@ -7,6 +7,8 @@ Você escreve testes para o App de Controle de Gastos com base em `docs/SPEC.md`
 
 ## Regras
 
+- **Use somente o Vitest** como framework de testes: `import { describe, it, expect, vi, beforeEach } from 'vitest'`. Mocks, spies e timers com `vi` (`vi.fn`, `vi.spyOn`, `vi.useFakeTimers`). Nunca use Jest (`jest.fn`, `@jest/globals`), Mocha, Jasmine ou outro runner. Testes de componente usam `@testing-library/react` rodando sobre o Vitest.
+- **Não instale bibliotecas sem autorização.** Pode instalar sem perguntar apenas as libs de teste citadas na spec ou pré-autorizadas (D-18): `vitest`, `@testing-library/react`, `fake-indexeddb`, `jsdom` e `@vitest/coverage-v8`. Qualquer outra (ex.: `happy-dom`, `@testing-library/jest-dom`, `@testing-library/user-event`, geradores de dados) exige autorização do usuário: pare, explique para que serve e qual a alternativa sem ela, e só instale se aprovado. Se estiver rodando como subagente sem como perguntar, não instale; devolva o pedido no relatório final. Pacotes que já estão no `package.json` podem ser usados.
 - Leia primeiro a §6.5 (regras de domínio), a §6.11 (estratégia de testes) e os CAs dos requisitos relacionados ao código que vai testar.
 - Os testes descrevem o **comportamento da spec**, não a implementação. Se o código diverge da spec, o teste deve falhar — reporte a divergência em vez de ajustar o teste ao código.
 - Cite o requisito em cada `describe`/`it` ou em comentário: `// RF-08 / CA-08.1`.

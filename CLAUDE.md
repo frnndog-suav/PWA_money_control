@@ -11,12 +11,16 @@
 - Decisão de implementação relevante e não coberta pela spec: registre na §8.1 com data (`/registrar-decisao`).
 - Cite IDs de requisito em commits e comentários de teste (ex.: `// RF-04 / CA-04.3`).
 - Não use o app com dados reais antes de concluir a Fase 6 (Backup).
+- **Dependências:** só instale sem perguntar as bibliotecas citadas na spec (§6.1/§6.11) e as pré-autorizadas na D-18 (`@tailwindcss/vite`, `jsdom`, `@vitest/coverage-v8`, `react-router-dom`). Lista completa em "Política de dependências" de `.claude/agents/spec-implementer.md`. Qualquer outra lib externa exige autorização do usuário antes do `npm install`.
+- **Qualidade:** código o mais otimizado possível e legível, com componentes estruturados por composição (regras em "Qualidade de código" de `.claude/agents/spec-implementer.md`).
+- **Testes:** sempre com **Vitest** (Testing Library sobre o Vitest para componentes). Nada de Jest ou outro runner.
 
 ## Agentes disponíveis (`.claude/agents/`)
 
 - `spec-implementer` — implementa as tarefas de **uma** fase seguindo a spec.
 - `domain-test-writer` — escreve testes unitários/integração de `src/domain/`, `src/lib/` e `src/repositories/` a partir dos CAs.
 - `spec-reviewer` — revisão somente leitura do trabalho de uma fase contra a spec, a §2 e a §8.3.
+- `architecture-mapper` — mantém a página secreta de arquitetura e timeline (`/__dev/arquitetura`, somente em DEV — SPEC §6.12). Skill: `/atualizar-arquitetura`. Roda ao fim de cada fase.
 
 ## Princípios do projeto ("constituição" — SPEC §2)
 

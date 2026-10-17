@@ -10,6 +10,7 @@
       "Bash(npx vitest:*)",
       "Bash(npx tsc:*)",
       "Bash(node .claude/skills/verificar-fase/check-consistency.mjs:*)",
+      "Bash(node .claude/skills/atualizar-arquitetura/scan-architecture.mjs:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
@@ -20,6 +21,7 @@
       "PowerShell(npm run build:*)",
       "PowerShell(npx vitest:*)",
       "PowerShell(node .claude/skills/verificar-fase/check-consistency.mjs:*)",
+      "PowerShell(node .claude/skills/atualizar-arquitetura/scan-architecture.mjs:*)",
       "PowerShell(git status:*)",
       "PowerShell(git diff:*)",
       "PowerShell(git log:*)"
