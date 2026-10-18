@@ -14,7 +14,7 @@ Siga estes passos em ordem. Se `$ARGUMENTS` estiver vazio, pergunte qual fase im
 - Leia `CLAUDE.md` e `docs/SPEC.md` (§0, §2 e a Fase $ARGUMENTS da §7 inteira, mais os RFs/RNFs listados em "Requisitos:" e as partes da §6 que eles usam).
 - Confira em `docs/SPEC.md` §7 se todas as tarefas **não-humanas** das fases anteriores estão `[x]`. Se não estiverem, avise o usuário e pergunte se deve seguir mesmo assim.
 - Confira a §8.2: se houver ponto em aberto com prazo até esta fase, pergunte ao usuário antes de começar.
-- **Se for a Fase 0 e for a primeira sessão:** antes de codar, entregue (a) um resumo de 5 linhas do produto e (b) dúvidas/contradições encontradas na spec (inclua a divergência ESLint+Prettier × oxlint citada no `CLAUDE.md`). Espere as respostas.
+- **Se for a Fase 0 e for a primeira sessão:** antes de codar, entregue (a) um resumo de 5 linhas do produto e (b) dúvidas/contradições encontradas na spec. Espere as respostas.
 
 ## 2. Plano
 

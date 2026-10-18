@@ -1,6 +1,6 @@
 # Especificação — App de Controle de Gastos (PWA)
 
-> **Versão do documento:** 1.3 — 17/10/2026 (página de arquitetura e timeline somente em DEV — §6.12 / D-17; pacotes pré-autorizados — D-18)
+> **Versão do documento:** 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)
 > **Tipo:** Especificação para desenvolvimento orientado por especificação (*spec-driven development*)
 > **Uso:** fonte única da verdade para a implementação por um agente de IA, em fases incrementais e testáveis.
 
@@ -410,7 +410,7 @@ Usar **Chart.js** (renderiza em Canvas) via `react-chartjs-2`.
 | **RNF-04** Privacidade | Nenhum dado de lançamento trafega pela rede. Sem analytics, sem rastreadores, sem fontes ou scripts de CDN externos em produção (tudo empacotado no build). |
 | **RNF-05** Segurança do backup | AES-GCM 256 bits, chave derivada da senha com PBKDF2-SHA-256 (600.000 iterações), sal e IV aleatórios por exportação. |
 | **RNF-06** Acessibilidade | Contraste AA, rótulos em todos os campos, foco visível, alvos de toque ≥ 44 px, cor nunca como única forma de informação. |
-| **RNF-07** Qualidade | TypeScript estrito; ESLint sem erros; testes unitários para todo `src/domain/` e `src/lib/` (cobertura ≥ 90% nessas pastas); testes de componentes para formulários principais. |
+| **RNF-07** Qualidade | TypeScript estrito; lint (oxlint — D-19) sem erros; testes unitários para todo `src/domain/` e `src/lib/` (cobertura ≥ 90% nessas pastas); testes de componentes para formulários principais. |
 | **RNF-08** Custo | Zero: hospedagem gratuita, sem serviços pagos. |
 | **RNF-09** Contexto seguro | Recursos como Service Worker, `crypto.subtle` e `crypto.randomUUID` exigem HTTPS ou `localhost`. Testes no iPhone devem usar a URL publicada (HTTPS), nunca `http://IP-do-PC:5173`. |
 
@@ -425,7 +425,7 @@ Usar **Chart.js** (renderiza em Canvas) via `react-chartjs-2`.
 | Build | **Vite** |
 | UI | **React** + **TypeScript** (strict) |
 | Estilo | **Tailwind CSS** (tema escuro via classe `dark` no `<html>`) |
-| Rotas | **React Router** |
+| Rotas | **React Router** (pacote `react-router` — D-20) |
 | Banco local | **IndexedDB** via **Dexie.js** + **dexie-react-hooks** (`useLiveQuery`) |
 | Estado de interface | **Zustand** |
 | Formulários | **React Hook Form** + **@hookform/resolvers** |
@@ -435,10 +435,10 @@ Usar **Chart.js** (renderiza em Canvas) via `react-chartjs-2`.
 | PWA | **vite-plugin-pwa** (Workbox) |
 | Criptografia | **Web Crypto API** nativa (`crypto.subtle`) |
 | Testes | **Vitest** + **@testing-library/react** + **fake-indexeddb** |
-| Qualidade | **ESLint** + **Prettier** |
+| Qualidade | **oxlint** + **Prettier** (D-19) |
 | Hospedagem | **Cloudflare Pages** (+ **Cloudflare Access**) |
 
-Usar as versões estáveis mais recentes no momento da Fase 0 e registrar as versões no `package.json` (sem `^` para as bibliotecas principais, se preferir builds reprodutíveis).
+Usar as versões estáveis mais recentes no momento da Fase 0 e registrar as versões no `package.json` **sem `^`** (versões fixas — D-20).
 
 **Divisão de responsabilidades do estado:**
 
@@ -781,15 +781,15 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 
 **Requisitos:** RF-09, RF-13 (estrutura), RNF-07
 
-- [ ] Criar projeto Vite + React + TypeScript (strict), ESLint, Prettier.
-- [ ] Scripts: `dev`, `build`, `preview`, `lint`, `typecheck`, `test`.
-- [ ] Configurar Tailwind com modo escuro por classe.
-- [ ] Configurar Vitest + Testing Library + fake-indexeddb.
-- [ ] Criar a estrutura de pastas da seção 6.2.
-- [ ] Layout com barra inferior de 5 itens e rotas vazias (páginas com título) — seção 6.6.
-- [ ] Tema Automático/Claro/Escuro em `/ajustes` (persistência temporária em `localStorage`; migra para Dexie na Fase 2), sem piscar ao abrir.
-- [ ] Respeitar *safe areas* do iPhone.
-- [ ] Criar a página de arquitetura e timeline em `/__dev/arquitetura`, somente em DEV (§6.12), com as entradas da linha do tempo desde o primeiro commit.
+- [x] Criar projeto Vite + React + TypeScript (strict), oxlint, Prettier (D-19).
+- [x] Scripts: `dev`, `build`, `preview`, `lint`, `typecheck`, `test`.
+- [x] Configurar Tailwind com modo escuro por classe.
+- [x] Configurar Vitest + Testing Library + fake-indexeddb.
+- [x] Criar a estrutura de pastas da seção 6.2.
+- [x] Layout com barra inferior de 5 itens e rotas vazias (páginas com título) — seção 6.6.
+- [x] Tema Automático/Claro/Escuro em `/ajustes` (persistência temporária em `localStorage`; migra para Dexie na Fase 2), sem piscar ao abrir.
+- [x] Respeitar *safe areas* do iPhone.
+- [x] Criar a página de arquitetura e timeline em `/__dev/arquitetura`, somente em DEV (§6.12), com as entradas da linha do tempo desde o primeiro commit.
 
 **Roteiro de teste:**
 1. `npm run dev` → abrir `http://localhost:5173` no PC.
@@ -826,6 +826,7 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 - [ ] `domain/types.ts`, `money.ts`, `dates.ts`, `balances.ts`, `tagColor.ts` com testes unitários.
 - [ ] `db/database.ts` com o esquema versão 1 e `SCHEMA_VERSION`.
 - [ ] Repositório de `settings`; mover a preferência de tema para o Dexie (mantendo o espelho em `localStorage` só para evitar o "piscar").
+- [ ] Mover o hook e o contexto do tema (`useTheme`, `ThemeContext`) de `src/app/theme/` para `src/repositories/`, para que as features não importem de `app/` (D-22).
 - [ ] `lib/storage.ts`: `persist()` na primeira abertura e `estimate()`.
 - [ ] Tela `/ajustes/sobre` (CA-11.4, CA-11.5).
 - [ ] Ferramentas de desenvolvimento: gerar e apagar dados de exemplo (somente em DEV; as funções podem ser concluídas nas fases seguintes, à medida que as tabelas forem usadas).
@@ -1043,6 +1044,10 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 | D-15 | Um recorrente só pode ser **excluído** se nunca teve ocorrência confirmada; caso contrário, ele é **encerrado**. | **Confirmado pelo dono.** |
 | D-17 | Página interna de **arquitetura e timeline** em `/__dev/arquitetura`, somente em desenvolvimento e fora do build de produção (§6.12), mantida pelo agente `architecture-mapper` ao fim de cada fase. | Dar ao desenvolvedor uma visão detalhada e sempre atual da topologia e do histórico do projeto. **Confirmado pelo dono.** (17/10/2026) |
 | D-18 | Pacotes **pré-autorizados** além da seção 6.1: `@tailwindcss/vite`, `jsdom`, `@vitest/coverage-v8` e `react-router-dom`. Qualquer outro pacote fora da especificação exige autorização do dono antes da instalação. | Necessários para Tailwind com Vite, ambiente DOM dos testes, cobertura (RNF-07) e rotas. **Confirmado pelo dono.** (17/10/2026) |
+| D-19 | Lint com **oxlint** (já configurado no repositório) em vez de ESLint; formatação com **Prettier**. | oxlint é muito mais rápido e já estava configurado. **Confirmado pelo dono.** (17/10/2026) |
+| D-20 | Rotas com o pacote **`react-router`** (v7) apenas; `react-router-dom` fica autorizado mas não é instalado. Versões das bibliotecas fixas no `package.json`, **sem `^`**. | Pacote único e atual do React Router; builds reprodutíveis. **Confirmado pelo dono.** (17/10/2026) |
+| D-21 | Caminho desconhecido (rota `*`) **redireciona para o Início** (`/`) com `replace`, em vez de exibir uma tela de "não encontrado". | O Cloudflare Pages serve o `index.html` para qualquer caminho (§6.10) e a tela de erro padrão do React Router é em inglês. **Confirmado pelo dono.** (17/10/2026) |
+| D-22 | Features não importam de `src/app/`. A exceção atual (`useTheme` em `src/app/theme/`, usado por Ajustes) é eliminada na Fase 2, quando o tema passa para o Dexie e o hook vai para `src/repositories/`. | Mantém a direção de dependência entre camadas sem exceções. **Confirmado pelo dono.** (17/10/2026) |
 
 ### 8.2 Pontos em aberto (perguntar ao dono antes da fase indicada)
 

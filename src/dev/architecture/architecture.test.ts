@@ -1,0 +1,140 @@
+// §6.12 — integridade da página de arquitetura: tudo o que foi escrito à mão (curated.ts e
+// timeline.ts) precisa apontar para o que o scanner encontrou no código (module-graph.json).
+// Se falhar depois de mover/renomear arquivos: rode o scanner e atualize a curadoria.
+import { describe, expect, it } from 'vitest'
+import graphJson from '@/dev/architecture/data/module-graph.json'
+import {
+  ALLOWED_DEPENDENCIES,
+  ARCHITECTURE_FINDINGS,
+  DECISIONS,
+  FLOWS,
+  LAYERS,
+  LOCAL_COMPONENT_ORIGINS,
+  MODULE_NOTES,
+  REQUIREMENTS,
+  ROUTE_NOTES,
+  SCREEN_COMPOSITION,
+} from '@/dev/architecture/data/curated'
+import { TIMELINE } from '@/dev/architecture/data/timeline'
+import type { ModuleGraph } from '@/dev/architecture/types'
+
+const graph = graphJson as unknown as ModuleGraph
+
+const knownPaths = new Set([
+  ...graph.modules.map((m) => m.id),
+  ...Object.keys(graph.assets),
+  ...graph.repoFiles,
+])
+const removedInTimeline = new Set(TIMELINE.flatMap((entry) => entry.files.removed))
+const graphRoutes = new Set(graph.routes.map((r) => r.path))
+const knownRequirementIds = new Set([
+  ...REQUIREMENTS.map((r) => r.id),
+  ...DECISIONS.map((d) => d.id),
+])
+
+const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/
+const LAST_PHASE = 11
+
+function curatedPaths(): string[] {
+  return [
+    ...Object.keys(MODULE_NOTES),
+    ...Object.values(LOCAL_COMPONENT_ORIGINS),
+    ...FLOWS.flatMap((f) => [...f.participants.flatMap((p) => p.module ?? []), ...f.tests]),
+    ...DECISIONS.flatMap((d) => d.impacts),
+    ...ARCHITECTURE_FINDINGS.flatMap((f) => f.modules),
+  ]
+}
+
+function curatedRefs(): string[] {
+  return [
+    ...ROUTE_NOTES.flatMap((n) => n.requirements),
+    ...FLOWS.flatMap((f) => [...f.requirements, ...f.steps.flatMap((s) => s.refs)]),
+    ...TIMELINE.flatMap((e) => [...e.requirements, ...e.decisions]),
+  ]
+}
+
+/** `CA-09.3` é válido se `RF-09` existe; RF/RNF/D precisam estar nas listas curadas. */
+function isKnownRef(ref: string): boolean {
+  const criterion = ref.match(/^CA-(\d+)\.\d+$/)
+  return criterion ? knownRequirementIds.has(`RF-${criterion[1]}`) : knownRequirementIds.has(ref)
+}
+
+describe('integridade da página de arquitetura (§6.12)', () => {
+  it('todo caminho citado em curated.ts existe no grafo', () => {
+    const missing = curatedPaths().filter((p) => !knownPaths.has(p))
+    expect(missing).toEqual([])
+  })
+
+  it('pastas das camadas e prefixos das regras de dependência existem', () => {
+    const prefixes = [
+      ...LAYERS.map((l) => l.folder).filter((f) => f.startsWith('src')),
+      ...ALLOWED_DEPENDENCIES.flatMap((r) => r.onlyTargets ?? []),
+    ]
+    const missing = prefixes.filter((prefix) => ![...knownPaths].some((p) => p.startsWith(prefix)))
+    expect(missing).toEqual([])
+  })
+
+  it('todo arquivo citado na timeline existe, exceto os marcados como removidos', () => {
+    const missing = TIMELINE.flatMap((entry) =>
+      [...entry.files.created, ...entry.files.modified]
+        .filter((p) => !knownPaths.has(p) && !removedInTimeline.has(p))
+        .map((p) => `${entry.id}: ${p}`),
+    )
+    expect(missing).toEqual([])
+  })
+
+  it('toda rota implementada tem descrição curada', () => {
+    const described = new Set(ROUTE_NOTES.map((n) => n.route))
+    const undescribed = graph.routes.map((r) => r.path).filter((p) => !described.has(p))
+    expect(undescribed).toEqual([])
+  })
+
+  it('não há descrição curada para rota inexistente', () => {
+    const stale = [
+      ...ROUTE_NOTES.map((n) => n.route),
+      ...SCREEN_COMPOSITION.map((s) => s.route),
+    ].filter((route) => !graphRoutes.has(route))
+    expect(stale).toEqual([])
+  })
+
+  it('toda entrada da timeline tem data, fase e título', () => {
+    for (const entry of TIMELINE) {
+      expect(entry.date, entry.id).toMatch(ISO_DAY)
+      const isValidPhase =
+        entry.phase === 'pre' ||
+        (Number.isInteger(entry.phase) && entry.phase >= 0 && entry.phase <= LAST_PHASE)
+      expect(isValidPhase, entry.id).toBe(true)
+      expect(entry.title.trim(), entry.id).not.toBe('')
+    }
+  })
+
+  it('ids da timeline são únicos e commits batem com o git', () => {
+    const ids = TIMELINE.map((e) => e.id)
+    expect(new Set(ids).size).toBe(ids.length)
+    const knownHashes = new Set(graph.commits.map((c) => c.hash))
+    for (const entry of TIMELINE) {
+      if (entry.committed) {
+        expect(entry.commits.length, entry.id).toBeGreaterThan(0)
+        expect(
+          entry.commits.filter((h) => !knownHashes.has(h)),
+          entry.id,
+        ).toEqual([])
+      } else {
+        expect(entry.commits, entry.id).toEqual([])
+      }
+    }
+  })
+
+  it('passos dos fluxos citam participantes declarados', () => {
+    for (const flow of FLOWS) {
+      const ids = new Set(flow.participants.map((p) => p.id))
+      const unknown = flow.steps.flatMap((s) => [s.from, s.to]).filter((id) => !ids.has(id))
+      expect(unknown, flow.id).toEqual([])
+    }
+  })
+
+  it('IDs de requisito e decisão citados existem', () => {
+    const unknown = [...new Set(curatedRefs())].filter((ref) => !isKnownRef(ref))
+    expect(unknown).toEqual([])
+  })
+})

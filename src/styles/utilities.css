@@ -1,0 +1,24 @@
+/* Variante e utilitários próprios compartilhados entre o CSS do app (src/index.css)
+   e o CSS da página DEV de arquitetura (src/dev/architecture/architecture.css). */
+
+/* §6.1 / RF-09 — tema escuro pela classe `dark` no <html>, aplicada pelo script inline
+   do index.html e depois pelo ThemeProvider. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Safe areas do iPhone (§2.10, CA-13.1); exigem viewport-fit=cover no index.html. */
+@utility px-safe {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+@utility pt-safe {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@utility pb-below-nav {
+  padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + 1rem);
+}

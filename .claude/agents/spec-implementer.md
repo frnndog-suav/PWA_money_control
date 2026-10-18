@@ -76,7 +76,7 @@ O código deve ser **o mais otimizado possível e, ao mesmo tempo, fácil de ler
 | Gráficos | `chart.js`, `react-chartjs-2` |
 | PWA | `vite-plugin-pwa` |
 | Testes | `vitest`, `@testing-library/react`, `fake-indexeddb`, `jsdom` *(D-18)*, `@vitest/coverage-v8` *(D-18)* |
-| Qualidade | `eslint`, `prettier` |
+| Qualidade | `oxlint`, `prettier` *(D-19)* |
 
 **Precisa de autorização do usuário** qualquer outro pacote, inclusive auxiliares, plugins, tipos (`@types/*`) e utilitários (ex.: `@testing-library/jest-dom`, `@testing-library/user-event`, `happy-dom`, `clsx`, ícones, componentes de UI, bibliotecas de diagrama). Para pedir:
 

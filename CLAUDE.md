@@ -45,6 +45,9 @@ Estas regras valem para **todas** as fases e não devem ser violadas.
 ## Notas do repositório
 
 - Import alias já configurado: `@/` → `src/` (em `tsconfig.app.json` e `vite.config.ts`). Prefira `@/...` a caminhos relativos longos.
-- O projeto já foi criado com Vite 8 + React 19 + TypeScript 6 + React Compiler. Ainda faltam, para a Fase 0: `strict: true`, scripts `typecheck`/`test`, Tailwind, Vitest etc.
-- **Divergência a resolver na Fase 0:** a spec pede ESLint + Prettier; o repositório hoje usa **oxlint** (`.oxlintrc.json`). Pergunte ao humano antes de trocar ou manter.
+- Stack base: Vite 8 + React 19 + TypeScript 6 (strict) + React Compiler, Tailwind v4, React Router 7, Vitest 5 (Fase 0).
+- Lint com **oxlint** (`.oxlintrc.json`) + formatação com **Prettier** (D-19). Rotas com o pacote `react-router` (D-20). Versões fixas no `package.json`, sem `^` (D-20).
+- **Commits:** não faça commits; o usuário commita. Ao fim de cada fase, apenas sugira a mensagem de commit citando os IDs.
+- **Autorização:** só implemente uma fase depois que o usuário autorizar explicitamente aquela fase. Mostrar o plano ou tirar dúvidas não é autorização.
 - Ambiente de desenvolvimento: Windows. Scripts auxiliares devem ser em Node (`.mjs`), não em bash nem Python.
+- **Vitest no Windows:** rode npm/Vitest pelo PowerShell em `D:\Github\money_control` (D maiúsculo). Com o diretório em minúsculo (`d:\...`, como no Git Bash) o Vitest falha com "failed to find the runner".

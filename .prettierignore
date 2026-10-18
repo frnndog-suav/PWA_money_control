@@ -1,0 +1,7 @@
+*.md
+.claude
+dist
+coverage
+node_modules
+package-lock.json
+src/dev/architecture/data/module-graph.json
