@@ -64,6 +64,10 @@ export interface GraphModule {
   hooksUsed: string[]
   jsxUsed: string[]
   storesUsed: string[]
+  /** Só em stores Zustand: chaves das interfaces `*State` e `*Actions` (§6.7). */
+  store?: { state: string[]; actions: string[] }
+  /** Campos/ações de stores importadas diretamente que aparecem no código deste módulo. */
+  storeMembersUsed: string[]
   dexieTables: Record<string, DexieTableUse>
   usesTransaction: boolean
   usesLiveQuery: boolean
@@ -123,6 +127,43 @@ export interface GraphStylesheet {
   importedBy: string[]
 }
 
+/** Arquivo de public/ (copiado como está para o dist/): quem o cita e quem o gera. */
+export interface GraphPublicFile {
+  referencedBy: string[]
+  generatedBy: string[]
+}
+
+/** Opções do vite-plugin-pwa lidas pelo scanner do módulo que exporta `VitePWAOptions`. */
+export interface GraphPwa {
+  optionsModule: string
+  usedBy: string[]
+  registeredBy: string[]
+  registerType: string | null
+  injectRegister: string | boolean | null
+  useCredentials: boolean | string | null
+  includeManifestIcons: boolean | string | null
+  manifest: Record<string, string | boolean | null>
+  icons: { src: string | null; sizes: string | null; purpose: string | null }[]
+  globPatterns: string[]
+  navigateFallback: string | null
+  navigateFallbackDenylist: string[]
+}
+
+/** Último `npm run build` encontrado em dist/ no momento do scan (null se não houver). */
+export interface GraphBuild {
+  builtAt: string
+  serviceWorker: string | null
+  workboxRuntime: string | null
+  manifest: string | null
+  manifestLink: string | null
+  precache: string[]
+  navigationRoute: boolean
+  css: { file: string; bytes: number }[]
+  totalBytes: number
+  /** Arquivos de texto do dist/ com marcas da página DEV (precisa ser vazio — D-17). */
+  devLeaks: string[]
+}
+
 export interface GraphPhase {
   number: number
   title: string
@@ -162,6 +203,9 @@ export interface ModuleGraph {
   packages: Record<string, GraphPackage>
   tables: Record<string, { readers: string[]; writers: string[] }>
   routes: GraphRoute[]
+  publicFiles: Record<string, GraphPublicFile>
+  pwa: GraphPwa | null
+  build: GraphBuild | null
   violations: { from: string; to: string; rule: string }[]
   unresolved: { from: string; to: string }[]
   cycles: string[][]

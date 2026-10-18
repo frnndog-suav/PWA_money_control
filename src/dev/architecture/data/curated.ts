@@ -27,14 +27,15 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Configuração',
     folder: '(raiz)',
     description:
-      'index.html (script inline do tema), vite.config.ts (plugins, alias, Vitest), tsconfig, oxlint, Prettier.',
+      'index.html (script inline do tema, metatags do iOS), vite.config.ts (plugins, VitePWA, alias, Vitest), tsconfig, oxlint, Prettier e scripts/ (gerador de ícones).',
     position: { x: 130, y: 16 },
   },
   {
     id: 'entry',
     label: 'Entrada',
     folder: 'src/main.tsx',
-    description: 'Monta o React no #root e importa o CSS global (Tailwind + safe areas).',
+    description:
+      'Registra o service worker (registerPwa(registerSW)), monta o React no #root e importa o CSS global.',
     position: { x: 390, y: 16 },
   },
   {
@@ -42,7 +43,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'App',
     folder: 'src/app',
     description:
-      'App.tsx, rotas (createBrowserRouter), páginas lazy, rotas DEV, layout com barra inferior e o provider de tema (§6.2).',
+      'App.tsx, rotas (createBrowserRouter), páginas lazy, rotas DEV, layout com barra inferior, provider de tema e PWA (registro do SW, avisos de atualização e de instalação — §6.2, §6.9).',
     position: { x: 390, y: 112 },
   },
   {
@@ -58,7 +59,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'UI',
     folder: 'src/components/ui',
     description:
-      'Primitivos genéricos sem conhecimento de domínio (Page, TabBar, NavList, BackLink…).',
+      'Primitivos genéricos sem conhecimento de domínio (Page, TabBar, NavList, BackLink, Notice…).',
     position: { x: 130, y: 330 },
   },
   {
@@ -73,7 +74,8 @@ export const LAYERS: readonly LayerInfo[] = [
     id: 'stores',
     label: 'Stores',
     folder: 'src/stores',
-    description: 'Zustand só para estado de interface (§6.7). Vazio até a Fase 1.',
+    description:
+      'Zustand só para estado de interface (§6.7). uiStore desde a Fase 1 (updateAvailable); filtros e visões nas Fases 5 e 7.',
     position: { x: 650, y: 330 },
   },
   {
@@ -81,7 +83,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Lib',
     folder: 'src/lib',
     description:
-      'Utilitários puros e adaptadores de APIs do navegador (tema, localStorage; cripto e backup depois).',
+      'Utilitários puros e adaptadores de APIs do navegador (tema, localStorage, modo instalado; cripto e backup depois).',
     position: { x: 130, y: 450 },
   },
   {
@@ -123,19 +125,38 @@ export const LAYERS: readonly LayerInfo[] = [
  */
 export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
   { from: 'config', to: 'entry', status: 'allowed', reason: 'index.html carrega src/main.tsx.' },
-  { from: 'entry', to: 'app', status: 'allowed', reason: 'main.tsx renderiza <App />.' },
+  {
+    from: 'config',
+    to: 'app',
+    status: 'exception',
+    reason:
+      'Somente vite.config.ts → src/app/pwa/pwaOptions.ts (Fase 1): as opções do vite-plugin-pwa ficam em src/ para serem testadas pelo Vitest; o módulo usa import relativo com extensão porque o tsconfig.node.json não conhece o alias @/.',
+    onlyTargets: ['src/app/pwa/pwaOptions.ts'],
+  },
+  {
+    from: 'entry',
+    to: 'app',
+    status: 'allowed',
+    reason: 'main.tsx registra o service worker (registerPwa) e renderiza <App />.',
+  },
   {
     from: 'app',
     to: 'features',
     status: 'allowed',
     reason: 'As rotas montam as páginas das features.',
   },
-  { from: 'app', to: 'components', status: 'allowed', reason: 'Layout usa primitivos (TabBar).' },
+  {
+    from: 'app',
+    to: 'components',
+    status: 'allowed',
+    reason: 'Layout e avisos do PWA usam primitivos (TabBar, Notice).',
+  },
   {
     from: 'app',
     to: 'lib',
     status: 'allowed',
-    reason: 'Provider de tema usa as regras puras do tema.',
+    reason:
+      'Provider de tema usa as regras puras do tema; useIsStandalone usa lib/displayMode; pwaOptions usa THEME_COLORS.',
   },
   {
     from: 'app',
@@ -147,7 +168,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     from: 'app',
     to: 'stores',
     status: 'allowed',
-    reason: 'Fase 1: aviso de nova versão do PWA (updateAvailable).',
+    reason: 'Fase 1: registerPwa grava e usePwaUpdate lê updateAvailable (aviso de nova versão).',
   },
   {
     from: 'app',
@@ -238,9 +259,9 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
   {
     route: '(layout)',
     screen: 'Layout com barra inferior',
-    requirements: ['RF-13', 'CA-13.1'],
+    requirements: ['RF-13', 'CA-13.1', 'CA-11.3', 'CA-11.6', 'D-23'],
     description:
-      'AppLayout: <main> com safe areas e espaço para a barra; Suspense sem fallback para as telas lazy; BottomNav fixa no rodapé.',
+      'AppLayout: <main> com safe areas e espaço para a barra (pb-below-nav); InstallHint no topo do conteúdo quando o app está numa aba comum (CA-11.6, D-23); Suspense sem fallback para as telas lazy; UpdateNotice fixo logo acima da barra (bottom-above-nav) e, enquanto ele aparece, reserve-update-notice soma a altura do aviso ao fim do conteúdo (CA-11.3); BottomNav fixa no rodapé. Rotas fora do layout (como esta página DEV) não mostram nenhum dos dois avisos.',
     contentPhase: 0,
   },
   {
@@ -380,6 +401,18 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
     note: 'Fallback null: as telas lazy aparecem sem indicador para não piscar.',
   },
   { component: 'Outlet', note: 'Ponto onde o React Router injeta a tela da rota filha.' },
+  {
+    component: 'Notice',
+    note: 'Compound component (Fase 1): Notice.Message (texto, flex-1) e Notice.Action (botão ≥ 44 px, foco branco para aparecer sobre o azul). Variantes accent (com ação) e subtle (só texto). Não decide região viva nem posição: quem usa decide.',
+  },
+  {
+    component: 'UpdateNotice',
+    note: 'Região viva role="status" aria-live="polite" sempre montada (vazia sem versão nova), fixa com bottom-above-nav; dentro, Notice accent com altura h-(--update-notice-height). Lê o estado por usePwaUpdate (não toca no Zustand diretamente).',
+  },
+  {
+    component: 'InstallHint',
+    note: 'Notice subtle sem ação nem botão de fechar (D-23); devolve null no modo instalado (useIsStandalone).',
+  },
 ]
 
 /** Componentes locais (não importados) e o módulo de onde vêm. */
@@ -391,7 +424,7 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '(layout)',
     stateAndData:
-      'Sem estado próprio. O tema vem do ThemeProvider (acima do RouterProvider em App.tsx); a navegação, do React Router.',
+      'Sem estado próprio. O tema vem do ThemeProvider (acima do RouterProvider em App.tsx); a navegação, do React Router. updateAvailable vem do Zustand (src/stores/uiStore.ts) pelo hook usePwaUpdate, lido pelo AppLayout (classe reserve-update-notice) e pelo UpdateNotice (aviso + botão); o modo instalado vem de useIsStandalone, lido uma vez por sessão.',
   },
   {
     route: '/ajustes',
@@ -852,17 +885,370 @@ export const FLOWS: readonly Flow[] = [
     ],
     tests: ['src/dev/architecture/architecture.test.ts'],
   },
+  {
+    id: 'pwa-update',
+    title: 'Registro do service worker e ciclo de atualização',
+    summary:
+      'main.tsx registra o SW pelo registerPwa; com registerType "prompt", uma versão nova só liga updateAvailable no Zustand. O aviso aparece acima da barra, o conteúdo reserva o espaço dele, e a troca só acontece quando o usuário toca "Atualizar".',
+    requirements: ['RF-11', 'CA-11.2', 'CA-11.3', 'D-24'],
+    participants: [
+      { id: 'main', label: 'main.tsx', module: 'src/main.tsx' },
+      { id: 'register', label: 'registerPwa', module: 'src/app/pwa/registerPwa.ts' },
+      { id: 'plugin', label: 'registerSW (plugin)' },
+      { id: 'sw', label: 'Service worker' },
+      { id: 'store', label: 'uiStore', module: 'src/stores/uiStore.ts' },
+      { id: 'hook', label: 'usePwaUpdate', module: 'src/app/pwa/usePwaUpdate.ts' },
+      { id: 'layout', label: 'AppLayout', module: 'src/app/layout/AppLayout.tsx' },
+      { id: 'notice', label: 'UpdateNotice', module: 'src/app/pwa/UpdateNotice.tsx' },
+      { id: 'user', label: 'Usuário' },
+    ],
+    steps: [
+      {
+        from: 'main',
+        to: 'register',
+        label: 'registerPwa(registerSW)',
+        detail:
+          'Antes do createRoot. registerSW vem de virtual:pwa-register e é injetado para poder ser testado; no npm run dev o plugin entrega um registro vazio. Devolve a limpeza (AbortController).',
+        refs: ['RF-11'],
+        kind: 'call',
+      },
+      {
+        from: 'register',
+        to: 'plugin',
+        label: 'registerSW({ immediate, … })',
+        detail:
+          'immediate: true, onNeedRefresh e onRegisteredSW. injectRegister: false em PWA_OPTIONS: o registro é do app, não um script injetado no HTML.',
+        refs: ['RF-11'],
+        kind: 'call',
+      },
+      {
+        from: 'plugin',
+        to: 'sw',
+        label: "register('/sw.js')",
+        detail:
+          'O SW (Workbox, gerado no build) faz o precache de todo o dist/ (globPatterns) — base do funcionamento offline.',
+        refs: ['CA-11.2'],
+        kind: 'call',
+      },
+      {
+        from: 'plugin',
+        to: 'register',
+        label: 'onRegisteredSW(registration)',
+        detail:
+          'Liga o listener de visibilitychange com { signal } do AbortController (ver o fluxo D-24). Se a limpeza já tiver rodado, não liga nada.',
+        refs: ['D-24'],
+        kind: 'return',
+      },
+      {
+        from: 'sw',
+        to: 'plugin',
+        label: 'versão nova em espera',
+        detail:
+          'registerType: "prompt": o SW novo fica em waiting; nada recarrega sozinho enquanto o usuário usa.',
+        refs: ['CA-11.3'],
+        kind: 'event',
+      },
+      {
+        from: 'plugin',
+        to: 'register',
+        label: 'onNeedRefresh()',
+        detail: 'Único efeito: ligar o aviso. updateSW ainda não é chamado.',
+        refs: ['CA-11.3'],
+        kind: 'event',
+      },
+      {
+        from: 'register',
+        to: 'store',
+        label: 'setUpdateAvailable(true)',
+        detail: 'useUiStore.getState() fora do React (registerPwa não é componente).',
+        refs: ['CA-11.3'],
+        kind: 'call',
+      },
+      {
+        from: 'store',
+        to: 'hook',
+        label: 'updateAvailable',
+        detail: 'Seletor (state) => state.updateAvailable: só re-renderiza quando esse campo muda.',
+        refs: [],
+        kind: 'return',
+      },
+      {
+        from: 'hook',
+        to: 'layout',
+        label: 'reserve-update-notice',
+        detail:
+          'Com isUpdateAvailable, o <main> ganha reserve-update-notice: --update-notice-space = --update-notice-height, somado por pb-below-nav; o fim do conteúdo não fica atrás do aviso (§2.10).',
+        refs: ['CA-11.3'],
+        kind: 'return',
+      },
+      {
+        from: 'hook',
+        to: 'notice',
+        label: '"Nova versão disponível"',
+        detail:
+          'Notice accent dentro da região viva sempre montada (role="status", aria-live="polite"), fixa com bottom-above-nav e altura h-(--update-notice-height).',
+        refs: ['CA-11.3', 'RNF-06'],
+        kind: 'return',
+      },
+      {
+        from: 'user',
+        to: 'notice',
+        label: 'toca "Atualizar"',
+        detail: 'Notice.Action: alvo ≥ 44 px, foco visível branco sobre o azul nos dois temas.',
+        refs: ['CA-11.3', 'RNF-06'],
+        kind: 'event',
+      },
+      {
+        from: 'notice',
+        to: 'register',
+        label: 'applyPwaUpdate()',
+        detail: 'Via applyUpdate de usePwaUpdate.',
+        refs: ['CA-11.3'],
+        kind: 'call',
+      },
+      {
+        from: 'register',
+        to: 'plugin',
+        label: 'updateSW(true)',
+        detail: 'Função devolvida pelo registerSW, guardada no registro.',
+        refs: ['CA-11.3'],
+        kind: 'call',
+      },
+      {
+        from: 'plugin',
+        to: 'sw',
+        label: 'SKIP_WAITING',
+        detail: 'postMessage para o SW em espera assumir o controle.',
+        refs: ['CA-11.3'],
+        kind: 'call',
+      },
+      {
+        from: 'sw',
+        to: 'plugin',
+        label: 'controllerchange → reload',
+        detail: 'O plugin recarrega a página já com a versão nova; o aviso some (estado novo).',
+        refs: ['CA-11.3'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/app/pwa/registerPwa.test.ts',
+      'src/app/pwa/UpdateNotice.test.tsx',
+      'src/app/layout/AppLayout.test.tsx',
+      'src/stores/uiStore.test.ts',
+      'src/app/pwa/pwaOptions.test.ts',
+    ],
+  },
+  {
+    id: 'pwa-visibility-check',
+    title: 'Procura de versão nova ao voltar a ficar visível (D-24)',
+    summary:
+      'O app instalado no iPhone volta do segundo plano sem navegar, e o navegador só procura versões novas ao navegar. O registerPwa pede ao SW que procure ao ficar visível e online, ignorando falhas.',
+    requirements: ['CA-11.3', 'CA-12.3', 'D-24'],
+    participants: [
+      { id: 'doc', label: 'document / navigator' },
+      { id: 'register', label: 'registerPwa', module: 'src/app/pwa/registerPwa.ts' },
+      { id: 'registration', label: 'SW registration' },
+      { id: 'network', label: 'Rede / Access' },
+    ],
+    steps: [
+      {
+        from: 'doc',
+        to: 'register',
+        label: 'visibilitychange',
+        detail: 'Listener registrado com { signal }: a limpeza (abort) remove-o.',
+        refs: ['D-24'],
+        kind: 'event',
+      },
+      {
+        from: 'register',
+        to: 'doc',
+        label: 'visible && onLine?',
+        detail: 'Indo para o segundo plano ou sem internet: não faz nada.',
+        refs: ['D-24'],
+        kind: 'call',
+      },
+      {
+        from: 'register',
+        to: 'registration',
+        label: 'registration.update()',
+        detail: 'Pede ao navegador que baixe o sw.js de novo.',
+        refs: ['D-24'],
+        kind: 'call',
+      },
+      {
+        from: 'registration',
+        to: 'network',
+        label: 'GET /sw.js',
+        detail:
+          'Com a sessão do Access válida, chega ao Cloudflare Pages; se o sw.js mudou, segue o ciclo de atualização (onNeedRefresh).',
+        refs: ['CA-11.3'],
+        kind: 'call',
+      },
+      {
+        from: 'network',
+        to: 'register',
+        label: 'falha → .catch(() => undefined)',
+        detail:
+          'Sem rede ou sessão do Access expirada (redirect para o login): falha esperada, tenta de novo na próxima vez que o app ficar visível.',
+        refs: ['CA-12.3', 'D-24'],
+        kind: 'return',
+      },
+    ],
+    tests: ['src/app/pwa/registerPwa.test.ts'],
+  },
+  {
+    id: 'pwa-install-hint',
+    title: 'Detecção do modo instalado',
+    summary:
+      'Em toda tela do layout, InstallHint mostra um aviso discreto quando o app está numa aba comum do navegador; aberto pelo ícone, não mostra nada.',
+    requirements: ['CA-11.6', 'D-23'],
+    participants: [
+      { id: 'layout', label: 'AppLayout', module: 'src/app/layout/AppLayout.tsx' },
+      { id: 'hint', label: 'InstallHint', module: 'src/app/pwa/InstallHint.tsx' },
+      { id: 'hook', label: 'useIsStandalone', module: 'src/app/pwa/useIsStandalone.ts' },
+      { id: 'browser', label: 'Navegador' },
+      { id: 'lib', label: 'lib/displayMode', module: 'src/lib/displayMode.ts' },
+      { id: 'notice', label: 'Notice', module: 'src/components/ui/Notice.tsx' },
+    ],
+    steps: [
+      {
+        from: 'layout',
+        to: 'hint',
+        label: '<InstallHint /> no topo',
+        detail:
+          'No layout e não só no Início, porque o app pode ser aberto por qualquer URL (D-23).',
+        refs: ['D-23'],
+        kind: 'call',
+      },
+      {
+        from: 'hint',
+        to: 'hook',
+        label: 'useIsStandalone()',
+        detail: 'useState com inicializador: lido uma vez (o modo não muda durante a sessão).',
+        refs: ['CA-11.6'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'browser',
+        label: 'matchMedia + navigator.standalone',
+        detail:
+          "matchMedia('(display-mode: standalone)').matches (Chrome, Edge, iOS atual) e navigator.standalone (só Safari no iOS).",
+        refs: ['CA-11.6'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'lib',
+        label: 'isStandaloneDisplay(signals)',
+        detail: 'Função pura, sem DOM: quem chama lê o navegador e passa os valores.',
+        refs: ['CA-11.6'],
+        kind: 'call',
+      },
+      {
+        from: 'lib',
+        to: 'hook',
+        label: 'boolean',
+        detail: 'matchesStandaloneMedia || navigatorStandalone === true.',
+        refs: [],
+        kind: 'return',
+      },
+      {
+        from: 'hint',
+        to: 'notice',
+        label: 'Notice subtle (ou null)',
+        detail:
+          'Fora do modo instalado: faixa só de texto, sem botão de fechar; instalado: não renderiza nada.',
+        refs: ['CA-11.6', 'D-23'],
+        kind: 'call',
+      },
+    ],
+    tests: ['src/app/pwa/InstallHint.test.tsx', 'src/lib/displayMode.test.ts'],
+  },
+  {
+    id: 'pwa-offline-access',
+    title: 'Navegação offline e Cloudflare Access',
+    summary:
+      'O SW responde às navegações com o index.html do precache (o app abre offline em qualquer rota), exceto /cdn-cgi/, que vai à rede para o login do Access funcionar. O manifest é pedido com o cookie da sessão.',
+    requirements: ['CA-11.2', 'CA-12.1', 'CA-12.3', 'RNF-03'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      { id: 'browser', label: 'Navegador' },
+      { id: 'sw', label: 'Service worker' },
+      { id: 'html', label: 'index.html', module: 'index.html' },
+      { id: 'options', label: 'PWA_OPTIONS', module: 'src/app/pwa/pwaOptions.ts' },
+      { id: 'access', label: 'Cloudflare Access' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'browser',
+        label: 'abre o app pelo ícone',
+        detail: 'start_url "/" ou qualquer rota, com ou sem internet.',
+        refs: ['CA-11.1', 'CA-11.2'],
+        kind: 'event',
+      },
+      {
+        from: 'browser',
+        to: 'sw',
+        label: 'navegação (mode: navigate)',
+        detail: 'O SW controla todo o scope "/".',
+        refs: ['CA-11.2'],
+        kind: 'call',
+      },
+      {
+        from: 'sw',
+        to: 'options',
+        label: 'NavigationRoute',
+        detail:
+          'Regra gerada no build a partir de navigateFallback: "index.html" e navigateFallbackDenylist: [/^\\/cdn-cgi\\//].',
+        refs: ['CA-11.2', 'CA-12.3'],
+        kind: 'call',
+      },
+      {
+        from: 'sw',
+        to: 'html',
+        label: 'index.html do precache',
+        detail:
+          'Sem ir à rede: o app abre offline em qualquer rota e o React Router resolve a tela (RNF-03).',
+        refs: ['CA-11.2', 'RNF-03'],
+        kind: 'return',
+      },
+      {
+        from: 'browser',
+        to: 'access',
+        label: '/cdn-cgi/access/… pela rede',
+        detail:
+          'A denylist tira /cdn-cgi/ do SW: login e callback do Access sempre chegam ao Cloudflare.',
+        refs: ['CA-12.3'],
+        kind: 'call',
+      },
+      {
+        from: 'html',
+        to: 'access',
+        label: 'manifest com credenciais',
+        detail:
+          '<link rel="manifest" crossorigin="use-credentials"> injetado pelo plugin (useCredentials: true): o manifest só é entregue com o cookie da sessão.',
+        refs: ['CA-12.1', 'CA-11.1'],
+        kind: 'call',
+      },
+      {
+        from: 'access',
+        to: 'browser',
+        label: 'risco: sessão expirada',
+        detail:
+          'Aberto pelo cache, o app não passa pelo Access e não força o relogin; só a procura de versão nova falha (ignorada). Confirmar no roteiro do iPhone (CA-12.3).',
+        refs: ['CA-12.3'],
+        kind: 'return',
+      },
+    ],
+    tests: ['src/app/pwa/pwaOptions.test.ts', 'src/app/pwa/indexHtmlPwaTags.test.ts'],
+  },
 ]
 
 /** Fluxos exigidos pela §6.12 que ainda não existem no código. */
 export const PLANNED_FLOWS: readonly PlannedFlow[] = [
-  {
-    title: 'Ciclo de atualização do PWA / service worker',
-    phase: 1,
-    requirements: ['CA-11.3'],
-    summary:
-      'vite-plugin-pwa (prompt) → updateAvailable no Zustand → aviso "Nova versão" → Atualizar.',
-  },
   {
     title: 'persist() e estimate()',
     phase: 2,
@@ -1055,12 +1441,17 @@ export const DECISIONS: readonly DecisionInfo[] = [
     id: 'D-09',
     title: 'Nome provisório "Meus Gastos"',
     status: 'confirmed',
-    impacts: ['index.html'],
+    impacts: ['index.html', 'src/app/pwa/pwaOptions.ts'],
   },
   { id: 'D-10', title: 'Descrição obrigatória (1–100)', status: 'confirmed', impacts: [] },
   { id: 'D-11', title: 'Lembrete de backup após 7 dias', status: 'confirmed', impacts: [] },
   { id: 'D-12', title: 'Gráficos com Chart.js', status: 'confirmed', impacts: [] },
-  { id: 'D-13', title: 'Cloudflare Pages + Access', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-13',
+    title: 'Cloudflare Pages + Access',
+    status: 'confirmed',
+    impacts: ['README.md', 'src/app/pwa/pwaOptions.ts', 'src/app/pwa/registerPwa.ts'],
+  },
   { id: 'D-14', title: 'Data padrão ao confirmar recorrente', status: 'confirmed', impacts: [] },
   { id: 'D-15', title: 'Recorrente com histórico é encerrado', status: 'confirmed', impacts: [] },
   { id: 'D-16', title: 'Gráficos sem tooltip flutuante', status: 'confirmed', impacts: [] },
@@ -1097,6 +1488,37 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/features/settings/ThemeSection.tsx',
       'src/app/theme/useTheme.ts',
       'src/app/theme/ThemeContext.ts',
+    ],
+  },
+  {
+    id: 'D-23',
+    title: 'Aviso fora do modo instalado no layout, só texto, sem fechar',
+    status: 'pending',
+    impacts: [
+      'src/app/layout/AppLayout.tsx',
+      'src/app/pwa/InstallHint.tsx',
+      'src/app/pwa/useIsStandalone.ts',
+      'src/lib/displayMode.ts',
+    ],
+  },
+  {
+    id: 'D-24',
+    title: 'Procurar versão nova ao ficar visível e online (registration.update())',
+    status: 'pending',
+    impacts: ['src/app/pwa/registerPwa.ts'],
+  },
+  {
+    id: 'D-25',
+    title: 'Ícones provisórios gerados com módulos nativos; favicon.svg removido',
+    status: 'pending',
+    impacts: [
+      'scripts/generate-icons.mjs',
+      'public/pwa-192x192.png',
+      'public/pwa-512x512.png',
+      'public/pwa-maskable-512x512.png',
+      'public/apple-touch-icon.png',
+      'public/favicon.png',
+      'index.html',
     ],
   },
 ]
@@ -1143,6 +1565,65 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 // ---------- achados de arquitetura (reportados, não corrigidos) ----------
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
+  {
+    title: 'Risco do CA-12.3: sessão do Access expirada não força o relogin',
+    severity: 'warn',
+    detail:
+      'O SW serve o index.html do precache para toda navegação (exceto /cdn-cgi/), então, com a sessão do Access expirada, o app aberto pelo ícone não passa pelo Cloudflare e não pede login. A procura de versão nova (registration.update()) falha em silêncio (D-24) e o app deixa de receber atualizações até o usuário fazer login por outro caminho. Só se confirma no roteiro do iPhone, depois do deploy.',
+    modules: ['src/app/pwa/pwaOptions.ts', 'src/app/pwa/registerPwa.ts'],
+  },
+  {
+    title: 'Pendência humana da Fase 1: Cloudflare Pages + Access',
+    severity: 'info',
+    detail:
+      'Única tarefa desmarcada da Fase 1: criar o projeto no Cloudflare Pages, publicar e configurar o Access (passo a passo no README.md, §6.10). Até lá, CA-12.1, CA-12.2 e CA-12.3 não podem ser verificados.',
+    modules: ['README.md'],
+  },
+  {
+    title: 'D-23, D-24 e D-25 aguardam confirmação do dono',
+    severity: 'warn',
+    detail:
+      'Registradas na §8.1 em 18/10/2026 durante a Fase 1 (posição do aviso de instalação, procura de versão ao ficar visível, ícones provisórios e remoção do favicon.svg), ainda sem "Confirmado pelo dono".',
+    modules: [
+      'docs/SPEC.md',
+      'src/app/pwa/InstallHint.tsx',
+      'src/app/pwa/registerPwa.ts',
+      'scripts/generate-icons.mjs',
+    ],
+  },
+  {
+    title: 'Versão da spec não foi incrementada com D-23 a D-25',
+    severity: 'warn',
+    detail:
+      'docs/SPEC.md ganhou D-23, D-24 e D-25 e as tarefas da Fase 1 foram marcadas, mas o cabeçalho continua em "1.4 — 17/10/2026".',
+    modules: ['docs/SPEC.md'],
+  },
+  {
+    title: 'src/stores/.gitkeep continua versionado',
+    severity: 'info',
+    detail:
+      'A pasta deixou de estar vazia com o uiStore.ts (Fase 1); o .gitkeep da Fase 0 pode sair num commit futuro.',
+    modules: ['src/stores/uiStore.ts'],
+  },
+  {
+    title: 'pwaOptions.ts roda em dois contextos (Vite/Node e Vitest)',
+    severity: 'info',
+    detail:
+      'É importado pelo vite.config.ts (verificado pelo tsconfig.node.json, sem o alias @/) e pelo teste. Por isso usa import relativo com extensão (../../lib/theme.ts) e só pode depender de módulos puros; um import @/ ou de React quebraria o build. A exceção config → app na regra de camadas cobre só este arquivo.',
+    modules: [
+      'src/app/pwa/pwaOptions.ts',
+      'vite.config.ts',
+      'tsconfig.node.json',
+      'src/lib/theme.ts',
+    ],
+  },
+  {
+    title: 'registerPwa guarda estado no nível do módulo',
+    severity: 'info',
+    detail:
+      'activateWaitingVersion é uma variável do módulo (no-op até o registro). Funciona porque há um único registro por carga da página; um segundo registerPwa sobrescreveria a função. Os testes cobrem a limpeza dos listeners, não o estado global.',
+    modules: ['src/app/pwa/registerPwa.ts', 'src/app/pwa/usePwaUpdate.ts'],
+  },
   {
     title: 'Dívida conhecida: feature importa de app/ (ThemeSection → useTheme)',
     severity: 'warn',
@@ -1196,11 +1677,41 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
 
 export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'index.html':
-    'Script inline (único) que aplica tema e theme-color antes do bundle (CA-09.3). Duplica regras de src/lib/theme.ts; a sincronia é garantida por indexHtmlThemeScript.test.ts. Metatags de PWA/iOS entram na Fase 1.',
+    'Script inline (único) que aplica tema e theme-color antes do bundle (CA-09.3). Duplica regras de src/lib/theme.ts; a sincronia é garantida por indexHtmlThemeScript.test.ts. Fase 1: favicon.png, apple-touch-icon e metatags do iOS (capable, status-bar-style, title "Gastos" — D-25); o <link rel="manifest" crossorigin="use-credentials"> NÃO fica aqui: é injetado no build pelo plugin (indexHtmlPwaTags.test.ts impede a duplicata).',
   'vite.config.ts':
-    'Plugins: React + React Compiler (via Babel) + Tailwind. Alias @/ → src/. Vitest no mesmo arquivo (jsdom, setup, cobertura ≥ 90% em domain/lib).',
+    'Plugins: React + React Compiler (via Babel) + Tailwind + VitePWA(PWA_OPTIONS) (importado de src/app/pwa/pwaOptions.ts por caminho relativo). Alias @/ → src/. Vitest no mesmo arquivo (jsdom, setup, cobertura ≥ 90% em domain/lib).',
+  'tsconfig.node.json':
+    'Inclui vite.config.ts e src/app/pwa/pwaOptions.ts (Fase 1), com allowImportingTsExtensions para o import relativo com .ts.',
+  'tsconfig.app.json':
+    'types: vite/client e vite-plugin-pwa/vanillajs (tipos do módulo virtual:pwa-register — Fase 1).',
+  'scripts/generate-icons.mjs':
+    'Gera os 5 PNGs provisórios de public/ montando o PNG à mão com zlib (só módulos nativos do Node — D-25). Símbolo de três barras sobre o azul blue-600; o maskable usa escala menor para caber na área segura de 80%. Rodar à mão: node scripts/generate-icons.mjs (não faz parte do build).',
   'src/main.tsx':
-    'Entrada do bundle: StrictMode + App + CSS global (src/index.css, que exclui src/dev da varredura do Tailwind).',
+    'Entrada do bundle: registerPwa(registerSW) (Fase 1) antes do createRoot, depois StrictMode + App + CSS global (src/index.css, que exclui src/dev da varredura do Tailwind).',
+  'src/app/layout/AppLayout.tsx':
+    'Compõe InstallHint (topo do <main>), Outlet, UpdateNotice e BottomNav. Usa usePwaUpdate só para decidir a classe reserve-update-notice do <main>.',
+  'src/app/pwa/registerPwa.ts':
+    'Recebe o registerSW por parâmetro (testável sem o módulo virtual). onNeedRefresh → setUpdateAvailable(true); applyPwaUpdate → updateSW(true). Listener de visibilitychange (D-24) atrelado a um AbortController; a função devolvida faz a limpeza, inclusive se o registro terminar depois dela.',
+  'src/app/pwa/pwaOptions.ts':
+    'PWA_OPTIONS (§6.9): registerType prompt, injectRegister false, useCredentials true, includeManifestIcons false (os ícones já entram pelo globPatterns), manifest e workbox (precache, navigateFallback, denylist /cdn-cgi/). Protegido por pwaOptions.test.ts.',
+  'src/app/pwa/usePwaUpdate.ts':
+    'Fachada do aviso: { isUpdateAvailable, applyUpdate }. Componentes não importam o uiStore nem o registerPwa diretamente.',
+  'src/app/pwa/useIsStandalone.ts':
+    'Lê matchMedia e navigator.standalone uma vez (useState com inicializador) e delega a regra a lib/displayMode.',
+  'src/app/pwa/UpdateNotice.tsx':
+    'Região viva sempre montada; o aviso usa a altura --update-notice-height, a mesma que o AppLayout reserva.',
+  'src/app/pwa/InstallHint.tsx':
+    'Texto exato do CA-11.6; posição definida pela D-23 (aguardando confirmação).',
+  'src/stores/uiStore.ts':
+    'Primeira store Zustand: só updateAvailable/setUpdateAvailable. INITIAL_UI_STATE é exportado para src/test/setup.ts resetar o estado entre testes. transactionFilters (Fase 5) e viewGranularity/viewAnchorDate (Fase 7) ainda não existem.',
+  'src/components/ui/Notice.tsx':
+    'Primitivo genérico (sem conhecimento de PWA). Sem teste próprio: coberto pelos testes de UpdateNotice e InstallHint.',
+  'src/lib/displayMode.ts':
+    'Regra pura do modo instalado + a constante da media query (reusada pelo dublê src/test/matchMedia.ts).',
+  'src/styles/utilities.css':
+    'Variante dark e utilitários de safe area, compartilhados com a página DEV. Fase 1: pb-below-nav soma var(--update-notice-space, 0px); reserve-update-notice define esse espaço; bottom-above-nav posiciona o aviso logo acima da barra.',
+  'src/index.css':
+    "Tailwind + utilities.css, @source not './dev'. Variáveis --bottom-nav-height e --update-notice-height (Fase 1) como fonte única das alturas.",
   'src/app/App.tsx':
     'Cria o router uma vez no nível do módulo e põe o ThemeProvider por fora do RouterProvider (o tema vale também para rotas fora do layout, como esta página).',
   'src/app/routes.tsx':
@@ -1224,7 +1735,9 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/features/settings/ThemeSection.tsx':
     'Importa src/app/theme/useTheme.ts (features → app): dívida conhecida pela D-22, eliminada na Fase 2 quando useTheme/ThemeContext forem para src/repositories/.',
   'src/test/setup.ts':
-    'fake-indexeddb/auto, dublê de matchMedia e limpeza de DOM/localStorage após cada teste.',
+    'fake-indexeddb/auto, dublê de matchMedia e limpeza de DOM/localStorage após cada teste; desde a Fase 1 também reseta o uiStore (INITIAL_UI_STATE).',
+  'src/test/matchMedia.ts':
+    'Dublê de window.matchMedia: esquema escuro controlável (com evento change) e, desde a Fase 1, o modo instalado (setDisplayModeStandalone).',
   'src/dev/architecture/model.ts':
     'Importa o JSON gerado e expõe graph/moduleById e filtros comuns. Os índices derivados ficam em layers.ts, composition.ts, traceability.ts, health.ts e search.ts, todos calculados uma vez no carregamento.',
 }

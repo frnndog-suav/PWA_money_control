@@ -12,6 +12,7 @@ import { ModuleGraphSection } from '@/dev/architecture/components/ModuleGraphSec
 import { ModuleInspector } from '@/dev/architecture/components/ModuleInspector'
 import { OverviewSection } from '@/dev/architecture/components/OverviewSection'
 import { PackagesSection } from '@/dev/architecture/components/PackagesSection'
+import { PwaSection } from '@/dev/architecture/components/PwaSection'
 import { RoutesSection } from '@/dev/architecture/components/RoutesSection'
 import { SearchBox } from '@/dev/architecture/components/SearchBox'
 import { TimelineSection } from '@/dev/architecture/components/TimelineSection'
@@ -24,6 +25,7 @@ const SECTION_LINKS: readonly { id: string; label: string }[] = [
   { id: 'camadas', label: 'Camadas' },
   { id: 'grafo', label: 'Grafo' },
   { id: 'rotas', label: 'Rotas' },
+  { id: 'pwa', label: 'PWA e build' },
   { id: 'composicao', label: 'Composição' },
   { id: 'fluxos', label: 'Fluxos' },
   { id: 'dados', label: 'Dados' },
@@ -77,6 +79,7 @@ export default function ArchitecturePage() {
             <LayersSection />
             <ModuleGraphSection />
             <RoutesSection />
+            <PwaSection />
             <CompositionSection />
             <FlowsSection />
             <DataModelSection />

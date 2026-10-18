@@ -1,41 +1,41 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-18T02:12:23.960Z",
+  "generatedAt": "2026-10-18T12:55:37.933Z",
   "totals": {
-    "modules": 97,
-    "loc": 6271,
-    "components": 65,
-    "hooks": 4,
-    "tests": 10,
-    "edges": 281,
-    "configFiles": 10
+    "modules": 116,
+    "loc": 8160,
+    "components": 70,
+    "hooks": 7,
+    "tests": 18,
+    "edges": 325,
+    "configFiles": 11
   },
   "layerSummary": {
     "config": {
-      "modules": 10,
-      "loc": 201,
+      "modules": 11,
+      "loc": 333,
       "components": 0,
       "hooks": 0,
       "tests": 0
     },
     "app": {
-      "modules": 15,
-      "loc": 374,
-      "components": 15,
-      "hooks": 2,
-      "tests": 3
+      "modules": 27,
+      "loc": 802,
+      "components": 17,
+      "hooks": 4,
+      "tests": 9
     },
     "components": {
-      "modules": 8,
-      "loc": 283,
-      "components": 4,
+      "modules": 9,
+      "loc": 328,
+      "components": 5,
       "hooks": 1,
       "tests": 2
     },
     "dev": {
-      "modules": 50,
-      "loc": 5171,
-      "components": 32,
+      "modules": 52,
+      "loc": 6499,
+      "components": 34,
       "hooks": 1,
       "tests": 2
     },
@@ -47,22 +47,29 @@
       "tests": 1
     },
     "lib": {
-      "modules": 4,
-      "loc": 136,
+      "modules": 6,
+      "loc": 172,
       "components": 0,
       "hooks": 0,
-      "tests": 2
+      "tests": 3
     },
     "entry": {
       "modules": 1,
-      "loc": 9,
+      "loc": 13,
       "components": 0,
       "hooks": 0,
       "tests": 0
     },
+    "stores": {
+      "modules": 2,
+      "loc": 34,
+      "components": 0,
+      "hooks": 1,
+      "tests": 1
+    },
     "test": {
       "modules": 3,
-      "loc": 77,
+      "loc": 91,
       "components": 0,
       "hooks": 0,
       "tests": 0
@@ -130,22 +137,22 @@
       "requirements": "RF-11 (CA-11.1 a 11.3, 11.6), RF-12",
       "tasks": [
         {
-          "done": false,
+          "done": true,
           "text": "Configurar `vite-plugin-pwa` (seção 6.9), ícones provisórios, manifest, metatags do iOS.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Componente de aviso \"Nova versão disponível\" com botão \"Atualizar\" (Zustand `updateAvailable`).",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Aviso para quando o app estiver aberto fora do modo instalado (CA-11.6).",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Documentar no `README.md` o passo a passo de deploy e Access (seção 6.10).",
           "human": false
         },
@@ -155,7 +162,7 @@
           "human": true
         }
       ],
-      "done": 0,
+      "done": 4,
       "total": 5
     },
     {
@@ -561,6 +568,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "config": {
@@ -619,6 +627,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "config": {
@@ -663,6 +672,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "config": {
@@ -707,6 +717,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "config": {
@@ -731,7 +742,7 @@
         "config",
         "html"
       ],
-      "loc": 31,
+      "loc": 37,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -749,8 +760,10 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
-        "CA-09.3"
+        "CA-09.3",
+        "CA-11.1"
       ],
       "external": [],
       "config": {
@@ -761,14 +774,19 @@
           "/src/main.tsx"
         ],
         "metas": [
+          "apple-mobile-web-app-capable",
+          "apple-mobile-web-app-status-bar-style",
+          "apple-mobile-web-app-title",
           "viewport",
           "theme-color"
         ],
         "links": [
-          "icon"
+          "icon",
+          "apple-touch-icon"
         ]
       },
       "importedBy": [
+        "src/app/pwa/indexHtmlPwaTags.test.ts",
         "src/app/theme/indexHtmlThemeScript.test.ts"
       ],
       "imports": [
@@ -776,6 +794,7 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/app/pwa/indexHtmlPwaTags.test.ts",
         "src/app/theme/indexHtmlThemeScript.test.ts"
       ]
     },
@@ -787,7 +806,7 @@
       "kinds": [
         "config"
       ],
-      "loc": 44,
+      "loc": 46,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -805,6 +824,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "config": {
@@ -820,6 +840,80 @@
           "test:watch",
           "test:coverage"
         ]
+      },
+      "importedBy": [],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "scripts/generate-icons.mjs",
+      "layer": "config",
+      "feature": null,
+      "group": "scripts",
+      "kinds": [
+        "config"
+      ],
+      "loc": 116,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.1",
+        "D-09",
+        "Q-03"
+      ],
+      "external": [
+        {
+          "package": "node:fs",
+          "specifier": "node:fs",
+          "kind": "static",
+          "names": [
+            "writeFileSync"
+          ]
+        },
+        {
+          "package": "node:zlib",
+          "specifier": "node:zlib",
+          "kind": "static",
+          "names": [
+            "deflateSync"
+          ]
+        },
+        {
+          "package": "node:url",
+          "specifier": "node:url",
+          "kind": "static",
+          "names": [
+            "fileURLToPath"
+          ]
+        }
+      ],
+      "config": {
+        "script": true,
+        "generates": [
+          "public/apple-touch-icon.png",
+          "public/favicon.png",
+          "public/pwa-192x192.png",
+          "public/pwa-512x512.png",
+          "public/pwa-maskable-512x512.png"
+        ],
+        "builtinsOnly": true
       },
       "importedBy": [],
       "imports": [],
@@ -864,6 +958,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-13.2"
       ],
@@ -938,6 +1033,7 @@
       "routes": [
         "/__dev/arquitetura"
       ],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "D-17"
       ],
@@ -970,6 +1066,68 @@
       "testedBy": []
     },
     {
+      "id": "src/app/layout/AppLayout.test.tsx",
+      "layer": "app",
+      "feature": null,
+      "group": "app/layout",
+      "kinds": [
+        "test"
+      ],
+      "loc": 29,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "setUpdateAvailable"
+      ],
+      "requirementRefs": [
+        "CA-11.3"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "act",
+            "screen"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/stores/uiStore.ts",
+        "src/test/renderApp.tsx"
+      ],
+      "assets": []
+    },
+    {
       "id": "src/app/layout/AppLayout.tsx",
       "layer": "app",
       "feature": null,
@@ -977,7 +1135,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 16,
+      "loc": 28,
       "exports": [
         "AppLayout"
       ],
@@ -994,11 +1152,15 @@
       ],
       "props": {},
       "hooksDefined": [],
-      "hooksUsed": [],
+      "hooksUsed": [
+        "usePwaUpdate"
+      ],
       "jsxUsed": [
         "BottomNav",
+        "InstallHint",
         "Outlet",
-        "Suspense"
+        "Suspense",
+        "UpdateNotice"
       ],
       "storesUsed": [],
       "dexieTables": {},
@@ -1008,6 +1170,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -1031,10 +1194,15 @@
         "src/app/routes.tsx"
       ],
       "imports": [
-        "src/app/layout/BottomNav.tsx"
+        "src/app/layout/BottomNav.tsx",
+        "src/app/pwa/InstallHint.tsx",
+        "src/app/pwa/UpdateNotice.tsx",
+        "src/app/pwa/usePwaUpdate.ts"
       ],
       "assets": [],
-      "testedBy": []
+      "testedBy": [
+        "src/app/layout/AppLayout.test.tsx"
+      ]
     },
     {
       "id": "src/app/layout/BottomNav.test.tsx",
@@ -1062,6 +1230,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "RF-13"
       ],
@@ -1130,6 +1299,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -1175,6 +1345,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "RF-13"
       ],
@@ -1261,6 +1432,7 @@
         "AboutPage": "src/features/settings/AboutPage.tsx"
       },
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "RNF-02"
       ],
@@ -1294,6 +1466,664 @@
       "testedBy": []
     },
     {
+      "id": "src/app/pwa/indexHtmlPwaTags.test.ts",
+      "layer": "app",
+      "feature": null,
+      "group": "app/pwa",
+      "kinds": [
+        "test"
+      ],
+      "loc": 16,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.1"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "index.html"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/app/pwa/InstallHint.test.tsx",
+      "layer": "app",
+      "feature": null,
+      "group": "app/pwa",
+      "kinds": [
+        "test"
+      ],
+      "loc": 32,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.6",
+        "RF-11"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "screen"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/test/matchMedia.ts",
+        "src/test/renderApp.tsx"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/app/pwa/InstallHint.tsx",
+      "layer": "app",
+      "feature": null,
+      "group": "app/pwa",
+      "kinds": [
+        "component"
+      ],
+      "loc": 15,
+      "exports": [
+        "InstallHint"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "InstallHint",
+          "signature": "InstallHint()"
+        }
+      ],
+      "components": [
+        "InstallHint"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useIsStandalone"
+      ],
+      "jsxUsed": [
+        "Notice",
+        "Notice.Message"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.6"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/app/layout/AppLayout.tsx"
+      ],
+      "imports": [
+        "src/app/pwa/useIsStandalone.ts",
+        "src/components/ui/Notice.tsx"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/app/pwa/InstallHint.test.tsx"
+      ]
+    },
+    {
+      "id": "src/app/pwa/pwaOptions.test.ts",
+      "layer": "app",
+      "feature": null,
+      "group": "app/pwa",
+      "kinds": [
+        "test"
+      ],
+      "loc": 54,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.1",
+        "CA-11.2",
+        "CA-11.3",
+        "CA-12.3",
+        "RF-12",
+        "RNF-03"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/app/pwa/pwaOptions.ts",
+        "src/lib/theme.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/app/pwa/pwaOptions.ts",
+      "layer": "app",
+      "feature": null,
+      "group": "app/pwa",
+      "kinds": [
+        "module"
+      ],
+      "loc": 50,
+      "exports": [
+        "PWA_OPTIONS"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.2",
+        "CA-11.3",
+        "CA-12.3",
+        "RF-11",
+        "RF-12",
+        "RNF-03"
+      ],
+      "external": [
+        {
+          "package": "vite-plugin-pwa",
+          "specifier": "vite-plugin-pwa",
+          "kind": "type",
+          "names": [
+            "VitePWAOptions"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/app/pwa/pwaOptions.test.ts",
+        "vite.config.ts"
+      ],
+      "imports": [
+        "src/lib/theme.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/app/pwa/pwaOptions.test.ts"
+      ]
+    },
+    {
+      "id": "src/app/pwa/registerPwa.test.ts",
+      "layer": "app",
+      "feature": null,
+      "group": "app/pwa",
+      "kinds": [
+        "test"
+      ],
+      "loc": 99,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "updateAvailable"
+      ],
+      "requirementRefs": [
+        "CA-11.3",
+        "CA-12.3"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        },
+        {
+          "package": "vite-plugin-pwa",
+          "specifier": "vite-plugin-pwa/types",
+          "kind": "type",
+          "names": [
+            "RegisterSWOptions"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/app/pwa/registerPwa.ts",
+        "src/stores/uiStore.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/app/pwa/registerPwa.ts",
+      "layer": "app",
+      "feature": null,
+      "group": "app/pwa",
+      "kinds": [
+        "module"
+      ],
+      "loc": 48,
+      "exports": [
+        "RegisterServiceWorker",
+        "applyPwaUpdate",
+        "registerPwa"
+      ],
+      "typeExports": [
+        "RegisterServiceWorker"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "registerPwa",
+          "signature": "registerPwa(registerServiceWorker: RegisterServiceWorker): () => void"
+        },
+        {
+          "name": "applyPwaUpdate",
+          "signature": "applyPwaUpdate(): Promise<void>"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "setUpdateAvailable"
+      ],
+      "requirementRefs": [
+        "CA-11.3",
+        "CA-12.3"
+      ],
+      "external": [
+        {
+          "package": "vite-plugin-pwa",
+          "specifier": "vite-plugin-pwa/types",
+          "kind": "type",
+          "names": [
+            "RegisterSWOptions"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/app/pwa/registerPwa.test.ts",
+        "src/app/pwa/usePwaUpdate.ts",
+        "src/main.tsx"
+      ],
+      "imports": [
+        "src/stores/uiStore.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/app/pwa/registerPwa.test.ts"
+      ]
+    },
+    {
+      "id": "src/app/pwa/UpdateNotice.test.tsx",
+      "layer": "app",
+      "feature": null,
+      "group": "app/pwa",
+      "kinds": [
+        "test"
+      ],
+      "loc": 27,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "UpdateNotice"
+      ],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "setUpdateAvailable"
+      ],
+      "requirementRefs": [
+        "CA-11.3",
+        "RF-11"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "act",
+            "fireEvent",
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/app/pwa/UpdateNotice.tsx",
+        "src/stores/uiStore.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/app/pwa/UpdateNotice.tsx",
+      "layer": "app",
+      "feature": null,
+      "group": "app/pwa",
+      "kinds": [
+        "component"
+      ],
+      "loc": 21,
+      "exports": [
+        "UpdateNotice"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "UpdateNotice",
+          "signature": "UpdateNotice()"
+        }
+      ],
+      "components": [
+        "UpdateNotice"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "usePwaUpdate"
+      ],
+      "jsxUsed": [
+        "Notice",
+        "Notice.Action",
+        "Notice.Message"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.3"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/app/layout/AppLayout.tsx",
+        "src/app/pwa/UpdateNotice.test.tsx"
+      ],
+      "imports": [
+        "src/app/pwa/usePwaUpdate.ts",
+        "src/components/ui/Notice.tsx"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/app/pwa/UpdateNotice.test.tsx"
+      ]
+    },
+    {
+      "id": "src/app/pwa/useIsStandalone.ts",
+      "layer": "app",
+      "feature": null,
+      "group": "app/pwa",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 14,
+      "exports": [
+        "useIsStandalone"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useIsStandalone",
+          "signature": "useIsStandalone(): boolean"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useIsStandalone"
+      ],
+      "hooksUsed": [
+        "useState"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.6"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useState"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/app/pwa/InstallHint.tsx"
+      ],
+      "imports": [
+        "src/lib/displayMode.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/app/pwa/usePwaUpdate.ts",
+      "layer": "app",
+      "feature": null,
+      "group": "app/pwa",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 11,
+      "exports": [
+        "usePwaUpdate"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "usePwaUpdate",
+          "signature": "usePwaUpdate(): PwaUpdate"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "usePwaUpdate"
+      ],
+      "hooksUsed": [
+        "useUiStore"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "updateAvailable"
+      ],
+      "requirementRefs": [
+        "CA-11.3"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/app/layout/AppLayout.tsx",
+        "src/app/pwa/UpdateNotice.tsx"
+      ],
+      "imports": [
+        "src/app/pwa/registerPwa.ts",
+        "src/stores/uiStore.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/app/routes.test.tsx",
       "layer": "app",
       "feature": null,
@@ -1319,6 +2149,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-13.2",
         "D-21",
@@ -1411,6 +2242,7 @@
         "lancamentos/novo",
         "visoes"
       ],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "D-21"
       ],
@@ -1473,6 +2305,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.3"
       ],
@@ -1512,6 +2345,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.3"
       ],
@@ -1567,6 +2401,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -1631,6 +2466,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "RF-09"
       ],
@@ -1702,6 +2538,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.1",
         "RF-09"
@@ -1762,6 +2599,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -1811,6 +2649,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-13.2",
         "RNF-06"
@@ -1891,6 +2730,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -1941,6 +2781,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -2018,6 +2859,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -2082,6 +2924,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -2103,6 +2946,70 @@
       ],
       "importedBy": [
         "src/features/settings/SettingsMenu.tsx"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/ui/Notice.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "component"
+      ],
+      "loc": 45,
+      "exports": [
+        "Notice",
+        "NoticeVariant"
+      ],
+      "typeExports": [
+        "NoticeVariant"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "Notice",
+          "signature": "Notice({ variant, children }: NoticeProps)"
+        }
+      ],
+      "components": [
+        "Notice"
+      ],
+      "props": {
+        "NoticeProps": 2,
+        "NoticeMessageProps": 1,
+        "NoticeActionProps": 2
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "type",
+          "names": [
+            "ReactNode"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/app/pwa/InstallHint.tsx",
+        "src/app/pwa/UpdateNotice.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -2146,6 +3053,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -2215,6 +3123,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-13.1",
         "RNF-06"
@@ -2282,6 +3191,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-13.2"
       ],
@@ -2329,6 +3239,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.3",
         "RF-09"
@@ -2363,7 +3274,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 52,
+      "loc": 64,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -2383,6 +3294,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "D-17"
       ],
@@ -2425,7 +3337,7 @@
         "component",
         "page"
       ],
-      "loc": 91,
+      "loc": 94,
       "exports": [
         "ArchitecturePage"
       ],
@@ -2456,6 +3368,7 @@
         "ModuleInspector",
         "OverviewSection",
         "PackagesSection",
+        "PwaSection",
         "RoutesSection",
         "SearchBox",
         "TimelineSection",
@@ -2470,6 +3383,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "D-17"
       ],
@@ -2500,6 +3414,7 @@
         "src/dev/architecture/components/ModuleInspector.tsx",
         "src/dev/architecture/components/OverviewSection.tsx",
         "src/dev/architecture/components/PackagesSection.tsx",
+        "src/dev/architecture/components/PwaSection.tsx",
         "src/dev/architecture/components/RoutesSection.tsx",
         "src/dev/architecture/components/SearchBox.tsx",
         "src/dev/architecture/components/TimelineSection.tsx",
@@ -2553,6 +3468,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -2575,6 +3491,7 @@
         "src/dev/architecture/components/ModuleDetails.tsx",
         "src/dev/architecture/components/OverviewSection.tsx",
         "src/dev/architecture/components/PackagesSection.tsx",
+        "src/dev/architecture/components/PwaSection.tsx",
         "src/dev/architecture/components/RoutesSection.tsx",
         "src/dev/architecture/components/SearchBox.tsx",
         "src/dev/architecture/components/StylesheetsCard.tsx",
@@ -2625,6 +3542,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -2644,6 +3562,7 @@
         "src/dev/architecture/components/HealthSection.tsx",
         "src/dev/architecture/components/LayersSection.tsx",
         "src/dev/architecture/components/OverviewSection.tsx",
+        "src/dev/architecture/components/PwaSection.tsx",
         "src/dev/architecture/components/RoutesSection.tsx",
         "src/dev/architecture/components/StylesheetsCard.tsx",
         "src/dev/architecture/components/TimelineEntryCard.tsx",
@@ -2692,12 +3611,14 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
         "src/dev/architecture/components/DomainSection.tsx",
         "src/dev/architecture/components/FlowsSection.tsx",
         "src/dev/architecture/components/ModuleDetails.tsx",
+        "src/dev/architecture/components/PwaSection.tsx",
         "src/dev/architecture/components/RoutesSection.tsx",
         "src/dev/architecture/components/TimelineEntryCard.tsx",
         "src/dev/architecture/components/TraceabilitySection.tsx",
@@ -2749,6 +3670,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -2809,6 +3731,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -2864,6 +3787,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -2923,6 +3847,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "RNF-07"
       ],
@@ -2981,6 +3906,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -2994,6 +3920,7 @@
       ],
       "importedBy": [
         "src/dev/architecture/components/ModuleDetails.tsx",
+        "src/dev/architecture/components/PwaSection.tsx",
         "src/dev/architecture/components/RoutesSection.tsx"
       ],
       "imports": [],
@@ -3040,6 +3967,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -3106,6 +4034,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -3168,11 +4097,13 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
         "src/dev/architecture/components/ModuleDetails.tsx",
         "src/dev/architecture/components/OverviewSection.tsx",
+        "src/dev/architecture/components/PwaSection.tsx",
         "src/dev/architecture/components/TimelineEntryCard.tsx"
       ],
       "imports": [],
@@ -3226,6 +4157,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -3286,6 +4218,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -3344,6 +4277,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -3412,6 +4346,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -3470,6 +4405,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -3528,6 +4464,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -3586,6 +4523,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -3651,6 +4589,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -3716,6 +4655,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -3768,6 +4708,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -3778,6 +4719,7 @@
         "src/dev/architecture/components/HealthSection.tsx",
         "src/dev/architecture/components/LayersSection.tsx",
         "src/dev/architecture/components/ModuleList.tsx",
+        "src/dev/architecture/components/PwaSection.tsx",
         "src/dev/architecture/components/RoutesSection.tsx",
         "src/dev/architecture/components/ViolationsList.tsx"
       ],
@@ -3827,6 +4769,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -3837,6 +4780,7 @@
         "src/dev/architecture/components/HealthSection.tsx",
         "src/dev/architecture/components/ModuleDetails.tsx",
         "src/dev/architecture/components/PackagesSection.tsx",
+        "src/dev/architecture/components/PwaSection.tsx",
         "src/dev/architecture/components/RoutesSection.tsx",
         "src/dev/architecture/components/StylesheetsCard.tsx",
         "src/dev/architecture/components/TimelineEntryCard.tsx",
@@ -3891,6 +4835,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -3947,6 +4892,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "D-18",
         "D-19",
@@ -4004,12 +4950,149 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
         "src/dev/architecture/components/OverviewSection.tsx"
       ],
       "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/dev/architecture/components/PwaSection.tsx",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/architecture",
+      "kinds": [
+        "component"
+      ],
+      "loc": 221,
+      "exports": [
+        "PwaSection"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "PwaSection",
+          "signature": "PwaSection()"
+        }
+      ],
+      "components": [
+        "PwaSection"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "Badge",
+        "BuildCard",
+        "Card",
+        "Card.Title",
+        "CodeList",
+        "Fields",
+        "Fields.Item",
+        "ModuleLink",
+        "ModuleList",
+        "PendingCard",
+        "PluginOptionsCard",
+        "PublicFilesCard",
+        "PwaTopologyDiagram",
+        "Section"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-25"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/dev/architecture/ArchitecturePage.tsx"
+      ],
+      "imports": [
+        "src/dev/architecture/components/Badge.tsx",
+        "src/dev/architecture/components/Card.tsx",
+        "src/dev/architecture/components/CodeList.tsx",
+        "src/dev/architecture/components/Fields.tsx",
+        "src/dev/architecture/components/ModuleLink.tsx",
+        "src/dev/architecture/components/ModuleList.tsx",
+        "src/dev/architecture/components/PwaTopologyDiagram.tsx",
+        "src/dev/architecture/components/Section.tsx",
+        "src/dev/architecture/components/format.ts",
+        "src/dev/architecture/data/curated.ts",
+        "src/dev/architecture/model.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/dev/architecture/components/PwaTopologyDiagram.tsx",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/architecture",
+      "kinds": [
+        "component"
+      ],
+      "loc": 337,
+      "exports": [
+        "PwaTopologyDiagram"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "PwaTopologyDiagram",
+          "signature": "PwaTopologyDiagram()"
+        }
+      ],
+      "components": [
+        "PwaTopologyDiagram"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useId",
+        "useInspector"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-25"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useId"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/dev/architecture/components/PwaSection.tsx"
+      ],
+      "imports": [
+        "src/dev/architecture/components/useInspector.ts",
+        "src/dev/architecture/model.ts"
+      ],
       "assets": [],
       "testedBy": []
     },
@@ -4059,6 +5142,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -4119,6 +5203,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "RF-09"
       ],
@@ -4181,6 +5266,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -4202,6 +5288,7 @@
         "src/dev/architecture/components/ModuleGraphSection.tsx",
         "src/dev/architecture/components/OverviewSection.tsx",
         "src/dev/architecture/components/PackagesSection.tsx",
+        "src/dev/architecture/components/PwaSection.tsx",
         "src/dev/architecture/components/RoutesSection.tsx",
         "src/dev/architecture/components/TimelineSection.tsx",
         "src/dev/architecture/components/TraceabilitySection.tsx",
@@ -4252,6 +5339,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -4311,6 +5399,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -4358,6 +5447,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -4409,6 +5499,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -4475,6 +5566,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -4500,7 +5592,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 61,
+      "loc": 109,
       "exports": [
         "UiStateSection"
       ],
@@ -4523,8 +5615,10 @@
         "Card",
         "Card.Title",
         "CodeList",
+        "MemberRow",
         "ModuleList",
-        "Section"
+        "Section",
+        "StoreCard"
       ],
       "storesUsed": [],
       "dexieTables": {},
@@ -4534,6 +5628,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -4546,7 +5641,8 @@
         "src/dev/architecture/components/ModuleList.tsx",
         "src/dev/architecture/components/Section.tsx",
         "src/dev/architecture/data/curated.ts",
-        "src/dev/architecture/model.ts"
+        "src/dev/architecture/model.ts",
+        "src/dev/architecture/types.ts"
       ],
       "assets": [],
       "testedBy": []
@@ -4586,6 +5682,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -4602,6 +5699,7 @@
         "src/dev/architecture/components/ModuleGraphSection.tsx",
         "src/dev/architecture/components/ModuleInspector.tsx",
         "src/dev/architecture/components/ModuleLink.tsx",
+        "src/dev/architecture/components/PwaTopologyDiagram.tsx",
         "src/dev/architecture/components/SearchBox.tsx"
       ],
       "imports": [
@@ -4651,6 +5749,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -4709,6 +5808,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -4733,7 +5833,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 1202,
+      "loc": 1715,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
@@ -4769,6 +5869,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -4785,6 +5886,7 @@
         "src/dev/architecture/components/ModuleGraph.tsx",
         "src/dev/architecture/components/ModuleGraphSection.tsx",
         "src/dev/architecture/components/PackagesSection.tsx",
+        "src/dev/architecture/components/PwaSection.tsx",
         "src/dev/architecture/components/UiStateSection.tsx",
         "src/dev/architecture/composition.ts",
         "src/dev/architecture/layerDiagramGeometry.ts",
@@ -4809,7 +5911,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 452,
+      "loc": 605,
       "exports": [
         "TIMELINE"
       ],
@@ -4829,6 +5931,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -4890,6 +5993,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -4936,6 +6040,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "D-22"
       ],
@@ -4994,6 +6099,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -5041,6 +6147,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -5122,6 +6229,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -5138,6 +6246,8 @@
         "src/dev/architecture/components/ModuleLink.tsx",
         "src/dev/architecture/components/OverviewSection.tsx",
         "src/dev/architecture/components/PackagesSection.tsx",
+        "src/dev/architecture/components/PwaSection.tsx",
+        "src/dev/architecture/components/PwaTopologyDiagram.tsx",
         "src/dev/architecture/components/RoutesSection.tsx",
         "src/dev/architecture/components/StylesheetsCard.tsx",
         "src/dev/architecture/components/TimelineEntryCard.tsx",
@@ -5198,6 +6308,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -5246,6 +6357,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.3",
         "RF-09"
@@ -5271,7 +6383,7 @@
       "kinds": [
         "types"
       ],
-      "loc": 292,
+      "loc": 333,
       "exports": [
         "AllowedDependency",
         "ArchitectureFinding",
@@ -5285,11 +6397,14 @@
         "Flow",
         "FlowParticipant",
         "FlowStep",
+        "GraphBuild",
         "GraphCommit",
         "GraphEdge",
         "GraphModule",
         "GraphPackage",
         "GraphPhase",
+        "GraphPublicFile",
+        "GraphPwa",
         "GraphRoute",
         "GraphStylesheet",
         "Layer",
@@ -5322,11 +6437,14 @@
         "Flow",
         "FlowParticipant",
         "FlowStep",
+        "GraphBuild",
         "GraphCommit",
         "GraphEdge",
         "GraphModule",
         "GraphPackage",
         "GraphPhase",
+        "GraphPublicFile",
+        "GraphPwa",
         "GraphRoute",
         "GraphStylesheet",
         "Layer",
@@ -5361,7 +6479,9 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
+        "D-17",
         "D-18",
         "D-19",
         "D-20"
@@ -5380,6 +6500,7 @@
         "src/dev/architecture/components/StylesheetsCard.tsx",
         "src/dev/architecture/components/TimelineEntryCard.tsx",
         "src/dev/architecture/components/TimelineSection.tsx",
+        "src/dev/architecture/components/UiStateSection.tsx",
         "src/dev/architecture/components/ViolationsList.tsx",
         "src/dev/architecture/components/layerStyles.ts",
         "src/dev/architecture/components/timelineLabels.ts",
@@ -5439,6 +6560,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -5490,6 +6612,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -5540,6 +6663,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -5591,6 +6715,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -5643,6 +6768,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -5695,6 +6821,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -5745,6 +6872,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "RF-13"
       ],
@@ -5800,6 +6928,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "RF-09",
         "RF-13"
@@ -5844,6 +6973,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.1",
         "RF-09"
@@ -5887,6 +7017,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.1",
         "CA-09.2",
@@ -5968,6 +7099,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "RF-09"
       ],
@@ -6027,6 +7159,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -6079,6 +7212,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -6131,6 +7265,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -6182,6 +7317,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -6232,6 +7368,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
@@ -6242,6 +7379,108 @@
       ],
       "assets": [],
       "testedBy": []
+    },
+    {
+      "id": "src/lib/displayMode.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 21,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.6",
+        "RF-11"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/displayMode.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/lib/displayMode.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "module"
+      ],
+      "loc": 15,
+      "exports": [
+        "DisplayModeSignals",
+        "STANDALONE_DISPLAY_MODE_QUERY",
+        "isStandaloneDisplay"
+      ],
+      "typeExports": [
+        "DisplayModeSignals"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "isStandaloneDisplay",
+          "signature": "isStandaloneDisplay({ matchesStandaloneMedia, navigatorStandalone, }: DisplayModeSignals): boolean"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.6"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/app/pwa/useIsStandalone.ts",
+        "src/lib/displayMode.test.ts",
+        "src/test/matchMedia.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/lib/displayMode.test.ts"
+      ]
     },
     {
       "id": "src/lib/theme.test.ts",
@@ -6269,6 +7508,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.1",
         "CA-09.2",
@@ -6351,6 +7591,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.3",
         "CA-09.4",
@@ -6358,6 +7599,8 @@
       ],
       "external": [],
       "importedBy": [
+        "src/app/pwa/pwaOptions.test.ts",
+        "src/app/pwa/pwaOptions.ts",
         "src/app/theme/ThemeContext.ts",
         "src/app/theme/ThemeProvider.tsx",
         "src/app/theme/applyThemeToDocument.ts",
@@ -6374,6 +7617,7 @@
       "imports": [],
       "assets": [],
       "testedBy": [
+        "src/app/pwa/pwaOptions.test.ts",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/features/settings/ThemeSection.test.tsx",
         "src/lib/theme.test.ts",
@@ -6406,6 +7650,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.1",
         "CA-09.2",
@@ -6470,6 +7715,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.2",
         "RF-09"
@@ -6495,7 +7741,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 9,
+      "loc": 13,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -6516,6 +7762,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -6533,18 +7780,158 @@
           "names": [
             "createRoot"
           ]
+        },
+        {
+          "package": "virtual:pwa-register",
+          "specifier": "virtual:pwa-register",
+          "kind": "static",
+          "names": [
+            "registerSW"
+          ]
         }
       ],
       "importedBy": [
         "index.html"
       ],
       "imports": [
-        "src/app/App.tsx"
+        "src/app/App.tsx",
+        "src/app/pwa/registerPwa.ts"
       ],
       "assets": [
         "src/index.css"
       ],
       "testedBy": []
+    },
+    {
+      "id": "src/stores/uiStore.test.ts",
+      "layer": "stores",
+      "feature": null,
+      "group": "stores",
+      "kinds": [
+        "test"
+      ],
+      "loc": 16,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "setUpdateAvailable",
+        "updateAvailable"
+      ],
+      "requirementRefs": [
+        "CA-11.3"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "beforeEach",
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/stores/uiStore.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/stores/uiStore.ts",
+      "layer": "stores",
+      "feature": null,
+      "group": "stores",
+      "kinds": [
+        "hook",
+        "store"
+      ],
+      "loc": 18,
+      "exports": [
+        "INITIAL_UI_STATE",
+        "UiStore",
+        "useUiStore"
+      ],
+      "typeExports": [
+        "UiStore"
+      ],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useUiStore"
+      ],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "store": {
+        "state": [
+          "updateAvailable"
+        ],
+        "actions": [
+          "setUpdateAvailable"
+        ]
+      },
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.3"
+      ],
+      "external": [
+        {
+          "package": "zustand",
+          "specifier": "zustand",
+          "kind": "static",
+          "names": [
+            "create"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/app/layout/AppLayout.test.tsx",
+        "src/app/pwa/UpdateNotice.test.tsx",
+        "src/app/pwa/registerPwa.test.ts",
+        "src/app/pwa/registerPwa.ts",
+        "src/app/pwa/usePwaUpdate.ts",
+        "src/stores/uiStore.test.ts",
+        "src/test/setup.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/app/layout/AppLayout.test.tsx",
+        "src/app/pwa/registerPwa.test.ts",
+        "src/app/pwa/UpdateNotice.test.tsx",
+        "src/stores/uiStore.test.ts"
+      ]
     },
     {
       "id": "src/test/matchMedia.ts",
@@ -6554,10 +7941,11 @@
       "kinds": [
         "module"
       ],
-      "loc": 42,
+      "loc": 54,
       "exports": [
         "installMatchMedia",
         "resetMatchMedia",
+        "setDisplayModeStandalone",
         "setSystemPrefersDark"
       ],
       "typeExports": [],
@@ -6570,6 +7958,10 @@
         {
           "name": "setSystemPrefersDark",
           "signature": "setSystemPrefersDark(value: boolean): void"
+        },
+        {
+          "name": "setDisplayModeStandalone",
+          "signature": "setDisplayModeStandalone(value: boolean): void"
         },
         {
           "name": "resetMatchMedia",
@@ -6589,18 +7981,22 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "importedBy": [
+        "src/app/pwa/InstallHint.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/features/settings/ThemeSection.test.tsx",
         "src/test/setup.ts"
       ],
       "imports": [
+        "src/lib/displayMode.ts",
         "src/lib/theme.ts"
       ],
       "assets": [],
       "testedBy": [
+        "src/app/pwa/InstallHint.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/features/settings/ThemeSection.test.tsx"
       ]
@@ -6646,6 +8042,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -6667,7 +8064,9 @@
         }
       ],
       "importedBy": [
+        "src/app/layout/AppLayout.test.tsx",
         "src/app/layout/BottomNav.test.tsx",
+        "src/app/pwa/InstallHint.test.tsx",
         "src/app/routes.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/dev/architecture/ArchitecturePage.test.tsx",
@@ -6679,7 +8078,9 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/app/layout/AppLayout.test.tsx",
         "src/app/layout/BottomNav.test.tsx",
+        "src/app/pwa/InstallHint.test.tsx",
         "src/app/routes.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/dev/architecture/ArchitecturePage.test.tsx",
@@ -6694,7 +8095,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 12,
+      "loc": 14,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -6704,7 +8105,9 @@
       "hooksDefined": [],
       "hooksUsed": [],
       "jsxUsed": [],
-      "storesUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
       "dexieTables": {},
       "usesTransaction": false,
       "usesLiveQuery": false,
@@ -6712,6 +8115,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [
         {
@@ -6739,6 +8143,7 @@
       ],
       "importedBy": [],
       "imports": [
+        "src/stores/uiStore.ts",
         "src/test/matchMedia.ts"
       ],
       "assets": [],
@@ -6770,6 +8175,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "config": {
@@ -6813,6 +8219,7 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "config": {
@@ -6855,13 +8262,15 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [],
       "external": [],
       "config": {
         "strict": true,
         "paths": [],
         "include": [
-          "vite.config.ts"
+          "vite.config.ts",
+          "src/app/pwa/pwaOptions.ts"
         ],
         "references": []
       },
@@ -6878,7 +8287,7 @@
       "kinds": [
         "config"
       ],
-      "loc": 26,
+      "loc": 34,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -6896,7 +8305,9 @@
       "lazyImports": [],
       "lazyComponents": {},
       "routes": [],
+      "storeMembersUsed": [],
       "requirementRefs": [
+        "RF-11",
         "RNF-07"
       ],
       "external": [
@@ -6935,6 +8346,14 @@
           ]
         },
         {
+          "package": "vite-plugin-pwa",
+          "specifier": "vite-plugin-pwa",
+          "kind": "static",
+          "names": [
+            "VitePWA"
+          ]
+        },
+        {
           "package": "vitest",
           "specifier": "vitest/config",
           "kind": "static",
@@ -6947,7 +8366,8 @@
         "plugins": [
           "react",
           "babel",
-          "tailwindcss"
+          "tailwindcss",
+          "VitePWA"
         ],
         "aliases": [
           "@"
@@ -6959,7 +8379,9 @@
         ]
       },
       "importedBy": [],
-      "imports": [],
+      "imports": [
+        "src/app/pwa/pwaOptions.ts"
+      ],
       "assets": [],
       "testedBy": []
     }
@@ -6994,11 +8416,51 @@
       "names": []
     },
     {
+      "from": "src/app/layout/AppLayout.test.tsx",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "useUiStore"
+      ]
+    },
+    {
+      "from": "src/app/layout/AppLayout.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
       "from": "src/app/layout/AppLayout.tsx",
       "to": "src/app/layout/BottomNav.tsx",
       "kind": "static",
       "names": [
         "BottomNav"
+      ]
+    },
+    {
+      "from": "src/app/layout/AppLayout.tsx",
+      "to": "src/app/pwa/InstallHint.tsx",
+      "kind": "static",
+      "names": [
+        "InstallHint"
+      ]
+    },
+    {
+      "from": "src/app/layout/AppLayout.tsx",
+      "to": "src/app/pwa/UpdateNotice.tsx",
+      "kind": "static",
+      "names": [
+        "UpdateNotice"
+      ]
+    },
+    {
+      "from": "src/app/layout/AppLayout.tsx",
+      "to": "src/app/pwa/usePwaUpdate.ts",
+      "kind": "static",
+      "names": [
+        "usePwaUpdate"
       ]
     },
     {
@@ -7090,6 +8552,152 @@
       "to": "src/features/views/ViewsPage.tsx",
       "kind": "dynamic",
       "names": []
+    },
+    {
+      "from": "src/app/pwa/indexHtmlPwaTags.test.ts",
+      "to": "index.html",
+      "kind": "static",
+      "names": [
+        "default as indexHtml"
+      ]
+    },
+    {
+      "from": "src/app/pwa/InstallHint.test.tsx",
+      "to": "src/test/matchMedia.ts",
+      "kind": "static",
+      "names": [
+        "setDisplayModeStandalone"
+      ]
+    },
+    {
+      "from": "src/app/pwa/InstallHint.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/app/pwa/InstallHint.tsx",
+      "to": "src/app/pwa/useIsStandalone.ts",
+      "kind": "static",
+      "names": [
+        "useIsStandalone"
+      ]
+    },
+    {
+      "from": "src/app/pwa/InstallHint.tsx",
+      "to": "src/components/ui/Notice.tsx",
+      "kind": "static",
+      "names": [
+        "Notice"
+      ]
+    },
+    {
+      "from": "src/app/pwa/pwaOptions.test.ts",
+      "to": "src/app/pwa/pwaOptions.ts",
+      "kind": "static",
+      "names": [
+        "PWA_OPTIONS"
+      ]
+    },
+    {
+      "from": "src/app/pwa/pwaOptions.test.ts",
+      "to": "src/lib/theme.ts",
+      "kind": "static",
+      "names": [
+        "THEME_COLORS"
+      ]
+    },
+    {
+      "from": "src/app/pwa/pwaOptions.ts",
+      "to": "src/lib/theme.ts",
+      "kind": "static",
+      "names": [
+        "THEME_COLORS"
+      ]
+    },
+    {
+      "from": "src/app/pwa/registerPwa.test.ts",
+      "to": "src/app/pwa/registerPwa.ts",
+      "kind": "static",
+      "names": [
+        "applyPwaUpdate",
+        "registerPwa"
+      ]
+    },
+    {
+      "from": "src/app/pwa/registerPwa.test.ts",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "useUiStore"
+      ]
+    },
+    {
+      "from": "src/app/pwa/registerPwa.ts",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "useUiStore"
+      ]
+    },
+    {
+      "from": "src/app/pwa/UpdateNotice.test.tsx",
+      "to": "src/app/pwa/UpdateNotice.tsx",
+      "kind": "static",
+      "names": [
+        "UpdateNotice"
+      ]
+    },
+    {
+      "from": "src/app/pwa/UpdateNotice.test.tsx",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "useUiStore"
+      ]
+    },
+    {
+      "from": "src/app/pwa/UpdateNotice.tsx",
+      "to": "src/app/pwa/usePwaUpdate.ts",
+      "kind": "static",
+      "names": [
+        "usePwaUpdate"
+      ]
+    },
+    {
+      "from": "src/app/pwa/UpdateNotice.tsx",
+      "to": "src/components/ui/Notice.tsx",
+      "kind": "static",
+      "names": [
+        "Notice"
+      ]
+    },
+    {
+      "from": "src/app/pwa/useIsStandalone.ts",
+      "to": "src/lib/displayMode.ts",
+      "kind": "static",
+      "names": [
+        "isStandaloneDisplay",
+        "STANDALONE_DISPLAY_MODE_QUERY"
+      ]
+    },
+    {
+      "from": "src/app/pwa/usePwaUpdate.ts",
+      "to": "src/app/pwa/registerPwa.ts",
+      "kind": "static",
+      "names": [
+        "applyPwaUpdate"
+      ]
+    },
+    {
+      "from": "src/app/pwa/usePwaUpdate.ts",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "useUiStore"
+      ]
     },
     {
       "from": "src/app/routes.test.tsx",
@@ -7421,6 +9029,14 @@
       "kind": "static",
       "names": [
         "PackagesSection"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/ArchitecturePage.tsx",
+      "to": "src/dev/architecture/components/PwaSection.tsx",
+      "kind": "static",
+      "names": [
+        "PwaSection"
       ]
     },
     {
@@ -8325,6 +9941,113 @@
       ]
     },
     {
+      "from": "src/dev/architecture/components/PwaSection.tsx",
+      "to": "src/dev/architecture/components/Badge.tsx",
+      "kind": "static",
+      "names": [
+        "Badge"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaSection.tsx",
+      "to": "src/dev/architecture/components/Card.tsx",
+      "kind": "static",
+      "names": [
+        "Card"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaSection.tsx",
+      "to": "src/dev/architecture/components/CodeList.tsx",
+      "kind": "static",
+      "names": [
+        "CodeList"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaSection.tsx",
+      "to": "src/dev/architecture/components/Fields.tsx",
+      "kind": "static",
+      "names": [
+        "Fields"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaSection.tsx",
+      "to": "src/dev/architecture/components/format.ts",
+      "kind": "static",
+      "names": [
+        "formatInstant",
+        "formatInteger"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaSection.tsx",
+      "to": "src/dev/architecture/components/ModuleLink.tsx",
+      "kind": "static",
+      "names": [
+        "ModuleLink"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaSection.tsx",
+      "to": "src/dev/architecture/components/ModuleList.tsx",
+      "kind": "static",
+      "names": [
+        "ModuleList"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaSection.tsx",
+      "to": "src/dev/architecture/components/PwaTopologyDiagram.tsx",
+      "kind": "static",
+      "names": [
+        "PwaTopologyDiagram"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaSection.tsx",
+      "to": "src/dev/architecture/components/Section.tsx",
+      "kind": "static",
+      "names": [
+        "Section"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaSection.tsx",
+      "to": "src/dev/architecture/data/curated.ts",
+      "kind": "static",
+      "names": [
+        "ARCHITECTURE_FINDINGS"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaSection.tsx",
+      "to": "src/dev/architecture/model.ts",
+      "kind": "static",
+      "names": [
+        "baseName",
+        "currentPhase",
+        "graph"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaTopologyDiagram.tsx",
+      "to": "src/dev/architecture/components/useInspector.ts",
+      "kind": "static",
+      "names": [
+        "useInspector"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/PwaTopologyDiagram.tsx",
+      "to": "src/dev/architecture/model.ts",
+      "kind": "static",
+      "names": [
+        "graph"
+      ]
+    },
+    {
       "from": "src/dev/architecture/components/RoutesSection.tsx",
       "to": "src/dev/architecture/components/Badge.tsx",
       "kind": "static",
@@ -8701,7 +10424,16 @@
       "to": "src/dev/architecture/model.ts",
       "kind": "static",
       "names": [
-        "graph"
+        "graph",
+        "isProductionModule"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/UiStateSection.tsx",
+      "to": "src/dev/architecture/types.ts",
+      "kind": "type",
+      "names": [
+        "GraphModule"
       ]
     },
     {
@@ -9226,6 +10958,15 @@
       ]
     },
     {
+      "from": "src/lib/displayMode.test.ts",
+      "to": "src/lib/displayMode.ts",
+      "kind": "static",
+      "names": [
+        "isStandaloneDisplay",
+        "STANDALONE_DISPLAY_MODE_QUERY"
+      ]
+    },
+    {
       "from": "src/lib/theme.test.ts",
       "to": "src/lib/theme.ts",
       "kind": "static",
@@ -9275,6 +11016,31 @@
       ]
     },
     {
+      "from": "src/main.tsx",
+      "to": "src/app/pwa/registerPwa.ts",
+      "kind": "static",
+      "names": [
+        "registerPwa"
+      ]
+    },
+    {
+      "from": "src/stores/uiStore.test.ts",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "INITIAL_UI_STATE",
+        "useUiStore"
+      ]
+    },
+    {
+      "from": "src/test/matchMedia.ts",
+      "to": "src/lib/displayMode.ts",
+      "kind": "static",
+      "names": [
+        "STANDALONE_DISPLAY_MODE_QUERY"
+      ]
+    },
+    {
       "from": "src/test/matchMedia.ts",
       "to": "src/lib/theme.ts",
       "kind": "static",
@@ -9300,11 +11066,28 @@
     },
     {
       "from": "src/test/setup.ts",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "INITIAL_UI_STATE",
+        "useUiStore"
+      ]
+    },
+    {
+      "from": "src/test/setup.ts",
       "to": "src/test/matchMedia.ts",
       "kind": "static",
       "names": [
         "installMatchMedia",
         "resetMatchMedia"
+      ]
+    },
+    {
+      "from": "vite.config.ts",
+      "to": "src/app/pwa/pwaOptions.ts",
+      "kind": "static",
+      "names": [
+        "PWA_OPTIONS"
       ]
     }
   ],
@@ -9380,11 +11163,13 @@
         "src/app/devRoutes.tsx",
         "src/app/layout/AppLayout.tsx",
         "src/app/lazyPages.tsx",
+        "src/app/pwa/useIsStandalone.ts",
         "src/app/theme/ThemeContext.ts",
         "src/app/theme/ThemeProvider.tsx",
         "src/app/theme/useSystemPrefersDark.ts",
         "src/app/theme/useTheme.ts",
         "src/components/ui/NavList.tsx",
+        "src/components/ui/Notice.tsx",
         "src/components/ui/Page.tsx",
         "src/components/ui/TabBar.tsx",
         "src/components/ui/createRadioGroup.tsx",
@@ -9399,6 +11184,7 @@
         "src/dev/architecture/components/LayersSection.tsx",
         "src/dev/architecture/components/ModuleGraph.tsx",
         "src/dev/architecture/components/ModuleGraphSection.tsx",
+        "src/dev/architecture/components/PwaTopologyDiagram.tsx",
         "src/dev/architecture/components/SearchBox.tsx",
         "src/dev/architecture/components/Section.tsx",
         "src/dev/architecture/components/TimelineSection.tsx",
@@ -9432,6 +11218,16 @@
         "src/components/ui/TabBar.tsx",
         "src/components/ui/useGoBack.ts",
         "src/test/renderApp.tsx"
+      ]
+    },
+    "zustand": {
+      "version": "5.0.15",
+      "installed": "5.0.15",
+      "declared": true,
+      "dev": false,
+      "builtin": false,
+      "importedBy": [
+        "src/stores/uiStore.ts"
       ]
     },
     "@babel/core": {
@@ -9469,7 +11265,10 @@
       "dev": true,
       "builtin": false,
       "importedBy": [
+        "src/app/layout/AppLayout.test.tsx",
         "src/app/layout/BottomNav.test.tsx",
+        "src/app/pwa/InstallHint.test.tsx",
+        "src/app/pwa/UpdateNotice.test.tsx",
         "src/app/routes.test.tsx",
         "src/components/ui/BackLink.test.tsx",
         "src/components/ui/createRadioGroup.test.tsx",
@@ -9598,6 +11397,19 @@
       "builtin": false,
       "importedBy": []
     },
+    "vite-plugin-pwa": {
+      "version": "2.0.0",
+      "installed": "2.0.0",
+      "declared": true,
+      "dev": true,
+      "builtin": false,
+      "importedBy": [
+        "src/app/pwa/pwaOptions.ts",
+        "src/app/pwa/registerPwa.test.ts",
+        "src/app/pwa/registerPwa.ts",
+        "vite.config.ts"
+      ]
+    },
     "vitest": {
       "version": "5.0.5",
       "installed": "5.0.5",
@@ -9605,7 +11417,13 @@
       "dev": true,
       "builtin": false,
       "importedBy": [
+        "src/app/layout/AppLayout.test.tsx",
         "src/app/layout/BottomNav.test.tsx",
+        "src/app/pwa/InstallHint.test.tsx",
+        "src/app/pwa/UpdateNotice.test.tsx",
+        "src/app/pwa/indexHtmlPwaTags.test.ts",
+        "src/app/pwa/pwaOptions.test.ts",
+        "src/app/pwa/registerPwa.test.ts",
         "src/app/routes.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/components/ui/BackLink.test.tsx",
@@ -9613,10 +11431,32 @@
         "src/dev/architecture/ArchitecturePage.test.tsx",
         "src/dev/architecture/architecture.test.ts",
         "src/features/settings/ThemeSection.test.tsx",
+        "src/lib/displayMode.test.ts",
         "src/lib/theme.test.ts",
         "src/lib/themeStorage.test.ts",
+        "src/stores/uiStore.test.ts",
         "src/test/setup.ts",
         "vite.config.ts"
+      ]
+    },
+    "node:fs": {
+      "version": null,
+      "installed": null,
+      "declared": false,
+      "dev": false,
+      "builtin": true,
+      "importedBy": [
+        "scripts/generate-icons.mjs"
+      ]
+    },
+    "node:zlib": {
+      "version": null,
+      "installed": null,
+      "declared": false,
+      "dev": false,
+      "builtin": true,
+      "importedBy": [
+        "scripts/generate-icons.mjs"
       ]
     },
     "node:url": {
@@ -9626,7 +11466,18 @@
       "dev": false,
       "builtin": true,
       "importedBy": [
+        "scripts/generate-icons.mjs",
         "vite.config.ts"
+      ]
+    },
+    "virtual:pwa-register": {
+      "version": null,
+      "installed": null,
+      "declared": false,
+      "dev": false,
+      "builtin": true,
+      "importedBy": [
+        "src/main.tsx"
       ]
     }
   },
@@ -9829,32 +11680,148 @@
       "layout": false
     }
   ],
+  "publicFiles": {
+    "public/apple-touch-icon.png": {
+      "referencedBy": [
+        "index.html"
+      ],
+      "generatedBy": [
+        "scripts/generate-icons.mjs"
+      ]
+    },
+    "public/favicon.png": {
+      "referencedBy": [
+        "index.html"
+      ],
+      "generatedBy": [
+        "scripts/generate-icons.mjs"
+      ]
+    },
+    "public/pwa-192x192.png": {
+      "referencedBy": [
+        "src/app/pwa/pwaOptions.ts"
+      ],
+      "generatedBy": [
+        "scripts/generate-icons.mjs"
+      ]
+    },
+    "public/pwa-512x512.png": {
+      "referencedBy": [
+        "src/app/pwa/pwaOptions.ts"
+      ],
+      "generatedBy": [
+        "scripts/generate-icons.mjs"
+      ]
+    },
+    "public/pwa-maskable-512x512.png": {
+      "referencedBy": [
+        "src/app/pwa/pwaOptions.ts"
+      ],
+      "generatedBy": [
+        "scripts/generate-icons.mjs"
+      ]
+    }
+  },
+  "pwa": {
+    "optionsModule": "src/app/pwa/pwaOptions.ts",
+    "usedBy": [
+      "src/app/pwa/pwaOptions.test.ts",
+      "vite.config.ts"
+    ],
+    "registeredBy": [
+      "src/main.tsx"
+    ],
+    "registerType": "prompt",
+    "injectRegister": false,
+    "useCredentials": true,
+    "includeManifestIcons": false,
+    "manifest": {
+      "name": "Meus Gastos",
+      "short_name": "Gastos",
+      "lang": "pt-BR",
+      "display": "standalone",
+      "start_url": "/",
+      "scope": "/"
+    },
+    "icons": [
+      {
+        "src": "pwa-192x192.png",
+        "sizes": "192x192",
+        "purpose": null
+      },
+      {
+        "src": "pwa-512x512.png",
+        "sizes": "512x512",
+        "purpose": null
+      },
+      {
+        "src": "pwa-maskable-512x512.png",
+        "sizes": "512x512",
+        "purpose": "maskable"
+      }
+    ],
+    "globPatterns": [
+      "**/*.{js,css,html,png,svg,ico,woff2}"
+    ],
+    "navigateFallback": "index.html",
+    "navigateFallbackDenylist": [
+      "/^\\/cdn-cgi\\//"
+    ]
+  },
+  "build": {
+    "builtAt": "2026-10-18T12:55:22.451Z",
+    "serviceWorker": "sw.js",
+    "workboxRuntime": "workbox-2fbc6a65.js",
+    "manifest": "manifest.webmanifest",
+    "manifestLink": "<link rel=\"manifest\" href=\"/manifest.webmanifest\" crossorigin=\"use-credentials\">",
+    "precache": [
+      "apple-touch-icon.png",
+      "assets/AboutPage-CYHHcEU7.js",
+      "assets/BackLink-s7r12GDx.js",
+      "assets/BackupPage-CStdaBfu.js",
+      "assets/ChartsPage-BteJQI8n.js",
+      "assets/NewTransactionPage-C_e2g-XZ.js",
+      "assets/RecurringDetailPage-Dynp94Pt.js",
+      "assets/RecurringsPage-CwdrLAvw.js",
+      "assets/SettingsPage-Dl8f8KXQ.js",
+      "assets/TagsPage-CbIqrtE_.js",
+      "assets/TransactionDetailPage-DxGChhTx.js",
+      "assets/TransactionsPage-C-YlaXuW.js",
+      "assets/ViewsPage-BPuRnbvQ.js",
+      "assets/index-CVHAiZxZ.js",
+      "assets/index-DLgFcVeY.css",
+      "assets/workbox-window.prod.es5-Bd17z0YL.js",
+      "favicon.png",
+      "index.html",
+      "manifest.webmanifest",
+      "pwa-192x192.png",
+      "pwa-512x512.png",
+      "pwa-maskable-512x512.png"
+    ],
+    "navigationRoute": true,
+    "css": [
+      {
+        "file": "assets/index-DLgFcVeY.css",
+        "bytes": 13516
+      }
+    ],
+    "totalBytes": 380300,
+    "devLeaks": []
+  },
   "violations": [],
   "unresolved": [],
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "992221d",
+    "head": "93ae3b6",
     "workingTree": [
-      {
-        "status": "M",
-        "path": ".claude/agents/spec-implementer.md"
-      },
       {
         "status": "M",
         "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
       },
       {
         "status": "M",
-        "path": ".claude/skills/implementar-fase/SKILL.md"
-      },
-      {
-        "status": "M",
-        "path": ".gitignore"
-      },
-      {
-        "status": "M",
-        "path": "CLAUDE.md"
+        "path": "README.md"
       },
       {
         "status": "M",
@@ -9874,27 +11841,35 @@
       },
       {
         "status": "D",
-        "path": "public/icons.svg"
+        "path": "public/favicon.svg"
       },
       {
-        "status": "D",
-        "path": "src/App.css"
+        "status": "M",
+        "path": "src/app/layout/AppLayout.tsx"
       },
       {
-        "status": "D",
-        "path": "src/App.tsx"
+        "status": "M",
+        "path": "src/dev/architecture/ArchitecturePage.test.tsx"
       },
       {
-        "status": "D",
-        "path": "src/assets/hero.png"
+        "status": "M",
+        "path": "src/dev/architecture/ArchitecturePage.tsx"
       },
       {
-        "status": "D",
-        "path": "src/assets/react.svg"
+        "status": "M",
+        "path": "src/dev/architecture/components/UiStateSection.tsx"
       },
       {
-        "status": "D",
-        "path": "src/assets/vite.svg"
+        "status": "M",
+        "path": "src/dev/architecture/data/curated.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/data/timeline.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/types.ts"
       },
       {
         "status": "M",
@@ -9906,11 +11881,19 @@
       },
       {
         "status": "M",
-        "path": "tsconfig.app.json"
+        "path": "src/styles/utilities.css"
       },
       {
         "status": "M",
-        "path": "tsconfig.json"
+        "path": "src/test/matchMedia.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/test/setup.ts"
+      },
+      {
+        "status": "M",
+        "path": "tsconfig.app.json"
       },
       {
         "status": "M",
@@ -9922,423 +11905,620 @@
       },
       {
         "status": "??",
-        "path": ".prettierignore"
+        "path": "public/apple-touch-icon.png"
       },
       {
         "status": "??",
-        "path": ".prettierrc.json"
+        "path": "public/favicon.png"
       },
       {
         "status": "??",
-        "path": "src/app/App.tsx"
+        "path": "public/pwa-192x192.png"
       },
       {
         "status": "??",
-        "path": "src/app/devRoutes.tsx"
+        "path": "public/pwa-512x512.png"
       },
       {
         "status": "??",
-        "path": "src/app/layout/AppLayout.tsx"
+        "path": "public/pwa-maskable-512x512.png"
       },
       {
         "status": "??",
-        "path": "src/app/layout/BottomNav.test.tsx"
+        "path": "scripts/generate-icons.mjs"
       },
       {
         "status": "??",
-        "path": "src/app/layout/BottomNav.tsx"
+        "path": "src/app/layout/AppLayout.test.tsx"
       },
       {
         "status": "??",
-        "path": "src/app/layout/navItems.ts"
+        "path": "src/app/pwa/InstallHint.test.tsx"
       },
       {
         "status": "??",
-        "path": "src/app/lazyPages.tsx"
+        "path": "src/app/pwa/InstallHint.tsx"
       },
       {
         "status": "??",
-        "path": "src/app/routes.test.tsx"
+        "path": "src/app/pwa/UpdateNotice.test.tsx"
       },
       {
         "status": "??",
-        "path": "src/app/routes.tsx"
+        "path": "src/app/pwa/UpdateNotice.tsx"
       },
       {
         "status": "??",
-        "path": "src/app/theme/ThemeContext.ts"
+        "path": "src/app/pwa/indexHtmlPwaTags.test.ts"
       },
       {
         "status": "??",
-        "path": "src/app/theme/ThemeProvider.tsx"
+        "path": "src/app/pwa/pwaOptions.test.ts"
       },
       {
         "status": "??",
-        "path": "src/app/theme/applyThemeToDocument.ts"
+        "path": "src/app/pwa/pwaOptions.ts"
       },
       {
         "status": "??",
-        "path": "src/app/theme/indexHtmlThemeScript.test.ts"
+        "path": "src/app/pwa/registerPwa.test.ts"
       },
       {
         "status": "??",
-        "path": "src/app/theme/useSystemPrefersDark.ts"
+        "path": "src/app/pwa/registerPwa.ts"
       },
       {
         "status": "??",
-        "path": "src/app/theme/useTheme.ts"
+        "path": "src/app/pwa/useIsStandalone.ts"
       },
       {
         "status": "??",
-        "path": "src/components/ui/BackLink.test.tsx"
+        "path": "src/app/pwa/usePwaUpdate.ts"
       },
       {
         "status": "??",
-        "path": "src/components/ui/BackLink.tsx"
+        "path": "src/components/ui/Notice.tsx"
       },
       {
         "status": "??",
-        "path": "src/components/ui/NavList.tsx"
+        "path": "src/dev/architecture/components/PwaSection.tsx"
       },
       {
         "status": "??",
-        "path": "src/components/ui/Page.tsx"
+        "path": "src/dev/architecture/components/PwaTopologyDiagram.tsx"
       },
       {
         "status": "??",
-        "path": "src/components/ui/TabBar.tsx"
+        "path": "src/lib/displayMode.test.ts"
       },
       {
         "status": "??",
-        "path": "src/components/ui/createRadioGroup.test.tsx"
+        "path": "src/lib/displayMode.ts"
       },
       {
         "status": "??",
-        "path": "src/components/ui/createRadioGroup.tsx"
+        "path": "src/stores/uiStore.test.ts"
       },
       {
         "status": "??",
-        "path": "src/components/ui/useGoBack.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/db/.gitkeep"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/ArchitecturePage.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/ArchitecturePage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/architecture.css"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/architecture.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/Badge.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/Card.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/CodeList.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/CompositionSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/CompositionTree.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/DataModelSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/DomainSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/Fields.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/FlowSequence.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/FlowsSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/HealthSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/InspectorContext.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/LayerDiagram.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/LayersSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/ModuleDetails.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/ModuleGraph.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/ModuleGraphSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/ModuleInspector.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/ModuleLink.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/ModuleList.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/OverviewSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/PackagesSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/ProgressBar.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/RoutesSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/SearchBox.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/Section.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/StylesheetsCard.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/TimelineEntryCard.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/TimelineSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/TraceabilitySection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/UiStateSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/ViolationsList.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/format.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/layerStyles.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/timelineLabels.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/useInspector.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/composition.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/data/curated.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/data/timeline.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/graphLayout.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/health.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/layerDiagramGeometry.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/layers.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/model.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/search.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/traceability.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/types.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/.gitkeep"
-      },
-      {
-        "status": "??",
-        "path": "src/features/backup/BackupPage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/charts/ChartsPage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/home/HomePage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/RecurringDetailPage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/RecurringsPage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/settings/AboutPage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/settings/SettingsMenu.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/settings/SettingsPage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/settings/ThemeSection.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/settings/ThemeSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/settings/themeOptionLabels.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/tags/TagsPage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/NewTransactionPage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/TransactionDetailPage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/TransactionsPage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/views/ViewsPage.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/theme.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/theme.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/themeStorage.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/themeStorage.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/.gitkeep"
-      },
-      {
-        "status": "??",
-        "path": "src/stores/.gitkeep"
-      },
-      {
-        "status": "??",
-        "path": "src/styles/utilities.css"
-      },
-      {
-        "status": "??",
-        "path": "src/test/matchMedia.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/test/renderApp.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/test/setup.ts"
+        "path": "src/stores/uiStore.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "93ae3b6",
+      "date": "2026-10-17T23:20:45-03:00",
+      "author": "Fernando",
+      "subject": "feat/phase 0 completed",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": ".claude/agents/spec-implementer.md"
+        },
+        {
+          "status": "M",
+          "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
+        },
+        {
+          "status": "M",
+          "path": ".claude/skills/implementar-fase/SKILL.md"
+        },
+        {
+          "status": "M",
+          "path": ".gitignore"
+        },
+        {
+          "status": "A",
+          "path": ".prettierignore"
+        },
+        {
+          "status": "A",
+          "path": ".prettierrc.json"
+        },
+        {
+          "status": "M",
+          "path": "CLAUDE.md"
+        },
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "M",
+          "path": "index.html"
+        },
+        {
+          "status": "M",
+          "path": "package-lock.json"
+        },
+        {
+          "status": "M",
+          "path": "package.json"
+        },
+        {
+          "status": "D",
+          "path": "public/icons.svg"
+        },
+        {
+          "status": "D",
+          "path": "src/App.css"
+        },
+        {
+          "status": "D",
+          "path": "src/App.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/App.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/devRoutes.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/layout/AppLayout.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/layout/BottomNav.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/layout/BottomNav.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/layout/navItems.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/app/lazyPages.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/routes.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/routes.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/theme/ThemeContext.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/app/theme/ThemeProvider.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/theme/applyThemeToDocument.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/app/theme/indexHtmlThemeScript.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/app/theme/useSystemPrefersDark.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/app/theme/useTheme.ts"
+        },
+        {
+          "status": "D",
+          "path": "src/assets/hero.png"
+        },
+        {
+          "status": "D",
+          "path": "src/assets/react.svg"
+        },
+        {
+          "status": "D",
+          "path": "src/assets/vite.svg"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/BackLink.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/BackLink.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/NavList.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/Page.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/TabBar.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/createRadioGroup.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/createRadioGroup.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/useGoBack.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/db/.gitkeep"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/ArchitecturePage.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/ArchitecturePage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/architecture.css"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/architecture.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/Badge.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/Card.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/CodeList.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/CompositionSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/CompositionTree.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/DataModelSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/DomainSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/Fields.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/FlowSequence.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/FlowsSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/HealthSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/InspectorContext.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/LayerDiagram.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/LayersSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/ModuleDetails.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/ModuleGraph.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/ModuleGraphSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/ModuleInspector.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/ModuleLink.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/ModuleList.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/OverviewSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/PackagesSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/ProgressBar.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/RoutesSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/SearchBox.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/Section.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/StylesheetsCard.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/TimelineEntryCard.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/TimelineSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/TraceabilitySection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/UiStateSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/ViolationsList.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/format.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/layerStyles.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/timelineLabels.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/useInspector.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/composition.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/graphLayout.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/health.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/layerDiagramGeometry.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/layers.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/model.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/search.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/traceability.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/types.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/.gitkeep"
+        },
+        {
+          "status": "A",
+          "path": "src/features/backup/BackupPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/charts/ChartsPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/home/HomePage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/RecurringDetailPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/RecurringsPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/settings/AboutPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/settings/SettingsMenu.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/settings/SettingsPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/settings/ThemeSection.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/settings/ThemeSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/settings/themeOptionLabels.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/TagsPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/NewTransactionPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/TransactionDetailPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/TransactionsPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/views/ViewsPage.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/index.css"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/theme.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/theme.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/themeStorage.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/themeStorage.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/main.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/.gitkeep"
+        },
+        {
+          "status": "A",
+          "path": "src/stores/.gitkeep"
+        },
+        {
+          "status": "A",
+          "path": "src/styles/utilities.css"
+        },
+        {
+          "status": "A",
+          "path": "src/test/matchMedia.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/test/renderApp.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/test/setup.ts"
+        },
+        {
+          "status": "M",
+          "path": "tsconfig.app.json"
+        },
+        {
+          "status": "M",
+          "path": "tsconfig.json"
+        },
+        {
+          "status": "M",
+          "path": "tsconfig.node.json"
+        },
+        {
+          "status": "M",
+          "path": "vite.config.ts"
+        }
+      ]
+    },
     {
       "hash": "992221d",
       "date": "2026-10-17T18:17:17-03:00",
@@ -10580,14 +12760,31 @@
     "index.html",
     "package-lock.json",
     "package.json",
-    "public/favicon.svg",
+    "public/apple-touch-icon.png",
+    "public/favicon.png",
+    "public/pwa-192x192.png",
+    "public/pwa-512x512.png",
+    "public/pwa-maskable-512x512.png",
+    "scripts/generate-icons.mjs",
     "src/app/App.tsx",
     "src/app/devRoutes.tsx",
+    "src/app/layout/AppLayout.test.tsx",
     "src/app/layout/AppLayout.tsx",
     "src/app/layout/BottomNav.test.tsx",
     "src/app/layout/BottomNav.tsx",
     "src/app/layout/navItems.ts",
     "src/app/lazyPages.tsx",
+    "src/app/pwa/InstallHint.test.tsx",
+    "src/app/pwa/InstallHint.tsx",
+    "src/app/pwa/UpdateNotice.test.tsx",
+    "src/app/pwa/UpdateNotice.tsx",
+    "src/app/pwa/indexHtmlPwaTags.test.ts",
+    "src/app/pwa/pwaOptions.test.ts",
+    "src/app/pwa/pwaOptions.ts",
+    "src/app/pwa/registerPwa.test.ts",
+    "src/app/pwa/registerPwa.ts",
+    "src/app/pwa/useIsStandalone.ts",
+    "src/app/pwa/usePwaUpdate.ts",
     "src/app/routes.test.tsx",
     "src/app/routes.tsx",
     "src/app/theme/ThemeContext.ts",
@@ -10599,6 +12796,7 @@
     "src/components/ui/BackLink.test.tsx",
     "src/components/ui/BackLink.tsx",
     "src/components/ui/NavList.tsx",
+    "src/components/ui/Notice.tsx",
     "src/components/ui/Page.tsx",
     "src/components/ui/TabBar.tsx",
     "src/components/ui/createRadioGroup.test.tsx",
@@ -10632,6 +12830,8 @@
     "src/dev/architecture/components/OverviewSection.tsx",
     "src/dev/architecture/components/PackagesSection.tsx",
     "src/dev/architecture/components/ProgressBar.tsx",
+    "src/dev/architecture/components/PwaSection.tsx",
+    "src/dev/architecture/components/PwaTopologyDiagram.tsx",
     "src/dev/architecture/components/RoutesSection.tsx",
     "src/dev/architecture/components/SearchBox.tsx",
     "src/dev/architecture/components/Section.tsx",
@@ -10675,6 +12875,8 @@
     "src/features/transactions/TransactionsPage.tsx",
     "src/features/views/ViewsPage.tsx",
     "src/index.css",
+    "src/lib/displayMode.test.ts",
+    "src/lib/displayMode.ts",
     "src/lib/theme.test.ts",
     "src/lib/theme.ts",
     "src/lib/themeStorage.test.ts",
@@ -10682,6 +12884,8 @@
     "src/main.tsx",
     "src/repositories/.gitkeep",
     "src/stores/.gitkeep",
+    "src/stores/uiStore.test.ts",
+    "src/stores/uiStore.ts",
     "src/styles/utilities.css",
     "src/test/matchMedia.ts",
     "src/test/renderApp.tsx",

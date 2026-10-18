@@ -62,11 +62,18 @@ function walk(dir) {
 const allFiles = walk(srcDir);
 const outAbs = join(root, outPath);
 const configFiles = ROOT_CONFIG_FILES.map((f) => join(root, f)).filter((f) => existsSync(f));
+// Scripts de apoio (ex.: scripts/generate-icons.mjs) entram na camada "config".
+const SCRIPT_EXTS = ['.mjs', '.js', '.cjs', '.ts'];
+const scriptsDir = join(root, 'scripts');
+const scriptFiles = existsSync(scriptsDir) ? walk(scriptsDir).filter((f) => SCRIPT_EXTS.includes(extname(f))) : [];
+// Arquivos estáticos copiados como estão para o dist/ (ícones do PWA, favicon).
+const publicDir = join(root, 'public');
+const publicFileIds = existsSync(publicDir) ? walk(publicDir).map(toId).sort() : [];
 const sourceFiles = allFiles.filter(
   (f) => SOURCE_EXTS.includes(extname(f)) && !f.endsWith('.d.ts') && f !== outAbs,
 );
 // O JSON gerado conta como existente mesmo na primeira execução (a página o importa).
-const knownIds = new Set([...allFiles, ...configFiles, outAbs].map(toId));
+const knownIds = new Set([...allFiles, ...configFiles, ...scriptFiles, outAbs].map(toId));
 
 // ---------- classificação ----------
 
@@ -276,7 +283,8 @@ function analyze(abs) {
   if (/^src\/(features|dev)\/.*Page\.tsx$/.test(id) && components.length) kinds.push('page');
   if (Object.keys(lazy).length) kinds.push('lazy');
   if (hooksDefined.length) kinds.push('hook');
-  if (/create\s*(<[^>]*>)?\s*\(/.test(code) && external.some((e) => e.package === 'zustand')) kinds.push('store');
+  const isStore = /create\s*(<[^>]*>)?\s*\(/.test(code) && external.some((e) => e.package === 'zustand');
+  if (isStore) kinds.push('store');
   if (/extends\s+Dexie\b|new\s+Dexie\s*\(/.test(code)) kinds.push('database');
   if (routes.length) kinds.push('routing');
   if (/\bcreateContext\s*[<(]/.test(code)) kinds.push('context');
@@ -308,10 +316,22 @@ function analyze(abs) {
     lazyComponents: lazy,
     routes,
     routeDefs,
+    ...(isStore ? { store: storeShape(code) } : {}),
+    storeMembersUsed: [],
+    code: analyzed ? code : '',
     requirementRefs: analyzed ? unique(matchAll(raw, /\b((?:RF|RNF|CA|D|Q)-\d+(?:\.\d+)?)\b/g)) : [],
     internal,
     external,
   };
+}
+
+/** Chaves das interfaces `*State` e `*Actions` de uma store Zustand (§6.7). */
+function storeShape(code) {
+  const keysOf = (suffix) =>
+    [...code.matchAll(new RegExp(`interface\\s+\\w*${suffix}\\s*\\{`, 'g'))].flatMap((m) =>
+      matchAll(balancedSlice(code, m.index + m[0].length - 1, '{', '}'), /^\s*([A-Za-z_$][\w$]*)\??\s*:/gm),
+    );
+  return { state: unique(keysOf('State')), actions: unique(keysOf('Actions')) };
 }
 
 /** Objetos de rota `{ path: 'x', element: <Comp /> }` / `{ index: true, element: <Comp /> }`. */
@@ -431,6 +451,8 @@ function analyzeConfig(abs) {
     lazyComponents: {},
     routes: [],
     routeDefs: [],
+    storeMembersUsed: [],
+    code: raw,
     requirementRefs: unique(matchAll(raw, /\b((?:RF|RNF|CA|D|Q)-\d+(?:\.\d+)?)\b/g)),
     internal,
     external: [],
@@ -438,7 +460,23 @@ function analyzeConfig(abs) {
   };
 }
 
-const modules = [...sourceFiles.map(analyze), ...configFiles.map(analyzeConfig)].sort((a, b) => a.id.localeCompare(b.id));
+/** Script de apoio (scripts/): arquivos que ele grava, ex. `{ file: 'x.png' }` + `new URL('../public/')`. */
+function analyzeScript(abs) {
+  const m = analyze(abs);
+  const outDir = m.code.match(/['"]\.\.\/([\w-]+)\/['"]/)?.[1] ?? null;
+  const generates = outDir ? unique(matchAll(m.code, /\bfile:\s*['"]([^'"]+)['"]/g).map((f) => `${outDir}/${f}`)) : [];
+  return {
+    ...m,
+    layer: 'config',
+    group: 'scripts',
+    kinds: ['config'],
+    config: { script: true, generates, builtinsOnly: m.external.every((e) => e.package.startsWith('node:')) },
+  };
+}
+
+const modules = [...sourceFiles.map(analyze), ...configFiles.map(analyzeConfig), ...scriptFiles.map(analyzeScript)].sort((a, b) =>
+  a.id.localeCompare(b.id),
+);
 const byId = new Map(modules.map((m) => [m.id, m]));
 
 // ---------- arestas, dependentes, testes ----------
@@ -579,6 +617,115 @@ const routesIndex = modules
   )
   .sort((a, b) => a.path.localeCompare(b.path));
 for (const m of modules) delete m.routeDefs;
+
+// ---------- stores Zustand: quem usa cada campo/ação (§6.7) ----------
+
+const storeModules = modules.filter((m) => m.store);
+for (const m of modules) {
+  const used = storeModules
+    .filter((s) => s.id !== m.id && m.imports.includes(s.id))
+    .flatMap((s) => [...s.store.state, ...s.store.actions])
+    .filter((name) => new RegExp(`\\b${name}\\b`).test(m.code));
+  m.storeMembersUsed = unique(used);
+}
+
+// ---------- public/, PWA e artefatos do build ----------
+
+const escapeRegExp = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/** Quem cita cada arquivo de public/ (ex.: index.html, opções do PWA) e quem o gera (scripts/). */
+const publicFiles = Object.fromEntries(
+  publicFileIds.map((id) => {
+    const name = id.slice('public/'.length);
+    const literal = new RegExp(`['"\`/]${escapeRegExp(name)}['"\`]`);
+    const citing = modules.filter((m) => !isTestFile(m.id) && !m.devOnly && m.group !== 'scripts' && literal.test(m.code));
+    return [
+      id,
+      {
+        referencedBy: unique(citing.map((m) => m.id)),
+        generatedBy: unique(modules.filter((m) => m.config?.generates?.includes(id)).map((m) => m.id)),
+      },
+    ];
+  }),
+);
+
+/** Valor literal de `key: 'texto' | true | false` (booleanos viram boolean). */
+function literalOf(code, key) {
+  const value = code
+    .match(new RegExp(`\\b${key}\\s*:\\s*(?:'([^']*)'|"([^"]*)"|(true|false))`))
+    ?.slice(1)
+    .find((v) => v !== undefined);
+  if (value === 'true' || value === 'false') return value === 'true';
+  return value ?? null;
+}
+const sliceAfter = (code, key, open, close) => {
+  const at = code.search(new RegExp(`\\b${key}\\s*:\\s*\\${open}`));
+  return at < 0 ? '' : balancedSlice(code, code.indexOf(open, at), open, close);
+};
+const stringsIn = (text) => matchAll(text, /['"]([^'"]+)['"]/g);
+
+/** Opções do vite-plugin-pwa, lidas do módulo que exporta o objeto tipado como VitePWAOptions. */
+function pwaInfo() {
+  const optionsModule = modules.find((m) => !isTestFile(m.id) && /\bVitePWAOptions\b/.test(m.code) && /export\s+const/.test(m.code));
+  if (!optionsModule) return null;
+  // Só comentários de linha inteira: stripComments cortaria regex como /^\/cdn-cgi\//.
+  const code = readFileSync(join(root, optionsModule.id), 'utf8')
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/^\s*\/\/.*$/gm, '');
+  const manifest = sliceAfter(code, 'manifest', '{', '}');
+  const workbox = sliceAfter(code, 'workbox', '{', '}');
+  const icons = [...sliceAfter(manifest, 'icons', '[', ']').matchAll(/\{([^}]*)\}/g)].map(([, body]) => ({
+    src: literalOf(body, 'src'),
+    sizes: literalOf(body, 'sizes'),
+    purpose: literalOf(body, 'purpose'),
+  }));
+  return {
+    optionsModule: optionsModule.id,
+    usedBy: optionsModule.importedBy,
+    registeredBy: modules.filter((m) => m.external.some((e) => e.package === 'virtual:pwa-register')).map((m) => m.id),
+    registerType: literalOf(code, 'registerType'),
+    injectRegister: literalOf(code, 'injectRegister'),
+    useCredentials: literalOf(code, 'useCredentials'),
+    includeManifestIcons: literalOf(code, 'includeManifestIcons'),
+    manifest: Object.fromEntries(
+      ['name', 'short_name', 'lang', 'display', 'start_url', 'scope'].map((key) => [key, literalOf(manifest, key)]),
+    ),
+    icons,
+    globPatterns: stringsIn(sliceAfter(workbox, 'globPatterns', '[', ']')),
+    navigateFallback: literalOf(workbox, 'navigateFallback'),
+    navigateFallbackDenylist: matchAll(sliceAfter(workbox, 'navigateFallbackDenylist', '[', ']'), /(\/(?:\\\/|[^/\n])+\/[a-z]*)/g),
+  };
+}
+
+// Marcas da página DEV que nunca podem aparecer no build de produção (§6.12 / D-17).
+const DEV_MARKERS = /ArchitecturePage|module-graph|__dev|arquitetura/;
+
+/** Último `npm run build` (dist/), se existir: service worker, precache e vazamentos da página DEV. */
+function buildInfo() {
+  const distDir = join(root, 'dist');
+  const swPath = join(distDir, 'sw.js');
+  if (!existsSync(distDir)) return null;
+  const files = walk(distDir).map((f) => ({ id: toId(f).slice('dist/'.length), abs: f }));
+  const textFiles = files.filter((f) => /\.(js|css|html|webmanifest|json)$/.test(f.id));
+  const sw = existsSync(swPath) ? readFileSync(swPath, 'utf8') : '';
+  const indexHtml = existsSync(join(distDir, 'index.html')) ? readFileSync(join(distDir, 'index.html'), 'utf8') : '';
+  return {
+    builtAt: statSync(existsSync(swPath) ? swPath : distDir).mtime.toISOString(),
+    serviceWorker: existsSync(swPath) ? 'sw.js' : null,
+    workboxRuntime: files.find((f) => /^workbox-[\w-]+\.js$/.test(f.id))?.id ?? null,
+    manifest: files.find((f) => f.id.endsWith('.webmanifest'))?.id ?? null,
+    manifestLink: indexHtml.match(/<link rel="manifest"[^>]*>/)?.[0] ?? null,
+    precache: unique(matchAll(sw, /url:"([^"]+)"/g)),
+    navigationRoute: /NavigationRoute/.test(sw),
+    css: files.filter((f) => f.id.endsWith('.css')).map((f) => ({ file: f.id, bytes: statSync(f.abs).size })),
+    totalBytes: files.reduce((n, f) => n + statSync(f.abs).size, 0),
+    devLeaks: textFiles.filter((f) => DEV_MARKERS.test(readFileSync(f.abs, 'utf8'))).map((f) => f.id),
+  };
+}
+
+const pwa = pwaInfo();
+const build = buildInfo();
+for (const m of modules) delete m.code;
 
 // ---------- pacotes ----------
 
@@ -754,6 +901,9 @@ const result = {
   packages,
   tables: tablesIndex,
   routes: routesIndex,
+  publicFiles,
+  pwa,
+  build,
   violations,
   unresolved,
   cycles: findCycles(),

@@ -9,6 +9,10 @@
   /* Fonte única da altura da barra inferior: usada pela própria barra (TabBar) e pelo
      espaço reservado no fim do conteúdo (pb-below-nav). Altere só aqui. ≥ 44 px (RNF-06). */
   --bottom-nav-height: 3.5rem;
+  /* Fonte única da altura reservada para o aviso de nova versão (CA-11.3): usada pelo
+     próprio aviso (UpdateNotice) e pelo espaço extra no fim do conteúdo enquanto ele
+     aparece (reserve-update-notice). Botão de 44 px + respiros. Altere só aqui. */
+  --update-notice-height: 4.25rem;
 }
 
 @layer base {

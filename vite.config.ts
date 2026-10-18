@@ -2,11 +2,19 @@ import { fileURLToPath, URL } from 'node:url'
 import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import babel from '@rolldown/plugin-babel'
 import tailwindcss from '@tailwindcss/vite'
+import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vitest/config'
+import { PWA_OPTIONS } from './src/app/pwa/pwaOptions.ts'
 
 // Vitest fica neste arquivo para herdar o alias `@/` e os plugins do Vite.
 export default defineConfig({
-  plugins: [react(), babel({ presets: [reactCompilerPreset()] }), tailwindcss()],
+  plugins: [
+    react(),
+    babel({ presets: [reactCompilerPreset()] }),
+    tailwindcss(),
+    // §6.9 / RF-11 — PWA instalável e offline.
+    VitePWA(PWA_OPTIONS),
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

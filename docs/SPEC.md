@@ -1,6 +1,6 @@
 # Especificação — App de Controle de Gastos (PWA)
 
-> **Versão do documento:** 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)
+> **Versão do documento:** 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)
 > **Tipo:** Especificação para desenvolvimento orientado por especificação (*spec-driven development*)
 > **Uso:** fonte única da verdade para a implementação por um agente de IA, em fases incrementais e testáveis.
 
@@ -803,10 +803,10 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 
 **Requisitos:** RF-11 (CA-11.1 a 11.3, 11.6), RF-12
 
-- [ ] Configurar `vite-plugin-pwa` (seção 6.9), ícones provisórios, manifest, metatags do iOS.
-- [ ] Componente de aviso "Nova versão disponível" com botão "Atualizar" (Zustand `updateAvailable`).
-- [ ] Aviso para quando o app estiver aberto fora do modo instalado (CA-11.6).
-- [ ] Documentar no `README.md` o passo a passo de deploy e Access (seção 6.10).
+- [x] Configurar `vite-plugin-pwa` (seção 6.9), ícones provisórios, manifest, metatags do iOS.
+- [x] Componente de aviso "Nova versão disponível" com botão "Atualizar" (Zustand `updateAvailable`).
+- [x] Aviso para quando o app estiver aberto fora do modo instalado (CA-11.6).
+- [x] Documentar no `README.md` o passo a passo de deploy e Access (seção 6.10).
 - [ ] *(Humano)* Criar o projeto no Cloudflare Pages, publicar e configurar o Cloudflare Access.
 
 **Roteiro de teste (iPhone):**
@@ -1048,6 +1048,9 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 | D-20 | Rotas com o pacote **`react-router`** (v7) apenas; `react-router-dom` fica autorizado mas não é instalado. Versões das bibliotecas fixas no `package.json`, **sem `^`**. | Pacote único e atual do React Router; builds reprodutíveis. **Confirmado pelo dono.** (17/10/2026) |
 | D-21 | Caminho desconhecido (rota `*`) **redireciona para o Início** (`/`) com `replace`, em vez de exibir uma tela de "não encontrado". | O Cloudflare Pages serve o `index.html` para qualquer caminho (§6.10) e a tela de erro padrão do React Router é em inglês. **Confirmado pelo dono.** (17/10/2026) |
 | D-22 | Features não importam de `src/app/`. A exceção atual (`useTheme` em `src/app/theme/`, usado por Ajustes) é eliminada na Fase 2, quando o tema passa para o Dexie e o hook vai para `src/repositories/`. | Mantém a direção de dependência entre camadas sem exceções. **Confirmado pelo dono.** (17/10/2026) |
+| D-23 | O aviso de app fora do modo instalado (CA-11.6) fica no **layout** (topo do conteúdo de todas as telas com barra inferior), em faixa discreta só de texto, sem botão de fechar. | O app pode ser aberto por qualquer URL numa aba comum, não só pelo Início; o aviso some sozinho quando o app é aberto pelo ícone. (18/10/2026) |
+| D-24 | Além da checagem do navegador ao navegar, o app pede ao service worker que procure versão nova sempre que volta a ficar **visível** e **online** (`registration.update()`), ignorando falhas (sem rede ou sessão do Access expirada). | No iPhone o app instalado costuma voltar do segundo plano sem nova navegação, e o aviso do CA-11.3 demoraria a aparecer. (18/10/2026) |
+| D-25 | Ícones provisórios (192, 512, 512 *maskable*, `apple-touch-icon` 180 e `favicon.png` 48) gerados por `scripts/generate-icons.mjs` só com módulos nativos do Node; o `favicon.svg` do template foi removido. Também foi adicionada a meta `apple-mobile-web-app-title` = "Gastos", igual ao `short_name`. | Sem dependências extras; nome e ícone definitivos na Fase 11 (Q-03 / D-09). (18/10/2026) |
 
 ### 8.2 Pontos em aberto (perguntar ao dono antes da fase indicada)
 

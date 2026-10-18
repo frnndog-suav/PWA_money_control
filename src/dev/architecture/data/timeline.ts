@@ -1,6 +1,7 @@
 // Linha do tempo das implementações (§6.12), em ordem cronológica (a página mostra a mais
 // recente no topo). Nunca apague entradas antigas; corrija só se estiverem erradas.
 // Entregas ainda não commitadas ficam com `committed: false` e `commits: []`.
+// A Fase 0 inteira (inclusive esta página) entrou no commit 93ae3b6 (17/10/2026).
 
 import type { TimelineEntry } from '@/dev/architecture/types'
 
@@ -12,6 +13,9 @@ const TEMPLATE_FILES_REMOVED_IN_PHASE_0 = [
   'src/assets/react.svg',
   'src/assets/vite.svg',
 ]
+
+// Criado pelo template Vite e removido na Fase 1 (D-25): favicon passou a ser PNG.
+const TEMPLATE_FILES_REMOVED_IN_PHASE_1 = ['public/favicon.svg']
 
 export const TIMELINE: readonly TimelineEntry[] = [
   {
@@ -34,7 +38,7 @@ export const TIMELINE: readonly TimelineEntry[] = [
         'index.html',
         'package-lock.json',
         'package.json',
-        'public/favicon.svg',
+        ...TEMPLATE_FILES_REMOVED_IN_PHASE_1,
         'src/index.css',
         'src/main.tsx',
         'tsconfig.app.json',
@@ -138,8 +142,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'D-19 (oxlint + Prettier) e D-20 (react-router, versões fixas)',
     summary:
       'Resolvida a divergência ESLint × oxlint: fica o oxlint, com Prettier para formatação (RNF-07 e §6.1 atualizados). Rotas só com o pacote react-router v7; versões sem ^ no package.json.',
-    commits: [],
-    committed: false,
+    commits: ['93ae3b6'],
+    committed: true,
     requirements: ['RNF-07'],
     decisions: ['D-19', 'D-20'],
     files: {
@@ -162,8 +166,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 0 — ferramentas: strict, Tailwind, Vitest, Prettier, scripts',
     summary:
       'TypeScript strict, scripts dev/build/preview/lint/typecheck/format/test/coverage, Tailwind v4 com variante dark por classe e utilitários de safe area, Vitest (jsdom, Testing Library, fake-indexeddb, cobertura ≥ 90% em domain/lib), Prettier. Estrutura de pastas da §6.2 com .gitkeep nas camadas ainda vazias. Arquivos de exemplo do template removidos.',
-    commits: [],
-    committed: false,
+    commits: ['93ae3b6'],
+    committed: true,
     requirements: ['RNF-07', 'CA-13.1'],
     decisions: ['D-18', 'D-19', 'D-20'],
     files: {
@@ -199,8 +203,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 0 — layout, barra inferior e as 12 rotas da §6.6',
     summary:
       'createBrowserRouter com as rotas como filhas do AppLayout; todas as telas lazy exceto o Início; páginas placeholder com título; primitivos compostos Page, TabBar, NavList, BackLink + useGoBack (voltar de verdade ou replace na tela pai); menu de Ajustes; ponto de extensão getDevRoutes().',
-    commits: [],
-    committed: false,
+    commits: ['93ae3b6'],
+    committed: true,
     requirements: ['RF-13', 'CA-13.1', 'CA-13.2', 'RNF-02', 'RNF-06'],
     decisions: ['D-20'],
     files: {
@@ -248,8 +252,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 0 — tema Automático/Claro/Escuro sem piscar',
     summary:
       'Script inline no index.html aplica .dark e theme-color antes do bundle; ThemeProvider + useTheme + useSystemPrefersDark (useSyncExternalStore) + applyThemeToDocument; regras puras em lib/theme.ts e persistência isolada em lib/themeStorage.ts (localStorage até a Fase 2); seção de tema em Ajustes com createRadioGroup tipado. Teste garante a sincronia do script inline com lib/theme.ts. 8 arquivos de teste, 70 testes.',
-    commits: [],
-    committed: false,
+    commits: ['93ae3b6'],
+    committed: true,
     requirements: ['RF-09', 'CA-09.1', 'CA-09.2', 'CA-09.3', 'CA-09.4'],
     decisions: [],
     files: {
@@ -284,8 +288,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'D-21 — caminho desconhecido redireciona para o Início',
     summary:
       'Rota * com <Navigate to="/" replace>. Registrada na §8.1 (confirmada pelo dono depois; ver entrada da SPEC 1.4).',
-    commits: [],
-    committed: false,
+    commits: ['93ae3b6'],
+    committed: true,
     requirements: [],
     decisions: ['D-21'],
     files: { created: [], modified: ['docs/SPEC.md', 'src/app/routes.tsx'], removed: [] },
@@ -299,8 +303,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Página de arquitetura e timeline (/__dev/arquitetura)',
     summary:
       'Primeira versão desta página, só em DEV e fora do dist/: camadas com direções permitidas (decisão sobre features → app/theme), grafo de módulos com inspetor, rotas, composição, fluxos em diagramas de sequência SVG, modelo de dados/estado/domínio previstos, rastreabilidade, dependências, linha do tempo e saúde. Scanner ampliado: arquivos de configuração da raiz, imports com ?raw, rotas com componente e lazy, assinaturas, props, estado do git e índice de arquivos.',
-    commits: [],
-    committed: false,
+    commits: ['93ae3b6'],
+    committed: true,
     requirements: [],
     decisions: ['D-17'],
     files: {
@@ -374,8 +378,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'SPEC 1.4 — D-21 confirmada e nova D-22 (features não importam de app/)',
     summary:
       'O dono confirmou a D-21 (rota * → Início). D-22: features não importam de src/app/; a única ocorrência (ThemeSection → app/theme/useTheme) vira dívida com prazo, eliminada na Fase 2 movendo useTheme/ThemeContext para src/repositories/ (nova tarefa na Fase 2 da §7). Cabeçalho da spec passa a 1.4.',
-    commits: [],
-    committed: false,
+    commits: ['93ae3b6'],
+    committed: true,
     requirements: [],
     decisions: ['D-21', 'D-22'],
     files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
@@ -392,8 +396,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'CSS de produção sem as classes da página DEV (39,7 kB → 12,2 kB)',
     summary:
       "O Tailwind v4 varria src/dev e gerava no CSS do app as utilidades desta página. Agora src/index.css tem @source not './dev'; a página importa o próprio architecture.css (@import 'tailwindcss' source(none) + @source './'); a variante dark e os utilitários de safe area (px-safe, pt-safe, pb-safe, pb-below-nav) foram para src/styles/utilities.css, importado pelos dois CSS.",
-    commits: [],
-    committed: false,
+    commits: ['93ae3b6'],
+    committed: true,
     requirements: ['RNF-02'],
     decisions: ['D-17'],
     files: {
@@ -411,8 +415,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Ajustes nos testes',
     summary:
       'BackLink.test.tsx deixa de checar classe CSS (testa comportamento); renderApp.tsx com tipo de retorno explícito. Tentativa de pool vmThreads no Vitest revertida por ficar mais lenta.',
-    commits: [],
-    committed: false,
+    commits: ['93ae3b6'],
+    committed: true,
     requirements: [],
     decisions: [],
     files: {
@@ -430,8 +434,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Página de arquitetura: dívida D-22 em amarelo e folhas de estilo',
     summary:
       'Novo status "dívida conhecida" nas regras de camadas (amarelo, com prazo) para features → app; D-21 sem "aguardando confirmação"; achados resolvidos ficam no histórico em verde. Scanner passa a seguir @import entre CSS e a registrar source(none), @source e @source not; a seção Dependências mostra as folhas de estilo.',
-    commits: [],
-    committed: false,
+    commits: ['93ae3b6'],
+    committed: true,
     requirements: [],
     decisions: ['D-17', 'D-22'],
     files: {
@@ -451,5 +455,155 @@ export const TIMELINE: readonly TimelineEntry[] = [
       removed: [],
     },
     impact: ['novo status de dependência: dívida com prazo'],
+  },
+  {
+    id: 'phase-1-pwa',
+    date: '2026-10-18',
+    phase: 1,
+    type: 'feature',
+    title: 'Fase 1 — PWA instalável e offline, avisos de atualização e de instalação',
+    summary:
+      'vite-plugin-pwa 2.0.0 (registerType prompt, registro feito pelo app em registerPwa, precache de todo o build, navigateFallback index.html com /cdn-cgi/ fora do SW, manifest com credenciais para o Access). Primeira store Zustand (uiStore.updateAvailable). UpdateNotice ("Nova versão disponível" + Atualizar) acima da barra e InstallHint no topo do layout (CA-11.6), ambos sobre o novo primitivo Notice. Ícones provisórios gerados por scripts/generate-icons.mjs só com zlib; favicon.svg do template removido; metatags do iOS. README com deploy e Access (§6.10). D-23, D-24 e D-25 registradas, aguardando confirmação. Pendente (humano): criar o projeto no Cloudflare Pages e configurar o Access.',
+    commits: [],
+    committed: false,
+    requirements: [
+      'RF-11',
+      'CA-11.1',
+      'CA-11.2',
+      'CA-11.3',
+      'CA-11.6',
+      'RF-12',
+      'CA-12.1',
+      'CA-12.3',
+      'RNF-03',
+    ],
+    decisions: ['D-09', 'D-13', 'D-23', 'D-24', 'D-25'],
+    files: {
+      created: [
+        'src/stores/uiStore.ts',
+        'src/stores/uiStore.test.ts',
+        'src/app/pwa/registerPwa.ts',
+        'src/app/pwa/registerPwa.test.ts',
+        'src/app/pwa/usePwaUpdate.ts',
+        'src/app/pwa/useIsStandalone.ts',
+        'src/app/pwa/UpdateNotice.tsx',
+        'src/app/pwa/UpdateNotice.test.tsx',
+        'src/app/pwa/InstallHint.tsx',
+        'src/app/pwa/InstallHint.test.tsx',
+        'src/app/pwa/indexHtmlPwaTags.test.ts',
+        'src/components/ui/Notice.tsx',
+        'src/lib/displayMode.ts',
+        'src/lib/displayMode.test.ts',
+        'scripts/generate-icons.mjs',
+        'public/pwa-192x192.png',
+        'public/pwa-512x512.png',
+        'public/pwa-maskable-512x512.png',
+        'public/apple-touch-icon.png',
+        'public/favicon.png',
+      ],
+      modified: [
+        'package.json',
+        'package-lock.json',
+        'vite.config.ts',
+        'tsconfig.app.json',
+        'index.html',
+        'src/main.tsx',
+        'src/app/layout/AppLayout.tsx',
+        'src/test/matchMedia.ts',
+        'src/test/setup.ts',
+        'README.md',
+        'docs/SPEC.md',
+      ],
+      removed: TEMPLATE_FILES_REMOVED_IN_PHASE_1,
+    },
+    impact: [
+      'pacotes novos: zustand (dependency) e vite-plugin-pwa (devDependency; workbox-window transitivo)',
+      'camada stores ativada (uiStore)',
+      'nova pasta src/app/pwa e novo primitivo Notice',
+      'build gera sw.js, workbox-*.js e manifest.webmanifest; precache de todo o dist/',
+      'fluxos: ciclo de atualização do SW, procura ao ficar visível, modo instalado, offline/Access',
+    ],
+  },
+  {
+    id: 'decisions-d23-d25',
+    date: '2026-10-18',
+    phase: 1,
+    type: 'decision',
+    title: 'D-23, D-24 e D-25 registradas (aguardando confirmação do dono)',
+    summary:
+      'D-23: aviso fora do modo instalado no layout, só texto, sem fechar. D-24: procurar versão nova com registration.update() ao ficar visível e online, ignorando falhas. D-25: ícones provisórios gerados com módulos nativos do Node, favicon.svg removido e meta apple-mobile-web-app-title "Gastos". O cabeçalho da spec continua em 1.4.',
+    commits: [],
+    committed: false,
+    requirements: ['CA-11.3', 'CA-11.6', 'CA-12.3'],
+    decisions: ['D-23', 'D-24', 'D-25'],
+    files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
+    impact: ['3 decisões pendentes de confirmação'],
+  },
+  {
+    id: 'phase-1-review-fixes',
+    date: '2026-10-18',
+    phase: 1,
+    type: 'fix',
+    title: 'Fase 1 — correções da revisão',
+    summary:
+      'Reserva de espaço do aviso: --update-notice-height em index.css, reserve-update-notice soma a altura ao pb-below-nav enquanto o aviso aparece e bottom-above-nav posiciona o aviso (AppLayout.test.tsx garante as duas alturas iguais). Foco visível branco no Notice.Action (o anel azul sumia sobre o fundo azul). Limpeza dos listeners: registerPwa devolve a limpeza com AbortController, segura mesmo se o registro terminar depois. Opções do plugin extraídas para pwaOptions.ts (PWA_OPTIONS), importadas pelo vite.config.ts e protegidas por pwaOptions.test.ts; tsconfig.node.json passa a incluí-lo.',
+    commits: [],
+    committed: false,
+    requirements: ['CA-11.2', 'CA-11.3', 'CA-12.3', 'RNF-06'],
+    decisions: ['D-24'],
+    files: {
+      created: [
+        'src/app/layout/AppLayout.test.tsx',
+        'src/app/pwa/pwaOptions.ts',
+        'src/app/pwa/pwaOptions.test.ts',
+      ],
+      modified: [
+        'src/index.css',
+        'src/styles/utilities.css',
+        'src/app/layout/AppLayout.tsx',
+        'src/app/pwa/UpdateNotice.tsx',
+        'src/components/ui/Notice.tsx',
+        'src/app/pwa/registerPwa.ts',
+        'src/app/pwa/registerPwa.test.ts',
+        'vite.config.ts',
+        'tsconfig.node.json',
+      ],
+      removed: [],
+    },
+    impact: [
+      'nova aresta config → app (vite.config.ts → pwaOptions.ts), exceção restrita',
+      'novos utilitários CSS: reserve-update-notice, bottom-above-nav',
+    ],
+  },
+  {
+    id: 'architecture-page-phase-1',
+    date: '2026-10-18',
+    phase: 1,
+    type: 'docs',
+    title: 'Página de arquitetura: Fase 1 (PWA, store, artefatos do build)',
+    summary:
+      'Nova seção "PWA e artefatos do build" com diagrama SVG (fontes → vite build → dist/, src/dev riscado), opções do plugin, último build (sw.js, manifest, precache, CSS, vazamentos DEV), public/ e pendências/riscos. Estado de interface mostra quem lê cada campo e chama cada ação do uiStore. Quatro fluxos novos (ciclo de atualização, D-24, modo instalado, offline/Access). D-23 a D-25 como pendentes. Fase 0 marcada como commitada (93ae3b6). Scanner: scripts/ na camada config (arquivos gerados), public/ com quem cita/gera, opções do PWA, leitura do dist/ (precache e marcas da página DEV) e campos das stores Zustand.',
+    commits: [],
+    committed: false,
+    requirements: [],
+    decisions: ['D-17', 'D-23', 'D-24', 'D-25'],
+    files: {
+      created: [
+        'src/dev/architecture/components/PwaSection.tsx',
+        'src/dev/architecture/components/PwaTopologyDiagram.tsx',
+      ],
+      modified: [
+        '.claude/skills/atualizar-arquitetura/scan-architecture.mjs',
+        'src/dev/architecture/types.ts',
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+        'src/dev/architecture/data/module-graph.json',
+        'src/dev/architecture/components/UiStateSection.tsx',
+        'src/dev/architecture/ArchitecturePage.tsx',
+        'src/dev/architecture/ArchitecturePage.test.tsx',
+      ],
+      removed: [],
+    },
+    impact: ['nova seção: PWA e build', 'scanner lê scripts/, public/ e dist/'],
   },
 ]

@@ -8,6 +8,7 @@ const SECTION_TITLES = [
   'Camadas',
   'Grafo de módulos',
   'Rotas e telas',
+  'PWA e artefatos do build',
   'Composição de componentes',
   'Fluxos de dados e interações',
   'Modelo de dados',
@@ -46,6 +47,18 @@ describe('ArchitecturePage (§6.12)', () => {
     fireEvent.click(within(results).getAllByRole('button')[0])
     const inspector = screen.getByRole('complementary', { name: 'Inspetor de módulo' })
     expect(within(inspector).getByRole('heading', { name: /useTheme/ })).toBeDefined()
+  })
+
+  it('o diagrama do PWA abre o módulo das opções no inspetor', () => {
+    render(<ArchitecturePage />)
+    const diagram = screen.getByRole('img', { name: /^Topologia do PWA/ })
+    fireEvent.click(
+      within(diagram).getByRole('button', { name: 'Abrir src/app/pwa/pwaOptions.ts no inspetor' }),
+    )
+    const inspector = screen.getByRole('complementary', { name: 'Inspetor de módulo' })
+    expect(
+      within(inspector).getByRole('heading', { name: 'src/app/pwa/pwaOptions.ts' }),
+    ).toBeDefined()
   })
 
   // D-17 — em DEV (e nos testes) a rota existe, fora do layout com barra inferior.
