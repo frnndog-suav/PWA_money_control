@@ -159,7 +159,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'lib',
     status: 'allowed',
     reason:
-      'Provider de tema usa as regras puras do tema; useIsStandalone usa lib/displayMode; pwaOptions usa THEME_COLORS.',
+      'Provider de tema usa as regras puras do tema; useIsStandalone usa lib/displayMode; registerPwa usa lib/updateCheck (D-24); pwaOptions usa THEME_COLORS.',
   },
   {
     from: 'app',
@@ -271,7 +271,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'db',
     status: 'exception',
     reason:
-      'Exceção consciente ao princípio 7 (D-30, aguardando confirmação): useSampleDataTools importa o db e sampleDataStore grava/apaga as quatro tabelas de dados numa transação. Vale só para src/dev, que fica fora do build de produção.',
+      'Exceção consciente ao princípio 7 (D-30, confirmada pelo dono): useSampleDataTools importa o db e sampleDataStore grava/apaga as quatro tabelas de dados numa transação. Vale só para src/dev, que fica fora do build de produção.',
     onlyTargets: ['src/db/database.ts'],
   },
   { from: 'app', to: 'app', status: 'allowed', reason: 'Organização interna.' },
@@ -1177,7 +1177,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'register',
         label: 'onRegisteredSW(registration)',
         detail:
-          'Liga o listener de visibilitychange com { signal } do AbortController (ver o fluxo D-24). Se a limpeza já tiver rodado, não liga nada.',
+          'Chama checkForUpdatesPeriodically: checagem imediata ao abrir, listeners de visibilitychange, focus e online com { signal } do AbortController e intervalo de 30 min (ver o fluxo "Checagem de versão nova (D-24)"). Se a limpeza já tiver rodado, não liga nada.',
         refs: ['D-24'],
         kind: 'return',
       },
@@ -1283,38 +1283,99 @@ export const FLOWS: readonly Flow[] = [
   },
   {
     id: 'pwa-visibility-check',
-    title: 'Procura de versão nova ao voltar a ficar visível (D-24)',
+    title: 'Checagem de versão nova (D-24)',
     summary:
-      'O app instalado no iPhone volta do segundo plano sem navegar, e o navegador só procura versões novas ao navegar. O registerPwa pede ao SW que procure ao ficar visível e online, ignorando falhas.',
-    requirements: ['CA-11.3', 'CA-12.3', 'D-24'],
+      'O navegador só procura versões novas ao navegar, e no iPhone o app instalado abre do zero ou volta do segundo plano sem navegação nova; o visibilitychange nem sempre dispara (item C 9 do teste da Fase 2: o aviso só apareceu depois de recarregar). O registerPwa pede registration.update() ao abrir, no visibilitychange visível, no focus, no online e a cada 30 min, sempre online, visível e com ≥ 1 min entre checagens (shouldCheckForUpdate), ignorando falhas. Nada recarrega sozinho: a troca é pelo toque em "Atualizar".',
+    requirements: ['RF-11', 'CA-11.3', 'CA-12.3', 'D-24'],
     participants: [
-      { id: 'doc', label: 'document / navigator' },
+      { id: 'plugin', label: 'registerSW (plugin)' },
       { id: 'register', label: 'registerPwa', module: 'src/app/pwa/registerPwa.ts' },
+      { id: 'env', label: 'document / window' },
+      { id: 'lib', label: 'lib/updateCheck', module: 'src/lib/updateCheck.ts' },
       { id: 'registration', label: 'SW registration' },
       { id: 'network', label: 'Rede (Cloudflare Pages)' },
+      { id: 'store', label: 'uiStore', module: 'src/stores/uiStore.ts' },
+      { id: 'notice', label: 'UpdateNotice', module: 'src/app/pwa/UpdateNotice.tsx' },
+      { id: 'user', label: 'Usuário' },
     ],
     steps: [
       {
-        from: 'doc',
+        from: 'register',
+        to: 'plugin',
+        label: 'registerSW({ immediate: true, … })',
+        detail:
+          'registerPwa(registerSW) é chamado pelo main.tsx antes do createRoot e cria o AbortController que desliga tudo na limpeza.',
+        refs: ['RF-11'],
+        kind: 'call',
+      },
+      {
+        from: 'plugin',
         to: 'register',
-        label: 'visibilitychange',
-        detail: 'Listener registrado com { signal }: a limpeza (abort) remove-o.',
+        label: 'onRegisteredSW(registration)',
+        detail:
+          'Sem registration (navegador sem service worker) não faz nada. Com ela, chama checkForUpdatesPeriodically(registration, signal).',
         refs: ['D-24'],
-        kind: 'event',
+        kind: 'return',
       },
       {
         from: 'register',
-        to: 'doc',
-        label: 'visible && onLine?',
-        detail: 'Indo para o segundo plano ou sem internet: não faz nada.',
+        to: 'register',
+        label: 'checkForUpdatesPeriodically',
+        detail:
+          'Se o signal já foi abortado (limpeza antes de o registro terminar), sai sem ligar nada. Guarda lastCheckAt = null na closure.',
         refs: ['D-24'],
         kind: 'call',
       },
       {
         from: 'register',
+        to: 'env',
+        label: 'listeners + setInterval(30 min)',
+        detail:
+          'visibilitychange (document), focus e online (window), todos com { signal }; setInterval com UPDATE_CHECK_INTERVAL_MS (30 min). O abort do signal também faz clearInterval.',
+        refs: ['D-24'],
+        kind: 'call',
+      },
+      {
+        from: 'register',
+        to: 'register',
+        label: 'gatilho: abertura',
+        detail:
+          'Checagem imediata ao terminar o registro, sem esperar evento: é a correção do item C 9 (teste "procura versão nova logo ao abrir, sem esperar visibilitychange").',
+        refs: ['D-24', 'CA-11.3'],
+        kind: 'event',
+      },
+      {
+        from: 'env',
+        to: 'register',
+        label: 'visibilitychange · focus · online · 30 min',
+        detail:
+          'Demais gatilhos. Focus e visibilitychange costumam disparar juntos ao voltar do segundo plano; o intervalo mínimo transforma os dois numa checagem só.',
+        refs: ['D-24'],
+        kind: 'event',
+      },
+      {
+        from: 'register',
+        to: 'lib',
+        label: 'shouldCheckForUpdate({ isOnline, isVisible, now, lastCheckAt })',
+        detail:
+          'isOnline = navigator.onLine; isVisible = document.visibilityState === "visible"; now = Date.now(). Função pura, testada em updateCheck.test.ts.',
+        refs: ['D-24'],
+        kind: 'call',
+      },
+      {
+        from: 'lib',
+        to: 'register',
+        label: 'false → nada',
+        detail:
+          'Offline, documento oculto ou menos de MIN_UPDATE_CHECK_GAP_MS (1 min) desde a última checagem. Primeira checagem (lastCheckAt null) online e visível → true.',
+        refs: ['D-24'],
+        kind: 'return',
+      },
+      {
+        from: 'register',
         to: 'registration',
-        label: 'registration.update()',
-        detail: 'Pede ao navegador que baixe o sw.js de novo.',
+        label: 'true → registration.update()',
+        detail: 'Antes grava lastCheckAt = now. Pede ao navegador que baixe o sw.js de novo.',
         refs: ['D-24'],
         kind: 'call',
       },
@@ -1323,7 +1384,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'network',
         label: 'GET /sw.js',
         detail:
-          'Chega ao Cloudflare Pages (hoje sem restrição de acesso — D-26); se o sw.js mudou, segue o ciclo de atualização (onNeedRefresh).',
+          'Chega ao Cloudflare Pages (hoje sem restrição de acesso — D-26). Se o sw.js mudou, o SW novo instala e fica em waiting (registerType "prompt").',
         refs: ['CA-11.3'],
         kind: 'call',
       },
@@ -1332,12 +1393,63 @@ export const FLOWS: readonly Flow[] = [
         to: 'register',
         label: 'falha → .catch(() => undefined)',
         detail:
-          'Sem rede: falha esperada, tenta de novo na próxima vez que o app ficar visível. Se a Fase 12 (opcional) ativar o Access, a sessão expirada (redirect para o login) cai no mesmo caminho (CA-12.3).',
+          'Sem rede: falha esperada, o próximo gatilho tenta de novo. Se a Fase 12 (opcional) ativar o Access, a sessão expirada cai no mesmo caminho (CA-12.3).',
         refs: ['CA-12.3', 'D-24'],
         kind: 'return',
       },
+      {
+        from: 'plugin',
+        to: 'register',
+        label: 'versão nova → onNeedRefresh()',
+        detail: 'O plugin avisa que há um SW em espera. Nada recarrega sozinho.',
+        refs: ['CA-11.3'],
+        kind: 'event',
+      },
+      {
+        from: 'register',
+        to: 'store',
+        label: 'setUpdateAvailable(true)',
+        detail: 'Único efeito do onNeedRefresh.',
+        refs: ['CA-11.3'],
+        kind: 'call',
+      },
+      {
+        from: 'store',
+        to: 'notice',
+        label: 'updateAvailable → "Nova versão disponível"',
+        detail:
+          'UpdateNotice lê pelo usePwaUpdate (fachada); o AppLayout reserva o espaço do aviso acima da barra.',
+        refs: ['CA-11.3'],
+        kind: 'event',
+      },
+      {
+        from: 'user',
+        to: 'notice',
+        label: 'toca "Atualizar"',
+        detail: 'Só o toque troca a versão.',
+        refs: ['CA-11.3'],
+        kind: 'event',
+      },
+      {
+        from: 'notice',
+        to: 'register',
+        label: 'applyUpdate → applyPwaUpdate()',
+        detail:
+          'applyPwaUpdate chama updateSW(true): o SW em espera assume e o plugin recarrega a página.',
+        refs: ['CA-11.3'],
+        kind: 'call',
+      },
+      {
+        from: 'register',
+        to: 'env',
+        label: 'limpeza: abort() + clearInterval',
+        detail:
+          'A função devolvida por registerPwa aborta o AbortController: remove visibilitychange, focus e online e para o intervalo. Funciona mesmo se o registro terminar depois dela.',
+        refs: ['D-24'],
+        kind: 'call',
+      },
     ],
-    tests: ['src/app/pwa/registerPwa.test.ts'],
+    tests: ['src/app/pwa/registerPwa.test.ts', 'src/lib/updateCheck.test.ts'],
   },
   {
     id: 'pwa-install-hint',
@@ -1702,7 +1814,7 @@ export const FLOWS: readonly Flow[] = [
     id: 'sample-data',
     title: 'Dados de exemplo: gerar e apagar (somente DEV)',
     summary:
-      'Em DEV, a tela Sobre carrega com lazy() uma seção extra. "Gerar" substitui tags, lançamentos, recorrentes e parcelamentos por uma massa determinística; "Apagar" limpa essas quatro tabelas e mantém settings. As duas pedem confirmação e gravam numa única transação. Acessa o db diretamente: exceção ao princípio 7 só para src/dev (D-30, aguardando confirmação).',
+      'Em DEV, a tela Sobre carrega com lazy() uma seção extra. "Gerar" substitui tags, lançamentos, recorrentes e parcelamentos por uma massa determinística; "Apagar" limpa essas quatro tabelas e mantém settings. As duas pedem confirmação e gravam numa única transação. Acessa o db diretamente: exceção ao princípio 7 só para src/dev (D-30, confirmada pelo dono).',
     requirements: ['D-30', 'RNF-02'],
     participants: [
       { id: 'dev', label: 'Desenvolvedor' },
@@ -2066,9 +2178,10 @@ export const DECISIONS: readonly DecisionInfo[] = [
   },
   {
     id: 'D-24',
-    title: 'Procurar versão nova ao ficar visível e online (registration.update())',
+    title:
+      'Procurar versão nova (registration.update()) ao abrir, ao ficar visível, no foco, no online e a cada 30 min — online, ≥ 1 min entre checagens (ampliada na spec 1.10)',
     status: 'confirmed',
-    impacts: ['src/app/pwa/registerPwa.ts'],
+    impacts: ['src/app/pwa/registerPwa.ts', 'src/lib/updateCheck.ts'],
   },
   {
     id: 'D-25',
@@ -2093,7 +2206,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
   {
     id: 'D-27',
     title: 'Versão do app via define (__APP_VERSION__ do package.json)',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'vite.config.ts',
       'src/globals.d.ts',
@@ -2104,7 +2217,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
   {
     id: 'D-28',
     title: 'Tema no Dexie com espelho em localStorage; persistRequested gravado antes do pedido',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'src/repositories/themeRepository.ts',
       'src/repositories/useThemePreference.ts',
@@ -2118,14 +2231,15 @@ export const DECISIONS: readonly DecisionInfo[] = [
   },
   {
     id: 'D-29',
-    title: 'Dinheiro e bytes em texto (U+00A0, U+2212, 11 dígitos, Map nos grupos, KB decimal)',
-    status: 'pending',
+    title:
+      'Dinheiro e bytes em texto (U+00A0, U+2212, 10 dígitos — D-31, Map nos grupos, KB decimal)',
+    status: 'confirmed',
     impacts: ['src/domain/money.ts', 'src/domain/balances.ts', 'src/lib/formatBytes.ts'],
   },
   {
     id: 'D-30',
     title: 'Ferramentas DEV de dados de exemplo (semente, substituir, apagar mantendo settings)',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'src/dev/sampleData/buildSampleData.ts',
       'src/dev/sampleData/seededRandom.ts',
@@ -2135,6 +2249,12 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/dev/sampleData/sampleData.css',
       'src/features/settings/AboutPage.tsx',
     ],
+  },
+  {
+    id: 'D-31',
+    title: 'Campo de valor com no máximo 10 dígitos (MAX_AMOUNT_DIGITS = 10, teto do RF-01)',
+    status: 'confirmed',
+    impacts: ['src/domain/money.ts', 'src/domain/money.test.ts', 'src/domain/balances.test.ts'],
   },
 ]
 
@@ -2181,7 +2301,19 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
   {
-    title: 'D-27 a D-30 aguardando confirmação do dono',
+    title: 'Pendente (dono): confirmar no iPhone que o aviso de versão nova aparece sem recarregar',
+    severity: 'warn',
+    detail:
+      'Item C 9 do roteiro da Fase 2: o aviso "Nova versão disponível" só apareceu depois de recarregar a página no app instalado no iPhone, porque o visibilitychange nem sempre dispara. Corrigido em 19/10/2026 (spec 1.10, D-24 ampliada): checagem ao abrir, no visibilitychange, no focus, no online e a cada 30 min, decidida por shouldCheckForUpdate. Os testes automáticos (registerPwa.test.ts, inclusive "procura versão nova logo ao abrir, sem esperar visibilitychange") passam, mas falta a verificação manual: depois de um deploy, abrir ou voltar ao app instalado no iPhone e ver o aviso sem recarregar. Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'src/app/pwa/registerPwa.ts',
+      'src/app/pwa/registerPwa.test.ts',
+      'src/lib/updateCheck.ts',
+      'src/app/pwa/UpdateNotice.tsx',
+    ],
+  },
+  {
+    title: 'D-27 a D-30 aguardavam confirmação do dono',
     severity: 'warn',
     detail:
       'Registradas na §8.1 em 19/10/2026 durante a Fase 2 (spec 1.8), ainda sem "Confirmado pelo dono": versão do app pelo define (D-27); tema no Dexie com espelho e persistRequested gravado antes do pedido (D-28); formatos de dinheiro e bytes (D-29); ferramentas DEV de dados de exemplo, inclusive "Apagar todos os dados" mantendo a tabela settings e o acesso direto ao db como exceção ao princípio 7 (D-30).',
@@ -2194,25 +2326,30 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/lib/formatBytes.ts',
       'src/dev/sampleData/sampleDataStore.ts',
     ],
+    resolved: 'Confirmadas pelo dono em 19/10/2026 (spec 1.9, §8.1).',
   },
   {
     title: 'Spec: exemplo do CA-05.3 não vai de segunda a domingo',
     severity: 'warn',
     detail:
-      'O CA-05.3 diz que a semana vai de segunda a domingo e dá o exemplo "13 a 19 de out. de 2026", mas 13/10/2026 é uma terça. A semana correta é "12 a 18 de out. de 2026" (weekRange com weekStartsOn: 1, princípio 3). O código e os testes seguem a regra, com comentário sobre o exemplo; falta o dono corrigir o texto da spec.',
+      'O CA-05.3 diz que a semana vai de segunda a domingo e dava o exemplo "13 a 19 de out. de 2026", mas 13/10/2026 é uma terça. A semana correta é "12 a 18 de out. de 2026" (weekRange com weekStartsOn: 1, princípio 3). O código e os testes seguem a regra, com comentário sobre o exemplo; faltava o dono corrigir o texto da spec.',
     modules: [
       'docs/SPEC.md',
       'src/domain/dates.ts',
       'src/domain/dates.test.ts',
       'src/domain/dates.calendar.test.ts',
     ],
+    resolved:
+      'Spec 1.9 (19/10/2026): o exemplo do CA-05.3 passou a ser "12 a 18 de out. de 2026"; os comentários dos testes de weekRange foram atualizados.',
   },
   {
     title: 'Spec: limite de dígitos do valor diverge (10 × 11)',
     severity: 'warn',
     detail:
-      'O RF-01 limita o valor a 9.999.999.999 centavos (R$ 99.999.999,99, 10 dígitos); a §6.5 e a §6.11 falam em limite de 11 dígitos no MoneyInput/digitsToCents. O código segue a §6.5 (MAX_AMOUNT_DIGITS = 11, MAX_AMOUNT_CENTS) e a D-29 deixa o teto do RF-01 para a validação do formulário na Fase 4. O dono precisa decidir qual número vale antes da Fase 4.',
+      'O RF-01 limita o valor a 9.999.999.999 centavos (R$ 99.999.999,99, 10 dígitos); a §6.5 e a §6.11 falavam em limite de 11 dígitos no MoneyInput/digitsToCents. O código seguia a §6.5 (MAX_AMOUNT_DIGITS = 11, MAX_AMOUNT_CENTS) e a D-29 deixava o teto do RF-01 para a validação do formulário na Fase 4.',
     modules: ['docs/SPEC.md', 'src/domain/money.ts', 'src/domain/money.test.ts'],
+    resolved:
+      'Resolvido pela D-31 (confirmada pelo dono em 19/10/2026, spec 1.9): a máscara aceita no máximo 10 dígitos (MAX_AMOUNT_DIGITS = 10), o mesmo teto do RF-01; §6.5 e §6.11 corrigidas e testes de money/balances ajustados.',
   },
   {
     title: 'Pacote principal com 423 kB (135 kB gzip) por causa do Dexie',
@@ -2225,7 +2362,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'Ferramentas DEV acessam o db diretamente (exceção ao princípio 7)',
     severity: 'info',
     detail:
-      'useSampleDataTools importa o db e sampleDataStore grava/apaga as quatro tabelas de dados. É uma exceção consciente, documentada na D-30 (aguardando confirmação) e válida só para src/dev, que não entra no build (verificado no dist/). Na regra de camadas aparece como exceção dev → db restrita a src/db/database.ts. O scanner só vê as escritas em sampleDataStore (o hook passa o db como parâmetro).',
+      'useSampleDataTools importa o db e sampleDataStore grava/apaga as quatro tabelas de dados. É uma exceção consciente, documentada na D-30 (confirmada pelo dono) e válida só para src/dev, que não entra no build (verificado no dist/). Na regra de camadas aparece como exceção dev → db restrita a src/db/database.ts. O scanner só vê as escritas em sampleDataStore (o hook passa o db como parâmetro).',
     modules: [
       'src/dev/sampleData/useSampleDataTools.ts',
       'src/dev/sampleData/sampleDataStore.ts',
@@ -2395,7 +2532,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/app/layout/AppLayout.tsx':
     'Compõe InstallHint (topo do <main>), Outlet, UpdateNotice e BottomNav. Usa usePwaUpdate só para decidir a classe reserve-update-notice do <main>.',
   'src/app/pwa/registerPwa.ts':
-    'Recebe o registerSW por parâmetro (testável sem o módulo virtual). onNeedRefresh → setUpdateAvailable(true); applyPwaUpdate → updateSW(true). Listener de visibilitychange (D-24) atrelado a um AbortController; a função devolvida faz a limpeza, inclusive se o registro terminar depois dela.',
+    'Recebe o registerSW por parâmetro (testável sem o módulo virtual). onNeedRefresh → setUpdateAvailable(true); applyPwaUpdate → updateSW(true). checkForUpdatesPeriodically (D-24, ampliada na spec 1.10): registration.update() ao abrir, no visibilitychange, no focus, no online e a cada 30 min, decidido por shouldCheckForUpdate (lib/updateCheck) e com falhas ignoradas. Listeners atrelados a um AbortController e intervalo parado com clearInterval no abort; a função devolvida faz a limpeza, inclusive se o registro terminar depois dela.',
   'src/app/pwa/pwaOptions.ts':
     'PWA_OPTIONS (§6.9): registerType prompt, injectRegister false, useCredentials true, includeManifestIcons false (os ícones já entram pelo globPatterns), manifest e workbox (precache, navigateFallback, denylist /cdn-cgi/). useCredentials e a denylist /cdn-cgi/ estão prontos para a Fase 12 (acesso restrito, opcional — D-26); hoje o site não tem Access. Protegido por pwaOptions.test.ts.',
   'src/app/pwa/usePwaUpdate.ts':
@@ -2410,6 +2547,8 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     'Primeira store Zustand: só updateAvailable/setUpdateAvailable. INITIAL_UI_STATE é exportado para src/test/setup.ts resetar o estado entre testes. transactionFilters (Fase 5) e viewGranularity/viewAnchorDate (Fase 7) ainda não existem.',
   'src/components/ui/Notice.tsx':
     'Primitivo genérico (sem conhecimento de PWA). Sem teste próprio: coberto pelos testes de UpdateNotice e InstallHint.',
+  'src/lib/updateCheck.ts':
+    'Regra pura da D-24: shouldCheckForUpdate({ isOnline, isVisible, now, lastCheckAt }) só libera online, visível e com ≥ MIN_UPDATE_CHECK_GAP_MS (1 min) desde a última checagem; UPDATE_CHECK_INTERVAL_MS (30 min) é o intervalo do registerPwa. Relógio injetado (now), sem acesso a navigator/document. Criado na correção do item C 9 (Fase 2).',
   'src/lib/displayMode.ts':
     'Regra pura do modo instalado + a constante da media query (reusada pelo dublê src/test/matchMedia.ts).',
   'src/styles/utilities.css':
@@ -2448,7 +2587,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/domain/types.ts':
     'Tipos da §6.3 (Cents, DateString, PeriodString, Tag, Transaction, Recurring, InstallmentGroup, Setting).',
   'src/domain/money.ts':
-    'Centavos inteiros (princípio 1): formatBRL/formatSignedBRL (U+00A0 e U+2212 — D-29), digitsToCents (até MAX_AMOUNT_DIGITS = 11), addCents com Number.isSafeInteger. MAX_AMOUNT_CENTS é o teto do RF-01 (ver o achado sobre 10 × 11 dígitos).',
+    'Centavos inteiros (princípio 1): formatBRL/formatSignedBRL (U+00A0 e U+2212 — D-29), digitsToCents (até MAX_AMOUNT_DIGITS = 10 — D-31, os mesmos dígitos de MAX_AMOUNT_CENTS, o teto do RF-01), addCents com Number.isSafeInteger.',
   'src/domain/dates.ts':
     'Datas sem fuso (princípio 2) com parseISO do date-fns; semana de segunda (weekStartsOn: 1). Testes de calendário (bissextos, virada de ano) e de fuso (dates.timezone.test.ts).',
   'src/domain/balances.ts':

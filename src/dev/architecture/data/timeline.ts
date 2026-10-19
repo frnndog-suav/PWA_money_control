@@ -3,7 +3,9 @@
 // Entregas ainda não commitadas ficam com `committed: false` e `commits: []`.
 // A Fase 0 inteira (inclusive esta página) entrou no commit 93ae3b6 (17/10/2026); a Fase 1
 // (PWA, correções da revisão e a página atualizada) entrou no 38ae487 (18/10/2026); o fechamento
-// da Fase 1, a D-26 e a confirmação de D-23 a D-25 entraram no beaba97 (19/10/2026).
+// da Fase 1, a D-26 e a confirmação de D-23 a D-25 entraram no beaba97 (19/10/2026); a Fase 2
+// inteira (domínio, banco, D-27 a D-30, testes reforçados, revisão e esta página) entrou no
+// b9ad2e1 (19/10/2026).
 
 import type { TimelineEntry } from '@/dev/architecture/types'
 
@@ -708,8 +710,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 2: domínio puro, Dexie v1, tema no Dexie, armazenamento e tela Sobre',
     summary:
       'Domínio em src/domain (types da §6.3; money, dates, balances e tagColor da §6.5) com testes. Banco Dexie "money-control" com o esquema versão 1 da §6.4 e SCHEMA_VERSION = 1. Repositório de settings; o tema passa a ter a tabela settings como fonte da verdade, com espelho em localStorage para o script do index.html e migração única do valor antigo (D-28). useTheme e ThemeContext saem de src/app/theme para src/repositories: D-22 quitada, nenhuma feature importa de app/. lib/storage com persist()/persisted()/estimate(); pedido único de armazenamento persistente na abertura, registrado antes do pedido numa transação (CA-11.4). Tela Ajustes → Sobre com versão do app (define do Vite — D-27), versão do esquema e espaço usado (D-29), com o primitivo InfoList. Ferramentas DEV de dados de exemplo (12 tags, 5.000 lançamentos, 4 recorrentes, 3 parcelamentos) carregadas com lazy() só em DEV, com CSS próprio (D-30). Pacotes novos da §6.1: dexie 4.4.6, dexie-react-hooks 4.4.0, date-fns 4.4.0. Fase 2 com 7/7 tarefas.',
-    commits: [],
-    committed: false,
+    commits: ['b9ad2e1'],
+    committed: true,
     requirements: [
       'RF-09',
       'CA-09.2',
@@ -819,15 +821,15 @@ export const TIMELINE: readonly TimelineEntry[] = [
     date: '2026-10-19',
     phase: 2,
     type: 'decision',
-    title: 'D-27 a D-30 registradas (aguardando confirmação do dono)',
+    title: 'D-27 a D-30 registradas (confirmadas pelo dono na spec 1.9)',
     summary:
-      'Spec 1.8. D-27: versão do app pelo define do Vite (__APP_VERSION__). D-28: tema no Dexie com espelho em localStorage, migração única e persistRequested gravado antes do pedido de persist(), numa transação. D-29: formatos de dinheiro (U+00A0, U+2212, 11 dígitos em digitsToCents, Map nos agrupamentos) e de bytes (unidades decimais). D-30: ferramentas DEV de dados de exemplo (semente mulberry32, UUID derivados, substituir/apagar com confirmação e transação, "apagar tudo" mantém settings, acesso direto ao db como exceção ao princípio 7 só em src/dev). Nenhuma confirmada ainda.',
-    commits: [],
-    committed: false,
+      'Spec 1.8. D-27: versão do app pelo define do Vite (__APP_VERSION__). D-28: tema no Dexie com espelho em localStorage, migração única e persistRequested gravado antes do pedido de persist(), numa transação. D-29: formatos de dinheiro (U+00A0, U+2212, 11 dígitos em digitsToCents — depois 10, pela D-31 —, Map nos agrupamentos) e de bytes (unidades decimais). D-30: ferramentas DEV de dados de exemplo (semente mulberry32, UUID derivados, substituir/apagar com confirmação e transação, "apagar tudo" mantém settings, acesso direto ao db como exceção ao princípio 7 só em src/dev). Registradas sem confirmação; o dono confirmou as quatro em 19/10/2026 (spec 1.9).',
+    commits: ['b9ad2e1'],
+    committed: true,
     requirements: ['CA-09.3', 'CA-11.4', 'CA-11.5', 'CA-01.3'],
     decisions: ['D-27', 'D-28', 'D-29', 'D-30'],
     files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
-    impact: ['4 decisões pendentes de confirmação'],
+    impact: ['4 decisões registradas (confirmadas depois, na spec 1.9)'],
   },
   {
     id: 'phase-2-tests-reinforced',
@@ -837,8 +839,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Testes da Fase 2 reforçados (domain-test-writer): 381 testes, 100% em domain/lib',
     summary:
       'O agente domain-test-writer acrescentou testes de propriedade (somas e saldos com o gerador com semente), de calendário (anos bissextos em addMonthsClamped, virada de ano nas semanas, todos os dias de vários anos) e de fuso (datas sem fuso com o TZ do processo alterado). A suíte chegou a 381 testes, com 100% de cobertura em src/domain e src/lib (meta da RNF-07: ≥ 90%).',
-    commits: [],
-    committed: false,
+    commits: ['b9ad2e1'],
+    committed: true,
     requirements: ['RNF-07', 'CA-05.3', 'CA-08.1', 'CA-02.3', 'D-03'],
     decisions: [],
     files: {
@@ -861,8 +863,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Correções da revisão da Fase 2',
     summary:
       'Revisão aprovada e sugestões aplicadas: (1) comentário nos testes de weekRange explicando que o exemplo do CA-05.3 ("13 a 19 de out. de 2026") não vai de segunda a domingo e que o correto é 12 a 18 (o texto da spec fica para o dono); (2) parseThemePreference saiu de src/lib/theme.ts e virou o helper de teste parseStoredThemePreference em src/test/themeReference.ts, usado só pela verificação do script do index.html; (3) D-30 passou a documentar o acesso direto ao db pelas ferramentas DEV como exceção consciente ao princípio 7.',
-    commits: [],
-    committed: false,
+    commits: ['b9ad2e1'],
+    committed: true,
     requirements: ['CA-05.3', 'CA-09.3'],
     decisions: ['D-30'],
     files: {
@@ -887,8 +889,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Página de arquitetura: Fase 2 (banco, domínio, D-22 quitada)',
     summary:
       'Scanner: lê o esquema Dexie da classe do banco (versões, índices, SCHEMA_VERSION, nome do banco), detecta tabelas usadas por uma instância recebida por parâmetro (database.<tabela>), lista os chunks JS do dist/ (tamanho do pacote principal), procura também sampleData/SampleData no dist/ e ganhou a regra FORBIDDEN features → app (D-22). Página: modelo de dados com índices do código e leitores/escritores separados em produção, DEV e testes; funções de domínio reais no lugar das previstas (ficam previstas só backup, recorrentes e parcelas); D-22 nos achados resolvidos e features → app como direção não permitida (cartão novo e seta pontilhada com ✕ no diagrama); exceções novas features → dev e dev → db (D-30); fluxos novos de tema com Dexie, persist(), tela Sobre e dados de exemplo; D-27 a D-30 como pendentes; pendências do dono (CA-05.3, 10 × 11 dígitos, bundle de 423 kB) na saúde; entradas de 19/10 marcadas com o commit beaba97.',
-    commits: [],
-    committed: false,
+    commits: ['b9ad2e1'],
+    committed: true,
     requirements: [],
     decisions: ['D-17', 'D-22', 'D-27', 'D-28', 'D-29', 'D-30'],
     files: {
@@ -918,5 +920,118 @@ export const TIMELINE: readonly TimelineEntry[] = [
       'direções proibidas visíveis na página',
       '4 fluxos novos/refeitos',
     ],
+  },
+  {
+    id: 'spec-1-9-d31',
+    date: '2026-10-19',
+    phase: 2,
+    type: 'decision',
+    title: 'Spec 1.9: CA-05.3 corrigido, D-31 (10 dígitos) e D-27 a D-30 confirmadas',
+    summary:
+      'O exemplo do CA-05.3 passou a ser "12 a 18 de out. de 2026" (semana de segunda a domingo). Nova D-31, confirmada: o campo de valor aceita no máximo 10 dígitos (MAX_AMOUNT_DIGITS = 10), o mesmo teto do RF-01 (R$ 99.999.999,99); §6.5 (digitsToCents) e §6.11 (casos obrigatórios de teste) corrigidas de 11 para 10 dígitos e a D-29 passou a citar a D-31. D-27, D-28, D-29 e D-30 receberam "Confirmado pelo dono".',
+    commits: [],
+    committed: false,
+    requirements: ['RF-01', 'CA-01.3', 'CA-05.3'],
+    decisions: ['D-27', 'D-28', 'D-29', 'D-30', 'D-31'],
+    files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
+    impact: [
+      'nenhuma decisão pendente de confirmação',
+      'achados de saúde resolvidos: D-27 a D-30, CA-05.3 e 10 × 11 dígitos',
+    ],
+  },
+  {
+    id: 'money-10-digits',
+    date: '2026-10-19',
+    phase: 2,
+    type: 'fix',
+    title: 'Máscara do valor limitada a 10 dígitos (D-31)',
+    summary:
+      'MAX_AMOUNT_DIGITS passou de 11 para 10 em src/domain/money.ts: digitsToCents descarta o 11º dígito em diante e o maior valor digitável é exatamente MAX_AMOUNT_CENTS. money.test.ts ganhou o caso do teto (10 noves = MAX_AMOUNT_CENTS, 11 noves também) e manteve a formatação de somas acima do teto; balances.test.ts soma valores no teto do RF-01. Os comentários dos testes de weekRange (dates.test.ts e dates.calendar.test.ts) deixaram de apontar o exemplo antigo do CA-05.3.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-01', 'CA-01.3', 'CA-05.3'],
+    decisions: ['D-31'],
+    files: {
+      created: [],
+      modified: [
+        'src/domain/money.ts',
+        'src/domain/money.test.ts',
+        'src/domain/balances.test.ts',
+        'src/domain/dates.test.ts',
+        'src/domain/dates.calendar.test.ts',
+      ],
+      removed: [],
+    },
+    impact: ['MoneyInput (Fase 4) nunca produz valor acima do teto do RF-01'],
+  },
+  {
+    id: 'architecture-page-test-timeout',
+    date: '2026-10-19',
+    phase: 2,
+    type: 'test',
+    title: 'Página de arquitetura: teste estável sob cobertura e decisões da spec 1.9',
+    summary:
+      'ArchitecturePage.test.tsx falhava sempre no npm run test:coverage (heading "Arquitetura e linha do tempo" não encontrado) e às vezes por timeout no npm test completo: a página renderiza o grafo inteiro e, com a instrumentação, passava do limite de 1 s do findBy* e de 5 s do teste. O arquivo passou a usar 30 s por teste (describe) e 20 s no findByRole da rota DEV, sem sair da cobertura. Curadoria: D-27 a D-30 confirmadas, D-31 nova, achados de D-27 a D-30, CA-05.3 e 10 × 11 dígitos movidos para os resolvidos; entradas da Fase 2 marcadas com o commit b9ad2e1.',
+    commits: [],
+    committed: false,
+    requirements: ['RNF-07'],
+    decisions: ['D-17', 'D-27', 'D-28', 'D-29', 'D-30', 'D-31'],
+    files: {
+      created: [],
+      modified: [
+        'src/dev/architecture/ArchitecturePage.test.tsx',
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+        'src/dev/architecture/data/module-graph.json',
+      ],
+      removed: [],
+    },
+    impact: ['test:coverage estável', 'nenhuma decisão pendente na rastreabilidade'],
+  },
+  {
+    id: 'fix-c9-update-check',
+    date: '2026-10-19',
+    phase: 2,
+    type: 'fix',
+    title: 'Item C 9: aviso de versão nova sem recarregar (spec 1.10, D-24 ampliada)',
+    summary:
+      'No teste manual da Fase 2 o aviso "Nova versão disponível" só apareceu depois de recarregar a página no iPhone: o visibilitychange nem sempre dispara nos apps instalados no iOS. Spec 1.10 (aprovada pelo dono): a D-24 passou a pedir registration.update() ao abrir, no visibilitychange visível, no focus, no online e a cada 30 min, sempre online, com ≥ 1 min entre checagens e ignorando falhas, ainda sem recarregar sozinho. Novo módulo puro src/lib/updateCheck.ts (shouldCheckForUpdate, UPDATE_CHECK_INTERVAL_MS, MIN_UPDATE_CHECK_GAP_MS) com testes. Em registerPwa.ts, checkForUpdatesWhenVisible virou checkForUpdatesPeriodically; a limpeza aborta os listeners pelo AbortController e para o intervalo com clearInterval. registerPwa.test.ts reescrito, com o teste que reproduz a falha: "procura versão nova logo ao abrir, sem esperar visibilitychange". Falta a verificação manual no iPhone.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-11', 'CA-11.3', 'CA-12.3'],
+    decisions: ['D-24'],
+    files: {
+      created: ['src/lib/updateCheck.ts', 'src/lib/updateCheck.test.ts'],
+      modified: ['docs/SPEC.md', 'src/app/pwa/registerPwa.ts', 'src/app/pwa/registerPwa.test.ts'],
+      removed: [],
+    },
+    impact: [
+      'novo módulo lib (função pura)',
+      'nova aresta app/pwa/registerPwa → lib/updateCheck',
+      'fluxo D-24 ampliado (5 gatilhos + intervalo mínimo)',
+    ],
+  },
+  {
+    id: 'architecture-page-c9',
+    date: '2026-10-19',
+    phase: 2,
+    type: 'docs',
+    title: 'Página de arquitetura: checagem de versão nova (D-24 ampliada)',
+    summary:
+      'Fluxo "Checagem de versão nova (D-24)" refeito: registerSW → onRegisteredSW → checkForUpdatesPeriodically, os gatilhos (abertura, visibilitychange, focus, online, 30 min), shouldCheckForUpdate, registration.update() com falhas ignoradas, onNeedRefresh → uiStore → UpdateNotice, "Atualizar" → applyPwaUpdate e a limpeza. Notas de registerPwa e do novo lib/updateCheck, passo onRegisteredSW do ciclo de atualização, direção app → lib e D-24 (confirmada, ampliada) atualizados. Saúde: pendência da verificação manual no iPhone. Grafo regenerado.',
+    commits: [],
+    committed: false,
+    requirements: ['CA-11.3'],
+    decisions: ['D-17', 'D-24'],
+    files: {
+      created: [],
+      modified: [
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+        'src/dev/architecture/data/module-graph.json',
+      ],
+      removed: [],
+    },
+    impact: ['1 fluxo refeito', '1 pendência do dono na saúde'],
   },
 ]

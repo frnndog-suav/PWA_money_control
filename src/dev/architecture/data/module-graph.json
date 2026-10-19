@@ -1,13 +1,13 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-19T16:18:23.282Z",
+  "generatedAt": "2026-10-19T21:47:26.477Z",
   "totals": {
-    "modules": 170,
-    "loc": 12973,
+    "modules": 172,
+    "loc": 13389,
     "components": 73,
     "hooks": 12,
-    "tests": 41,
-    "edges": 444,
+    "tests": 42,
+    "edges": 447,
     "configFiles": 11
   },
   "layerSummary": {
@@ -20,7 +20,7 @@
     },
     "app": {
       "modules": 26,
-      "loc": 791,
+      "loc": 883,
       "components": 17,
       "hooks": 4,
       "tests": 9
@@ -41,14 +41,14 @@
     },
     "dev": {
       "modules": 65,
-      "loc": 8732,
+      "loc": 8995,
       "components": 36,
       "hooks": 2,
       "tests": 5
     },
     "domain": {
       "modules": 12,
-      "loc": 1429,
+      "loc": 1424,
       "components": 0,
       "hooks": 0,
       "tests": 7
@@ -61,11 +61,11 @@
       "tests": 2
     },
     "lib": {
-      "modules": 13,
-      "loc": 368,
+      "modules": 15,
+      "loc": 434,
       "components": 0,
       "hooks": 0,
-      "tests": 7
+      "tests": 8
     },
     "entry": {
       "modules": 1,
@@ -96,7 +96,7 @@
       "tests": 0
     }
   },
-  "specVersion": "1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
@@ -1815,7 +1815,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 99,
+      "loc": 178,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -1823,7 +1823,10 @@
       "components": [],
       "props": {},
       "hooksDefined": [],
-      "hooksUsed": [],
+      "hooksUsed": [
+        "useFakeTimers",
+        "useRealTimers"
+      ],
       "jsxUsed": [],
       "storesUsed": [
         "useUiStore"
@@ -1840,7 +1843,8 @@
       ],
       "requirementRefs": [
         "CA-11.3",
-        "CA-12.3"
+        "CA-12.3",
+        "D-24"
       ],
       "external": [
         {
@@ -1849,10 +1853,12 @@
           "kind": "static",
           "names": [
             "afterEach",
+            "beforeEach",
             "describe",
             "expect",
             "it",
-            "vi"
+            "vi",
+            "Mock"
           ]
         },
         {
@@ -1867,6 +1873,7 @@
       "importedBy": [],
       "imports": [
         "src/app/pwa/registerPwa.ts",
+        "src/lib/updateCheck.ts",
         "src/stores/uiStore.ts"
       ],
       "assets": []
@@ -1879,7 +1886,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 48,
+      "loc": 61,
       "exports": [
         "RegisterServiceWorker",
         "applyPwaUpdate",
@@ -1919,7 +1926,8 @@
       ],
       "requirementRefs": [
         "CA-11.3",
-        "CA-12.3"
+        "CA-12.3",
+        "D-24"
       ],
       "external": [
         {
@@ -1937,6 +1945,7 @@
         "src/main.tsx"
       ],
       "imports": [
+        "src/lib/updateCheck.ts",
         "src/stores/uiStore.ts"
       ],
       "assets": [],
@@ -3539,7 +3548,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 64,
+      "loc": 73,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -6177,7 +6186,7 @@
         "database",
         "data"
       ],
-      "loc": 2474,
+      "loc": 2613,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
@@ -6257,7 +6266,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 918,
+      "loc": 1033,
       "exports": [
         "TIMELINE"
       ],
@@ -7673,6 +7682,8 @@
         "CA-02.3",
         "CA-04.1",
         "D-03",
+        "D-31",
+        "RF-01",
         "RF-06"
       ],
       "external": [
@@ -7792,7 +7803,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 210,
+      "loc": 208,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -7847,7 +7858,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 115,
+      "loc": 113,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -8070,7 +8081,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 228,
+      "loc": 224,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -8093,6 +8104,7 @@
         "CA-01.3",
         "CA-02.1",
         "D-29",
+        "D-31",
         "RF-01",
         "RF-02"
       ],
@@ -8123,7 +8135,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 52,
+      "loc": 55,
       "exports": [
         "MAX_AMOUNT_CENTS",
         "MAX_AMOUNT_DIGITS",
@@ -8169,6 +8181,7 @@
       "requirementRefs": [
         "CA-01.3",
         "CA-02.1",
+        "D-31",
         "RF-01",
         "RNF-02"
       ],
@@ -10185,6 +10198,111 @@
       ]
     },
     {
+      "id": "src/lib/updateCheck.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 40,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.3",
+        "D-24"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/updateCheck.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/lib/updateCheck.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "module"
+      ],
+      "loc": 26,
+      "exports": [
+        "MIN_UPDATE_CHECK_GAP_MS",
+        "UPDATE_CHECK_INTERVAL_MS",
+        "UpdateCheckConditions",
+        "shouldCheckForUpdate"
+      ],
+      "typeExports": [
+        "UpdateCheckConditions"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "shouldCheckForUpdate",
+          "signature": "shouldCheckForUpdate({ isOnline, isVisible, now, lastCheckAt, }: UpdateCheckConditions): boolean"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.3",
+        "D-24"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/app/pwa/registerPwa.test.ts",
+        "src/app/pwa/registerPwa.ts",
+        "src/lib/updateCheck.test.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/app/pwa/registerPwa.test.ts",
+        "src/lib/updateCheck.test.ts"
+      ]
+    },
+    {
       "id": "src/main.tsx",
       "layer": "entry",
       "feature": null,
@@ -12106,10 +12224,28 @@
     },
     {
       "from": "src/app/pwa/registerPwa.test.ts",
+      "to": "src/lib/updateCheck.ts",
+      "kind": "static",
+      "names": [
+        "MIN_UPDATE_CHECK_GAP_MS",
+        "UPDATE_CHECK_INTERVAL_MS"
+      ]
+    },
+    {
+      "from": "src/app/pwa/registerPwa.test.ts",
       "to": "src/stores/uiStore.ts",
       "kind": "static",
       "names": [
         "useUiStore"
+      ]
+    },
+    {
+      "from": "src/app/pwa/registerPwa.ts",
+      "to": "src/lib/updateCheck.ts",
+      "kind": "static",
+      "names": [
+        "UPDATE_CHECK_INTERVAL_MS",
+        "shouldCheckForUpdate"
       ]
     },
     {
@@ -15253,6 +15389,16 @@
       ]
     },
     {
+      "from": "src/lib/updateCheck.test.ts",
+      "to": "src/lib/updateCheck.ts",
+      "kind": "static",
+      "names": [
+        "MIN_UPDATE_CHECK_GAP_MS",
+        "UPDATE_CHECK_INTERVAL_MS",
+        "shouldCheckForUpdate"
+      ]
+    },
+    {
       "from": "src/main.tsx",
       "to": "src/app/App.tsx",
       "kind": "static",
@@ -16053,6 +16199,7 @@
         "src/lib/storage.test.ts",
         "src/lib/theme.test.ts",
         "src/lib/themeStorage.test.ts",
+        "src/lib/updateCheck.test.ts",
         "src/repositories/persistentStorage.navigator.test.ts",
         "src/repositories/persistentStorageRepository.test.ts",
         "src/repositories/settingsRepository.crud.test.ts",
@@ -16464,27 +16611,27 @@
     ]
   },
   "build": {
-    "builtAt": "2026-10-19T16:18:05.057Z",
+    "builtAt": "2026-10-19T21:47:26.131Z",
     "serviceWorker": "sw.js",
     "workboxRuntime": "workbox-2fbc6a65.js",
     "manifest": "manifest.webmanifest",
     "manifestLink": "<link rel=\"manifest\" href=\"/manifest.webmanifest\" crossorigin=\"use-credentials\">",
     "precache": [
       "apple-touch-icon.png",
-      "assets/AboutPage-CSYqznLL.js",
-      "assets/BackLink-B4TVzt-4.js",
-      "assets/BackupPage-c4zfxRx8.js",
-      "assets/ChartsPage-BR0_8mMN.js",
-      "assets/NewTransactionPage-O6TlFLMQ.js",
-      "assets/RecurringDetailPage-DUmbemRl.js",
-      "assets/RecurringsPage-DExlsFJ2.js",
-      "assets/SettingsPage-Xm3Gj7mU.js",
-      "assets/TagsPage-Cm01K0_n.js",
-      "assets/TransactionDetailPage-DbQSwSA5.js",
-      "assets/TransactionsPage-CKQJP-mA.js",
-      "assets/ViewsPage-EFKm1T-y.js",
+      "assets/AboutPage-B5l_XSfT.js",
+      "assets/BackLink-B4uAoYp1.js",
+      "assets/BackupPage-DqLgPa7O.js",
+      "assets/ChartsPage-XfbjOH3r.js",
+      "assets/NewTransactionPage-IbeCrV_D.js",
+      "assets/RecurringDetailPage-D8Cu60n4.js",
+      "assets/RecurringsPage-Bd4LPy0a.js",
+      "assets/SettingsPage-iD0Xsbqq.js",
+      "assets/TagsPage-Cl3AiviV.js",
+      "assets/TransactionDetailPage-Jm9pu3LV.js",
+      "assets/TransactionsPage-CJ_k5JD0.js",
+      "assets/ViewsPage-Ckwm0uVu.js",
       "assets/index--SXxHYES.css",
-      "assets/index-BI54Kn5s.js",
+      "assets/index-BWBJwjDZ.js",
       "assets/workbox-window.prod.es5-Bd17z0YL.js",
       "favicon.png",
       "index.html",
@@ -16502,63 +16649,63 @@
     ],
     "js": [
       {
-        "file": "assets/index-BI54Kn5s.js",
-        "bytes": 423121
+        "file": "assets/index-BWBJwjDZ.js",
+        "bytes": 423503
       },
       {
         "file": "assets/workbox-window.prod.es5-Bd17z0YL.js",
         "bytes": 5653
       },
       {
-        "file": "assets/SettingsPage-Xm3Gj7mU.js",
+        "file": "assets/SettingsPage-iD0Xsbqq.js",
         "bytes": 3640
       },
       {
-        "file": "assets/AboutPage-CSYqznLL.js",
+        "file": "assets/AboutPage-B5l_XSfT.js",
         "bytes": 3049
       },
       {
-        "file": "assets/BackLink-B4TVzt-4.js",
+        "file": "assets/BackLink-B4uAoYp1.js",
         "bytes": 850
       },
       {
-        "file": "assets/RecurringDetailPage-DUmbemRl.js",
+        "file": "assets/RecurringDetailPage-D8Cu60n4.js",
         "bytes": 377
       },
       {
-        "file": "assets/NewTransactionPage-O6TlFLMQ.js",
+        "file": "assets/NewTransactionPage-IbeCrV_D.js",
         "bytes": 374
       },
       {
-        "file": "assets/TransactionDetailPage-DbQSwSA5.js",
+        "file": "assets/TransactionDetailPage-Jm9pu3LV.js",
         "bytes": 372
       },
       {
-        "file": "assets/RecurringsPage-DExlsFJ2.js",
+        "file": "assets/RecurringsPage-Bd4LPy0a.js",
         "bytes": 361
       },
       {
-        "file": "assets/BackupPage-c4zfxRx8.js",
+        "file": "assets/BackupPage-DqLgPa7O.js",
         "bytes": 352
       },
       {
-        "file": "assets/TagsPage-Cm01K0_n.js",
+        "file": "assets/TagsPage-Cl3AiviV.js",
         "bytes": 348
       },
       {
-        "file": "assets/TransactionsPage-CKQJP-mA.js",
+        "file": "assets/TransactionsPage-CJ_k5JD0.js",
         "bytes": 276
       },
       {
-        "file": "assets/ChartsPage-BR0_8mMN.js",
+        "file": "assets/ChartsPage-XfbjOH3r.js",
         "bytes": 267
       },
       {
-        "file": "assets/ViewsPage-EFKm1T-y.js",
+        "file": "assets/ViewsPage-Ckwm0uVu.js",
         "bytes": 264
       }
     ],
-    "totalBytes": 482371,
+    "totalBytes": 482753,
     "devLeaks": []
   },
   "violations": [],
@@ -16566,79 +16713,23 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "beaba97",
+    "head": "b9ad2e1",
     "workingTree": [
-      {
-        "status": "M",
-        "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
-      },
       {
         "status": "M",
         "path": "docs/SPEC.md"
       },
       {
         "status": "M",
-        "path": "package-lock.json"
+        "path": "src/app/pwa/registerPwa.test.ts"
       },
       {
         "status": "M",
-        "path": "package.json"
+        "path": "src/app/pwa/registerPwa.ts"
       },
       {
         "status": "M",
-        "path": "src/app/App.tsx"
-      },
-      {
-        "status": "D",
-        "path": "src/app/theme/ThemeContext.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/app/theme/ThemeProvider.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/app/theme/indexHtmlThemeScript.test.ts"
-      },
-      {
-        "status": "D",
-        "path": "src/app/theme/useTheme.ts"
-      },
-      {
-        "status": "D",
-        "path": "src/db/.gitkeep"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/architecture.test.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/components/DataModelSection.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/components/DomainSection.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/components/LayerDiagram.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/components/LayersSection.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/components/PwaSection.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/components/StylesheetsCard.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/components/UiStateSection.tsx"
+        "path": "src/dev/architecture/ArchitecturePage.test.tsx"
       },
       {
         "status": "M",
@@ -16650,299 +16741,416 @@
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/health.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/layerDiagramGeometry.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/layers.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/types.ts"
-      },
-      {
-        "status": "D",
-        "path": "src/domain/.gitkeep"
-      },
-      {
-        "status": "M",
-        "path": "src/features/settings/AboutPage.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/settings/ThemeSection.test.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/settings/ThemeSection.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/lib/theme.test.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/lib/theme.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/lib/themeStorage.test.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/lib/themeStorage.ts"
-      },
-      {
-        "status": "D",
-        "path": "src/repositories/.gitkeep"
-      },
-      {
-        "status": "M",
-        "path": "src/test/setup.ts"
-      },
-      {
-        "status": "M",
-        "path": "vite.config.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/app/storage/usePersistentStorageRequest.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/InfoList.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/db/database.schema.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/db/database.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/db/database.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/SampleDataTools.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/buildSampleData.model.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/buildSampleData.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/buildSampleData.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/sampleCatalog.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/sampleContext.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/sampleData.css"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/sampleDataStore.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/sampleDataStore.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/sampleInstallments.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/sampleRecurrings.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/seededRandom.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/sampleData/useSampleDataTools.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/balances.properties.test.ts"
-      },
-      {
-        "status": "??",
         "path": "src/domain/balances.test.ts"
       },
       {
-        "status": "??",
-        "path": "src/domain/balances.ts"
-      },
-      {
-        "status": "??",
+        "status": "M",
         "path": "src/domain/dates.calendar.test.ts"
       },
       {
-        "status": "??",
+        "status": "M",
         "path": "src/domain/dates.test.ts"
       },
       {
-        "status": "??",
-        "path": "src/domain/dates.timezone.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/dates.ts"
-      },
-      {
-        "status": "??",
+        "status": "M",
         "path": "src/domain/money.test.ts"
       },
       {
-        "status": "??",
+        "status": "M",
         "path": "src/domain/money.ts"
       },
       {
         "status": "??",
-        "path": "src/domain/tagColor.test.ts"
+        "path": "src/lib/updateCheck.test.ts"
       },
       {
         "status": "??",
-        "path": "src/domain/tagColor.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/types.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/settings/AboutPage.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/settings/storageStatusTexts.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/settings/useStorageStatus.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/globals.d.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/appVersion.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/appVersion.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/formatBytes.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/formatBytes.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/storage.navigator.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/storage.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/storage.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/ThemeContext.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/databaseInfo.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/persistentStorage.navigator.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/persistentStorageRepository.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/persistentStorageRepository.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/settingsRepository.crud.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/settingsRepository.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/settingsRepository.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/themePreference.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/themeRepository.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/themeRepository.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/useTheme.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/useThemePreference.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/test/factories.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/test/propertyHelpers.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/test/themeReference.ts"
+        "path": "src/lib/updateCheck.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "b9ad2e1",
+      "date": "2026-10-19T17:41:27-03:00",
+      "author": "Fernando",
+      "subject": "feat/finishing implementation phase 2",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
+        },
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "M",
+          "path": "package-lock.json"
+        },
+        {
+          "status": "M",
+          "path": "package.json"
+        },
+        {
+          "status": "M",
+          "path": "src/app/App.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/storage/usePersistentStorageRequest.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/app/theme/ThemeProvider.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/app/theme/indexHtmlThemeScript.test.ts"
+        },
+        {
+          "status": "D",
+          "path": "src/app/theme/useTheme.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/InfoList.tsx"
+        },
+        {
+          "status": "D",
+          "path": "src/db/.gitkeep"
+        },
+        {
+          "status": "A",
+          "path": "src/db/database.schema.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/db/database.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/db/database.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/architecture.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/DataModelSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/DomainSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/LayerDiagram.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/LayersSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/PwaSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/StylesheetsCard.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/UiStateSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/health.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/layerDiagramGeometry.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/layers.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/types.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/SampleDataTools.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/buildSampleData.model.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/buildSampleData.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/buildSampleData.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/sampleCatalog.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/sampleContext.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/sampleData.css"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/sampleDataStore.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/sampleDataStore.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/sampleInstallments.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/sampleRecurrings.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/seededRandom.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/sampleData/useSampleDataTools.ts"
+        },
+        {
+          "status": "D",
+          "path": "src/domain/.gitkeep"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/balances.properties.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/balances.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/balances.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/dates.calendar.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/dates.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/dates.timezone.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/dates.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/money.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/money.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/tagColor.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/tagColor.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/types.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/settings/AboutPage.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/settings/AboutPage.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/settings/ThemeSection.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/settings/ThemeSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/settings/storageStatusTexts.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/settings/useStorageStatus.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/globals.d.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/appVersion.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/appVersion.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/formatBytes.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/formatBytes.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/storage.navigator.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/storage.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/storage.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/lib/theme.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/lib/theme.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/lib/themeStorage.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/lib/themeStorage.ts"
+        },
+        {
+          "status": "D",
+          "path": "src/repositories/.gitkeep"
+        },
+        {
+          "status": "R",
+          "path": "src/repositories/ThemeContext.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/databaseInfo.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/persistentStorage.navigator.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/persistentStorageRepository.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/persistentStorageRepository.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/settingsRepository.crud.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/settingsRepository.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/settingsRepository.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/themePreference.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/themeRepository.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/themeRepository.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/useTheme.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/useThemePreference.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/test/factories.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/test/propertyHelpers.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/test/setup.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/test/themeReference.ts"
+        },
+        {
+          "status": "M",
+          "path": "vite.config.ts"
+        }
+      ]
+    },
     {
       "hash": "beaba97",
       "date": "2026-10-19T12:25:04-03:00",
@@ -18130,6 +18338,8 @@
     "src/lib/theme.ts",
     "src/lib/themeStorage.test.ts",
     "src/lib/themeStorage.ts",
+    "src/lib/updateCheck.test.ts",
+    "src/lib/updateCheck.ts",
     "src/main.tsx",
     "src/repositories/ThemeContext.ts",
     "src/repositories/databaseInfo.ts",

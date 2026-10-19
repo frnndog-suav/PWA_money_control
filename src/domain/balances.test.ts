@@ -25,8 +25,8 @@ describe('totals', () => {
     expect(totals([])).toEqual({ incomeCents: 0, expenseCents: 0, resultCents: 0 })
   })
 
-  // §6.11 — valores grandes (11 dígitos) somados sem perder precisão.
-  it('soma valores de 11 dígitos como inteiros', () => {
+  // §6.11 / RF-01 / D-31 — valores no teto (10 dígitos) somados sem perder precisão.
+  it('soma valores no teto do RF-01 como inteiros', () => {
     const result = totals([
       income(MAX_AMOUNT_CENTS, '2026-10-01'),
       income(MAX_AMOUNT_CENTS, '2026-10-02'),

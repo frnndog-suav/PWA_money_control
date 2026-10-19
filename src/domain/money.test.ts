@@ -87,13 +87,12 @@ describe('digitsToCents', () => {
     expect(digitsToCents('abc')).toBe(0)
   })
 
-  // §6.5 / §6.11 — limite de 11 dígitos na máscara. O teto de valor (RF-01) é validado
-  // à parte, no formulário: 11 dígitos passam do máximo de R$ 99.999.999,99.
-  it('aceita até 11 dígitos e descarta os excedentes', () => {
-    expect(MAX_AMOUNT_DIGITS).toBe(11)
+  // RF-01 / D-31 — limite de 10 dígitos na máscara, o mesmo do valor máximo.
+  it('aceita até 10 dígitos e descarta os excedentes', () => {
+    expect(MAX_AMOUNT_DIGITS).toBe(10)
     expect(digitsToCents('9999999999')).toBe(MAX_AMOUNT_CENTS)
-    expect(digitsToCents('99999999999')).toBe(99_999_999_999)
-    expect(digitsToCents('123456789012')).toBe(12_345_678_901)
+    expect(digitsToCents('99999999999')).toBe(MAX_AMOUNT_CENTS)
+    expect(digitsToCents('12345678901')).toBe(1_234_567_890)
     expect(Number.isSafeInteger(digitsToCents('9'.repeat(30)))).toBe(true)
   })
 })
@@ -141,7 +140,8 @@ describe('formatBRL — texto exato (D-29)', () => {
     [100000, 'R$ 1.000,00'],
     [100000000, 'R$ 1.000.000,00'],
     [10_000_000_000, 'R$ 100.000.000,00'],
-    [99_999_999_999, 'R$ 999.999.999,99'], // 11 dígitos (limite da máscara)
+    [MAX_AMOUNT_CENTS, 'R$ 99.999.999,99'], // 10 dígitos (limite da máscara — RF-01 / D-31)
+    [99_999_999_999, 'R$ 999.999.999,99'], // somas podem passar do teto de um lançamento
   ])('%d centavos → %s', (cents, expected) => {
     expect(normalize(formatBRL(cents))).toBe(expected)
   })
@@ -192,17 +192,25 @@ describe('digitsToCents — máscara do campo de valor (CA-01.3)', () => {
     expect(digitsToCents(typed)).toBe(1999)
   })
 
-  // §6.5 / §6.11 — limite de 11 dígitos: o 12º dígito digitado não muda o valor.
-  it('o 12º dígito em diante é descartado', () => {
-    const elevenDigits = '12345678901'
-    expect(digitsToCents(elevenDigits)).toBe(12_345_678_901)
-    expect(digitsToCents(`${elevenDigits}2`)).toBe(digitsToCents(elevenDigits))
-    expect(digitsToCents(`${elevenDigits}99999`)).toBe(digitsToCents(elevenDigits))
+  // RF-01 / D-31 — limite de 10 dígitos: o 11º dígito digitado não muda o valor.
+  it('o 11º dígito em diante é descartado', () => {
+    const tenDigits = '1234567890'
+    expect(digitsToCents(tenDigits)).toBe(1_234_567_890)
+    expect(digitsToCents(`${tenDigits}2`)).toBe(digitsToCents(tenDigits))
+    expect(digitsToCents(`${tenDigits}99999`)).toBe(digitsToCents(tenDigits))
+  })
+
+  // RF-01 / D-31 — o maior valor digitável é exatamente o teto do RF-01.
+  it('o maior valor digitável é MAX_AMOUNT_CENTS e o 11º dígito é ignorado', () => {
+    expect(digitsToCents('9'.repeat(10))).toBe(MAX_AMOUNT_CENTS)
+    expect(digitsToCents('9'.repeat(11))).toBe(MAX_AMOUNT_CENTS)
+    expect(String(MAX_AMOUNT_CENTS)).toHaveLength(MAX_AMOUNT_DIGITS)
   })
 
   // O limite vale para os dígitos, não para os caracteres digitados (pontuação é ignorada).
   it('pontuação não conta para o limite de dígitos', () => {
-    expect(digitsToCents('R$ 999.999.999,99')).toBe(99_999_999_999)
+    expect(digitsToCents('R$ 99.999.999,99')).toBe(MAX_AMOUNT_CENTS)
+    expect(digitsToCents('R$ 999.999.999,99')).toBe(MAX_AMOUNT_CENTS)
   })
 
   // §6.5 — "Somas sempre com inteiros; validar com Number.isSafeInteger".
@@ -215,23 +223,11 @@ describe('digitsToCents — máscara do campo de valor (CA-01.3)', () => {
     expect(digitsToCents('-5')).toBe(5)
     expect(digitsToCents('1e9')).toBe(19)
   })
-
-  // Pendente com o dono (§8.2): o RF-01 limita o valor a 9.999.999.999 centavos
-  // (10 dígitos), enquanto a §6.5 e a §6.11 falam em "limite de 11 dígitos" na máscara.
-  // A D-29 registra a escolha do implementador: a máscara aceita 11 dígitos e o teto do
-  // RF-01 é validado no formulário (Fase 4). Aqui só documentamos os dois números.
-  it('MAX_AMOUNT_CENTS (RF-01) tem 10 dígitos; a máscara aceita 11 (§6.5)', () => {
-    expect(MAX_AMOUNT_CENTS).toBe(9_999_999_999)
-    expect(String(MAX_AMOUNT_CENTS)).toHaveLength(10)
-    expect(MAX_AMOUNT_DIGITS).toBe(11)
-    expect(Number.isSafeInteger(MAX_AMOUNT_CENTS)).toBe(true)
-    // O maior valor que a máscara produz passa do teto do RF-01.
-    expect(digitsToCents('9'.repeat(MAX_AMOUNT_DIGITS))).toBeGreaterThan(MAX_AMOUNT_CENTS)
-  })
 })
 
 describe('propriedade: digitsToCents seguido de formatBRL (CA-01.3 / §6.5)', () => {
-  it('o texto exibido corresponde aos dígitos digitados, para 1 a 11 dígitos', () => {
+  // RF-01 / D-31 — de 1 a 10 dígitos (limite da máscara).
+  it('o texto exibido corresponde aos dígitos digitados, para 1 a 10 dígitos', () => {
     const random = createTestRandom(1999)
     for (let round = 0; round < 500; round++) {
       const length = random.int(1, MAX_AMOUNT_DIGITS)

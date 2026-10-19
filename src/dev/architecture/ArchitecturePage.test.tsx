@@ -20,7 +20,13 @@ const SECTION_TITLES = [
   'Saúde da arquitetura',
 ]
 
-describe('ArchitecturePage (§6.12)', () => {
+// A página renderiza o grafo inteiro de uma vez; com a instrumentação do test:coverage (e
+// com o npm test completo em paralelo) isso passa do limite padrão de 5 s do Vitest e de 1 s
+// do findBy*. Os limites maiores valem só neste arquivo.
+const PAGE_TEST_TIMEOUT_MS = 30_000
+const FIND_TIMEOUT_MS = 20_000
+
+describe('ArchitecturePage (§6.12)', { timeout: PAGE_TEST_TIMEOUT_MS }, () => {
   it('renderiza todas as seções', () => {
     render(<ArchitecturePage />)
     for (const title of SECTION_TITLES) {
@@ -65,7 +71,11 @@ describe('ArchitecturePage (§6.12)', () => {
   it('a rota /__dev/arquitetura abre a página sem a barra inferior', async () => {
     renderApp(['/__dev/arquitetura'])
     expect(
-      await screen.findByRole('heading', { level: 1, name: 'Arquitetura e linha do tempo' }),
+      await screen.findByRole(
+        'heading',
+        { level: 1, name: 'Arquitetura e linha do tempo' },
+        { timeout: FIND_TIMEOUT_MS },
+      ),
     ).toBeDefined()
     expect(screen.queryByRole('navigation', { name: 'Navegação principal' })).toBeNull()
   })

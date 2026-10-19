@@ -4,8 +4,11 @@ import type { Cents } from '@/domain/types'
 
 /** RF-01 — maior valor aceito: R$ 99.999.999,99. */
 export const MAX_AMOUNT_CENTS: Cents = 9_999_999_999
-/** RF-01 / CA-01.3 — limite de dígitos da máscara do campo de valor. */
-export const MAX_AMOUNT_DIGITS = 11
+/**
+ * RF-01 / CA-01.3 / D-31 — limite de dígitos da máscara do campo de valor: os mesmos 10
+ * dígitos de MAX_AMOUNT_CENTS, para que a máscara nunca produza um valor acima do teto.
+ */
+export const MAX_AMOUNT_DIGITS = 10
 
 const NON_DIGITS = /\D/g
 // Sinal de menos tipográfico (U+2212), como no exemplo da CA-02.1.
@@ -44,8 +47,8 @@ export function formatSignedBRL(cents: Cents): string {
 
 /**
  * CA-01.3 — máscara do campo de valor: os dígitos entram pela direita (`"1999"` → `1999`).
- * Ignora o que não for dígito e descarta o que passar de 11 dígitos, para que um dígito
- * a mais digitado não altere o valor.
+ * Ignora o que não for dígito e descarta o que passar de MAX_AMOUNT_DIGITS (10 dígitos —
+ * RF-01 / D-31), para que um dígito a mais digitado não altere o valor nem passe do teto.
  */
 export function digitsToCents(input: string): Cents {
   const digits = input.replace(NON_DIGITS, '').slice(0, MAX_AMOUNT_DIGITS)

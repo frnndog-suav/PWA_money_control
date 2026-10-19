@@ -126,10 +126,8 @@ describe('weekRange — segunda a domingo (princípio 3 / CA-05.3 / §6.11)', ()
     }
   })
 
-  // CA-05.3 — o exemplo do critério ("13 a 19 de out. de 2026") não é uma semana de segunda
-  // a domingo em 2026: 13/10/2026 é terça e 19/10/2026 é segunda. A regra prevalece; o
-  // exemplo do texto da spec precisa ser revisto (ex.: "12 a 18 de out. de 2026").
-  it('a semana de 13/10/2026 vai de 12 a 18 de outubro (regra do CA-05.3)', () => {
+  // CA-05.3 — exemplo da spec: "12 a 18 de out. de 2026" (segunda a domingo).
+  it('a semana de 13/10/2026 vai de 12 a 18 de outubro (exemplo do CA-05.3)', () => {
     expect(weekdayOf('2026-10-13')).toBe(2) // terça
     expect(weekdayOf('2026-10-19')).toBe(1) // segunda
     expect(weekRange('2026-10-13')).toEqual({ start: '2026-10-12', end: '2026-10-18' })
