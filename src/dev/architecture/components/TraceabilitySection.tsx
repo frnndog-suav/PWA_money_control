@@ -3,14 +3,24 @@ import { Card } from '@/dev/architecture/components/Card'
 import { CodeList } from '@/dev/architecture/components/CodeList'
 import { ModuleList } from '@/dev/architecture/components/ModuleList'
 import { Section } from '@/dev/architecture/components/Section'
-import { currentPhase } from '@/dev/architecture/model'
+import { currentPhase, optionalPhases } from '@/dev/architecture/model'
 import {
   decisionTraces,
   requirementTraces,
   type RequirementTrace,
 } from '@/dev/architecture/traceability'
 
+function isOptionalOnly(trace: RequirementTrace): boolean {
+  return trace.phases.length > 0 && trace.phases.every((phase) => optionalPhases.has(phase))
+}
+
 function statusBadge(trace: RequirementTrace): { text: string; variant: BadgeVariant } {
+  if (isOptionalOnly(trace)) {
+    const phases = trace.phases.join(', ')
+    return trace.modules.length
+      ? { text: `opcional (Fase ${phases}) · código preparado`, variant: 'neutral' }
+      : { text: `opcional (Fase ${phases})`, variant: 'neutral' }
+  }
   const isDue = trace.phases.some((phase) => phase <= currentPhase)
   if (trace.status === 'ok') return { text: 'código + teste', variant: 'ok' }
   if (trace.status === 'no-test') return { text: 'sem teste', variant: isDue ? 'danger' : 'warn' }
@@ -24,7 +34,7 @@ export function TraceabilitySection() {
     <Section
       id="rastreabilidade"
       title="Rastreabilidade"
-      description="Requisito → módulos que citam o ID (ou seus CAs) em comentários → testes que o citam. Fonte: IDs encontrados no código pelo scanner (a pasta src/dev fica de fora). Vermelho = requisito de fase atual/anterior sem código ou sem teste."
+      description="Requisito → módulos que citam o ID (ou seus CAs) em comentários → testes que o citam. Fonte: IDs encontrados no código pelo scanner (a pasta src/dev fica de fora). Vermelho = requisito de fase atual/anterior sem código ou sem teste. Requisitos só de fases opcionais (ex.: RF-12, Fase 12 — D-26) ficam em cinza, nunca como atrasados."
     >
       <ul className="grid gap-2 lg:grid-cols-2">
         {requirementTraces.map((trace) => {
@@ -37,7 +47,13 @@ export function TraceabilitySection() {
                 </Card.Title>
                 <div className="grid gap-2 text-sm sm:grid-cols-[6rem_1fr]">
                   <span className="text-xs font-semibold text-slate-500">Fases</span>
-                  <span>{trace.phases.join(', ')}</span>
+                  <span>
+                    {trace.phases
+                      .map((phase) =>
+                        optionalPhases.has(phase) ? `${phase} (opcional)` : String(phase),
+                      )
+                      .join(', ')}
+                  </span>
                   <span className="text-xs font-semibold text-slate-500">CAs citados</span>
                   <CodeList items={trace.criteria} />
                   <span className="text-xs font-semibold text-slate-500">Código</span>

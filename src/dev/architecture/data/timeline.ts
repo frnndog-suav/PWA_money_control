@@ -1,7 +1,8 @@
 // Linha do tempo das implementações (§6.12), em ordem cronológica (a página mostra a mais
 // recente no topo). Nunca apague entradas antigas; corrija só se estiverem erradas.
 // Entregas ainda não commitadas ficam com `committed: false` e `commits: []`.
-// A Fase 0 inteira (inclusive esta página) entrou no commit 93ae3b6 (17/10/2026).
+// A Fase 0 inteira (inclusive esta página) entrou no commit 93ae3b6 (17/10/2026); a Fase 1
+// (PWA, correções da revisão e a página atualizada) entrou no 38ae487 (18/10/2026).
 
 import type { TimelineEntry } from '@/dev/architecture/types'
 
@@ -464,8 +465,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 1 — PWA instalável e offline, avisos de atualização e de instalação',
     summary:
       'vite-plugin-pwa 2.0.0 (registerType prompt, registro feito pelo app em registerPwa, precache de todo o build, navigateFallback index.html com /cdn-cgi/ fora do SW, manifest com credenciais para o Access). Primeira store Zustand (uiStore.updateAvailable). UpdateNotice ("Nova versão disponível" + Atualizar) acima da barra e InstallHint no topo do layout (CA-11.6), ambos sobre o novo primitivo Notice. Ícones provisórios gerados por scripts/generate-icons.mjs só com zlib; favicon.svg do template removido; metatags do iOS. README com deploy e Access (§6.10). D-23, D-24 e D-25 registradas, aguardando confirmação. Pendente (humano): criar o projeto no Cloudflare Pages e configurar o Access.',
-    commits: [],
-    committed: false,
+    commits: ['38ae487'],
+    committed: true,
     requirements: [
       'RF-11',
       'CA-11.1',
@@ -514,7 +515,7 @@ export const TIMELINE: readonly TimelineEntry[] = [
         'README.md',
         'docs/SPEC.md',
       ],
-      removed: TEMPLATE_FILES_REMOVED_IN_PHASE_1,
+      removed: [...TEMPLATE_FILES_REMOVED_IN_PHASE_1, 'src/stores/.gitkeep'],
     },
     impact: [
       'pacotes novos: zustand (dependency) e vite-plugin-pwa (devDependency; workbox-window transitivo)',
@@ -532,8 +533,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'D-23, D-24 e D-25 registradas (aguardando confirmação do dono)',
     summary:
       'D-23: aviso fora do modo instalado no layout, só texto, sem fechar. D-24: procurar versão nova com registration.update() ao ficar visível e online, ignorando falhas. D-25: ícones provisórios gerados com módulos nativos do Node, favicon.svg removido e meta apple-mobile-web-app-title "Gastos". O cabeçalho da spec continua em 1.4.',
-    commits: [],
-    committed: false,
+    commits: ['38ae487'],
+    committed: true,
     requirements: ['CA-11.3', 'CA-11.6', 'CA-12.3'],
     decisions: ['D-23', 'D-24', 'D-25'],
     files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
@@ -547,8 +548,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 1 — correções da revisão',
     summary:
       'Reserva de espaço do aviso: --update-notice-height em index.css, reserve-update-notice soma a altura ao pb-below-nav enquanto o aviso aparece e bottom-above-nav posiciona o aviso (AppLayout.test.tsx garante as duas alturas iguais). Foco visível branco no Notice.Action (o anel azul sumia sobre o fundo azul). Limpeza dos listeners: registerPwa devolve a limpeza com AbortController, segura mesmo se o registro terminar depois. Opções do plugin extraídas para pwaOptions.ts (PWA_OPTIONS), importadas pelo vite.config.ts e protegidas por pwaOptions.test.ts; tsconfig.node.json passa a incluí-lo.',
-    commits: [],
-    committed: false,
+    commits: ['38ae487'],
+    committed: true,
     requirements: ['CA-11.2', 'CA-11.3', 'CA-12.3', 'RNF-06'],
     decisions: ['D-24'],
     files: {
@@ -583,8 +584,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Página de arquitetura: Fase 1 (PWA, store, artefatos do build)',
     summary:
       'Nova seção "PWA e artefatos do build" com diagrama SVG (fontes → vite build → dist/, src/dev riscado), opções do plugin, último build (sw.js, manifest, precache, CSS, vazamentos DEV), public/ e pendências/riscos. Estado de interface mostra quem lê cada campo e chama cada ação do uiStore. Quatro fluxos novos (ciclo de atualização, D-24, modo instalado, offline/Access). D-23 a D-25 como pendentes. Fase 0 marcada como commitada (93ae3b6). Scanner: scripts/ na camada config (arquivos gerados), public/ com quem cita/gera, opções do PWA, leitura do dist/ (precache e marcas da página DEV) e campos das stores Zustand.',
-    commits: [],
-    committed: false,
+    commits: ['38ae487'],
+    committed: true,
     requirements: [],
     decisions: ['D-17', 'D-23', 'D-24', 'D-25'],
     files: {
@@ -605,5 +606,97 @@ export const TIMELINE: readonly TimelineEntry[] = [
       removed: [],
     },
     impact: ['nova seção: PWA e build', 'scanner lê scripts/, public/ e dist/'],
+  },
+  {
+    id: 'phase-1-closed',
+    date: '2026-10-19',
+    phase: 1,
+    type: 'config',
+    title: 'Fase 1 concluída: deploy no Cloudflare Pages, roteiro aprovado no iPhone',
+    summary:
+      'O dono criou o projeto no Cloudflare Pages e publicou. O roteiro de teste da Fase 1 passou no iPhone: instalação pela Tela de Início (tela cheia, nome e ícone), abertura em modo avião e aviso "Nova versão disponível" com Atualizar. Fase 1 renomeada para "PWA e deploy", placar 5/5, roteiro com 3 itens. Nenhum código do app mudou; só docs/SPEC.md (1.6) e README.md (site ainda sem restrição de acesso).',
+    commits: [],
+    committed: false,
+    requirements: ['RF-11', 'CA-11.1', 'CA-11.2', 'CA-11.3', 'CA-11.6', 'RNF-03', 'RNF-08'],
+    decisions: ['D-13', 'D-26'],
+    files: { created: [], modified: ['docs/SPEC.md', 'README.md'], removed: [] },
+    impact: [
+      'Fase 1 fechada (5/5); fase atual passa a ser a 2',
+      'app publicado no Cloudflare Pages, sem restrição de acesso até a Fase 12',
+    ],
+  },
+  {
+    id: 'decision-d26',
+    date: '2026-10-19',
+    phase: 1,
+    type: 'decision',
+    title: 'D-26: acesso restrito vira a Fase 12 opcional',
+    summary:
+      'Confirmada pelo dono em 19/10/2026: o RF-12 (Cloudflare Access) deixa a Fase 1 e passa a ser opcional, na nova Fase 12 "Acesso restrito (opcional — depois da Fase 11)", com 3 tarefas e roteiro de 4 itens. Motivo: o dono não conseguiu configurar o Zero Trust e não sabe se ele existe no plano gratuito. Até lá o site fica sem restrição; os dados continuam só no aparelho (princípio 5). Notas de opcional no topo do RF-12 e da §6.10; README com a seção do Access marcada "(opcional — Fase 12)". O código preparado para o Access (useCredentials e denylist /cdn-cgi/) fica como está, pronto para a Fase 12.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-12', 'CA-12.1', 'CA-12.2', 'CA-12.3'],
+    decisions: ['D-26'],
+    files: { created: [], modified: ['docs/SPEC.md', 'README.md'], removed: [] },
+    impact: [
+      'nova fase opcional (12) na §7',
+      'RF-12 sai da Fase 1; risco do CA-12.3 vira item da Fase 12',
+    ],
+  },
+  {
+    id: 'architecture-page-phase-1-closed',
+    date: '2026-10-19',
+    phase: 1,
+    type: 'docs',
+    title: 'Página de arquitetura: fechamento da Fase 1 e Fase 12 opcional',
+    summary:
+      'Scanner marca fases "(opcional …)" da §7 (optional: true) e limpa o itálico do título. Fases opcionais aparecem em cinza com a etiqueta "opcional" nas barras de progresso, não definem a fase atual e, na rastreabilidade, o RF-12 aparece como "opcional (Fase 12)" em vez de atrasado. A seção PWA separa as tarefas e o risco do CA-12.3 num cartão da Fase 12 e descreve useCredentials e a denylist /cdn-cgi/ como prontos para ela. Saúde: pendência humana da Fase 1, versão da spec e .gitkeep de stores como resolvidos; nova lista de itens de fases opcionais. D-26 na lista de decisões. Entradas da Fase 1 marcadas com o commit 38ae487.',
+    commits: [],
+    committed: false,
+    requirements: [],
+    decisions: ['D-17', 'D-26'],
+    files: {
+      created: [],
+      modified: [
+        '.claude/skills/atualizar-arquitetura/scan-architecture.mjs',
+        'src/dev/architecture/types.ts',
+        'src/dev/architecture/model.ts',
+        'src/dev/architecture/architecture.test.ts',
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+        'src/dev/architecture/data/module-graph.json',
+        'src/dev/architecture/components/ProgressBar.tsx',
+        'src/dev/architecture/components/OverviewSection.tsx',
+        'src/dev/architecture/components/TraceabilitySection.tsx',
+        'src/dev/architecture/components/PwaSection.tsx',
+        'src/dev/architecture/components/PwaTopologyDiagram.tsx',
+        'src/dev/architecture/components/HealthSection.tsx',
+      ],
+      removed: [],
+    },
+    impact: ['fases opcionais na página (progresso, rastreabilidade, saúde, PWA)'],
+  },
+  {
+    id: 'decisions-d23-d25-confirmed',
+    date: '2026-10-19',
+    phase: 1,
+    type: 'decision',
+    title: 'D-23, D-24 e D-25 confirmadas pelo dono',
+    summary:
+      'O dono confirmou as três decisões da Fase 1: aviso de instalação no layout, só texto e sem fechar (D-23); procura de versão nova ao ficar visível e online, sem recarregar sozinho (D-24); ícones provisórios gerados só com módulos nativos do Node e favicon em PNG (D-25). Spec 1.7.',
+    commits: [],
+    committed: false,
+    requirements: ['CA-11.3', 'CA-11.6'],
+    decisions: ['D-23', 'D-24', 'D-25'],
+    files: {
+      created: [],
+      modified: [
+        'docs/SPEC.md',
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+      ],
+      removed: [],
+    },
+    impact: ['nenhuma decisão pendente de confirmação'],
   },
 ]

@@ -1049,7 +1049,7 @@ export const FLOWS: readonly Flow[] = [
       { id: 'doc', label: 'document / navigator' },
       { id: 'register', label: 'registerPwa', module: 'src/app/pwa/registerPwa.ts' },
       { id: 'registration', label: 'SW registration' },
-      { id: 'network', label: 'Rede / Access' },
+      { id: 'network', label: 'Rede (Cloudflare Pages)' },
     ],
     steps: [
       {
@@ -1081,7 +1081,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'network',
         label: 'GET /sw.js',
         detail:
-          'Com a sessão do Access válida, chega ao Cloudflare Pages; se o sw.js mudou, segue o ciclo de atualização (onNeedRefresh).',
+          'Chega ao Cloudflare Pages (hoje sem restrição de acesso — D-26); se o sw.js mudou, segue o ciclo de atualização (onNeedRefresh).',
         refs: ['CA-11.3'],
         kind: 'call',
       },
@@ -1090,7 +1090,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'register',
         label: 'falha → .catch(() => undefined)',
         detail:
-          'Sem rede ou sessão do Access expirada (redirect para o login): falha esperada, tenta de novo na próxima vez que o app ficar visível.',
+          'Sem rede: falha esperada, tenta de novo na próxima vez que o app ficar visível. Se a Fase 12 (opcional) ativar o Access, a sessão expirada (redirect para o login) cai no mesmo caminho (CA-12.3).',
         refs: ['CA-12.3', 'D-24'],
         kind: 'return',
       },
@@ -1168,9 +1168,9 @@ export const FLOWS: readonly Flow[] = [
   },
   {
     id: 'pwa-offline-access',
-    title: 'Navegação offline e Cloudflare Access',
+    title: 'Navegação offline (e pontos prontos para o Access da Fase 12)',
     summary:
-      'O SW responde às navegações com o index.html do precache (o app abre offline em qualquer rota), exceto /cdn-cgi/, que vai à rede para o login do Access funcionar. O manifest é pedido com o cookie da sessão.',
+      'O SW responde às navegações com o index.html do precache (o app abre offline em qualquer rota — aprovado no iPhone). Prontos para a Fase 12 (opcional, D-26): /cdn-cgi/ vai à rede para o login do Access funcionar e o manifest é pedido com credenciais. Hoje o site não tem restrição de acesso.',
     requirements: ['CA-11.2', 'CA-12.1', 'CA-12.3', 'RNF-03'],
     participants: [
       { id: 'user', label: 'Usuário' },
@@ -1178,7 +1178,7 @@ export const FLOWS: readonly Flow[] = [
       { id: 'sw', label: 'Service worker' },
       { id: 'html', label: 'index.html', module: 'index.html' },
       { id: 'options', label: 'PWA_OPTIONS', module: 'src/app/pwa/pwaOptions.ts' },
-      { id: 'access', label: 'Cloudflare Access' },
+      { id: 'access', label: 'Cloudflare Access (Fase 12, opcional)' },
     ],
     steps: [
       {
@@ -1220,7 +1220,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'access',
         label: '/cdn-cgi/access/… pela rede',
         detail:
-          'A denylist tira /cdn-cgi/ do SW: login e callback do Access sempre chegam ao Cloudflare.',
+          'Pronto para a Fase 12: a denylist tira /cdn-cgi/ do SW, então login e callback do Access sempre chegarão ao Cloudflare. Sem efeito enquanto o Access não existir.',
         refs: ['CA-12.3'],
         kind: 'call',
       },
@@ -1229,16 +1229,16 @@ export const FLOWS: readonly Flow[] = [
         to: 'access',
         label: 'manifest com credenciais',
         detail:
-          '<link rel="manifest" crossorigin="use-credentials"> injetado pelo plugin (useCredentials: true): o manifest só é entregue com o cookie da sessão.',
+          'Pronto para a Fase 12: <link rel="manifest" crossorigin="use-credentials"> injetado pelo plugin (useCredentials: true), para o manifest ser entregue com o cookie da sessão quando houver Access. Hoje é inofensivo.',
         refs: ['CA-12.1', 'CA-11.1'],
         kind: 'call',
       },
       {
         from: 'access',
         to: 'browser',
-        label: 'risco: sessão expirada',
+        label: 'Fase 12: sessão expirada',
         detail:
-          'Aberto pelo cache, o app não passa pelo Access e não força o relogin; só a procura de versão nova falha (ignorada). Confirmar no roteiro do iPhone (CA-12.3).',
+          'Só se a Fase 12 for feita: aberto pelo cache, o app não passa pelo Access e não força o relogin; só a procura de versão nova falha (ignorada). Verificar no item 4 do roteiro da Fase 12 (CA-12.3).',
         refs: ['CA-12.3'],
         kind: 'return',
       },
@@ -1415,7 +1415,7 @@ export const REQUIREMENTS: readonly RequirementInfo[] = [
   { id: 'RF-09', title: 'Tema claro e escuro', phases: [0, 2] },
   { id: 'RF-10', title: 'Backup criptografado', phases: [6, 9, 10] },
   { id: 'RF-11', title: 'PWA, instalação e offline', phases: [1, 2] },
-  { id: 'RF-12', title: 'Acesso restrito', phases: [1] },
+  { id: 'RF-12', title: 'Acesso restrito (opcional — D-26)', phases: [12] },
   { id: 'RF-13', title: 'Navegação e Ajustes', phases: [0] },
   { id: 'RNF-01', title: 'Plataforma (iPhone/Safari)', phases: [1] },
   { id: 'RNF-02', title: 'Desempenho', phases: [0, 11] },
@@ -1448,7 +1448,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
   { id: 'D-12', title: 'Gráficos com Chart.js', status: 'confirmed', impacts: [] },
   {
     id: 'D-13',
-    title: 'Cloudflare Pages + Access',
+    title: 'Cloudflare Pages + Access (o Access ficou opcional — D-26)',
     status: 'confirmed',
     impacts: ['README.md', 'src/app/pwa/pwaOptions.ts', 'src/app/pwa/registerPwa.ts'],
   },
@@ -1493,7 +1493,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
   {
     id: 'D-23',
     title: 'Aviso fora do modo instalado no layout, só texto, sem fechar',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'src/app/layout/AppLayout.tsx',
       'src/app/pwa/InstallHint.tsx',
@@ -1504,13 +1504,13 @@ export const DECISIONS: readonly DecisionInfo[] = [
   {
     id: 'D-24',
     title: 'Procurar versão nova ao ficar visível e online (registration.update())',
-    status: 'pending',
+    status: 'confirmed',
     impacts: ['src/app/pwa/registerPwa.ts'],
   },
   {
     id: 'D-25',
     title: 'Ícones provisórios gerados com módulos nativos; favicon.svg removido',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'scripts/generate-icons.mjs',
       'public/pwa-192x192.png',
@@ -1520,6 +1520,12 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'public/favicon.png',
       'index.html',
     ],
+  },
+  {
+    id: 'D-26',
+    title: 'Acesso restrito (RF-12) opcional, na Fase 12; site sem restrição até lá',
+    status: 'confirmed',
+    impacts: ['docs/SPEC.md', 'README.md', 'src/app/pwa/pwaOptions.ts'],
   },
 ]
 
@@ -1566,21 +1572,23 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
   {
-    title: 'Risco do CA-12.3: sessão do Access expirada não força o relogin',
-    severity: 'warn',
+    title: 'Fase 12 (opcional): risco do CA-12.3 — sessão do Access expirada não força o relogin',
+    severity: 'info',
+    optionalPhase: 12,
     detail:
-      'O SW serve o index.html do precache para toda navegação (exceto /cdn-cgi/), então, com a sessão do Access expirada, o app aberto pelo ícone não passa pelo Cloudflare e não pede login. A procura de versão nova (registration.update()) falha em silêncio (D-24) e o app deixa de receber atualizações até o usuário fazer login por outro caminho. Só se confirma no roteiro do iPhone, depois do deploy.',
+      'Só vale se o Access for configurado na Fase 12 (D-26); hoje o site não tem restrição e o risco não existe. Com Access: o SW serve o index.html do precache para toda navegação (exceto /cdn-cgi/), então, com a sessão expirada, o app aberto pelo ícone não passa pelo Cloudflare e não pede login; a procura de versão nova (registration.update()) falha em silêncio (D-24) e o app deixa de receber atualizações até um login por outro caminho. Verificar no item 4 do roteiro da Fase 12.',
     modules: ['src/app/pwa/pwaOptions.ts', 'src/app/pwa/registerPwa.ts'],
   },
   {
-    title: 'Pendência humana da Fase 1: Cloudflare Pages + Access',
+    title: 'Fase 12 (opcional): configurar o acesso restrito',
     severity: 'info',
+    optionalPhase: 12,
     detail:
-      'Única tarefa desmarcada da Fase 1: criar o projeto no Cloudflare Pages, publicar e configurar o Access (passo a passo no README.md, §6.10). Até lá, CA-12.1, CA-12.2 e CA-12.3 não podem ser verificados.',
-    modules: ['README.md'],
+      'Tarefas humanas da Fase 12: verificar se o Cloudflare Access (Zero Trust) existe no plano gratuito (senão, avaliar Vercel Authentication ou outra opção gratuita e registrar na §8) e configurar produção e previews (§6.10, README.md). O código já está pronto para a Fase 12: manifest com crossorigin="use-credentials" (useCredentials: true) e o SW sem responder a /cdn-cgi/. Até lá o site fica sem restrição de acesso; os dados continuam só no aparelho (princípio 5).',
+    modules: ['README.md', 'src/app/pwa/pwaOptions.ts'],
   },
   {
-    title: 'D-23, D-24 e D-25 aguardam confirmação do dono',
+    title: 'D-23, D-24 e D-25 aguardavam confirmação do dono',
     severity: 'warn',
     detail:
       'Registradas na §8.1 em 18/10/2026 durante a Fase 1 (posição do aviso de instalação, procura de versão ao ficar visível, ícones provisórios e remoção do favicon.svg), ainda sem "Confirmado pelo dono".',
@@ -1590,20 +1598,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/app/pwa/registerPwa.ts',
       'scripts/generate-icons.mjs',
     ],
-  },
-  {
-    title: 'Versão da spec não foi incrementada com D-23 a D-25',
-    severity: 'warn',
-    detail:
-      'docs/SPEC.md ganhou D-23, D-24 e D-25 e as tarefas da Fase 1 foram marcadas, mas o cabeçalho continua em "1.4 — 17/10/2026".',
-    modules: ['docs/SPEC.md'],
-  },
-  {
-    title: 'src/stores/.gitkeep continua versionado',
-    severity: 'info',
-    detail:
-      'A pasta deixou de estar vazia com o uiStore.ts (Fase 1); o .gitkeep da Fase 0 pode sair num commit futuro.',
-    modules: ['src/stores/uiStore.ts'],
+    resolved: 'Confirmadas pelo dono em 19/10/2026 (§8.1).',
   },
   {
     title: 'pwaOptions.ts roda em dois contextos (Vite/Node e Vitest)',
@@ -1671,6 +1666,32 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     modules: ['docs/SPEC.md'],
     resolved: 'Cabeçalho atualizado para 1.4 (D-19 a D-22) em 17/10/2026.',
   },
+  {
+    title: 'Pendência humana da Fase 1: Cloudflare Pages + Access',
+    severity: 'info',
+    detail:
+      'Única tarefa desmarcada da Fase 1: criar o projeto no Cloudflare Pages, publicar e configurar o Access (passo a passo no README.md, §6.10). Até lá, CA-12.1, CA-12.2 e CA-12.3 não podiam ser verificados.',
+    modules: ['README.md'],
+    resolved:
+      'Resolvido em 19/10/2026: o dono criou o projeto no Cloudflare Pages e publicou; o roteiro da Fase 1 passou no iPhone (instalação, offline e aviso de nova versão). A configuração do Access saiu da Fase 1 e virou a Fase 12 opcional (D-26).',
+  },
+  {
+    title: 'Versão da spec não foi incrementada com D-23 a D-25',
+    severity: 'warn',
+    detail:
+      'docs/SPEC.md ganhou D-23, D-24 e D-25 e as tarefas da Fase 1 foram marcadas, mas o cabeçalho continuava em "1.4 — 17/10/2026".',
+    modules: ['docs/SPEC.md'],
+    resolved:
+      'Cabeçalho em 1.6 — 19/10/2026 (D-26), com a 1.5 — 18/10/2026 registrando D-23 a D-25.',
+  },
+  {
+    title: 'src/stores/.gitkeep continuava versionado',
+    severity: 'info',
+    detail:
+      'A pasta deixou de estar vazia com o uiStore.ts (Fase 1); o .gitkeep da Fase 0 não era mais necessário.',
+    modules: ['src/stores/uiStore.ts'],
+    resolved: 'Removido pelo orquestrador; a remoção entrou no commit 38ae487 (18/10/2026).',
+  },
 ]
 
 // ---------- notas por módulo ----------
@@ -1693,7 +1714,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/app/pwa/registerPwa.ts':
     'Recebe o registerSW por parâmetro (testável sem o módulo virtual). onNeedRefresh → setUpdateAvailable(true); applyPwaUpdate → updateSW(true). Listener de visibilitychange (D-24) atrelado a um AbortController; a função devolvida faz a limpeza, inclusive se o registro terminar depois dela.',
   'src/app/pwa/pwaOptions.ts':
-    'PWA_OPTIONS (§6.9): registerType prompt, injectRegister false, useCredentials true, includeManifestIcons false (os ícones já entram pelo globPatterns), manifest e workbox (precache, navigateFallback, denylist /cdn-cgi/). Protegido por pwaOptions.test.ts.',
+    'PWA_OPTIONS (§6.9): registerType prompt, injectRegister false, useCredentials true, includeManifestIcons false (os ícones já entram pelo globPatterns), manifest e workbox (precache, navigateFallback, denylist /cdn-cgi/). useCredentials e a denylist /cdn-cgi/ estão prontos para a Fase 12 (acesso restrito, opcional — D-26); hoje o site não tem Access. Protegido por pwaOptions.test.ts.',
   'src/app/pwa/usePwaUpdate.ts':
     'Fachada do aviso: { isUpdateAvailable, applyUpdate }. Componentes não importam o uiStore nem o registerPwa diretamente.',
   'src/app/pwa/useIsStandalone.ts':
@@ -1701,7 +1722,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/app/pwa/UpdateNotice.tsx':
     'Região viva sempre montada; o aviso usa a altura --update-notice-height, a mesma que o AppLayout reserva.',
   'src/app/pwa/InstallHint.tsx':
-    'Texto exato do CA-11.6; posição definida pela D-23 (aguardando confirmação).',
+    'Texto exato do CA-11.6; posição definida pela D-23 (confirmada pelo dono).',
   'src/stores/uiStore.ts':
     'Primeira store Zustand: só updateAvailable/setUpdateAvailable. INITIAL_UI_STATE é exportado para src/test/setup.ts resetar o estado entre testes. transactionFilters (Fase 5) e viewGranularity/viewAnchorDate (Fase 7) ainda não existem.',
   'src/components/ui/Notice.tsx':

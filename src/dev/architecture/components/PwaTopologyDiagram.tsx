@@ -346,7 +346,7 @@ export function PwaTopologyDiagram() {
         Navegações → index.html do precache;
       </text>
       <text x={636} y={382} className="fill-slate-600 text-[11px] dark:fill-slate-300">
-        /cdn-cgi/ (login do Access) → sempre pela rede.
+        /cdn-cgi/ → sempre pela rede (pronto para a Fase 12).
       </text>
     </svg>
   )

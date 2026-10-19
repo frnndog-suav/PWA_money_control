@@ -8,23 +8,40 @@ import { ModuleLink } from '@/dev/architecture/components/ModuleLink'
 import { ModuleList } from '@/dev/architecture/components/ModuleList'
 import { PwaTopologyDiagram } from '@/dev/architecture/components/PwaTopologyDiagram'
 import { Section } from '@/dev/architecture/components/Section'
-import { baseName, currentPhase, graph } from '@/dev/architecture/model'
+import { baseName, currentPhase, graph, optionalPhases } from '@/dev/architecture/model'
 
 const { build, pwa } = graph
 const publicFiles = Object.entries(graph.publicFiles)
 const precache = new Set(build?.precache ?? [])
 
 const pendingHumanTasks = graph.phases
-  .filter((phase) => phase.number <= currentPhase)
+  .filter((phase) => !phase.optional && phase.number <= currentPhase)
   .flatMap((phase) =>
     phase.tasks
       .filter((task) => task.human && !task.done)
       .map((task) => ({ phase: phase.number, text: task.text })),
   )
 
-const pwaRisks = ARCHITECTURE_FINDINGS.filter(
+/** Tarefas das fases opcionais (ex.: Fase 12 — acesso restrito, D-26): não são pendências. */
+const optionalPhaseTasks = graph.phases
+  .filter((phase) => phase.optional)
+  .flatMap((phase) =>
+    phase.tasks
+      .filter((task) => !task.done)
+      .map((task) => ({ phase: phase.number, text: task.text, human: task.human })),
+  )
+
+const openPwaFindings = ARCHITECTURE_FINDINGS.filter(
   (finding) => !finding.resolved && finding.modules.some((m) => m.startsWith('src/app/pwa/')),
 )
+const pwaRisks = openPwaFindings.filter(
+  (f) => f.optionalPhase === undefined || !optionalPhases.has(f.optionalPhase),
+)
+const optionalPhaseRisks = openPwaFindings.filter(
+  (f) => f.optionalPhase !== undefined && optionalPhases.has(f.optionalPhase),
+)
+
+const stripHumanMark = (text: string) => text.replace('*(Humano)* ', '')
 
 const formatKilobytes = (bytes: number) => `${formatInteger(Math.round(bytes / 100) / 10)} kB`
 
@@ -184,15 +201,60 @@ function PublicFilesCard() {
   )
 }
 
+function OptionalPhaseCard() {
+  if (!optionalPhaseTasks.length && !optionalPhaseRisks.length) return null
+  return (
+    <Card>
+      <Card.Title trailing={<Badge>opcional</Badge>}>
+        Acesso restrito: itens da Fase 12 (D-26)
+      </Card.Title>
+      <p className="text-sm text-slate-600 dark:text-slate-400">
+        Não são pendências: a Fase 12 só começa depois da Fase 11, se o dono decidir. Até lá o site
+        fica sem restrição de acesso e os dados continuam só no aparelho (princípio 5). Prontos para
+        a Fase 12 no código: o manifest com crossorigin=&quot;use-credentials&quot; (useCredentials)
+        e a denylist /cdn-cgi/ do service worker.
+      </p>
+      <ul className="flex flex-col gap-2 text-sm">
+        {optionalPhaseTasks.map((task) => (
+          <li key={task.text} className="flex flex-wrap items-center gap-2">
+            <Badge>
+              Fase {task.phase} · {task.human ? 'humano' : 'código'}
+            </Badge>
+            <span>{stripHumanMark(task.text)}</span>
+          </li>
+        ))}
+        {optionalPhaseRisks.map((risk) => (
+          <li key={risk.title} className="flex flex-col gap-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge>a verificar na Fase {risk.optionalPhase}</Badge>
+              <span className="font-semibold">{risk.title}</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400">{risk.detail}</p>
+          </li>
+        ))}
+      </ul>
+    </Card>
+  )
+}
+
 function PendingCard() {
+  const isEmpty = !pendingHumanTasks.length && !pwaRisks.length
   return (
     <Card tone={pwaRisks.length ? 'warn' : 'default'}>
-      <Card.Title>Pendências humanas e riscos</Card.Title>
+      <Card.Title trailing={isEmpty ? <Badge variant="ok">nenhuma</Badge> : undefined}>
+        Pendências humanas e riscos
+      </Card.Title>
+      {!pendingHumanTasks.length && (
+        <p className="text-sm text-slate-600 dark:text-slate-400">
+          Fase 1 concluída: deploy no Cloudflare Pages feito e roteiro aprovado no iPhone
+          (instalação, offline e aviso de nova versão).
+        </p>
+      )}
       <ul className="flex flex-col gap-2 text-sm">
         {pendingHumanTasks.map((task) => (
           <li key={task.text} className="flex flex-wrap items-center gap-2">
             <Badge variant="warn">Fase {task.phase} · humano</Badge>
-            <span>{task.text.replace('*(Humano)* ', '')}</span>
+            <span>{stripHumanMark(task.text)}</span>
           </li>
         ))}
         {pwaRisks.map((risk) => (
@@ -224,6 +286,7 @@ export function PwaSection() {
         <BuildCard />
         <PublicFilesCard />
         <PendingCard />
+        <OptionalPhaseCard />
       </div>
     </Section>
   )

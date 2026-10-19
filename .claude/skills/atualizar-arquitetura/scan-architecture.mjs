@@ -796,9 +796,12 @@ function parsePhases() {
     if (number === undefined) continue;
     const body = block.split(/^---$/m)[0];
     const tasks = [...body.matchAll(/^- \[( |x)\] (.+)$/gm)].map((m) => ({ done: m[1] === 'x', text: m[2].trim(), human: /\(Humano\)/.test(m[2]) }));
+    // "Acesso restrito *(opcional — depois da Fase 11)*" → título sem marcação + optional: true
+    const cleanTitle = title.replace(/\*/g, '').trim();
     phases.push({
       number: Number(number),
-      title: title.trim(),
+      title: cleanTitle,
+      optional: /\(opcional\b/i.test(cleanTitle),
       requirements: body.match(/\*\*Requisitos:\*\*\s*([^\n]+)/)?.[1]?.trim() ?? '',
       tasks,
       done: tasks.filter((t) => t.done).length,

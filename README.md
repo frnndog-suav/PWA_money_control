@@ -5,7 +5,7 @@ usado no iPhone pela Tela de Início. Os dados ficam **somente no aparelho** (In
 app funciona **sem internet**; a única saída de dados é o arquivo de backup criptografado
 que o próprio usuário exporta.
 
-O site publicado fica atrás do **Cloudflare Access**: só o e-mail do dono consegue abrir.
+Por enquanto o site publicado **não tem restrição de acesso**: qualquer pessoa com a URL abre o app, mas os dados ficam somente no aparelho de quem usa. O controle de acesso (Cloudflare Access) é opcional e fica para a Fase 12 (D-26).
 
 > A especificação completa (requisitos, decisões e plano de fases) está em
 > [`docs/SPEC.md`](docs/SPEC.md), que é a fonte única da verdade do projeto.
@@ -59,7 +59,9 @@ Conforme `docs/SPEC.md` §6.10.
 5. Roteamento SPA: o build **não** tem `404.html`; assim o Pages entrega o `index.html` para
    qualquer caminho (ex.: `/lancamentos`) e o React Router assume. Não crie um `404.html`.
 
-## Acesso restrito com Cloudflare Access
+## Acesso restrito com Cloudflare Access (opcional — Fase 12)
+
+> **Opcional (D-26):** só depois de todas as outras fases. Antes, confirme se o Zero Trust está disponível no plano gratuito da sua conta; se não estiver, veja a alternativa Vercel no fim desta seção.
 
 Objetivo (RF-12): só o e-mail do dono recebe o site, inclusive as URLs de *preview*.
 

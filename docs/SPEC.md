@@ -1,6 +1,6 @@
 # Especificação — App de Controle de Gastos (PWA)
 
-> **Versão do documento:** 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)
+> **Versão do documento:** 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)
 > **Tipo:** Especificação para desenvolvimento orientado por especificação (*spec-driven development*)
 > **Uso:** fonte única da verdade para a implementação por um agente de IA, em fases incrementais e testáveis.
 
@@ -379,6 +379,8 @@ Usar **Chart.js** (renderiza em Canvas) via `react-chartjs-2`.
 
 ### RF-12 — Acesso restrito ao site
 
+> **Opcional (D-26):** implementado na Fase 12, depois de todas as outras fases, se o dono decidir. Até lá o site fica sem restrição de acesso.
+
 - **CA-12.1** O site publicado só é entregue a quem fizer login com o e-mail do dono no **Cloudflare Access** (código de uso único por e-mail). Qualquer outra pessoa não recebe nem o HTML do app.
 - **CA-12.2** As URLs de *preview* (deploys de branches) também ficam protegidas.
 - **CA-12.3** O app instalado continua abrindo offline mesmo quando a sessão do Access expirar; ao ficar online com a sessão expirada, o usuário consegue fazer login de novo e o app volta a receber atualizações.
@@ -726,6 +728,8 @@ O tema **não** fica no Zustand; fica na tabela `settings` (persistido) e é apl
 
 ### 6.10 Deploy e acesso (Cloudflare Pages + Cloudflare Access)
 
+> O deploy é feito na Fase 1. O **acesso restrito** é opcional e fica para a Fase 12 (D-26).
+
 **Deploy:**
 
 1. Repositório no GitHub.
@@ -799,23 +803,22 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 
 ---
 
-### Fase 1 — PWA, deploy e acesso restrito
+### Fase 1 — PWA e deploy
 
-**Requisitos:** RF-11 (CA-11.1 a 11.3, 11.6), RF-12
+**Requisitos:** RF-11 (CA-11.1 a 11.3, 11.6). *(RF-12 — acesso restrito — foi movido para a Fase 12, opcional: D-26.)*
 
 - [x] Configurar `vite-plugin-pwa` (seção 6.9), ícones provisórios, manifest, metatags do iOS.
 - [x] Componente de aviso "Nova versão disponível" com botão "Atualizar" (Zustand `updateAvailable`).
 - [x] Aviso para quando o app estiver aberto fora do modo instalado (CA-11.6).
 - [x] Documentar no `README.md` o passo a passo de deploy e Access (seção 6.10).
-- [ ] *(Humano)* Criar o projeto no Cloudflare Pages, publicar e configurar o Cloudflare Access.
+- [x] *(Humano)* Criar o projeto no Cloudflare Pages e publicar. *(Configurar o Cloudflare Access passou para a Fase 12 — D-26.)*
 
 **Roteiro de teste (iPhone):**
-1. Abrir a URL de produção → deve pedir login do Cloudflare Access → receber o código por e-mail → entrar.
-2. Abrir a mesma URL numa janela anônima ou outro aparelho com outro e-mail → **não** deve conseguir entrar.
-3. Adicionar à Tela de Início → abrir pelo ícone → deve abrir em tela cheia com nome e ícone.
-4. Ativar o modo avião → abrir pelo ícone → o app deve abrir normalmente.
-5. Fazer uma mudança visível, dar push, abrir o app → deve aparecer "Nova versão disponível" → tocar "Atualizar" → mudança visível.
-6. Se o login dentro do app instalado der problema, registrar o comportamento na seção 8 antes de seguir.
+1. Adicionar à Tela de Início → abrir pelo ícone → deve abrir em tela cheia com nome e ícone.
+2. Ativar o modo avião → abrir pelo ícone → o app deve abrir normalmente.
+3. Fazer uma mudança visível, dar push, abrir o app → deve aparecer "Nova versão disponível" → tocar "Atualizar" → mudança visível.
+
+*(Os testes de login do Access estão no roteiro da Fase 12.)*
 
 ---
 
@@ -1020,6 +1023,26 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 
 ---
 
+### Fase 12 — Acesso restrito *(opcional — depois da Fase 11)*
+
+**Requisitos:** RF-12 (D-26)
+
+> Opcional. Só começa depois que todas as outras fases estiverem concluídas e se o dono decidir fazê-la. Até lá o site publicado fica **sem restrição de acesso** (qualquer pessoa com a URL abre o app). Os dados continuam somente no aparelho de quem usa (princípio 5): a URL pública expõe o código do app, nunca os lançamentos.
+
+O código já está preparado (Fase 1): manifest carregado com `crossorigin="use-credentials"` e service worker sem responder às rotas `/cdn-cgi/`.
+
+- [ ] *(Humano)* Verificar se o Cloudflare Access (Zero Trust) está disponível no plano gratuito da conta; se não estiver, avaliar a alternativa Vercel + Vercel Authentication (§6.10) ou outra opção gratuita, e registrar a escolha na seção 8.
+- [ ] *(Humano)* Configurar o controle de acesso escolhido conforme §6.10 (produção **e** previews).
+- [ ] Ajustar o código e o `README.md` se a solução escolhida exigir algo diferente do Cloudflare Access.
+
+**Roteiro de teste (iPhone):**
+1. Abrir a URL de produção → deve pedir login → receber o código por e-mail → entrar.
+2. Abrir a mesma URL numa janela anônima ou outro aparelho com outro e-mail → **não** deve conseguir entrar.
+3. Abrir uma URL de preview → também deve pedir login.
+4. App instalado: continua abrindo offline; com a sessão expirada, ao ficar online, consegue fazer login de novo e volta a receber atualizações (CA-12.3). Se der problema, registrar na seção 8.
+
+---
+
 ## 8. Decisões registradas e pontos em aberto
 
 ### 8.1 Decisões registradas
@@ -1048,9 +1071,10 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 | D-20 | Rotas com o pacote **`react-router`** (v7) apenas; `react-router-dom` fica autorizado mas não é instalado. Versões das bibliotecas fixas no `package.json`, **sem `^`**. | Pacote único e atual do React Router; builds reprodutíveis. **Confirmado pelo dono.** (17/10/2026) |
 | D-21 | Caminho desconhecido (rota `*`) **redireciona para o Início** (`/`) com `replace`, em vez de exibir uma tela de "não encontrado". | O Cloudflare Pages serve o `index.html` para qualquer caminho (§6.10) e a tela de erro padrão do React Router é em inglês. **Confirmado pelo dono.** (17/10/2026) |
 | D-22 | Features não importam de `src/app/`. A exceção atual (`useTheme` em `src/app/theme/`, usado por Ajustes) é eliminada na Fase 2, quando o tema passa para o Dexie e o hook vai para `src/repositories/`. | Mantém a direção de dependência entre camadas sem exceções. **Confirmado pelo dono.** (17/10/2026) |
-| D-23 | O aviso de app fora do modo instalado (CA-11.6) fica no **layout** (topo do conteúdo de todas as telas com barra inferior), em faixa discreta só de texto, sem botão de fechar. | O app pode ser aberto por qualquer URL numa aba comum, não só pelo Início; o aviso some sozinho quando o app é aberto pelo ícone. (18/10/2026) |
-| D-24 | Além da checagem do navegador ao navegar, o app pede ao service worker que procure versão nova sempre que volta a ficar **visível** e **online** (`registration.update()`), ignorando falhas (sem rede ou sessão do Access expirada). | No iPhone o app instalado costuma voltar do segundo plano sem nova navegação, e o aviso do CA-11.3 demoraria a aparecer. (18/10/2026) |
-| D-25 | Ícones provisórios (192, 512, 512 *maskable*, `apple-touch-icon` 180 e `favicon.png` 48) gerados por `scripts/generate-icons.mjs` só com módulos nativos do Node; o `favicon.svg` do template foi removido. Também foi adicionada a meta `apple-mobile-web-app-title` = "Gastos", igual ao `short_name`. | Sem dependências extras; nome e ícone definitivos na Fase 11 (Q-03 / D-09). (18/10/2026) |
+| D-23 | O aviso de app fora do modo instalado (CA-11.6) fica no **layout** (topo do conteúdo de todas as telas com barra inferior), em faixa discreta só de texto, sem botão de fechar. | O app pode ser aberto por qualquer URL numa aba comum, não só pelo Início; o aviso some sozinho quando o app é aberto pelo ícone. **Confirmado pelo dono.** (18/10/2026; confirmado em 19/10/2026) |
+| D-24 | Além da checagem do navegador ao navegar, o app pede ao service worker que procure versão nova sempre que volta a ficar **visível** e **online** (`registration.update()`), ignorando falhas (sem rede ou sessão do Access expirada). | No iPhone o app instalado costuma voltar do segundo plano sem nova navegação, e o aviso do CA-11.3 demoraria a aparecer. **Confirmado pelo dono.** (18/10/2026; confirmado em 19/10/2026) |
+| D-25 | Ícones provisórios (192, 512, 512 *maskable*, `apple-touch-icon` 180 e `favicon.png` 48) gerados por `scripts/generate-icons.mjs` só com módulos nativos do Node; o `favicon.svg` do template foi removido. Também foi adicionada a meta `apple-mobile-web-app-title` = "Gastos", igual ao `short_name`. | Sem dependências extras; nome e ícone definitivos na Fase 11 (Q-03 / D-09). **Confirmado pelo dono.** (18/10/2026; confirmado em 19/10/2026) |
+| D-26 | O **acesso restrito** (RF-12, Cloudflare Access) passa a ser **opcional** e vira a **Fase 12**, depois de todas as outras. Até lá o site publicado fica sem restrição de acesso. O código continua preparado (manifest com credenciais, SW sem responder a `/cdn-cgi/`). | O dono não conseguiu configurar o Zero Trust e não sabe se está disponível no plano gratuito; como os dados ficam só no aparelho (princípio 5), a URL pública expõe apenas o código do app. **Confirmado pelo dono.** (19/10/2026) |
 
 ### 8.2 Pontos em aberto (perguntar ao dono antes da fase indicada)
 

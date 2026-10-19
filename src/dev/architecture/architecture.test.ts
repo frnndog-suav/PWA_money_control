@@ -33,7 +33,8 @@ const knownRequirementIds = new Set([
 ])
 
 const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/
-const LAST_PHASE = 11
+/** Última fase da §7, inclusive as opcionais (ex.: Fase 12 — D-26). */
+const LAST_PHASE = Math.max(...graph.phases.map((p) => p.number))
 
 function curatedPaths(): string[] {
   return [
@@ -106,6 +107,22 @@ describe('integridade da página de arquitetura (§6.12)', () => {
       expect(isValidPhase, entry.id).toBe(true)
       expect(entry.title.trim(), entry.id).not.toBe('')
     }
+  })
+
+  it('fases citadas na rastreabilidade existem na §7', () => {
+    const phaseNumbers = new Set(graph.phases.map((p) => p.number))
+    const unknown = REQUIREMENTS.flatMap((r) =>
+      r.phases.filter((n) => !phaseNumbers.has(n)).map((n) => `${r.id}: Fase ${n}`),
+    )
+    expect(unknown).toEqual([])
+  })
+
+  it('achados de fase opcional apontam para uma fase marcada como opcional na §7', () => {
+    const optional = new Set(graph.phases.filter((p) => p.optional).map((p) => p.number))
+    const wrong = ARCHITECTURE_FINDINGS.filter(
+      (f) => f.optionalPhase !== undefined && !optional.has(f.optionalPhase),
+    ).map((f) => f.title)
+    expect(wrong).toEqual([])
   })
 
   it('ids da timeline são únicos e commits batem com o git', () => {

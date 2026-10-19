@@ -52,7 +52,8 @@ export function OverviewSection() {
         </Badge>
       </div>
       <p className="text-sm">
-        <span className="font-semibold">Spec:</span> versão {graph.specVersion}
+        <span className="font-semibold">Spec:</span> versão{' '}
+        {graph.specVersion?.split(' · ')[0] ?? 'desconhecida'}
       </p>
 
       <ul className="grid grid-cols-2 gap-2 sm:grid-cols-4 xl:grid-cols-8">
@@ -72,6 +73,10 @@ export function OverviewSection() {
           <Card.Title trailing={<Badge variant="info">fase atual: {currentPhase}</Badge>}>
             Progresso das fases (§7)
           </Card.Title>
+          <p className="text-xs text-slate-600 dark:text-slate-400">
+            Fases opcionais (cinza) só começam depois da Fase 11, se o dono decidir; não contam como
+            atraso nem definem a fase atual.
+          </p>
           <div className="flex flex-col gap-2">
             {graph.phases.map((phase) => (
               <ProgressBar
@@ -79,6 +84,7 @@ export function OverviewSection() {
                 label={`Fase ${phase.number} — ${phase.title}`}
                 done={phase.done}
                 total={phase.total}
+                optional={phase.optional}
               />
             ))}
           </div>

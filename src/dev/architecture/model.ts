@@ -30,9 +30,16 @@ export function baseName(id: string): string {
   return id.slice(id.lastIndexOf('/') + 1)
 }
 
-/** Primeira fase com tarefas pendentes (a fase "atual"). */
+/** Fases marcadas como opcionais na §7 (ex.: Fase 12 — D-26): nunca contam como atrasadas. */
+export const optionalPhases: ReadonlySet<number> = new Set(
+  graph.phases.filter((p) => p.optional).map((p) => p.number),
+)
+
+const requiredPhases = graph.phases.filter((p) => !p.optional)
+
+/** Primeira fase obrigatória com tarefas pendentes (a fase "atual"). */
 export const currentPhase: number =
-  graph.phases.find((p) => p.done < p.total)?.number ?? graph.phases.length
+  requiredPhases.find((p) => p.done < p.total)?.number ?? requiredPhases.length
 
 // ---------- linha do tempo ----------
 

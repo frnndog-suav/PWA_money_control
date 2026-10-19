@@ -1,9 +1,9 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-18T12:55:37.933Z",
+  "generatedAt": "2026-10-19T15:21:35.347Z",
   "totals": {
     "modules": 116,
-    "loc": 8160,
+    "loc": 8411,
     "components": 70,
     "hooks": 7,
     "tests": 18,
@@ -34,7 +34,7 @@
     },
     "dev": {
       "modules": 52,
-      "loc": 6499,
+      "loc": 6750,
       "components": 34,
       "hooks": 1,
       "tests": 2
@@ -75,11 +75,12 @@
       "tests": 0
     }
   },
-  "specVersion": "1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
       "title": "Fundação do projeto",
+      "optional": false,
       "requirements": "RF-09, RF-13 (estrutura), RNF-07",
       "tasks": [
         {
@@ -133,8 +134,9 @@
     },
     {
       "number": 1,
-      "title": "PWA, deploy e acesso restrito",
-      "requirements": "RF-11 (CA-11.1 a 11.3, 11.6), RF-12",
+      "title": "PWA e deploy",
+      "optional": false,
+      "requirements": "RF-11 (CA-11.1 a 11.3, 11.6). *(RF-12 — acesso restrito — foi movido para a Fase 12, opcional: D-26.)*",
       "tasks": [
         {
           "done": true,
@@ -157,17 +159,18 @@
           "human": false
         },
         {
-          "done": false,
-          "text": "*(Humano)* Criar o projeto no Cloudflare Pages, publicar e configurar o Cloudflare Access.",
+          "done": true,
+          "text": "*(Humano)* Criar o projeto no Cloudflare Pages e publicar. *(Configurar o Cloudflare Access passou para a Fase 12 — D-26.)*",
           "human": true
         }
       ],
-      "done": 4,
+      "done": 5,
       "total": 5
     },
     {
       "number": 2,
       "title": "Domínio e banco de dados",
+      "optional": false,
       "requirements": "princípios 1, 2, 3, 6, 7, 9; seções 6.3 a 6.5",
       "tasks": [
         {
@@ -212,6 +215,7 @@
     {
       "number": 3,
       "title": "Tags",
+      "optional": false,
       "requirements": "RF-03",
       "tasks": [
         {
@@ -241,6 +245,7 @@
     {
       "number": 4,
       "title": "Lançamentos e tela inicial",
+      "optional": false,
       "requirements": "RF-01, RF-02 (exceto itens de recorrentes), RF-03 (CA-03.2 completo)",
       "tasks": [
         {
@@ -280,6 +285,7 @@
     {
       "number": 5,
       "title": "Lista, busca e filtros",
+      "optional": false,
       "requirements": "RF-04",
       "tasks": [
         {
@@ -304,6 +310,7 @@
     {
       "number": 6,
       "title": "Backup (exportar e importar)",
+      "optional": false,
       "requirements": "RF-10",
       "tasks": [
         {
@@ -343,6 +350,7 @@
     {
       "number": 7,
       "title": "Visões por período",
+      "optional": false,
       "requirements": "RF-05 (sem a parte de recorrentes, que entra na Fase 9)",
       "tasks": [
         {
@@ -372,6 +380,7 @@
     {
       "number": 8,
       "title": "Gráficos",
+      "optional": false,
       "requirements": "RF-06",
       "tasks": [
         {
@@ -416,6 +425,7 @@
     {
       "number": 9,
       "title": "Recorrentes",
+      "optional": false,
       "requirements": "RF-07; integra com RF-02 (item 4), RF-05 (Previsto e pendentes), RF-10 (backup inclui recorrentes)",
       "tasks": [
         {
@@ -465,6 +475,7 @@
     {
       "number": 10,
       "title": "Parcelamento",
+      "optional": false,
       "requirements": "RF-08; integra com RF-10",
       "tasks": [
         {
@@ -504,6 +515,7 @@
     {
       "number": 11,
       "title": "Polimento e revisão final",
+      "optional": false,
       "requirements": "RNF-02, RNF-04, RNF-06",
       "tasks": [
         {
@@ -539,6 +551,31 @@
       ],
       "done": 0,
       "total": 6
+    },
+    {
+      "number": 12,
+      "title": "Acesso restrito (opcional — depois da Fase 11)",
+      "optional": true,
+      "requirements": "RF-12 (D-26)",
+      "tasks": [
+        {
+          "done": false,
+          "text": "*(Humano)* Verificar se o Cloudflare Access (Zero Trust) está disponível no plano gratuito da conta; se não estiver, avaliar a alternativa Vercel + Vercel Authentication (§6.10) ou outra opção gratuita, e registrar a escolha na seção 8.",
+          "human": true
+        },
+        {
+          "done": false,
+          "text": "*(Humano)* Configurar o controle de acesso escolhido conforme §6.10 (produção **e** previews).",
+          "human": true
+        },
+        {
+          "done": false,
+          "text": "Ajustar o código e o `README.md` se a solução escolhida exigir algo diferente do Cloudflare Access.",
+          "human": false
+        }
+      ],
+      "done": 0,
+      "total": 3
     }
   ],
   "modules": [
@@ -3221,7 +3258,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 125,
+      "loc": 140,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -3242,6 +3279,7 @@
       "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.3",
+        "D-26",
         "RF-09"
       ],
       "external": [
@@ -4118,7 +4156,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 190,
+      "loc": 210,
       "exports": [
         "HealthSection"
       ],
@@ -4158,7 +4196,9 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "D-26"
+      ],
       "external": [
         {
           "package": "react",
@@ -4801,7 +4841,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 90,
+      "loc": 96,
       "exports": [
         "OverviewSection"
       ],
@@ -4921,7 +4961,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 31,
+      "loc": 43,
       "exports": [
         "ProgressBar"
       ],
@@ -4930,14 +4970,14 @@
       "functions": [
         {
           "name": "ProgressBar",
-          "signature": "ProgressBar({ label, done, total }: ProgressBarProps)"
+          "signature": "ProgressBar({ label, done, total, optional = false }: ProgressBarProps)"
         }
       ],
       "components": [
         "ProgressBar"
       ],
       "props": {
-        "ProgressBarProps": 3
+        "ProgressBarProps": 4
       },
       "hooksDefined": [],
       "hooksUsed": [],
@@ -4951,7 +4991,9 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "D-26"
+      ],
       "external": [],
       "importedBy": [
         "src/dev/architecture/components/OverviewSection.tsx"
@@ -4968,7 +5010,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 221,
+      "loc": 281,
       "exports": [
         "PwaSection"
       ],
@@ -4996,6 +5038,7 @@
         "Fields.Item",
         "ModuleLink",
         "ModuleList",
+        "OptionalPhaseCard",
         "PendingCard",
         "PluginOptionsCard",
         "PublicFilesCard",
@@ -5012,7 +5055,8 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
-        "D-25"
+        "D-25",
+        "D-26"
       ],
       "external": [],
       "importedBy": [
@@ -5532,7 +5576,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 70,
+      "loc": 85,
       "exports": [
         "TraceabilitySection"
       ],
@@ -5567,7 +5611,10 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "D-26",
+        "RF-12"
+      ],
       "external": [],
       "importedBy": [
         "src/dev/architecture/ArchitecturePage.tsx"
@@ -5833,7 +5880,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 1715,
+      "loc": 1736,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
@@ -5911,7 +5958,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 605,
+      "loc": 698,
       "exports": [
         "TIMELINE"
       ],
@@ -6171,7 +6218,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 37,
+      "loc": 42,
       "exports": [
         "baseName",
         "currentPhase",
@@ -6181,6 +6228,7 @@
         "isProductionModule",
         "isTestModule",
         "moduleById",
+        "optionalPhases",
         "timelineEntriesTouching",
         "timelineFiles"
       ],
@@ -6230,7 +6278,9 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "D-26"
+      ],
       "external": [],
       "importedBy": [
         "src/dev/architecture/components/CompositionSection.tsx",
@@ -6383,7 +6433,7 @@
       "kinds": [
         "types"
       ],
-      "loc": 333,
+      "loc": 337,
       "exports": [
         "AllowedDependency",
         "ArchitectureFinding",
@@ -6484,7 +6534,8 @@
         "D-17",
         "D-18",
         "D-19",
-        "D-20"
+        "D-20",
+        "D-26"
       ],
       "external": [],
       "importedBy": [
@@ -10028,7 +10079,8 @@
       "names": [
         "baseName",
         "currentPhase",
-        "graph"
+        "graph",
+        "optionalPhases"
       ]
     },
     {
@@ -10358,7 +10410,8 @@
       "to": "src/dev/architecture/model.ts",
       "kind": "static",
       "names": [
-        "currentPhase"
+        "currentPhase",
+        "optionalPhases"
       ]
     },
     {
@@ -11769,7 +11822,7 @@
     ]
   },
   "build": {
-    "builtAt": "2026-10-18T12:55:22.451Z",
+    "builtAt": "2026-10-19T15:21:34.428Z",
     "serviceWorker": "sw.js",
     "workboxRuntime": "workbox-2fbc6a65.js",
     "manifest": "manifest.webmanifest",
@@ -11813,7 +11866,7 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "93ae3b6",
+    "head": "38ae487",
     "workingTree": [
       {
         "status": "M",
@@ -11829,35 +11882,31 @@
       },
       {
         "status": "M",
-        "path": "index.html"
+        "path": "src/dev/architecture/architecture.test.ts"
       },
       {
         "status": "M",
-        "path": "package-lock.json"
+        "path": "src/dev/architecture/components/HealthSection.tsx"
       },
       {
         "status": "M",
-        "path": "package.json"
-      },
-      {
-        "status": "D",
-        "path": "public/favicon.svg"
+        "path": "src/dev/architecture/components/OverviewSection.tsx"
       },
       {
         "status": "M",
-        "path": "src/app/layout/AppLayout.tsx"
+        "path": "src/dev/architecture/components/ProgressBar.tsx"
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/ArchitecturePage.test.tsx"
+        "path": "src/dev/architecture/components/PwaSection.tsx"
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/ArchitecturePage.tsx"
+        "path": "src/dev/architecture/components/PwaTopologyDiagram.tsx"
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/UiStateSection.tsx"
+        "path": "src/dev/architecture/components/TraceabilitySection.tsx"
       },
       {
         "status": "M",
@@ -11869,143 +11918,220 @@
       },
       {
         "status": "M",
+        "path": "src/dev/architecture/model.ts"
+      },
+      {
+        "status": "M",
         "path": "src/dev/architecture/types.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/index.css"
-      },
-      {
-        "status": "M",
-        "path": "src/main.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/styles/utilities.css"
-      },
-      {
-        "status": "M",
-        "path": "src/test/matchMedia.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/test/setup.ts"
-      },
-      {
-        "status": "M",
-        "path": "tsconfig.app.json"
-      },
-      {
-        "status": "M",
-        "path": "tsconfig.node.json"
-      },
-      {
-        "status": "M",
-        "path": "vite.config.ts"
-      },
-      {
-        "status": "??",
-        "path": "public/apple-touch-icon.png"
-      },
-      {
-        "status": "??",
-        "path": "public/favicon.png"
-      },
-      {
-        "status": "??",
-        "path": "public/pwa-192x192.png"
-      },
-      {
-        "status": "??",
-        "path": "public/pwa-512x512.png"
-      },
-      {
-        "status": "??",
-        "path": "public/pwa-maskable-512x512.png"
-      },
-      {
-        "status": "??",
-        "path": "scripts/generate-icons.mjs"
-      },
-      {
-        "status": "??",
-        "path": "src/app/layout/AppLayout.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/app/pwa/InstallHint.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/app/pwa/InstallHint.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/app/pwa/UpdateNotice.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/app/pwa/UpdateNotice.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/app/pwa/indexHtmlPwaTags.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/app/pwa/pwaOptions.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/app/pwa/pwaOptions.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/app/pwa/registerPwa.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/app/pwa/registerPwa.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/app/pwa/useIsStandalone.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/app/pwa/usePwaUpdate.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/Notice.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/PwaSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/PwaTopologyDiagram.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/displayMode.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/displayMode.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/stores/uiStore.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/stores/uiStore.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "38ae487",
+      "date": "2026-10-18T20:06:56-03:00",
+      "author": "Fernando",
+      "subject": "feat/implementing phase 1 base structure",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
+        },
+        {
+          "status": "M",
+          "path": "README.md"
+        },
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "M",
+          "path": "index.html"
+        },
+        {
+          "status": "M",
+          "path": "package-lock.json"
+        },
+        {
+          "status": "M",
+          "path": "package.json"
+        },
+        {
+          "status": "A",
+          "path": "public/apple-touch-icon.png"
+        },
+        {
+          "status": "A",
+          "path": "public/favicon.png"
+        },
+        {
+          "status": "D",
+          "path": "public/favicon.svg"
+        },
+        {
+          "status": "A",
+          "path": "public/pwa-192x192.png"
+        },
+        {
+          "status": "A",
+          "path": "public/pwa-512x512.png"
+        },
+        {
+          "status": "A",
+          "path": "public/pwa-maskable-512x512.png"
+        },
+        {
+          "status": "A",
+          "path": "scripts/generate-icons.mjs"
+        },
+        {
+          "status": "A",
+          "path": "src/app/layout/AppLayout.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/app/layout/AppLayout.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/pwa/InstallHint.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/pwa/InstallHint.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/pwa/UpdateNotice.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/pwa/UpdateNotice.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/app/pwa/indexHtmlPwaTags.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/app/pwa/pwaOptions.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/app/pwa/pwaOptions.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/app/pwa/registerPwa.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/app/pwa/registerPwa.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/app/pwa/useIsStandalone.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/app/pwa/usePwaUpdate.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/Notice.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/ArchitecturePage.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/ArchitecturePage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/PwaSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/PwaTopologyDiagram.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/UiStateSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/types.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/index.css"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/displayMode.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/displayMode.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/main.tsx"
+        },
+        {
+          "status": "D",
+          "path": "src/stores/.gitkeep"
+        },
+        {
+          "status": "A",
+          "path": "src/stores/uiStore.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/stores/uiStore.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/styles/utilities.css"
+        },
+        {
+          "status": "M",
+          "path": "src/test/matchMedia.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/test/setup.ts"
+        },
+        {
+          "status": "M",
+          "path": "tsconfig.app.json"
+        },
+        {
+          "status": "M",
+          "path": "tsconfig.node.json"
+        },
+        {
+          "status": "M",
+          "path": "vite.config.ts"
+        }
+      ]
+    },
     {
       "hash": "93ae3b6",
       "date": "2026-10-17T23:20:45-03:00",
@@ -12883,7 +13009,6 @@
     "src/lib/themeStorage.ts",
     "src/main.tsx",
     "src/repositories/.gitkeep",
-    "src/stores/.gitkeep",
     "src/stores/uiStore.test.ts",
     "src/stores/uiStore.ts",
     "src/styles/utilities.css",

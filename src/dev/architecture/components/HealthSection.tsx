@@ -27,7 +27,13 @@ interface CheckProps {
   children: ReactNode
 }
 
-const openFindings = ARCHITECTURE_FINDINGS.filter((f) => !f.resolved)
+const openFindings = ARCHITECTURE_FINDINGS.filter(
+  (f) => !f.resolved && f.optionalPhase === undefined,
+)
+/** Só valem se a fase opcional for feita (ex.: Fase 12 — D-26): não são problema em aberto. */
+const optionalPhaseFindings = ARCHITECTURE_FINDINGS.filter(
+  (f) => !f.resolved && f.optionalPhase !== undefined,
+)
 const resolvedFindings = ARCHITECTURE_FINDINGS.filter((f) => f.resolved)
 
 function FindingList({ findings }: { findings: readonly ArchitectureFinding[] }) {
@@ -38,6 +44,8 @@ function FindingList({ findings }: { findings: readonly ArchitectureFinding[] })
           <div className="flex flex-wrap items-center gap-2">
             {finding.resolved ? (
               <Badge variant="ok">resolvido</Badge>
+            ) : finding.optionalPhase !== undefined ? (
+              <Badge>Fase {finding.optionalPhase} · opcional</Badge>
             ) : (
               <Badge variant={finding.severity}>{finding.severity}</Badge>
             )}
@@ -173,6 +181,18 @@ export function HealthSection() {
         <Card.Title>Achados em aberto (curated.ts)</Card.Title>
         <FindingList findings={openFindings} />
       </Card>
+      {optionalPhaseFindings.length > 0 && (
+        <Card>
+          <Card.Title trailing={<Badge>{optionalPhaseFindings.length}</Badge>}>
+            Itens de fases opcionais
+          </Card.Title>
+          <p className="text-xs text-slate-500">
+            Não contam como pendência: só serão verificados se a fase opcional for feita, depois da
+            Fase 11.
+          </p>
+          <FindingList findings={optionalPhaseFindings} />
+        </Card>
+      )}
       {resolvedFindings.length > 0 && (
         <Card>
           <Card.Title trailing={<Badge variant="ok">{resolvedFindings.length}</Badge>}>

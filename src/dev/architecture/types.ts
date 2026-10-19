@@ -167,6 +167,8 @@ export interface GraphBuild {
 export interface GraphPhase {
   number: number
   title: string
+  /** Fase marcada como "(opcional …)" no título da §7 (ex.: Fase 12, D-26). Não conta como atrasada. */
+  optional?: boolean
   requirements: string
   tasks: { done: boolean; text: string; human: boolean }[]
   done: number
@@ -345,6 +347,8 @@ export interface ArchitectureFinding {
   severity: 'info' | 'warn' | 'danger'
   detail: string
   modules: string[]
+  /** Achado que só vale se uma fase opcional for feita (ex.: 12 — acesso restrito, D-26). */
+  optionalPhase?: number
   /** Preenchido quando o achado foi resolvido: como e quando (fica no histórico, em verde). */
   resolved?: string
 }
