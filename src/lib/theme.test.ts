@@ -3,7 +3,6 @@ import {
   DEFAULT_THEME_PREFERENCE,
   getThemeColor,
   isThemePreference,
-  parseThemePreference,
   resolveTheme,
   THEME_COLORS,
   THEME_PREFERENCES,
@@ -23,20 +22,6 @@ describe('theme', () => {
 
     it.each([null, undefined, '', 'Dark', 'auto', 1])('rejeita %s', (value) => {
       expect(isThemePreference(value)).toBe(false)
-    })
-  })
-
-  describe('parseThemePreference', () => {
-    // RF-09 / CA-09.2
-    it('devolve o valor salvo quando válido', () => {
-      expect(parseThemePreference('dark')).toBe('dark')
-      expect(parseThemePreference('light')).toBe('light')
-      expect(parseThemePreference('system')).toBe('system')
-    })
-
-    it('cai no padrão Automático quando ausente ou inválido', () => {
-      expect(parseThemePreference(null)).toBe('system')
-      expect(parseThemePreference('roxo')).toBe('system')
     })
   })
 

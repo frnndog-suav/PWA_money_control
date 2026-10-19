@@ -1,28 +1,24 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { applyThemeToDocument } from '@/app/theme/applyThemeToDocument'
-import { ThemeContext } from '@/app/theme/ThemeContext'
 import { useSystemPrefersDark } from '@/app/theme/useSystemPrefersDark'
-import { resolveTheme, type ThemePreference } from '@/lib/theme'
-import { readThemePreference, writeThemePreference } from '@/lib/themeStorage'
+import { resolveTheme } from '@/lib/theme'
+import { ThemeContext } from '@/repositories/ThemeContext'
+import { useThemePreference } from '@/repositories/useThemePreference'
 
 interface ThemeProviderProps {
   children: ReactNode
 }
 
-// RF-09 — guarda a preferência, resolve o tema efetivo e o aplica ao documento.
+// RF-09 — lê a preferência (Dexie, com espelho no localStorage), resolve o tema efetivo
+// com o tema do sistema e o aplica ao documento.
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [preference, setPreferenceState] = useState(readThemePreference)
+  const { preference, setPreference } = useThemePreference()
   const systemPrefersDark = useSystemPrefersDark()
   const resolvedTheme = resolveTheme(preference, systemPrefersDark)
 
   useEffect(() => {
     applyThemeToDocument(resolvedTheme)
   }, [resolvedTheme])
-
-  function setPreference(next: ThemePreference) {
-    writeThemePreference(next)
-    setPreferenceState(next)
-  }
 
   return (
     <ThemeContext value={{ preference, resolvedTheme, setPreference }}>{children}</ThemeContext>

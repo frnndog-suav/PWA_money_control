@@ -36,8 +36,9 @@ export function StylesheetsCard() {
     <Card>
       <Card.Title>Folhas de estilo</Card.Title>
       <p className="text-xs text-slate-500">
-        O CSS do app exclui src/dev da varredura; a página DEV gera as próprias classes em um CSS
-        importado só por ela, para nada dela ir ao CSS de produção (§6.12).
+        O CSS do app exclui src/dev da varredura. Cada ferramenta DEV gera as próprias classes num
+        CSS importado só por ela: esta página (architecture.css, §6.12) e, desde a Fase 2, os dados
+        de exemplo da tela Sobre (sampleData.css, D-30). Nada delas vai para o CSS de produção.
       </p>
       <ul className="flex flex-col divide-y divide-slate-200 dark:divide-slate-700">
         {stylesheets.map(([id, sheet]) => (

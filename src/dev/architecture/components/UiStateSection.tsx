@@ -77,7 +77,7 @@ export function UiStateSection() {
     <Section
       id="estado"
       title="Estado de interface"
-      description="Stores Zustand encontradas pelo scanner (campos das interfaces *State/*Actions) e quem lê cada campo e chama cada ação; campos da §6.7 que ainda faltam, com a fase em que entram. O tema não fica no Zustand (fica no ThemeProvider e, a partir da Fase 2, na tabela settings)."
+      description="Stores Zustand encontradas pelo scanner (campos das interfaces *State/*Actions) e quem lê cada campo e chama cada ação; campos da §6.7 que ainda faltam, com a fase em que entram. O tema não fica no Zustand: desde a Fase 2 fica na tabela settings (useThemePreference, com espelho em localStorage — D-28)."
     >
       {stores.length ? (
         stores.map((store) => <StoreCard key={store.id} store={store} />)

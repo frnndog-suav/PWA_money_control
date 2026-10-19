@@ -16,6 +16,9 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "date-fns": "4.4.0",
+    "dexie": "4.4.6",
+    "dexie-react-hooks": "4.4.0",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-router": "7.18.4",

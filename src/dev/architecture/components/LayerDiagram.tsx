@@ -21,6 +21,7 @@ const ARROW_CLASSES: Readonly<Record<ArrowStatus, string>> = {
   undeclared: 'stroke-red-600 dark:stroke-red-400',
   violation: 'stroke-red-600 dark:stroke-red-400',
   unobserved: 'stroke-slate-400 dark:stroke-slate-500',
+  forbidden: 'stroke-red-500/70 dark:stroke-red-400/70',
 }
 
 const MARKER_CLASSES: Readonly<Record<ArrowStatus, string>> = {
@@ -30,6 +31,7 @@ const MARKER_CLASSES: Readonly<Record<ArrowStatus, string>> = {
   undeclared: 'fill-red-600 dark:fill-red-400',
   violation: 'fill-red-600 dark:fill-red-400',
   unobserved: 'fill-slate-400 dark:fill-slate-500',
+  forbidden: 'fill-red-500/70 dark:fill-red-400/70',
 }
 
 interface LayerDiagramProps {
@@ -68,15 +70,36 @@ export function LayerDiagram({ focus, onFocusChange }: LayerDiagramProps) {
       {arrows.map((arrow) => {
         const line = arrowLine(arrow)
         if (!line) return null
+        const dimClass = isDimmed(arrow) ? 'opacity-10' : ''
         return (
-          <line
-            key={`${arrow.from}-${arrow.to}`}
-            {...line}
-            strokeWidth={arrow.status === 'undeclared' || arrow.status === 'violation' ? 2.5 : 1.6}
-            strokeDasharray={arrow.status === 'unobserved' ? '5 4' : undefined}
-            markerEnd={`url(#${markerPrefix}-${arrow.status})`}
-            className={`${ARROW_CLASSES[arrow.status]} transition-opacity ${isDimmed(arrow) ? 'opacity-10' : ''}`}
-          />
+          <g key={`${arrow.from}-${arrow.to}`} className={`transition-opacity ${dimClass}`}>
+            <line
+              {...line}
+              strokeWidth={
+                arrow.status === 'undeclared' || arrow.status === 'violation' ? 2.5 : 1.6
+              }
+              strokeDasharray={
+                arrow.status === 'unobserved'
+                  ? '5 4'
+                  : arrow.status === 'forbidden'
+                    ? '2 4'
+                    : undefined
+              }
+              markerEnd={`url(#${markerPrefix}-${arrow.status})`}
+              className={ARROW_CLASSES[arrow.status]}
+            />
+            {arrow.status === 'forbidden' && (
+              <text
+                x={(line.x1 + line.x2) / 2}
+                y={(line.y1 + line.y2) / 2}
+                textAnchor="middle"
+                dominantBaseline="central"
+                className="fill-red-600 text-base font-bold dark:fill-red-400"
+              >
+                ✕
+              </text>
+            )}
+          </g>
         )
       })}
 

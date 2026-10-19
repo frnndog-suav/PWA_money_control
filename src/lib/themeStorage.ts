@@ -1,22 +1,26 @@
-import { parseThemePreference, THEME_STORAGE_KEY, type ThemePreference } from '@/lib/theme'
+import { isThemePreference, THEME_STORAGE_KEY, type ThemePreference } from '@/lib/theme'
 
-// RF-09 / CA-09.2 — único ponto de leitura/escrita da preferência de tema.
-// Persistência temporária em localStorage; migra para o Dexie na Fase 2.
+// RF-09 / §6.9 — espelho da preferência de tema em localStorage. A fonte da verdade é a
+// tabela `settings` do Dexie (src/repositories/themeRepository.ts); o espelho existe só
+// para o script inline do index.html aplicar o tema antes da primeira renderização, sem
+// "piscar" (CA-09.3), já que o IndexedDB é assíncrono.
 // localStorage pode lançar exceção (modo privado, armazenamento bloqueado): nesse caso
-// o app segue com o padrão em vez de quebrar.
+// o app segue sem o espelho em vez de quebrar.
 
-export function readThemePreference(): ThemePreference {
+/** Preferência espelhada, ou `null` se não houver valor válido (ou se o acesso falhar). */
+export function readThemeMirror(): ThemePreference | null {
   try {
-    return parseThemePreference(localStorage.getItem(THEME_STORAGE_KEY))
+    const stored = localStorage.getItem(THEME_STORAGE_KEY)
+    return isThemePreference(stored) ? stored : null
   } catch {
-    return parseThemePreference(null)
+    return null
   }
 }
 
-export function writeThemePreference(preference: ThemePreference): void {
+export function writeThemeMirror(preference: ThemePreference): void {
   try {
     localStorage.setItem(THEME_STORAGE_KEY, preference)
   } catch {
-    // Sem armazenamento disponível a escolha vale só para esta sessão.
+    // Sem localStorage o tema ainda é salvo no Dexie; só o "anti-piscar" fica de fora.
   }
 }

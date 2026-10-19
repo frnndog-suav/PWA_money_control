@@ -58,7 +58,7 @@ export function DomainSection() {
         ))}
       </div>
       <Card>
-        <Card.Title>Previstas na §6.5</Card.Title>
+        <Card.Title>Ainda previstas (§6.5 e §6.8)</Card.Title>
         <ul className="flex flex-col gap-1 text-sm">
           {PLANNED_DOMAIN.map((item) => (
             <li key={item.module} className="flex flex-wrap items-center gap-2">

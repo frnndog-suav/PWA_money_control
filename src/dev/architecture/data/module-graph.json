@@ -1,57 +1,71 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-19T15:21:35.347Z",
+  "generatedAt": "2026-10-19T16:18:23.282Z",
   "totals": {
-    "modules": 116,
-    "loc": 8411,
-    "components": 70,
-    "hooks": 7,
-    "tests": 18,
-    "edges": 325,
+    "modules": 170,
+    "loc": 12973,
+    "components": 73,
+    "hooks": 12,
+    "tests": 41,
+    "edges": 444,
     "configFiles": 11
   },
   "layerSummary": {
     "config": {
       "modules": 11,
-      "loc": 333,
+      "loc": 347,
       "components": 0,
       "hooks": 0,
       "tests": 0
     },
     "app": {
-      "modules": 27,
-      "loc": 802,
+      "modules": 26,
+      "loc": 791,
       "components": 17,
       "hooks": 4,
       "tests": 9
     },
     "components": {
-      "modules": 9,
-      "loc": 328,
-      "components": 5,
+      "modules": 10,
+      "loc": 355,
+      "components": 6,
       "hooks": 1,
+      "tests": 2
+    },
+    "db": {
+      "modules": 3,
+      "loc": 213,
+      "components": 0,
+      "hooks": 0,
       "tests": 2
     },
     "dev": {
-      "modules": 52,
-      "loc": 6750,
-      "components": 34,
+      "modules": 65,
+      "loc": 8732,
+      "components": 36,
+      "hooks": 2,
+      "tests": 5
+    },
+    "domain": {
+      "modules": 12,
+      "loc": 1429,
+      "components": 0,
+      "hooks": 0,
+      "tests": 7
+    },
+    "features": {
+      "modules": 19,
+      "loc": 397,
+      "components": 14,
       "hooks": 1,
       "tests": 2
     },
-    "features": {
-      "modules": 16,
-      "loc": 221,
-      "components": 14,
-      "hooks": 0,
-      "tests": 1
-    },
     "lib": {
-      "modules": 6,
-      "loc": 172,
+      "modules": 13,
+      "loc": 368,
       "components": 0,
       "hooks": 0,
-      "tests": 3
+      "tests": 7
     },
     "entry": {
       "modules": 1,
@@ -59,6 +73,13 @@
       "components": 0,
       "hooks": 0,
       "tests": 0
+    },
+    "repositories": {
+      "modules": 13,
+      "loc": 443,
+      "components": 0,
+      "hooks": 3,
+      "tests": 6
     },
     "stores": {
       "modules": 2,
@@ -68,14 +89,14 @@
       "tests": 1
     },
     "test": {
-      "modules": 3,
-      "loc": 91,
+      "modules": 6,
+      "loc": 198,
       "components": 0,
       "hooks": 0,
       "tests": 0
     }
   },
-  "specVersion": "1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
@@ -174,42 +195,42 @@
       "requirements": "princípios 1, 2, 3, 6, 7, 9; seções 6.3 a 6.5",
       "tasks": [
         {
-          "done": false,
+          "done": true,
           "text": "`domain/types.ts`, `money.ts`, `dates.ts`, `balances.ts`, `tagColor.ts` com testes unitários.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "`db/database.ts` com o esquema versão 1 e `SCHEMA_VERSION`.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Repositório de `settings`; mover a preferência de tema para o Dexie (mantendo o espelho em `localStorage` só para evitar o \"piscar\").",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Mover o hook e o contexto do tema (`useTheme`, `ThemeContext`) de `src/app/theme/` para `src/repositories/`, para que as features não importem de `app/` (D-22).",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "`lib/storage.ts`: `persist()` na primeira abertura e `estimate()`.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Tela `/ajustes/sobre` (CA-11.4, CA-11.5).",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Ferramentas de desenvolvimento: gerar e apagar dados de exemplo (somente em DEV; as funções podem ser concluídas nas fases seguintes, à medida que as tabelas forem usadas).",
           "human": false
         }
       ],
-      "done": 0,
+      "done": 7,
       "total": 7
     },
     {
@@ -843,7 +864,7 @@
       "kinds": [
         "config"
       ],
-      "loc": 46,
+      "loc": 49,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -878,10 +899,14 @@
           "test:coverage"
         ]
       },
-      "importedBy": [],
+      "importedBy": [
+        "src/lib/appVersion.test.ts"
+      ],
       "imports": [],
       "assets": [],
-      "testedBy": []
+      "testedBy": [
+        "src/lib/appVersion.test.ts"
+      ]
     },
     {
       "id": "scripts/generate-icons.mjs",
@@ -965,7 +990,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 13,
+      "loc": 15,
       "exports": [
         "App"
       ],
@@ -982,7 +1007,9 @@
       ],
       "props": {},
       "hooksDefined": [],
-      "hooksUsed": [],
+      "hooksUsed": [
+        "usePersistentStorageRequest"
+      ],
       "jsxUsed": [
         "RouterProvider",
         "ThemeProvider"
@@ -1022,6 +1049,7 @@
       ],
       "imports": [
         "src/app/routes.tsx",
+        "src/app/storage/usePersistentStorageRequest.ts",
         "src/app/theme/ThemeProvider.tsx"
       ],
       "assets": [],
@@ -2310,6 +2338,67 @@
       ]
     },
     {
+      "id": "src/app/storage/usePersistentStorageRequest.ts",
+      "layer": "app",
+      "feature": null,
+      "group": "app/storage",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 10,
+      "exports": [
+        "usePersistentStorageRequest"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "usePersistentStorageRequest",
+          "signature": "usePersistentStorageRequest(): void"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "usePersistentStorageRequest"
+      ],
+      "hooksUsed": [
+        "useEffect"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.4",
+        "RF-11"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useEffect"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/app/App.tsx"
+      ],
+      "imports": [
+        "src/repositories/persistentStorageRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/app/theme/applyThemeToDocument.ts",
       "layer": "app",
       "feature": null,
@@ -2364,7 +2453,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 59,
+      "loc": 54,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -2403,62 +2492,10 @@
         "index.html",
         "src/lib/theme.ts",
         "src/test/matchMedia.ts",
-        "src/test/renderApp.tsx"
+        "src/test/renderApp.tsx",
+        "src/test/themeReference.ts"
       ],
       "assets": []
-    },
-    {
-      "id": "src/app/theme/ThemeContext.ts",
-      "layer": "app",
-      "feature": null,
-      "group": "app/theme",
-      "kinds": [
-        "context"
-      ],
-      "loc": 8,
-      "exports": [
-        "ThemeContext",
-        "ThemeContextValue"
-      ],
-      "typeExports": [
-        "ThemeContextValue"
-      ],
-      "defaultExport": null,
-      "functions": [],
-      "components": [],
-      "props": {},
-      "hooksDefined": [],
-      "hooksUsed": [],
-      "jsxUsed": [],
-      "storesUsed": [],
-      "dexieTables": {},
-      "usesTransaction": false,
-      "usesLiveQuery": false,
-      "devOnly": false,
-      "lazyImports": [],
-      "lazyComponents": {},
-      "routes": [],
-      "storeMembersUsed": [],
-      "requirementRefs": [],
-      "external": [
-        {
-          "package": "react",
-          "specifier": "react",
-          "kind": "static",
-          "names": [
-            "createContext"
-          ]
-        }
-      ],
-      "importedBy": [
-        "src/app/theme/ThemeProvider.tsx",
-        "src/app/theme/useTheme.ts"
-      ],
-      "imports": [
-        "src/lib/theme.ts"
-      ],
-      "assets": [],
-      "testedBy": []
     },
     {
       "id": "src/app/theme/ThemeProvider.tsx",
@@ -2468,7 +2505,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 25,
+      "loc": 22,
       "exports": [
         "ThemeProvider"
       ],
@@ -2489,8 +2526,8 @@
       "hooksDefined": [],
       "hooksUsed": [
         "useEffect",
-        "useState",
-        "useSystemPrefersDark"
+        "useSystemPrefersDark",
+        "useThemePreference"
       ],
       "jsxUsed": [
         "ThemeContext"
@@ -2514,7 +2551,6 @@
           "kind": "static",
           "names": [
             "useEffect",
-            "useState",
             "ReactNode"
           ]
         }
@@ -2525,11 +2561,11 @@
         "src/test/renderApp.tsx"
       ],
       "imports": [
-        "src/app/theme/ThemeContext.ts",
         "src/app/theme/applyThemeToDocument.ts",
         "src/app/theme/useSystemPrefersDark.ts",
         "src/lib/theme.ts",
-        "src/lib/themeStorage.ts"
+        "src/repositories/ThemeContext.ts",
+        "src/repositories/useThemePreference.ts"
       ],
       "assets": [],
       "testedBy": [
@@ -2595,64 +2631,6 @@
       ],
       "imports": [
         "src/lib/theme.ts"
-      ],
-      "assets": [],
-      "testedBy": []
-    },
-    {
-      "id": "src/app/theme/useTheme.ts",
-      "layer": "app",
-      "feature": null,
-      "group": "app/theme",
-      "kinds": [
-        "hook"
-      ],
-      "loc": 7,
-      "exports": [
-        "useTheme"
-      ],
-      "typeExports": [],
-      "defaultExport": null,
-      "functions": [
-        {
-          "name": "useTheme",
-          "signature": "useTheme(): ThemeContextValue"
-        }
-      ],
-      "components": [],
-      "props": {},
-      "hooksDefined": [
-        "useTheme"
-      ],
-      "hooksUsed": [
-        "useContext"
-      ],
-      "jsxUsed": [],
-      "storesUsed": [],
-      "dexieTables": {},
-      "usesTransaction": false,
-      "usesLiveQuery": false,
-      "devOnly": false,
-      "lazyImports": [],
-      "lazyComponents": {},
-      "routes": [],
-      "storeMembersUsed": [],
-      "requirementRefs": [],
-      "external": [
-        {
-          "package": "react",
-          "specifier": "react",
-          "kind": "static",
-          "names": [
-            "useContext"
-          ]
-        }
-      ],
-      "importedBy": [
-        "src/features/settings/ThemeSection.tsx"
-      ],
-      "imports": [
-        "src/app/theme/ThemeContext.ts"
       ],
       "assets": [],
       "testedBy": []
@@ -2920,6 +2898,65 @@
       "testedBy": [
         "src/components/ui/createRadioGroup.test.tsx"
       ]
+    },
+    {
+      "id": "src/components/ui/InfoList.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "component"
+      ],
+      "loc": 27,
+      "exports": [
+        "InfoList"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "InfoList",
+          "signature": "InfoList({ children }: InfoListProps)"
+        }
+      ],
+      "components": [
+        "InfoList"
+      ],
+      "props": {
+        "InfoListProps": 1,
+        "InfoListItemProps": 2
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "type",
+          "names": [
+            "ReactNode"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/settings/AboutPage.tsx"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
     },
     {
       "id": "src/components/ui/NavList.tsx",
@@ -3251,6 +3288,195 @@
       "testedBy": []
     },
     {
+      "id": "src/db/database.schema.test.ts",
+      "layer": "db",
+      "feature": null,
+      "group": "db",
+      "kinds": [
+        "test"
+      ],
+      "loc": 142,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "tags": {
+          "reads": [
+            "count"
+          ],
+          "writes": [
+            "add"
+          ]
+        },
+        "transactions": {
+          "reads": [
+            "where"
+          ],
+          "writes": [
+            "bulkAdd"
+          ]
+        }
+      },
+      "usesTransaction": true,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.5",
+        "RF-03",
+        "RF-07"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts",
+        "src/repositories/databaseInfo.ts",
+        "src/test/factories.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/db/database.test.ts",
+      "layer": "db",
+      "feature": null,
+      "group": "db",
+      "kinds": [
+        "test"
+      ],
+      "loc": 42,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-03"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/db/database.ts",
+      "layer": "db",
+      "feature": null,
+      "group": "db",
+      "kinds": [
+        "database"
+      ],
+      "loc": 29,
+      "exports": [
+        "AppDatabase",
+        "DATABASE_NAME",
+        "SCHEMA_VERSION",
+        "db"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.5"
+      ],
+      "external": [
+        {
+          "package": "dexie",
+          "specifier": "dexie",
+          "kind": "static",
+          "names": [
+            "Dexie",
+            "EntityTable"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/db/database.schema.test.ts",
+        "src/db/database.test.ts",
+        "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/dev/sampleData/sampleDataStore.ts",
+        "src/dev/sampleData/useSampleDataTools.ts",
+        "src/repositories/databaseInfo.ts",
+        "src/repositories/persistentStorageRepository.ts",
+        "src/repositories/settingsRepository.crud.test.ts",
+        "src/repositories/settingsRepository.ts",
+        "src/repositories/themePreference.test.ts",
+        "src/repositories/themeRepository.ts",
+        "src/test/setup.ts"
+      ],
+      "imports": [
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/db/database.schema.test.ts",
+        "src/db/database.test.ts",
+        "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/repositories/settingsRepository.crud.test.ts",
+        "src/repositories/themePreference.test.ts"
+      ]
+    },
+    {
       "id": "src/dev/architecture/architecture.test.ts",
       "layer": "dev",
       "feature": null,
@@ -3258,7 +3484,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 140,
+      "loc": 165,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -3279,6 +3505,7 @@
       "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.3",
+        "D-22",
         "D-26",
         "RF-09"
       ],
@@ -3524,6 +3751,7 @@
         "src/dev/architecture/components/DataModelSection.tsx",
         "src/dev/architecture/components/DomainSection.tsx",
         "src/dev/architecture/components/FlowsSection.tsx",
+        "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
         "src/dev/architecture/components/HealthSection.tsx",
         "src/dev/architecture/components/LayersSection.tsx",
         "src/dev/architecture/components/ModuleDetails.tsx",
@@ -3597,6 +3825,7 @@
         "src/dev/architecture/components/DataModelSection.tsx",
         "src/dev/architecture/components/DomainSection.tsx",
         "src/dev/architecture/components/FlowsSection.tsx",
+        "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
         "src/dev/architecture/components/HealthSection.tsx",
         "src/dev/architecture/components/LayersSection.tsx",
         "src/dev/architecture/components/OverviewSection.tsx",
@@ -3792,7 +4021,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 93,
+      "loc": 164,
       "exports": [
         "DataModelSection"
       ],
@@ -3815,7 +4044,8 @@
         "Card",
         "Card.Title",
         "ModuleList",
-        "Section"
+        "Section",
+        "UsersCell"
       ],
       "storesUsed": [],
       "dexieTables": {},
@@ -4093,6 +4323,63 @@
       "testedBy": []
     },
     {
+      "id": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/architecture",
+      "kinds": [
+        "component"
+      ],
+      "loc": 38,
+      "exports": [
+        "ForbiddenDependenciesCard"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "ForbiddenDependenciesCard",
+          "signature": "ForbiddenDependenciesCard()"
+        }
+      ],
+      "components": [
+        "ForbiddenDependenciesCard"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "Badge",
+        "Card",
+        "Card.Title"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-22"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/dev/architecture/components/LayersSection.tsx"
+      ],
+      "imports": [
+        "src/dev/architecture/components/Badge.tsx",
+        "src/dev/architecture/components/Card.tsx",
+        "src/dev/architecture/data/curated.ts",
+        "src/dev/architecture/layers.ts",
+        "src/dev/architecture/types.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/dev/architecture/components/format.ts",
       "layer": "dev",
       "feature": null,
@@ -4286,7 +4573,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 127,
+      "loc": 150,
       "exports": [
         "LayerDiagram"
       ],
@@ -4350,7 +4637,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 159,
+      "loc": 170,
       "exports": [
         "LayersSection"
       ],
@@ -4372,6 +4659,7 @@
         "Badge",
         "Card",
         "Card.Title",
+        "ForbiddenDependenciesCard",
         "LayerDiagram",
         "Legend",
         "ModuleLink",
@@ -4404,6 +4692,7 @@
       "imports": [
         "src/dev/architecture/components/Badge.tsx",
         "src/dev/architecture/components/Card.tsx",
+        "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
         "src/dev/architecture/components/LayerDiagram.tsx",
         "src/dev/architecture/components/ModuleLink.tsx",
         "src/dev/architecture/components/Section.tsx",
@@ -5010,7 +5299,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 281,
+      "loc": 288,
       "exports": [
         "PwaSection"
       ],
@@ -5055,8 +5344,11 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
+        "D-17",
         "D-25",
-        "D-26"
+        "D-26",
+        "D-30",
+        "RNF-02"
       ],
       "external": [],
       "importedBy": [
@@ -5350,7 +5642,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 61,
+      "loc": 62,
       "exports": [
         "StylesheetsCard"
       ],
@@ -5384,7 +5676,9 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "D-30"
+      ],
       "external": [],
       "importedBy": [
         "src/dev/architecture/components/PackagesSection.tsx"
@@ -5676,7 +5970,9 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "D-28"
+      ],
       "external": [],
       "importedBy": [
         "src/dev/architecture/ArchitecturePage.tsx"
@@ -5878,27 +6174,29 @@
       "feature": null,
       "group": "dev/architecture",
       "kinds": [
+        "database",
         "data"
       ],
-      "loc": 1736,
+      "loc": 2474,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
         "COMPOSITION_NOTES",
         "DECISIONS",
         "FLOWS",
+        "FORBIDDEN_DEPENDENCIES",
         "LAYERS",
         "LOCAL_COMPONENT_ORIGINS",
         "MODULE_NOTES",
         "PACKAGE_SOURCES",
         "PLANNED_DOMAIN",
         "PLANNED_FLOWS",
-        "PLANNED_SCHEMA_VERSION",
-        "PLANNED_TABLES",
         "PLANNED_UI_FIELDS",
         "REQUIREMENTS",
         "ROUTE_NOTES",
-        "SCREEN_COMPOSITION"
+        "SCREEN_COMPOSITION",
+        "SPEC_SCHEMA_VERSION",
+        "TABLE_NOTES"
       ],
       "typeExports": [],
       "defaultExport": null,
@@ -5926,6 +6224,7 @@
         "src/dev/architecture/components/DataModelSection.tsx",
         "src/dev/architecture/components/DomainSection.tsx",
         "src/dev/architecture/components/FlowsSection.tsx",
+        "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
         "src/dev/architecture/components/HealthSection.tsx",
         "src/dev/architecture/components/LayerDiagram.tsx",
         "src/dev/architecture/components/LayersSection.tsx",
@@ -5958,7 +6257,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 698,
+      "loc": 918,
       "exports": [
         "TIMELINE"
       ],
@@ -6111,7 +6410,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 58,
+      "loc": 66,
       "exports": [
         "Arrow",
         "ArrowStatus",
@@ -6168,11 +6467,12 @@
       "kinds": [
         "module"
       ],
-      "loc": 56,
+      "loc": 68,
       "exports": [
         "LayerEdge",
         "LayerEdgeStatus",
         "layerEdges",
+        "unobservedForbidden",
         "unobservedRules"
       ],
       "typeExports": [
@@ -6198,6 +6498,7 @@
       "requirementRefs": [],
       "external": [],
       "importedBy": [
+        "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
         "src/dev/architecture/components/LayersSection.tsx",
         "src/dev/architecture/health.ts",
         "src/dev/architecture/layerDiagramGeometry.ts"
@@ -6433,7 +6734,7 @@
       "kinds": [
         "types"
       ],
-      "loc": 337,
+      "loc": 359,
       "exports": [
         "AllowedDependency",
         "ArchitectureFinding",
@@ -6447,6 +6748,7 @@
         "Flow",
         "FlowParticipant",
         "FlowStep",
+        "ForbiddenDependency",
         "GraphBuild",
         "GraphCommit",
         "GraphEdge",
@@ -6456,6 +6758,7 @@
         "GraphPublicFile",
         "GraphPwa",
         "GraphRoute",
+        "GraphSchema",
         "GraphStylesheet",
         "Layer",
         "LayerInfo",
@@ -6465,11 +6768,11 @@
         "PackageSource",
         "PlannedDomainFunction",
         "PlannedFlow",
-        "PlannedTable",
         "PlannedUiField",
         "RequirementInfo",
         "RouteNote",
         "ScreenComposition",
+        "TableNote",
         "TimelineEntry",
         "TimelinePhase",
         "TimelineType"
@@ -6487,6 +6790,7 @@
         "Flow",
         "FlowParticipant",
         "FlowStep",
+        "ForbiddenDependency",
         "GraphBuild",
         "GraphCommit",
         "GraphEdge",
@@ -6496,6 +6800,7 @@
         "GraphPublicFile",
         "GraphPwa",
         "GraphRoute",
+        "GraphSchema",
         "GraphStylesheet",
         "Layer",
         "LayerInfo",
@@ -6505,11 +6810,11 @@
         "PackageSource",
         "PlannedDomainFunction",
         "PlannedFlow",
-        "PlannedTable",
         "PlannedUiField",
         "RequirementInfo",
         "RouteNote",
         "ScreenComposition",
+        "TableNote",
         "TimelineEntry",
         "TimelinePhase",
         "TimelineType"
@@ -6535,13 +6840,16 @@
         "D-18",
         "D-19",
         "D-20",
-        "D-26"
+        "D-22",
+        "D-26",
+        "RNF-02"
       ],
       "external": [],
       "importedBy": [
         "src/dev/architecture/architecture.test.ts",
         "src/dev/architecture/components/FlowSequence.tsx",
         "src/dev/architecture/components/FlowsSection.tsx",
+        "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
         "src/dev/architecture/components/HealthSection.tsx",
         "src/dev/architecture/components/LayerDiagram.tsx",
         "src/dev/architecture/components/LayersSection.tsx",
@@ -6569,6 +6877,1496 @@
       "assets": [],
       "testedBy": [
         "src/dev/architecture/architecture.test.ts"
+      ]
+    },
+    {
+      "id": "src/dev/sampleData/buildSampleData.model.test.ts",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "test"
+      ],
+      "loc": 70,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-10",
+        "RF-01",
+        "RF-08"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/dev/sampleData/buildSampleData.ts",
+        "src/domain/dates.ts",
+        "src/domain/money.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/dev/sampleData/buildSampleData.test.ts",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "test"
+      ],
+      "loc": 105,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-06",
+        "RF-01",
+        "RF-03",
+        "RF-07",
+        "RF-08"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/dev/sampleData/buildSampleData.ts",
+        "src/domain/dates.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/dev/sampleData/buildSampleData.ts",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "module"
+      ],
+      "loc": 83,
+      "exports": [
+        "DEFAULT_SAMPLE_SEED",
+        "SAMPLE_MONTHS",
+        "SAMPLE_TRANSACTION_COUNT",
+        "SampleData",
+        "buildSampleData"
+      ],
+      "typeExports": [
+        "SampleData"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "buildSampleData",
+          "signature": "buildSampleData(today: DateString, seed = DEFAULT_SAMPLE_SEED): SampleData"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-03"
+      ],
+      "external": [
+        {
+          "package": "date-fns",
+          "specifier": "date-fns",
+          "kind": "static",
+          "names": [
+            "addDays",
+            "differenceInCalendarDays",
+            "format",
+            "parseISO"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/dev/sampleData/buildSampleData.model.test.ts",
+        "src/dev/sampleData/buildSampleData.test.ts",
+        "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/dev/sampleData/sampleDataStore.ts",
+        "src/dev/sampleData/useSampleDataTools.ts"
+      ],
+      "imports": [
+        "src/dev/sampleData/sampleCatalog.ts",
+        "src/dev/sampleData/sampleContext.ts",
+        "src/dev/sampleData/sampleInstallments.ts",
+        "src/dev/sampleData/sampleRecurrings.ts",
+        "src/dev/sampleData/seededRandom.ts",
+        "src/domain/dates.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/dev/sampleData/buildSampleData.model.test.ts",
+        "src/dev/sampleData/buildSampleData.test.ts",
+        "src/dev/sampleData/sampleDataStore.test.ts"
+      ]
+    },
+    {
+      "id": "src/dev/sampleData/sampleCatalog.ts",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "types"
+      ],
+      "loc": 110,
+      "exports": [
+        "SAMPLE_TAGS",
+        "SampleTagSpec"
+      ],
+      "typeExports": [
+        "SampleTagSpec"
+      ],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [],
+      "importedBy": [
+        "src/dev/sampleData/buildSampleData.ts"
+      ],
+      "imports": [
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/dev/sampleData/sampleContext.ts",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "module"
+      ],
+      "loc": 20,
+      "exports": [
+        "SampleContext",
+        "tagIdOf",
+        "timestampOf"
+      ],
+      "typeExports": [
+        "SampleContext"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "timestampOf",
+          "signature": "timestampOf(date: DateString): string"
+        },
+        {
+          "name": "tagIdOf",
+          "signature": "tagIdOf(context: SampleContext, name: string): string"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [],
+      "importedBy": [
+        "src/dev/sampleData/buildSampleData.ts",
+        "src/dev/sampleData/sampleInstallments.ts",
+        "src/dev/sampleData/sampleRecurrings.ts"
+      ],
+      "imports": [
+        "src/dev/sampleData/seededRandom.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/dev/sampleData/sampleDataStore.test.ts",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "test"
+      ],
+      "loc": 45,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "tags": {
+          "reads": [
+            "count"
+          ],
+          "writes": []
+        },
+        "transactions": {
+          "reads": [
+            "count"
+          ],
+          "writes": []
+        },
+        "recurrings": {
+          "reads": [
+            "count"
+          ],
+          "writes": []
+        },
+        "installmentGroups": {
+          "reads": [
+            "count"
+          ],
+          "writes": []
+        },
+        "settings": {
+          "reads": [
+            "get"
+          ],
+          "writes": [
+            "put"
+          ]
+        }
+      },
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts",
+        "src/dev/sampleData/buildSampleData.ts",
+        "src/dev/sampleData/sampleDataStore.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/dev/sampleData/sampleDataStore.ts",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "module"
+      ],
+      "loc": 29,
+      "exports": [
+        "clearAllData",
+        "replaceWithSampleData"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "clearAllData",
+          "signature": "clearAllData(database: AppDatabase): Promise<void>"
+        },
+        {
+          "name": "replaceWithSampleData",
+          "signature": "replaceWithSampleData(database: AppDatabase, data: SampleData): Promise<void>"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "tags": {
+          "reads": [],
+          "writes": [
+            "bulkAdd"
+          ]
+        },
+        "transactions": {
+          "reads": [],
+          "writes": [
+            "bulkAdd"
+          ]
+        },
+        "recurrings": {
+          "reads": [],
+          "writes": [
+            "bulkAdd"
+          ]
+        },
+        "installmentGroups": {
+          "reads": [],
+          "writes": [
+            "bulkAdd"
+          ]
+        }
+      },
+      "usesTransaction": true,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [],
+      "importedBy": [
+        "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/dev/sampleData/useSampleDataTools.ts"
+      ],
+      "imports": [
+        "src/db/database.ts",
+        "src/dev/sampleData/buildSampleData.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/dev/sampleData/sampleDataStore.test.ts"
+      ]
+    },
+    {
+      "id": "src/dev/sampleData/SampleDataTools.tsx",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "component"
+      ],
+      "loc": 45,
+      "exports": [
+        "SampleDataTools"
+      ],
+      "typeExports": [],
+      "defaultExport": "SampleDataTools",
+      "functions": [
+        {
+          "name": "SampleDataTools",
+          "signature": "SampleDataTools()"
+        }
+      ],
+      "components": [
+        "SampleDataTools"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useSampleDataTools"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [],
+      "importedBy": [
+        "src/features/settings/AboutPage.tsx"
+      ],
+      "imports": [
+        "src/dev/sampleData/useSampleDataTools.ts"
+      ],
+      "assets": [
+        "src/dev/sampleData/sampleData.css"
+      ],
+      "testedBy": []
+    },
+    {
+      "id": "src/dev/sampleData/sampleInstallments.ts",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "module"
+      ],
+      "loc": 82,
+      "exports": [
+        "buildSampleInstallments"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "buildSampleInstallments",
+          "signature": "buildSampleInstallments(context: SampleContext):"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-06",
+        "RF-08"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/dev/sampleData/buildSampleData.ts"
+      ],
+      "imports": [
+        "src/dev/sampleData/sampleContext.ts",
+        "src/domain/dates.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/dev/sampleData/sampleRecurrings.ts",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "module"
+      ],
+      "loc": 129,
+      "exports": [
+        "buildSampleRecurrings"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "buildSampleRecurrings",
+          "signature": "buildSampleRecurrings(context: SampleContext):"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-07"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/dev/sampleData/buildSampleData.ts"
+      ],
+      "imports": [
+        "src/dev/sampleData/sampleContext.ts",
+        "src/domain/dates.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/dev/sampleData/seededRandom.ts",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "module"
+      ],
+      "loc": 37,
+      "exports": [
+        "SeededRandom",
+        "createSeededRandom"
+      ],
+      "typeExports": [
+        "SeededRandom"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "createSeededRandom",
+          "signature": "createSeededRandom(seed: number): SeededRandom"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [],
+      "importedBy": [
+        "src/dev/sampleData/buildSampleData.ts",
+        "src/dev/sampleData/sampleContext.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/dev/sampleData/useSampleDataTools.ts",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/sampleData",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 51,
+      "exports": [
+        "CLEAR_CONFIRMATION",
+        "GENERATE_CONFIRMATION",
+        "SampleDataTools",
+        "useSampleDataTools"
+      ],
+      "typeExports": [
+        "SampleDataTools"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useSampleDataTools",
+          "signature": "useSampleDataTools(): SampleDataTools"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useSampleDataTools"
+      ],
+      "hooksUsed": [
+        "useState"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useState"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/dev/sampleData/SampleDataTools.tsx"
+      ],
+      "imports": [
+        "src/db/database.ts",
+        "src/dev/sampleData/buildSampleData.ts",
+        "src/dev/sampleData/sampleDataStore.ts",
+        "src/domain/dates.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/domain/balances.properties.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 176,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-02.3",
+        "CA-08.1",
+        "D-03",
+        "RF-01",
+        "RF-06"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/balances.ts",
+        "src/domain/dates.ts",
+        "src/domain/money.ts",
+        "src/domain/types.ts",
+        "src/test/factories.ts",
+        "src/test/propertyHelpers.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/domain/balances.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 121,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-02.3",
+        "CA-04.1",
+        "D-03",
+        "RF-06"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/balances.ts",
+        "src/domain/dates.ts",
+        "src/domain/money.ts",
+        "src/test/factories.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/domain/balances.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "module"
+      ],
+      "loc": 112,
+      "exports": [
+        "Totals",
+        "TransactionGroup",
+        "groupByDay",
+        "groupByMonth",
+        "groupByTag",
+        "overallBalance",
+        "runningBalance",
+        "totals"
+      ],
+      "typeExports": [
+        "Totals",
+        "TransactionGroup"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "totals",
+          "signature": "totals(transactions: readonly Transaction[]): Totals"
+        },
+        {
+          "name": "overallBalance",
+          "signature": "overallBalance(transactions: readonly Transaction[], today: DateString): Cents"
+        },
+        {
+          "name": "groupByDay",
+          "signature": "groupByDay(transactions: readonly Transaction[]): Map<DateString, TransactionGroup>"
+        },
+        {
+          "name": "groupByMonth",
+          "signature": "groupByMonth(transactions: readonly Transaction[]): Map<PeriodString, TransactionGroup>"
+        },
+        {
+          "name": "groupByTag",
+          "signature": "groupByTag(transactions: readonly Transaction[]): Map<string, TransactionGroup>"
+        },
+        {
+          "name": "runningBalance",
+          "signature": "runningBalance(transactions: readonly Transaction[], buckets: readonly DateRange[]): Cents[]"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-02.3",
+        "D-03",
+        "RF-06",
+        "RNF-02"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/domain/balances.properties.test.ts",
+        "src/domain/balances.test.ts",
+        "src/domain/dates.timezone.test.ts"
+      ],
+      "imports": [
+        "src/domain/dates.ts",
+        "src/domain/money.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/domain/balances.properties.test.ts",
+        "src/domain/balances.test.ts",
+        "src/domain/dates.timezone.test.ts"
+      ]
+    },
+    {
+      "id": "src/domain/dates.calendar.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 210,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFakeTimers",
+        "useRealTimers"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-05.3",
+        "CA-08.1",
+        "RF-08"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/dates.ts",
+        "src/test/propertyHelpers.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/domain/dates.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 115,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-05.3"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/dates.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/domain/dates.timezone.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 126,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-03"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/balances.ts",
+        "src/domain/dates.ts",
+        "src/test/factories.ts",
+        "src/test/propertyHelpers.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/domain/dates.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "module"
+      ],
+      "loc": 99,
+      "exports": [
+        "DateRange",
+        "addMonthsClamped",
+        "monthRange",
+        "periodOf",
+        "periodsBetween",
+        "today",
+        "weekRange",
+        "yearRange"
+      ],
+      "typeExports": [
+        "DateRange"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "today",
+          "signature": "today(now: Date = new Date()): DateString"
+        },
+        {
+          "name": "periodOf",
+          "signature": "periodOf(date: DateString): PeriodString"
+        },
+        {
+          "name": "weekRange",
+          "signature": "weekRange(date: DateString): DateRange"
+        },
+        {
+          "name": "monthRange",
+          "signature": "monthRange(period: PeriodString): DateRange"
+        },
+        {
+          "name": "yearRange",
+          "signature": "yearRange(year: number): DateRange"
+        },
+        {
+          "name": "addMonthsClamped",
+          "signature": "addMonthsClamped(date: DateString, months: number): DateString"
+        },
+        {
+          "name": "periodsBetween",
+          "signature": "periodsBetween(start: PeriodString, end: PeriodString): PeriodString[]"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-05.3",
+        "RF-08"
+      ],
+      "external": [
+        {
+          "package": "date-fns",
+          "specifier": "date-fns",
+          "kind": "static",
+          "names": [
+            "addMonths",
+            "endOfWeek",
+            "format",
+            "isValid",
+            "lastDayOfMonth",
+            "parseISO",
+            "startOfWeek"
+          ]
+        },
+        {
+          "package": "date-fns",
+          "specifier": "date-fns/locale",
+          "kind": "static",
+          "names": [
+            "ptBR"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/dev/sampleData/buildSampleData.model.test.ts",
+        "src/dev/sampleData/buildSampleData.test.ts",
+        "src/dev/sampleData/buildSampleData.ts",
+        "src/dev/sampleData/sampleInstallments.ts",
+        "src/dev/sampleData/sampleRecurrings.ts",
+        "src/dev/sampleData/useSampleDataTools.ts",
+        "src/domain/balances.properties.test.ts",
+        "src/domain/balances.test.ts",
+        "src/domain/balances.ts",
+        "src/domain/dates.calendar.test.ts",
+        "src/domain/dates.test.ts",
+        "src/domain/dates.timezone.test.ts"
+      ],
+      "imports": [
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/dev/sampleData/buildSampleData.model.test.ts",
+        "src/dev/sampleData/buildSampleData.test.ts",
+        "src/domain/balances.properties.test.ts",
+        "src/domain/balances.test.ts",
+        "src/domain/dates.calendar.test.ts",
+        "src/domain/dates.test.ts",
+        "src/domain/dates.timezone.test.ts"
+      ]
+    },
+    {
+      "id": "src/domain/money.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 228,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.3",
+        "CA-02.1",
+        "D-29",
+        "RF-01",
+        "RF-02"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/money.ts",
+        "src/test/propertyHelpers.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/domain/money.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "module"
+      ],
+      "loc": 52,
+      "exports": [
+        "MAX_AMOUNT_CENTS",
+        "MAX_AMOUNT_DIGITS",
+        "addCents",
+        "digitsToCents",
+        "formatBRL",
+        "formatSignedBRL"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "formatBRL",
+          "signature": "formatBRL(cents: Cents): string"
+        },
+        {
+          "name": "formatSignedBRL",
+          "signature": "formatSignedBRL(cents: Cents): string"
+        },
+        {
+          "name": "digitsToCents",
+          "signature": "digitsToCents(input: string): Cents"
+        },
+        {
+          "name": "addCents",
+          "signature": "addCents(a: Cents, b: Cents): Cents"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.3",
+        "CA-02.1",
+        "RF-01",
+        "RNF-02"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/dev/sampleData/buildSampleData.model.test.ts",
+        "src/domain/balances.properties.test.ts",
+        "src/domain/balances.test.ts",
+        "src/domain/balances.ts",
+        "src/domain/money.test.ts"
+      ],
+      "imports": [
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/dev/sampleData/buildSampleData.model.test.ts",
+        "src/domain/balances.properties.test.ts",
+        "src/domain/balances.test.ts",
+        "src/domain/money.test.ts"
+      ]
+    },
+    {
+      "id": "src/domain/tagColor.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 96,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-03.6",
+        "RF-03"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/tagColor.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/domain/tagColor.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "module"
+      ],
+      "loc": 35,
+      "exports": [
+        "ReadableTextColor",
+        "readableTextColor",
+        "relativeLuminance"
+      ],
+      "typeExports": [
+        "ReadableTextColor"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "relativeLuminance",
+          "signature": "relativeLuminance(hex: string): number"
+        },
+        {
+          "name": "readableTextColor",
+          "signature": "readableTextColor(hex: string): ReadableTextColor"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-03.6"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/domain/tagColor.test.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/domain/tagColor.test.ts"
+      ]
+    },
+    {
+      "id": "src/domain/types.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "types"
+      ],
+      "loc": 59,
+      "exports": [
+        "Cents",
+        "DateString",
+        "InstallmentGroup",
+        "PeriodString",
+        "Recurring",
+        "RecurringAmount",
+        "Setting",
+        "Tag",
+        "Transaction",
+        "TransactionType"
+      ],
+      "typeExports": [
+        "Cents",
+        "DateString",
+        "InstallmentGroup",
+        "PeriodString",
+        "Recurring",
+        "RecurringAmount",
+        "Setting",
+        "Tag",
+        "Transaction",
+        "TransactionType"
+      ],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-07",
+        "RF-08"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/db/database.ts",
+        "src/dev/sampleData/buildSampleData.ts",
+        "src/dev/sampleData/sampleCatalog.ts",
+        "src/dev/sampleData/sampleContext.ts",
+        "src/dev/sampleData/sampleInstallments.ts",
+        "src/dev/sampleData/sampleRecurrings.ts",
+        "src/domain/balances.properties.test.ts",
+        "src/domain/balances.ts",
+        "src/domain/dates.ts",
+        "src/domain/money.ts",
+        "src/repositories/settingsRepository.ts",
+        "src/test/factories.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/domain/balances.properties.test.ts"
       ]
     },
     {
@@ -6833,6 +8631,82 @@
       "testedBy": []
     },
     {
+      "id": "src/features/settings/AboutPage.test.tsx",
+      "layer": "features",
+      "feature": "settings",
+      "group": "features/settings",
+      "kinds": [
+        "test"
+      ],
+      "loc": 77,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "AboutPage",
+        "MemoryRouter"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.4",
+        "CA-11.5",
+        "RF-11"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "render",
+            "screen",
+            "waitFor",
+            "within"
+          ]
+        },
+        {
+          "package": "react-router",
+          "specifier": "react-router",
+          "kind": "static",
+          "names": [
+            "MemoryRouter"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/features/settings/AboutPage.tsx",
+        "src/lib/appVersion.ts"
+      ],
+      "assets": []
+    },
+    {
       "id": "src/features/settings/AboutPage.tsx",
       "layer": "features",
       "feature": "settings",
@@ -6841,7 +8715,7 @@
         "component",
         "page"
       ],
-      "loc": 9,
+      "loc": 46,
       "exports": [
         "AboutPage"
       ],
@@ -6858,32 +8732,64 @@
       ],
       "props": {},
       "hooksDefined": [],
-      "hooksUsed": [],
+      "hooksUsed": [
+        "useStorageStatus"
+      ],
       "jsxUsed": [
         "BackLink",
+        "InfoList",
+        "InfoList.Item",
         "Page",
-        "Page.Header"
+        "Page.Body",
+        "Page.Header",
+        "SampleDataTools",
+        "Suspense"
       ],
       "storesUsed": [],
       "dexieTables": {},
       "usesTransaction": false,
       "usesLiveQuery": false,
-      "devOnly": false,
-      "lazyImports": [],
+      "devOnly": true,
+      "lazyImports": [
+        "src/dev/sampleData/SampleDataTools.tsx"
+      ],
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
-      "external": [],
+      "requirementRefs": [
+        "CA-11.4",
+        "CA-11.5",
+        "RF-11"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "lazy",
+            "Suspense"
+          ]
+        }
+      ],
       "importedBy": [
-        "src/app/lazyPages.tsx"
+        "src/app/lazyPages.tsx",
+        "src/features/settings/AboutPage.test.tsx"
       ],
       "imports": [
         "src/components/ui/BackLink.tsx",
-        "src/components/ui/Page.tsx"
+        "src/components/ui/InfoList.tsx",
+        "src/components/ui/Page.tsx",
+        "src/dev/sampleData/SampleDataTools.tsx",
+        "src/features/settings/storageStatusTexts.ts",
+        "src/features/settings/useStorageStatus.ts",
+        "src/lib/appVersion.ts",
+        "src/repositories/databaseInfo.ts"
       ],
       "assets": [],
-      "testedBy": []
+      "testedBy": [
+        "src/features/settings/AboutPage.test.tsx"
+      ]
     },
     {
       "id": "src/features/settings/SettingsMenu.tsx",
@@ -6997,6 +8903,62 @@
       "testedBy": []
     },
     {
+      "id": "src/features/settings/storageStatusTexts.ts",
+      "layer": "features",
+      "feature": "settings",
+      "group": "features/settings",
+      "kinds": [
+        "module"
+      ],
+      "loc": 17,
+      "exports": [
+        "LOADING_TEXT",
+        "UNAVAILABLE_TEXT",
+        "describePersistence",
+        "describeStorageUsage"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "describeStorageUsage",
+          "signature": "describeStorageUsage(status: StorageStatus): string"
+        },
+        {
+          "name": "describePersistence",
+          "signature": "describePersistence(status: StorageStatus): string"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.4",
+        "CA-11.5"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/settings/AboutPage.tsx"
+      ],
+      "imports": [
+        "src/features/settings/useStorageStatus.ts",
+        "src/lib/formatBytes.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/features/settings/themeOptionLabels.ts",
       "layer": "features",
       "feature": "settings",
@@ -7047,7 +9009,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 70,
+      "loc": 87,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -7085,7 +9047,8 @@
             "act",
             "fireEvent",
             "render",
-            "screen"
+            "screen",
+            "waitFor"
           ]
         },
         {
@@ -7105,6 +9068,7 @@
         "src/app/theme/ThemeProvider.tsx",
         "src/features/settings/ThemeSection.tsx",
         "src/lib/theme.ts",
+        "src/repositories/settingsRepository.ts",
         "src/test/matchMedia.ts",
         "src/test/renderApp.tsx"
       ],
@@ -7160,15 +9124,82 @@
         "src/features/settings/ThemeSection.test.tsx"
       ],
       "imports": [
-        "src/app/theme/useTheme.ts",
         "src/components/ui/createRadioGroup.tsx",
         "src/features/settings/themeOptionLabels.ts",
-        "src/lib/theme.ts"
+        "src/lib/theme.ts",
+        "src/repositories/useTheme.ts"
       ],
       "assets": [],
       "testedBy": [
         "src/features/settings/ThemeSection.test.tsx"
       ]
+    },
+    {
+      "id": "src/features/settings/useStorageStatus.ts",
+      "layer": "features",
+      "feature": "settings",
+      "group": "features/settings",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 28,
+      "exports": [
+        "StorageStatus",
+        "useStorageStatus"
+      ],
+      "typeExports": [
+        "StorageStatus"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useStorageStatus",
+          "signature": "useStorageStatus(): StorageStatus"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useStorageStatus"
+      ],
+      "hooksUsed": [
+        "useEffect"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.4",
+        "CA-11.5",
+        "RF-11"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useEffect",
+            "useState"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/settings/AboutPage.tsx",
+        "src/features/settings/storageStatusTexts.ts"
+      ],
+      "imports": [
+        "src/lib/storage.ts"
+      ],
+      "assets": [],
+      "testedBy": []
     },
     {
       "id": "src/features/tags/TagsPage.tsx",
@@ -7432,6 +9463,101 @@
       "testedBy": []
     },
     {
+      "id": "src/lib/appVersion.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 10,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.5",
+        "RF-11"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "package.json",
+        "src/lib/appVersion.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/lib/appVersion.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "module"
+      ],
+      "loc": 4,
+      "exports": [
+        "APP_VERSION"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.5"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/settings/AboutPage.test.tsx",
+        "src/features/settings/AboutPage.tsx",
+        "src/lib/appVersion.test.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/features/settings/AboutPage.test.tsx",
+        "src/lib/appVersion.test.ts"
+      ]
+    },
+    {
       "id": "src/lib/displayMode.test.ts",
       "layer": "lib",
       "feature": null,
@@ -7534,6 +9660,278 @@
       ]
     },
     {
+      "id": "src/lib/formatBytes.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 33,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.5"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/formatBytes.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/lib/formatBytes.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "module"
+      ],
+      "loc": 25,
+      "exports": [
+        "formatBytes",
+        "formatStorageUsage"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "formatBytes",
+          "signature": "formatBytes(bytes: number): string"
+        },
+        {
+          "name": "formatStorageUsage",
+          "signature": "formatStorageUsage(usageBytes: number, quotaBytes: number): string"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.5"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/settings/storageStatusTexts.ts",
+        "src/lib/formatBytes.test.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/lib/formatBytes.test.ts"
+      ]
+    },
+    {
+      "id": "src/lib/storage.navigator.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 38,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.4",
+        "CA-11.5",
+        "RF-11",
+        "RNF-09"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/storage.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/lib/storage.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 52,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.4",
+        "CA-11.5",
+        "RF-11"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/storage.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/lib/storage.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "module"
+      ],
+      "loc": 46,
+      "exports": [
+        "StorageEstimate",
+        "getStorageEstimate",
+        "isStoragePersisted",
+        "requestPersistentStorage"
+      ],
+      "typeExports": [
+        "StorageEstimate"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "requestPersistentStorage",
+          "signature": "requestPersistentStorage(storage: StorageManagerLike | undefined = defaultStorageManager()): Promise<boolean>"
+        },
+        {
+          "name": "isStoragePersisted",
+          "signature": "isStoragePersisted(storage: StorageManagerLike | undefined = defaultStorageManager()): Promise<boolean | null>"
+        },
+        {
+          "name": "getStorageEstimate",
+          "signature": "getStorageEstimate(storage: StorageManagerLike | undefined = defaultStorageManager()): Promise<StorageEstimate | null>"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.4",
+        "CA-11.5",
+        "RF-11",
+        "RNF-09"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/settings/useStorageStatus.ts",
+        "src/lib/storage.navigator.test.ts",
+        "src/lib/storage.test.ts",
+        "src/repositories/persistentStorageRepository.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/lib/storage.navigator.test.ts",
+        "src/lib/storage.test.ts"
+      ]
+    },
+    {
       "id": "src/lib/theme.test.ts",
       "layer": "lib",
       "feature": null,
@@ -7541,7 +9939,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 53,
+      "loc": 40,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -7562,7 +9960,6 @@
       "storeMembersUsed": [],
       "requirementRefs": [
         "CA-09.1",
-        "CA-09.2",
         "CA-09.4",
         "RF-09"
       ],
@@ -7592,7 +9989,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 32,
+      "loc": 29,
       "exports": [
         "DARK_COLOR_SCHEME_QUERY",
         "DEFAULT_THEME_PREFERENCE",
@@ -7603,7 +10000,6 @@
         "ThemePreference",
         "getThemeColor",
         "isThemePreference",
-        "parseThemePreference",
         "resolveTheme"
       ],
       "typeExports": [
@@ -7615,10 +10011,6 @@
         {
           "name": "isThemePreference",
           "signature": "isThemePreference(value: unknown): value is ThemePreference"
-        },
-        {
-          "name": "parseThemePreference",
-          "signature": "parseThemePreference(raw: string | null): ThemePreference"
         },
         {
           "name": "resolveTheme",
@@ -7646,13 +10038,13 @@
       "requirementRefs": [
         "CA-09.3",
         "CA-09.4",
+        "D-28",
         "RF-09"
       ],
       "external": [],
       "importedBy": [
         "src/app/pwa/pwaOptions.test.ts",
         "src/app/pwa/pwaOptions.ts",
-        "src/app/theme/ThemeContext.ts",
         "src/app/theme/ThemeProvider.tsx",
         "src/app/theme/applyThemeToDocument.ts",
         "src/app/theme/indexHtmlThemeScript.test.ts",
@@ -7663,7 +10055,13 @@
         "src/lib/theme.test.ts",
         "src/lib/themeStorage.test.ts",
         "src/lib/themeStorage.ts",
-        "src/test/matchMedia.ts"
+        "src/repositories/ThemeContext.ts",
+        "src/repositories/themePreference.test.ts",
+        "src/repositories/themeRepository.test.ts",
+        "src/repositories/themeRepository.ts",
+        "src/repositories/useThemePreference.ts",
+        "src/test/matchMedia.ts",
+        "src/test/themeReference.ts"
       ],
       "imports": [],
       "assets": [],
@@ -7672,7 +10070,9 @@
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/features/settings/ThemeSection.test.tsx",
         "src/lib/theme.test.ts",
-        "src/lib/themeStorage.test.ts"
+        "src/lib/themeStorage.test.ts",
+        "src/repositories/themePreference.test.ts",
+        "src/repositories/themeRepository.test.ts"
       ]
     },
     {
@@ -7703,8 +10103,7 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
-        "CA-09.1",
-        "CA-09.2",
+        "CA-09.3",
         "RF-09"
       ],
       "external": [
@@ -7736,21 +10135,21 @@
       "kinds": [
         "module"
       ],
-      "loc": 19,
+      "loc": 23,
       "exports": [
-        "readThemePreference",
-        "writeThemePreference"
+        "readThemeMirror",
+        "writeThemeMirror"
       ],
       "typeExports": [],
       "defaultExport": null,
       "functions": [
         {
-          "name": "readThemePreference",
-          "signature": "readThemePreference(): ThemePreference"
+          "name": "readThemeMirror",
+          "signature": "readThemeMirror(): ThemePreference | null"
         },
         {
-          "name": "writeThemePreference",
-          "signature": "writeThemePreference(preference: ThemePreference): void"
+          "name": "writeThemeMirror",
+          "signature": "writeThemeMirror(preference: ThemePreference): void"
         }
       ],
       "components": [],
@@ -7768,13 +10167,14 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
-        "CA-09.2",
+        "CA-09.3",
         "RF-09"
       ],
       "external": [],
       "importedBy": [
-        "src/app/theme/ThemeProvider.tsx",
-        "src/lib/themeStorage.test.ts"
+        "src/lib/themeStorage.test.ts",
+        "src/repositories/themeRepository.ts",
+        "src/repositories/useThemePreference.ts"
       ],
       "imports": [
         "src/lib/theme.ts"
@@ -7852,6 +10252,832 @@
         "src/index.css"
       ],
       "testedBy": []
+    },
+    {
+      "id": "src/repositories/databaseInfo.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "module"
+      ],
+      "loc": 2,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.5"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/db/database.schema.test.ts",
+        "src/features/settings/AboutPage.tsx"
+      ],
+      "imports": [
+        "src/db/database.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/db/database.schema.test.ts"
+      ]
+    },
+    {
+      "id": "src/repositories/persistentStorage.navigator.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 65,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.4",
+        "D-28",
+        "RF-11",
+        "RNF-09"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/repositories/persistentStorageRepository.ts",
+        "src/repositories/settingsRepository.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/repositories/persistentStorageRepository.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 32,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.4",
+        "RF-11"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/repositories/persistentStorageRepository.ts",
+        "src/repositories/settingsRepository.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/repositories/persistentStorageRepository.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "module"
+      ],
+      "loc": 27,
+      "exports": [
+        "requestPersistentStorageOnce"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "requestPersistentStorageOnce",
+          "signature": "requestPersistentStorageOnce({ request = requestPersistentStorage, now = () => new Date(), }: PersistRequestOptions = {}): Promise<boolean>"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "settings": {
+          "reads": [
+            "get"
+          ],
+          "writes": [
+            "put"
+          ]
+        }
+      },
+      "usesTransaction": true,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-11.4",
+        "RF-11"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/app/storage/usePersistentStorageRequest.ts",
+        "src/repositories/persistentStorage.navigator.test.ts",
+        "src/repositories/persistentStorageRepository.test.ts"
+      ],
+      "imports": [
+        "src/db/database.ts",
+        "src/lib/storage.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/repositories/persistentStorage.navigator.test.ts",
+        "src/repositories/persistentStorageRepository.test.ts"
+      ]
+    },
+    {
+      "id": "src/repositories/settingsRepository.crud.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 26,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "settings": {
+          "reads": [
+            "toArray"
+          ],
+          "writes": []
+        }
+      },
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts",
+        "src/repositories/settingsRepository.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/repositories/settingsRepository.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 22,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useSetting"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "act",
+            "renderHook",
+            "waitFor"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/repositories/settingsRepository.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/repositories/settingsRepository.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 21,
+      "exports": [
+        "SettingKey",
+        "getSetting",
+        "setSetting",
+        "useSetting"
+      ],
+      "typeExports": [
+        "SettingKey"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "getSetting",
+          "signature": "getSetting(key: SettingKey): Promise<string | null>"
+        },
+        {
+          "name": "setSetting",
+          "signature": "setSetting(key: SettingKey, value: string): Promise<void>"
+        },
+        {
+          "name": "useSetting",
+          "signature": "useSetting(key: SettingKey): string | null | undefined"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useSetting"
+      ],
+      "hooksUsed": [
+        "useLiveQuery"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "settings": {
+          "reads": [
+            "get"
+          ],
+          "writes": [
+            "put"
+          ]
+        }
+      },
+      "usesTransaction": false,
+      "usesLiveQuery": true,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "dexie-react-hooks",
+          "specifier": "dexie-react-hooks",
+          "kind": "static",
+          "names": [
+            "useLiveQuery"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/settings/ThemeSection.test.tsx",
+        "src/repositories/persistentStorage.navigator.test.ts",
+        "src/repositories/persistentStorageRepository.test.ts",
+        "src/repositories/settingsRepository.crud.test.ts",
+        "src/repositories/settingsRepository.test.ts",
+        "src/repositories/themePreference.test.ts",
+        "src/repositories/themeRepository.test.ts",
+        "src/repositories/themeRepository.ts"
+      ],
+      "imports": [
+        "src/db/database.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/features/settings/ThemeSection.test.tsx",
+        "src/repositories/persistentStorage.navigator.test.ts",
+        "src/repositories/persistentStorageRepository.test.ts",
+        "src/repositories/settingsRepository.crud.test.ts",
+        "src/repositories/settingsRepository.test.ts",
+        "src/repositories/themePreference.test.ts",
+        "src/repositories/themeRepository.test.ts"
+      ]
+    },
+    {
+      "id": "src/repositories/ThemeContext.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "context"
+      ],
+      "loc": 10,
+      "exports": [
+        "ThemeContext",
+        "ThemeContextValue"
+      ],
+      "typeExports": [
+        "ThemeContextValue"
+      ],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-22"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "createContext"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/app/theme/ThemeProvider.tsx",
+        "src/repositories/themePreference.test.ts",
+        "src/repositories/useTheme.ts"
+      ],
+      "imports": [
+        "src/lib/theme.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/repositories/themePreference.test.ts"
+      ]
+    },
+    {
+      "id": "src/repositories/themePreference.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 103,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useTheme",
+        "useThemePreference"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-09.2",
+        "CA-09.3",
+        "D-22",
+        "D-28",
+        "RF-09"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "act",
+            "renderHook",
+            "waitFor"
+          ]
+        },
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "createElement",
+            "ReactNode"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts",
+        "src/lib/theme.ts",
+        "src/repositories/ThemeContext.ts",
+        "src/repositories/settingsRepository.ts",
+        "src/repositories/themeRepository.ts",
+        "src/repositories/useTheme.ts",
+        "src/repositories/useThemePreference.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/repositories/themeRepository.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 49,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-09.2",
+        "RF-09"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/theme.ts",
+        "src/repositories/settingsRepository.ts",
+        "src/repositories/themeRepository.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/repositories/themeRepository.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "module"
+      ],
+      "loc": 34,
+      "exports": [
+        "getStoredThemePreference",
+        "migrateThemePreferenceFromMirror",
+        "saveThemePreference"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "getStoredThemePreference",
+          "signature": "getStoredThemePreference(): Promise<ThemePreference | null>"
+        },
+        {
+          "name": "saveThemePreference",
+          "signature": "saveThemePreference(preference: ThemePreference): Promise<void>"
+        },
+        {
+          "name": "migrateThemePreferenceFromMirror",
+          "signature": "migrateThemePreferenceFromMirror(): Promise<boolean>"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "settings": {
+          "reads": [
+            "get"
+          ],
+          "writes": [
+            "put"
+          ]
+        }
+      },
+      "usesTransaction": true,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-09.3",
+        "RF-09"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/repositories/themePreference.test.ts",
+        "src/repositories/themeRepository.test.ts",
+        "src/repositories/useThemePreference.ts"
+      ],
+      "imports": [
+        "src/db/database.ts",
+        "src/lib/theme.ts",
+        "src/lib/themeStorage.ts",
+        "src/repositories/settingsRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/repositories/themePreference.test.ts",
+        "src/repositories/themeRepository.test.ts"
+      ]
+    },
+    {
+      "id": "src/repositories/useTheme.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 8,
+      "exports": [
+        "useTheme"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useTheme",
+          "signature": "useTheme(): ThemeContextValue"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useTheme"
+      ],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-09"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "use"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/settings/ThemeSection.tsx",
+        "src/repositories/themePreference.test.ts"
+      ],
+      "imports": [
+        "src/repositories/ThemeContext.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/repositories/themePreference.test.ts"
+      ]
+    },
+    {
+      "id": "src/repositories/useThemePreference.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 44,
+      "exports": [
+        "ThemePreferenceState",
+        "useThemePreference"
+      ],
+      "typeExports": [
+        "ThemePreferenceState"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useThemePreference",
+          "signature": "useThemePreference(): ThemePreferenceState"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useThemePreference"
+      ],
+      "hooksUsed": [
+        "useEffect",
+        "useLiveQuery",
+        "useState"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": true,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-09.3",
+        "RF-09"
+      ],
+      "external": [
+        {
+          "package": "dexie-react-hooks",
+          "specifier": "dexie-react-hooks",
+          "kind": "static",
+          "names": [
+            "useLiveQuery"
+          ]
+        },
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useEffect",
+            "useState"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/app/theme/ThemeProvider.tsx",
+        "src/repositories/themePreference.test.ts"
+      ],
+      "imports": [
+        "src/lib/theme.ts",
+        "src/lib/themeStorage.ts",
+        "src/repositories/themeRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/repositories/themePreference.test.ts"
+      ]
     },
     {
       "id": "src/stores/uiStore.test.ts",
@@ -7985,6 +11211,61 @@
       ]
     },
     {
+      "id": "src/test/factories.ts",
+      "layer": "test",
+      "feature": null,
+      "group": "test",
+      "kinds": [
+        "module"
+      ],
+      "loc": 25,
+      "exports": [
+        "expense",
+        "income",
+        "makeTransaction"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "makeTransaction",
+          "signature": "makeTransaction(overrides: Partial<Transaction> = {}): Transaction"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [],
+      "importedBy": [
+        "src/db/database.schema.test.ts",
+        "src/domain/balances.properties.test.ts",
+        "src/domain/balances.test.ts",
+        "src/domain/dates.timezone.test.ts"
+      ],
+      "imports": [
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/db/database.schema.test.ts",
+        "src/domain/balances.properties.test.ts",
+        "src/domain/balances.test.ts",
+        "src/domain/dates.timezone.test.ts"
+      ]
+    },
+    {
       "id": "src/test/matchMedia.ts",
       "layer": "test",
       "feature": null,
@@ -8050,6 +11331,87 @@
         "src/app/pwa/InstallHint.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/features/settings/ThemeSection.test.tsx"
+      ]
+    },
+    {
+      "id": "src/test/propertyHelpers.ts",
+      "layer": "test",
+      "feature": null,
+      "group": "test",
+      "kinds": [
+        "module"
+      ],
+      "loc": 69,
+      "exports": [
+        "allDatesOfYear",
+        "createTestRandom",
+        "dayNumber",
+        "daysInMonth",
+        "isLeapYear",
+        "toDateString",
+        "weekdayOf"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "createTestRandom",
+          "signature": "createTestRandom(seed: number)"
+        },
+        {
+          "name": "isLeapYear",
+          "signature": "isLeapYear(year: number): boolean"
+        },
+        {
+          "name": "daysInMonth",
+          "signature": "daysInMonth(year: number, month: number): number"
+        },
+        {
+          "name": "toDateString",
+          "signature": "toDateString(year: number, month: number, day: number): string"
+        },
+        {
+          "name": "allDatesOfYear",
+          "signature": "allDatesOfYear(year: number): string[]"
+        },
+        {
+          "name": "weekdayOf",
+          "signature": "weekdayOf(date: string): number"
+        },
+        {
+          "name": "dayNumber",
+          "signature": "dayNumber(date: string): number"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [],
+      "importedBy": [
+        "src/domain/balances.properties.test.ts",
+        "src/domain/dates.calendar.test.ts",
+        "src/domain/dates.timezone.test.ts",
+        "src/domain/money.test.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/domain/balances.properties.test.ts",
+        "src/domain/dates.calendar.test.ts",
+        "src/domain/dates.timezone.test.ts",
+        "src/domain/money.test.ts"
       ]
     },
     {
@@ -8146,7 +11508,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 14,
+      "loc": 18,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -8160,7 +11522,7 @@
         "useUiStore"
       ],
       "dexieTables": {},
-      "usesTransaction": false,
+      "usesTransaction": true,
       "usesLiveQuery": false,
       "devOnly": false,
       "lazyImports": [],
@@ -8194,11 +11556,59 @@
       ],
       "importedBy": [],
       "imports": [
+        "src/db/database.ts",
         "src/stores/uiStore.ts",
         "src/test/matchMedia.ts"
       ],
       "assets": [],
       "testedBy": []
+    },
+    {
+      "id": "src/test/themeReference.ts",
+      "layer": "test",
+      "feature": null,
+      "group": "test",
+      "kinds": [
+        "module"
+      ],
+      "loc": 9,
+      "exports": [
+        "parseStoredThemePreference"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "parseStoredThemePreference",
+          "signature": "parseStoredThemePreference(raw: string | null): ThemePreference"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [],
+      "importedBy": [
+        "src/app/theme/indexHtmlThemeScript.test.ts"
+      ],
+      "imports": [
+        "src/lib/theme.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/app/theme/indexHtmlThemeScript.test.ts"
+      ]
     },
     {
       "id": "tsconfig.app.json",
@@ -8338,7 +11748,7 @@
       "kinds": [
         "config"
       ],
-      "loc": 34,
+      "loc": 45,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -8358,10 +11768,19 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
+        "CA-11.5",
         "RF-11",
         "RNF-07"
       ],
       "external": [
+        {
+          "package": "node:fs",
+          "specifier": "node:fs",
+          "kind": "static",
+          "names": [
+            "readFileSync"
+          ]
+        },
         {
           "package": "node:url",
           "specifier": "node:url",
@@ -8450,6 +11869,14 @@
       "kind": "static",
       "names": [
         "routes"
+      ]
+    },
+    {
+      "from": "src/app/App.tsx",
+      "to": "src/app/storage/usePersistentStorageRequest.ts",
+      "kind": "static",
+      "names": [
+        "usePersistentStorageRequest"
       ]
     },
     {
@@ -8801,6 +12228,14 @@
       ]
     },
     {
+      "from": "src/app/storage/usePersistentStorageRequest.ts",
+      "to": "src/repositories/persistentStorageRepository.ts",
+      "kind": "static",
+      "names": [
+        "requestPersistentStorageOnce"
+      ]
+    },
+    {
       "from": "src/app/theme/applyThemeToDocument.ts",
       "to": "src/lib/theme.ts",
       "kind": "static",
@@ -8823,7 +12258,6 @@
       "kind": "static",
       "names": [
         "getThemeColor",
-        "parseThemePreference",
         "resolveTheme",
         "THEME_COLORS",
         "THEME_STORAGE_KEY"
@@ -8846,12 +12280,11 @@
       ]
     },
     {
-      "from": "src/app/theme/ThemeContext.ts",
-      "to": "src/lib/theme.ts",
-      "kind": "type",
+      "from": "src/app/theme/indexHtmlThemeScript.test.ts",
+      "to": "src/test/themeReference.ts",
+      "kind": "static",
       "names": [
-        "ResolvedTheme",
-        "ThemePreference"
+        "parseStoredThemePreference"
       ]
     },
     {
@@ -8860,14 +12293,6 @@
       "kind": "static",
       "names": [
         "applyThemeToDocument"
-      ]
-    },
-    {
-      "from": "src/app/theme/ThemeProvider.tsx",
-      "to": "src/app/theme/ThemeContext.ts",
-      "kind": "static",
-      "names": [
-        "ThemeContext"
       ]
     },
     {
@@ -8883,17 +12308,23 @@
       "to": "src/lib/theme.ts",
       "kind": "static",
       "names": [
-        "resolveTheme",
-        "ThemePreference"
+        "resolveTheme"
       ]
     },
     {
       "from": "src/app/theme/ThemeProvider.tsx",
-      "to": "src/lib/themeStorage.ts",
+      "to": "src/repositories/ThemeContext.ts",
       "kind": "static",
       "names": [
-        "readThemePreference",
-        "writeThemePreference"
+        "ThemeContext"
+      ]
+    },
+    {
+      "from": "src/app/theme/ThemeProvider.tsx",
+      "to": "src/repositories/useThemePreference.ts",
+      "kind": "static",
+      "names": [
+        "useThemePreference"
       ]
     },
     {
@@ -8902,15 +12333,6 @@
       "kind": "static",
       "names": [
         "DARK_COLOR_SCHEME_QUERY"
-      ]
-    },
-    {
-      "from": "src/app/theme/useTheme.ts",
-      "to": "src/app/theme/ThemeContext.ts",
-      "kind": "static",
-      "names": [
-        "ThemeContext",
-        "ThemeContextValue"
       ]
     },
     {
@@ -8938,6 +12360,53 @@
       ]
     },
     {
+      "from": "src/db/database.schema.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "DATABASE_NAME",
+        "db",
+        "SCHEMA_VERSION"
+      ]
+    },
+    {
+      "from": "src/db/database.schema.test.ts",
+      "to": "src/repositories/databaseInfo.ts",
+      "kind": "static",
+      "names": [
+        "SCHEMA_VERSION as EXPOSED_SCHEMA_VERSION"
+      ]
+    },
+    {
+      "from": "src/db/database.schema.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "makeTransaction"
+      ]
+    },
+    {
+      "from": "src/db/database.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db",
+        "SCHEMA_VERSION"
+      ]
+    },
+    {
+      "from": "src/db/database.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "InstallmentGroup",
+        "Recurring",
+        "Setting",
+        "Tag",
+        "Transaction"
+      ]
+    },
+    {
       "from": "src/dev/architecture/architecture.test.ts",
       "to": "src/dev/architecture/data/curated.ts",
       "kind": "static",
@@ -8946,12 +12415,14 @@
         "ARCHITECTURE_FINDINGS",
         "DECISIONS",
         "FLOWS",
+        "FORBIDDEN_DEPENDENCIES",
         "LAYERS",
         "LOCAL_COMPONENT_ORIGINS",
         "MODULE_NOTES",
         "REQUIREMENTS",
         "ROUTE_NOTES",
-        "SCREEN_COMPOSITION"
+        "SCREEN_COMPOSITION",
+        "TABLE_NOTES"
       ]
     },
     {
@@ -9267,8 +12738,8 @@
       "to": "src/dev/architecture/data/curated.ts",
       "kind": "static",
       "names": [
-        "PLANNED_SCHEMA_VERSION",
-        "PLANNED_TABLES"
+        "SPEC_SCHEMA_VERSION",
+        "TABLE_NOTES"
       ]
     },
     {
@@ -9276,7 +12747,9 @@
       "to": "src/dev/architecture/model.ts",
       "kind": "static",
       "names": [
-        "graph"
+        "graph",
+        "isTestModule",
+        "moduleById"
       ]
     },
     {
@@ -9435,6 +12908,47 @@
       ]
     },
     {
+      "from": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
+      "to": "src/dev/architecture/components/Badge.tsx",
+      "kind": "static",
+      "names": [
+        "Badge"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
+      "to": "src/dev/architecture/components/Card.tsx",
+      "kind": "static",
+      "names": [
+        "Card"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
+      "to": "src/dev/architecture/data/curated.ts",
+      "kind": "static",
+      "names": [
+        "FORBIDDEN_DEPENDENCIES",
+        "LAYERS"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
+      "to": "src/dev/architecture/layers.ts",
+      "kind": "static",
+      "names": [
+        "unobservedForbidden"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
+      "to": "src/dev/architecture/types.ts",
+      "kind": "type",
+      "names": [
+        "Layer"
+      ]
+    },
+    {
       "from": "src/dev/architecture/components/HealthSection.tsx",
       "to": "src/dev/architecture/components/Badge.tsx",
       "kind": "static",
@@ -9583,6 +13097,14 @@
       "kind": "static",
       "names": [
         "Card"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/LayersSection.tsx",
+      "to": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
+      "kind": "static",
+      "names": [
+        "ForbiddenDependenciesCard"
       ]
     },
     {
@@ -10559,15 +14081,16 @@
         "CompositionNote",
         "DecisionInfo",
         "Flow",
+        "ForbiddenDependency",
         "LayerInfo",
         "PackageSource",
         "PlannedDomainFunction",
         "PlannedFlow",
-        "PlannedTable",
         "PlannedUiField",
         "RequirementInfo",
         "RouteNote",
-        "ScreenComposition"
+        "ScreenComposition",
+        "TableNote"
       ]
     },
     {
@@ -10626,6 +14149,7 @@
       "kind": "static",
       "names": [
         "layerEdges",
+        "unobservedForbidden",
         "unobservedRules",
         "LayerEdgeStatus"
       ]
@@ -10643,7 +14167,8 @@
       "to": "src/dev/architecture/data/curated.ts",
       "kind": "static",
       "names": [
-        "ALLOWED_DEPENDENCIES"
+        "ALLOWED_DEPENDENCIES",
+        "FORBIDDEN_DEPENDENCIES"
       ]
     },
     {
@@ -10663,6 +14188,7 @@
       "names": [
         "AllowedDependency",
         "DependencyStatus",
+        "ForbiddenDependency",
         "GraphEdge",
         "Layer"
       ]
@@ -10753,6 +14279,530 @@
       ]
     },
     {
+      "from": "src/dev/sampleData/buildSampleData.model.test.ts",
+      "to": "src/dev/sampleData/buildSampleData.ts",
+      "kind": "static",
+      "names": [
+        "buildSampleData"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/buildSampleData.model.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "periodOf"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/buildSampleData.model.test.ts",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "MAX_AMOUNT_CENTS"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/buildSampleData.test.ts",
+      "to": "src/dev/sampleData/buildSampleData.ts",
+      "kind": "static",
+      "names": [
+        "buildSampleData",
+        "SAMPLE_TRANSACTION_COUNT"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/buildSampleData.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "addMonthsClamped",
+        "periodOf"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/buildSampleData.ts",
+      "to": "src/dev/sampleData/sampleCatalog.ts",
+      "kind": "static",
+      "names": [
+        "SAMPLE_TAGS"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/buildSampleData.ts",
+      "to": "src/dev/sampleData/sampleContext.ts",
+      "kind": "static",
+      "names": [
+        "tagIdOf",
+        "timestampOf",
+        "SampleContext"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/buildSampleData.ts",
+      "to": "src/dev/sampleData/sampleInstallments.ts",
+      "kind": "static",
+      "names": [
+        "buildSampleInstallments"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/buildSampleData.ts",
+      "to": "src/dev/sampleData/sampleRecurrings.ts",
+      "kind": "static",
+      "names": [
+        "buildSampleRecurrings"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/buildSampleData.ts",
+      "to": "src/dev/sampleData/seededRandom.ts",
+      "kind": "static",
+      "names": [
+        "createSeededRandom"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/buildSampleData.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "addMonthsClamped"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/buildSampleData.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString",
+        "InstallmentGroup",
+        "Recurring",
+        "Tag",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleCatalog.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "TransactionType"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleContext.ts",
+      "to": "src/dev/sampleData/seededRandom.ts",
+      "kind": "type",
+      "names": [
+        "SeededRandom"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleContext.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleDataStore.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleDataStore.test.ts",
+      "to": "src/dev/sampleData/buildSampleData.ts",
+      "kind": "static",
+      "names": [
+        "buildSampleData"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleDataStore.test.ts",
+      "to": "src/dev/sampleData/sampleDataStore.ts",
+      "kind": "static",
+      "names": [
+        "clearAllData",
+        "replaceWithSampleData"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleDataStore.ts",
+      "to": "src/db/database.ts",
+      "kind": "type",
+      "names": [
+        "AppDatabase"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleDataStore.ts",
+      "to": "src/dev/sampleData/buildSampleData.ts",
+      "kind": "type",
+      "names": [
+        "SampleData"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/SampleDataTools.tsx",
+      "to": "src/dev/sampleData/useSampleDataTools.ts",
+      "kind": "static",
+      "names": [
+        "useSampleDataTools"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleInstallments.ts",
+      "to": "src/dev/sampleData/sampleContext.ts",
+      "kind": "static",
+      "names": [
+        "tagIdOf",
+        "timestampOf",
+        "SampleContext"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleInstallments.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "addMonthsClamped"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleInstallments.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Cents",
+        "DateString",
+        "InstallmentGroup",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleRecurrings.ts",
+      "to": "src/dev/sampleData/sampleContext.ts",
+      "kind": "static",
+      "names": [
+        "tagIdOf",
+        "timestampOf",
+        "SampleContext"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleRecurrings.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "periodOf",
+        "periodsBetween"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleRecurrings.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Cents",
+        "PeriodString",
+        "Recurring",
+        "RecurringAmount",
+        "Transaction",
+        "TransactionType"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/useSampleDataTools.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/useSampleDataTools.ts",
+      "to": "src/dev/sampleData/buildSampleData.ts",
+      "kind": "static",
+      "names": [
+        "buildSampleData"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/useSampleDataTools.ts",
+      "to": "src/dev/sampleData/sampleDataStore.ts",
+      "kind": "static",
+      "names": [
+        "clearAllData",
+        "replaceWithSampleData"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/useSampleDataTools.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "today"
+      ]
+    },
+    {
+      "from": "src/domain/balances.properties.test.ts",
+      "to": "src/domain/balances.ts",
+      "kind": "static",
+      "names": [
+        "groupByDay",
+        "groupByMonth",
+        "groupByTag",
+        "overallBalance",
+        "runningBalance",
+        "totals"
+      ]
+    },
+    {
+      "from": "src/domain/balances.properties.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "addMonthsClamped",
+        "monthRange",
+        "periodsBetween",
+        "weekRange"
+      ]
+    },
+    {
+      "from": "src/domain/balances.properties.test.ts",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "MAX_AMOUNT_CENTS"
+      ]
+    },
+    {
+      "from": "src/domain/balances.properties.test.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/domain/balances.properties.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "expense",
+        "income",
+        "makeTransaction"
+      ]
+    },
+    {
+      "from": "src/domain/balances.properties.test.ts",
+      "to": "src/test/propertyHelpers.ts",
+      "kind": "static",
+      "names": [
+        "createTestRandom",
+        "daysInMonth",
+        "toDateString"
+      ]
+    },
+    {
+      "from": "src/domain/balances.test.ts",
+      "to": "src/domain/balances.ts",
+      "kind": "static",
+      "names": [
+        "groupByDay",
+        "groupByMonth",
+        "groupByTag",
+        "overallBalance",
+        "runningBalance",
+        "totals"
+      ]
+    },
+    {
+      "from": "src/domain/balances.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "monthRange",
+        "weekRange"
+      ]
+    },
+    {
+      "from": "src/domain/balances.test.ts",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "MAX_AMOUNT_CENTS"
+      ]
+    },
+    {
+      "from": "src/domain/balances.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "expense",
+        "income"
+      ]
+    },
+    {
+      "from": "src/domain/balances.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "type",
+      "names": [
+        "DateRange"
+      ]
+    },
+    {
+      "from": "src/domain/balances.ts",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "addCents"
+      ]
+    },
+    {
+      "from": "src/domain/balances.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Cents",
+        "DateString",
+        "PeriodString",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/domain/dates.calendar.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "addMonthsClamped",
+        "monthRange",
+        "periodOf",
+        "periodsBetween",
+        "today",
+        "weekRange",
+        "yearRange"
+      ]
+    },
+    {
+      "from": "src/domain/dates.calendar.test.ts",
+      "to": "src/test/propertyHelpers.ts",
+      "kind": "static",
+      "names": [
+        "allDatesOfYear",
+        "dayNumber",
+        "daysInMonth",
+        "toDateString",
+        "weekdayOf"
+      ]
+    },
+    {
+      "from": "src/domain/dates.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "addMonthsClamped",
+        "monthRange",
+        "periodOf",
+        "periodsBetween",
+        "today",
+        "weekRange",
+        "yearRange"
+      ]
+    },
+    {
+      "from": "src/domain/dates.timezone.test.ts",
+      "to": "src/domain/balances.ts",
+      "kind": "static",
+      "names": [
+        "overallBalance",
+        "runningBalance"
+      ]
+    },
+    {
+      "from": "src/domain/dates.timezone.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "addMonthsClamped",
+        "monthRange",
+        "periodOf",
+        "periodsBetween",
+        "today",
+        "weekRange",
+        "yearRange"
+      ]
+    },
+    {
+      "from": "src/domain/dates.timezone.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "expense",
+        "income"
+      ]
+    },
+    {
+      "from": "src/domain/dates.timezone.test.ts",
+      "to": "src/test/propertyHelpers.ts",
+      "kind": "static",
+      "names": [
+        "weekdayOf"
+      ]
+    },
+    {
+      "from": "src/domain/dates.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString",
+        "PeriodString"
+      ]
+    },
+    {
+      "from": "src/domain/money.test.ts",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "addCents",
+        "digitsToCents",
+        "formatBRL",
+        "formatSignedBRL",
+        "MAX_AMOUNT_CENTS",
+        "MAX_AMOUNT_DIGITS"
+      ]
+    },
+    {
+      "from": "src/domain/money.test.ts",
+      "to": "src/test/propertyHelpers.ts",
+      "kind": "static",
+      "names": [
+        "createTestRandom"
+      ]
+    },
+    {
+      "from": "src/domain/money.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Cents"
+      ]
+    },
+    {
+      "from": "src/domain/tagColor.test.ts",
+      "to": "src/domain/tagColor.ts",
+      "kind": "static",
+      "names": [
+        "readableTextColor",
+        "relativeLuminance"
+      ]
+    },
+    {
       "from": "src/features/backup/BackupPage.tsx",
       "to": "src/components/ui/BackLink.tsx",
       "kind": "static",
@@ -10817,6 +14867,22 @@
       ]
     },
     {
+      "from": "src/features/settings/AboutPage.test.tsx",
+      "to": "src/features/settings/AboutPage.tsx",
+      "kind": "static",
+      "names": [
+        "AboutPage"
+      ]
+    },
+    {
+      "from": "src/features/settings/AboutPage.test.tsx",
+      "to": "src/lib/appVersion.ts",
+      "kind": "static",
+      "names": [
+        "APP_VERSION"
+      ]
+    },
+    {
       "from": "src/features/settings/AboutPage.tsx",
       "to": "src/components/ui/BackLink.tsx",
       "kind": "static",
@@ -10826,10 +14892,57 @@
     },
     {
       "from": "src/features/settings/AboutPage.tsx",
+      "to": "src/components/ui/InfoList.tsx",
+      "kind": "static",
+      "names": [
+        "InfoList"
+      ]
+    },
+    {
+      "from": "src/features/settings/AboutPage.tsx",
       "to": "src/components/ui/Page.tsx",
       "kind": "static",
       "names": [
         "Page"
+      ]
+    },
+    {
+      "from": "src/features/settings/AboutPage.tsx",
+      "to": "src/dev/sampleData/SampleDataTools.tsx",
+      "kind": "dynamic",
+      "names": []
+    },
+    {
+      "from": "src/features/settings/AboutPage.tsx",
+      "to": "src/features/settings/storageStatusTexts.ts",
+      "kind": "static",
+      "names": [
+        "describePersistence",
+        "describeStorageUsage"
+      ]
+    },
+    {
+      "from": "src/features/settings/AboutPage.tsx",
+      "to": "src/features/settings/useStorageStatus.ts",
+      "kind": "static",
+      "names": [
+        "useStorageStatus"
+      ]
+    },
+    {
+      "from": "src/features/settings/AboutPage.tsx",
+      "to": "src/lib/appVersion.ts",
+      "kind": "static",
+      "names": [
+        "APP_VERSION"
+      ]
+    },
+    {
+      "from": "src/features/settings/AboutPage.tsx",
+      "to": "src/repositories/databaseInfo.ts",
+      "kind": "static",
+      "names": [
+        "SCHEMA_VERSION"
       ]
     },
     {
@@ -10862,6 +14975,22 @@
       "kind": "static",
       "names": [
         "ThemeSection"
+      ]
+    },
+    {
+      "from": "src/features/settings/storageStatusTexts.ts",
+      "to": "src/features/settings/useStorageStatus.ts",
+      "kind": "type",
+      "names": [
+        "StorageStatus"
+      ]
+    },
+    {
+      "from": "src/features/settings/storageStatusTexts.ts",
+      "to": "src/lib/formatBytes.ts",
+      "kind": "static",
+      "names": [
+        "formatStorageUsage"
       ]
     },
     {
@@ -10899,6 +15028,15 @@
     },
     {
       "from": "src/features/settings/ThemeSection.test.tsx",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "getSetting",
+        "setSetting"
+      ]
+    },
+    {
+      "from": "src/features/settings/ThemeSection.test.tsx",
       "to": "src/test/matchMedia.ts",
       "kind": "static",
       "names": [
@@ -10911,14 +15049,6 @@
       "kind": "static",
       "names": [
         "addThemeColorMeta"
-      ]
-    },
-    {
-      "from": "src/features/settings/ThemeSection.tsx",
-      "to": "src/app/theme/useTheme.ts",
-      "kind": "static",
-      "names": [
-        "useTheme"
       ]
     },
     {
@@ -10944,6 +15074,24 @@
       "names": [
         "THEME_PREFERENCES",
         "ThemePreference"
+      ]
+    },
+    {
+      "from": "src/features/settings/ThemeSection.tsx",
+      "to": "src/repositories/useTheme.ts",
+      "kind": "static",
+      "names": [
+        "useTheme"
+      ]
+    },
+    {
+      "from": "src/features/settings/useStorageStatus.ts",
+      "to": "src/lib/storage.ts",
+      "kind": "static",
+      "names": [
+        "getStorageEstimate",
+        "isStoragePersisted",
+        "StorageEstimate"
       ]
     },
     {
@@ -11011,12 +15159,57 @@
       ]
     },
     {
+      "from": "src/lib/appVersion.test.ts",
+      "to": "package.json",
+      "kind": "static",
+      "names": [
+        "default as packageJsonText"
+      ]
+    },
+    {
+      "from": "src/lib/appVersion.test.ts",
+      "to": "src/lib/appVersion.ts",
+      "kind": "static",
+      "names": [
+        "APP_VERSION"
+      ]
+    },
+    {
       "from": "src/lib/displayMode.test.ts",
       "to": "src/lib/displayMode.ts",
       "kind": "static",
       "names": [
         "isStandaloneDisplay",
         "STANDALONE_DISPLAY_MODE_QUERY"
+      ]
+    },
+    {
+      "from": "src/lib/formatBytes.test.ts",
+      "to": "src/lib/formatBytes.ts",
+      "kind": "static",
+      "names": [
+        "formatBytes",
+        "formatStorageUsage"
+      ]
+    },
+    {
+      "from": "src/lib/storage.navigator.test.ts",
+      "to": "src/lib/storage.ts",
+      "kind": "static",
+      "names": [
+        "getStorageEstimate",
+        "isStoragePersisted",
+        "requestPersistentStorage"
+      ]
+    },
+    {
+      "from": "src/lib/storage.test.ts",
+      "to": "src/lib/storage.ts",
+      "kind": "static",
+      "names": [
+        "getStorageEstimate",
+        "isStoragePersisted",
+        "requestPersistentStorage"
       ]
     },
     {
@@ -11027,7 +15220,6 @@
         "DEFAULT_THEME_PREFERENCE",
         "getThemeColor",
         "isThemePreference",
-        "parseThemePreference",
         "resolveTheme",
         "THEME_COLORS",
         "THEME_PREFERENCES"
@@ -11046,8 +15238,8 @@
       "to": "src/lib/themeStorage.ts",
       "kind": "static",
       "names": [
-        "readThemePreference",
-        "writeThemePreference"
+        "readThemeMirror",
+        "writeThemeMirror"
       ]
     },
     {
@@ -11055,7 +15247,7 @@
       "to": "src/lib/theme.ts",
       "kind": "static",
       "names": [
-        "parseThemePreference",
+        "isThemePreference",
         "THEME_STORAGE_KEY",
         "ThemePreference"
       ]
@@ -11077,12 +15269,286 @@
       ]
     },
     {
+      "from": "src/repositories/databaseInfo.ts",
+      "to": "src/db/database.ts",
+      "kind": "reexport",
+      "names": [
+        "SCHEMA_VERSION"
+      ]
+    },
+    {
+      "from": "src/repositories/persistentStorage.navigator.test.ts",
+      "to": "src/repositories/persistentStorageRepository.ts",
+      "kind": "static",
+      "names": [
+        "requestPersistentStorageOnce"
+      ]
+    },
+    {
+      "from": "src/repositories/persistentStorage.navigator.test.ts",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "getSetting",
+        "setSetting"
+      ]
+    },
+    {
+      "from": "src/repositories/persistentStorageRepository.test.ts",
+      "to": "src/repositories/persistentStorageRepository.ts",
+      "kind": "static",
+      "names": [
+        "requestPersistentStorageOnce"
+      ]
+    },
+    {
+      "from": "src/repositories/persistentStorageRepository.test.ts",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "getSetting"
+      ]
+    },
+    {
+      "from": "src/repositories/persistentStorageRepository.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/persistentStorageRepository.ts",
+      "to": "src/lib/storage.ts",
+      "kind": "static",
+      "names": [
+        "requestPersistentStorage"
+      ]
+    },
+    {
+      "from": "src/repositories/settingsRepository.crud.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/settingsRepository.crud.test.ts",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "getSetting",
+        "setSetting"
+      ]
+    },
+    {
+      "from": "src/repositories/settingsRepository.test.ts",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "getSetting",
+        "setSetting",
+        "useSetting"
+      ]
+    },
+    {
+      "from": "src/repositories/settingsRepository.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/settingsRepository.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Setting"
+      ]
+    },
+    {
+      "from": "src/repositories/ThemeContext.ts",
+      "to": "src/lib/theme.ts",
+      "kind": "type",
+      "names": [
+        "ResolvedTheme",
+        "ThemePreference"
+      ]
+    },
+    {
+      "from": "src/repositories/themePreference.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/themePreference.test.ts",
+      "to": "src/lib/theme.ts",
+      "kind": "static",
+      "names": [
+        "THEME_STORAGE_KEY"
+      ]
+    },
+    {
+      "from": "src/repositories/themePreference.test.ts",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "getSetting",
+        "setSetting"
+      ]
+    },
+    {
+      "from": "src/repositories/themePreference.test.ts",
+      "to": "src/repositories/ThemeContext.ts",
+      "kind": "static",
+      "names": [
+        "ThemeContext",
+        "ThemeContextValue"
+      ]
+    },
+    {
+      "from": "src/repositories/themePreference.test.ts",
+      "to": "src/repositories/themeRepository.ts",
+      "kind": "static",
+      "names": [
+        "migrateThemePreferenceFromMirror"
+      ]
+    },
+    {
+      "from": "src/repositories/themePreference.test.ts",
+      "to": "src/repositories/useTheme.ts",
+      "kind": "static",
+      "names": [
+        "useTheme"
+      ]
+    },
+    {
+      "from": "src/repositories/themePreference.test.ts",
+      "to": "src/repositories/useThemePreference.ts",
+      "kind": "static",
+      "names": [
+        "useThemePreference"
+      ]
+    },
+    {
+      "from": "src/repositories/themeRepository.test.ts",
+      "to": "src/lib/theme.ts",
+      "kind": "static",
+      "names": [
+        "THEME_STORAGE_KEY"
+      ]
+    },
+    {
+      "from": "src/repositories/themeRepository.test.ts",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "getSetting",
+        "setSetting"
+      ]
+    },
+    {
+      "from": "src/repositories/themeRepository.test.ts",
+      "to": "src/repositories/themeRepository.ts",
+      "kind": "static",
+      "names": [
+        "getStoredThemePreference",
+        "migrateThemePreferenceFromMirror",
+        "saveThemePreference"
+      ]
+    },
+    {
+      "from": "src/repositories/themeRepository.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/themeRepository.ts",
+      "to": "src/lib/theme.ts",
+      "kind": "static",
+      "names": [
+        "isThemePreference",
+        "ThemePreference"
+      ]
+    },
+    {
+      "from": "src/repositories/themeRepository.ts",
+      "to": "src/lib/themeStorage.ts",
+      "kind": "static",
+      "names": [
+        "readThemeMirror",
+        "writeThemeMirror"
+      ]
+    },
+    {
+      "from": "src/repositories/themeRepository.ts",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "getSetting",
+        "setSetting"
+      ]
+    },
+    {
+      "from": "src/repositories/useTheme.ts",
+      "to": "src/repositories/ThemeContext.ts",
+      "kind": "static",
+      "names": [
+        "ThemeContext",
+        "ThemeContextValue"
+      ]
+    },
+    {
+      "from": "src/repositories/useThemePreference.ts",
+      "to": "src/lib/theme.ts",
+      "kind": "static",
+      "names": [
+        "DEFAULT_THEME_PREFERENCE",
+        "ThemePreference"
+      ]
+    },
+    {
+      "from": "src/repositories/useThemePreference.ts",
+      "to": "src/lib/themeStorage.ts",
+      "kind": "static",
+      "names": [
+        "readThemeMirror",
+        "writeThemeMirror"
+      ]
+    },
+    {
+      "from": "src/repositories/useThemePreference.ts",
+      "to": "src/repositories/themeRepository.ts",
+      "kind": "static",
+      "names": [
+        "getStoredThemePreference",
+        "migrateThemePreferenceFromMirror",
+        "saveThemePreference"
+      ]
+    },
+    {
       "from": "src/stores/uiStore.test.ts",
       "to": "src/stores/uiStore.ts",
       "kind": "static",
       "names": [
         "INITIAL_UI_STATE",
         "useUiStore"
+      ]
+    },
+    {
+      "from": "src/test/factories.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
       ]
     },
     {
@@ -11119,6 +15585,14 @@
     },
     {
       "from": "src/test/setup.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/test/setup.ts",
       "to": "src/stores/uiStore.ts",
       "kind": "static",
       "names": [
@@ -11133,6 +15607,16 @@
       "names": [
         "installMatchMedia",
         "resetMatchMedia"
+      ]
+    },
+    {
+      "from": "src/test/themeReference.ts",
+      "to": "src/lib/theme.ts",
+      "kind": "static",
+      "names": [
+        "DEFAULT_THEME_PREFERENCE",
+        "isThemePreference",
+        "ThemePreference"
       ]
     },
     {
@@ -11152,11 +15636,15 @@
     "src/dev/architecture/architecture.css": [
       "src/dev/architecture/ArchitecturePage.tsx"
     ],
+    "src/dev/sampleData/sampleData.css": [
+      "src/dev/sampleData/SampleDataTools.tsx"
+    ],
     "src/index.css": [
       "src/main.tsx"
     ],
     "src/styles/utilities.css": [
       "src/dev/architecture/architecture.css",
+      "src/dev/sampleData/sampleData.css",
       "src/index.css"
     ]
   },
@@ -11175,6 +15663,22 @@
       "sourceNot": [],
       "importedBy": [
         "src/dev/architecture/ArchitecturePage.tsx"
+      ]
+    },
+    "src/dev/sampleData/sampleData.css": {
+      "imports": [
+        "src/styles/utilities.css"
+      ],
+      "packages": [
+        "tailwindcss"
+      ],
+      "sourceNone": true,
+      "sources": [
+        "src/dev/sampleData"
+      ],
+      "sourceNot": [],
+      "importedBy": [
+        "src/dev/sampleData/SampleDataTools.tsx"
       ]
     },
     "src/index.css": {
@@ -11201,11 +15705,44 @@
       "sourceNot": [],
       "importedBy": [
         "src/dev/architecture/architecture.css",
+        "src/dev/sampleData/sampleData.css",
         "src/index.css"
       ]
     }
   },
   "packages": {
+    "date-fns": {
+      "version": "4.4.0",
+      "installed": "4.4.0",
+      "declared": true,
+      "dev": false,
+      "builtin": false,
+      "importedBy": [
+        "src/dev/sampleData/buildSampleData.ts",
+        "src/domain/dates.ts"
+      ]
+    },
+    "dexie": {
+      "version": "4.4.6",
+      "installed": "4.4.6",
+      "declared": true,
+      "dev": false,
+      "builtin": false,
+      "importedBy": [
+        "src/db/database.ts"
+      ]
+    },
+    "dexie-react-hooks": {
+      "version": "4.4.0",
+      "installed": "4.4.0",
+      "declared": true,
+      "dev": false,
+      "builtin": false,
+      "importedBy": [
+        "src/repositories/settingsRepository.ts",
+        "src/repositories/useThemePreference.ts"
+      ]
+    },
     "react": {
       "version": "19.3.1",
       "installed": "19.3.1",
@@ -11217,10 +15754,10 @@
         "src/app/layout/AppLayout.tsx",
         "src/app/lazyPages.tsx",
         "src/app/pwa/useIsStandalone.ts",
-        "src/app/theme/ThemeContext.ts",
+        "src/app/storage/usePersistentStorageRequest.ts",
         "src/app/theme/ThemeProvider.tsx",
         "src/app/theme/useSystemPrefersDark.ts",
-        "src/app/theme/useTheme.ts",
+        "src/components/ui/InfoList.tsx",
         "src/components/ui/NavList.tsx",
         "src/components/ui/Notice.tsx",
         "src/components/ui/Page.tsx",
@@ -11242,7 +15779,14 @@
         "src/dev/architecture/components/Section.tsx",
         "src/dev/architecture/components/TimelineSection.tsx",
         "src/dev/architecture/components/useInspector.ts",
-        "src/main.tsx"
+        "src/dev/sampleData/useSampleDataTools.ts",
+        "src/features/settings/AboutPage.tsx",
+        "src/features/settings/useStorageStatus.ts",
+        "src/main.tsx",
+        "src/repositories/ThemeContext.ts",
+        "src/repositories/themePreference.test.ts",
+        "src/repositories/useTheme.ts",
+        "src/repositories/useThemePreference.ts"
       ]
     },
     "react-dom": {
@@ -11270,6 +15814,7 @@
         "src/components/ui/NavList.tsx",
         "src/components/ui/TabBar.tsx",
         "src/components/ui/useGoBack.ts",
+        "src/features/settings/AboutPage.test.tsx",
         "src/test/renderApp.tsx"
       ]
     },
@@ -11326,7 +15871,10 @@
         "src/components/ui/BackLink.test.tsx",
         "src/components/ui/createRadioGroup.test.tsx",
         "src/dev/architecture/ArchitecturePage.test.tsx",
+        "src/features/settings/AboutPage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
+        "src/repositories/settingsRepository.test.ts",
+        "src/repositories/themePreference.test.ts",
         "src/test/renderApp.tsx",
         "src/test/setup.ts"
       ]
@@ -11431,6 +15979,7 @@
       "builtin": false,
       "importedBy": [
         "src/dev/architecture/architecture.css",
+        "src/dev/sampleData/sampleData.css",
         "src/index.css"
       ]
     },
@@ -11481,12 +16030,35 @@
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/components/ui/BackLink.test.tsx",
         "src/components/ui/createRadioGroup.test.tsx",
+        "src/db/database.schema.test.ts",
+        "src/db/database.test.ts",
         "src/dev/architecture/ArchitecturePage.test.tsx",
         "src/dev/architecture/architecture.test.ts",
+        "src/dev/sampleData/buildSampleData.model.test.ts",
+        "src/dev/sampleData/buildSampleData.test.ts",
+        "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/domain/balances.properties.test.ts",
+        "src/domain/balances.test.ts",
+        "src/domain/dates.calendar.test.ts",
+        "src/domain/dates.test.ts",
+        "src/domain/dates.timezone.test.ts",
+        "src/domain/money.test.ts",
+        "src/domain/tagColor.test.ts",
+        "src/features/settings/AboutPage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
+        "src/lib/appVersion.test.ts",
         "src/lib/displayMode.test.ts",
+        "src/lib/formatBytes.test.ts",
+        "src/lib/storage.navigator.test.ts",
+        "src/lib/storage.test.ts",
         "src/lib/theme.test.ts",
         "src/lib/themeStorage.test.ts",
+        "src/repositories/persistentStorage.navigator.test.ts",
+        "src/repositories/persistentStorageRepository.test.ts",
+        "src/repositories/settingsRepository.crud.test.ts",
+        "src/repositories/settingsRepository.test.ts",
+        "src/repositories/themePreference.test.ts",
+        "src/repositories/themeRepository.test.ts",
         "src/stores/uiStore.test.ts",
         "src/test/setup.ts",
         "vite.config.ts"
@@ -11499,7 +16071,8 @@
       "dev": false,
       "builtin": true,
       "importedBy": [
-        "scripts/generate-icons.mjs"
+        "scripts/generate-icons.mjs",
+        "vite.config.ts"
       ]
     },
     "node:zlib": {
@@ -11534,7 +16107,76 @@
       ]
     }
   },
-  "tables": {},
+  "tables": {
+    "tags": {
+      "readers": [
+        "src/db/database.schema.test.ts",
+        "src/dev/sampleData/sampleDataStore.test.ts"
+      ],
+      "writers": [
+        "src/db/database.schema.test.ts",
+        "src/dev/sampleData/sampleDataStore.ts"
+      ]
+    },
+    "transactions": {
+      "readers": [
+        "src/db/database.schema.test.ts",
+        "src/dev/sampleData/sampleDataStore.test.ts"
+      ],
+      "writers": [
+        "src/db/database.schema.test.ts",
+        "src/dev/sampleData/sampleDataStore.ts"
+      ]
+    },
+    "recurrings": {
+      "readers": [
+        "src/dev/sampleData/sampleDataStore.test.ts"
+      ],
+      "writers": [
+        "src/dev/sampleData/sampleDataStore.ts"
+      ]
+    },
+    "installmentGroups": {
+      "readers": [
+        "src/dev/sampleData/sampleDataStore.test.ts"
+      ],
+      "writers": [
+        "src/dev/sampleData/sampleDataStore.ts"
+      ]
+    },
+    "settings": {
+      "readers": [
+        "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/repositories/persistentStorageRepository.ts",
+        "src/repositories/settingsRepository.crud.test.ts",
+        "src/repositories/settingsRepository.ts",
+        "src/repositories/themeRepository.ts"
+      ],
+      "writers": [
+        "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/repositories/persistentStorageRepository.ts",
+        "src/repositories/settingsRepository.ts",
+        "src/repositories/themeRepository.ts"
+      ]
+    }
+  },
+  "schema": {
+    "module": "src/db/database.ts",
+    "databaseName": "money-control",
+    "schemaVersion": 1,
+    "versions": [
+      {
+        "version": 1,
+        "stores": {
+          "tags": "id, &nameKey",
+          "transactions": "id, date, type, tagId, recurringId, [recurringId+recurringPeriod], installmentGroupId",
+          "recurrings": "id",
+          "installmentGroups": "id",
+          "settings": "key"
+        }
+      }
+    ]
+  },
   "routes": [
     {
       "path": "(layout)",
@@ -11822,27 +16464,27 @@
     ]
   },
   "build": {
-    "builtAt": "2026-10-19T15:21:34.428Z",
+    "builtAt": "2026-10-19T16:18:05.057Z",
     "serviceWorker": "sw.js",
     "workboxRuntime": "workbox-2fbc6a65.js",
     "manifest": "manifest.webmanifest",
     "manifestLink": "<link rel=\"manifest\" href=\"/manifest.webmanifest\" crossorigin=\"use-credentials\">",
     "precache": [
       "apple-touch-icon.png",
-      "assets/AboutPage-CYHHcEU7.js",
-      "assets/BackLink-s7r12GDx.js",
-      "assets/BackupPage-CStdaBfu.js",
-      "assets/ChartsPage-BteJQI8n.js",
-      "assets/NewTransactionPage-C_e2g-XZ.js",
-      "assets/RecurringDetailPage-Dynp94Pt.js",
-      "assets/RecurringsPage-CwdrLAvw.js",
-      "assets/SettingsPage-Dl8f8KXQ.js",
-      "assets/TagsPage-CbIqrtE_.js",
-      "assets/TransactionDetailPage-DxGChhTx.js",
-      "assets/TransactionsPage-C-YlaXuW.js",
-      "assets/ViewsPage-BPuRnbvQ.js",
-      "assets/index-CVHAiZxZ.js",
-      "assets/index-DLgFcVeY.css",
+      "assets/AboutPage-CSYqznLL.js",
+      "assets/BackLink-B4TVzt-4.js",
+      "assets/BackupPage-c4zfxRx8.js",
+      "assets/ChartsPage-BR0_8mMN.js",
+      "assets/NewTransactionPage-O6TlFLMQ.js",
+      "assets/RecurringDetailPage-DUmbemRl.js",
+      "assets/RecurringsPage-DExlsFJ2.js",
+      "assets/SettingsPage-Xm3Gj7mU.js",
+      "assets/TagsPage-Cm01K0_n.js",
+      "assets/TransactionDetailPage-DbQSwSA5.js",
+      "assets/TransactionsPage-CKQJP-mA.js",
+      "assets/ViewsPage-EFKm1T-y.js",
+      "assets/index--SXxHYES.css",
+      "assets/index-BI54Kn5s.js",
       "assets/workbox-window.prod.es5-Bd17z0YL.js",
       "favicon.png",
       "index.html",
@@ -11854,11 +16496,69 @@
     "navigationRoute": true,
     "css": [
       {
-        "file": "assets/index-DLgFcVeY.css",
-        "bytes": 13516
+        "file": "assets/index--SXxHYES.css",
+        "bytes": 14307
       }
     ],
-    "totalBytes": 380300,
+    "js": [
+      {
+        "file": "assets/index-BI54Kn5s.js",
+        "bytes": 423121
+      },
+      {
+        "file": "assets/workbox-window.prod.es5-Bd17z0YL.js",
+        "bytes": 5653
+      },
+      {
+        "file": "assets/SettingsPage-Xm3Gj7mU.js",
+        "bytes": 3640
+      },
+      {
+        "file": "assets/AboutPage-CSYqznLL.js",
+        "bytes": 3049
+      },
+      {
+        "file": "assets/BackLink-B4TVzt-4.js",
+        "bytes": 850
+      },
+      {
+        "file": "assets/RecurringDetailPage-DUmbemRl.js",
+        "bytes": 377
+      },
+      {
+        "file": "assets/NewTransactionPage-O6TlFLMQ.js",
+        "bytes": 374
+      },
+      {
+        "file": "assets/TransactionDetailPage-DbQSwSA5.js",
+        "bytes": 372
+      },
+      {
+        "file": "assets/RecurringsPage-DExlsFJ2.js",
+        "bytes": 361
+      },
+      {
+        "file": "assets/BackupPage-c4zfxRx8.js",
+        "bytes": 352
+      },
+      {
+        "file": "assets/TagsPage-Cm01K0_n.js",
+        "bytes": 348
+      },
+      {
+        "file": "assets/TransactionsPage-CKQJP-mA.js",
+        "bytes": 276
+      },
+      {
+        "file": "assets/ChartsPage-BR0_8mMN.js",
+        "bytes": 267
+      },
+      {
+        "file": "assets/ViewsPage-EFKm1T-y.js",
+        "bytes": 264
+      }
+    ],
+    "totalBytes": 482371,
     "devLeaks": []
   },
   "violations": [],
@@ -11866,7 +16566,7 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "38ae487",
+    "head": "beaba97",
     "workingTree": [
       {
         "status": "M",
@@ -11874,11 +16574,39 @@
       },
       {
         "status": "M",
-        "path": "README.md"
+        "path": "docs/SPEC.md"
       },
       {
         "status": "M",
-        "path": "docs/SPEC.md"
+        "path": "package-lock.json"
+      },
+      {
+        "status": "M",
+        "path": "package.json"
+      },
+      {
+        "status": "M",
+        "path": "src/app/App.tsx"
+      },
+      {
+        "status": "D",
+        "path": "src/app/theme/ThemeContext.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/app/theme/ThemeProvider.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/app/theme/indexHtmlThemeScript.test.ts"
+      },
+      {
+        "status": "D",
+        "path": "src/app/theme/useTheme.ts"
+      },
+      {
+        "status": "D",
+        "path": "src/db/.gitkeep"
       },
       {
         "status": "M",
@@ -11886,15 +16614,19 @@
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/HealthSection.tsx"
+        "path": "src/dev/architecture/components/DataModelSection.tsx"
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/OverviewSection.tsx"
+        "path": "src/dev/architecture/components/DomainSection.tsx"
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/ProgressBar.tsx"
+        "path": "src/dev/architecture/components/LayerDiagram.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/components/LayersSection.tsx"
       },
       {
         "status": "M",
@@ -11902,11 +16634,11 @@
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/PwaTopologyDiagram.tsx"
+        "path": "src/dev/architecture/components/StylesheetsCard.tsx"
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/TraceabilitySection.tsx"
+        "path": "src/dev/architecture/components/UiStateSection.tsx"
       },
       {
         "status": "M",
@@ -11918,15 +16650,368 @@
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/model.ts"
+        "path": "src/dev/architecture/health.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/layerDiagramGeometry.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/layers.ts"
       },
       {
         "status": "M",
         "path": "src/dev/architecture/types.ts"
+      },
+      {
+        "status": "D",
+        "path": "src/domain/.gitkeep"
+      },
+      {
+        "status": "M",
+        "path": "src/features/settings/AboutPage.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/settings/ThemeSection.test.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/settings/ThemeSection.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/lib/theme.test.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/lib/theme.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/lib/themeStorage.test.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/lib/themeStorage.ts"
+      },
+      {
+        "status": "D",
+        "path": "src/repositories/.gitkeep"
+      },
+      {
+        "status": "M",
+        "path": "src/test/setup.ts"
+      },
+      {
+        "status": "M",
+        "path": "vite.config.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/app/storage/usePersistentStorageRequest.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/InfoList.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/db/database.schema.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/db/database.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/db/database.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/SampleDataTools.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/buildSampleData.model.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/buildSampleData.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/buildSampleData.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/sampleCatalog.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/sampleContext.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/sampleData.css"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/sampleDataStore.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/sampleDataStore.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/sampleInstallments.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/sampleRecurrings.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/seededRandom.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/sampleData/useSampleDataTools.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/balances.properties.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/balances.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/balances.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/dates.calendar.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/dates.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/dates.timezone.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/dates.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/money.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/money.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/tagColor.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/tagColor.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/types.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/features/settings/AboutPage.test.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/settings/storageStatusTexts.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/features/settings/useStorageStatus.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/globals.d.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/appVersion.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/appVersion.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/formatBytes.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/formatBytes.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/storage.navigator.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/storage.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/storage.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/ThemeContext.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/databaseInfo.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/persistentStorage.navigator.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/persistentStorageRepository.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/persistentStorageRepository.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/settingsRepository.crud.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/settingsRepository.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/settingsRepository.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/themePreference.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/themeRepository.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/themeRepository.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/useTheme.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/useThemePreference.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/test/factories.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/test/propertyHelpers.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/test/themeReference.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "beaba97",
+      "date": "2026-10-19T12:25:04-03:00",
+      "author": "Fernando",
+      "subject": "chore/updating documentations",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
+        },
+        {
+          "status": "M",
+          "path": "README.md"
+        },
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/architecture.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/HealthSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/OverviewSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/ProgressBar.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/PwaSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/PwaTopologyDiagram.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/TraceabilitySection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/model.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/types.ts"
+        }
+      ]
+    },
     {
       "hash": "38ae487",
       "date": "2026-10-18T20:06:56-03:00",
@@ -12913,14 +17998,14 @@
     "src/app/pwa/usePwaUpdate.ts",
     "src/app/routes.test.tsx",
     "src/app/routes.tsx",
-    "src/app/theme/ThemeContext.ts",
+    "src/app/storage/usePersistentStorageRequest.ts",
     "src/app/theme/ThemeProvider.tsx",
     "src/app/theme/applyThemeToDocument.ts",
     "src/app/theme/indexHtmlThemeScript.test.ts",
     "src/app/theme/useSystemPrefersDark.ts",
-    "src/app/theme/useTheme.ts",
     "src/components/ui/BackLink.test.tsx",
     "src/components/ui/BackLink.tsx",
+    "src/components/ui/InfoList.tsx",
     "src/components/ui/NavList.tsx",
     "src/components/ui/Notice.tsx",
     "src/components/ui/Page.tsx",
@@ -12928,7 +18013,9 @@
     "src/components/ui/createRadioGroup.test.tsx",
     "src/components/ui/createRadioGroup.tsx",
     "src/components/ui/useGoBack.ts",
-    "src/db/.gitkeep",
+    "src/db/database.schema.test.ts",
+    "src/db/database.test.ts",
+    "src/db/database.ts",
     "src/dev/architecture/ArchitecturePage.test.tsx",
     "src/dev/architecture/ArchitecturePage.tsx",
     "src/dev/architecture/architecture.css",
@@ -12943,6 +18030,7 @@
     "src/dev/architecture/components/Fields.tsx",
     "src/dev/architecture/components/FlowSequence.tsx",
     "src/dev/architecture/components/FlowsSection.tsx",
+    "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
     "src/dev/architecture/components/HealthSection.tsx",
     "src/dev/architecture/components/InspectorContext.ts",
     "src/dev/architecture/components/LayerDiagram.tsx",
@@ -12983,38 +18071,88 @@
     "src/dev/architecture/search.ts",
     "src/dev/architecture/traceability.ts",
     "src/dev/architecture/types.ts",
-    "src/domain/.gitkeep",
+    "src/dev/sampleData/SampleDataTools.tsx",
+    "src/dev/sampleData/buildSampleData.model.test.ts",
+    "src/dev/sampleData/buildSampleData.test.ts",
+    "src/dev/sampleData/buildSampleData.ts",
+    "src/dev/sampleData/sampleCatalog.ts",
+    "src/dev/sampleData/sampleContext.ts",
+    "src/dev/sampleData/sampleData.css",
+    "src/dev/sampleData/sampleDataStore.test.ts",
+    "src/dev/sampleData/sampleDataStore.ts",
+    "src/dev/sampleData/sampleInstallments.ts",
+    "src/dev/sampleData/sampleRecurrings.ts",
+    "src/dev/sampleData/seededRandom.ts",
+    "src/dev/sampleData/useSampleDataTools.ts",
+    "src/domain/balances.properties.test.ts",
+    "src/domain/balances.test.ts",
+    "src/domain/balances.ts",
+    "src/domain/dates.calendar.test.ts",
+    "src/domain/dates.test.ts",
+    "src/domain/dates.timezone.test.ts",
+    "src/domain/dates.ts",
+    "src/domain/money.test.ts",
+    "src/domain/money.ts",
+    "src/domain/tagColor.test.ts",
+    "src/domain/tagColor.ts",
+    "src/domain/types.ts",
     "src/features/backup/BackupPage.tsx",
     "src/features/charts/ChartsPage.tsx",
     "src/features/home/HomePage.tsx",
     "src/features/recurrings/RecurringDetailPage.tsx",
     "src/features/recurrings/RecurringsPage.tsx",
+    "src/features/settings/AboutPage.test.tsx",
     "src/features/settings/AboutPage.tsx",
     "src/features/settings/SettingsMenu.tsx",
     "src/features/settings/SettingsPage.tsx",
     "src/features/settings/ThemeSection.test.tsx",
     "src/features/settings/ThemeSection.tsx",
+    "src/features/settings/storageStatusTexts.ts",
     "src/features/settings/themeOptionLabels.ts",
+    "src/features/settings/useStorageStatus.ts",
     "src/features/tags/TagsPage.tsx",
     "src/features/transactions/NewTransactionPage.tsx",
     "src/features/transactions/TransactionDetailPage.tsx",
     "src/features/transactions/TransactionsPage.tsx",
     "src/features/views/ViewsPage.tsx",
+    "src/globals.d.ts",
     "src/index.css",
+    "src/lib/appVersion.test.ts",
+    "src/lib/appVersion.ts",
     "src/lib/displayMode.test.ts",
     "src/lib/displayMode.ts",
+    "src/lib/formatBytes.test.ts",
+    "src/lib/formatBytes.ts",
+    "src/lib/storage.navigator.test.ts",
+    "src/lib/storage.test.ts",
+    "src/lib/storage.ts",
     "src/lib/theme.test.ts",
     "src/lib/theme.ts",
     "src/lib/themeStorage.test.ts",
     "src/lib/themeStorage.ts",
     "src/main.tsx",
-    "src/repositories/.gitkeep",
+    "src/repositories/ThemeContext.ts",
+    "src/repositories/databaseInfo.ts",
+    "src/repositories/persistentStorage.navigator.test.ts",
+    "src/repositories/persistentStorageRepository.test.ts",
+    "src/repositories/persistentStorageRepository.ts",
+    "src/repositories/settingsRepository.crud.test.ts",
+    "src/repositories/settingsRepository.test.ts",
+    "src/repositories/settingsRepository.ts",
+    "src/repositories/themePreference.test.ts",
+    "src/repositories/themeRepository.test.ts",
+    "src/repositories/themeRepository.ts",
+    "src/repositories/useTheme.ts",
+    "src/repositories/useThemePreference.ts",
     "src/stores/uiStore.test.ts",
     "src/stores/uiStore.ts",
     "src/styles/utilities.css",
+    "src/test/factories.ts",
     "src/test/matchMedia.ts",
+    "src/test/propertyHelpers.ts",
     "src/test/renderApp.tsx",
     "src/test/setup.ts",
+    "src/test/themeReference.ts",
     "tsconfig.app.json",
     "tsconfig.json",
     "tsconfig.node.json",

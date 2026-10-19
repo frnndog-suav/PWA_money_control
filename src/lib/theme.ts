@@ -8,8 +8,8 @@ export type ResolvedTheme = 'light' | 'dark'
 export const THEME_PREFERENCES: readonly ThemePreference[] = ['system', 'light', 'dark']
 export const DEFAULT_THEME_PREFERENCE: ThemePreference = 'system'
 
-// Chave temporária em localStorage; na Fase 2 o valor passa a viver no Dexie
-// e esta chave vira apenas o espelho lido pelo script inline (§6.9).
+// Chave do espelho em localStorage lido pelo script inline (§6.9). A preferência em si
+// vive na tabela `settings` do Dexie (D-28).
 export const THEME_STORAGE_KEY = 'theme'
 
 export const DARK_COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)'
@@ -22,10 +22,6 @@ export const THEME_COLORS: Readonly<Record<ResolvedTheme, string>> = {
 
 export function isThemePreference(value: unknown): value is ThemePreference {
   return THEME_PREFERENCES.some((preference) => preference === value)
-}
-
-export function parseThemePreference(raw: string | null): ThemePreference {
-  return isThemePreference(raw) ? raw : DEFAULT_THEME_PREFERENCE
 }
 
 export function resolveTheme(

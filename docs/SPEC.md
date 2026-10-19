@@ -1,6 +1,6 @@
 # Especificação — App de Controle de Gastos (PWA)
 
-> **Versão do documento:** 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)
+> **Versão do documento:** 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)
 > **Tipo:** Especificação para desenvolvimento orientado por especificação (*spec-driven development*)
 > **Uso:** fonte única da verdade para a implementação por um agente de IA, em fases incrementais e testáveis.
 
@@ -826,13 +826,13 @@ Cada fase termina com o app **funcionando e testável**. Ao concluir uma fase, o
 
 **Requisitos:** princípios 1, 2, 3, 6, 7, 9; seções 6.3 a 6.5
 
-- [ ] `domain/types.ts`, `money.ts`, `dates.ts`, `balances.ts`, `tagColor.ts` com testes unitários.
-- [ ] `db/database.ts` com o esquema versão 1 e `SCHEMA_VERSION`.
-- [ ] Repositório de `settings`; mover a preferência de tema para o Dexie (mantendo o espelho em `localStorage` só para evitar o "piscar").
-- [ ] Mover o hook e o contexto do tema (`useTheme`, `ThemeContext`) de `src/app/theme/` para `src/repositories/`, para que as features não importem de `app/` (D-22).
-- [ ] `lib/storage.ts`: `persist()` na primeira abertura e `estimate()`.
-- [ ] Tela `/ajustes/sobre` (CA-11.4, CA-11.5).
-- [ ] Ferramentas de desenvolvimento: gerar e apagar dados de exemplo (somente em DEV; as funções podem ser concluídas nas fases seguintes, à medida que as tabelas forem usadas).
+- [x] `domain/types.ts`, `money.ts`, `dates.ts`, `balances.ts`, `tagColor.ts` com testes unitários.
+- [x] `db/database.ts` com o esquema versão 1 e `SCHEMA_VERSION`.
+- [x] Repositório de `settings`; mover a preferência de tema para o Dexie (mantendo o espelho em `localStorage` só para evitar o "piscar").
+- [x] Mover o hook e o contexto do tema (`useTheme`, `ThemeContext`) de `src/app/theme/` para `src/repositories/`, para que as features não importem de `app/` (D-22).
+- [x] `lib/storage.ts`: `persist()` na primeira abertura e `estimate()`.
+- [x] Tela `/ajustes/sobre` (CA-11.4, CA-11.5).
+- [x] Ferramentas de desenvolvimento: gerar e apagar dados de exemplo (somente em DEV; as funções podem ser concluídas nas fases seguintes, à medida que as tabelas forem usadas).
 
 **Roteiro de teste:**
 1. `npm test` → todos os testes de domínio passam (incluindo os exemplos dos CAs já aplicáveis).
@@ -1075,6 +1075,10 @@ O código já está preparado (Fase 1): manifest carregado com `crossorigin="use
 | D-24 | Além da checagem do navegador ao navegar, o app pede ao service worker que procure versão nova sempre que volta a ficar **visível** e **online** (`registration.update()`), ignorando falhas (sem rede ou sessão do Access expirada). | No iPhone o app instalado costuma voltar do segundo plano sem nova navegação, e o aviso do CA-11.3 demoraria a aparecer. **Confirmado pelo dono.** (18/10/2026; confirmado em 19/10/2026) |
 | D-25 | Ícones provisórios (192, 512, 512 *maskable*, `apple-touch-icon` 180 e `favicon.png` 48) gerados por `scripts/generate-icons.mjs` só com módulos nativos do Node; o `favicon.svg` do template foi removido. Também foi adicionada a meta `apple-mobile-web-app-title` = "Gastos", igual ao `short_name`. | Sem dependências extras; nome e ícone definitivos na Fase 11 (Q-03 / D-09). **Confirmado pelo dono.** (18/10/2026; confirmado em 19/10/2026) |
 | D-26 | O **acesso restrito** (RF-12, Cloudflare Access) passa a ser **opcional** e vira a **Fase 12**, depois de todas as outras. Até lá o site publicado fica sem restrição de acesso. O código continua preparado (manifest com credenciais, SW sem responder a `/cdn-cgi/`). | O dono não conseguiu configurar o Zero Trust e não sabe se está disponível no plano gratuito; como os dados ficam só no aparelho (princípio 5), a URL pública expõe apenas o código do app. **Confirmado pelo dono.** (19/10/2026) |
+| D-27 | **Versão do app** (CA-11.5) vem do campo `version` do `package.json`, lido no `vite.config.ts` e injetado pelo `define` como `__APP_VERSION__` (tipo declarado em `src/globals.d.ts`, exposto por `src/lib/appVersion.ts`). | Só a string entra no bundle (importar o JSON levaria o arquivo inteiro e exigiria `resolveJsonModule`); vale também nos testes do Vitest. (19/10/2026) |
+| D-28 | **Tema no Dexie** (Fase 2): a tabela `settings` (chave `theme`) é a fonte da verdade; `localStorage['theme']` é só o espelho lido pelo script do `index.html`. Ao abrir, um valor que só exista no `localStorage` (Fase 0) é copiado para o Dexie; enquanto o IndexedDB carrega vale o espelho; a escolha feita na sessão vale na hora; quando o Dexie carrega, o espelho é corrigido para o valor dele. `useTheme` e `ThemeContext` ficam em `src/repositories/` (D-22); o `ThemeProvider` continua em `src/app/theme/`. O pedido de armazenamento persistente grava `persistRequested` com a data do pedido (ISO 8601) **antes** de chamar `persist()`, numa transação que lê e grava junto, para nunca pedir duas vezes. | Primeira renderização igual ao que o script inline aplicou (sem piscar — CA-09.3) e pedido único mesmo com o StrictMode ou duas abas (CA-11.4). (19/10/2026) |
+| D-29 | **Dinheiro e bytes em texto:** `formatBRL` mantém o espaço não separável (U+00A0) que o `Intl` coloca entre "R$" e o número; `formatSignedBRL` usa "−" (U+2212). `digitsToCents` ignora o que não é dígito e descarta o que passa de 11 dígitos (o teto de R$ 99.999.999,99 do RF-01 é validado no formulário, na Fase 4). `groupByDay/Month/Tag` devolvem um `Map` da chave para os totais e os lançamentos do grupo; `runningBalance` recebe os subperíodos como `{ start, end }[]` em ordem. O espaço usado (CA-11.5) usa unidades decimais (1 KB = 1.000 bytes) com uma casa decimal ("1,2 MB de 500 MB"). | O espaço não separável impede a quebra de linha entre "R$" e o valor; formatos que servem às telas das Fases 4 a 8 sem novas funções; unidades decimais são as que o iOS mostra. (19/10/2026) |
+| D-30 | **Ferramentas DEV de dados de exemplo** (§6.11) em `src/dev/sampleData/`, carregadas com `lazy()` atrás de `import.meta.env.DEV` como uma seção extra em Ajustes → Sobre, com CSS próprio (como a página de arquitetura). Gerador com semente (mulberry32) e data de referência; os IDs são UUID v4 derivados do gerador (não `crypto.randomUUID`) para os dados serem determinísticos. "Gerar dados de exemplo" **substitui** tags, lançamentos, recorrentes e parcelamentos; "Apagar todos os dados" apaga essas quatro tabelas e **mantém** `settings` (tema, `persistRequested`). As duas ações pedem confirmação (`window.confirm`) e gravam numa única transação. Essas ferramentas (`src/dev/sampleData/useSampleDataTools.ts` e `sampleDataStore.ts`) acessam o `db` diretamente: exceção consciente ao princípio 7, válida só para `src/dev`, que fica fora do build de produção. | Ferramenta só de desenvolvimento; dados reprodutíveis para medir desempenho (RNF-02) e conferir telas; manter o tema evita "piscar" ao limpar. (19/10/2026) |
 
 ### 8.2 Pontos em aberto (perguntar ao dono antes da fase indicada)
 

@@ -1,13 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import indexHtml from '../../../index.html?raw'
-import {
-  getThemeColor,
-  parseThemePreference,
-  resolveTheme,
-  THEME_COLORS,
-  THEME_STORAGE_KEY,
-} from '@/lib/theme'
+import { getThemeColor, resolveTheme, THEME_COLORS, THEME_STORAGE_KEY } from '@/lib/theme'
 import { setSystemPrefersDark } from '@/test/matchMedia'
+import { parseStoredThemePreference } from '@/test/themeReference'
 import { addThemeColorMeta } from '@/test/renderApp'
 
 // CA-09.3 — o script inline do index.html duplica regras de src/lib/theme.ts (ele roda
@@ -62,7 +57,7 @@ describe('script de tema do index.html', () => {
 
       runInlineScript()
 
-      const expected = resolveTheme(parseThemePreference(stored), systemPrefersDark)
+      const expected = resolveTheme(parseStoredThemePreference(stored), systemPrefersDark)
       expect(document.documentElement.classList.contains('dark')).toBe(expected === 'dark')
       expect(meta.content).toBe(getThemeColor(expected))
     },

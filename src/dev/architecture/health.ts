@@ -35,7 +35,7 @@ export const manyPropsComponents = graph.modules.flatMap((m) =>
     .map(([name, count]) => ({ module: m.id, name, count })),
 )
 
-/** Direções proibidas mas toleradas até um prazo (ex.: features → app até a Fase 2, D-22). */
+/** Direções proibidas mas toleradas até um prazo (a última, features → app — D-22, foi quitada na Fase 2). */
 export const layerDebts = layerEdges.filter((e) => e.status === 'debt')
 
 export const undeclaredLayerEdges = layerEdges.filter(

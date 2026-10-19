@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { LAYERS } from '@/dev/architecture/data/curated'
 import { Badge, type BadgeVariant } from '@/dev/architecture/components/Badge'
 import { Card } from '@/dev/architecture/components/Card'
+import { ForbiddenDependenciesCard } from '@/dev/architecture/components/ForbiddenDependenciesCard'
 import { LayerDiagram } from '@/dev/architecture/components/LayerDiagram'
 import { LAYER_STYLES } from '@/dev/architecture/components/layerStyles'
 import { ModuleLink } from '@/dev/architecture/components/ModuleLink'
@@ -43,6 +44,10 @@ function Legend() {
       <li>
         <span className="mr-1 inline-block w-6 border-t-2 border-dashed border-slate-400 align-middle" />{' '}
         permitida, ainda sem uso
+      </li>
+      <li>
+        <span className="mr-1 inline-block w-6 border-t-2 border-dotted border-red-500 align-middle" />{' '}
+        ✕ não permitida (só algumas no diagrama; lista completa abaixo)
       </li>
     </ul>
   )
@@ -125,6 +130,11 @@ export function LayersSection() {
                 {edge.rule && (
                   <p className="text-slate-600 dark:text-slate-400">{edge.rule.reason}</p>
                 )}
+                {edge.forbidden && (
+                  <p className="text-red-700 dark:text-red-300">
+                    Não permitida ({edge.forbidden.rule}): {edge.forbidden.reason}
+                  </p>
+                )}
                 {edge.offending.length > 0 && (
                   <ul className="flex flex-col gap-0.5 text-red-700 dark:text-red-300">
                     {edge.offending.map((e) => (
@@ -162,6 +172,8 @@ export function LayersSection() {
           )}
         </Card>
       </div>
+
+      <ForbiddenDependenciesCard />
     </Section>
   )
 }

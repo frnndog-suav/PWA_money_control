@@ -1,11 +1,11 @@
-import { useTheme } from '@/app/theme/useTheme'
+import { useTheme } from '@/repositories/useTheme'
 import { createRadioGroup } from '@/components/ui/createRadioGroup'
 import { THEME_OPTION_LABELS } from '@/features/settings/themeOptionLabels'
 import { THEME_PREFERENCES, type ThemePreference } from '@/lib/theme'
 
 const ThemeRadio = createRadioGroup<ThemePreference>()
 
-// RF-09 — troca imediata; a persistência fica no ThemeProvider.
+// RF-09 — troca imediata; a persistência (Dexie + espelho) fica em useThemePreference.
 export function ThemeSection() {
   const { preference, setPreference } = useTheme()
 

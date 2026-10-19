@@ -159,9 +159,19 @@ export interface GraphBuild {
   precache: string[]
   navigationRoute: boolean
   css: { file: string; bytes: number }[]
+  /** Chunks JS de assets/, do maior para o menor (RNF-02: tamanho do pacote principal). */
+  js: { file: string; bytes: number }[]
   totalBytes: number
   /** Arquivos de texto do dist/ com marcas da página DEV (precisa ser vazio — D-17). */
   devLeaks: string[]
+}
+
+/** Esquema Dexie lido da classe do banco (§6.4); null enquanto não houver banco. */
+export interface GraphSchema {
+  module: string
+  databaseName: string | null
+  schemaVersion: number | null
+  versions: { version: number; stores: Record<string, string> }[]
 }
 
 export interface GraphPhase {
@@ -204,6 +214,7 @@ export interface ModuleGraph {
   stylesheets: Record<string, GraphStylesheet>
   packages: Record<string, GraphPackage>
   tables: Record<string, { readers: string[]; writers: string[] }>
+  schema: GraphSchema | null
   routes: GraphRoute[]
   publicFiles: Record<string, GraphPublicFile>
   pwa: GraphPwa | null
@@ -246,6 +257,17 @@ export interface AllowedDependency {
   onlyTargets?: string[]
   /** Para `debt`: quando a dívida será paga (fase e decisão). */
   deadline?: string
+}
+
+/** Direção proibida entre camadas: se aparecer no código, vira violação (vermelho). */
+export interface ForbiddenDependency {
+  from: Layer
+  to: Layer
+  /** Regra da spec ou decisão que proíbe (ex.: §2.7, D-22). */
+  rule: string
+  reason: string
+  /** Desenhar a direção proibida no diagrama de camadas (só as mais relevantes, para não poluir). */
+  inDiagram?: boolean
 }
 
 export interface RouteNote {
@@ -307,12 +329,14 @@ export interface DecisionInfo {
   impacts: string[]
 }
 
-export interface PlannedTable {
+/** O que o scanner não sabe sobre uma tabela Dexie (índices e leitores/escritores vêm do grafo). */
+export interface TableNote {
   name: string
-  indexes: string
   type: string
   inBackup: string
-  phase: number
+  /** Fase em que a tabela passa a ser usada pelo app (repositórios de produção). */
+  usedFromPhase: number
+  note: string
 }
 
 export interface PlannedUiField {

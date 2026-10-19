@@ -8,15 +8,16 @@ import type {
   CompositionNote,
   DecisionInfo,
   Flow,
+  ForbiddenDependency,
   LayerInfo,
   PackageSource,
   PlannedDomainFunction,
   PlannedFlow,
-  PlannedTable,
   PlannedUiField,
   RequirementInfo,
   RouteNote,
   ScreenComposition,
+  TableNote,
 } from '@/dev/architecture/types'
 
 // ---------- camadas (§6.2) ----------
@@ -43,7 +44,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'App',
     folder: 'src/app',
     description:
-      'App.tsx, rotas (createBrowserRouter), páginas lazy, rotas DEV, layout com barra inferior, provider de tema e PWA (registro do SW, avisos de atualização e de instalação — §6.2, §6.9).',
+      'App.tsx, rotas (createBrowserRouter), páginas lazy, rotas DEV, layout com barra inferior, ThemeProvider (aplica o tema ao documento; a preferência vem de repositories — D-22/D-28), pedido de armazenamento persistente na abertura (app/storage, Fase 2) e PWA (registro do SW, avisos de atualização e de instalação — §6.2, §6.9).',
     position: { x: 390, y: 112 },
   },
   {
@@ -59,7 +60,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'UI',
     folder: 'src/components/ui',
     description:
-      'Primitivos genéricos sem conhecimento de domínio (Page, TabBar, NavList, BackLink, Notice…).',
+      'Primitivos genéricos sem conhecimento de domínio (Page, TabBar, NavList, BackLink, Notice, InfoList…).',
     position: { x: 130, y: 330 },
   },
   {
@@ -67,7 +68,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Repositórios',
     folder: 'src/repositories',
     description:
-      'Único acesso ao Dexie: funções e hooks com useLiveQuery (§2.7). Vazio até a Fase 2.',
+      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre.',
     position: { x: 390, y: 330 },
   },
   {
@@ -83,21 +84,23 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Lib',
     folder: 'src/lib',
     description:
-      'Utilitários puros e adaptadores de APIs do navegador (tema, localStorage, modo instalado; cripto e backup depois).',
+      'Utilitários puros e adaptadores de APIs do navegador: tema e espelho em localStorage, modo instalado, storage (persist/persisted/estimate), formatBytes e APP_VERSION (Fase 2); cripto e backup na Fase 6.',
     position: { x: 130, y: 450 },
   },
   {
     id: 'db',
     label: 'Banco (Dexie)',
     folder: 'src/db',
-    description: 'Classe Dexie, versões e SCHEMA_VERSION (§6.4). Vazio até a Fase 2.',
+    description:
+      'Classe AppDatabase (Dexie, banco "money-control"), esquema versão 1 com as 5 tabelas da §6.4 e SCHEMA_VERSION = 1 (Fase 2). Importada só por repositories e, por exceção da D-30, pelas ferramentas DEV.',
     position: { x: 390, y: 450 },
   },
   {
     id: 'domain',
     label: 'Domínio',
     folder: 'src/domain',
-    description: 'Funções puras e tipos, sem React e sem Dexie (§2.6). Vazio até a Fase 2.',
+    description:
+      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. recurring (Fase 9) e installments (Fase 10) ainda não existem.',
     position: { x: 650, y: 450 },
   },
   {
@@ -105,7 +108,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Apoio a testes',
     folder: 'src/test',
     description:
-      'Setup do Vitest, dublê de matchMedia e renderApp (arquivos *.test.* ficam junto do código).',
+      'Setup do Vitest (fake-indexeddb, limpa as tabelas do Dexie entre testes), dublê de matchMedia, renderApp, fábricas de lançamentos, gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código).',
     position: { x: 740, y: 112 },
   },
   {
@@ -113,7 +116,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Somente DEV',
     folder: 'src/dev',
     description:
-      'Esta página (§6.12). Carregada só por import dinâmico atrás de import.meta.env.DEV.',
+      'Esta página (§6.12) e as ferramentas de dados de exemplo da tela Sobre (§6.11, D-30). Carregadas só por import dinâmico atrás de import.meta.env.DEV, cada uma com CSS próprio.',
     position: { x: 740, y: 216 },
   },
 ]
@@ -162,7 +165,8 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     from: 'app',
     to: 'repositories',
     status: 'allowed',
-    reason: 'Fase 2: o provider de tema lê/grava a tabela settings por um repositório.',
+    reason:
+      'Fase 2: ThemeProvider usa useThemePreference e fornece ThemeContext (D-22/D-28); usePersistentStorageRequest chama requestPersistentStorageOnce (CA-11.4).',
   },
   {
     from: 'app',
@@ -188,7 +192,8 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     from: 'features',
     to: 'repositories',
     status: 'allowed',
-    reason: 'Dados persistidos só por repositórios (§2.7).',
+    reason:
+      'Dados persistidos só por repositórios (§2.7). Fase 2: ThemeSection usa useTheme (D-22) e AboutPage lê SCHEMA_VERSION por databaseInfo.',
   },
   { from: 'features', to: 'stores', status: 'allowed', reason: 'Filtros e visões (§6.7).' },
   { from: 'features', to: 'domain', status: 'allowed', reason: 'Regras puras e tipos.' },
@@ -196,16 +201,16 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     from: 'features',
     to: 'lib',
     status: 'allowed',
-    reason: 'Utilitários puros (rótulos do tema, cripto…).',
+    reason:
+      'Utilitários puros: rótulos do tema, storage/formatBytes/APP_VERSION na tela Sobre (Fase 2); cripto na Fase 6.',
   },
   {
     from: 'features',
-    to: 'app',
-    status: 'debt',
+    to: 'dev',
+    status: 'exception',
     reason:
-      'Proibida pela D-22: features não importam de src/app/ (criaria acoplamento e risco de ciclo app ↔ features). Dívida conhecida e tolerada até a Fase 2: features/settings/ThemeSection importa app/theme/useTheme; nessa fase useTheme/ThemeContext vão para src/repositories/ (tarefa da §7, Fase 2). Qualquer outro import features → app aparece em vermelho.',
-    onlyTargets: ['src/app/theme/useTheme.ts'],
-    deadline: 'Fase 2 (D-22)',
+      'Somente src/features/settings/AboutPage.tsx → SampleDataTools, por import dinâmico (lazy) depois do guard import.meta.env.DEV (§6.11, D-30). Em produção o guard vira código morto e nada de src/dev entra no dist/.',
+    onlyTargets: ['src/dev/sampleData/SampleDataTools.tsx'],
   },
   {
     from: 'components',
@@ -222,7 +227,19 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     reason: 'Repositórios são os únicos clientes do Dexie.',
   },
   { from: 'repositories', to: 'domain', status: 'allowed', reason: 'Tipos e regras puras.' },
-  { from: 'repositories', to: 'lib', status: 'allowed', reason: 'Utilitários puros.' },
+  {
+    from: 'repositories',
+    to: 'lib',
+    status: 'allowed',
+    reason:
+      'Regras do tema, espelho em localStorage (themeStorage) e requestPersistentStorage (lib/storage).',
+  },
+  {
+    from: 'repositories',
+    to: 'repositories',
+    status: 'allowed',
+    reason: 'themeRepository usa settingsRepository; useTheme lê ThemeContext.',
+  },
   { from: 'db', to: 'domain', status: 'allowed', reason: 'Tipos das tabelas (§6.3).' },
   {
     from: 'stores',
@@ -237,6 +254,26 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     reason: 'Formato de backup usa os tipos do domínio.',
   },
   { from: 'lib', to: 'lib', status: 'allowed', reason: 'themeStorage usa as regras de theme.ts.' },
+  {
+    from: 'domain',
+    to: 'domain',
+    status: 'allowed',
+    reason: 'balances usa money (addCents) e dates; todos usam types.',
+  },
+  {
+    from: 'dev',
+    to: 'domain',
+    status: 'allowed',
+    reason: 'O gerador de dados de exemplo usa os tipos da §6.3 e addMonthsClamped/today.',
+  },
+  {
+    from: 'dev',
+    to: 'db',
+    status: 'exception',
+    reason:
+      'Exceção consciente ao princípio 7 (D-30, aguardando confirmação): useSampleDataTools importa o db e sampleDataStore grava/apaga as quatro tabelas de dados numa transação. Vale só para src/dev, que fica fora do build de produção.',
+    onlyTargets: ['src/db/database.ts'],
+  },
   { from: 'app', to: 'app', status: 'allowed', reason: 'Organização interna.' },
   {
     from: 'features',
@@ -251,6 +288,49 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     reason: 'Primitivos compostos entre si.',
   },
   { from: 'dev', to: 'dev', status: 'allowed', reason: 'Organização interna da página.' },
+]
+
+/**
+ * Direções proibidas (espelham as regras FORBIDDEN do scanner). Se alguma aparecer no código
+ * de produção, a seta fica vermelha e o import vai para a lista de violações.
+ */
+export const FORBIDDEN_DEPENDENCIES: readonly ForbiddenDependency[] = [
+  {
+    from: 'features',
+    to: 'app',
+    rule: 'D-22',
+    reason:
+      'Features não importam de src/app/ (acoplamento e risco de ciclo app ↔ features). A única ocorrência, ThemeSection → app/theme/useTheme, foi eliminada na Fase 2: useTheme e ThemeContext estão em src/repositories/. Agora não há exceção.',
+    inDiagram: true,
+  },
+  {
+    from: 'components',
+    to: 'features',
+    rule: 'Qualidade de código',
+    reason: 'Primitivos de components/ui não conhecem features (nem app).',
+    inDiagram: true,
+  },
+  {
+    from: 'features',
+    to: 'db',
+    rule: '§2.7',
+    reason:
+      'Componentes nunca acessam o Dexie diretamente; usam repositories (vale também para app e components).',
+  },
+  {
+    from: 'domain',
+    to: 'db',
+    rule: '§2.6',
+    reason:
+      'Domínio e lib são puros: sem React, sem Dexie, sem stores e sem importar camadas de interface.',
+  },
+  {
+    from: 'repositories',
+    to: 'features',
+    rule: 'Camadas',
+    reason:
+      'Acesso a dados (repositories e db) não conhece a interface (components, features, app).',
+  },
 ]
 
 // ---------- rotas e telas (§6.6) ----------
@@ -313,7 +393,7 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
     screen: 'Ajustes',
     requirements: ['RF-13', 'RF-09'],
     description:
-      'Menu de subpáginas (SettingsMenu) + seção de tema (ThemeSection) — a única tela com comportamento real na Fase 0.',
+      'Menu de subpáginas (SettingsMenu) + seção de tema (ThemeSection). Desde a Fase 2 a escolha é gravada na tabela settings (chave theme) por saveThemePreference, com espelho em localStorage para o script do index.html (D-28). Tabela tocada: settings.',
     contentPhase: 0,
   },
   {
@@ -348,9 +428,9 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
   {
     route: '/ajustes/sobre',
     screen: 'Sobre',
-    requirements: ['RF-11'],
+    requirements: ['RF-11', 'CA-11.4', 'CA-11.5', 'D-27', 'D-29', 'D-30'],
     description:
-      'Placeholder com Voltar. Versão, esquema e armazenamento (CA-11.4/11.5) na Fase 2.',
+      'Fase 2: InfoList com versão do app (APP_VERSION, injetada pelo define — D-27), versão do esquema (SCHEMA_VERSION via repositories/databaseInfo) e espaço usado ("1,2 MB de 500 MB" — formatBytes, D-29); linha role="status" com o armazenamento persistente (ativo / não garantido). Dados de useStorageStatus (persisted + estimate, consultados ao abrir). Só em DEV: seção lazy com as ferramentas de dados de exemplo (SampleDataTools — D-30), que gravam em tags, transactions, recurrings e installmentGroups. A tela em si não toca em tabelas.',
     contentPhase: 2,
   },
   {
@@ -394,7 +474,15 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'ThemeProvider',
-    note: 'Estado da preferência (useState) + tema do sistema (useSyncExternalStore); expõe ThemeContext.',
+    note: 'Fase 2: preferência vem de useThemePreference (Dexie com espelho em localStorage — D-28) + tema do sistema (useSyncExternalStore); aplica ao documento e fornece ThemeContext (de src/repositories, D-22).',
+  },
+  {
+    component: 'InfoList',
+    note: 'Compound component (Fase 2): <dl> com InfoList.Item (rótulo <dt> + valor <dd>, tabular-nums, min-h-11). Somente leitura, sem estado.',
+  },
+  {
+    component: 'SampleDataTools',
+    note: 'Somente DEV (D-30): carregado com lazy() dentro de Suspense fallback null, só quando import.meta.env.DEV. Estado (isBusy, message) em useSampleDataTools; CSS próprio (sampleData.css).',
   },
   {
     component: 'Suspense',
@@ -418,6 +506,8 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
 /** Componentes locais (não importados) e o módulo de onde vêm. */
 export const LOCAL_COMPONENT_ORIGINS: Readonly<Record<string, string>> = {
   ThemeRadio: 'src/components/ui/createRadioGroup.tsx',
+  // const SampleDataTools = loadSampleDataTools(): lazy() só em DEV, dentro de uma função (D-30).
+  SampleDataTools: 'src/dev/sampleData/SampleDataTools.tsx',
 }
 
 export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
@@ -429,7 +519,12 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '/ajustes',
     stateAndData:
-      'ThemeSection lê { preference, setPreference } de useTheme(); o estado fica no ThemeProvider e é persistido por src/lib/themeStorage.ts (localStorage até a Fase 2).',
+      'ThemeSection lê { preference, setPreference } de useTheme() (src/repositories, D-22); o estado fica em useThemePreference, chamado pelo ThemeProvider: useLiveQuery na chave theme da tabela settings, espelho do localStorage enquanto carrega e a escolha da sessão por cima (D-28).',
+  },
+  {
+    route: '/ajustes/sobre',
+    stateAndData:
+      'Estado local em useStorageStatus ({ isLoading } até as duas consultas responderem), textos em storageStatusTexts. APP_VERSION e SCHEMA_VERSION são constantes de módulo. Nenhum useLiveQuery: a tela não lê tabelas. Em DEV, SampleDataTools tem estado próprio (useSampleDataTools).',
   },
   {
     route: '/',
@@ -441,21 +536,34 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
 
 const THEME_SCRIPT_TEST = 'src/app/theme/indexHtmlThemeScript.test.ts'
 const THEME_SECTION_TEST = 'src/features/settings/ThemeSection.test.tsx'
+const THEME_PREFERENCE_TEST = 'src/repositories/themePreference.test.ts'
 
 export const FLOWS: readonly Flow[] = [
   {
     id: 'theme-boot',
-    title: 'Abertura do app sem piscar o tema',
+    title: 'Abertura do app sem piscar o tema (Dexie + espelho)',
     summary:
-      'O script inline do index.html aplica a classe .dark e o theme-color antes do bundle; depois o ThemeProvider chega ao mesmo resultado e reaplica sem mudança visível.',
-    requirements: ['CA-09.2', 'CA-09.3', 'CA-09.4'],
+      'O script inline do index.html aplica o tema lido do espelho em localStorage antes do bundle. Depois o ThemeProvider chama useThemePreference: enquanto o IndexedDB carrega vale o mesmo espelho (sem troca visível); uma única vez, um tema que só exista no espelho (Fase 0) é copiado para o Dexie numa transação; quando o useLiveQuery entrega settings.theme, ele vira a fonte da verdade e o espelho é corrigido (D-28).',
+    requirements: ['CA-09.1', 'CA-09.2', 'CA-09.3', 'CA-09.4', 'D-28'],
     participants: [
       { id: 'browser', label: 'Navegador' },
       { id: 'html', label: 'index.html (script)', module: 'index.html' },
-      { id: 'storage', label: 'localStorage' },
+      { id: 'mirror', label: 'localStorage (espelho)' },
       { id: 'main', label: 'main.tsx', module: 'src/main.tsx' },
       { id: 'provider', label: 'ThemeProvider', module: 'src/app/theme/ThemeProvider.tsx' },
+      {
+        id: 'prefHook',
+        label: 'useThemePreference',
+        module: 'src/repositories/useThemePreference.ts',
+      },
       { id: 'themeStorage', label: 'themeStorage', module: 'src/lib/themeStorage.ts' },
+      { id: 'repo', label: 'themeRepository', module: 'src/repositories/themeRepository.ts' },
+      {
+        id: 'settingsRepo',
+        label: 'settingsRepository',
+        module: 'src/repositories/settingsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: settings', module: 'src/db/database.ts' },
       { id: 'theme', label: 'lib/theme', module: 'src/lib/theme.ts' },
       {
         id: 'apply',
@@ -474,10 +582,11 @@ export const FLOWS: readonly Flow[] = [
       },
       {
         from: 'html',
-        to: 'storage',
+        to: 'mirror',
         label: "getItem('theme')",
-        detail: 'Dentro de try/catch (modo privado pode lançar exceção).',
-        refs: ['CA-09.2'],
+        detail:
+          'Lê o espelho do valor salvo no Dexie (§6.9, D-28), dentro de try/catch (modo privado pode lançar exceção). O IndexedDB é assíncrono e não serve aqui.',
+        refs: ['CA-09.2', 'D-28'],
         kind: 'call',
       },
       {
@@ -508,16 +617,84 @@ export const FLOWS: readonly Flow[] = [
         from: 'main',
         to: 'provider',
         label: 'render <App/>',
-        detail: 'App envolve o RouterProvider com o ThemeProvider.',
+        detail: 'App envolve o RouterProvider com o ThemeProvider (continua em src/app/theme).',
         refs: ['RF-09'],
         kind: 'call',
       },
       {
         from: 'provider',
+        to: 'prefHook',
+        label: 'useThemePreference()',
+        detail: 'Devolve { preference, setPreference }; o provider não sabe de onde vem o valor.',
+        refs: ['D-28'],
+        kind: 'call',
+      },
+      {
+        from: 'prefHook',
         to: 'themeStorage',
-        label: 'readThemePreference()',
-        detail: 'Estado inicial do useState; único ponto de leitura de localStorage[theme].',
+        label: 'readThemeMirror()',
+        detail:
+          'useState(readThemeMirror): o mesmo valor que o script aplicou. Vale enquanto o IndexedDB carrega, então a 1ª renderização não troca o tema.',
+        refs: ['CA-09.3', 'D-28'],
+        kind: 'call',
+      },
+      {
+        from: 'prefHook',
+        to: 'repo',
+        label: 'useLiveQuery(getStoredThemePreference)',
+        detail: 'undefined enquanto carrega; null se não houver valor válido no Dexie.',
         refs: ['CA-09.2'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'settingsRepo',
+        label: "getSetting('theme')",
+        detail: 'Valida com isThemePreference; lixo na tabela vira null.',
+        refs: ['CA-09.2'],
+        kind: 'call',
+      },
+      {
+        from: 'settingsRepo',
+        to: 'dexie',
+        label: "settings.get('theme')",
+        detail: 'Único ponto de leitura da tabela settings para o tema.',
+        refs: ['CA-09.2'],
+        kind: 'call',
+      },
+      {
+        from: 'prefHook',
+        to: 'repo',
+        label: 'migrateThemePreferenceFromMirror()',
+        detail:
+          'useEffect com [], uma vez por abertura. Fase 0 → Fase 2: se o espelho tem tema e o Dexie não, copia. Falha do IndexedDB é ignorada (a escolha continua valendo).',
+        refs: ['D-28'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw'): get + put",
+        detail:
+          'Leitura e escrita na mesma transação: duas chamadas simultâneas (StrictMode) não sobrescrevem um valor gravado no meio do caminho. Nas aberturas seguintes não faz nada.',
+        refs: ['D-28'],
+        kind: 'call',
+      },
+      {
+        from: 'dexie',
+        to: 'prefHook',
+        label: 'liveQuery emite settings.theme',
+        detail: 'O valor do Dexie passa a valer: chosen ?? stored ?? mirrored ?? system.',
+        refs: ['CA-09.2'],
+        kind: 'return',
+      },
+      {
+        from: 'prefHook',
+        to: 'themeStorage',
+        label: 'writeThemeMirror(stored)',
+        detail:
+          'Corrige o espelho para o valor do Dexie (ex.: localStorage apagado e IndexedDB preservado), para a próxima abertura também não piscar.',
+        refs: ['CA-09.3', 'D-28'],
         kind: 'call',
       },
       {
@@ -537,22 +714,39 @@ export const FLOWS: readonly Flow[] = [
         kind: 'call',
       },
     ],
-    tests: [THEME_SCRIPT_TEST, 'src/lib/theme.test.ts', 'src/lib/themeStorage.test.ts'],
+    tests: [
+      THEME_SCRIPT_TEST,
+      THEME_PREFERENCE_TEST,
+      'src/repositories/themeRepository.test.ts',
+      'src/lib/themeStorage.test.ts',
+      'src/lib/theme.test.ts',
+    ],
   },
   {
     id: 'theme-change',
-    title: 'Troca de tema em Ajustes',
+    title: 'Troca de tema em Ajustes (grava no Dexie e no espelho)',
     summary:
-      'O usuário escolhe Automático/Claro/Escuro; a preferência é gravada e aplicada imediatamente ao documento.',
-    requirements: ['CA-09.1', 'CA-09.2', 'CA-09.3', 'CA-09.4'],
+      'O usuário escolhe Automático/Claro/Escuro. A escolha vale na hora (estado da sessão), o espelho em localStorage é atualizado primeiro e a tabela settings depois; o useLiveQuery devolve o mesmo valor (D-28).',
+    requirements: ['CA-09.1', 'CA-09.2', 'CA-09.3', 'CA-09.4', 'D-22', 'D-28'],
     participants: [
       { id: 'user', label: 'Usuário' },
       { id: 'radio', label: 'ThemeRadio.Option', module: 'src/components/ui/createRadioGroup.tsx' },
       { id: 'section', label: 'ThemeSection', module: 'src/features/settings/ThemeSection.tsx' },
-      { id: 'hook', label: 'useTheme', module: 'src/app/theme/useTheme.ts' },
+      { id: 'hook', label: 'useTheme', module: 'src/repositories/useTheme.ts' },
       { id: 'provider', label: 'ThemeProvider', module: 'src/app/theme/ThemeProvider.tsx' },
+      {
+        id: 'prefHook',
+        label: 'useThemePreference',
+        module: 'src/repositories/useThemePreference.ts',
+      },
+      { id: 'repo', label: 'themeRepository', module: 'src/repositories/themeRepository.ts' },
       { id: 'themeStorage', label: 'themeStorage', module: 'src/lib/themeStorage.ts' },
-      { id: 'theme', label: 'lib/theme', module: 'src/lib/theme.ts' },
+      {
+        id: 'settingsRepo',
+        label: 'settingsRepository',
+        module: 'src/repositories/settingsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: settings', module: 'src/db/database.ts' },
       {
         id: 'apply',
         label: 'applyThemeToDocument',
@@ -580,44 +774,92 @@ export const FLOWS: readonly Flow[] = [
         from: 'section',
         to: 'hook',
         label: 'setPreference',
-        detail: 'ThemeSection só repassa; não guarda estado.',
-        refs: ['RF-09'],
+        detail:
+          'ThemeSection só repassa. Importa de src/repositories (não mais de src/app — D-22 quitada).',
+        refs: ['RF-09', 'D-22'],
         kind: 'call',
       },
       {
         from: 'hook',
         to: 'provider',
-        label: 'contexto',
-        detail: 'useTheme lê ThemeContext (erro claro fora do provider).',
-        refs: [],
+        label: 'use(ThemeContext)',
+        detail:
+          'ThemeContext fica em src/repositories/ThemeContext.ts; o valor é fornecido pelo ThemeProvider. Erro claro fora do provider.',
+        refs: ['D-22'],
         kind: 'call',
       },
       {
         from: 'provider',
-        to: 'themeStorage',
-        label: 'writeThemePreference()',
-        detail: 'Grava localStorage[theme] (try/catch); migra para o Dexie na Fase 2.',
+        to: 'prefHook',
+        label: 'setPreference(next)',
+        detail: 'Função devolvida por useThemePreference.',
+        refs: ['RF-09'],
+        kind: 'call',
+      },
+      {
+        from: 'prefHook',
+        to: 'provider',
+        label: 'setChosenPreference(next)',
+        detail: 'A escolha da sessão vale na hora, sem esperar a gravação no IndexedDB.',
+        refs: ['CA-09.3', 'D-28'],
+        kind: 'return',
+      },
+      {
+        from: 'prefHook',
+        to: 'repo',
+        label: 'saveThemePreference(next)',
+        detail: '.catch ignora falha do IndexedDB: o tema continua valendo na sessão e no espelho.',
         refs: ['CA-09.2'],
         kind: 'call',
       },
       {
-        from: 'provider',
-        to: 'theme',
-        label: 'resolveTheme()',
-        detail: 'Novo estado → tema efetivo.',
-        refs: ['CA-09.1'],
+        from: 'repo',
+        to: 'themeStorage',
+        label: 'writeThemeMirror(next)',
+        detail: 'Primeiro o espelho: a próxima abertura já sai sem piscar (try/catch).',
+        refs: ['CA-09.3', 'D-28'],
         kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'settingsRepo',
+        label: "setSetting('theme', next)",
+        detail: 'Fonte da verdade (§6.7, D-28).',
+        refs: ['CA-09.2'],
+        kind: 'call',
+      },
+      {
+        from: 'settingsRepo',
+        to: 'dexie',
+        label: 'settings.put({ key, value })',
+        detail: 'Uma escrita, um registro: não precisa de transação explícita.',
+        refs: ['CA-09.2'],
+        kind: 'call',
+      },
+      {
+        from: 'dexie',
+        to: 'prefHook',
+        label: 'liveQuery re-emite',
+        detail: 'Mesmo valor da escolha; o espelho já está igual.',
+        refs: [],
+        kind: 'return',
       },
       {
         from: 'provider',
         to: 'apply',
-        label: 'useEffect → aplicar',
+        label: 'resolveTheme → aplicar',
         detail: 'Alterna .dark no <html> e atualiza a meta theme-color.',
         refs: ['CA-09.3', 'CA-09.4'],
         kind: 'call',
       },
     ],
-    tests: [THEME_SECTION_TEST, 'src/components/ui/createRadioGroup.test.tsx'],
+    tests: [
+      THEME_SECTION_TEST,
+      THEME_PREFERENCE_TEST,
+      'src/repositories/themeRepository.test.ts',
+      'src/repositories/settingsRepository.test.ts',
+      'src/components/ui/createRadioGroup.test.tsx',
+    ],
   },
   {
     id: 'theme-system',
@@ -1245,16 +1487,341 @@ export const FLOWS: readonly Flow[] = [
     ],
     tests: ['src/app/pwa/pwaOptions.test.ts', 'src/app/pwa/indexHtmlPwaTags.test.ts'],
   },
+  {
+    id: 'persistent-storage',
+    title: 'Pedido de armazenamento persistente na abertura (persist())',
+    summary:
+      'Na primeira abertura o app pede ao navegador para não apagar os dados. O registro persistRequested é gravado ANTES do pedido, numa transação que lê e grava junto, para o pedido acontecer uma única vez mesmo com o StrictMode ou duas abas (D-28).',
+    requirements: ['RF-11', 'CA-11.4', 'D-28', 'RNF-09'],
+    participants: [
+      { id: 'app', label: 'App', module: 'src/app/App.tsx' },
+      {
+        id: 'hook',
+        label: 'usePersistentStorageRequest',
+        module: 'src/app/storage/usePersistentStorageRequest.ts',
+      },
+      {
+        id: 'repo',
+        label: 'persistentStorageRepository',
+        module: 'src/repositories/persistentStorageRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: settings', module: 'src/db/database.ts' },
+      { id: 'lib', label: 'lib/storage', module: 'src/lib/storage.ts' },
+      { id: 'browser', label: 'navigator.storage' },
+    ],
+    steps: [
+      {
+        from: 'app',
+        to: 'hook',
+        label: 'usePersistentStorageRequest()',
+        detail:
+          'Chamado no corpo do App, fora do RouterProvider: roda uma vez por abertura (useEffect com []), em qualquer rota.',
+        refs: ['CA-11.4'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'repo',
+        label: 'requestPersistentStorageOnce()',
+        detail: '.catch ignora a falha: sem IndexedDB não há o que proteger nem onde registrar.',
+        refs: ['CA-11.4'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw'): get('persistRequested')",
+        detail: 'Já pedido → devolve false e para: nunca pede duas vezes.',
+        refs: ['CA-11.4', 'D-28'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: 'put(persistRequested = ISO 8601)',
+        detail:
+          'Gravado antes do pedido, na mesma transação da leitura (StrictMode e duas abas não duplicam). Chave local: não vai para o backup.',
+        refs: ['D-28'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'lib',
+        label: 'requestPersistentStorage()',
+        detail:
+          'Fora da transação: persist() não é operação do IndexedDB e a encerraria. Injetável por parâmetro nos testes.',
+        refs: ['CA-11.4'],
+        kind: 'call',
+      },
+      {
+        from: 'lib',
+        to: 'browser',
+        label: 'persist()',
+        detail:
+          'Sem a API ou fora de contexto seguro (RNF-09) → false; exceção → false. Nunca lança.',
+        refs: ['RNF-09'],
+        kind: 'call',
+      },
+      {
+        from: 'browser',
+        to: 'lib',
+        label: 'boolean',
+        detail: 'O resultado não é gravado: a tela Sobre consulta persisted() quando abre.',
+        refs: ['CA-11.4'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/repositories/persistentStorageRepository.test.ts',
+      'src/repositories/persistentStorage.navigator.test.ts',
+      'src/lib/storage.test.ts',
+      'src/lib/storage.navigator.test.ts',
+    ],
+  },
+  {
+    id: 'about-screen',
+    title: 'Tela Sobre: versão, esquema e armazenamento',
+    summary:
+      'Ajustes → Sobre mostra a versão do app (define do Vite — D-27), a versão do esquema (SCHEMA_VERSION por repositories), o espaço usado e se o armazenamento é persistente, consultados ao abrir a tela.',
+    requirements: ['RF-11', 'CA-11.4', 'CA-11.5', 'D-27', 'D-29'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      { id: 'page', label: 'AboutPage', module: 'src/features/settings/AboutPage.tsx' },
+      { id: 'version', label: 'lib/appVersion', module: 'src/lib/appVersion.ts' },
+      { id: 'dbinfo', label: 'databaseInfo', module: 'src/repositories/databaseInfo.ts' },
+      {
+        id: 'status',
+        label: 'useStorageStatus',
+        module: 'src/features/settings/useStorageStatus.ts',
+      },
+      { id: 'lib', label: 'lib/storage', module: 'src/lib/storage.ts' },
+      { id: 'browser', label: 'navigator.storage' },
+      {
+        id: 'texts',
+        label: 'storageStatusTexts',
+        module: 'src/features/settings/storageStatusTexts.ts',
+      },
+      { id: 'bytes', label: 'formatBytes', module: 'src/lib/formatBytes.ts' },
+      { id: 'info', label: 'InfoList', module: 'src/components/ui/InfoList.tsx' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'page',
+        label: 'Ajustes → Sobre',
+        detail: 'Rota /ajustes/sobre, carregada com React.lazy (lazyPages).',
+        refs: ['RF-11'],
+        kind: 'event',
+      },
+      {
+        from: 'page',
+        to: 'version',
+        label: 'APP_VERSION',
+        detail:
+          'Constante __APP_VERSION__ injetada pelo define do vite.config.ts a partir do package.json (tipo em src/globals.d.ts). Só a string entra no bundle.',
+        refs: ['CA-11.5', 'D-27'],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'dbinfo',
+        label: 'SCHEMA_VERSION',
+        detail: 'Reexport de src/db/database.ts: a feature não importa o banco (princípio 7).',
+        refs: ['CA-11.5'],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'status',
+        label: 'useStorageStatus()',
+        detail: '{ isLoading: true } até as duas consultas responderem.',
+        refs: ['CA-11.4', 'CA-11.5'],
+        kind: 'call',
+      },
+      {
+        from: 'status',
+        to: 'lib',
+        label: 'isStoragePersisted() + getStorageEstimate()',
+        detail:
+          'Promise.all no useEffect, com guarda isMounted. As duas têm fallback null e nunca rejeitam.',
+        refs: ['CA-11.4', 'CA-11.5'],
+        kind: 'call',
+      },
+      {
+        from: 'lib',
+        to: 'browser',
+        label: 'persisted() / estimate()',
+        detail: 'Sem a API ou fora de contexto seguro → null ("Indisponível neste navegador").',
+        refs: ['RNF-09'],
+        kind: 'call',
+      },
+      {
+        from: 'status',
+        to: 'page',
+        label: '{ isPersisted, estimate }',
+        detail: 'usage/quota viram usageBytes/quotaBytes.',
+        refs: [],
+        kind: 'return',
+      },
+      {
+        from: 'page',
+        to: 'texts',
+        label: 'describeStorageUsage / describePersistence',
+        detail:
+          '"Carregando…", "Indisponível neste navegador", "Armazenamento persistente: ativo" ou "não garantido" (sem a API não dá para afirmar).',
+        refs: ['CA-11.4', 'CA-11.5'],
+        kind: 'call',
+      },
+      {
+        from: 'texts',
+        to: 'bytes',
+        label: 'formatStorageUsage(usage, quota)',
+        detail: 'Unidades decimais (1 KB = 1.000 B), uma casa: "1,2 MB de 500 MB".',
+        refs: ['CA-11.5', 'D-29'],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'info',
+        label: 'InfoList.Item × 3 + <p role="status">',
+        detail:
+          'Versão do app, versão do esquema, espaço usado; o status do persistente é lido por leitores de tela.',
+        refs: ['CA-11.4', 'RNF-06'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/settings/AboutPage.test.tsx',
+      'src/lib/formatBytes.test.ts',
+      'src/lib/appVersion.test.ts',
+      'src/lib/storage.test.ts',
+      'src/db/database.schema.test.ts',
+    ],
+  },
+  {
+    id: 'sample-data',
+    title: 'Dados de exemplo: gerar e apagar (somente DEV)',
+    summary:
+      'Em DEV, a tela Sobre carrega com lazy() uma seção extra. "Gerar" substitui tags, lançamentos, recorrentes e parcelamentos por uma massa determinística; "Apagar" limpa essas quatro tabelas e mantém settings. As duas pedem confirmação e gravam numa única transação. Acessa o db diretamente: exceção ao princípio 7 só para src/dev (D-30, aguardando confirmação).',
+    requirements: ['D-30', 'RNF-02'],
+    participants: [
+      { id: 'dev', label: 'Desenvolvedor' },
+      { id: 'page', label: 'AboutPage', module: 'src/features/settings/AboutPage.tsx' },
+      { id: 'tools', label: 'SampleDataTools', module: 'src/dev/sampleData/SampleDataTools.tsx' },
+      {
+        id: 'hook',
+        label: 'useSampleDataTools',
+        module: 'src/dev/sampleData/useSampleDataTools.ts',
+      },
+      { id: 'build', label: 'buildSampleData', module: 'src/dev/sampleData/buildSampleData.ts' },
+      { id: 'rng', label: 'seededRandom', module: 'src/dev/sampleData/seededRandom.ts' },
+      { id: 'store', label: 'sampleDataStore', module: 'src/dev/sampleData/sampleDataStore.ts' },
+      { id: 'dexie', label: 'Dexie (4 tabelas)', module: 'src/db/database.ts' },
+    ],
+    steps: [
+      {
+        from: 'page',
+        to: 'tools',
+        label: 'lazy(import()) só em DEV',
+        detail:
+          'loadSampleDataTools(): guard import.meta.env.DEV antes do import dinâmico; em produção vira código morto e src/dev não entra no dist/. Suspense fallback null; CSS próprio (sampleData.css).',
+        refs: ['D-30'],
+        kind: 'call',
+      },
+      {
+        from: 'dev',
+        to: 'tools',
+        label: 'toca "Gerar dados de exemplo"',
+        detail: 'Botões desabilitados enquanto isBusy.',
+        refs: ['D-30'],
+        kind: 'event',
+      },
+      {
+        from: 'tools',
+        to: 'hook',
+        label: 'generate()',
+        detail: 'O componente só renderiza; estado e ações ficam no hook.',
+        refs: [],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'dev',
+        label: 'window.confirm(...)',
+        detail: 'Cancelar não faz nada.',
+        refs: ['D-30'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'build',
+        label: 'buildSampleData(today())',
+        detail:
+          'Função pura: semente fixa + data de referência → 12 tags, 5.000 lançamentos em 36 meses, 4 recorrentes e 3 parcelamentos (§6.11).',
+        refs: ['D-30', 'RNF-02'],
+        kind: 'call',
+      },
+      {
+        from: 'build',
+        to: 'rng',
+        label: 'createSeededRandom (mulberry32)',
+        detail:
+          'IDs UUID v4 derivados do gerador (não crypto.randomUUID), para os dados serem determinísticos.',
+        refs: ['D-30'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'store',
+        label: 'replaceWithSampleData(db, data)',
+        detail: 'useSampleDataTools importa o db (exceção da D-30) e o passa à função.',
+        refs: ['D-30'],
+        kind: 'call',
+      },
+      {
+        from: 'store',
+        to: 'dexie',
+        label: "transaction('rw', 4 tabelas): clear + bulkAdd",
+        detail:
+          'Tudo ou nada (princípio 8). settings fica de fora: tema e persistRequested são mantidos.',
+        refs: ['D-30'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'tools',
+        label: 'mensagem em role="status"',
+        detail: '"Dados de exemplo gerados: 12 tags, 5.000 lançamentos, …" ou "Erro: …".',
+        refs: [],
+        kind: 'return',
+      },
+      {
+        from: 'dev',
+        to: 'tools',
+        label: 'toca "Apagar todos os dados"',
+        detail: 'Mesmo caminho: confirm → clearAllData(db).',
+        refs: ['D-30'],
+        kind: 'event',
+      },
+      {
+        from: 'store',
+        to: 'dexie',
+        label: "transaction('rw', 4 tabelas): clear",
+        detail: 'Apaga tags, transactions, recurrings e installmentGroups; mantém settings.',
+        refs: ['D-30'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/dev/sampleData/buildSampleData.test.ts',
+      'src/dev/sampleData/buildSampleData.model.test.ts',
+      'src/dev/sampleData/sampleDataStore.test.ts',
+    ],
+  },
 ]
 
 /** Fluxos exigidos pela §6.12 que ainda não existem no código. */
 export const PLANNED_FLOWS: readonly PlannedFlow[] = [
-  {
-    title: 'persist() e estimate()',
-    phase: 2,
-    requirements: ['CA-11.4', 'CA-11.5'],
-    summary: 'lib/storage.ts na primeira abertura; settings.persistRequested; tela Sobre.',
-  },
   {
     title: 'Criar/editar/excluir tag (com bloqueio)',
     phase: 3,
@@ -1312,28 +1879,50 @@ export const PLANNED_FLOWS: readonly PlannedFlow[] = [
   },
 ]
 
-// ---------- modelo de dados, estado e domínio previstos ----------
+// ---------- modelo de dados, estado e domínio ----------
 
-export const PLANNED_SCHEMA_VERSION = 1
+/** Esquema da §6.4 (para comparar com o esquema que o scanner lê de src/db/database.ts). */
+export const SPEC_SCHEMA_VERSION = 1
 
-export const PLANNED_TABLES: readonly PlannedTable[] = [
-  { name: 'tags', indexes: 'id, &nameKey', type: 'Tag', inBackup: 'sim', phase: 2 },
+/**
+ * O que o scanner não sabe sobre cada tabela (§6.3/§6.4/§6.8). Índices, versão e
+ * leitores/escritores vêm de module-graph.json (schema e tables).
+ */
+export const TABLE_NOTES: readonly TableNote[] = [
+  {
+    name: 'tags',
+    type: 'Tag',
+    inBackup: 'sim',
+    usedFromPhase: 3,
+    note: 'Sem repositório de produção até a Fase 3. Hoje só as ferramentas DEV gravam (sampleDataStore, com o db passado por useSampleDataTools — D-30). &nameKey garante nome único (CA-03.4).',
+  },
   {
     name: 'transactions',
-    indexes:
-      'id, date, type, tagId, recurringId, [recurringId+recurringPeriod], installmentGroupId',
     type: 'Transaction',
     inBackup: 'sim',
-    phase: 2,
+    usedFromPhase: 4,
+    note: 'Sem repositório de produção até a Fase 4. Hoje só as ferramentas DEV gravam (5.000 lançamentos de exemplo — D-30). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9).',
   },
-  { name: 'recurrings', indexes: 'id', type: 'Recurring', inBackup: 'sim', phase: 2 },
-  { name: 'installmentGroups', indexes: 'id', type: 'InstallmentGroup', inBackup: 'sim', phase: 2 },
+  {
+    name: 'recurrings',
+    type: 'Recurring',
+    inBackup: 'sim',
+    usedFromPhase: 9,
+    note: 'Sem repositório de produção até a Fase 9. Hoje só as ferramentas DEV gravam (4 recorrentes — D-30).',
+  },
+  {
+    name: 'installmentGroups',
+    type: 'InstallmentGroup',
+    inBackup: 'sim',
+    usedFromPhase: 10,
+    note: 'Sem repositório de produção até a Fase 10. Hoje só as ferramentas DEV gravam (3 parcelamentos — D-30).',
+  },
   {
     name: 'settings',
-    indexes: 'key',
     type: 'Setting',
     inBackup: 'só a chave theme (lastBackupAt e persistRequested são locais)',
-    phase: 2,
+    usedFromPhase: 2,
+    note: 'Fase 2: chave theme (fonte da verdade do tema, com espelho em localStorage — D-28) e persistRequested (data do pedido de persist(), gravada antes do pedido — D-28). lastBackupAt entra na Fase 6. "Apagar todos os dados" (DEV) mantém esta tabela (D-30).',
   },
 ]
 
@@ -1360,34 +1949,6 @@ export const PLANNED_UI_FIELDS: readonly PlannedUiField[] = [
 ]
 
 export const PLANNED_DOMAIN: readonly PlannedDomainFunction[] = [
-  { module: 'domain/money.ts', names: ['formatBRL', 'formatSignedBRL', 'digitsToCents'], phase: 2 },
-  {
-    module: 'domain/dates.ts',
-    names: [
-      'today',
-      'periodOf',
-      'weekRange',
-      'monthRange',
-      'yearRange',
-      'addMonthsClamped',
-      'periodsBetween',
-    ],
-    phase: 2,
-  },
-  {
-    module: 'domain/balances.ts',
-    names: [
-      'totals',
-      'overallBalance',
-      'groupByDay',
-      'groupByMonth',
-      'groupByTag',
-      'runningBalance',
-    ],
-    phase: 2,
-  },
-  { module: 'domain/tagColor.ts', names: ['readableTextColor'], phase: 2 },
-  { module: 'lib/storage.ts', names: ['persist', 'estimate'], phase: 2 },
   { module: 'lib/crypto.ts + lib/backupFormat.ts + lib/share.ts', names: ['(backup)'], phase: 6 },
   {
     module: 'domain/recurring.ts',
@@ -1482,12 +2043,14 @@ export const DECISIONS: readonly DecisionInfo[] = [
   },
   {
     id: 'D-22',
-    title: 'Features não importam de src/app/ (tema vai para repositories na Fase 2)',
+    title: 'Features não importam de src/app/ (cumprida na Fase 2: tema em repositories)',
     status: 'confirmed',
     impacts: [
       'src/features/settings/ThemeSection.tsx',
-      'src/app/theme/useTheme.ts',
-      'src/app/theme/ThemeContext.ts',
+      'src/repositories/useTheme.ts',
+      'src/repositories/ThemeContext.ts',
+      'src/app/theme/ThemeProvider.tsx',
+      '.claude/skills/atualizar-arquitetura/scan-architecture.mjs',
     ],
   },
   {
@@ -1526,6 +2089,52 @@ export const DECISIONS: readonly DecisionInfo[] = [
     title: 'Acesso restrito (RF-12) opcional, na Fase 12; site sem restrição até lá',
     status: 'confirmed',
     impacts: ['docs/SPEC.md', 'README.md', 'src/app/pwa/pwaOptions.ts'],
+  },
+  {
+    id: 'D-27',
+    title: 'Versão do app via define (__APP_VERSION__ do package.json)',
+    status: 'pending',
+    impacts: [
+      'vite.config.ts',
+      'src/globals.d.ts',
+      'src/lib/appVersion.ts',
+      'src/features/settings/AboutPage.tsx',
+    ],
+  },
+  {
+    id: 'D-28',
+    title: 'Tema no Dexie com espelho em localStorage; persistRequested gravado antes do pedido',
+    status: 'pending',
+    impacts: [
+      'src/repositories/themeRepository.ts',
+      'src/repositories/useThemePreference.ts',
+      'src/repositories/useTheme.ts',
+      'src/repositories/ThemeContext.ts',
+      'src/app/theme/ThemeProvider.tsx',
+      'src/lib/themeStorage.ts',
+      'src/repositories/persistentStorageRepository.ts',
+      'src/app/storage/usePersistentStorageRequest.ts',
+    ],
+  },
+  {
+    id: 'D-29',
+    title: 'Dinheiro e bytes em texto (U+00A0, U+2212, 11 dígitos, Map nos grupos, KB decimal)',
+    status: 'pending',
+    impacts: ['src/domain/money.ts', 'src/domain/balances.ts', 'src/lib/formatBytes.ts'],
+  },
+  {
+    id: 'D-30',
+    title: 'Ferramentas DEV de dados de exemplo (semente, substituir, apagar mantendo settings)',
+    status: 'pending',
+    impacts: [
+      'src/dev/sampleData/buildSampleData.ts',
+      'src/dev/sampleData/seededRandom.ts',
+      'src/dev/sampleData/sampleDataStore.ts',
+      'src/dev/sampleData/useSampleDataTools.ts',
+      'src/dev/sampleData/SampleDataTools.tsx',
+      'src/dev/sampleData/sampleData.css',
+      'src/features/settings/AboutPage.tsx',
+    ],
   },
 ]
 
@@ -1571,6 +2180,76 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 // ---------- achados de arquitetura (reportados, não corrigidos) ----------
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
+  {
+    title: 'D-27 a D-30 aguardando confirmação do dono',
+    severity: 'warn',
+    detail:
+      'Registradas na §8.1 em 19/10/2026 durante a Fase 2 (spec 1.8), ainda sem "Confirmado pelo dono": versão do app pelo define (D-27); tema no Dexie com espelho e persistRequested gravado antes do pedido (D-28); formatos de dinheiro e bytes (D-29); ferramentas DEV de dados de exemplo, inclusive "Apagar todos os dados" mantendo a tabela settings e o acesso direto ao db como exceção ao princípio 7 (D-30).',
+    modules: [
+      'docs/SPEC.md',
+      'src/lib/appVersion.ts',
+      'src/repositories/useThemePreference.ts',
+      'src/repositories/persistentStorageRepository.ts',
+      'src/domain/money.ts',
+      'src/lib/formatBytes.ts',
+      'src/dev/sampleData/sampleDataStore.ts',
+    ],
+  },
+  {
+    title: 'Spec: exemplo do CA-05.3 não vai de segunda a domingo',
+    severity: 'warn',
+    detail:
+      'O CA-05.3 diz que a semana vai de segunda a domingo e dá o exemplo "13 a 19 de out. de 2026", mas 13/10/2026 é uma terça. A semana correta é "12 a 18 de out. de 2026" (weekRange com weekStartsOn: 1, princípio 3). O código e os testes seguem a regra, com comentário sobre o exemplo; falta o dono corrigir o texto da spec.',
+    modules: [
+      'docs/SPEC.md',
+      'src/domain/dates.ts',
+      'src/domain/dates.test.ts',
+      'src/domain/dates.calendar.test.ts',
+    ],
+  },
+  {
+    title: 'Spec: limite de dígitos do valor diverge (10 × 11)',
+    severity: 'warn',
+    detail:
+      'O RF-01 limita o valor a 9.999.999.999 centavos (R$ 99.999.999,99, 10 dígitos); a §6.5 e a §6.11 falam em limite de 11 dígitos no MoneyInput/digitsToCents. O código segue a §6.5 (MAX_AMOUNT_DIGITS = 11, MAX_AMOUNT_CENTS) e a D-29 deixa o teto do RF-01 para a validação do formulário na Fase 4. O dono precisa decidir qual número vale antes da Fase 4.',
+    modules: ['docs/SPEC.md', 'src/domain/money.ts', 'src/domain/money.test.ts'],
+  },
+  {
+    title: 'Pacote principal com 423 kB (135 kB gzip) por causa do Dexie',
+    severity: 'info',
+    detail:
+      'Na Fase 2 o index-*.js passou a incluir o Dexie e o dexie-react-hooks (o ThemeProvider e o pedido de persist() rodam na abertura, então o banco vai no pacote principal). O revisor considerou não bloqueante; recomendou medir o tempo de abertura no iPhone na Fase 4 ou na Fase 11 (RNF-02). Tamanho atual dos chunks no cartão "Artefatos do último build" (seção PWA).',
+    modules: ['src/db/database.ts', 'src/app/App.tsx', 'src/app/theme/ThemeProvider.tsx'],
+  },
+  {
+    title: 'Ferramentas DEV acessam o db diretamente (exceção ao princípio 7)',
+    severity: 'info',
+    detail:
+      'useSampleDataTools importa o db e sampleDataStore grava/apaga as quatro tabelas de dados. É uma exceção consciente, documentada na D-30 (aguardando confirmação) e válida só para src/dev, que não entra no build (verificado no dist/). Na regra de camadas aparece como exceção dev → db restrita a src/db/database.ts. O scanner só vê as escritas em sampleDataStore (o hook passa o db como parâmetro).',
+    modules: [
+      'src/dev/sampleData/useSampleDataTools.ts',
+      'src/dev/sampleData/sampleDataStore.ts',
+      'src/db/database.ts',
+    ],
+  },
+  {
+    title: 'Domínio pronto antes das telas: balances e tagColor sem uso em produção',
+    severity: 'info',
+    detail:
+      'src/domain/balances.ts e src/domain/tagColor.ts só são importados por testes (aparecem como órfãos na saúde) e formatBRL/digitsToCents ainda não têm tela. Esperado: a Fase 2 entrega o domínio e as telas que o usam vêm nas Fases 3 (TagChip), 4 (saldos, MoneyInput) e 7–8 (visões e gráficos).',
+    modules: ['src/domain/balances.ts', 'src/domain/tagColor.ts', 'src/domain/money.ts'],
+  },
+  {
+    title: 'usePersistentStorageRequest sem teste próprio',
+    severity: 'info',
+    detail:
+      'O hook tem 10 linhas e só chama requestPersistentStorageOnce num useEffect; a regra (pedido único, registro antes do pedido) é coberta pelos testes do repositório. O renderApp dos testes monta as rotas sem o App, então nenhum teste passa pelo hook.',
+    modules: [
+      'src/app/storage/usePersistentStorageRequest.ts',
+      'src/repositories/persistentStorageRepository.test.ts',
+      'src/test/renderApp.tsx',
+    ],
+  },
   {
     title: 'Fase 12 (opcional): risco do CA-12.3 — sessão do Access expirada não força o relogin',
     severity: 'info',
@@ -1623,12 +2302,14 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'Dívida conhecida: feature importa de app/ (ThemeSection → useTheme)',
     severity: 'warn',
     detail:
-      'D-22 proíbe features → app. Única ocorrência tolerada até a Fase 2: src/features/settings/ThemeSection.tsx importa src/app/theme/useTheme.ts. Na Fase 2 (tarefa da §7) useTheme/ThemeContext vão para src/repositories/ junto com a leitura do tema na tabela settings; aí esta regra deixa de ter exceção e qualquer import features → app vira vermelho.',
+      'D-22 proíbe features → app. Única ocorrência tolerada até a Fase 2: src/features/settings/ThemeSection.tsx importava src/app/theme/useTheme.ts (e o contexto ficava em src/app/theme/ThemeContext.ts).',
     modules: [
       'src/features/settings/ThemeSection.tsx',
-      'src/app/theme/useTheme.ts',
-      'src/app/theme/ThemeContext.ts',
+      'src/repositories/useTheme.ts',
+      'src/repositories/ThemeContext.ts',
     ],
+    resolved:
+      'Quitada na Fase 2 (19/10/2026, não commitado): useTheme e ThemeContext foram para src/repositories/; o ThemeProvider continua em src/app/theme e importa de repositories. features → app agora é direção proibida, sem exceção (vermelho na página e regra FORBIDDEN no scanner).',
   },
   {
     title: 'Tema ainda em localStorage',
@@ -1636,6 +2317,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     detail:
       'Persistência temporária prevista pela Fase 0; a §6.7 manda o tema para a tabela settings na Fase 2, mantendo localStorage só como espelho para o script inline.',
     modules: ['src/lib/themeStorage.ts', 'index.html'],
+    resolved:
+      'Fase 2 (19/10/2026, não commitado): a tabela settings (chave theme) é a fonte da verdade; src/lib/themeStorage.ts só lê e grava o espelho; migração única do espelho para o Dexie numa transação (D-28).',
   },
   {
     title: 'Classes Tailwind desta página entravam no CSS de produção',
@@ -1700,7 +2383,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'index.html':
     'Script inline (único) que aplica tema e theme-color antes do bundle (CA-09.3). Duplica regras de src/lib/theme.ts; a sincronia é garantida por indexHtmlThemeScript.test.ts. Fase 1: favicon.png, apple-touch-icon e metatags do iOS (capable, status-bar-style, title "Gastos" — D-25); o <link rel="manifest" crossorigin="use-credentials"> NÃO fica aqui: é injetado no build pelo plugin (indexHtmlPwaTags.test.ts impede a duplicata).',
   'vite.config.ts':
-    'Plugins: React + React Compiler (via Babel) + Tailwind + VitePWA(PWA_OPTIONS) (importado de src/app/pwa/pwaOptions.ts por caminho relativo). Alias @/ → src/. Vitest no mesmo arquivo (jsdom, setup, cobertura ≥ 90% em domain/lib).',
+    'Plugins: React + React Compiler (via Babel) + Tailwind + VitePWA(PWA_OPTIONS) (importado de src/app/pwa/pwaOptions.ts por caminho relativo). Alias @/ → src/. Vitest no mesmo arquivo (jsdom, setup, cobertura ≥ 90% em domain/lib). Fase 2: define { __APP_VERSION__ } com o version do package.json (D-27), que vale também nos testes.',
   'tsconfig.node.json':
     'Inclui vite.config.ts e src/app/pwa/pwaOptions.ts (Fase 1), com allowImportingTsExtensions para o import relativo com .ts.',
   'tsconfig.app.json':
@@ -1734,7 +2417,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/index.css':
     "Tailwind + utilities.css, @source not './dev'. Variáveis --bottom-nav-height e --update-notice-height (Fase 1) como fonte única das alturas.",
   'src/app/App.tsx':
-    'Cria o router uma vez no nível do módulo e põe o ThemeProvider por fora do RouterProvider (o tema vale também para rotas fora do layout, como esta página).',
+    'Cria o router uma vez no nível do módulo e põe o ThemeProvider por fora do RouterProvider (o tema vale também para rotas fora do layout, como esta página). Fase 2: chama usePersistentStorageRequest() no corpo, para o pedido de persist() valer em qualquer rota (CA-11.4).',
   'src/app/routes.tsx':
     'Árvore de rotas exportada sem o router, para os testes usarem createMemoryRouter (src/test/renderApp.tsx).',
   'src/app/lazyPages.tsx':
@@ -1743,22 +2426,78 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     'Guard import.meta.env.DEV primeiro; lazy() declarado depois dele para o import dinâmico sumir do build.',
   'src/app/layout/navItems.ts': 'Fonte única dos 5 itens da barra (ordem da spec, RF-13).',
   'src/app/theme/ThemeProvider.tsx':
-    'Na Fase 2 passa a ler/gravar a tabela settings por repositório, mantendo o espelho em localStorage para o script inline.',
+    'Continua em src/app/theme (aplica o tema ao documento). Desde a Fase 2 a preferência vem de useThemePreference (Dexie + espelho — D-28) e o contexto fornecido é o ThemeContext de src/repositories (D-22).',
   'src/app/theme/useSystemPrefersDark.ts':
     'useSyncExternalStore em vez de useEffect+useState: sem render extra e sem estado duplicado.',
-  'src/lib/theme.ts': 'Regras puras do tema (sem React e sem DOM) — cobertas por teste unitário.',
+  'src/lib/theme.ts':
+    'Regras puras do tema (sem React e sem DOM) — cobertas por teste unitário. Fase 2: perdeu parseThemePreference; a leitura "valor salvo → preferência com padrão" que o script do index.html faz virou o helper de teste src/test/themeReference.ts (parseStoredThemePreference).',
   'src/lib/themeStorage.ts':
-    'Único ponto que toca localStorage[theme]; engole exceções do armazenamento indisponível.',
+    'Fase 2: só o espelho (readThemeMirror/writeThemeMirror) de localStorage[theme], lido pelo script do index.html. A fonte da verdade é a tabela settings (themeRepository). Engole exceções do armazenamento indisponível.',
   'src/components/ui/createRadioGroup.tsx':
     'Fábrica tipada: cada chamada cria um contexto próprio, então Option só aceita valores do tipo T (verificado por @ts-expect-error no teste).',
   'src/components/ui/useGoBack.ts':
     "Usa location.key === 'default' para saber se a página foi aberta direto pela URL.",
   'src/features/settings/ThemeSection.tsx':
-    'Importa src/app/theme/useTheme.ts (features → app): dívida conhecida pela D-22, eliminada na Fase 2 quando useTheme/ThemeContext forem para src/repositories/.',
+    'Usa useTheme de src/repositories (D-22 quitada na Fase 2: nenhuma feature importa de src/app).',
   'src/test/setup.ts':
-    'fake-indexeddb/auto, dublê de matchMedia e limpeza de DOM/localStorage após cada teste; desde a Fase 1 também reseta o uiStore (INITIAL_UI_STATE).',
+    'fake-indexeddb/auto, dublê de matchMedia e limpeza de DOM/localStorage após cada teste; desde a Fase 1 reseta o uiStore (INITIAL_UI_STATE); desde a Fase 2 limpa todas as tabelas do Dexie numa transação, depois do cleanup() (gravações pendentes dos componentes terminam antes).',
   'src/test/matchMedia.ts':
     'Dublê de window.matchMedia: esquema escuro controlável (com evento change) e, desde a Fase 1, o modo instalado (setDisplayModeStandalone).',
+  'src/db/database.ts':
+    'AppDatabase extends Dexie, banco "money-control", version(1).stores(...) igual à §6.4 e SCHEMA_VERSION = 1. Toda mudança futura cria version(n).upgrade e incrementa a constante. database.schema.test.ts compara o esquema real com a §6.4.',
+  'src/domain/types.ts':
+    'Tipos da §6.3 (Cents, DateString, PeriodString, Tag, Transaction, Recurring, InstallmentGroup, Setting).',
+  'src/domain/money.ts':
+    'Centavos inteiros (princípio 1): formatBRL/formatSignedBRL (U+00A0 e U+2212 — D-29), digitsToCents (até MAX_AMOUNT_DIGITS = 11), addCents com Number.isSafeInteger. MAX_AMOUNT_CENTS é o teto do RF-01 (ver o achado sobre 10 × 11 dígitos).',
+  'src/domain/dates.ts':
+    'Datas sem fuso (princípio 2) com parseISO do date-fns; semana de segunda (weekStartsOn: 1). Testes de calendário (bissextos, virada de ano) e de fuso (dates.timezone.test.ts).',
+  'src/domain/balances.ts':
+    'totals, overallBalance (date ≤ hoje — D-03), groupByDay/Month/Tag (Map — D-29) e runningBalance. Ainda sem uso em produção (Fases 4, 7 e 8). Teste de propriedade em balances.properties.test.ts.',
+  'src/domain/tagColor.ts':
+    'readableTextColor pela luminância relativa (WCAG) — será usado pelo TagChip na Fase 3.',
+  'src/repositories/settingsRepository.ts':
+    'getSetting/setSetting e useSetting (useLiveQuery). Base de themeRepository; persistentStorageRepository usa o db direto porque precisa de transação com leitura e escrita.',
+  'src/repositories/themeRepository.ts':
+    'getStoredThemePreference, saveThemePreference (espelho primeiro, Dexie depois) e migrateThemePreferenceFromMirror (transação rw, uma vez — D-28).',
+  'src/repositories/useThemePreference.ts':
+    'Estado do tema: chosen (sessão) ?? stored (useLiveQuery) ?? mirrored (localStorage) ?? system. Migra o espelho uma vez e o corrige quando o Dexie entrega o valor (D-28).',
+  'src/repositories/ThemeContext.ts':
+    'Contexto do tema em repositories para as features não importarem de app/ (D-22).',
+  'src/repositories/useTheme.ts': 'use(ThemeContext) com erro claro fora do ThemeProvider (D-22).',
+  'src/repositories/persistentStorageRepository.ts':
+    'requestPersistentStorageOnce: transação rw lê/grava persistRequested antes do pedido; persist() fora da transação (D-28, CA-11.4).',
+  'src/repositories/databaseInfo.ts':
+    'Só reexporta SCHEMA_VERSION, para a tela Sobre não importar src/db (princípio 7).',
+  'src/app/storage/usePersistentStorageRequest.ts':
+    'useEffect com [] no App; ignora falha do IndexedDB. Sem teste próprio (ver saúde).',
+  'src/lib/storage.ts':
+    'requestPersistentStorage, isStoragePersisted e getStorageEstimate com StorageManager injetável e fallback (false/null) sem a API ou fora de contexto seguro (RNF-09).',
+  'src/lib/formatBytes.ts':
+    'Unidades decimais com uma casa ("1,2 MB de 500 MB" — D-29); formatter criado uma vez no módulo.',
+  'src/lib/appVersion.ts':
+    'APP_VERSION = __APP_VERSION__ (define do Vite, tipo em src/globals.d.ts — D-27).',
+  'src/globals.d.ts': 'declare const __APP_VERSION__: string (D-27).',
+  'src/features/settings/AboutPage.tsx':
+    'Tela Sobre (CA-11.4/11.5). loadSampleDataTools(): guard import.meta.env.DEV antes do lazy(import()) das ferramentas DEV (D-30).',
+  'src/features/settings/useStorageStatus.ts':
+    'Consulta persisted() e estimate() ao abrir (Promise.all, guarda isMounted).',
+  'src/features/settings/storageStatusTexts.ts':
+    'Textos puros do status (carregando, indisponível, ativo, não garantido).',
+  'src/components/ui/InfoList.tsx':
+    'Compound component <dl> + InfoList.Item. Sem teste próprio: coberto por AboutPage.test.tsx.',
+  'src/dev/sampleData/buildSampleData.ts':
+    'Função pura: semente + data de referência → 12 tags, 5.000 lançamentos em 36 meses, 4 recorrentes, 3 parcelamentos (D-30).',
+  'src/dev/sampleData/sampleDataStore.ts':
+    'replaceWithSampleData e clearAllData numa transação sobre as 4 tabelas de dados; mantém settings (D-30).',
+  'src/dev/sampleData/useSampleDataTools.ts':
+    'Importa o db (exceção ao princípio 7 — D-30), pede window.confirm e mostra a mensagem do resultado.',
+  'src/dev/sampleData/sampleData.css':
+    "CSS próprio das ferramentas DEV: @import 'tailwindcss' source(none) + @source './' + utilities.css. Nada vai para o CSS de produção.",
+  'src/test/themeReference.ts':
+    'parseStoredThemePreference: referência da regra do script inline do index.html (veio de lib/theme na revisão da Fase 2).',
+  'src/test/factories.ts': 'makeTransaction, income e expense para os testes de domínio.',
+  'src/test/propertyHelpers.ts':
+    'Gerador com semente e utilitários de calendário para os testes de propriedade.',
   'src/dev/architecture/model.ts':
     'Importa o JSON gerado e expõe graph/moduleById e filtros comuns. Os índices derivados ficam em layers.ts, composition.ts, traceability.ts, health.ts e search.ts, todos calculados uma vez no carregamento.',
 }

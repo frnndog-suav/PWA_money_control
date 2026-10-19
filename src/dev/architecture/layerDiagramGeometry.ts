@@ -1,7 +1,12 @@
 // Geometria do diagrama de camadas: setas entre as caixas posicionadas em curated.ts (LAYERS).
 
 import { LAYERS } from '@/dev/architecture/data/curated'
-import { layerEdges, unobservedRules, type LayerEdgeStatus } from '@/dev/architecture/layers'
+import {
+  layerEdges,
+  unobservedForbidden,
+  unobservedRules,
+  type LayerEdgeStatus,
+} from '@/dev/architecture/layers'
 import type { Layer } from '@/dev/architecture/types'
 
 export const VIEW_WIDTH = 920
@@ -11,7 +16,7 @@ export const BOX_HEIGHT = 60
 /** Afastamento entre setas opostas (A → B e B → A) para não se sobreporem. */
 const OPPOSITE_OFFSET = 7
 
-export type ArrowStatus = LayerEdgeStatus | 'unobserved'
+export type ArrowStatus = LayerEdgeStatus | 'unobserved' | 'forbidden'
 
 export interface Arrow {
   from: Layer
@@ -28,6 +33,9 @@ export const arrows: readonly Arrow[] = [
     to: r.to,
     status: 'unobserved' as const,
   })),
+  ...unobservedForbidden
+    .filter((r) => r.inDiagram)
+    .map((r) => ({ from: r.from, to: r.to, status: 'forbidden' as const })),
 ]
 
 const centerOf = (layer: Layer) => {

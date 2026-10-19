@@ -106,6 +106,7 @@ const FORBIDDEN = [
   { from: ['domain'], to: ['db', 'repositories', 'stores', 'components', 'features', 'app', 'dev'], rule: '§2.6 domínio é puro' },
   { from: ['lib'], to: ['db', 'repositories', 'stores', 'components', 'features', 'app', 'dev'], rule: '§2.6 lib é pura' },
   { from: ['components'], to: ['features', 'app'], rule: 'components/ui não conhece features' },
+  { from: ['features'], to: ['app'], rule: 'D-22 features não importam de src/app/ (dívida quitada na Fase 2)' },
   { from: ['repositories', 'db'], to: ['components', 'features', 'app'], rule: 'acesso a dados não conhece a interface' },
 ];
 const FORBIDDEN_PACKAGES = [
@@ -261,9 +262,11 @@ function analyze(abs) {
         )
       : [];
 
+  // `db.<tabela>.<op>(` ou `database.<tabela>.<op>(` (instância recebida por parâmetro, como nos
+  // dados de exemplo da tela Sobre — D-30).
   const dexieOps = {};
   if (analyzed) {
-    for (const m of code.matchAll(/\bdb\.([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\s*\(/g)) {
+    for (const m of code.matchAll(/\b(?:db|database)\.([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\s*\(/g)) {
       if (DEXIE_NON_TABLE.has(m[1])) continue;
       const entry = (dexieOps[m[1]] ??= { reads: [], writes: [] });
       (DEXIE_WRITE.has(m[2]) ? entry.writes : entry.reads).push(m[2]);
@@ -697,8 +700,9 @@ function pwaInfo() {
   };
 }
 
-// Marcas da página DEV que nunca podem aparecer no build de produção (§6.12 / D-17).
-const DEV_MARKERS = /ArchitecturePage|module-graph|__dev|arquitetura/;
+// Marcas do código DEV que nunca podem aparecer no build de produção: esta página (§6.12 / D-17)
+// e as ferramentas de dados de exemplo da tela Sobre (§6.11 / D-30).
+const DEV_MARKERS = /ArchitecturePage|module-graph|__dev|arquitetura|sampleData|SampleData/;
 
 /** Último `npm run build` (dist/), se existir: service worker, precache e vazamentos da página DEV. */
 function buildInfo() {
@@ -718,13 +722,41 @@ function buildInfo() {
     precache: unique(matchAll(sw, /url:"([^"]+)"/g)),
     navigationRoute: /NavigationRoute/.test(sw),
     css: files.filter((f) => f.id.endsWith('.css')).map((f) => ({ file: f.id, bytes: statSync(f.abs).size })),
+    // Chunks JS de assets/ (o service worker e o runtime do Workbox ficam de fora), do maior para o menor.
+    js: files
+      .filter((f) => /^assets\/.*\.js$/.test(f.id))
+      .map((f) => ({ file: f.id, bytes: statSync(f.abs).size }))
+      .sort((a, b) => b.bytes - a.bytes),
     totalBytes: files.reduce((n, f) => n + statSync(f.abs).size, 0),
     devLeaks: textFiles.filter((f) => DEV_MARKERS.test(readFileSync(f.abs, 'utf8'))).map((f) => f.id),
   };
 }
 
+/**
+ * §6.4 — esquema Dexie declarado na classe do banco: cada `version(n).stores({...})`, o
+ * `SCHEMA_VERSION` exportado e o nome do banco (null enquanto não houver classe Dexie).
+ */
+function dexieSchema() {
+  const dbModule = modules.find((m) => m.kinds.includes('database') && !isTestFile(m.id));
+  if (!dbModule) return null;
+  const code = dbModule.code;
+  const versions = [...code.matchAll(/\.version\(\s*(\d+)\s*\)\s*\.stores\(\s*\{([\s\S]*?)\}\s*\)/g)].map((m) => ({
+    version: Number(m[1]),
+    stores: Object.fromEntries([...m[2].matchAll(/([A-Za-z_$][\w$]*)\s*:\s*['"]([^'"]*)['"]/g)].map((t) => [t[1], t[2]])),
+  }));
+  const schemaVersion = code.match(/export\s+const\s+SCHEMA_VERSION\s*=\s*(\d+)/)?.[1];
+  return {
+    module: dbModule.id,
+    databaseName:
+      code.match(/DATABASE_NAME\s*=\s*['"]([^'"]+)['"]/)?.[1] ?? code.match(/super\(\s*['"]([^'"]+)['"]/)?.[1] ?? null,
+    schemaVersion: schemaVersion ? Number(schemaVersion) : null,
+    versions,
+  };
+}
+
 const pwa = pwaInfo();
 const build = buildInfo();
+const schema = dexieSchema();
 for (const m of modules) delete m.code;
 
 // ---------- pacotes ----------
@@ -903,6 +935,7 @@ const result = {
   stylesheets,
   packages,
   tables: tablesIndex,
+  schema,
   routes: routesIndex,
   publicFiles,
   pwa,

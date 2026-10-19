@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { fileURLToPath, URL } from 'node:url'
 import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import babel from '@rolldown/plugin-babel'
@@ -5,6 +6,14 @@ import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vitest/config'
 import { PWA_OPTIONS } from './src/app/pwa/pwaOptions.ts'
+
+// CA-11.5 — versão exibida em Ajustes → Sobre. Lida aqui e injetada pelo `define` para que
+// só a string entre no bundle (importar o package.json no app levaria o arquivo inteiro).
+const packageJson = JSON.parse(
+  readFileSync(new URL('./package.json', import.meta.url), 'utf8'),
+) as {
+  version: string
+}
 
 // Vitest fica neste arquivo para herdar o alias `@/` e os plugins do Vite.
 export default defineConfig({
@@ -15,6 +24,9 @@ export default defineConfig({
     // §6.9 / RF-11 — PWA instalável e offline.
     VitePWA(PWA_OPTIONS),
   ],
+  define: {
+    __APP_VERSION__: JSON.stringify(packageJson.version),
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

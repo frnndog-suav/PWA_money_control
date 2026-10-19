@@ -127,8 +127,8 @@ function BuildCard() {
       </Card.Title>
       <p className="text-xs text-slate-500">
         Lido do dist/ quando o scanner rodou (build de {formatInstant(build.builtAt)}). Procura
-        ArchitecturePage, module-graph, __dev e arquitetura em todos os .js/.css/.html do dist/,
-        inclusive o sw.js.
+        ArchitecturePage, module-graph, __dev, arquitetura, sampleData e SampleData (página DEV e
+        dados de exemplo — D-17, D-30) em todos os .js/.css/.html do dist/, inclusive o sw.js.
       </p>
       <Fields>
         <Fields.Item label="Service worker">
@@ -148,6 +148,13 @@ function BuildCard() {
             items={build.css.map(
               (sheet) => `${baseName(sheet.file)} · ${formatKilobytes(sheet.bytes)}`,
             )}
+          />
+        </Fields.Item>
+        <Fields.Item label="JS (maiores primeiro — RNF-02)">
+          <CodeList
+            items={build.js
+              .slice(0, 5)
+              .map((chunk) => `${baseName(chunk.file)} · ${formatKilobytes(chunk.bytes)}`)}
           />
         </Fields.Item>
         <Fields.Item label="Tamanho total do dist/">

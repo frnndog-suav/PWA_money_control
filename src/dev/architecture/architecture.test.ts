@@ -8,12 +8,14 @@ import {
   ARCHITECTURE_FINDINGS,
   DECISIONS,
   FLOWS,
+  FORBIDDEN_DEPENDENCIES,
   LAYERS,
   LOCAL_COMPONENT_ORIGINS,
   MODULE_NOTES,
   REQUIREMENTS,
   ROUTE_NOTES,
   SCREEN_COMPOSITION,
+  TABLE_NOTES,
 } from '@/dev/architecture/data/curated'
 import { TIMELINE } from '@/dev/architecture/data/timeline'
 import type { ModuleGraph } from '@/dev/architecture/types'
@@ -82,6 +84,33 @@ describe('integridade da página de arquitetura (§6.12)', () => {
         .map((p) => `${entry.id}: ${p}`),
     )
     expect(missing).toEqual([])
+  })
+
+  it('direções proibidas não têm regra de permissão nem aparecem no código de produção', () => {
+    const moduleOf = new Map(graph.modules.map((m) => [m.id, m]))
+    const contradictions = FORBIDDEN_DEPENDENCIES.filter((f) =>
+      ALLOWED_DEPENDENCIES.some((a) => a.from === f.from && a.to === f.to),
+    ).map((f) => `${f.from} → ${f.to}`)
+    expect(contradictions).toEqual([])
+
+    const offending = graph.edges.filter((e) => {
+      const from = moduleOf.get(e.from)
+      const to = moduleOf.get(e.to)
+      if (!from || !to || from.kinds.includes('test') || from.layer === 'test') return false
+      return FORBIDDEN_DEPENDENCIES.some((f) => f.from === from.layer && f.to === to.layer)
+    })
+    expect(offending.map((e) => `${e.from} → ${e.to}`)).toEqual([])
+  })
+
+  // D-22 — quitada na Fase 2: features → app não tem mais exceção.
+  it('features → app é proibida, sem exceção', () => {
+    expect(FORBIDDEN_DEPENDENCIES.some((f) => f.from === 'features' && f.to === 'app')).toBe(true)
+    expect(ALLOWED_DEPENDENCIES.some((a) => a.from === 'features' && a.to === 'app')).toBe(false)
+  })
+
+  it('toda tabela do esquema Dexie tem nota curada (e vice-versa)', () => {
+    const schemaTables = Object.keys(graph.schema?.versions.at(-1)?.stores ?? {}).sort()
+    expect(TABLE_NOTES.map((t) => t.name).sort()).toEqual(schemaTables)
   })
 
   it('toda rota implementada tem descrição curada', () => {
