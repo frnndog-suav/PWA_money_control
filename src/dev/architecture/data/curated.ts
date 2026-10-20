@@ -60,7 +60,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'UI',
     folder: 'src/components/ui',
     description:
-      'Primitivos genéricos sem conhecimento de domínio (Page, TabBar, NavList, BackLink, Notice, InfoList…).',
+      'Primitivos genéricos sem conhecimento de feature (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert e TagChip, que usa readableTextColor do domínio).',
     position: { x: 130, y: 330 },
   },
   {
@@ -68,7 +68,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Repositórios',
     folder: 'src/repositories',
     description:
-      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre.',
+      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError).',
     position: { x: 390, y: 330 },
   },
   {
@@ -100,7 +100,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Domínio',
     folder: 'src/domain',
     description:
-      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. recurring (Fase 9) e installments (Fase 10) ainda não existem.',
+      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. Fase 3: tags (toTagNameKey, paleta D-32, sortByTagName, isTagInUse, TAG_NAME_MAX_LENGTH — D-35) e tagSchema (zod, único módulo do domínio com pacote externo; separado para quem só precisa das funções puras não levar o zod). recurring (Fase 9) e installments (Fase 10) ainda não existem.',
     position: { x: 650, y: 450 },
   },
   {
@@ -108,7 +108,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Apoio a testes',
     folder: 'src/test',
     description:
-      'Setup do Vitest (fake-indexeddb, limpa as tabelas do Dexie entre testes), dublê de matchMedia, renderApp, fábricas de lançamentos, gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código).',
+      'Setup do Vitest (fake-indexeddb, limpa as tabelas do Dexie entre testes, findBy com 3 s — D-34), dublês de matchMedia e de <dialog> (dialog.ts — D-33), seedDatabase (prepara tabelas ainda sem repositório — D-34), renderApp, fábricas de lançamentos, gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código).',
     position: { x: 740, y: 112 },
   },
   {
@@ -193,10 +193,16 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'repositories',
     status: 'allowed',
     reason:
-      'Dados persistidos só por repositórios (§2.7). Fase 2: ThemeSection usa useTheme (D-22) e AboutPage lê SCHEMA_VERSION por databaseInfo.',
+      'Dados persistidos só por repositórios (§2.7). Fase 2: ThemeSection usa useTheme (D-22) e AboutPage lê SCHEMA_VERSION por databaseInfo. Fase 3: a tela de tags usa tagsRepository (hook da lista, create/update/delete, getTagUsage e as classes de erro).',
   },
   { from: 'features', to: 'stores', status: 'allowed', reason: 'Filtros e visões (§6.7).' },
-  { from: 'features', to: 'domain', status: 'allowed', reason: 'Regras puras e tipos.' },
+  {
+    from: 'features',
+    to: 'domain',
+    status: 'allowed',
+    reason:
+      'Regras puras e tipos. Fase 3: useTagForm usa tagInputSchema e a paleta; useTagsScreen usa isTagInUse; TagColorPicker usa a paleta e readableTextColor.',
+  },
   {
     from: 'features',
     to: 'lib',
@@ -258,13 +264,15 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     from: 'domain',
     to: 'domain',
     status: 'allowed',
-    reason: 'balances usa money (addCents) e dates; todos usam types.',
+    reason:
+      'balances usa money (addCents) e dates; tagSchema usa TAG_NAME_MAX_LENGTH de tags; todos usam types.',
   },
   {
     from: 'dev',
     to: 'domain',
     status: 'allowed',
-    reason: 'O gerador de dados de exemplo usa os tipos da §6.3 e addMonthsClamped/today.',
+    reason:
+      'O gerador de dados de exemplo usa os tipos da §6.3, addMonthsClamped/today e, desde a Fase 3, toTagNameKey (mesma chave das telas).',
   },
   {
     from: 'dev',
@@ -399,8 +407,20 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
   {
     route: '/ajustes/tags',
     screen: 'Tags',
-    requirements: ['RF-03'],
-    description: 'Placeholder com Voltar. CRUD de tags na Fase 3.',
+    requirements: [
+      'RF-03',
+      'CA-03.1',
+      'CA-03.2',
+      'CA-03.3',
+      'CA-03.4',
+      'CA-03.5',
+      'CA-03.6',
+      'D-02',
+      'D-32',
+      'D-33',
+    ],
+    description:
+      'Fase 3: TagsPage com "Nova tag", lista ao vivo (TagList: TagChip com wrap + "N lançamentos", ordenada por nome — CA-03.5) ou EmptyState; tocar numa tag abre o modal de edição. Três modais <dialog> nativos (Modal — D-33), não rotas (§6.6): TagFormDialog (criar/editar com TagForm, paleta de 12 cores + seletor livre — D-32), ConfirmDeleteTagDialog (CA-03.3) e DeleteTagBlockedDialog com as contagens (CA-03.2, D-02). Estado da tela em useTagsScreen (dialog, pendingStep, deleteError); dados por useTagsWithTransactionCount (useLiveQuery). Tabelas: tags (leitura e escrita); transactions, recurrings e installmentGroups só contadas (uso da tag).',
     contentPhase: 3,
   },
   {
@@ -501,6 +521,54 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
     component: 'InstallHint',
     note: 'Notice subtle sem ação nem botão de fechar (D-23); devolve null no modo instalado (useIsStandalone).',
   },
+  {
+    component: 'Modal',
+    note: 'Compound component (Fase 3, D-33): <dialog> nativo aberto com showModal() por um useEffect que segue a prop open; title obrigatória (h2 + aria-labelledby sempre renderizado); Esc (onCancel) chama onClose e quem usa decide fechar. Slots Modal.Body (coluna com gap) e Modal.Actions (botões em largura total no celular, ação principal em cima — flex-col-reverse). Os children só existem enquanto aberto: cada abertura começa do zero. Altura limitada por max-h-dialog (safe areas).',
+  },
+  {
+    component: 'Button',
+    note: 'Primitivo (Fase 3): variantes primary, secondary, danger e danger-outline; type="button" por padrão; alvo ≥ 44 px.',
+  },
+  {
+    component: 'EmptyState',
+    note: 'Primitivo (Fase 3): <p> centralizado com borda tracejada para lista vazia. Na tela de tags só é montado depois que a consulta respondeu (items?.length === 0), para não piscar.',
+  },
+  {
+    component: 'ErrorAlert',
+    note: 'Primitivo (Fase 3): role="alert" com o texto em pt-BR; usado no rodapé do TagForm (erro root e slot notice) e no ConfirmDeleteTagDialog.',
+  },
+  {
+    component: 'TagChip',
+    note: 'Primitivo (Fase 3, CA-03.6): fundo na cor da tag, texto preto/branco por readableTextColor (domain/tagColor), contorno leve para cores parecidas com o fundo. overflow truncate (padrão, uma linha) ou wrap (nome inteiro, wrap-anywhere) — a tela de tags usa wrap na lista e na prévia.',
+  },
+  {
+    component: 'TagFormDialog',
+    note: 'Modal com título "Nova tag" ou "Editar tag" envolvendo o TagForm (key = id da tag, para recriar o formulário ao trocar de tag). Injeta no TagForm o botão "Excluir tag" (extraAction, desabilitado em checking-usage) e o ErrorAlert de falha ao conferir o uso (notice).',
+  },
+  {
+    component: 'TagForm',
+    note: 'Conteúdo do modal (<form className="contents">): Modal.Body com Nome (register), Controller → TagColorPicker, prévia TagChip (useWatch) e ErrorAlert do erro root + slot notice; Modal.Actions com extraAction | Cancelar | Salvar. Estado do formulário em useTagForm (React Hook Form + zodResolver).',
+  },
+  {
+    component: 'TagColorPicker',
+    note: 'Controlado (value/onChange via Controller): fieldset com 12 rádios nativos (sr-only + bolinha de 44 px, peer-checked) da paleta D-32 e <input type="color"> livre; a cor escolhida também aparece em texto (RNF-06).',
+  },
+  {
+    component: 'TagList',
+    note: 'Lista <ul> de botões (≥ 44 px): TagChip wrap + formatTransactionCount + ›. Sem estado; onSelect abre a edição.',
+  },
+  {
+    component: 'ConfirmDeleteTagDialog',
+    note: 'Modal "Excluir tag?" (CA-03.3): aberto quando tag ≠ null; ErrorAlert de falha ao excluir; "Excluir" (danger) desabilitado durante deleting.',
+  },
+  {
+    component: 'DeleteTagBlockedDialog',
+    note: 'Modal "Não é possível excluir" (CA-03.2, D-02): contagens por formatTagUsage ("3 lançamentos, 1 recorrente e 2 parcelamentos"); só o botão "Entendi".',
+  },
+  {
+    component: 'Controller',
+    note: 'Do react-hook-form: liga o campo color ao TagColorPicker controlado.',
+  },
 ]
 
 /** Componentes locais (não importados) e o módulo de onde vêm. */
@@ -525,6 +593,11 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
     route: '/ajustes/sobre',
     stateAndData:
       'Estado local em useStorageStatus ({ isLoading } até as duas consultas responderem), textos em storageStatusTexts. APP_VERSION e SCHEMA_VERSION são constantes de módulo. Nenhum useLiveQuery: a tela não lê tabelas. Em DEV, SampleDataTools tem estado próprio (useSampleDataTools).',
+  },
+  {
+    route: '/ajustes/tags',
+    stateAndData:
+      'Dados: useTagsWithTransactionCount (src/repositories/tagsRepository.ts, useLiveQuery) — undefined enquanto carrega (nada na tela), [] → EmptyState, senão TagList; criar/editar/excluir re-emitem a consulta e a lista atualiza sozinha. Estado da tela em useTagsScreen: dialog (closed | create | edit | confirm-delete | delete-blocked, uma união discriminada que decide qual Modal está aberto), pendingStep (checking-usage | deleting | null, desabilita o botão que disparou) e deleteError (mensagem em pt-BR no modal aberto). Estado do formulário em useTagForm (useForm + zodResolver(tagInputSchema), valores padrão da tag ou 1ª cor da paleta — D-32); erros de campo e root ficam no formState.',
   },
   {
     route: '/',
@@ -1930,16 +2003,466 @@ export const FLOWS: readonly Flow[] = [
       'src/dev/sampleData/sampleDataStore.test.ts',
     ],
   },
+  {
+    id: 'tag-create',
+    title: 'Criar tag (nome único — CA-03.4)',
+    summary:
+      '"Nova tag" abre o TagFormDialog; useTagForm valida com zodResolver(tagInputSchema) (nome 1–30 em UTF-16 — D-35, cor #RRGGBB em maiúsculas — D-32) e chama createTag, que calcula o nameKey (toTagNameKey) e grava com db.tags.add. Não há leitura prévia: o índice único &nameKey é a única checagem, e a ConstraintError vira DuplicateTagNameError, mostrada abaixo do campo Nome. Sucesso fecha o modal e o useLiveQuery atualiza a lista.',
+    requirements: ['RF-03', 'CA-03.1', 'CA-03.4', 'CA-03.6', 'D-32', 'D-33', 'D-35'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      { id: 'page', label: 'TagsPage', module: 'src/features/tags/TagsPage.tsx' },
+      { id: 'screen', label: 'useTagsScreen', module: 'src/features/tags/useTagsScreen.ts' },
+      { id: 'dialog', label: 'TagFormDialog', module: 'src/features/tags/TagFormDialog.tsx' },
+      { id: 'form', label: 'TagForm', module: 'src/features/tags/TagForm.tsx' },
+      { id: 'formHook', label: 'useTagForm', module: 'src/features/tags/useTagForm.ts' },
+      { id: 'schema', label: 'tagInputSchema (zod)', module: 'src/domain/tagSchema.ts' },
+      { id: 'repo', label: 'tagsRepository', module: 'src/repositories/tagsRepository.ts' },
+      { id: 'tags', label: 'domain/tags', module: 'src/domain/tags.ts' },
+      { id: 'dexie', label: 'Dexie: tags', module: 'src/db/database.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'page',
+        label: 'toca "Nova tag"',
+        detail: 'Button primary no Page.Body.',
+        refs: ['RF-03'],
+        kind: 'event',
+      },
+      {
+        from: 'page',
+        to: 'screen',
+        label: 'openCreate()',
+        detail: "dialog = { kind: 'create' }; limpa deleteError.",
+        refs: [],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'dialog',
+        label: 'open, tag = undefined',
+        detail:
+          'Modal "Nova tag" (showModal — D-33). TagForm com key "new": valores padrão nome vazio e a 1ª cor da paleta (Vermelho #DC2626 — D-32).',
+        refs: ['D-32', 'D-33'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'form',
+        label: 'digita o nome, escolhe a cor, Salvar',
+        detail:
+          'Rádio da paleta ou <input type="color"> pelo Controller; a prévia TagChip (wrap) acompanha por useWatch, com texto legível pela luminância (CA-03.6).',
+        refs: ['CA-03.6'],
+        kind: 'event',
+      },
+      {
+        from: 'form',
+        to: 'formHook',
+        label: 'submit (handleSubmit)',
+        detail: 'Salvar fica desabilitado enquanto isSubmitting.',
+        refs: [],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'schema',
+        label: 'zodResolver(tagInputSchema)',
+        detail:
+          'trim; "Informe o nome da tag" se vazio; máximo de 30 unidades UTF-16 (D-35); cor #RRGGBB → maiúsculas. Erro de validação para aqui, abaixo do campo.',
+        refs: ['RF-03', 'D-35'],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'repo',
+        label: 'createTag(values)',
+        detail: 'Sem tag em edição → criar.',
+        refs: ['CA-03.1'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'tags',
+        label: 'toTagNameKey(name)',
+        detail:
+          'O repositório revalida com tagInputSchema.parse e calcula nameKey: NFD, remove \\p{M}, minúsculas, trim no fim ("Mércado " → "mercado").',
+        refs: ['CA-03.4'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: 'tags.add({ id: randomUUID, … })',
+        detail: 'createdAt = updatedAt = agora. Uma única escrita, sem leitura prévia.',
+        refs: ['CA-03.1'],
+        kind: 'call',
+      },
+      {
+        from: 'dexie',
+        to: 'repo',
+        label: 'ConstraintError (&nameKey)',
+        detail:
+          'Nome repetido, inclusive com outra caixa/acentos ou gravado por outra aba ao mesmo tempo. isUniqueConstraintError olha error.name e error.inner.',
+        refs: ['CA-03.4'],
+        kind: 'return',
+      },
+      {
+        from: 'repo',
+        to: 'formHook',
+        label: 'throw DuplicateTagNameError',
+        detail:
+          'setError("name", "Já existe uma tag com esse nome", shouldFocus). Outras falhas viram erro root "Não foi possível salvar a tag. Tente de novo." (ErrorAlert).',
+        refs: ['CA-03.4'],
+        kind: 'return',
+      },
+      {
+        from: 'formHook',
+        to: 'dialog',
+        label: 'onSaved() → close',
+        detail: 'No sucesso o modal fecha (dialog = closed).',
+        refs: [],
+        kind: 'return',
+      },
+      {
+        from: 'dexie',
+        to: 'page',
+        label: 'liveQuery re-emite a lista',
+        detail:
+          'useTagsWithTransactionCount entrega a nova lista ordenada por nome; a tag aparece com "Nenhum lançamento".',
+        refs: ['CA-03.5'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/tags/TagsPage.test.tsx',
+      'src/features/tags/TagsPage.errors.test.tsx',
+      'src/repositories/tagsRepository.test.ts',
+      'src/domain/tags.test.ts',
+      'src/domain/tagSchema.test.ts',
+      'src/components/ui/TagChip.test.tsx',
+      'src/components/ui/Modal.test.tsx',
+    ],
+  },
+  {
+    id: 'tag-edit',
+    title: 'Editar tag (renomear e trocar a cor — CA-03.1)',
+    summary:
+      'Tocar numa tag da lista abre o modal "Editar tag" com os valores dela. Salvar chama updateTag, que lê e grava numa transação rw (get → put): se a tag sumiu (outra aba), TagNotFoundError; nome igual ao de outra tag, DuplicateTagNameError. Os lançamentos guardam só o tagId, então a mudança aparece em todas as telas.',
+    requirements: ['RF-03', 'CA-03.1', 'CA-03.4'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      { id: 'list', label: 'TagList', module: 'src/features/tags/TagList.tsx' },
+      { id: 'screen', label: 'useTagsScreen', module: 'src/features/tags/useTagsScreen.ts' },
+      { id: 'dialog', label: 'TagFormDialog', module: 'src/features/tags/TagFormDialog.tsx' },
+      { id: 'formHook', label: 'useTagForm', module: 'src/features/tags/useTagForm.ts' },
+      { id: 'repo', label: 'tagsRepository', module: 'src/repositories/tagsRepository.ts' },
+      { id: 'dexie', label: 'Dexie: tags', module: 'src/db/database.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'list',
+        label: 'toca na tag',
+        detail: 'Linha inteira é um botão (≥ 44 px).',
+        refs: [],
+        kind: 'event',
+      },
+      {
+        from: 'list',
+        to: 'screen',
+        label: 'onSelect → openEdit(tag)',
+        detail: "dialog = { kind: 'edit', tag }.",
+        refs: [],
+        kind: 'call',
+      },
+      {
+        from: 'screen',
+        to: 'dialog',
+        label: 'Modal "Editar tag"',
+        detail:
+          'TagForm com key = tag.id (trocar de tag recria o formulário) e o botão "Excluir tag" como extraAction.',
+        refs: ['D-33'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'formHook',
+        label: 'altera nome/cor, Salvar',
+        detail: 'Mesma validação do criar (zodResolver).',
+        refs: ['CA-03.1'],
+        kind: 'event',
+      },
+      {
+        from: 'formHook',
+        to: 'repo',
+        label: 'updateTag(id, values)',
+        detail: 'Revalida e recalcula nameKey antes da transação.',
+        refs: ['CA-03.1'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', tags): get → put",
+        detail:
+          'Sem registro → TagNotFoundError ("Esta tag não existe mais."). Mantém id e createdAt; novo updatedAt. Renomear "Lazer" para "LAZER" é permitido (mesmo registro com o mesmo nameKey).',
+        refs: ['CA-03.1'],
+        kind: 'call',
+      },
+      {
+        from: 'dexie',
+        to: 'repo',
+        label: 'ConstraintError → DuplicateTagNameError',
+        detail: 'Nome de outra tag: erro abaixo do campo Nome (CA-03.4).',
+        refs: ['CA-03.4'],
+        kind: 'return',
+      },
+      {
+        from: 'dexie',
+        to: 'list',
+        label: 'liveQuery re-emite',
+        detail: 'A lista reordena pelo nome novo e o chip troca de cor; o modal fecha (onSaved).',
+        refs: ['CA-03.1', 'CA-03.5'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/tags/TagsPage.test.tsx',
+      'src/features/tags/TagsPage.errors.test.tsx',
+      'src/repositories/tagsRepository.test.ts',
+    ],
+  },
+  {
+    id: 'tag-delete',
+    title: 'Excluir tag com bloqueio por uso (D-02)',
+    summary:
+      '"Excluir tag" no modal de edição confere o uso antes de pedir confirmação (getTagUsage): em uso → aviso de bloqueio com as contagens; sem uso → confirmação. Confirmar chama deleteTag, que reconta e exclui na mesma transação rw sobre as 4 tabelas (algo pode ter passado a usar a tag no meio do caminho) e devolve deleted ou in-use. pendingStep desabilita o botão que disparou a operação; falhas do IndexedDB aparecem como ErrorAlert em pt-BR no modal aberto.',
+    requirements: ['RF-03', 'CA-03.2', 'CA-03.3', 'D-02', 'D-33'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      { id: 'dialog', label: 'TagFormDialog', module: 'src/features/tags/TagFormDialog.tsx' },
+      { id: 'screen', label: 'useTagsScreen', module: 'src/features/tags/useTagsScreen.ts' },
+      { id: 'repo', label: 'tagsRepository', module: 'src/repositories/tagsRepository.ts' },
+      { id: 'tags', label: 'domain/tags', module: 'src/domain/tags.ts' },
+      { id: 'dexie', label: 'Dexie: 4 tabelas', module: 'src/db/database.ts' },
+      {
+        id: 'blocked',
+        label: 'DeleteTagBlockedDialog',
+        module: 'src/features/tags/DeleteTagBlockedDialog.tsx',
+      },
+      {
+        id: 'confirm',
+        label: 'ConfirmDeleteTagDialog',
+        module: 'src/features/tags/ConfirmDeleteTagDialog.tsx',
+      },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'dialog',
+        label: 'toca "Excluir tag"',
+        detail: 'Button danger-outline, só na edição.',
+        refs: ['CA-03.3'],
+        kind: 'event',
+      },
+      {
+        from: 'dialog',
+        to: 'screen',
+        label: 'requestDelete(tag)',
+        detail:
+          "pendingStep = 'checking-usage': o botão fica desabilitado (isCheckingUsage) até a resposta.",
+        refs: ['D-33'],
+        kind: 'call',
+      },
+      {
+        from: 'screen',
+        to: 'repo',
+        label: 'getTagUsage(id)',
+        detail: 'Três contagens em paralelo (Promise.all).',
+        refs: ['D-02'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transactions.where('tagId').count() + filter().count() ×2",
+        detail:
+          'transactions pelo índice tagId (IDBIndex.count); recurrings e installmentGroups não têm índice tagId na v1 (§6.4) e usam filter — tabelas pequenas.',
+        refs: ['D-02'],
+        kind: 'call',
+      },
+      {
+        from: 'screen',
+        to: 'tags',
+        label: 'isTagInUse(usage)',
+        detail: 'Soma das três contagens > 0.',
+        refs: ['CA-03.2'],
+        kind: 'call',
+      },
+      {
+        from: 'screen',
+        to: 'blocked',
+        label: 'em uso → "Não é possível excluir"',
+        detail:
+          'formatTagUsage: "3 lançamentos, 1 recorrente e 2 parcelamentos" (só o que for > 0, Intl.ListFormat). Só "Entendi".',
+        refs: ['CA-03.2', 'D-02'],
+        kind: 'call',
+      },
+      {
+        from: 'screen',
+        to: 'confirm',
+        label: 'sem uso → "Excluir tag?"',
+        detail: 'O modal de edição fecha e abre a confirmação.',
+        refs: ['CA-03.3'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'confirm',
+        label: 'toca "Excluir"',
+        detail: "confirmDelete(tag); pendingStep = 'deleting' desabilita o botão (isDeleting).",
+        refs: ['CA-03.3'],
+        kind: 'event',
+      },
+      {
+        from: 'screen',
+        to: 'repo',
+        label: 'deleteTag(id)',
+        detail: 'Resultado { status: deleted } ou { status: in-use, usage }.',
+        refs: ['CA-03.3', 'D-02'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', 4 tabelas): conta → delete",
+        detail:
+          'tags, transactions, recurrings e installmentGroups na mesma transação (princípio 8): nada passa a usar a tag entre a contagem e a exclusão.',
+        refs: ['D-02'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'screen',
+        label: 'deleted → closed | in-use → bloqueio',
+        detail:
+          'deleted: fecha o modal e a lista ao vivo perde a tag. in-use: abre o DeleteTagBlockedDialog com as contagens novas.',
+        refs: ['CA-03.2', 'CA-03.3'],
+        kind: 'return',
+      },
+      {
+        from: 'screen',
+        to: 'confirm',
+        label: 'falha → deleteError',
+        detail:
+          'Erro do IndexedDB ao conferir ("Não foi possível verificar se a tag está em uso. Tente de novo.", no TagFormDialog via notice) ou ao excluir ("Não foi possível excluir a tag. Tente de novo."): ErrorAlert com role="alert" no modal aberto; pendingStep volta a null.',
+        refs: ['D-33'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/tags/TagsPage.test.tsx',
+      'src/features/tags/TagsPage.errors.test.tsx',
+      'src/repositories/tagsRepository.test.ts',
+      'src/features/tags/tagTexts.test.ts',
+      'src/domain/tags.test.ts',
+    ],
+  },
+  {
+    id: 'tag-list',
+    title: 'Lista de tags com contagem de lançamentos (CA-03.5)',
+    summary:
+      'A tela lê a lista ao vivo: useTagsWithTransactionCount → listTagsWithTransactionCount lê todas as tags, conta os lançamentos de cada uma pelo índice tagId (sem ler os lançamentos — RNF-02) e ordena por nome com Intl.Collator pt-BR (sortByTagName). Qualquer escrita nas tabelas tags ou transactions re-emite a consulta.',
+    requirements: ['RF-03', 'CA-03.5', 'CA-03.6', 'RNF-02'],
+    participants: [
+      { id: 'page', label: 'TagsPage', module: 'src/features/tags/TagsPage.tsx' },
+      { id: 'repo', label: 'tagsRepository', module: 'src/repositories/tagsRepository.ts' },
+      { id: 'dexie', label: 'Dexie: tags + transactions', module: 'src/db/database.ts' },
+      { id: 'tags', label: 'domain/tags', module: 'src/domain/tags.ts' },
+      { id: 'list', label: 'TagList', module: 'src/features/tags/TagList.tsx' },
+      { id: 'texts', label: 'tagTexts', module: 'src/features/tags/tagTexts.ts' },
+      { id: 'chip', label: 'TagChip', module: 'src/components/ui/TagChip.tsx' },
+    ],
+    steps: [
+      {
+        from: 'page',
+        to: 'repo',
+        label: 'useTagsWithTransactionCount()',
+        detail: 'useLiveQuery(listTagsWithTransactionCount); undefined enquanto carrega.',
+        refs: ['CA-03.5'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: 'tags.toArray()',
+        detail: 'Tabela pequena, lida inteira.',
+        refs: ['CA-03.5'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transactions.where('tagId').equals(id).count() por tag",
+        detail: 'IDBIndex.count, em paralelo; continua rápido com 10.000 lançamentos (RNF-02).',
+        refs: ['CA-03.5', 'RNF-02'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'tags',
+        label: 'sortByTagName(items)',
+        detail:
+          'Intl.Collator("pt-BR", sensitivity base, numeric): "Água" entre "Academia" e "Banco"; nova lista (toSorted).',
+        refs: ['CA-03.5'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'page',
+        label: 'TagWithTransactionCount[]',
+        detail: '[] → EmptyState; senão TagList.',
+        refs: ['CA-03.5'],
+        kind: 'return',
+      },
+      {
+        from: 'page',
+        to: 'list',
+        label: 'items, onSelect = openEdit',
+        detail: 'Uma linha por tag.',
+        refs: [],
+        kind: 'call',
+      },
+      {
+        from: 'list',
+        to: 'chip',
+        label: 'TagChip overflow="wrap"',
+        detail:
+          'Nome inteiro (até 30 letras sem espaço quebram em 375 px) e texto legível (CA-03.6).',
+        refs: ['CA-03.6'],
+        kind: 'call',
+      },
+      {
+        from: 'list',
+        to: 'texts',
+        label: 'formatTransactionCount(n)',
+        detail: '"Nenhum lançamento", "1 lançamento", "5.000 lançamentos".',
+        refs: ['CA-03.5'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/tags/TagsPage.test.tsx',
+      'src/repositories/tagsRepository.test.ts',
+      'src/features/tags/tagTexts.test.ts',
+      'src/components/ui/TagChip.test.tsx',
+    ],
+  },
 ]
 
 /** Fluxos exigidos pela §6.12 que ainda não existem no código. */
 export const PLANNED_FLOWS: readonly PlannedFlow[] = [
-  {
-    title: 'Criar/editar/excluir tag (com bloqueio)',
-    phase: 3,
-    requirements: ['RF-03', 'D-02'],
-    summary: 'Formulário → repositório de tags (nameKey único) → bloqueio se houver uso.',
-  },
   {
     title: 'Lançar transação',
     phase: 4,
@@ -2006,28 +2529,28 @@ export const TABLE_NOTES: readonly TableNote[] = [
     type: 'Tag',
     inBackup: 'sim',
     usedFromPhase: 3,
-    note: 'Sem repositório de produção até a Fase 3. Hoje só as ferramentas DEV gravam (sampleDataStore, com o db passado por useSampleDataTools — D-30). &nameKey garante nome único (CA-03.4).',
+    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). &nameKey (toTagNameKey: NFD, sem marcas \\p{M}, minúsculas, trim) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags).',
   },
   {
     name: 'transactions',
     type: 'Transaction',
     inBackup: 'sim',
     usedFromPhase: 4,
-    note: 'Sem repositório de produção até a Fase 4. Hoje só as ferramentas DEV gravam (5.000 lançamentos de exemplo — D-30). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9).',
+    note: 'Sem repositório de escrita até a Fase 4. Desde a Fase 3 o tagsRepository lê, só contando por tag com o índice tagId (where("tagId").equals(id).count()) na lista (CA-03.5) e no bloqueio de exclusão (D-02). Hoje só as ferramentas DEV gravam (5.000 lançamentos de exemplo — D-30) e, nos testes de tela, src/test/seedDatabase.ts (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9).',
   },
   {
     name: 'recurrings',
     type: 'Recurring',
     inBackup: 'sim',
     usedFromPhase: 9,
-    note: 'Sem repositório de produção até a Fase 9. Hoje só as ferramentas DEV gravam (4 recorrentes — D-30).',
+    note: 'Sem repositório de escrita até a Fase 9. Desde a Fase 3 o tagsRepository conta os recorrentes de uma tag com filter().count() (sem índice tagId na v1 — §6.4; tabela pequena) para o bloqueio de exclusão (D-02). Hoje só as ferramentas DEV gravam (4 recorrentes — D-30) e src/test/seedDatabase.ts nos testes.',
   },
   {
     name: 'installmentGroups',
     type: 'InstallmentGroup',
     inBackup: 'sim',
     usedFromPhase: 10,
-    note: 'Sem repositório de produção até a Fase 10. Hoje só as ferramentas DEV gravam (3 parcelamentos — D-30).',
+    note: 'Sem repositório de escrita até a Fase 10. Desde a Fase 3 o tagsRepository conta os parcelamentos de uma tag com filter().count() (sem índice tagId na v1 — §6.4) para o bloqueio de exclusão (D-02). Hoje só as ferramentas DEV gravam (3 parcelamentos — D-30) e src/test/seedDatabase.ts nos testes.',
   },
   {
     name: 'settings',
@@ -2103,7 +2626,17 @@ export const REQUIREMENTS: readonly RequirementInfo[] = [
 
 export const DECISIONS: readonly DecisionInfo[] = [
   { id: 'D-01', title: 'Exatamente uma tag por lançamento', status: 'confirmed', impacts: [] },
-  { id: 'D-02', title: 'Tag em uso não pode ser excluída', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-02',
+    title: 'Tag em uso não pode ser excluída',
+    status: 'confirmed',
+    impacts: [
+      'src/repositories/tagsRepository.ts',
+      'src/domain/tags.ts',
+      'src/features/tags/useTagsScreen.ts',
+      'src/features/tags/DeleteTagBlockedDialog.tsx',
+    ],
+  },
   { id: 'D-03', title: 'Saldo geral só com data ≤ hoje', status: 'confirmed', impacts: [] },
   { id: 'D-04', title: 'Recorrentes mensais, sem dia fixo', status: 'confirmed', impacts: [] },
   { id: 'D-05', title: 'Pendências só no Previsto', status: 'confirmed', impacts: [] },
@@ -2256,6 +2789,48 @@ export const DECISIONS: readonly DecisionInfo[] = [
     status: 'confirmed',
     impacts: ['src/domain/money.ts', 'src/domain/money.test.ts', 'src/domain/balances.test.ts'],
   },
+  {
+    id: 'D-32',
+    title:
+      'Paleta de 12 cores sugeridas das tags; cor gravada em maiúsculas; tag nova com a 1ª cor',
+    status: 'confirmed',
+    impacts: [
+      'src/domain/tags.ts',
+      'src/domain/tagSchema.ts',
+      'src/features/tags/TagColorPicker.tsx',
+      'src/features/tags/useTagForm.ts',
+      'src/domain/tags.test.ts',
+    ],
+  },
+  {
+    id: 'D-33',
+    title:
+      'Modais com <dialog> nativo (Modal com title obrigatória); conferir uso antes de confirmar; erros em pt-BR',
+    status: 'confirmed',
+    impacts: [
+      'src/components/ui/Modal.tsx',
+      'src/test/dialog.ts',
+      'src/test/setup.ts',
+      'src/features/tags/useTagsScreen.ts',
+      'src/features/tags/TagFormDialog.tsx',
+      'src/features/tags/ConfirmDeleteTagDialog.tsx',
+      'src/features/tags/DeleteTagBlockedDialog.tsx',
+      'src/styles/utilities.css',
+    ],
+  },
+  {
+    id: 'D-34',
+    title:
+      'Versões da Fase 3 (@hookform/resolvers 5.9.2), findBy com 3 s e seedDatabase nos testes de tela',
+    status: 'confirmed',
+    impacts: ['package.json', 'src/test/setup.ts', 'src/test/seedDatabase.ts'],
+  },
+  {
+    id: 'D-35',
+    title: 'Limite de 30 caracteres do nome da tag contado em unidades UTF-16',
+    status: 'confirmed',
+    impacts: ['src/domain/tags.ts', 'src/domain/tagSchema.ts', 'src/domain/tagSchema.test.ts'],
+  },
 ]
 
 // ---------- dependências externas ----------
@@ -2370,11 +2945,95 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     ],
   },
   {
-    title: 'Domínio pronto antes das telas: balances e tagColor sem uso em produção',
+    title: 'Pendente (dono): teste manual da Fase 3 (tags)',
+    severity: 'warn',
+    detail:
+      'Fase 3 implementada, revisada e aprovada, com 612 testes automáticos passando; falta o roteiro de teste manual da §7 (criar "Mercado", "Salário" e "Lazer"; tentar "mercado" → "Já existe uma tag com esse nome"; renomear "Lazer" para "Diversão" e trocar a cor; excluir "Diversão"). O bloqueio por uso só pode ser testado à mão na Fase 4 (ou com os dados de exemplo DEV). Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'src/features/tags/TagsPage.tsx',
+      'src/repositories/tagsRepository.ts',
+      'src/components/ui/Modal.tsx',
+    ],
+  },
+  {
+    title: 'D-32, D-33 e D-34 aguardavam confirmação do dono',
+    severity: 'warn',
+    detail:
+      'Registradas na §8.1 durante a Fase 3 (spec 1.11): paleta de 12 cores e cor em maiúsculas (D-32), modais com <dialog> nativo e conferência de uso antes da confirmação (D-33), versões dos pacotes da Fase 3, findBy de 3 s e seedDatabase (D-34).',
+    modules: [
+      'docs/SPEC.md',
+      'src/domain/tags.ts',
+      'src/components/ui/Modal.tsx',
+      'src/test/setup.ts',
+      'src/test/seedDatabase.ts',
+    ],
+    resolved: 'Confirmadas pelo dono em 20/10/2026 (spec 1.12, §8.1).',
+  },
+  {
+    title: 'Limite de 30 caracteres do nome da tag: unidades UTF-16 ou grafemas?',
+    severity: 'warn',
+    detail:
+      'O RF-03 fala em "1 a 30 caracteres", mas o .max(30) do Zod conta unidades UTF-16 (String.length): um emoji simples conta como 2 e nomes com emoji passam do limite antes da hora. Apontado na revisão da Fase 3.',
+    modules: ['src/domain/tags.ts', 'src/domain/tagSchema.ts', 'src/domain/tagSchema.test.ts'],
+    resolved:
+      'Resolvido pela D-35 (confirmada pelo dono em 20/10/2026, spec 1.12): o limite é contado em unidades UTF-16; comentário em TAG_NAME_MAX_LENGTH (src/domain/tags.ts). Contar grafemas com Intl.Segmenter foi descartado.',
+  },
+  {
+    title: 'Domínio pronto antes das telas: balances sem uso em produção',
     severity: 'info',
     detail:
-      'src/domain/balances.ts e src/domain/tagColor.ts só são importados por testes (aparecem como órfãos na saúde) e formatBRL/digitsToCents ainda não têm tela. Esperado: a Fase 2 entrega o domínio e as telas que o usam vêm nas Fases 3 (TagChip), 4 (saldos, MoneyInput) e 7–8 (visões e gráficos).',
+      'src/domain/balances.ts só é importado por testes (aparece como órfão na saúde) e formatBRL/digitsToCents ainda não têm tela. Esperado: as telas que o usam vêm nas Fases 4 (saldos, MoneyInput) e 7–8 (visões e gráficos). src/domain/tagColor.ts deixou de ser órfão na Fase 3 (TagChip e TagColorPicker).',
     modules: ['src/domain/balances.ts', 'src/domain/tagColor.ts', 'src/domain/money.ts'],
+  },
+  {
+    title: 'Chunk da tela de tags com 136 kB (44 kB gzip) por causa do zod e do react-hook-form',
+    severity: 'info',
+    detail:
+      'No build da Fase 3, TagsPage-*.js tem 136,5 kB (43,7 kB gzip), quase tudo zod 4 + react-hook-form + @hookform/resolvers. Fica fora do pacote principal (a tela é lazy; index-*.js continua com 423,5 kB / 135,3 kB gzip). Na Fase 4 o formulário de lançamento usa os mesmos pacotes: conferir se o Vite os separa num chunk compartilhado e medir no iPhone (RNF-02, Fase 11).',
+    modules: [
+      'src/features/tags/TagsPage.tsx',
+      'src/domain/tagSchema.ts',
+      'src/features/tags/useTagForm.ts',
+      'src/app/lazyPages.tsx',
+    ],
+  },
+  {
+    title: 'recurrings e installmentGroups contados por varredura (sem índice tagId)',
+    severity: 'info',
+    detail:
+      'getTagUsage conta lançamentos pelo índice tagId, mas a v1 do esquema (§6.4) não indexa tagId em recurrings nem em installmentGroups, então usa filter().count(), que lê a tabela inteira. Aceitável porque são tabelas pequenas (dezenas de registros); se crescerem, um índice exigiria version(2) e SCHEMA_VERSION = 2 (mudança de spec).',
+    modules: ['src/repositories/tagsRepository.ts', 'src/db/database.ts'],
+  },
+  {
+    title: 'domain/tagSchema depende de um pacote externo (zod)',
+    severity: 'info',
+    detail:
+      'Único módulo de src/domain com import de pacote. O zod é puro (sem React, sem Dexie, sem DOM), então o princípio 6 continua valendo; o schema ficou fora de tags.ts na revisão da Fase 3 para quem só precisa de toTagNameKey (ex.: o gerador de dados DEV) não levar o zod junto. O repositório também valida com o mesmo schema (tagInputSchema.parse).',
+    modules: [
+      'src/domain/tagSchema.ts',
+      'src/domain/tags.ts',
+      'src/repositories/tagsRepository.ts',
+    ],
+  },
+  {
+    title: 'Primitivos novos sem teste próprio: Button, EmptyState e ErrorAlert',
+    severity: 'info',
+    detail:
+      'Componentes de poucas linhas, sem lógica além de classes e role="alert"; cobertos indiretamente por TagsPage.test.tsx e TagsPage.errors.test.tsx. Modal e TagChip têm testes próprios. O modo overflow="truncate" (padrão) do TagChip ainda não é usado por nenhuma tela: a tela de tags usa wrap; o truncate é previsto para listas apertadas (lançamentos, Fase 4/5).',
+    modules: [
+      'src/components/ui/Button.tsx',
+      'src/components/ui/EmptyState.tsx',
+      'src/components/ui/ErrorAlert.tsx',
+      'src/components/ui/TagChip.tsx',
+      'src/features/tags/TagsPage.errors.test.tsx',
+    ],
+  },
+  {
+    title: 'src/test/seedDatabase.ts acessa o db diretamente (só testes — D-34)',
+    severity: 'info',
+    detail:
+      'Os testes de tela não podem importar o Dexie (princípio 7), mas precisam de lançamentos, recorrentes e parcelamentos para testar o bloqueio por uso, e essas tabelas ainda não têm repositório. seedRecords grava numa transação e readAllTags confere o resultado. Deve encolher conforme os repositórios das Fases 4, 9 e 10 surgirem.',
+    modules: ['src/test/seedDatabase.ts', 'src/features/tags/TagsPage.test.tsx'],
   },
   {
     title: 'usePersistentStorageRequest sem teste próprio',
@@ -2552,7 +3211,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/displayMode.ts':
     'Regra pura do modo instalado + a constante da media query (reusada pelo dublê src/test/matchMedia.ts).',
   'src/styles/utilities.css':
-    'Variante dark e utilitários de safe area, compartilhados com a página DEV. Fase 1: pb-below-nav soma var(--update-notice-space, 0px); reserve-update-notice define esse espaço; bottom-above-nav posiciona o aviso logo acima da barra.',
+    'Variante dark e utilitários de safe area, compartilhados com a página DEV. Fase 1: pb-below-nav soma var(--update-notice-space, 0px); reserve-update-notice define esse espaço; bottom-above-nav posiciona o aviso logo acima da barra. Fase 3: max-h-dialog (100dvh menos 2rem e as safe areas de cima e de baixo) para o Modal.',
   'src/index.css':
     "Tailwind + utilities.css, @source not './dev'. Variáveis --bottom-nav-height e --update-notice-height (Fase 1) como fonte única das alturas.",
   'src/app/App.tsx':
@@ -2579,7 +3238,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/features/settings/ThemeSection.tsx':
     'Usa useTheme de src/repositories (D-22 quitada na Fase 2: nenhuma feature importa de src/app).',
   'src/test/setup.ts':
-    'fake-indexeddb/auto, dublê de matchMedia e limpeza de DOM/localStorage após cada teste; desde a Fase 1 reseta o uiStore (INITIAL_UI_STATE); desde a Fase 2 limpa todas as tabelas do Dexie numa transação, depois do cleanup() (gravações pendentes dos componentes terminam antes).',
+    'fake-indexeddb/auto, dublê de matchMedia e limpeza de DOM/localStorage após cada teste; desde a Fase 1 reseta o uiStore (INITIAL_UI_STATE); desde a Fase 2 limpa todas as tabelas do Dexie numa transação, depois do cleanup() (gravações pendentes dos componentes terminam antes). Fase 3: installDialogPolyfill() (src/test/dialog.ts — D-33) e configure({ asyncUtilTimeout: 3000 }) para o findBy (D-34); um mojibake num comentário foi corrigido no reforço dos testes.',
   'src/test/matchMedia.ts':
     'Dublê de window.matchMedia: esquema escuro controlável (com evento change) e, desde a Fase 1, o modo instalado (setDisplayModeStandalone).',
   'src/db/database.ts':
@@ -2593,7 +3252,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/domain/balances.ts':
     'totals, overallBalance (date ≤ hoje — D-03), groupByDay/Month/Tag (Map — D-29) e runningBalance. Ainda sem uso em produção (Fases 4, 7 e 8). Teste de propriedade em balances.properties.test.ts.',
   'src/domain/tagColor.ts':
-    'readableTextColor pela luminância relativa (WCAG) — será usado pelo TagChip na Fase 3.',
+    'readableTextColor pela luminância relativa (WCAG). Desde a Fase 3 usado pelo TagChip (CA-03.6) e pela paleta do TagColorPicker; tags.test.ts confere o contraste AA das 12 cores da D-32.',
   'src/repositories/settingsRepository.ts':
     'getSetting/setSetting e useSetting (useLiveQuery). Base de themeRepository; persistentStorageRepository usa o db direto porque precisa de transação com leitura e escrita.',
   'src/repositories/themeRepository.ts':
@@ -2625,7 +3284,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/ui/InfoList.tsx':
     'Compound component <dl> + InfoList.Item. Sem teste próprio: coberto por AboutPage.test.tsx.',
   'src/dev/sampleData/buildSampleData.ts':
-    'Função pura: semente + data de referência → 12 tags, 5.000 lançamentos em 36 meses, 4 recorrentes, 3 parcelamentos (D-30).',
+    'Função pura: semente + data de referência → 12 tags, 5.000 lançamentos em 36 meses, 4 recorrentes, 3 parcelamentos (D-30). Fase 3: o nameKey vem de toTagNameKey (src/domain/tags.ts), a mesma chave das telas; a cópia local toNameKey foi removida.',
   'src/dev/sampleData/sampleDataStore.ts':
     'replaceWithSampleData e clearAllData numa transação sobre as 4 tabelas de dados; mantém settings (D-30).',
   'src/dev/sampleData/useSampleDataTools.ts':
@@ -2634,9 +3293,49 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     "CSS próprio das ferramentas DEV: @import 'tailwindcss' source(none) + @source './' + utilities.css. Nada vai para o CSS de produção.",
   'src/test/themeReference.ts':
     'parseStoredThemePreference: referência da regra do script inline do index.html (veio de lib/theme na revisão da Fase 2).',
-  'src/test/factories.ts': 'makeTransaction, income e expense para os testes de domínio.',
+  'src/test/factories.ts':
+    'makeTransaction, income e expense (Fase 2); Fase 3: makeTag, makeRecurring e makeInstallmentGroup com um gerador de id compartilhado (nextId) e TIMESTAMP fixo.',
+  'src/test/dialog.ts':
+    'Fase 3 (D-33): installDialogPolyfill — o jsdom não tem showModal()/close(); o substituto só alterna o atributo open e dispara close. Foco preso e camada superior não são simulados.',
+  'src/test/seedDatabase.ts':
+    'Fase 3 (D-34): seedRecords (transactions, recurrings, installmentGroups numa transação) e readAllTags, para testes de tela que não podem importar o Dexie enquanto essas tabelas não têm repositório.',
   'src/test/propertyHelpers.ts':
     'Gerador com semente e utilitários de calendário para os testes de propriedade.',
+  'src/domain/tags.ts':
+    'Fase 3, sem dependência externa: toTagNameKey (NFD → remove \\p{M} → minúsculas → trim no fim, idempotente; sinais avulsos como ^ e ´ ficam), TAG_NAME_MAX_LENGTH = 30 em unidades UTF-16 (D-35), SUGGESTED_TAG_COLORS (12 cores com rótulo pt-BR — D-32), findSuggestedTagColor, sortByTagName (Intl.Collator pt-BR, base, numeric; toSorted), TagUsage e isTagInUse (D-02).',
+  'src/domain/tagSchema.ts':
+    'Fase 3: tagInputSchema (zod) — nome com trim, 1–30 (D-35), cor #RRGGBB transformada para maiúsculas (D-32); TagInput (z.input, o que a tela envia) e TagValues (z.output, o que é gravado). Separado de tags.ts para não levar o zod a quem só usa as funções puras.',
+  'src/repositories/tagsRepository.ts':
+    'Fase 3: createTag (add), updateTag (transação rw get → put), getTagUsage (índice tagId em transactions; filter() em recurrings e installmentGroups), deleteTag (transação rw sobre as 4 tabelas: reconta e exclui — D-02), listTagsWithTransactionCount + useTagsWithTransactionCount (useLiveQuery). ConstraintError do &nameKey → DuplicateTagNameError (sem leitura prévia: vale também para duas abas); TagNotFoundError na edição de tag apagada.',
+  'src/components/ui/Modal.tsx':
+    'Fase 3 (D-33): <dialog> nativo com showModal()/close() seguindo a prop open; title obrigatória (aria-labelledby); Esc → onClose; Modal.Body e Modal.Actions; children só enquanto aberto; max-h-dialog. Testado em Modal.test.tsx (com o polyfill de src/test/dialog.ts).',
+  'src/components/ui/TagChip.tsx':
+    'Fase 3 (CA-03.6): fundo na cor, texto de readableTextColor, contorno leve; overflow truncate (padrão) | wrap. A cor nunca é a única informação: o nome está sempre escrito (RNF-06).',
+  'src/components/ui/Button.tsx':
+    'Fase 3: variantes primary | secondary | danger | danger-outline, min-h-11, type="button" por padrão, disabled com opacidade. Sem teste próprio.',
+  'src/components/ui/EmptyState.tsx': 'Fase 3: <p> de lista vazia. Sem teste próprio.',
+  'src/components/ui/ErrorAlert.tsx':
+    'Fase 3: <p role="alert"> em vermelho, anunciado assim que aparece. Sem teste próprio.',
+  'src/features/tags/TagsPage.tsx':
+    'Tela /ajustes/tags (RF-03): compõe Page, Button, EmptyState/TagList e os três modais; lê a lista por useTagsWithTransactionCount e o estado da tela por useTagsScreen. Não toca no Dexie.',
+  'src/features/tags/useTagsScreen.ts':
+    'Estado da tela: dialog (união discriminada TagsDialog), pendingStep (checking-usage | deleting | null) e deleteError. requestDelete confere o uso antes da confirmação; confirmDelete trata deleted/in-use; falhas viram mensagens de tagTexts.',
+  'src/features/tags/useTagForm.ts':
+    'useForm<TagInput, unknown, TagValues> com zodResolver(tagInputSchema); padrão = valores da tag ou a 1ª cor da paleta (D-32). DuplicateTagNameError → erro no campo name (CA-03.4); TagNotFoundError/outras → erro root.',
+  'src/features/tags/TagForm.tsx':
+    'Campos (Nome, Controller → TagColorPicker), prévia TagChip wrap (useWatch) e ações em Modal.Body/Modal.Actions; slots extraAction e notice.',
+  'src/features/tags/TagFormDialog.tsx':
+    'Modal "Nova tag"/"Editar tag" com TagForm (key = id); injeta "Excluir tag" e o ErrorAlert de falha ao conferir o uso.',
+  'src/features/tags/TagColorPicker.tsx':
+    'Paleta D-32 com rádios nativos (setas do teclado, estado anunciado) + <input type="color">; mostra a cor escolhida em texto (RNF-06).',
+  'src/features/tags/TagList.tsx':
+    'Lista com TagChip wrap + formatTransactionCount; cada linha é um botão que abre a edição (CA-03.5).',
+  'src/features/tags/ConfirmDeleteTagDialog.tsx':
+    'Confirmação "Excluir tag?" (CA-03.3) com ErrorAlert e "Excluir" desabilitado durante a exclusão.',
+  'src/features/tags/DeleteTagBlockedDialog.tsx':
+    'Aviso de bloqueio com as contagens por tipo de registro (CA-03.2, D-02).',
+  'src/features/tags/tagTexts.ts':
+    'Textos pt-BR da tela (nome repetido, falhas ao salvar/conferir/excluir, tag inexistente), formatTransactionCount e formatTagUsage (Intl.NumberFormat e Intl.ListFormat pt-BR).',
   'src/dev/architecture/model.ts':
     'Importa o JSON gerado e expõe graph/moduleById e filtros comuns. Os índices derivados ficam em layers.ts, composition.ts, traceability.ts, health.ts e search.ts, todos calculados uma vez no carregamento.',
 }

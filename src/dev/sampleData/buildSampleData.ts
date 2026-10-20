@@ -1,5 +1,6 @@
 import { addDays, differenceInCalendarDays, format, parseISO } from 'date-fns'
 import { addMonthsClamped } from '@/domain/dates'
+import { toTagNameKey } from '@/domain/tags'
 import type { DateString, InstallmentGroup, Recurring, Tag, Transaction } from '@/domain/types'
 import { SAMPLE_TAGS } from '@/dev/sampleData/sampleCatalog'
 import { tagIdOf, timestampOf, type SampleContext } from '@/dev/sampleData/sampleContext'
@@ -22,20 +23,11 @@ export interface SampleData {
   installmentGroups: InstallmentGroup[]
 }
 
-/** Mesmo critério das telas (RF-03): minúsculas, sem acentos, sem espaços nas pontas. */
-function toNameKey(name: string): string {
-  return name
-    .trim()
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '')
-}
-
 function buildTags(context: Pick<SampleContext, 'random' | 'firstDate'>): Tag[] {
   return SAMPLE_TAGS.map((spec) => ({
     id: context.random.uuid(),
     name: spec.name,
-    nameKey: toNameKey(spec.name),
+    nameKey: toTagNameKey(spec.name),
     color: spec.color,
     createdAt: timestampOf(context.firstDate),
     updatedAt: timestampOf(context.firstDate),
