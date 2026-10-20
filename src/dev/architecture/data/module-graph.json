@@ -1,13 +1,13 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-20T17:58:58.895Z",
+  "generatedAt": "2026-10-20T20:14:56.683Z",
   "totals": {
-    "modules": 202,
-    "loc": 17155,
-    "components": 84,
-    "hooks": 15,
-    "tests": 52,
-    "edges": 527,
+    "modules": 245,
+    "loc": 21638,
+    "components": 98,
+    "hooks": 26,
+    "tests": 68,
+    "edges": 670,
     "configFiles": 11
   },
   "layerSummary": {
@@ -26,11 +26,11 @@
       "tests": 9
     },
     "components": {
-      "modules": 17,
-      "loc": 575,
-      "components": 11,
-      "hooks": 1,
-      "tests": 4
+      "modules": 41,
+      "loc": 1746,
+      "components": 24,
+      "hooks": 7,
+      "tests": 7
     },
     "db": {
       "modules": 3,
@@ -41,24 +41,24 @@
     },
     "dev": {
       "modules": 65,
-      "loc": 10293,
+      "loc": 11584,
       "components": 36,
       "hooks": 2,
       "tests": 5
     },
     "domain": {
-      "modules": 16,
-      "loc": 1875,
+      "modules": 23,
+      "loc": 2389,
       "components": 0,
       "hooks": 0,
-      "tests": 9
+      "tests": 14
     },
     "features": {
-      "modules": 32,
-      "loc": 1396,
-      "components": 20,
+      "modules": 38,
+      "loc": 1899,
+      "components": 21,
       "hooks": 3,
-      "tests": 6
+      "tests": 10
     },
     "lib": {
       "modules": 17,
@@ -75,11 +75,11 @@
       "tests": 0
     },
     "repositories": {
-      "modules": 15,
-      "loc": 1094,
+      "modules": 20,
+      "loc": 2032,
       "components": 0,
-      "hooks": 4,
-      "tests": 7
+      "hooks": 9,
+      "tests": 11
     },
     "stores": {
       "modules": 2,
@@ -89,14 +89,14 @@
       "tests": 1
     },
     "test": {
-      "modules": 8,
-      "loc": 295,
+      "modules": 9,
+      "loc": 361,
       "components": 0,
       "hooks": 0,
       "tests": 0
     }
   },
-  "specVersion": "1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
@@ -270,37 +270,37 @@
       "requirements": "RF-01, RF-02 (exceto itens de recorrentes), RF-03 (CA-03.2 completo)",
       "tasks": [
         {
-          "done": false,
+          "done": true,
           "text": "Componentes `MoneyInput` (máscara, teclado numérico) e `DateInput`.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Repositório de lançamentos (CRUD) e hooks de saldo geral e saldo do mês.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Formulário de lançamento (React Hook Form + Zod) reutilizado na tela inicial e em `/lancamentos/novo` e `/lancamentos/:id`.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Tela inicial: saldo geral, saldo do mês, formulário rápido, últimos 5 lançamentos.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Atalho para criar tag a partir do formulário (CA-01.7).",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Testes de componente do `MoneyInput` e do formulário.",
           "human": false
         }
       ],
-      "done": 0,
+      "done": 6,
       "total": 6
     },
     {
@@ -2645,6 +2645,852 @@
       "testedBy": []
     },
     {
+      "id": "src/components/tags/CreateTagDialog.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/tags",
+      "kinds": [
+        "component"
+      ],
+      "loc": 19,
+      "exports": [
+        "CreateTagDialog"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "CreateTagDialog",
+          "signature": "CreateTagDialog({ open, onCreated, onClose }: CreateTagDialogProps)"
+        }
+      ],
+      "components": [
+        "CreateTagDialog"
+      ],
+      "props": {
+        "CreateTagDialogProps": 3
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "Modal",
+        "TagForm"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.7"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/components/transactions/TransactionForm.tsx"
+      ],
+      "imports": [
+        "src/components/tags/TagForm.tsx",
+        "src/components/ui/Modal.tsx",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/tags/TagColorPicker.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/tags",
+      "kinds": [
+        "component"
+      ],
+      "loc": 60,
+      "exports": [
+        "TagColorPicker"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "TagColorPicker",
+          "signature": "TagColorPicker({ value, onChange }: TagColorPickerProps)"
+        }
+      ],
+      "components": [
+        "TagColorPicker"
+      ],
+      "props": {
+        "TagColorPickerProps": 2
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useId"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-03",
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useId"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/tags/TagForm.tsx"
+      ],
+      "imports": [
+        "src/domain/tagColor.ts",
+        "src/domain/tags.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/tags/TagForm.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/tags",
+      "kinds": [
+        "component"
+      ],
+      "loc": 60,
+      "exports": [
+        "TagForm"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "TagForm",
+          "signature": "TagForm({ tag, onSaved, onCancel, extraAction, notice }: TagFormProps)"
+        }
+      ],
+      "components": [
+        "TagForm"
+      ],
+      "props": {
+        "TagFormProps": 5
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useTagForm",
+        "useWatch"
+      ],
+      "jsxUsed": [
+        "Button",
+        "Controller",
+        "ErrorAlert",
+        "Field",
+        "Field.Error",
+        "Field.Label",
+        "Modal.Actions",
+        "Modal.Body",
+        "TagChip",
+        "TagColorPicker",
+        "TextInput"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-03.1",
+        "CA-03.4",
+        "RF-03"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "type",
+          "names": [
+            "ReactNode"
+          ]
+        },
+        {
+          "package": "react-hook-form",
+          "specifier": "react-hook-form",
+          "kind": "static",
+          "names": [
+            "Controller",
+            "useWatch"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/tags/CreateTagDialog.tsx",
+        "src/features/tags/TagFormDialog.tsx"
+      ],
+      "imports": [
+        "src/components/tags/TagColorPicker.tsx",
+        "src/components/tags/useTagForm.ts",
+        "src/components/ui/Button.tsx",
+        "src/components/ui/ErrorAlert.tsx",
+        "src/components/ui/Field.tsx",
+        "src/components/ui/Modal.tsx",
+        "src/components/ui/TagChip.tsx",
+        "src/components/ui/TextInput.tsx",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/tags/tagFormTexts.ts",
+      "layer": "components",
+      "feature": null,
+      "group": "components/tags",
+      "kinds": [
+        "module"
+      ],
+      "loc": 5,
+      "exports": [
+        "DUPLICATE_TAG_NAME_MESSAGE",
+        "SAVE_TAG_FAILED_MESSAGE",
+        "TAG_NOT_FOUND_MESSAGE"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.7",
+        "CA-03.4",
+        "RF-03"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/components/tags/useTagForm.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/tags/TagPicker.test.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/tags",
+      "kinds": [
+        "test"
+      ],
+      "loc": 46,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "TagPicker"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-01",
+        "RF-01",
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/components/tags/TagPicker.tsx",
+        "src/test/factories.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/components/tags/TagPicker.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/tags",
+      "kinds": [
+        "component"
+      ],
+      "loc": 73,
+      "exports": [
+        "TagPicker"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "TagPicker",
+          "signature": "TagPicker({ tags, value, onChange, onBlur, error, emptyState, ref, }: TagPickerProps)"
+        }
+      ],
+      "components": [
+        "TagPicker"
+      ],
+      "props": {
+        "TagPickerProps": 7
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useId"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.7",
+        "CA-03.6",
+        "D-01",
+        "RF-01",
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useId",
+            "ReactNode",
+            "Ref"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/tags/TagPicker.test.tsx",
+        "src/components/transactions/TransactionForm.tsx"
+      ],
+      "imports": [
+        "src/domain/tagColor.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/components/tags/TagPicker.test.tsx"
+      ]
+    },
+    {
+      "id": "src/components/tags/useTagForm.ts",
+      "layer": "components",
+      "feature": null,
+      "group": "components/tags",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 76,
+      "exports": [
+        "useTagForm"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useTagForm",
+          "signature": "useTagForm({ tag, onSaved }: UseTagFormOptions)"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useTagForm"
+      ],
+      "hooksUsed": [
+        "useEffect"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.7",
+        "CA-03.4",
+        "D-32",
+        "RF-03"
+      ],
+      "external": [
+        {
+          "package": "@hookform/resolvers",
+          "specifier": "@hookform/resolvers/zod",
+          "kind": "static",
+          "names": [
+            "zodResolver"
+          ]
+        },
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "package": "react-hook-form",
+          "specifier": "react-hook-form",
+          "kind": "static",
+          "names": [
+            "useForm"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/tags/TagForm.tsx"
+      ],
+      "imports": [
+        "src/components/tags/tagFormTexts.ts",
+        "src/domain/tagSchema.ts",
+        "src/domain/tags.ts",
+        "src/domain/types.ts",
+        "src/lib/formSubmit.ts",
+        "src/repositories/tagsRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/transactions/NoTagsNotice.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/transactions",
+      "kinds": [
+        "component"
+      ],
+      "loc": 16,
+      "exports": [
+        "NoTagsNotice"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "NoTagsNotice",
+          "signature": "NoTagsNotice({ onCreateTag }: NoTagsNoticeProps)"
+        }
+      ],
+      "components": [
+        "NoTagsNotice"
+      ],
+      "props": {
+        "NoTagsNoticeProps": 1
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "Button"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.7"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/components/transactions/TransactionForm.tsx"
+      ],
+      "imports": [
+        "src/components/transactions/transactionTexts.ts",
+        "src/components/ui/Button.tsx"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/transactions/TransactionForm.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/transactions",
+      "kinds": [
+        "component"
+      ],
+      "loc": 126,
+      "exports": [
+        "TransactionForm"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "TransactionForm",
+          "signature": "TransactionForm({ transaction, onUpdated, extraAction }: TransactionFormProps)"
+        }
+      ],
+      "components": [
+        "TransactionForm"
+      ],
+      "props": {
+        "TransactionFormProps": 3
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useState",
+        "useTags",
+        "useTransactionForm"
+      ],
+      "jsxUsed": [
+        "Button",
+        "Controller",
+        "CreateTagDialog",
+        "DateInput",
+        "ErrorAlert",
+        "Field",
+        "Field.Error",
+        "Field.Label",
+        "MoneyInput",
+        "NoTagsNotice",
+        "TagPicker",
+        "TextInput",
+        "Toast",
+        "TypeRadio.Option",
+        "TypeRadio.Root"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.7",
+        "RF-01"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useState",
+            "ReactNode"
+          ]
+        },
+        {
+          "package": "react-hook-form",
+          "specifier": "react-hook-form",
+          "kind": "static",
+          "names": [
+            "Controller"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/home/HomePage.tsx",
+        "src/features/transactions/NewTransactionPage.tsx",
+        "src/features/transactions/TransactionDetailPage.tsx"
+      ],
+      "imports": [
+        "src/components/tags/CreateTagDialog.tsx",
+        "src/components/tags/TagPicker.tsx",
+        "src/components/transactions/NoTagsNotice.tsx",
+        "src/components/transactions/useTransactionForm.ts",
+        "src/components/ui/Button.tsx",
+        "src/components/ui/DateInput.tsx",
+        "src/components/ui/ErrorAlert.tsx",
+        "src/components/ui/Field.tsx",
+        "src/components/ui/MoneyInput.tsx",
+        "src/components/ui/TextInput.tsx",
+        "src/components/ui/Toast.tsx",
+        "src/components/ui/createRadioGroup.tsx",
+        "src/domain/types.ts",
+        "src/repositories/tagsRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/transactions/TransactionRow.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/transactions",
+      "kinds": [
+        "component"
+      ],
+      "loc": 31,
+      "exports": [
+        "TransactionRow"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "TransactionRow",
+          "signature": "TransactionRow({ transaction, tag }: TransactionRowProps)"
+        }
+      ],
+      "components": [
+        "TransactionRow"
+      ],
+      "props": {
+        "TransactionRowProps": 2
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "Link",
+        "SignedAmount",
+        "TagChip"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.5",
+        "D-01",
+        "RF-02"
+      ],
+      "external": [
+        {
+          "package": "react-router",
+          "specifier": "react-router",
+          "kind": "static",
+          "names": [
+            "Link"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/home/RecentTransactions.tsx"
+      ],
+      "imports": [
+        "src/components/ui/SignedAmount.tsx",
+        "src/components/ui/TagChip.tsx",
+        "src/domain/balances.ts",
+        "src/domain/dates.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/transactions/transactionTexts.ts",
+      "layer": "components",
+      "feature": null,
+      "group": "components/transactions",
+      "kinds": [
+        "module"
+      ],
+      "loc": 8,
+      "exports": [
+        "NO_TAGS_MESSAGE",
+        "SAVE_TRANSACTION_FAILED_MESSAGE",
+        "TRANSACTION_NOT_FOUND_MESSAGE",
+        "TRANSACTION_SAVED_MESSAGE",
+        "TRANSACTION_TAG_NOT_FOUND_MESSAGE"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.1",
+        "CA-01.7",
+        "RF-01"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/components/transactions/NoTagsNotice.tsx",
+        "src/components/transactions/useTransactionForm.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/transactions/useTransactionForm.ts",
+      "layer": "components",
+      "feature": null,
+      "group": "components/transactions",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 92,
+      "exports": [
+        "useTransactionForm"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useTransactionForm",
+          "signature": "useTransactionForm({ transaction, onUpdated }: UseTransactionFormOptions = {})"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useTransactionForm"
+      ],
+      "hooksUsed": [
+        "useEffect",
+        "useRef",
+        "useToast",
+        "useToday"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.1",
+        "CA-02.2",
+        "D-36",
+        "RF-01"
+      ],
+      "external": [
+        {
+          "package": "@hookform/resolvers",
+          "specifier": "@hookform/resolvers/zod",
+          "kind": "static",
+          "names": [
+            "zodResolver"
+          ]
+        },
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useEffect",
+            "useRef",
+            "useState"
+          ]
+        },
+        {
+          "package": "react-hook-form",
+          "specifier": "react-hook-form",
+          "kind": "static",
+          "names": [
+            "useForm"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/transactions/TransactionForm.tsx"
+      ],
+      "imports": [
+        "src/components/transactions/transactionTexts.ts",
+        "src/components/ui/useToast.ts",
+        "src/components/ui/useToday.ts",
+        "src/domain/transactionSchema.ts",
+        "src/domain/types.ts",
+        "src/lib/formSubmit.ts",
+        "src/repositories/transactionsRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/components/ui/BackLink.test.tsx",
       "layer": "components",
       "feature": null,
@@ -2828,11 +3674,15 @@
         }
       ],
       "importedBy": [
+        "src/components/tags/TagForm.tsx",
+        "src/components/transactions/NoTagsNotice.tsx",
+        "src/components/transactions/TransactionForm.tsx",
         "src/features/tags/ConfirmDeleteTagDialog.tsx",
         "src/features/tags/DeleteTagBlockedDialog.tsx",
-        "src/features/tags/TagForm.tsx",
         "src/features/tags/TagFormDialog.tsx",
-        "src/features/tags/TagsPage.tsx"
+        "src/features/tags/TagsPage.tsx",
+        "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
+        "src/features/transactions/TransactionDetailPage.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -2907,15 +3757,17 @@
       "kinds": [
         "context"
       ],
-      "loc": 53,
+      "loc": 93,
       "exports": [
         "RadioGroupOptionProps",
         "RadioGroupRootProps",
+        "RadioGroupVariant",
         "createRadioGroup"
       ],
       "typeExports": [
         "RadioGroupOptionProps",
-        "RadioGroupRootProps"
+        "RadioGroupRootProps",
+        "RadioGroupVariant"
       ],
       "defaultExport": null,
       "functions": [
@@ -2926,7 +3778,7 @@
       ],
       "components": [],
       "props": {
-        "RadioGroupRootProps": 4,
+        "RadioGroupRootProps": 5,
         "RadioGroupOptionProps": 2
       },
       "hooksDefined": [],
@@ -2947,7 +3799,9 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "RNF-06"
+      ],
       "external": [
         {
           "package": "react",
@@ -2962,6 +3816,7 @@
         }
       ],
       "importedBy": [
+        "src/components/transactions/TransactionForm.tsx",
         "src/components/ui/createRadioGroup.test.tsx",
         "src/features/settings/ThemeSection.tsx"
       ],
@@ -2969,6 +3824,132 @@
       "assets": [],
       "testedBy": [
         "src/components/ui/createRadioGroup.test.tsx"
+      ]
+    },
+    {
+      "id": "src/components/ui/DateInput.test.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "test"
+      ],
+      "loc": 21,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "DateInput",
+        "Field",
+        "Field.Label"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/components/ui/DateInput.tsx",
+        "src/components/ui/Field.tsx"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/components/ui/DateInput.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "component"
+      ],
+      "loc": 31,
+      "exports": [
+        "DateInput"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "DateInput",
+          "signature": "DateInput({ value, onChange, onBlur, name, ref }: DateInputProps)"
+        }
+      ],
+      "components": [
+        "DateInput"
+      ],
+      "props": {
+        "DateInputProps": 5
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFieldControl"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "type",
+          "names": [
+            "Ref"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/transactions/TransactionForm.tsx",
+        "src/components/ui/DateInput.test.tsx"
+      ],
+      "imports": [
+        "src/components/ui/inputClasses.ts",
+        "src/components/ui/useFieldControl.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/components/ui/DateInput.test.tsx"
       ]
     },
     {
@@ -3021,7 +4002,9 @@
         }
       ],
       "importedBy": [
-        "src/features/tags/TagsPage.tsx"
+        "src/features/home/RecentTransactions.tsx",
+        "src/features/tags/TagsPage.tsx",
+        "src/features/transactions/TransactionDetailPage.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -3077,13 +4060,88 @@
         }
       ],
       "importedBy": [
+        "src/components/tags/TagForm.tsx",
+        "src/components/transactions/TransactionForm.tsx",
         "src/features/tags/ConfirmDeleteTagDialog.tsx",
-        "src/features/tags/TagForm.tsx",
-        "src/features/tags/TagFormDialog.tsx"
+        "src/features/tags/TagFormDialog.tsx",
+        "src/features/transactions/ConfirmDeleteTransactionDialog.tsx"
       ],
       "imports": [],
       "assets": [],
       "testedBy": []
+    },
+    {
+      "id": "src/components/ui/Field.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "component"
+      ],
+      "loc": 43,
+      "exports": [
+        "Field"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "Field",
+          "signature": "Field({ error, children }: FieldProps)"
+        }
+      ],
+      "components": [
+        "Field"
+      ],
+      "props": {
+        "FieldProps": 2,
+        "FieldPartProps": 1
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFieldContext",
+        "useId"
+      ],
+      "jsxUsed": [
+        "FieldContext"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.2"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useId",
+            "ReactNode"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/tags/TagForm.tsx",
+        "src/components/transactions/TransactionForm.tsx",
+        "src/components/ui/DateInput.test.tsx",
+        "src/components/ui/MoneyInput.test.tsx"
+      ],
+      "imports": [
+        "src/components/ui/useFieldControl.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/components/ui/DateInput.test.tsx",
+        "src/components/ui/MoneyInput.test.tsx"
+      ]
     },
     {
       "id": "src/components/ui/InfoList.tsx",
@@ -3139,6 +4197,48 @@
       ],
       "importedBy": [
         "src/features/settings/AboutPage.tsx"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/ui/inputClasses.ts",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "module"
+      ],
+      "loc": 4,
+      "exports": [
+        "TEXT_INPUT_CLASSES"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RNF-06"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/components/ui/DateInput.tsx",
+        "src/components/ui/MoneyInput.tsx",
+        "src/components/ui/TextInput.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -3267,16 +4367,175 @@
         }
       ],
       "importedBy": [
+        "src/components/tags/CreateTagDialog.tsx",
+        "src/components/tags/TagForm.tsx",
         "src/components/ui/Modal.test.tsx",
         "src/features/tags/ConfirmDeleteTagDialog.tsx",
         "src/features/tags/DeleteTagBlockedDialog.tsx",
-        "src/features/tags/TagForm.tsx",
-        "src/features/tags/TagFormDialog.tsx"
+        "src/features/tags/TagFormDialog.tsx",
+        "src/features/transactions/ConfirmDeleteTransactionDialog.tsx"
       ],
       "imports": [],
       "assets": [],
       "testedBy": [
         "src/components/ui/Modal.test.tsx"
+      ]
+    },
+    {
+      "id": "src/components/ui/MoneyInput.test.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "test"
+      ],
+      "loc": 214,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useState"
+      ],
+      "jsxUsed": [
+        "Field",
+        "Field.Error",
+        "Field.Label",
+        "Harness",
+        "MoneyInput"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.3",
+        "CA-01.4",
+        "D-29",
+        "D-31",
+        "RF-01",
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "cleanup",
+            "fireEvent",
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useState"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/components/ui/Field.tsx",
+        "src/components/ui/MoneyInput.tsx",
+        "src/domain/money.ts",
+        "src/test/propertyHelpers.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/components/ui/MoneyInput.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "component"
+      ],
+      "loc": 66,
+      "exports": [
+        "MoneyInput"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "MoneyInput",
+          "signature": "MoneyInput({ value, onChange, onBlur, name, ref }: MoneyInputProps)"
+        }
+      ],
+      "components": [
+        "MoneyInput"
+      ],
+      "props": {
+        "MoneyInputProps": 5
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFieldControl",
+        "useLayoutEffect"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.3",
+        "CA-01.4",
+        "D-31"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useLayoutEffect",
+            "useRef",
+            "Ref",
+            "SyntheticEvent"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/transactions/TransactionForm.tsx",
+        "src/components/ui/MoneyInput.test.tsx"
+      ],
+      "imports": [
+        "src/components/ui/inputClasses.ts",
+        "src/components/ui/useFieldControl.ts",
+        "src/domain/money.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/components/ui/MoneyInput.test.tsx"
       ]
     },
     {
@@ -3479,6 +4738,63 @@
       "testedBy": []
     },
     {
+      "id": "src/components/ui/SignedAmount.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "component"
+      ],
+      "loc": 30,
+      "exports": [
+        "SignedAmount",
+        "SignedAmountSize"
+      ],
+      "typeExports": [
+        "SignedAmountSize"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "SignedAmount",
+          "signature": "SignedAmount({ cents, size = 'sm' }: SignedAmountProps)"
+        }
+      ],
+      "components": [
+        "SignedAmount"
+      ],
+      "props": {
+        "SignedAmountProps": 2
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-02.1",
+        "RNF-06"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/components/transactions/TransactionRow.tsx",
+        "src/features/home/BalanceSummary.tsx"
+      ],
+      "imports": [
+        "src/domain/money.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/components/ui/TabBar.tsx",
       "layer": "components",
       "feature": null,
@@ -3656,8 +4972,9 @@
       ],
       "external": [],
       "importedBy": [
+        "src/components/tags/TagForm.tsx",
+        "src/components/transactions/TransactionRow.tsx",
         "src/components/ui/TagChip.test.tsx",
-        "src/features/tags/TagForm.tsx",
         "src/features/tags/TagList.tsx"
       ],
       "imports": [
@@ -3667,6 +4984,189 @@
       "testedBy": [
         "src/components/ui/TagChip.test.tsx"
       ]
+    },
+    {
+      "id": "src/components/ui/TextInput.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "component"
+      ],
+      "loc": 18,
+      "exports": [
+        "TextInput"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "TextInput",
+          "signature": "TextInput({ className = '', ...props }: TextInputProps)"
+        }
+      ],
+      "components": [
+        "TextInput"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFieldControl"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "type",
+          "names": [
+            "InputHTMLAttributes",
+            "Ref"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/tags/TagForm.tsx",
+        "src/components/transactions/TransactionForm.tsx"
+      ],
+      "imports": [
+        "src/components/ui/inputClasses.ts",
+        "src/components/ui/useFieldControl.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/ui/Toast.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "component"
+      ],
+      "loc": 24,
+      "exports": [
+        "Toast"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "Toast",
+          "signature": "Toast({ message }: ToastProps)"
+        }
+      ],
+      "components": [
+        "Toast"
+      ],
+      "props": {
+        "ToastProps": 1
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [],
+      "importedBy": [
+        "src/components/transactions/TransactionForm.tsx"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/ui/useFieldControl.ts",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "hook",
+        "context"
+      ],
+      "loc": 28,
+      "exports": [
+        "FieldContext",
+        "FieldContextValue",
+        "FieldControlProps",
+        "useFieldContext",
+        "useFieldControl"
+      ],
+      "typeExports": [
+        "FieldContextValue",
+        "FieldControlProps"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useFieldContext",
+          "signature": "useFieldContext(part: string): FieldContextValue"
+        },
+        {
+          "name": "useFieldControl",
+          "signature": "useFieldControl(): FieldControlProps"
+        }
+      ],
+      "components": [],
+      "props": {
+        "FieldControlProps": 1
+      },
+      "hooksDefined": [
+        "useFieldContext",
+        "useFieldControl"
+      ],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "createContext",
+            "use"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/ui/DateInput.tsx",
+        "src/components/ui/Field.tsx",
+        "src/components/ui/MoneyInput.tsx",
+        "src/components/ui/TextInput.tsx"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
     },
     {
       "id": "src/components/ui/useGoBack.ts",
@@ -3722,9 +5222,132 @@
         }
       ],
       "importedBy": [
-        "src/components/ui/BackLink.tsx"
+        "src/components/ui/BackLink.tsx",
+        "src/features/transactions/useTransactionDetail.ts"
       ],
       "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/ui/useToast.ts",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 21,
+      "exports": [
+        "TOAST_DURATION_MS",
+        "useToast"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useToast",
+          "signature": "useToast():"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useToast"
+      ],
+      "hooksUsed": [
+        "useEffect"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useEffect",
+            "useState"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/transactions/useTransactionForm.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/ui/useToday.ts",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 19,
+      "exports": [
+        "useToday"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useToday",
+          "signature": "useToday(): DateString"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useToday"
+      ],
+      "hooksUsed": [
+        "useSyncExternalStore"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useSyncExternalStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-02.2"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useSyncExternalStore"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/transactions/useTransactionForm.ts",
+        "src/features/home/HomePage.tsx"
+      ],
+      "imports": [
+        "src/domain/dates.ts",
+        "src/domain/types.ts"
+      ],
       "assets": [],
       "testedBy": []
     },
@@ -3905,6 +5528,10 @@
         "src/repositories/tagsRepository.ts",
         "src/repositories/themePreference.test.ts",
         "src/repositories/themeRepository.ts",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts",
+        "src/repositories/transactionsRepository.ts",
         "src/test/seedDatabase.ts",
         "src/test/setup.ts"
       ],
@@ -3918,7 +5545,10 @@
         "src/dev/sampleData/sampleDataStore.test.ts",
         "src/repositories/settingsRepository.crud.test.ts",
         "src/repositories/tagsRepository.test.ts",
-        "src/repositories/themePreference.test.ts"
+        "src/repositories/themePreference.test.ts",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts"
       ]
     },
     {
@@ -3929,7 +5559,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 171,
+      "loc": 209,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -3952,6 +5582,7 @@
         "CA-09.3",
         "D-22",
         "D-26",
+        "D-37",
         "RF-09"
       ],
       "external": [
@@ -4775,7 +6406,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 38,
+      "loc": 44,
       "exports": [
         "ForbiddenDependenciesCard"
       ],
@@ -6624,7 +8255,7 @@
         "database",
         "data"
       ],
-      "loc": 3612,
+      "loc": 4636,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
@@ -6706,7 +8337,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 1293,
+      "loc": 1485,
       "exports": [
         "TIMELINE"
       ],
@@ -6916,7 +8547,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 68,
+      "loc": 89,
       "exports": [
         "LayerEdge",
         "LayerEdgeStatus",
@@ -7183,7 +8814,7 @@
       "kinds": [
         "types"
       ],
-      "loc": 371,
+      "loc": 381,
       "exports": [
         "AllowedDependency",
         "ArchitectureFinding",
@@ -7293,6 +8924,7 @@
         "D-20",
         "D-22",
         "D-26",
+        "D-37",
         "RNF-02"
       ],
       "external": [],
@@ -8093,6 +9725,56 @@
       "assets": []
     },
     {
+      "id": "src/domain/balances.signedAmount.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 28,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-02.1"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/balances.ts",
+        "src/domain/money.ts",
+        "src/test/factories.ts"
+      ],
+      "assets": []
+    },
+    {
       "id": "src/domain/balances.test.ts",
       "layer": "domain",
       "feature": null,
@@ -8165,6 +9847,7 @@
         "groupByTag",
         "overallBalance",
         "runningBalance",
+        "signedAmount",
         "totals"
       ],
       "typeExports": [
@@ -8173,6 +9856,10 @@
       ],
       "defaultExport": null,
       "functions": [
+        {
+          "name": "signedAmount",
+          "signature": "signedAmount(transaction: Transaction): Cents"
+        },
         {
           "name": "totals",
           "signature": "totals(transactions: readonly Transaction[]): Totals"
@@ -8213,6 +9900,7 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
+        "CA-02.1",
         "CA-02.3",
         "D-03",
         "RF-06",
@@ -8220,9 +9908,13 @@
       ],
       "external": [],
       "importedBy": [
+        "src/components/transactions/TransactionRow.tsx",
         "src/domain/balances.properties.test.ts",
+        "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
-        "src/domain/dates.timezone.test.ts"
+        "src/domain/dates.timezone.test.ts",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.ts"
       ],
       "imports": [
         "src/domain/dates.ts",
@@ -8232,8 +9924,10 @@
       "assets": [],
       "testedBy": [
         "src/domain/balances.properties.test.ts",
+        "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
-        "src/domain/dates.timezone.test.ts"
+        "src/domain/dates.timezone.test.ts",
+        "src/repositories/transactionsRepository.balances.test.ts"
       ]
     },
     {
@@ -8288,6 +9982,105 @@
       "imports": [
         "src/domain/dates.ts",
         "src/test/propertyHelpers.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/domain/dates.format.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 35,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-02"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/dates.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/domain/dates.format.timezone.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 121,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-38",
+        "RF-01",
+        "RF-02"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/dates.ts"
       ],
       "assets": []
     },
@@ -8399,10 +10192,13 @@
       "kinds": [
         "module"
       ],
-      "loc": 99,
+      "loc": 144,
       "exports": [
         "DateRange",
         "addMonthsClamped",
+        "formatMonthLabel",
+        "formatShortDate",
+        "isValidDate",
         "monthRange",
         "periodOf",
         "periodsBetween",
@@ -8442,6 +10238,18 @@
         {
           "name": "periodsBetween",
           "signature": "periodsBetween(start: PeriodString, end: PeriodString): PeriodString[]"
+        },
+        {
+          "name": "isValidDate",
+          "signature": "isValidDate(value: string): boolean"
+        },
+        {
+          "name": "formatShortDate",
+          "signature": "formatShortDate(date: DateString): string"
+        },
+        {
+          "name": "formatMonthLabel",
+          "signature": "formatMonthLabel(period: PeriodString): string"
         }
       ],
       "components": [],
@@ -8460,7 +10268,8 @@
       "storeMembersUsed": [],
       "requirementRefs": [
         "CA-05.3",
-        "RF-08"
+        "RF-08",
+        "RNF-02"
       ],
       "external": [
         {
@@ -8487,6 +10296,8 @@
         }
       ],
       "importedBy": [
+        "src/components/transactions/TransactionRow.tsx",
+        "src/components/ui/useToday.ts",
         "src/dev/sampleData/buildSampleData.model.test.ts",
         "src/dev/sampleData/buildSampleData.test.ts",
         "src/dev/sampleData/buildSampleData.ts",
@@ -8497,8 +10308,15 @@
         "src/domain/balances.test.ts",
         "src/domain/balances.ts",
         "src/domain/dates.calendar.test.ts",
+        "src/domain/dates.format.test.ts",
+        "src/domain/dates.format.timezone.test.ts",
         "src/domain/dates.test.ts",
-        "src/domain/dates.timezone.test.ts"
+        "src/domain/dates.timezone.test.ts",
+        "src/domain/transactionSchema.ts",
+        "src/features/home/BalanceSummary.tsx",
+        "src/features/home/HomePage.test.tsx",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.ts"
       ],
       "imports": [
         "src/domain/types.ts"
@@ -8510,8 +10328,12 @@
         "src/domain/balances.properties.test.ts",
         "src/domain/balances.test.ts",
         "src/domain/dates.calendar.test.ts",
+        "src/domain/dates.format.test.ts",
+        "src/domain/dates.format.timezone.test.ts",
         "src/domain/dates.test.ts",
-        "src/domain/dates.timezone.test.ts"
+        "src/domain/dates.timezone.test.ts",
+        "src/features/home/HomePage.test.tsx",
+        "src/repositories/transactionsRepository.balances.test.ts"
       ]
     },
     {
@@ -8628,21 +10450,41 @@
       ],
       "external": [],
       "importedBy": [
+        "src/components/ui/MoneyInput.test.tsx",
+        "src/components/ui/MoneyInput.tsx",
+        "src/components/ui/SignedAmount.tsx",
         "src/dev/sampleData/buildSampleData.model.test.ts",
         "src/domain/balances.properties.test.ts",
+        "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
         "src/domain/balances.ts",
-        "src/domain/money.test.ts"
+        "src/domain/money.test.ts",
+        "src/domain/transactionSchema.test.ts",
+        "src/domain/transactionSchema.ts",
+        "src/features/home/BalanceSummary.tsx",
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
+        "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts"
       ],
       "imports": [
         "src/domain/types.ts"
       ],
       "assets": [],
       "testedBy": [
+        "src/components/ui/MoneyInput.test.tsx",
         "src/dev/sampleData/buildSampleData.model.test.ts",
         "src/domain/balances.properties.test.ts",
+        "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
-        "src/domain/money.test.ts"
+        "src/domain/money.test.ts",
+        "src/domain/transactionSchema.test.ts",
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
+        "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts"
       ]
     },
     {
@@ -8741,10 +10583,11 @@
       ],
       "external": [],
       "importedBy": [
+        "src/components/tags/TagColorPicker.tsx",
+        "src/components/tags/TagPicker.tsx",
         "src/components/ui/TagChip.tsx",
         "src/domain/tagColor.test.ts",
-        "src/domain/tags.test.ts",
-        "src/features/tags/TagColorPicker.tsx"
+        "src/domain/tags.test.ts"
       ],
       "imports": [],
       "assets": [],
@@ -8877,14 +10720,14 @@
       ],
       "external": [],
       "importedBy": [
+        "src/components/tags/TagColorPicker.tsx",
+        "src/components/tags/useTagForm.ts",
         "src/dev/sampleData/buildSampleData.ts",
         "src/domain/tagSchema.test.ts",
         "src/domain/tagSchema.ts",
         "src/domain/tags.test.ts",
         "src/features/tags/DeleteTagBlockedDialog.tsx",
-        "src/features/tags/TagColorPicker.tsx",
         "src/features/tags/tagTexts.ts",
-        "src/features/tags/useTagForm.ts",
         "src/features/tags/useTagsScreen.ts",
         "src/repositories/tagsRepository.ts"
       ],
@@ -8995,9 +10838,9 @@
         }
       ],
       "importedBy": [
+        "src/components/tags/useTagForm.ts",
         "src/domain/tagSchema.test.ts",
         "src/domain/tags.test.ts",
-        "src/features/tags/useTagForm.ts",
         "src/repositories/tagsRepository.ts"
       ],
       "imports": [
@@ -9007,6 +10850,232 @@
       "testedBy": [
         "src/domain/tags.test.ts",
         "src/domain/tagSchema.test.ts"
+      ]
+    },
+    {
+      "id": "src/domain/transactions.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 76,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-39",
+        "RF-02"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/transactions.ts",
+        "src/domain/types.ts",
+        "src/test/factories.ts",
+        "src/test/propertyHelpers.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/domain/transactions.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "module"
+      ],
+      "loc": 14,
+      "exports": [
+        "compareByRecency",
+        "takeMostRecent"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "compareByRecency",
+          "signature": "compareByRecency(a: Transaction, b: Transaction): number"
+        },
+        {
+          "name": "takeMostRecent",
+          "signature": "takeMostRecent(transactions: readonly Transaction[], count: number): Transaction[]"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-02"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/domain/transactions.test.ts",
+        "src/repositories/transactionsRepository.ts"
+      ],
+      "imports": [
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/domain/transactions.test.ts"
+      ]
+    },
+    {
+      "id": "src/domain/transactionSchema.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 166,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-01",
+        "D-10",
+        "RF-01"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/money.ts",
+        "src/domain/transactionSchema.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/domain/transactionSchema.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "types"
+      ],
+      "loc": 29,
+      "exports": [
+        "DESCRIPTION_MAX_LENGTH",
+        "TransactionInput",
+        "TransactionValues",
+        "transactionInputSchema"
+      ],
+      "typeExports": [
+        "TransactionInput",
+        "TransactionValues"
+      ],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-10",
+        "D-35",
+        "RF-01"
+      ],
+      "external": [
+        {
+          "package": "zod",
+          "specifier": "zod",
+          "kind": "static",
+          "names": [
+            "z"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/transactions/useTransactionForm.ts",
+        "src/domain/transactionSchema.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts",
+        "src/repositories/transactionsRepository.ts"
+      ],
+      "imports": [
+        "src/domain/dates.ts",
+        "src/domain/money.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/domain/transactionSchema.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts"
       ]
     },
     {
@@ -9064,6 +11133,16 @@
       ],
       "external": [],
       "importedBy": [
+        "src/components/tags/CreateTagDialog.tsx",
+        "src/components/tags/TagForm.tsx",
+        "src/components/tags/TagPicker.tsx",
+        "src/components/tags/useTagForm.ts",
+        "src/components/transactions/TransactionForm.tsx",
+        "src/components/transactions/TransactionRow.tsx",
+        "src/components/transactions/useTransactionForm.ts",
+        "src/components/ui/MoneyInput.tsx",
+        "src/components/ui/SignedAmount.tsx",
+        "src/components/ui/useToday.ts",
         "src/db/database.ts",
         "src/dev/sampleData/buildSampleData.ts",
         "src/dev/sampleData/sampleCatalog.ts",
@@ -9075,22 +11154,29 @@
         "src/domain/dates.ts",
         "src/domain/money.ts",
         "src/domain/tags.ts",
+        "src/domain/transactions.test.ts",
+        "src/domain/transactions.ts",
+        "src/features/home/BalanceSummary.tsx",
         "src/features/tags/ConfirmDeleteTagDialog.tsx",
         "src/features/tags/DeleteTagBlockedDialog.tsx",
-        "src/features/tags/TagForm.tsx",
         "src/features/tags/TagFormDialog.tsx",
         "src/features/tags/TagList.tsx",
-        "src/features/tags/useTagForm.ts",
         "src/features/tags/useTagsScreen.ts",
+        "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/repositories/settingsRepository.ts",
         "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.ts",
         "src/test/factories.ts",
         "src/test/seedDatabase.ts"
       ],
       "imports": [],
       "assets": [],
       "testedBy": [
-        "src/domain/balances.properties.test.ts"
+        "src/domain/balances.properties.test.ts",
+        "src/domain/transactions.test.ts",
+        "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/repositories/transactionsRepository.balances.test.ts"
       ]
     },
     {
@@ -9198,6 +11284,223 @@
       "testedBy": []
     },
     {
+      "id": "src/features/home/BalanceSummary.tsx",
+      "layer": "features",
+      "feature": "home",
+      "group": "features/home",
+      "kinds": [
+        "component"
+      ],
+      "loc": 45,
+      "exports": [
+        "BalanceSummary"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "BalanceSummary",
+          "signature": "BalanceSummary({ today }: BalanceSummaryProps)"
+        }
+      ],
+      "components": [
+        "BalanceSummary"
+      ],
+      "props": {
+        "BalanceSummaryProps": 1
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useMonthTotals",
+        "useOverallBalance"
+      ],
+      "jsxUsed": [
+        "SignedAmount"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-02.3",
+        "D-03",
+        "RF-02"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/home/HomePage.tsx"
+      ],
+      "imports": [
+        "src/components/ui/SignedAmount.tsx",
+        "src/domain/dates.ts",
+        "src/domain/money.ts",
+        "src/domain/types.ts",
+        "src/repositories/transactionsRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/home/HomePage.form.test.tsx",
+      "layer": "features",
+      "feature": "home",
+      "group": "features/home",
+      "kinds": [
+        "test"
+      ],
+      "loc": 125,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFakeTimers",
+        "useRealTimers"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.7",
+        "CA-02.2",
+        "D-36"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "act",
+            "fireEvent",
+            "screen",
+            "waitFor",
+            "within"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/money.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.ts",
+        "src/test/renderApp.tsx",
+        "src/test/seedDatabase.ts",
+        "src/test/transactionForm.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/features/home/HomePage.test.tsx",
+      "layer": "features",
+      "feature": "home",
+      "group": "features/home",
+      "kinds": [
+        "test"
+      ],
+      "loc": 201,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.1",
+        "CA-01.2",
+        "CA-02.1",
+        "CA-02.2",
+        "CA-02.4",
+        "D-03",
+        "D-29",
+        "D-36",
+        "RF-01",
+        "RF-02"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "screen",
+            "waitFor",
+            "within"
+          ]
+        },
+        {
+          "package": "date-fns",
+          "specifier": "date-fns",
+          "kind": "static",
+          "names": [
+            "addDays",
+            "format",
+            "parseISO"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/dates.ts",
+        "src/domain/money.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.ts",
+        "src/test/renderApp.tsx",
+        "src/test/transactionForm.ts"
+      ],
+      "assets": []
+    },
+    {
       "id": "src/features/home/HomePage.tsx",
       "layer": "features",
       "feature": "home",
@@ -9206,7 +11509,7 @@
         "component",
         "page"
       ],
-      "loc": 8,
+      "loc": 27,
       "exports": [
         "HomePage"
       ],
@@ -9223,10 +11526,17 @@
       ],
       "props": {},
       "hooksDefined": [],
-      "hooksUsed": [],
+      "hooksUsed": [
+        "useId",
+        "useToday"
+      ],
       "jsxUsed": [
+        "BalanceSummary",
         "Page",
-        "Page.Header"
+        "Page.Body",
+        "Page.Header",
+        "RecentTransactions",
+        "TransactionForm"
       ],
       "storesUsed": [],
       "dexieTables": {},
@@ -9237,13 +11547,149 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
-      "external": [],
+      "requirementRefs": [
+        "RF-02"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useId"
+          ]
+        }
+      ],
       "importedBy": [
         "src/app/routes.tsx"
       ],
       "imports": [
-        "src/components/ui/Page.tsx"
+        "src/components/transactions/TransactionForm.tsx",
+        "src/components/ui/Page.tsx",
+        "src/components/ui/useToday.ts",
+        "src/features/home/BalanceSummary.tsx",
+        "src/features/home/RecentTransactions.tsx"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/features/home/HomePage.test.tsx"
+      ]
+    },
+    {
+      "id": "src/features/home/homeTexts.ts",
+      "layer": "features",
+      "feature": "home",
+      "group": "features/home",
+      "kinds": [
+        "module"
+      ],
+      "loc": 5,
+      "exports": [
+        "NO_TRANSACTIONS_MESSAGE",
+        "RECENT_TRANSACTIONS_COUNT"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-02"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/home/RecentTransactions.tsx"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/home/RecentTransactions.tsx",
+      "layer": "features",
+      "feature": "home",
+      "group": "features/home",
+      "kinds": [
+        "component"
+      ],
+      "loc": 42,
+      "exports": [
+        "RecentTransactions"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "RecentTransactions",
+          "signature": "RecentTransactions()"
+        }
+      ],
+      "components": [
+        "RecentTransactions"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useId",
+        "useRecentTransactions",
+        "useTags"
+      ],
+      "jsxUsed": [
+        "EmptyState",
+        "Link",
+        "TransactionRow"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-02"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useId"
+          ]
+        },
+        {
+          "package": "react-router",
+          "specifier": "react-router",
+          "kind": "static",
+          "names": [
+            "Link"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/home/HomePage.tsx"
+      ],
+      "imports": [
+        "src/components/transactions/TransactionRow.tsx",
+        "src/components/ui/EmptyState.tsx",
+        "src/features/home/homeTexts.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.ts"
       ],
       "assets": [],
       "testedBy": []
@@ -9733,7 +12179,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 87,
+      "loc": 89,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -10047,160 +12493,6 @@
       "testedBy": []
     },
     {
-      "id": "src/features/tags/TagColorPicker.tsx",
-      "layer": "features",
-      "feature": "tags",
-      "group": "features/tags",
-      "kinds": [
-        "component"
-      ],
-      "loc": 60,
-      "exports": [
-        "TagColorPicker"
-      ],
-      "typeExports": [],
-      "defaultExport": null,
-      "functions": [
-        {
-          "name": "TagColorPicker",
-          "signature": "TagColorPicker({ value, onChange }: TagColorPickerProps)"
-        }
-      ],
-      "components": [
-        "TagColorPicker"
-      ],
-      "props": {
-        "TagColorPickerProps": 2
-      },
-      "hooksDefined": [],
-      "hooksUsed": [
-        "useId"
-      ],
-      "jsxUsed": [],
-      "storesUsed": [],
-      "dexieTables": {},
-      "usesTransaction": false,
-      "usesLiveQuery": false,
-      "devOnly": false,
-      "lazyImports": [],
-      "lazyComponents": {},
-      "routes": [],
-      "storeMembersUsed": [],
-      "requirementRefs": [
-        "RF-03",
-        "RNF-06"
-      ],
-      "external": [
-        {
-          "package": "react",
-          "specifier": "react",
-          "kind": "static",
-          "names": [
-            "useId"
-          ]
-        }
-      ],
-      "importedBy": [
-        "src/features/tags/TagForm.tsx"
-      ],
-      "imports": [
-        "src/domain/tagColor.ts",
-        "src/domain/tags.ts"
-      ],
-      "assets": [],
-      "testedBy": []
-    },
-    {
-      "id": "src/features/tags/TagForm.tsx",
-      "layer": "features",
-      "feature": "tags",
-      "group": "features/tags",
-      "kinds": [
-        "component"
-      ],
-      "loc": 76,
-      "exports": [
-        "TagForm"
-      ],
-      "typeExports": [],
-      "defaultExport": null,
-      "functions": [
-        {
-          "name": "TagForm",
-          "signature": "TagForm({ tag, onSaved, onCancel, extraAction, notice }: TagFormProps)"
-        }
-      ],
-      "components": [
-        "TagForm"
-      ],
-      "props": {
-        "TagFormProps": 5
-      },
-      "hooksDefined": [],
-      "hooksUsed": [
-        "useId",
-        "useTagForm",
-        "useWatch"
-      ],
-      "jsxUsed": [
-        "Button",
-        "Controller",
-        "ErrorAlert",
-        "Modal.Actions",
-        "Modal.Body",
-        "TagChip",
-        "TagColorPicker"
-      ],
-      "storesUsed": [],
-      "dexieTables": {},
-      "usesTransaction": false,
-      "usesLiveQuery": false,
-      "devOnly": false,
-      "lazyImports": [],
-      "lazyComponents": {},
-      "routes": [],
-      "storeMembersUsed": [],
-      "requirementRefs": [
-        "CA-03.1",
-        "CA-03.4",
-        "RF-03"
-      ],
-      "external": [
-        {
-          "package": "react",
-          "specifier": "react",
-          "kind": "static",
-          "names": [
-            "useId",
-            "ReactNode"
-          ]
-        },
-        {
-          "package": "react-hook-form",
-          "specifier": "react-hook-form",
-          "kind": "static",
-          "names": [
-            "Controller",
-            "useWatch"
-          ]
-        }
-      ],
-      "importedBy": [
-        "src/features/tags/TagFormDialog.tsx"
-      ],
-      "imports": [
-        "src/components/ui/Button.tsx",
-        "src/components/ui/ErrorAlert.tsx",
-        "src/components/ui/Modal.tsx",
-        "src/components/ui/TagChip.tsx",
-        "src/domain/types.ts",
-        "src/features/tags/TagColorPicker.tsx",
-        "src/features/tags/useTagForm.ts"
-      ],
-      "assets": [],
-      "testedBy": []
-    },
-    {
       "id": "src/features/tags/TagFormDialog.tsx",
       "layer": "features",
       "feature": "tags",
@@ -10251,11 +12543,11 @@
         "src/features/tags/TagsPage.tsx"
       ],
       "imports": [
+        "src/components/tags/TagForm.tsx",
         "src/components/ui/Button.tsx",
         "src/components/ui/ErrorAlert.tsx",
         "src/components/ui/Modal.tsx",
-        "src/domain/types.ts",
-        "src/features/tags/TagForm.tsx"
+        "src/domain/types.ts"
       ],
       "assets": [],
       "testedBy": []
@@ -10446,6 +12738,68 @@
         "src/test/factories.ts",
         "src/test/renderApp.tsx",
         "src/test/seedDatabase.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/features/tags/TagsPage.transactions.test.tsx",
+      "layer": "features",
+      "feature": "tags",
+      "group": "features/tags",
+      "kinds": [
+        "test"
+      ],
+      "loc": 27,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-03.2"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "act",
+            "fireEvent",
+            "screen",
+            "within"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/repositories/tagsRepository.ts",
+        "src/test/renderApp.tsx",
+        "src/test/seedDatabase.ts",
+        "src/test/transactionForm.ts"
       ],
       "assets": []
     },
@@ -10645,13 +12999,10 @@
       "kinds": [
         "module"
       ],
-      "loc": 31,
+      "loc": 28,
       "exports": [
         "CHECK_TAG_USAGE_FAILED_MESSAGE",
         "DELETE_TAG_FAILED_MESSAGE",
-        "DUPLICATE_TAG_NAME_MESSAGE",
-        "SAVE_TAG_FAILED_MESSAGE",
-        "TAG_NOT_FOUND_MESSAGE",
         "formatTagUsage",
         "formatTransactionCount"
       ],
@@ -10683,7 +13034,6 @@
       "storeMembersUsed": [],
       "requirementRefs": [
         "CA-03.2",
-        "CA-03.4",
         "CA-03.5",
         "RF-03"
       ],
@@ -10692,7 +13042,6 @@
         "src/features/tags/DeleteTagBlockedDialog.tsx",
         "src/features/tags/TagList.tsx",
         "src/features/tags/tagTexts.test.ts",
-        "src/features/tags/useTagForm.ts",
         "src/features/tags/useTagsScreen.ts"
       ],
       "imports": [
@@ -10702,90 +13051,6 @@
       "testedBy": [
         "src/features/tags/tagTexts.test.ts"
       ]
-    },
-    {
-      "id": "src/features/tags/useTagForm.ts",
-      "layer": "features",
-      "feature": "tags",
-      "group": "features/tags",
-      "kinds": [
-        "hook"
-      ],
-      "loc": 77,
-      "exports": [
-        "useTagForm"
-      ],
-      "typeExports": [],
-      "defaultExport": null,
-      "functions": [
-        {
-          "name": "useTagForm",
-          "signature": "useTagForm({ tag, onSaved }: UseTagFormOptions)"
-        }
-      ],
-      "components": [],
-      "props": {},
-      "hooksDefined": [
-        "useTagForm"
-      ],
-      "hooksUsed": [
-        "useEffect"
-      ],
-      "jsxUsed": [],
-      "storesUsed": [],
-      "dexieTables": {},
-      "usesTransaction": false,
-      "usesLiveQuery": false,
-      "devOnly": false,
-      "lazyImports": [],
-      "lazyComponents": {},
-      "routes": [],
-      "storeMembersUsed": [],
-      "requirementRefs": [
-        "CA-03.4",
-        "D-32",
-        "RF-03"
-      ],
-      "external": [
-        {
-          "package": "@hookform/resolvers",
-          "specifier": "@hookform/resolvers/zod",
-          "kind": "static",
-          "names": [
-            "zodResolver"
-          ]
-        },
-        {
-          "package": "react",
-          "specifier": "react",
-          "kind": "static",
-          "names": [
-            "useEffect",
-            "useState"
-          ]
-        },
-        {
-          "package": "react-hook-form",
-          "specifier": "react-hook-form",
-          "kind": "static",
-          "names": [
-            "useForm"
-          ]
-        }
-      ],
-      "importedBy": [
-        "src/features/tags/TagForm.tsx"
-      ],
-      "imports": [
-        "src/domain/tagSchema.ts",
-        "src/domain/tags.ts",
-        "src/domain/types.ts",
-        "src/features/tags/tagTexts.ts",
-        "src/lib/formSubmit.ts",
-        "src/repositories/tagsRepository.ts"
-      ],
-      "assets": [],
-      "testedBy": []
     },
     {
       "id": "src/features/tags/useTagsScreen.ts",
@@ -10856,6 +13121,65 @@
       "testedBy": []
     },
     {
+      "id": "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
+      "layer": "features",
+      "feature": "transactions",
+      "group": "features/transactions",
+      "kinds": [
+        "component"
+      ],
+      "loc": 39,
+      "exports": [
+        "ConfirmDeleteTransactionDialog"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "ConfirmDeleteTransactionDialog",
+          "signature": "ConfirmDeleteTransactionDialog({ open, description, onConfirm, onCancel, isDeleting, errorMessage, }: ConfirmDeleteTransactionDialogProps)"
+        }
+      ],
+      "components": [
+        "ConfirmDeleteTransactionDialog"
+      ],
+      "props": {
+        "ConfirmDeleteTransactionDialogProps": 6
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "Button",
+        "ErrorAlert",
+        "Modal",
+        "Modal.Actions",
+        "Modal.Body"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.6"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/transactions/TransactionDetailPage.tsx"
+      ],
+      "imports": [
+        "src/components/ui/Button.tsx",
+        "src/components/ui/ErrorAlert.tsx",
+        "src/components/ui/Modal.tsx"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/features/transactions/NewTransactionPage.tsx",
       "layer": "features",
       "feature": "transactions",
@@ -10864,7 +13188,7 @@
         "component",
         "page"
       ],
-      "loc": 9,
+      "loc": 12,
       "exports": [
         "NewTransactionPage"
       ],
@@ -10885,7 +13209,8 @@
       "jsxUsed": [
         "BackLink",
         "Page",
-        "Page.Header"
+        "Page.Header",
+        "TransactionForm"
       ],
       "storesUsed": [],
       "dexieTables": {},
@@ -10896,17 +13221,89 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "RF-01",
+        "RF-08"
+      ],
       "external": [],
       "importedBy": [
         "src/app/lazyPages.tsx"
       ],
       "imports": [
+        "src/components/transactions/TransactionForm.tsx",
         "src/components/ui/BackLink.tsx",
         "src/components/ui/Page.tsx"
       ],
       "assets": [],
       "testedBy": []
+    },
+    {
+      "id": "src/features/transactions/TransactionDetailPage.test.tsx",
+      "layer": "features",
+      "feature": "transactions",
+      "group": "features/transactions",
+      "kinds": [
+        "test"
+      ],
+      "loc": 125,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.5",
+        "CA-01.6",
+        "RF-01"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "screen",
+            "waitFor",
+            "within"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/money.ts",
+        "src/domain/types.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.ts",
+        "src/test/renderApp.tsx",
+        "src/test/transactionForm.ts"
+      ],
+      "assets": []
     },
     {
       "id": "src/features/transactions/TransactionDetailPage.tsx",
@@ -10917,7 +13314,7 @@
         "component",
         "page"
       ],
-      "loc": 9,
+      "loc": 44,
       "exports": [
         "TransactionDetailPage"
       ],
@@ -10934,11 +13331,18 @@
       ],
       "props": {},
       "hooksDefined": [],
-      "hooksUsed": [],
+      "hooksUsed": [
+        "useParams",
+        "useTransactionDetail"
+      ],
       "jsxUsed": [
         "BackLink",
+        "Button",
+        "ConfirmDeleteTransactionDialog",
+        "EmptyState",
         "Page",
-        "Page.Header"
+        "Page.Header",
+        "TransactionForm"
       ],
       "storesUsed": [],
       "dexieTables": {},
@@ -10949,17 +13353,37 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
-      "external": [],
+      "requirementRefs": [
+        "RF-01",
+        "RF-07",
+        "RF-08"
+      ],
+      "external": [
+        {
+          "package": "react-router",
+          "specifier": "react-router",
+          "kind": "static",
+          "names": [
+            "useParams"
+          ]
+        }
+      ],
       "importedBy": [
         "src/app/lazyPages.tsx"
       ],
       "imports": [
+        "src/components/transactions/TransactionForm.tsx",
         "src/components/ui/BackLink.tsx",
-        "src/components/ui/Page.tsx"
+        "src/components/ui/Button.tsx",
+        "src/components/ui/EmptyState.tsx",
+        "src/components/ui/Page.tsx",
+        "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
+        "src/features/transactions/useTransactionDetail.ts"
       ],
       "assets": [],
-      "testedBy": []
+      "testedBy": [
+        "src/features/transactions/TransactionDetailPage.test.tsx"
+      ]
     },
     {
       "id": "src/features/transactions/TransactionsPage.tsx",
@@ -11008,6 +13432,72 @@
       ],
       "imports": [
         "src/components/ui/Page.tsx"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/transactions/useTransactionDetail.ts",
+      "layer": "features",
+      "feature": "transactions",
+      "group": "features/transactions",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 51,
+      "exports": [
+        "DELETE_TRANSACTION_FAILED_MESSAGE",
+        "useTransactionDetail"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useTransactionDetail",
+          "signature": "useTransactionDetail(id: string)"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useTransactionDetail"
+      ],
+      "hooksUsed": [
+        "useGoBack",
+        "useState",
+        "useTransaction"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.5",
+        "CA-01.6",
+        "CA-13.2"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useState"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/transactions/TransactionDetailPage.tsx"
+      ],
+      "imports": [
+        "src/components/ui/useGoBack.ts",
+        "src/repositories/transactionsRepository.ts"
       ],
       "assets": [],
       "testedBy": []
@@ -11460,7 +13950,8 @@
         }
       ],
       "importedBy": [
-        "src/features/tags/useTagForm.ts",
+        "src/components/tags/useTagForm.ts",
+        "src/components/transactions/useTransactionForm.ts",
         "src/lib/formSubmit.test.ts"
       ],
       "imports": [],
@@ -12487,6 +14978,68 @@
       ]
     },
     {
+      "id": "src/repositories/tagsRepository.listTags.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 41,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useTags"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.7",
+        "D-38",
+        "RF-01"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "act",
+            "renderHook",
+            "waitFor"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/repositories/tagsRepository.ts"
+      ],
+      "assets": []
+    },
+    {
       "id": "src/repositories/tagsRepository.test.ts",
       "layer": "repositories",
       "feature": null,
@@ -12602,7 +15155,7 @@
       "kinds": [
         "hook"
       ],
-      "loc": 112,
+      "loc": 120,
       "exports": [
         "DeleteTagResult",
         "DuplicateTagNameError",
@@ -12611,8 +15164,10 @@
         "createTag",
         "deleteTag",
         "getTagUsage",
+        "listTags",
         "listTagsWithTransactionCount",
         "updateTag",
+        "useTags",
         "useTagsWithTransactionCount"
       ],
       "typeExports": [
@@ -12644,11 +15199,20 @@
         {
           "name": "useTagsWithTransactionCount",
           "signature": "useTagsWithTransactionCount(): TagWithTransactionCount[] | undefined"
+        },
+        {
+          "name": "listTags",
+          "signature": "listTags(): Promise<Tag[]>"
+        },
+        {
+          "name": "useTags",
+          "signature": "useTags(): Tag[] | undefined"
         }
       ],
       "components": [],
       "props": {},
       "hooksDefined": [
+        "useTags",
         "useTagsWithTransactionCount"
       ],
       "hooksUsed": [
@@ -12701,6 +15265,7 @@
         "CA-03.4",
         "CA-03.5",
         "D-02",
+        "RF-01",
         "RF-03",
         "RNF-02"
       ],
@@ -12715,14 +15280,23 @@
         }
       ],
       "importedBy": [
+        "src/components/tags/useTagForm.ts",
+        "src/components/transactions/TransactionForm.tsx",
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
+        "src/features/home/RecentTransactions.tsx",
         "src/features/tags/TagList.tsx",
         "src/features/tags/TagsPage.errors.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
-        "src/features/tags/useTagForm.ts",
         "src/features/tags/useTagsScreen.ts",
-        "src/repositories/tagsRepository.test.ts"
+        "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/repositories/tagsRepository.listTags.test.ts",
+        "src/repositories/tagsRepository.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts"
       ],
       "imports": [
         "src/db/database.ts",
@@ -12732,10 +15306,17 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
         "src/features/tags/TagsPage.errors.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
-        "src/repositories/tagsRepository.test.ts"
+        "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/repositories/tagsRepository.listTags.test.ts",
+        "src/repositories/tagsRepository.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts"
       ]
     },
     {
@@ -13002,6 +15583,411 @@
       "testedBy": [
         "src/repositories/themePreference.test.ts",
         "src/repositories/themeRepository.test.ts"
+      ]
+    },
+    {
+      "id": "src/repositories/transactionsRepository.balances.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 250,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "transactions": {
+          "reads": [],
+          "writes": [
+            "bulkAdd",
+            "clear"
+          ]
+        }
+      },
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-02.3",
+        "D-03",
+        "D-38",
+        "D-39",
+        "RF-01",
+        "RF-02"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts",
+        "src/domain/balances.ts",
+        "src/domain/dates.ts",
+        "src/domain/money.ts",
+        "src/domain/types.ts",
+        "src/repositories/transactionsRepository.ts",
+        "src/test/factories.ts",
+        "src/test/propertyHelpers.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/repositories/transactionsRepository.crud.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 318,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFakeTimers",
+        "useRealTimers"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "tags": {
+          "reads": [
+            "get",
+            "toArray"
+          ],
+          "writes": []
+        },
+        "transactions": {
+          "reads": [
+            "count",
+            "toArray"
+          ],
+          "writes": [
+            "add"
+          ]
+        }
+      },
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.1",
+        "CA-01.2",
+        "CA-01.5",
+        "CA-01.6",
+        "CA-03.2",
+        "D-01",
+        "D-02",
+        "D-39",
+        "RF-01",
+        "RF-07",
+        "RF-08"
+      ],
+      "external": [
+        {
+          "package": "dexie",
+          "specifier": "dexie",
+          "kind": "static",
+          "names": [
+            "default as Dexie"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts",
+        "src/domain/money.ts",
+        "src/domain/transactionSchema.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.ts",
+        "src/test/factories.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/repositories/transactionsRepository.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 203,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "transactions": {
+          "reads": [
+            "count"
+          ],
+          "writes": [
+            "add",
+            "bulkAdd"
+          ]
+        },
+        "tags": {
+          "reads": [
+            "get"
+          ],
+          "writes": []
+        }
+      },
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.1",
+        "CA-01.2",
+        "CA-01.5",
+        "CA-01.6",
+        "CA-02.3",
+        "CA-03.2",
+        "D-01",
+        "D-03",
+        "RF-01",
+        "RF-02"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts",
+        "src/domain/transactionSchema.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.ts",
+        "src/test/factories.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/repositories/transactionsRepository.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 118,
+      "exports": [
+        "TransactionNotFoundError",
+        "TransactionTagNotFoundError",
+        "createTransaction",
+        "deleteTransaction",
+        "getMonthTotals",
+        "getOverallBalance",
+        "getTransaction",
+        "listRecentTransactions",
+        "updateTransaction",
+        "useMonthTotals",
+        "useOverallBalance",
+        "useRecentTransactions",
+        "useTransaction"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "createTransaction",
+          "signature": "createTransaction(input: TransactionInput): Promise<Transaction>"
+        },
+        {
+          "name": "updateTransaction",
+          "signature": "updateTransaction(id: string, input: TransactionInput): Promise<Transaction>"
+        },
+        {
+          "name": "deleteTransaction",
+          "signature": "deleteTransaction(id: string): Promise<void>"
+        },
+        {
+          "name": "getTransaction",
+          "signature": "getTransaction(id: string): Promise<Transaction | undefined>"
+        },
+        {
+          "name": "getOverallBalance",
+          "signature": "getOverallBalance(today: DateString): Promise<Cents>"
+        },
+        {
+          "name": "getMonthTotals",
+          "signature": "getMonthTotals(period: PeriodString): Promise<Totals>"
+        },
+        {
+          "name": "listRecentTransactions",
+          "signature": "listRecentTransactions(count: number): Promise<Transaction[]>"
+        },
+        {
+          "name": "useOverallBalance",
+          "signature": "useOverallBalance(today: DateString): Cents | undefined"
+        },
+        {
+          "name": "useMonthTotals",
+          "signature": "useMonthTotals(period: PeriodString): Totals | undefined"
+        },
+        {
+          "name": "useRecentTransactions",
+          "signature": "useRecentTransactions(count: number): Transaction[] | undefined"
+        },
+        {
+          "name": "useTransaction",
+          "signature": "useTransaction(id: string): Transaction | null | undefined"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useMonthTotals",
+        "useOverallBalance",
+        "useRecentTransactions",
+        "useTransaction"
+      ],
+      "hooksUsed": [
+        "useLiveQuery"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "tags": {
+          "reads": [
+            "where"
+          ],
+          "writes": []
+        },
+        "transactions": {
+          "reads": [
+            "get",
+            "orderBy",
+            "where"
+          ],
+          "writes": [
+            "add",
+            "delete",
+            "put"
+          ]
+        }
+      },
+      "usesTransaction": true,
+      "usesLiveQuery": true,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.1",
+        "CA-01.5",
+        "CA-01.6",
+        "CA-02.3",
+        "CA-02.4",
+        "D-01",
+        "D-02",
+        "D-03",
+        "RF-01",
+        "RF-02",
+        "RF-07",
+        "RF-08",
+        "RNF-02"
+      ],
+      "external": [
+        {
+          "package": "dexie-react-hooks",
+          "specifier": "dexie-react-hooks",
+          "kind": "static",
+          "names": [
+            "useLiveQuery"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/transactions/useTransactionForm.ts",
+        "src/features/home/BalanceSummary.tsx",
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
+        "src/features/home/RecentTransactions.tsx",
+        "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/features/transactions/useTransactionDetail.ts",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts"
+      ],
+      "imports": [
+        "src/db/database.ts",
+        "src/domain/balances.ts",
+        "src/domain/dates.ts",
+        "src/domain/transactionSchema.ts",
+        "src/domain/transactions.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
+        "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts"
       ]
     },
     {
@@ -13373,26 +16359,38 @@
       "requirementRefs": [],
       "external": [],
       "importedBy": [
+        "src/components/tags/TagPicker.test.tsx",
         "src/db/database.schema.test.ts",
         "src/domain/balances.properties.test.ts",
+        "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
         "src/domain/dates.timezone.test.ts",
         "src/domain/tags.test.ts",
+        "src/domain/transactions.test.ts",
         "src/features/tags/TagsPage.test.tsx",
-        "src/repositories/tagsRepository.test.ts"
+        "src/repositories/tagsRepository.test.ts",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts"
       ],
       "imports": [
         "src/domain/types.ts"
       ],
       "assets": [],
       "testedBy": [
+        "src/components/tags/TagPicker.test.tsx",
         "src/db/database.schema.test.ts",
         "src/domain/balances.properties.test.ts",
+        "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
         "src/domain/dates.timezone.test.ts",
         "src/domain/tags.test.ts",
+        "src/domain/transactions.test.ts",
         "src/features/tags/TagsPage.test.tsx",
-        "src/repositories/tagsRepository.test.ts"
+        "src/repositories/tagsRepository.test.ts",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts"
       ]
     },
     {
@@ -13530,18 +16528,24 @@
       "requirementRefs": [],
       "external": [],
       "importedBy": [
+        "src/components/ui/MoneyInput.test.tsx",
         "src/domain/balances.properties.test.ts",
         "src/domain/dates.calendar.test.ts",
         "src/domain/dates.timezone.test.ts",
-        "src/domain/money.test.ts"
+        "src/domain/money.test.ts",
+        "src/domain/transactions.test.ts",
+        "src/repositories/transactionsRepository.balances.test.ts"
       ],
       "imports": [],
       "assets": [],
       "testedBy": [
+        "src/components/ui/MoneyInput.test.tsx",
         "src/domain/balances.properties.test.ts",
         "src/domain/dates.calendar.test.ts",
         "src/domain/dates.timezone.test.ts",
-        "src/domain/money.test.ts"
+        "src/domain/money.test.ts",
+        "src/domain/transactions.test.ts",
+        "src/repositories/transactionsRepository.balances.test.ts"
       ]
     },
     {
@@ -13613,10 +16617,14 @@
         "src/app/routes.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/dev/architecture/ArchitecturePage.test.tsx",
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
         "src/features/tags/TagsPage.errors.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
-        "src/features/tags/TagsPage.validation.test.tsx"
+        "src/features/tags/TagsPage.transactions.test.tsx",
+        "src/features/tags/TagsPage.validation.test.tsx",
+        "src/features/transactions/TransactionDetailPage.test.tsx"
       ],
       "imports": [
         "src/app/routes.tsx",
@@ -13630,10 +16638,14 @@
         "src/app/routes.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/dev/architecture/ArchitecturePage.test.tsx",
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
         "src/features/tags/TagsPage.errors.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
-        "src/features/tags/TagsPage.validation.test.tsx"
+        "src/features/tags/TagsPage.transactions.test.tsx",
+        "src/features/tags/TagsPage.validation.test.tsx",
+        "src/features/transactions/TransactionDetailPage.test.tsx"
       ]
     },
     {
@@ -13703,7 +16715,9 @@
       "requirementRefs": [],
       "external": [],
       "importedBy": [
+        "src/features/home/HomePage.form.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx"
       ],
       "imports": [
@@ -13712,7 +16726,9 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/features/home/HomePage.form.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx"
       ]
     },
@@ -13826,6 +16842,140 @@
       "assets": [],
       "testedBy": [
         "src/app/theme/indexHtmlThemeScript.test.ts"
+      ]
+    },
+    {
+      "id": "src/test/transactionForm.ts",
+      "layer": "test",
+      "feature": null,
+      "group": "test",
+      "kinds": [
+        "module"
+      ],
+      "loc": 66,
+      "exports": [
+        "amountInput",
+        "chooseDate",
+        "chooseTag",
+        "chooseType",
+        "clearAmount",
+        "dateInput",
+        "descriptionInput",
+        "expectSubmitEnabled",
+        "fillTransactionForm",
+        "submit",
+        "submitButton",
+        "typeAmount",
+        "typeDescription"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "amountInput",
+          "signature": "amountInput(scope?: Scope): HTMLInputElement"
+        },
+        {
+          "name": "dateInput",
+          "signature": "dateInput(scope?: Scope): HTMLInputElement"
+        },
+        {
+          "name": "descriptionInput",
+          "signature": "descriptionInput(scope?: Scope): HTMLInputElement"
+        },
+        {
+          "name": "submitButton",
+          "signature": "submitButton(name: 'Lançar' | 'Salvar', scope?: Scope): HTMLButtonElement"
+        },
+        {
+          "name": "typeAmount",
+          "signature": "typeAmount(digits: string, scope?: Scope): void"
+        },
+        {
+          "name": "clearAmount",
+          "signature": "clearAmount(scope?: Scope): void"
+        },
+        {
+          "name": "chooseType",
+          "signature": "chooseType(label: 'Saída' | 'Entrada', scope?: Scope): void"
+        },
+        {
+          "name": "chooseDate",
+          "signature": "chooseDate(date: string, scope?: Scope): void"
+        },
+        {
+          "name": "chooseTag",
+          "signature": "chooseTag(name: string, scope?: Scope): Promise<void>"
+        },
+        {
+          "name": "typeDescription",
+          "signature": "typeDescription(text: string, scope?: Scope): void"
+        },
+        {
+          "name": "fillTransactionForm",
+          "signature": "fillTransactionForm(options: FillOptions, scope?: Scope): Promise<void>"
+        },
+        {
+          "name": "submit",
+          "signature": "submit(name: 'Lançar' | 'Salvar', scope?: Scope): Promise<void>"
+        },
+        {
+          "name": "expectSubmitEnabled",
+          "signature": "expectSubmitEnabled(name: 'Lançar' | 'Salvar', isEnabled: boolean, scope?: Scope): Promise<void>"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.3",
+        "RF-01"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "screen",
+            "waitFor",
+            "within"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "expect"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
+        "src/features/tags/TagsPage.transactions.test.tsx",
+        "src/features/transactions/TransactionDetailPage.test.tsx"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
+        "src/features/tags/TagsPage.transactions.test.tsx",
+        "src/features/transactions/TransactionDetailPage.test.tsx"
       ]
     },
     {
@@ -14572,6 +17722,443 @@
       ]
     },
     {
+      "from": "src/components/tags/CreateTagDialog.tsx",
+      "to": "src/components/tags/TagForm.tsx",
+      "kind": "static",
+      "names": [
+        "TagForm"
+      ]
+    },
+    {
+      "from": "src/components/tags/CreateTagDialog.tsx",
+      "to": "src/components/ui/Modal.tsx",
+      "kind": "static",
+      "names": [
+        "Modal"
+      ]
+    },
+    {
+      "from": "src/components/tags/CreateTagDialog.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Tag"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagColorPicker.tsx",
+      "to": "src/domain/tagColor.ts",
+      "kind": "static",
+      "names": [
+        "readableTextColor"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagColorPicker.tsx",
+      "to": "src/domain/tags.ts",
+      "kind": "static",
+      "names": [
+        "findSuggestedTagColor",
+        "SUGGESTED_TAG_COLORS"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagForm.tsx",
+      "to": "src/components/tags/TagColorPicker.tsx",
+      "kind": "static",
+      "names": [
+        "TagColorPicker"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagForm.tsx",
+      "to": "src/components/tags/useTagForm.ts",
+      "kind": "static",
+      "names": [
+        "useTagForm"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagForm.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagForm.tsx",
+      "to": "src/components/ui/ErrorAlert.tsx",
+      "kind": "static",
+      "names": [
+        "ErrorAlert"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagForm.tsx",
+      "to": "src/components/ui/Field.tsx",
+      "kind": "static",
+      "names": [
+        "Field"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagForm.tsx",
+      "to": "src/components/ui/Modal.tsx",
+      "kind": "static",
+      "names": [
+        "Modal"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagForm.tsx",
+      "to": "src/components/ui/TagChip.tsx",
+      "kind": "static",
+      "names": [
+        "TagChip"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagForm.tsx",
+      "to": "src/components/ui/TextInput.tsx",
+      "kind": "static",
+      "names": [
+        "TextInput"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagForm.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Tag"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagPicker.test.tsx",
+      "to": "src/components/tags/TagPicker.tsx",
+      "kind": "static",
+      "names": [
+        "TagPicker"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagPicker.test.tsx",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "makeTag"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagPicker.tsx",
+      "to": "src/domain/tagColor.ts",
+      "kind": "static",
+      "names": [
+        "readableTextColor"
+      ]
+    },
+    {
+      "from": "src/components/tags/TagPicker.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Tag"
+      ]
+    },
+    {
+      "from": "src/components/tags/useTagForm.ts",
+      "to": "src/components/tags/tagFormTexts.ts",
+      "kind": "static",
+      "names": [
+        "DUPLICATE_TAG_NAME_MESSAGE",
+        "SAVE_TAG_FAILED_MESSAGE",
+        "TAG_NOT_FOUND_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/components/tags/useTagForm.ts",
+      "to": "src/domain/tags.ts",
+      "kind": "static",
+      "names": [
+        "SUGGESTED_TAG_COLORS"
+      ]
+    },
+    {
+      "from": "src/components/tags/useTagForm.ts",
+      "to": "src/domain/tagSchema.ts",
+      "kind": "static",
+      "names": [
+        "tagInputSchema",
+        "TagInput",
+        "TagValues"
+      ]
+    },
+    {
+      "from": "src/components/tags/useTagForm.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Tag"
+      ]
+    },
+    {
+      "from": "src/components/tags/useTagForm.ts",
+      "to": "src/lib/formSubmit.ts",
+      "kind": "static",
+      "names": [
+        "canSubmitForm",
+        "LIVE_VALIDATION"
+      ]
+    },
+    {
+      "from": "src/components/tags/useTagForm.ts",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag",
+        "DuplicateTagNameError",
+        "TagNotFoundError",
+        "updateTag"
+      ]
+    },
+    {
+      "from": "src/components/transactions/NoTagsNotice.tsx",
+      "to": "src/components/transactions/transactionTexts.ts",
+      "kind": "static",
+      "names": [
+        "NO_TAGS_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/components/transactions/NoTagsNotice.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/tags/CreateTagDialog.tsx",
+      "kind": "static",
+      "names": [
+        "CreateTagDialog"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/tags/TagPicker.tsx",
+      "kind": "static",
+      "names": [
+        "TagPicker"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/transactions/NoTagsNotice.tsx",
+      "kind": "static",
+      "names": [
+        "NoTagsNotice"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/transactions/useTransactionForm.ts",
+      "kind": "static",
+      "names": [
+        "useTransactionForm"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/ui/createRadioGroup.tsx",
+      "kind": "static",
+      "names": [
+        "createRadioGroup"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/ui/DateInput.tsx",
+      "kind": "static",
+      "names": [
+        "DateInput"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/ui/ErrorAlert.tsx",
+      "kind": "static",
+      "names": [
+        "ErrorAlert"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/ui/Field.tsx",
+      "kind": "static",
+      "names": [
+        "Field"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/ui/MoneyInput.tsx",
+      "kind": "static",
+      "names": [
+        "MoneyInput"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/ui/TextInput.tsx",
+      "kind": "static",
+      "names": [
+        "TextInput"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/ui/Toast.tsx",
+      "kind": "static",
+      "names": [
+        "Toast"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction",
+        "TransactionType"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "useTags"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionRow.tsx",
+      "to": "src/components/ui/SignedAmount.tsx",
+      "kind": "static",
+      "names": [
+        "SignedAmount"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionRow.tsx",
+      "to": "src/components/ui/TagChip.tsx",
+      "kind": "static",
+      "names": [
+        "TagChip"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionRow.tsx",
+      "to": "src/domain/balances.ts",
+      "kind": "static",
+      "names": [
+        "signedAmount"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionRow.tsx",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "formatShortDate"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionRow.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Tag",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/components/transactions/useTransactionForm.ts",
+      "to": "src/components/transactions/transactionTexts.ts",
+      "kind": "static",
+      "names": [
+        "SAVE_TRANSACTION_FAILED_MESSAGE",
+        "TRANSACTION_NOT_FOUND_MESSAGE",
+        "TRANSACTION_SAVED_MESSAGE",
+        "TRANSACTION_TAG_NOT_FOUND_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/components/transactions/useTransactionForm.ts",
+      "to": "src/components/ui/useToast.ts",
+      "kind": "static",
+      "names": [
+        "useToast"
+      ]
+    },
+    {
+      "from": "src/components/transactions/useTransactionForm.ts",
+      "to": "src/components/ui/useToday.ts",
+      "kind": "static",
+      "names": [
+        "useToday"
+      ]
+    },
+    {
+      "from": "src/components/transactions/useTransactionForm.ts",
+      "to": "src/domain/transactionSchema.ts",
+      "kind": "static",
+      "names": [
+        "transactionInputSchema",
+        "TransactionInput",
+        "TransactionValues"
+      ]
+    },
+    {
+      "from": "src/components/transactions/useTransactionForm.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/components/transactions/useTransactionForm.ts",
+      "to": "src/lib/formSubmit.ts",
+      "kind": "static",
+      "names": [
+        "canSubmitForm",
+        "LIVE_VALIDATION"
+      ]
+    },
+    {
+      "from": "src/components/transactions/useTransactionForm.ts",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTransaction",
+        "TransactionNotFoundError",
+        "TransactionTagNotFoundError",
+        "updateTransaction"
+      ]
+    },
+    {
       "from": "src/components/ui/BackLink.test.tsx",
       "to": "src/components/ui/BackLink.tsx",
       "kind": "static",
@@ -14596,11 +18183,134 @@
       ]
     },
     {
+      "from": "src/components/ui/DateInput.test.tsx",
+      "to": "src/components/ui/DateInput.tsx",
+      "kind": "static",
+      "names": [
+        "DateInput"
+      ]
+    },
+    {
+      "from": "src/components/ui/DateInput.test.tsx",
+      "to": "src/components/ui/Field.tsx",
+      "kind": "static",
+      "names": [
+        "Field"
+      ]
+    },
+    {
+      "from": "src/components/ui/DateInput.tsx",
+      "to": "src/components/ui/inputClasses.ts",
+      "kind": "static",
+      "names": [
+        "TEXT_INPUT_CLASSES"
+      ]
+    },
+    {
+      "from": "src/components/ui/DateInput.tsx",
+      "to": "src/components/ui/useFieldControl.ts",
+      "kind": "static",
+      "names": [
+        "useFieldControl"
+      ]
+    },
+    {
+      "from": "src/components/ui/Field.tsx",
+      "to": "src/components/ui/useFieldControl.ts",
+      "kind": "static",
+      "names": [
+        "FieldContext",
+        "useFieldContext"
+      ]
+    },
+    {
       "from": "src/components/ui/Modal.test.tsx",
       "to": "src/components/ui/Modal.tsx",
       "kind": "static",
       "names": [
         "Modal"
+      ]
+    },
+    {
+      "from": "src/components/ui/MoneyInput.test.tsx",
+      "to": "src/components/ui/Field.tsx",
+      "kind": "static",
+      "names": [
+        "Field"
+      ]
+    },
+    {
+      "from": "src/components/ui/MoneyInput.test.tsx",
+      "to": "src/components/ui/MoneyInput.tsx",
+      "kind": "static",
+      "names": [
+        "MoneyInput"
+      ]
+    },
+    {
+      "from": "src/components/ui/MoneyInput.test.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "digitsToCents",
+        "formatBRL"
+      ]
+    },
+    {
+      "from": "src/components/ui/MoneyInput.test.tsx",
+      "to": "src/test/propertyHelpers.ts",
+      "kind": "static",
+      "names": [
+        "createTestRandom"
+      ]
+    },
+    {
+      "from": "src/components/ui/MoneyInput.tsx",
+      "to": "src/components/ui/inputClasses.ts",
+      "kind": "static",
+      "names": [
+        "TEXT_INPUT_CLASSES"
+      ]
+    },
+    {
+      "from": "src/components/ui/MoneyInput.tsx",
+      "to": "src/components/ui/useFieldControl.ts",
+      "kind": "static",
+      "names": [
+        "useFieldControl"
+      ]
+    },
+    {
+      "from": "src/components/ui/MoneyInput.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "digitsToCents",
+        "formatBRL"
+      ]
+    },
+    {
+      "from": "src/components/ui/MoneyInput.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Cents"
+      ]
+    },
+    {
+      "from": "src/components/ui/SignedAmount.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "formatSignedBRL"
+      ]
+    },
+    {
+      "from": "src/components/ui/SignedAmount.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Cents"
       ]
     },
     {
@@ -14617,6 +18327,38 @@
       "kind": "static",
       "names": [
         "readableTextColor"
+      ]
+    },
+    {
+      "from": "src/components/ui/TextInput.tsx",
+      "to": "src/components/ui/inputClasses.ts",
+      "kind": "static",
+      "names": [
+        "TEXT_INPUT_CLASSES"
+      ]
+    },
+    {
+      "from": "src/components/ui/TextInput.tsx",
+      "to": "src/components/ui/useFieldControl.ts",
+      "kind": "static",
+      "names": [
+        "useFieldControl"
+      ]
+    },
+    {
+      "from": "src/components/ui/useToday.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "today"
+      ]
+    },
+    {
+      "from": "src/components/ui/useToday.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString"
       ]
     },
     {
@@ -16888,6 +20630,32 @@
       ]
     },
     {
+      "from": "src/domain/balances.signedAmount.test.ts",
+      "to": "src/domain/balances.ts",
+      "kind": "static",
+      "names": [
+        "signedAmount",
+        "totals"
+      ]
+    },
+    {
+      "from": "src/domain/balances.signedAmount.test.ts",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "MAX_AMOUNT_CENTS"
+      ]
+    },
+    {
+      "from": "src/domain/balances.signedAmount.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "expense",
+        "income"
+      ]
+    },
+    {
       "from": "src/domain/balances.test.ts",
       "to": "src/domain/balances.ts",
       "kind": "static",
@@ -16977,6 +20745,26 @@
         "daysInMonth",
         "toDateString",
         "weekdayOf"
+      ]
+    },
+    {
+      "from": "src/domain/dates.format.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "formatMonthLabel",
+        "formatShortDate",
+        "isValidDate"
+      ]
+    },
+    {
+      "from": "src/domain/dates.format.timezone.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "formatMonthLabel",
+        "formatShortDate",
+        "isValidDate"
       ]
     },
     {
@@ -17150,6 +20938,81 @@
       ]
     },
     {
+      "from": "src/domain/transactions.test.ts",
+      "to": "src/domain/transactions.ts",
+      "kind": "static",
+      "names": [
+        "compareByRecency",
+        "takeMostRecent"
+      ]
+    },
+    {
+      "from": "src/domain/transactions.test.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/domain/transactions.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "makeTransaction"
+      ]
+    },
+    {
+      "from": "src/domain/transactions.test.ts",
+      "to": "src/test/propertyHelpers.ts",
+      "kind": "static",
+      "names": [
+        "createTestRandom"
+      ]
+    },
+    {
+      "from": "src/domain/transactions.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/domain/transactionSchema.test.ts",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "MAX_AMOUNT_CENTS"
+      ]
+    },
+    {
+      "from": "src/domain/transactionSchema.test.ts",
+      "to": "src/domain/transactionSchema.ts",
+      "kind": "static",
+      "names": [
+        "DESCRIPTION_MAX_LENGTH",
+        "transactionInputSchema"
+      ]
+    },
+    {
+      "from": "src/domain/transactionSchema.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "isValidDate"
+      ]
+    },
+    {
+      "from": "src/domain/transactionSchema.ts",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "formatBRL",
+        "MAX_AMOUNT_CENTS"
+      ]
+    },
+    {
       "from": "src/features/backup/BackupPage.tsx",
       "to": "src/components/ui/BackLink.tsx",
       "kind": "static",
@@ -17174,11 +21037,241 @@
       ]
     },
     {
+      "from": "src/features/home/BalanceSummary.tsx",
+      "to": "src/components/ui/SignedAmount.tsx",
+      "kind": "static",
+      "names": [
+        "SignedAmount"
+      ]
+    },
+    {
+      "from": "src/features/home/BalanceSummary.tsx",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "formatMonthLabel",
+        "periodOf"
+      ]
+    },
+    {
+      "from": "src/features/home/BalanceSummary.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "formatBRL"
+      ]
+    },
+    {
+      "from": "src/features/home/BalanceSummary.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString"
+      ]
+    },
+    {
+      "from": "src/features/home/BalanceSummary.tsx",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "useMonthTotals",
+        "useOverallBalance"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.form.test.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "formatBRL"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.form.test.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.form.test.tsx",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "* as transactionsRepository"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.form.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.form.test.tsx",
+      "to": "src/test/seedDatabase.ts",
+      "kind": "static",
+      "names": [
+        "readAllTags"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.form.test.tsx",
+      "to": "src/test/transactionForm.ts",
+      "kind": "static",
+      "names": [
+        "amountInput",
+        "chooseDate",
+        "dateInput",
+        "descriptionInput",
+        "expectSubmitEnabled",
+        "fillTransactionForm",
+        "submit",
+        "typeAmount",
+        "typeDescription"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.test.tsx",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "addMonthsClamped",
+        "today"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.test.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "formatBRL",
+        "formatSignedBRL"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.test.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.test.tsx",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTransaction"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.test.tsx",
+      "to": "src/test/transactionForm.ts",
+      "kind": "static",
+      "names": [
+        "amountInput",
+        "chooseType",
+        "clearAmount",
+        "dateInput",
+        "descriptionInput",
+        "expectSubmitEnabled",
+        "fillTransactionForm",
+        "submit",
+        "typeAmount",
+        "typeDescription"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.tsx",
+      "to": "src/components/transactions/TransactionForm.tsx",
+      "kind": "static",
+      "names": [
+        "TransactionForm"
+      ]
+    },
+    {
       "from": "src/features/home/HomePage.tsx",
       "to": "src/components/ui/Page.tsx",
       "kind": "static",
       "names": [
         "Page"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.tsx",
+      "to": "src/components/ui/useToday.ts",
+      "kind": "static",
+      "names": [
+        "useToday"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.tsx",
+      "to": "src/features/home/BalanceSummary.tsx",
+      "kind": "static",
+      "names": [
+        "BalanceSummary"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.tsx",
+      "to": "src/features/home/RecentTransactions.tsx",
+      "kind": "static",
+      "names": [
+        "RecentTransactions"
+      ]
+    },
+    {
+      "from": "src/features/home/RecentTransactions.tsx",
+      "to": "src/components/transactions/TransactionRow.tsx",
+      "kind": "static",
+      "names": [
+        "TransactionRow"
+      ]
+    },
+    {
+      "from": "src/features/home/RecentTransactions.tsx",
+      "to": "src/components/ui/EmptyState.tsx",
+      "kind": "static",
+      "names": [
+        "EmptyState"
+      ]
+    },
+    {
+      "from": "src/features/home/RecentTransactions.tsx",
+      "to": "src/features/home/homeTexts.ts",
+      "kind": "static",
+      "names": [
+        "NO_TRANSACTIONS_MESSAGE",
+        "RECENT_TRANSACTIONS_COUNT"
+      ]
+    },
+    {
+      "from": "src/features/home/RecentTransactions.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "useTags"
+      ]
+    },
+    {
+      "from": "src/features/home/RecentTransactions.tsx",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "useRecentTransactions"
       ]
     },
     {
@@ -17514,116 +21607,43 @@
       ]
     },
     {
-      "from": "src/features/tags/TagColorPicker.tsx",
-      "to": "src/domain/tagColor.ts",
-      "kind": "static",
-      "names": [
-        "readableTextColor"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagColorPicker.tsx",
-      "to": "src/domain/tags.ts",
-      "kind": "static",
-      "names": [
-        "findSuggestedTagColor",
-        "SUGGESTED_TAG_COLORS"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagForm.tsx",
-      "to": "src/components/ui/Button.tsx",
-      "kind": "static",
-      "names": [
-        "Button"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagForm.tsx",
-      "to": "src/components/ui/ErrorAlert.tsx",
-      "kind": "static",
-      "names": [
-        "ErrorAlert"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagForm.tsx",
-      "to": "src/components/ui/Modal.tsx",
-      "kind": "static",
-      "names": [
-        "Modal"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagForm.tsx",
-      "to": "src/components/ui/TagChip.tsx",
-      "kind": "static",
-      "names": [
-        "TagChip"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagForm.tsx",
-      "to": "src/domain/types.ts",
-      "kind": "type",
-      "names": [
-        "Tag"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagForm.tsx",
-      "to": "src/features/tags/TagColorPicker.tsx",
-      "kind": "static",
-      "names": [
-        "TagColorPicker"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagForm.tsx",
-      "to": "src/features/tags/useTagForm.ts",
-      "kind": "static",
-      "names": [
-        "useTagForm"
-      ]
-    },
-    {
       "from": "src/features/tags/TagFormDialog.tsx",
-      "to": "src/components/ui/Button.tsx",
-      "kind": "static",
-      "names": [
-        "Button"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagFormDialog.tsx",
-      "to": "src/components/ui/ErrorAlert.tsx",
-      "kind": "static",
-      "names": [
-        "ErrorAlert"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagFormDialog.tsx",
-      "to": "src/components/ui/Modal.tsx",
-      "kind": "static",
-      "names": [
-        "Modal"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagFormDialog.tsx",
-      "to": "src/domain/types.ts",
-      "kind": "type",
-      "names": [
-        "Tag"
-      ]
-    },
-    {
-      "from": "src/features/tags/TagFormDialog.tsx",
-      "to": "src/features/tags/TagForm.tsx",
+      "to": "src/components/tags/TagForm.tsx",
       "kind": "static",
       "names": [
         "TagForm"
+      ]
+    },
+    {
+      "from": "src/features/tags/TagFormDialog.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
+      "from": "src/features/tags/TagFormDialog.tsx",
+      "to": "src/components/ui/ErrorAlert.tsx",
+      "kind": "static",
+      "names": [
+        "ErrorAlert"
+      ]
+    },
+    {
+      "from": "src/features/tags/TagFormDialog.tsx",
+      "to": "src/components/ui/Modal.tsx",
+      "kind": "static",
+      "names": [
+        "Modal"
+      ]
+    },
+    {
+      "from": "src/features/tags/TagFormDialog.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Tag"
       ]
     },
     {
@@ -17707,6 +21727,39 @@
       "names": [
         "readAllTags",
         "seedRecords"
+      ]
+    },
+    {
+      "from": "src/features/tags/TagsPage.transactions.test.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag"
+      ]
+    },
+    {
+      "from": "src/features/tags/TagsPage.transactions.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/features/tags/TagsPage.transactions.test.tsx",
+      "to": "src/test/seedDatabase.ts",
+      "kind": "static",
+      "names": [
+        "readAllTags"
+      ]
+    },
+    {
+      "from": "src/features/tags/TagsPage.transactions.test.tsx",
+      "to": "src/test/transactionForm.ts",
+      "kind": "static",
+      "names": [
+        "fillTransactionForm",
+        "submit"
       ]
     },
     {
@@ -17831,62 +21884,6 @@
       ]
     },
     {
-      "from": "src/features/tags/useTagForm.ts",
-      "to": "src/domain/tags.ts",
-      "kind": "static",
-      "names": [
-        "SUGGESTED_TAG_COLORS"
-      ]
-    },
-    {
-      "from": "src/features/tags/useTagForm.ts",
-      "to": "src/domain/tagSchema.ts",
-      "kind": "static",
-      "names": [
-        "tagInputSchema",
-        "TagInput",
-        "TagValues"
-      ]
-    },
-    {
-      "from": "src/features/tags/useTagForm.ts",
-      "to": "src/domain/types.ts",
-      "kind": "type",
-      "names": [
-        "Tag"
-      ]
-    },
-    {
-      "from": "src/features/tags/useTagForm.ts",
-      "to": "src/features/tags/tagTexts.ts",
-      "kind": "static",
-      "names": [
-        "DUPLICATE_TAG_NAME_MESSAGE",
-        "SAVE_TAG_FAILED_MESSAGE",
-        "TAG_NOT_FOUND_MESSAGE"
-      ]
-    },
-    {
-      "from": "src/features/tags/useTagForm.ts",
-      "to": "src/lib/formSubmit.ts",
-      "kind": "static",
-      "names": [
-        "canSubmitForm",
-        "LIVE_VALIDATION"
-      ]
-    },
-    {
-      "from": "src/features/tags/useTagForm.ts",
-      "to": "src/repositories/tagsRepository.ts",
-      "kind": "static",
-      "names": [
-        "createTag",
-        "DuplicateTagNameError",
-        "TagNotFoundError",
-        "updateTag"
-      ]
-    },
-    {
       "from": "src/features/tags/useTagsScreen.ts",
       "to": "src/domain/tags.ts",
       "kind": "static",
@@ -17922,6 +21919,38 @@
       ]
     },
     {
+      "from": "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
+      "from": "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
+      "to": "src/components/ui/ErrorAlert.tsx",
+      "kind": "static",
+      "names": [
+        "ErrorAlert"
+      ]
+    },
+    {
+      "from": "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
+      "to": "src/components/ui/Modal.tsx",
+      "kind": "static",
+      "names": [
+        "Modal"
+      ]
+    },
+    {
+      "from": "src/features/transactions/NewTransactionPage.tsx",
+      "to": "src/components/transactions/TransactionForm.tsx",
+      "kind": "static",
+      "names": [
+        "TransactionForm"
+      ]
+    },
+    {
       "from": "src/features/transactions/NewTransactionPage.tsx",
       "to": "src/components/ui/BackLink.tsx",
       "kind": "static",
@@ -17938,6 +21967,68 @@
       ]
     },
     {
+      "from": "src/features/transactions/TransactionDetailPage.test.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "formatBRL"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.test.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.test.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.test.tsx",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "* as transactionsRepository"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.test.tsx",
+      "to": "src/test/transactionForm.ts",
+      "kind": "static",
+      "names": [
+        "amountInput",
+        "clearAmount",
+        "dateInput",
+        "descriptionInput",
+        "expectSubmitEnabled",
+        "submit",
+        "typeAmount"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.tsx",
+      "to": "src/components/transactions/TransactionForm.tsx",
+      "kind": "static",
+      "names": [
+        "TransactionForm"
+      ]
+    },
+    {
       "from": "src/features/transactions/TransactionDetailPage.tsx",
       "to": "src/components/ui/BackLink.tsx",
       "kind": "static",
@@ -17947,10 +22038,42 @@
     },
     {
       "from": "src/features/transactions/TransactionDetailPage.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.tsx",
+      "to": "src/components/ui/EmptyState.tsx",
+      "kind": "static",
+      "names": [
+        "EmptyState"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.tsx",
       "to": "src/components/ui/Page.tsx",
       "kind": "static",
       "names": [
         "Page"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.tsx",
+      "to": "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
+      "kind": "static",
+      "names": [
+        "ConfirmDeleteTransactionDialog"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.tsx",
+      "to": "src/features/transactions/useTransactionDetail.ts",
+      "kind": "static",
+      "names": [
+        "useTransactionDetail"
       ]
     },
     {
@@ -17959,6 +22082,23 @@
       "kind": "static",
       "names": [
         "Page"
+      ]
+    },
+    {
+      "from": "src/features/transactions/useTransactionDetail.ts",
+      "to": "src/components/ui/useGoBack.ts",
+      "kind": "static",
+      "names": [
+        "useGoBack"
+      ]
+    },
+    {
+      "from": "src/features/transactions/useTransactionDetail.ts",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "deleteTransaction",
+        "useTransaction"
       ]
     },
     {
@@ -18199,6 +22339,18 @@
       ]
     },
     {
+      "from": "src/repositories/tagsRepository.listTags.test.ts",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag",
+        "deleteTag",
+        "listTags",
+        "updateTag",
+        "useTags"
+      ]
+    },
+    {
       "from": "src/repositories/tagsRepository.test.ts",
       "to": "src/db/database.ts",
       "kind": "static",
@@ -18393,6 +22545,236 @@
       "names": [
         "getSetting",
         "setSetting"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.balances.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.balances.test.ts",
+      "to": "src/domain/balances.ts",
+      "kind": "static",
+      "names": [
+        "overallBalance",
+        "totals"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.balances.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "monthRange",
+        "periodOf"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.balances.test.ts",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "MAX_AMOUNT_CENTS"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.balances.test.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.balances.test.ts",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "getMonthTotals",
+        "getOverallBalance",
+        "listRecentTransactions"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.balances.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "expense",
+        "income",
+        "makeTransaction"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.balances.test.ts",
+      "to": "src/test/propertyHelpers.ts",
+      "kind": "static",
+      "names": [
+        "createTestRandom",
+        "daysInMonth",
+        "toDateString"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.crud.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.crud.test.ts",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "MAX_AMOUNT_CENTS"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.crud.test.ts",
+      "to": "src/domain/transactionSchema.ts",
+      "kind": "type",
+      "names": [
+        "TransactionInput"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.crud.test.ts",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag",
+        "deleteTag",
+        "DeleteTagResult"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.crud.test.ts",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTransaction",
+        "deleteTransaction",
+        "getTransaction",
+        "TransactionNotFoundError",
+        "TransactionTagNotFoundError",
+        "updateTransaction"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.crud.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "makeTransaction"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.test.ts",
+      "to": "src/domain/transactionSchema.ts",
+      "kind": "type",
+      "names": [
+        "TransactionInput"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.test.ts",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag",
+        "deleteTag"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.test.ts",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTransaction",
+        "deleteTransaction",
+        "getMonthTotals",
+        "getOverallBalance",
+        "getTransaction",
+        "listRecentTransactions",
+        "TransactionNotFoundError",
+        "TransactionTagNotFoundError",
+        "updateTransaction"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "makeTransaction"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.ts",
+      "to": "src/domain/balances.ts",
+      "kind": "static",
+      "names": [
+        "overallBalance",
+        "totals",
+        "Totals"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "monthRange"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.ts",
+      "to": "src/domain/transactions.ts",
+      "kind": "static",
+      "names": [
+        "takeMostRecent"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.ts",
+      "to": "src/domain/transactionSchema.ts",
+      "kind": "static",
+      "names": [
+        "transactionInputSchema",
+        "TransactionInput"
+      ]
+    },
+    {
+      "from": "src/repositories/transactionsRepository.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Cents",
+        "DateString",
+        "PeriodString",
+        "Transaction"
       ]
     },
     {
@@ -18646,7 +23028,8 @@
       "dev": false,
       "builtin": false,
       "importedBy": [
-        "src/features/tags/useTagForm.ts"
+        "src/components/tags/useTagForm.ts",
+        "src/components/transactions/useTransactionForm.ts"
       ]
     },
     "date-fns": {
@@ -18657,7 +23040,8 @@
       "builtin": false,
       "importedBy": [
         "src/dev/sampleData/buildSampleData.ts",
-        "src/domain/dates.ts"
+        "src/domain/dates.ts",
+        "src/features/home/HomePage.test.tsx"
       ]
     },
     "dexie": {
@@ -18668,7 +23052,8 @@
       "builtin": false,
       "importedBy": [
         "src/db/database.ts",
-        "src/repositories/tagsRepository.test.ts"
+        "src/repositories/tagsRepository.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts"
       ]
     },
     "dexie-react-hooks": {
@@ -18680,6 +23065,7 @@
       "importedBy": [
         "src/repositories/settingsRepository.ts",
         "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.ts",
         "src/repositories/useThemePreference.ts"
       ]
     },
@@ -18697,16 +23083,30 @@
         "src/app/storage/usePersistentStorageRequest.ts",
         "src/app/theme/ThemeProvider.tsx",
         "src/app/theme/useSystemPrefersDark.ts",
+        "src/components/tags/TagColorPicker.tsx",
+        "src/components/tags/TagForm.tsx",
+        "src/components/tags/TagPicker.tsx",
+        "src/components/tags/useTagForm.ts",
+        "src/components/transactions/TransactionForm.tsx",
+        "src/components/transactions/useTransactionForm.ts",
         "src/components/ui/Button.tsx",
+        "src/components/ui/DateInput.tsx",
         "src/components/ui/EmptyState.tsx",
         "src/components/ui/ErrorAlert.tsx",
+        "src/components/ui/Field.tsx",
         "src/components/ui/InfoList.tsx",
         "src/components/ui/Modal.tsx",
+        "src/components/ui/MoneyInput.test.tsx",
+        "src/components/ui/MoneyInput.tsx",
         "src/components/ui/NavList.tsx",
         "src/components/ui/Notice.tsx",
         "src/components/ui/Page.tsx",
         "src/components/ui/TabBar.tsx",
+        "src/components/ui/TextInput.tsx",
         "src/components/ui/createRadioGroup.tsx",
+        "src/components/ui/useFieldControl.ts",
+        "src/components/ui/useToast.ts",
+        "src/components/ui/useToday.ts",
         "src/dev/architecture/ArchitecturePage.tsx",
         "src/dev/architecture/components/Badge.tsx",
         "src/dev/architecture/components/Card.tsx",
@@ -18724,12 +23124,12 @@
         "src/dev/architecture/components/TimelineSection.tsx",
         "src/dev/architecture/components/useInspector.ts",
         "src/dev/sampleData/useSampleDataTools.ts",
+        "src/features/home/HomePage.tsx",
+        "src/features/home/RecentTransactions.tsx",
         "src/features/settings/AboutPage.tsx",
         "src/features/settings/useStorageStatus.ts",
-        "src/features/tags/TagColorPicker.tsx",
-        "src/features/tags/TagForm.tsx",
-        "src/features/tags/useTagForm.ts",
         "src/features/tags/useTagsScreen.ts",
+        "src/features/transactions/useTransactionDetail.ts",
         "src/main.tsx",
         "src/repositories/ThemeContext.ts",
         "src/repositories/themePreference.test.ts",
@@ -18754,8 +23154,10 @@
       "dev": false,
       "builtin": false,
       "importedBy": [
-        "src/features/tags/TagForm.tsx",
-        "src/features/tags/useTagForm.ts",
+        "src/components/tags/TagForm.tsx",
+        "src/components/tags/useTagForm.ts",
+        "src/components/transactions/TransactionForm.tsx",
+        "src/components/transactions/useTransactionForm.ts",
         "src/lib/formSubmit.ts"
       ]
     },
@@ -18770,11 +23172,14 @@
         "src/app/devRoutes.tsx",
         "src/app/layout/AppLayout.tsx",
         "src/app/routes.tsx",
+        "src/components/transactions/TransactionRow.tsx",
         "src/components/ui/BackLink.test.tsx",
         "src/components/ui/NavList.tsx",
         "src/components/ui/TabBar.tsx",
         "src/components/ui/useGoBack.ts",
+        "src/features/home/RecentTransactions.tsx",
         "src/features/settings/AboutPage.test.tsx",
+        "src/features/transactions/TransactionDetailPage.tsx",
         "src/test/renderApp.tsx"
       ]
     },
@@ -18785,7 +23190,8 @@
       "dev": false,
       "builtin": false,
       "importedBy": [
-        "src/domain/tagSchema.ts"
+        "src/domain/tagSchema.ts",
+        "src/domain/transactionSchema.ts"
       ]
     },
     "zustand": {
@@ -18838,20 +23244,29 @@
         "src/app/pwa/InstallHint.test.tsx",
         "src/app/pwa/UpdateNotice.test.tsx",
         "src/app/routes.test.tsx",
+        "src/components/tags/TagPicker.test.tsx",
         "src/components/ui/BackLink.test.tsx",
+        "src/components/ui/DateInput.test.tsx",
         "src/components/ui/Modal.test.tsx",
+        "src/components/ui/MoneyInput.test.tsx",
         "src/components/ui/TagChip.test.tsx",
         "src/components/ui/createRadioGroup.test.tsx",
         "src/dev/architecture/ArchitecturePage.test.tsx",
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
         "src/features/settings/AboutPage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
         "src/features/tags/TagsPage.errors.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
+        "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/repositories/settingsRepository.test.ts",
+        "src/repositories/tagsRepository.listTags.test.ts",
         "src/repositories/themePreference.test.ts",
         "src/test/renderApp.tsx",
-        "src/test/setup.ts"
+        "src/test/setup.ts",
+        "src/test/transactionForm.ts"
       ]
     },
     "@types/babel__core": {
@@ -19003,8 +23418,11 @@
         "src/app/pwa/registerPwa.test.ts",
         "src/app/routes.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
+        "src/components/tags/TagPicker.test.tsx",
         "src/components/ui/BackLink.test.tsx",
+        "src/components/ui/DateInput.test.tsx",
         "src/components/ui/Modal.test.tsx",
+        "src/components/ui/MoneyInput.test.tsx",
         "src/components/ui/TagChip.test.tsx",
         "src/components/ui/createRadioGroup.test.tsx",
         "src/db/database.schema.test.ts",
@@ -19015,20 +23433,29 @@
         "src/dev/sampleData/buildSampleData.test.ts",
         "src/dev/sampleData/sampleDataStore.test.ts",
         "src/domain/balances.properties.test.ts",
+        "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
         "src/domain/dates.calendar.test.ts",
+        "src/domain/dates.format.test.ts",
+        "src/domain/dates.format.timezone.test.ts",
         "src/domain/dates.test.ts",
         "src/domain/dates.timezone.test.ts",
         "src/domain/money.test.ts",
         "src/domain/tagColor.test.ts",
         "src/domain/tagSchema.test.ts",
         "src/domain/tags.test.ts",
+        "src/domain/transactionSchema.test.ts",
+        "src/domain/transactions.test.ts",
+        "src/features/home/HomePage.form.test.tsx",
+        "src/features/home/HomePage.test.tsx",
         "src/features/settings/AboutPage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
         "src/features/tags/TagsPage.errors.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
         "src/features/tags/tagTexts.test.ts",
+        "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/lib/appVersion.test.ts",
         "src/lib/displayMode.test.ts",
         "src/lib/formSubmit.test.ts",
@@ -19042,11 +23469,16 @@
         "src/repositories/persistentStorageRepository.test.ts",
         "src/repositories/settingsRepository.crud.test.ts",
         "src/repositories/settingsRepository.test.ts",
+        "src/repositories/tagsRepository.listTags.test.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/themePreference.test.ts",
         "src/repositories/themeRepository.test.ts",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts",
         "src/stores/uiStore.test.ts",
         "src/test/setup.ts",
+        "src/test/transactionForm.ts",
         "vite.config.ts"
       ]
     },
@@ -19100,6 +23532,9 @@
         "src/dev/sampleData/sampleDataStore.test.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts",
+        "src/repositories/transactionsRepository.ts",
         "src/test/seedDatabase.ts"
       ],
       "writers": [
@@ -19114,12 +23549,19 @@
         "src/db/database.schema.test.ts",
         "src/dev/sampleData/sampleDataStore.test.ts",
         "src/repositories/tagsRepository.test.ts",
-        "src/repositories/tagsRepository.ts"
+        "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts",
+        "src/repositories/transactionsRepository.ts"
       ],
       "writers": [
         "src/db/database.schema.test.ts",
         "src/dev/sampleData/sampleDataStore.ts",
         "src/repositories/tagsRepository.test.ts",
+        "src/repositories/transactionsRepository.balances.test.ts",
+        "src/repositories/transactionsRepository.crud.test.ts",
+        "src/repositories/transactionsRepository.test.ts",
+        "src/repositories/transactionsRepository.ts",
         "src/test/seedDatabase.ts"
       ]
     },
@@ -19467,27 +23909,28 @@
     ]
   },
   "build": {
-    "builtAt": "2026-10-20T17:58:58.543Z",
+    "builtAt": "2026-10-20T20:14:56.209Z",
     "serviceWorker": "sw.js",
     "workboxRuntime": "workbox-2fbc6a65.js",
     "manifest": "manifest.webmanifest",
     "manifestLink": "<link rel=\"manifest\" href=\"/manifest.webmanifest\" crossorigin=\"use-credentials\">",
     "precache": [
       "apple-touch-icon.png",
-      "assets/AboutPage-CP1H2KGe.js",
-      "assets/BackLink-BEPXluRO.js",
-      "assets/BackupPage-BFHY9Xoz.js",
-      "assets/ChartsPage-YPRpDTi7.js",
-      "assets/NewTransactionPage-B_OXxOic.js",
-      "assets/RecurringDetailPage-Bn9aVwAb.js",
-      "assets/RecurringsPage-BgFGKEsJ.js",
-      "assets/SettingsPage-YjUq4Vdp.js",
-      "assets/TagsPage-CHt1rIBP.js",
-      "assets/TransactionDetailPage-ChzcJhYb.js",
-      "assets/TransactionsPage-BGDSIQIr.js",
-      "assets/ViewsPage-DHYEbZGB.js",
-      "assets/index-DhLTAoh7.css",
-      "assets/index-uENyPl_d.js",
+      "assets/AboutPage-D35-5ZDX.js",
+      "assets/BackLink-DBaEr-r9.js",
+      "assets/BackupPage-EFoZP7Ri.js",
+      "assets/ChartsPage-BVxTL7iQ.js",
+      "assets/NewTransactionPage-FOQ-UjCL.js",
+      "assets/Page-DOqY1DpW.js",
+      "assets/RecurringDetailPage-DTLKx1T7.js",
+      "assets/RecurringsPage-CFIyYiR9.js",
+      "assets/SettingsPage-DZ6xFXRA.js",
+      "assets/TagsPage-au6Jo4wf.js",
+      "assets/TransactionDetailPage-D_KMn5vp.js",
+      "assets/TransactionsPage-4wb1NZC3.js",
+      "assets/ViewsPage-ysEy8sw1.js",
+      "assets/index-C8LcJMuP.css",
+      "assets/index-pNcc3Nip.js",
       "assets/workbox-window.prod.es5-Bd17z0YL.js",
       "favicon.png",
       "index.html",
@@ -19499,69 +23942,73 @@
     "navigationRoute": true,
     "css": [
       {
-        "file": "assets/index-DhLTAoh7.css",
-        "bytes": 21205
+        "file": "assets/index-C8LcJMuP.css",
+        "bytes": 23417
       }
     ],
     "js": [
       {
-        "file": "assets/index-uENyPl_d.js",
-        "bytes": 423519
+        "file": "assets/index-pNcc3Nip.js",
+        "bytes": 596323
       },
       {
-        "file": "assets/TagsPage-CHt1rIBP.js",
-        "bytes": 136993
+        "file": "assets/Page-DOqY1DpW.js",
+        "bytes": 9597
+      },
+      {
+        "file": "assets/TagsPage-au6Jo4wf.js",
+        "bytes": 6038
       },
       {
         "file": "assets/workbox-window.prod.es5-Bd17z0YL.js",
         "bytes": 5653
       },
       {
-        "file": "assets/SettingsPage-YjUq4Vdp.js",
-        "bytes": 3635
+        "file": "assets/AboutPage-D35-5ZDX.js",
+        "bytes": 3076
       },
       {
-        "file": "assets/AboutPage-CP1H2KGe.js",
-        "bytes": 3049
+        "file": "assets/TransactionDetailPage-D_KMn5vp.js",
+        "bytes": 2875
       },
       {
-        "file": "assets/BackLink-BEPXluRO.js",
-        "bytes": 850
+        "file": "assets/SettingsPage-DZ6xFXRA.js",
+        "bytes": 2194
       },
       {
-        "file": "assets/RecurringDetailPage-Bn9aVwAb.js",
-        "bytes": 377
+        "file": "assets/BackLink-DBaEr-r9.js",
+        "bytes": 889
       },
       {
-        "file": "assets/NewTransactionPage-B_OXxOic.js",
-        "bytes": 374
+        "file": "assets/NewTransactionPage-FOQ-UjCL.js",
+        "bytes": 432
       },
       {
-        "file": "assets/TransactionDetailPage-ChzcJhYb.js",
-        "bytes": 372
+        "file": "assets/RecurringDetailPage-DTLKx1T7.js",
+        "bytes": 376
       },
       {
-        "file": "assets/RecurringsPage-BgFGKEsJ.js",
-        "bytes": 361
+        "file": "assets/RecurringsPage-CFIyYiR9.js",
+        "bytes": 360
       },
       {
-        "file": "assets/BackupPage-BFHY9Xoz.js",
-        "bytes": 352
+        "file": "assets/BackupPage-EFoZP7Ri.js",
+        "bytes": 351
       },
       {
-        "file": "assets/TransactionsPage-BGDSIQIr.js",
-        "bytes": 276
+        "file": "assets/TransactionsPage-4wb1NZC3.js",
+        "bytes": 275
       },
       {
-        "file": "assets/ChartsPage-YPRpDTi7.js",
-        "bytes": 267
+        "file": "assets/ChartsPage-BVxTL7iQ.js",
+        "bytes": 266
       },
       {
-        "file": "assets/ViewsPage-DHYEbZGB.js",
-        "bytes": 264
+        "file": "assets/ViewsPage-ysEy8sw1.js",
+        "bytes": 263
       }
     ],
-    "totalBytes": 626307,
+    "totalBytes": 681266,
     "devLeaks": []
   },
   "violations": [],
@@ -19569,19 +24016,31 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "841800f",
+    "head": "df58be4",
     "workingTree": [
       {
         "status": "M",
-        "path": "CLAUDE.md"
+        "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
       },
       {
         "status": "M",
         "path": "docs/SPEC.md"
       },
       {
+        "status": "R",
+        "path": "src/components/tags/TagColorPicker.tsx"
+      },
+      {
+        "status": "RM",
+        "path": "src/components/tags/TagForm.tsx"
+      },
+      {
+        "status": "RM",
+        "path": "src/components/tags/useTagForm.ts"
+      },
+      {
         "status": "M",
-        "path": "src/components/ui/Button.tsx"
+        "path": "src/components/ui/createRadioGroup.tsx"
       },
       {
         "status": "M",
@@ -19589,7 +24048,7 @@
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/TraceabilitySection.tsx"
+        "path": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx"
       },
       {
         "status": "M",
@@ -19601,35 +24060,296 @@
       },
       {
         "status": "M",
+        "path": "src/dev/architecture/layers.ts"
+      },
+      {
+        "status": "M",
         "path": "src/dev/architecture/types.ts"
       },
       {
         "status": "M",
-        "path": "src/features/tags/TagForm.tsx"
+        "path": "src/domain/balances.ts"
       },
       {
         "status": "M",
-        "path": "src/features/tags/TagsPage.test.tsx"
+        "path": "src/domain/dates.ts"
       },
       {
         "status": "M",
-        "path": "src/features/tags/useTagForm.ts"
+        "path": "src/features/home/HomePage.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/settings/ThemeSection.test.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/tags/TagFormDialog.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/tags/tagTexts.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/features/transactions/NewTransactionPage.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/transactions/TransactionDetailPage.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/index.css"
+      },
+      {
+        "status": "M",
+        "path": "src/repositories/tagsRepository.ts"
       },
       {
         "status": "??",
-        "path": "src/features/tags/TagsPage.validation.test.tsx"
+        "path": "src/components/tags/CreateTagDialog.tsx"
       },
       {
         "status": "??",
-        "path": "src/lib/formSubmit.test.ts"
+        "path": "src/components/tags/TagPicker.test.tsx"
       },
       {
         "status": "??",
-        "path": "src/lib/formSubmit.ts"
+        "path": "src/components/tags/TagPicker.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/tags/tagFormTexts.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/components/transactions/NoTagsNotice.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/transactions/TransactionForm.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/transactions/TransactionRow.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/transactions/transactionTexts.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/components/transactions/useTransactionForm.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/DateInput.test.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/DateInput.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/Field.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/MoneyInput.test.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/MoneyInput.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/SignedAmount.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/TextInput.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/Toast.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/inputClasses.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/useFieldControl.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/useToast.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/useToday.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/balances.signedAmount.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/dates.format.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/dates.format.timezone.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/transactionSchema.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/transactionSchema.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/transactions.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/transactions.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/features/home/BalanceSummary.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/home/HomePage.form.test.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/home/HomePage.test.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/home/RecentTransactions.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/home/homeTexts.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/features/tags/TagsPage.transactions.test.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/transactions/ConfirmDeleteTransactionDialog.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/transactions/TransactionDetailPage.test.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/transactions/useTransactionDetail.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/tagsRepository.listTags.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/transactionsRepository.balances.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/transactionsRepository.crud.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/transactionsRepository.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/transactionsRepository.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/test/transactionForm.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "df58be4",
+      "date": "2026-10-20T15:58:51-03:00",
+      "author": "Fernando",
+      "subject": "refactor/adjusting form validation",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": "CLAUDE.md"
+        },
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "M",
+          "path": "src/components/ui/Button.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/architecture.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/TraceabilitySection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/types.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/features/tags/TagForm.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/tags/TagsPage.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/TagsPage.validation.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/tags/useTagForm.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/formSubmit.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/formSubmit.ts"
+        }
+      ]
+    },
     {
       "hash": "841800f",
       "date": "2026-10-20T14:07:47-03:00",
@@ -21297,23 +26017,47 @@
     "src/app/theme/applyThemeToDocument.ts",
     "src/app/theme/indexHtmlThemeScript.test.ts",
     "src/app/theme/useSystemPrefersDark.ts",
+    "src/components/tags/CreateTagDialog.tsx",
+    "src/components/tags/TagColorPicker.tsx",
+    "src/components/tags/TagForm.tsx",
+    "src/components/tags/TagPicker.test.tsx",
+    "src/components/tags/TagPicker.tsx",
+    "src/components/tags/tagFormTexts.ts",
+    "src/components/tags/useTagForm.ts",
+    "src/components/transactions/NoTagsNotice.tsx",
+    "src/components/transactions/TransactionForm.tsx",
+    "src/components/transactions/TransactionRow.tsx",
+    "src/components/transactions/transactionTexts.ts",
+    "src/components/transactions/useTransactionForm.ts",
     "src/components/ui/BackLink.test.tsx",
     "src/components/ui/BackLink.tsx",
     "src/components/ui/Button.tsx",
+    "src/components/ui/DateInput.test.tsx",
+    "src/components/ui/DateInput.tsx",
     "src/components/ui/EmptyState.tsx",
     "src/components/ui/ErrorAlert.tsx",
+    "src/components/ui/Field.tsx",
     "src/components/ui/InfoList.tsx",
     "src/components/ui/Modal.test.tsx",
     "src/components/ui/Modal.tsx",
+    "src/components/ui/MoneyInput.test.tsx",
+    "src/components/ui/MoneyInput.tsx",
     "src/components/ui/NavList.tsx",
     "src/components/ui/Notice.tsx",
     "src/components/ui/Page.tsx",
+    "src/components/ui/SignedAmount.tsx",
     "src/components/ui/TabBar.tsx",
     "src/components/ui/TagChip.test.tsx",
     "src/components/ui/TagChip.tsx",
+    "src/components/ui/TextInput.tsx",
+    "src/components/ui/Toast.tsx",
     "src/components/ui/createRadioGroup.test.tsx",
     "src/components/ui/createRadioGroup.tsx",
+    "src/components/ui/inputClasses.ts",
+    "src/components/ui/useFieldControl.ts",
     "src/components/ui/useGoBack.ts",
+    "src/components/ui/useToast.ts",
+    "src/components/ui/useToday.ts",
     "src/db/database.schema.test.ts",
     "src/db/database.test.ts",
     "src/db/database.ts",
@@ -21386,9 +26130,12 @@
     "src/dev/sampleData/seededRandom.ts",
     "src/dev/sampleData/useSampleDataTools.ts",
     "src/domain/balances.properties.test.ts",
+    "src/domain/balances.signedAmount.test.ts",
     "src/domain/balances.test.ts",
     "src/domain/balances.ts",
     "src/domain/dates.calendar.test.ts",
+    "src/domain/dates.format.test.ts",
+    "src/domain/dates.format.timezone.test.ts",
     "src/domain/dates.test.ts",
     "src/domain/dates.timezone.test.ts",
     "src/domain/dates.ts",
@@ -21400,10 +26147,19 @@
     "src/domain/tagSchema.ts",
     "src/domain/tags.test.ts",
     "src/domain/tags.ts",
+    "src/domain/transactionSchema.test.ts",
+    "src/domain/transactionSchema.ts",
+    "src/domain/transactions.test.ts",
+    "src/domain/transactions.ts",
     "src/domain/types.ts",
     "src/features/backup/BackupPage.tsx",
     "src/features/charts/ChartsPage.tsx",
+    "src/features/home/BalanceSummary.tsx",
+    "src/features/home/HomePage.form.test.tsx",
+    "src/features/home/HomePage.test.tsx",
     "src/features/home/HomePage.tsx",
+    "src/features/home/RecentTransactions.tsx",
+    "src/features/home/homeTexts.ts",
     "src/features/recurrings/RecurringDetailPage.tsx",
     "src/features/recurrings/RecurringsPage.tsx",
     "src/features/settings/AboutPage.test.tsx",
@@ -21417,21 +26173,22 @@
     "src/features/settings/useStorageStatus.ts",
     "src/features/tags/ConfirmDeleteTagDialog.tsx",
     "src/features/tags/DeleteTagBlockedDialog.tsx",
-    "src/features/tags/TagColorPicker.tsx",
-    "src/features/tags/TagForm.tsx",
     "src/features/tags/TagFormDialog.tsx",
     "src/features/tags/TagList.tsx",
     "src/features/tags/TagsPage.errors.test.tsx",
     "src/features/tags/TagsPage.test.tsx",
+    "src/features/tags/TagsPage.transactions.test.tsx",
     "src/features/tags/TagsPage.tsx",
     "src/features/tags/TagsPage.validation.test.tsx",
     "src/features/tags/tagTexts.test.ts",
     "src/features/tags/tagTexts.ts",
-    "src/features/tags/useTagForm.ts",
     "src/features/tags/useTagsScreen.ts",
+    "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
     "src/features/transactions/NewTransactionPage.tsx",
+    "src/features/transactions/TransactionDetailPage.test.tsx",
     "src/features/transactions/TransactionDetailPage.tsx",
     "src/features/transactions/TransactionsPage.tsx",
+    "src/features/transactions/useTransactionDetail.ts",
     "src/features/views/ViewsPage.tsx",
     "src/globals.d.ts",
     "src/index.css",
@@ -21461,11 +26218,16 @@
     "src/repositories/settingsRepository.crud.test.ts",
     "src/repositories/settingsRepository.test.ts",
     "src/repositories/settingsRepository.ts",
+    "src/repositories/tagsRepository.listTags.test.ts",
     "src/repositories/tagsRepository.test.ts",
     "src/repositories/tagsRepository.ts",
     "src/repositories/themePreference.test.ts",
     "src/repositories/themeRepository.test.ts",
     "src/repositories/themeRepository.ts",
+    "src/repositories/transactionsRepository.balances.test.ts",
+    "src/repositories/transactionsRepository.crud.test.ts",
+    "src/repositories/transactionsRepository.test.ts",
+    "src/repositories/transactionsRepository.ts",
     "src/repositories/useTheme.ts",
     "src/repositories/useThemePreference.ts",
     "src/stores/uiStore.test.ts",
@@ -21479,6 +26241,7 @@
     "src/test/seedDatabase.ts",
     "src/test/setup.ts",
     "src/test/themeReference.ts",
+    "src/test/transactionForm.ts",
     "tsconfig.app.json",
     "tsconfig.json",
     "tsconfig.node.json",

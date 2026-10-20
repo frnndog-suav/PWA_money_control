@@ -255,6 +255,11 @@ export interface AllowedDependency {
   reason: string
   /** Quando presente, só imports para caminhos com estes prefixos são tolerados. */
   onlyTargets?: string[]
+  /**
+   * Quando presente, só imports vindos de caminhos com estes prefixos são tolerados
+   * (ex.: components → repositories só a partir de src/components/<entidade>/ — D-37).
+   */
+  onlySources?: string[]
   /** Para `debt`: quando a dívida será paga (fase e decisão). */
   deadline?: string
 }
@@ -268,6 +273,11 @@ export interface ForbiddenDependency {
   reason: string
   /** Desenhar a direção proibida no diagrama de camadas (só as mais relevantes, para não poluir). */
   inDiagram?: boolean
+  /**
+   * Quando presente, a proibição vale só para módulos de origem com estes prefixos
+   * (ex.: src/components/ui/ → repositories — D-37); o resto da camada segue a regra permitida.
+   */
+  onlySources?: string[]
 }
 
 export interface RouteNote {

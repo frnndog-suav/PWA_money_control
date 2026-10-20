@@ -70,7 +70,9 @@ describe('ThemeSection (RF-09)', () => {
     await setSetting('theme', 'dark')
     renderThemeSection()
     await waitFor(() => expect(getOption('Escuro').checked).toBe(true))
-    expect(isDarkApplied()).toBe(true)
+    // O tema é aplicado num efeito depois da renderização; com a máquina ocupada ele pode
+    // vir um instante depois do rádio marcado.
+    await waitFor(() => expect(isDarkApplied()).toBe(true))
     expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark')
   })
 

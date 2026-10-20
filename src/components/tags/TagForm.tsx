@@ -1,17 +1,19 @@
-import { useId, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { Controller, useWatch } from 'react-hook-form'
 import { Button } from '@/components/ui/Button'
 import { ErrorAlert } from '@/components/ui/ErrorAlert'
+import { Field } from '@/components/ui/Field'
 import { Modal } from '@/components/ui/Modal'
 import { TagChip } from '@/components/ui/TagChip'
+import { TextInput } from '@/components/ui/TextInput'
 import type { Tag } from '@/domain/types'
-import { TagColorPicker } from '@/features/tags/TagColorPicker'
-import { useTagForm } from '@/features/tags/useTagForm'
+import { TagColorPicker } from '@/components/tags/TagColorPicker'
+import { useTagForm } from '@/components/tags/useTagForm'
 
 interface TagFormProps {
   /** Tag em edição; ausente ao criar. */
   tag?: Tag
-  onSaved: () => void
+  onSaved: (tag: Tag) => void
   onCancel: () => void
   /** Ação extra no rodapé, ex.: "Excluir tag" na edição. */
   extraAction?: ReactNode
@@ -24,33 +26,15 @@ export function TagForm({ tag, onSaved, onCancel, extraAction, notice }: TagForm
   const { form, submit, saveError, canSubmit } = useTagForm({ tag, onSaved })
   const { control, register, formState } = form
   const [name, color] = useWatch({ control, name: ['name', 'color'] })
-  const nameId = useId()
-  const nameErrorId = useId()
-  const nameError = formState.errors.name?.message
 
   return (
     <form onSubmit={submit} noValidate className="contents">
       <Modal.Body>
-        <div className="flex flex-col gap-1">
-          <label htmlFor={nameId} className="font-semibold">
-            Nome
-          </label>
-          <input
-            id={nameId}
-            type="text"
-            autoComplete="off"
-            enterKeyHint="done"
-            aria-invalid={nameError ? true : undefined}
-            aria-describedby={nameError ? nameErrorId : undefined}
-            {...register('name')}
-            className="min-h-11 rounded-lg border border-slate-300 bg-white px-3 text-base aria-invalid:border-red-600 dark:border-slate-600 dark:bg-slate-900 dark:aria-invalid:border-red-400"
-          />
-          {nameError && (
-            <p id={nameErrorId} className="text-sm text-red-700 dark:text-red-300">
-              {nameError}
-            </p>
-          )}
-        </div>
+        <Field error={formState.errors.name?.message}>
+          <Field.Label>Nome</Field.Label>
+          <TextInput autoComplete="off" enterKeyHint="done" {...register('name')} />
+          <Field.Error />
+        </Field>
 
         <Controller
           control={control}

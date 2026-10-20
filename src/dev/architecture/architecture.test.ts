@@ -74,7 +74,8 @@ describe('integridade da página de arquitetura (§6.12)', () => {
   it('pastas das camadas e prefixos das regras de dependência existem', () => {
     const prefixes = [
       ...LAYERS.map((l) => l.folder).filter((f) => f.startsWith('src')),
-      ...ALLOWED_DEPENDENCIES.flatMap((r) => r.onlyTargets ?? []),
+      ...ALLOWED_DEPENDENCIES.flatMap((r) => [...(r.onlyTargets ?? []), ...(r.onlySources ?? [])]),
+      ...FORBIDDEN_DEPENDENCIES.flatMap((r) => r.onlySources ?? []),
     ]
     const missing = prefixes.filter((prefix) => ![...knownPaths].some((p) => p.startsWith(prefix)))
     expect(missing).toEqual([])
@@ -91,8 +92,17 @@ describe('integridade da página de arquitetura (§6.12)', () => {
 
   it('direções proibidas não têm regra de permissão nem aparecem no código de produção', () => {
     const moduleOf = new Map(graph.modules.map((m) => [m.id, m]))
+    // Proibição por caminho (onlySources) pode conviver com uma regra permitida da camada,
+    // desde que a regra permitida não libere esses mesmos caminhos (D-37).
     const contradictions = FORBIDDEN_DEPENDENCIES.filter((f) =>
-      ALLOWED_DEPENDENCIES.some((a) => a.from === f.from && a.to === f.to),
+      ALLOWED_DEPENDENCIES.some(
+        (a) =>
+          a.from === f.from &&
+          a.to === f.to &&
+          (!f.onlySources ||
+            !a.onlySources ||
+            a.onlySources.some((allowed) => f.onlySources?.some((p) => allowed.startsWith(p)))),
+      ),
     ).map((f) => `${f.from} → ${f.to}`)
     expect(contradictions).toEqual([])
 
@@ -100,7 +110,12 @@ describe('integridade da página de arquitetura (§6.12)', () => {
       const from = moduleOf.get(e.from)
       const to = moduleOf.get(e.to)
       if (!from || !to || from.kinds.includes('test') || from.layer === 'test') return false
-      return FORBIDDEN_DEPENDENCIES.some((f) => f.from === from.layer && f.to === to.layer)
+      return FORBIDDEN_DEPENDENCIES.some(
+        (f) =>
+          f.from === from.layer &&
+          f.to === to.layer &&
+          (!f.onlySources || f.onlySources.some((p) => e.from.startsWith(p))),
+      )
     })
     expect(offending.map((e) => `${e.from} → ${e.to}`)).toEqual([])
   })
@@ -109,6 +124,30 @@ describe('integridade da página de arquitetura (§6.12)', () => {
   it('features → app é proibida, sem exceção', () => {
     expect(FORBIDDEN_DEPENDENCIES.some((f) => f.from === 'features' && f.to === 'app')).toBe(true)
     expect(ALLOWED_DEPENDENCIES.some((a) => a.from === 'features' && a.to === 'app')).toBe(false)
+  })
+
+  // D-37 — dentro de src/components, só components/<entidade>/ usa repositórios.
+  it('components → repositories só a partir de components/<entidade>, nunca de components/ui', () => {
+    const allowed = ALLOWED_DEPENDENCIES.find(
+      (a) => a.from === 'components' && a.to === 'repositories',
+    )
+    expect(allowed?.onlySources?.length).toBeGreaterThan(0)
+    expect(allowed?.onlySources?.some((p) => p.startsWith('src/components/ui/'))).toBe(false)
+    expect(
+      FORBIDDEN_DEPENDENCIES.some(
+        (f) =>
+          f.from === 'components' &&
+          f.to === 'repositories' &&
+          f.onlySources?.includes('src/components/ui/'),
+      ),
+    ).toBe(true)
+    const fromUi = graph.edges.filter(
+      (e) =>
+        e.from.startsWith('src/components/ui/') &&
+        !/\.test\.tsx?$/.test(e.from) &&
+        e.to.startsWith('src/repositories/'),
+    )
+    expect(fromUi.map((e) => `${e.from} → ${e.to}`)).toEqual([])
   })
 
   it('toda tabela do esquema Dexie tem nota curada (e vice-versa)', () => {

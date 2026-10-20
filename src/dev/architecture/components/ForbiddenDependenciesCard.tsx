@@ -12,20 +12,26 @@ export function ForbiddenDependenciesCard() {
     <Card>
       <Card.Title>Direções não permitidas</Card.Title>
       <p className="text-xs text-slate-500">
-        Espelham as regras FORBIDDEN do scanner. Sem ocorrência = o esperado; qualquer import numa
-        destas direções vira violação em vermelho (nas setas e na saúde).
+        Espelham as regras FORBIDDEN e FORBIDDEN_PATHS do scanner; "só …" limita a proibição aos
+        módulos de origem com aquele caminho (o resto da camada segue a regra permitida). Sem
+        ocorrência = o esperado; qualquer import numa destas direções vira violação em vermelho (nas
+        setas e na saúde).
       </p>
       <ul className="flex flex-col divide-y divide-slate-200 dark:divide-slate-700">
         {FORBIDDEN_DEPENDENCIES.map((rule) => {
           const isClean = unobservedForbidden.includes(rule)
           return (
-            <li key={`${rule.from}-${rule.to}`} className="flex flex-col gap-1 py-2 text-sm">
+            <li
+              key={`${rule.from}-${rule.to}-${rule.onlySources?.join(',') ?? ''}`}
+              className="flex flex-col gap-1 py-2 text-sm"
+            >
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-semibold">
                   {layerLabel(rule.from)} → {layerLabel(rule.to)}
                 </span>
                 <Badge variant="danger">não permitida</Badge>
                 <Badge>{rule.rule}</Badge>
+                {rule.onlySources && <Badge variant="info">só {rule.onlySources.join(', ')}</Badge>}
                 <Badge variant={isClean ? 'ok' : 'danger'}>
                   {isClean ? 'sem ocorrências' : 'violação no código'}
                 </Badge>

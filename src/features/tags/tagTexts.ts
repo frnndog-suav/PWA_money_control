@@ -1,10 +1,7 @@
 import type { TagUsage } from '@/domain/tags'
 
-// RF-03 — textos da tela de tags (pt-BR).
+// RF-03 — textos da tela de tags (pt-BR). Os do formulário ficam em components/tags/tagFormTexts.ts.
 
-export const DUPLICATE_TAG_NAME_MESSAGE = 'Já existe uma tag com esse nome' // CA-03.4
-export const SAVE_TAG_FAILED_MESSAGE = 'Não foi possível salvar a tag. Tente de novo.'
-export const TAG_NOT_FOUND_MESSAGE = 'Esta tag não existe mais.'
 export const CHECK_TAG_USAGE_FAILED_MESSAGE =
   'Não foi possível verificar se a tag está em uso. Tente de novo.'
 export const DELETE_TAG_FAILED_MESSAGE = 'Não foi possível excluir a tag. Tente de novo.'

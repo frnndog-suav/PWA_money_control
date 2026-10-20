@@ -58,10 +58,10 @@ export const LAYERS: readonly LayerInfo[] = [
   },
   {
     id: 'components',
-    label: 'UI',
-    folder: 'src/components/ui',
+    label: 'Componentes',
+    folder: 'src/components',
     description:
-      'Primitivos genéricos sem conhecimento de feature (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert e TagChip, que usa readableTextColor do domínio).',
+      'Duas partes (§6.2, D-37 — aguardando confirmação). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts) e transactions/ (TransactionForm, useTransactionForm, TransactionRow, NoTagsNotice, transactionTexts). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
     position: { x: 130, y: 330 },
   },
   {
@@ -69,7 +69,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Repositórios',
     folder: 'src/repositories',
     description:
-      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError).',
+      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError). Fase 4: transactionsRepository (createTransaction/updateTransaction em transação rw [tags, transactions] com assertTagExists, deleteTransaction, saldo geral, totais do mês, últimos 5 e lançamento por id, todos com hook useLiveQuery; TransactionNotFoundError/TransactionTagNotFoundError — D-39) e listTags/useTags no tagsRepository.',
     position: { x: 390, y: 330 },
   },
   {
@@ -85,7 +85,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Lib',
     folder: 'src/lib',
     description:
-      'Utilitários puros e adaptadores de APIs do navegador: tema e espelho em localStorage, modo instalado, storage (persist/persisted/estimate), formatBytes e APP_VERSION (Fase 2); padrão de formulário do princípio 16 (formSubmit: LIVE_VALIDATION e canSubmitForm — D-36, spec 1.13); cripto e backup na Fase 6.',
+      'Utilitários puros e adaptadores de APIs do navegador: tema e espelho em localStorage, modo instalado, storage (persist/persisted/estimate), formatBytes e APP_VERSION (Fase 2); padrão de formulário do princípio 16 (formSubmit: LIVE_VALIDATION e canSubmitForm com startsValid — D-36, spec 1.13; usado pelos formulários de tag e, desde a Fase 4, de lançamento); cripto e backup na Fase 6.',
     position: { x: 130, y: 450 },
   },
   {
@@ -101,7 +101,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Domínio',
     folder: 'src/domain',
     description:
-      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. Fase 3: tags (toTagNameKey, paleta D-32, sortByTagName, isTagInUse, TAG_NAME_MAX_LENGTH — D-35) e tagSchema (zod, único módulo do domínio com pacote externo; separado para quem só precisa das funções puras não levar o zod). recurring (Fase 9) e installments (Fase 10) ainda não existem.',
+      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. Fase 3: tags (toTagNameKey, paleta D-32, sortByTagName, isTagInUse, TAG_NAME_MAX_LENGTH — D-35) e tagSchema (zod, único módulo do domínio com pacote externo; separado para quem só precisa das funções puras não levar o zod). Fase 4: transactionSchema (zod, RF-01: valor 1..MAX_AMOUNT_CENTS, data existente, tag, descrição 1–100 em UTF-16 — D-38(h)), transactions (compareByRecency e takeMostRecent — D-39), isValidDate/formatShortDate/formatMonthLabel em dates e signedAmount exportado em balances. recurring (Fase 9) e installments (Fase 10) ainda não existem.',
     position: { x: 650, y: 450 },
   },
   {
@@ -109,7 +109,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Apoio a testes',
     folder: 'src/test',
     description:
-      'Setup do Vitest (fake-indexeddb, limpa as tabelas do Dexie entre testes, findBy com 3 s — D-34), dublês de matchMedia e de <dialog> (dialog.ts — D-33), seedDatabase (prepara tabelas ainda sem repositório — D-34), renderApp, fábricas de lançamentos, gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código).',
+      'Setup do Vitest (fake-indexeddb, limpa as tabelas do Dexie entre testes, findBy com 3 s — D-34), dublês de matchMedia e de <dialog> (dialog.ts — D-33), seedDatabase (prepara tabelas ainda sem repositório — D-34), renderApp, fábricas de lançamentos, ações do formulário de lançamento (transactionForm.ts — Fase 4), gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código).',
     position: { x: 740, y: 112 },
   },
   {
@@ -194,7 +194,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'repositories',
     status: 'allowed',
     reason:
-      'Dados persistidos só por repositórios (§2.7). Fase 2: ThemeSection usa useTheme (D-22) e AboutPage lê SCHEMA_VERSION por databaseInfo. Fase 3: a tela de tags usa tagsRepository (hook da lista, create/update/delete, getTagUsage e as classes de erro).',
+      'Dados persistidos só por repositórios (§2.7). Fase 2: ThemeSection usa useTheme (D-22) e AboutPage lê SCHEMA_VERSION por databaseInfo. Fase 3: a tela de tags usa tagsRepository (hook da lista, create/update/delete, getTagUsage e as classes de erro). Fase 4: BalanceSummary (useOverallBalance, useMonthTotals), RecentTransactions (useRecentTransactions, useTags) e useTransactionDetail (useTransaction, deleteTransaction).',
   },
   { from: 'features', to: 'stores', status: 'allowed', reason: 'Filtros e visões (§6.7).' },
   {
@@ -202,14 +202,14 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'domain',
     status: 'allowed',
     reason:
-      'Regras puras e tipos. Fase 3: useTagForm usa tagInputSchema e a paleta; useTagsScreen usa isTagInUse; TagColorPicker usa a paleta e readableTextColor.',
+      'Regras puras e tipos. Fase 3: useTagsScreen usa isTagInUse (useTagForm e TagColorPicker foram para components/tags na Fase 4 — D-37). Fase 4: BalanceSummary usa periodOf/formatMonthLabel e formatBRL.',
   },
   {
     from: 'features',
     to: 'lib',
     status: 'allowed',
     reason:
-      'Utilitários puros: rótulos do tema, storage/formatBytes/APP_VERSION na tela Sobre (Fase 2); useTagForm usa formSubmit (princípio 16 — D-36); cripto na Fase 6.',
+      'Utilitários puros: rótulos do tema, storage/formatBytes/APP_VERSION na tela Sobre (Fase 2); cripto na Fase 6. (formSubmit passou a ser usado de components/<entidade> — useTagForm e useTransactionForm.)',
   },
   {
     from: 'features',
@@ -224,16 +224,35 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'domain',
     status: 'allowed',
     reason:
-      'Formatação pura (ex.: MoneyInput usa digitsToCents, TagChip usa readableTextColor — §6.5).',
+      'Formatação pura (§6.5): MoneyInput usa digitsToCents/formatBRL, SignedAmount usa formatSignedBRL, useToday usa today, TagChip e TagPicker usam readableTextColor, TransactionRow usa signedAmount e formatShortDate; useTagForm/useTransactionForm usam os schemas zod (tagSchema, transactionSchema).',
   },
-  { from: 'components', to: 'lib', status: 'allowed', reason: 'Utilitários puros.' },
+  {
+    from: 'components',
+    to: 'lib',
+    status: 'allowed',
+    reason: 'Utilitários puros: useTagForm e useTransactionForm usam formSubmit (princípio 16).',
+  },
+  {
+    from: 'components',
+    to: 'repositories',
+    status: 'exception',
+    reason:
+      'D-37 (aguardando confirmação do dono): só os componentes de domínio de src/components/<entidade>/ usam repositórios — useTagForm (createTag/updateTag), TransactionForm (useTags) e useTransactionForm (createTransaction/updateTransaction). src/components/ui/ nunca importa repositories (proibição por caminho, também no scanner). Uma pasta de entidade nova precisa entrar em onlySources.',
+    onlySources: ['src/components/tags/', 'src/components/transactions/'],
+  },
   {
     from: 'repositories',
     to: 'db',
     status: 'allowed',
     reason: 'Repositórios são os únicos clientes do Dexie.',
   },
-  { from: 'repositories', to: 'domain', status: 'allowed', reason: 'Tipos e regras puras.' },
+  {
+    from: 'repositories',
+    to: 'domain',
+    status: 'allowed',
+    reason:
+      'Tipos e regras puras. Fase 4: transactionsRepository valida com transactionInputSchema e soma/ordena no domínio (overallBalance, totals, monthRange, takeMostRecent — D-39); tagsRepository ordena com sortByTagName.',
+  },
   {
     from: 'repositories',
     to: 'lib',
@@ -266,7 +285,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'domain',
     status: 'allowed',
     reason:
-      'balances usa money (addCents) e dates; tagSchema usa TAG_NAME_MAX_LENGTH de tags; todos usam types.',
+      'balances usa money (addCents) e dates; tagSchema usa TAG_NAME_MAX_LENGTH de tags; transactionSchema usa isValidDate (dates) e formatBRL/MAX_AMOUNT_CENTS (money); todos usam types.',
   },
   {
     from: 'dev',
@@ -294,7 +313,8 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     from: 'components',
     to: 'components',
     status: 'allowed',
-    reason: 'Primitivos compostos entre si.',
+    reason:
+      'Primitivos compostos entre si e, desde a Fase 4, componentes de domínio (components/<entidade>) compostos de primitivos (TransactionForm usa Field, MoneyInput, DateInput, TextInput, Toast, TagPicker, CreateTagDialog). Hoje em sentido único: nenhum primitivo de components/ui importa components/<entidade>.',
   },
   { from: 'dev', to: 'dev', status: 'allowed', reason: 'Organização interna da página.' },
 ]
@@ -315,9 +335,25 @@ export const FORBIDDEN_DEPENDENCIES: readonly ForbiddenDependency[] = [
   {
     from: 'components',
     to: 'features',
-    rule: 'Qualidade de código',
-    reason: 'Primitivos de components/ui não conhecem features (nem app).',
+    rule: 'D-37',
+    reason:
+      'Nada de src/components conhece features: nem os primitivos de components/ui nem os componentes de domínio de components/<entidade> (D-37, aguardando confirmação; antes era a regra de "Qualidade de código").',
     inDiagram: true,
+  },
+  {
+    from: 'components',
+    to: 'app',
+    rule: 'D-37',
+    reason:
+      'Nada de src/components importa de src/app (ui nem <entidade>): o app monta as telas, não o contrário.',
+  },
+  {
+    from: 'components',
+    to: 'repositories',
+    rule: 'D-37',
+    onlySources: ['src/components/ui/'],
+    reason:
+      'Primitivos de components/ui são genéricos e nunca acessam repositórios; dentro de src/components só components/<entidade>/ pode (exceção restrita em "direções permitidas"). Regra por caminho também no scanner (FORBIDDEN_PATHS).',
   },
   {
     from: 'features',
@@ -356,31 +392,45 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
   {
     route: '/',
     screen: 'Início',
-    requirements: ['RF-02'],
+    requirements: [
+      'RF-02',
+      'RF-01',
+      'CA-01.1',
+      'CA-01.7',
+      'CA-02.1',
+      'CA-02.2',
+      'CA-02.3',
+      'CA-02.4',
+      'D-03',
+      'D-38',
+      'D-39',
+    ],
     description:
-      'Única tela fora do React.lazy (vai no pacote principal — RNF-02). Placeholder: saldo, totais e últimos lançamentos entram na Fase 4; pendências recorrentes na Fase 9.',
+      'Fase 4. Única tela fora do React.lazy (vai no pacote principal — RNF-02; ver o achado do bundle de 596 kB). HomePage (useToday) compõe, de cima para baixo: BalanceSummary (saldo geral só com data ≤ hoje — D-03, em destaque; "Saldo de outubro de 2026" com entradas e saídas do mês, inclusive datas futuras do mês — CA-02.3; valores com SignedAmount — CA-02.1), a seção "Novo lançamento" com o TransactionForm rápido (Saída/Entrada, valor, data, tag, descrição e "Lançar" — CA-01.1; atalho de criar tag sem perder o digitado — CA-01.7; Toast "Lançamento salvo" — D-38(b)) e RecentTransactions (os 5 mais recentes por data e criação — D-38(e)/D-39, TransactionRow com link para /lancamentos/:id, ou EmptyState; link "Ver todos" para /lancamentos). Tudo por useLiveQuery: um lançamento novo atualiza saldos e lista sem recarregar (CA-02.4). Pendências recorrentes (item 4 do RF-02) entram na Fase 9. Tabelas: transactions (leitura e escrita) e tags (leitura; escrita pelo atalho de criar tag).',
     contentPhase: 4,
   },
   {
     route: '/lancamentos',
     screen: 'Lista + filtros',
     requirements: ['RF-04'],
-    description: 'Placeholder. Lista paginada, busca e filtros (Zustand) na Fase 5.',
+    description:
+      'Ainda placeholder (Fase 5: lista paginada, busca e filtros no Zustand). Desde a Fase 4 é o destino do "Ver todos" do Início e a tela pai (fallback do Voltar/useGoBack) de /lancamentos/novo e /lancamentos/:id.',
     contentPhase: 5,
   },
   {
     route: '/lancamentos/novo',
     screen: 'Novo lançamento',
-    requirements: ['RF-01', 'RF-08'],
+    requirements: ['RF-01', 'RF-08', 'CA-01.1', 'CA-01.2', 'CA-01.3', 'CA-01.4', 'CA-01.7'],
     description:
-      'Placeholder com Voltar. Formulário completo na Fase 4; opção Parcelado na Fase 10.',
+      'Fase 4: Page com BackLink (fallback /lancamentos) e o mesmo TransactionForm do Início, em modo criar ("Lançar", Toast e reset mantendo tipo e data). A opção Parcelado (RF-08) entra na Fase 10. Tabelas: transactions (escrita) e tags (leitura; escrita pelo atalho CA-01.7).',
     contentPhase: 4,
   },
   {
     route: '/lancamentos/:id',
     screen: 'Lançamento (editar/excluir)',
-    requirements: ['RF-01', 'RF-07', 'RF-08'],
-    description: 'Placeholder com Voltar. Edição e exclusão na Fase 4.',
+    requirements: ['RF-01', 'RF-07', 'RF-08', 'CA-01.5', 'CA-01.6', 'D-38'],
+    description:
+      'Fase 4: TransactionDetailPage lê o lançamento por useTransactionDetail (useTransaction, useLiveQuery: undefined carregando, null inexistente). Com o lançamento: TransactionForm em modo edição ("Salvar" já ativo — startsValid, princípio 16) com extraAction "Excluir" e o modal ConfirmDeleteTransactionDialog ("Excluir lançamento?"). Salvar (updateTransaction) e Excluir (deleteTransaction) voltam para a tela anterior com useGoBack (tela pai /lancamentos — D-38(c)); isDone evita piscar "Lançamento não encontrado" durante a saída. Id inexistente: EmptyState "Lançamento não encontrado". Regras de recorrentes e parcelas (RF-07/RF-08) nas Fases 9 e 10. Tabelas: transactions (leitura e escrita) e tags (leitura).',
     contentPhase: 4,
   },
   {
@@ -491,7 +541,11 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'ThemeRadio',
-    note: 'Instância local de createRadioGroup<ThemePreference>(): { Root, Option } com contexto próprio e valores tipados.',
+    note: 'Instância local de createRadioGroup<ThemePreference>(): { Root, Option } com contexto próprio e valores tipados. Usa a variante padrão list (opções empilhadas).',
+  },
+  {
+    component: 'TypeRadio',
+    note: 'Fase 4: instância local de createRadioGroup<TransactionType>() no TransactionForm, com variant="segmented" (alternador Saída | Entrada lado a lado, rádio sr-only; a marcada fica preenchida e em negrito, não só pela cor — RNF-06; foco do teclado no contorno do grupo). Ligada ao RHF por Controller.',
   },
   {
     component: 'ThemeProvider',
@@ -548,7 +602,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'TagForm',
-    note: 'Conteúdo do modal (<form className="contents">): Modal.Body com Nome (register), Controller → TagColorPicker, prévia TagChip (useWatch) e ErrorAlert do saveError + slot notice; Modal.Actions com extraAction | Cancelar | Salvar (disabled={!canSubmit}). Estado do formulário em useTagForm (React Hook Form com LIVE_VALIDATION + zodResolver; canSubmit de src/lib/formSubmit.ts — princípio 16).',
+    note: 'Em src/components/tags desde a Fase 4 (D-37). Conteúdo do modal (<form className="contents">): Modal.Body com Field (Field.Label "Nome" + TextInput com register("name") + Field.Error — aria-invalid/aria-describedby pelo useFieldControl, melhoria da revisão da Fase 4), Controller → TagColorPicker, prévia TagChip (useWatch) e ErrorAlert do saveError + slot notice; Modal.Actions com extraAction | Cancelar | Salvar (disabled={!canSubmit}). onSaved recebe a Tag gravada (o atalho do CA-01.7 a seleciona). Estado em useTagForm (React Hook Form com LIVE_VALIDATION + zodResolver; canSubmit de src/lib/formSubmit.ts — princípio 16). Usado por TagFormDialog (Ajustes → Tags) e CreateTagDialog (formulário de lançamento).',
   },
   {
     component: 'TagColorPicker',
@@ -568,13 +622,71 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'Controller',
-    note: 'Do react-hook-form: liga o campo color ao TagColorPicker controlado.',
+    note: 'Do react-hook-form: liga o campo color ao TagColorPicker controlado. No TransactionForm, todos os campos usam Controller (e não register), porque o React Compiler memoiza o ref do register e o reset depois de "Lançar" não limparia o campo (D-39).',
   },
+  {
+    component: 'TransactionForm',
+    note: 'Fase 4, src/components/transactions (D-37): o mesmo formulário no Início, em /lancamentos/novo e na edição. <form noValidate> com TypeRadio segmented, Field + MoneyInput (Valor), Field + DateInput (Data), TagPicker (nada enquanto as tags carregam; sem tags, emptyState = NoTagsNotice), Field + TextInput (Descrição), ErrorAlert do saveError e a linha de ações (extraAction | "Lançar"/"Salvar" com disabled={!canSubmit} — princípio 16). CreateTagDialog e Toast ficam como irmãos do <form> (formulário aninhado não é válido e o envio de um dispararia o outro). Estado: useTransactionForm (RHF) + isCreatingTag (useState); tags por useTags (repositório, permitido para components/<entidade>).',
+  },
+  {
+    component: 'Field',
+    note: 'Fase 4, compound component: <Field error> fornece controlId/errorId/error por contexto (useFieldControl.ts); Field.Label (<label htmlFor>) e Field.Error (<p> abaixo do campo — CA-01.2). O controle (TextInput, MoneyInput, DateInput) pega id, aria-invalid e aria-describedby com useFieldControl(). Sem estado.',
+  },
+  {
+    component: 'MoneyInput',
+    note: 'Fase 4 (CA-01.3/01.4, D-31, D-38(d)): input text com inputMode="numeric", texto formatBRL(value) e valor em centavos inteiros por digitsToCents; vazio mostra o placeholder "R$ 0,00"; alinhado à direita, cursor sempre no fim (useLayoutEffect + onSelect), seleção de verdade respeitada. Controlado (value/onChange do Controller).',
+  },
+  {
+    component: 'DateInput',
+    note: 'Fase 4: <input type="date"> nativo; o valor já é YYYY-MM-DD local e passa direto, sem Date (princípio 2). Classes para o Safari do iOS alinhar à esquerda.',
+  },
+  {
+    component: 'TextInput',
+    note: 'Fase 4: input de uma linha que soma as props do useFieldControl às recebidas; usado na descrição do lançamento e, desde a revisão, no nome da tag.',
+  },
+  {
+    component: 'TagPicker',
+    note: 'Fase 4, src/components/tags (D-38(a)): <fieldset> "Tag" com chips-rádio nativos (sr-only) na cor da tag; a marcada tem contorno e "✓" (RNF-06); alvo de 44 px por chip (ajustado na revisão). Sem tags, renderiza o slot emptyState. Erro ligado por aria-describedby (aria-invalid não vale em fieldset). ref no 1º rádio para o foco de erro.',
+  },
+  {
+    component: 'NoTagsNotice',
+    note: 'Fase 4 (CA-01.7): texto explicando que não há tags e que o digitado continua + Button secondary "Criar tag", que abre o CreateTagDialog.',
+  },
+  {
+    component: 'CreateTagDialog',
+    note: 'Fase 4 (CA-01.7): Modal "Nova tag" com o TagForm; onCreated(tag) recebe a tag gravada e o TransactionForm faz setValue("tagId"). Renderizado fora do <form> do lançamento.',
+  },
+  {
+    component: 'Toast',
+    note: 'Fase 4 (D-38(b)): região viva role="status" sempre montada, fixa no topo (pt-safe), sem receber toques; mostra a mensagem enquanto useToast a mantém (3 s). Não cobre a barra inferior, o aviso de versão nem o teclado.',
+  },
+  {
+    component: 'SignedAmount',
+    note: 'Fase 4 (CA-02.1): formatSignedBRL com verde/vermelho/neutro e tamanhos sm | md | lg; o sinal sempre no texto (a cor nunca é a única informação).',
+  },
+  {
+    component: 'BalanceSummary',
+    note: 'Fase 4 (RF-02 itens 1 e 2): recebe today do HomePage; lê useOverallBalance(today) e useMonthTotals(periodOf(today)); "—" enquanto carrega (sem R$ 0,00 falso); título "Saldo de {formatMonthLabel}" (D-38(f)).',
+  },
+  {
+    component: 'RecentTransactions',
+    note: 'Fase 4 (RF-02 item 5): useRecentTransactions(5) + useTags (Map por id); EmptyState só depois da resposta (não pisca); lista de TransactionRow; link "Ver todos" (Link do react-router, 44 px).',
+  },
+  {
+    component: 'TransactionRow',
+    note: 'Fase 4, src/components/transactions: <li> com Link para /lancamentos/:id; descrição truncada, TagChip (truncate), data DD/MM/AAAA (formatShortDate — D-38(f)) e SignedAmount(signedAmount). Sem estado; pensado para ser reaproveitado na lista da Fase 5.',
+  },
+  {
+    component: 'ConfirmDeleteTransactionDialog',
+    note: 'Fase 4 (CA-01.6): Modal "Excluir lançamento?" com a descrição, ErrorAlert de falha e "Excluir" (danger) desabilitado durante a exclusão. Estado vem de useTransactionDetail.',
+  },
+  { component: 'Link', note: 'Do react-router: navegação por toque, sem recarregar a página.' },
 ]
 
 /** Componentes locais (não importados) e o módulo de onde vêm. */
 export const LOCAL_COMPONENT_ORIGINS: Readonly<Record<string, string>> = {
   ThemeRadio: 'src/components/ui/createRadioGroup.tsx',
+  TypeRadio: 'src/components/ui/createRadioGroup.tsx',
   // const SampleDataTools = loadSampleDataTools(): lazy() só em DEV, dentro de uma função (D-30).
   SampleDataTools: 'src/dev/sampleData/SampleDataTools.tsx',
 }
@@ -602,7 +714,18 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   },
   {
     route: '/',
-    stateAndData: 'Placeholder sem estado. Na Fase 4 lerá saldos por repositórios (useLiveQuery).',
+    stateAndData:
+      'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary. Dados por useLiveQuery: useOverallBalance(today) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(5) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4).',
+  },
+  {
+    route: '/lancamentos/novo',
+    stateAndData:
+      'Sem estado na página: todo o estado é do TransactionForm/useTransactionForm (o mesmo do Início). Tags por useTags.',
+  },
+  {
+    route: '/lancamentos/:id',
+    stateAndData:
+      'useTransactionDetail(id): transaction por useTransaction (useLiveQuery: undefined carregando, null inexistente), isConfirmingDelete, isDeleting, isDone (tela saindo — não mostrar "não encontrado") e deleteError; goBack de useGoBack("/lancamentos"). O TransactionForm recebe key = id e transaction (defaultValues do lançamento, startsValid = true) e chama onUpdated (finish → goBack) depois de updateTransaction.',
   },
 ]
 
@@ -2015,8 +2138,8 @@ export const FLOWS: readonly Flow[] = [
       { id: 'page', label: 'TagsPage', module: 'src/features/tags/TagsPage.tsx' },
       { id: 'screen', label: 'useTagsScreen', module: 'src/features/tags/useTagsScreen.ts' },
       { id: 'dialog', label: 'TagFormDialog', module: 'src/features/tags/TagFormDialog.tsx' },
-      { id: 'form', label: 'TagForm', module: 'src/features/tags/TagForm.tsx' },
-      { id: 'formHook', label: 'useTagForm (RHF)', module: 'src/features/tags/useTagForm.ts' },
+      { id: 'form', label: 'TagForm', module: 'src/components/tags/TagForm.tsx' },
+      { id: 'formHook', label: 'useTagForm (RHF)', module: 'src/components/tags/useTagForm.ts' },
       { id: 'schema', label: 'tagInputSchema (zod)', module: 'src/domain/tagSchema.ts' },
       { id: 'submitRule', label: 'canSubmitForm', module: 'src/lib/formSubmit.ts' },
       { id: 'button', label: 'Button "Salvar"', module: 'src/components/ui/Button.tsx' },
@@ -2223,8 +2346,8 @@ export const FLOWS: readonly Flow[] = [
       { id: 'list', label: 'TagList', module: 'src/features/tags/TagList.tsx' },
       { id: 'screen', label: 'useTagsScreen', module: 'src/features/tags/useTagsScreen.ts' },
       { id: 'dialog', label: 'TagFormDialog', module: 'src/features/tags/TagFormDialog.tsx' },
-      { id: 'form', label: 'TagForm', module: 'src/features/tags/TagForm.tsx' },
-      { id: 'formHook', label: 'useTagForm (RHF)', module: 'src/features/tags/useTagForm.ts' },
+      { id: 'form', label: 'TagForm', module: 'src/components/tags/TagForm.tsx' },
+      { id: 'formHook', label: 'useTagForm (RHF)', module: 'src/components/tags/useTagForm.ts' },
       { id: 'schema', label: 'tagInputSchema (zod)', module: 'src/domain/tagSchema.ts' },
       { id: 'submitRule', label: 'canSubmitForm', module: 'src/lib/formSubmit.ts' },
       { id: 'repo', label: 'tagsRepository', module: 'src/repositories/tagsRepository.ts' },
@@ -2568,23 +2691,656 @@ export const FLOWS: readonly Flow[] = [
       'src/components/ui/TagChip.test.tsx',
     ],
   },
+  {
+    id: 'transaction-create',
+    title: 'Lançar transação (Início ou /lancamentos/novo)',
+    summary:
+      'O TransactionForm valida a cada alteração (LIVE_VALIDATION + zodResolver(transactionInputSchema)) e só ativa "Lançar" com tudo válido e fora do envio (canSubmitForm — princípio 16, D-36). O envio chama useTransactionForm.submit → createTransaction, que revalida com o mesmo schema e grava numa transação rw [tags, transactions] conferindo a tag (assertTagExists — D-01/D-02, D-39). Depois do sucesso o formulário é limpo mantendo tipo e data (valor, tag e descrição vazios — D-38(b)), o Toast mostra "Lançamento salvo" por 3 s e os useLiveQuery do Início reemitem: saldo geral, saldo do mês e últimos 5 se atualizam sem recarregar (CA-01.1, CA-02.4).',
+    requirements: [
+      'RF-01',
+      'CA-01.1',
+      'CA-01.2',
+      'CA-01.3',
+      'CA-01.4',
+      'CA-02.4',
+      'D-01',
+      'D-10',
+      'D-31',
+      'D-36',
+      'D-38',
+      'D-39',
+    ],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'form',
+        label: 'TransactionForm',
+        module: 'src/components/transactions/TransactionForm.tsx',
+      },
+      { id: 'money', label: 'MoneyInput', module: 'src/components/ui/MoneyInput.tsx' },
+      {
+        id: 'formHook',
+        label: 'useTransactionForm (RHF)',
+        module: 'src/components/transactions/useTransactionForm.ts',
+      },
+      {
+        id: 'schema',
+        label: 'transactionInputSchema (zod)',
+        module: 'src/domain/transactionSchema.ts',
+      },
+      { id: 'submitRule', label: 'canSubmitForm', module: 'src/lib/formSubmit.ts' },
+      {
+        id: 'repo',
+        label: 'transactionsRepository',
+        module: 'src/repositories/transactionsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: tags + transactions', module: 'src/db/database.ts' },
+      { id: 'toast', label: 'Toast / useToast', module: 'src/components/ui/Toast.tsx' },
+      { id: 'home', label: 'HomePage (useLiveQuery)', module: 'src/features/home/HomePage.tsx' },
+    ],
+    steps: [
+      {
+        from: 'formHook',
+        to: 'form',
+        label: 'defaultValues: Saída + hoje',
+        detail:
+          'emptyValues("expense", useToday()); valor 0 (campo vazio com o exemplo "R$ 0,00"), tag e descrição vazias. "Lançar" abre desabilitado, sem erro na tela.',
+        refs: ['RF-01', 'CA-02.2', 'D-36'],
+        kind: 'return',
+      },
+      {
+        from: 'user',
+        to: 'money',
+        label: 'digita 1, 9, 9, 9',
+        detail:
+          'Teclado numérico (inputMode="numeric"); os dígitos entram pela direita: "R$ 19,99" e 1999 centavos (digitsToCents, no máximo 10 dígitos — D-31); cursor sempre no fim (D-38(d)).',
+        refs: ['CA-01.3', 'CA-01.4', 'D-31', 'D-38'],
+        kind: 'event',
+      },
+      {
+        from: 'money',
+        to: 'formHook',
+        label: 'onChange(cents) via Controller',
+        detail:
+          'Todos os campos são controlados (Controller), inclusive a descrição: o React Compiler memoiza o ref do register e o reset não limparia o campo (D-39). Tipo (TypeRadio segmented), data (DateInput), tag (TagPicker) e descrição (TextInput) seguem o mesmo caminho.',
+        refs: ['D-39'],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'schema',
+        label: 'zodResolver a cada alteração',
+        detail:
+          'Valor inteiro 1..9.999.999.999; data YYYY-MM-DD existente (isValidDate); tag não vazia; descrição com trim, 1 a 100 unidades UTF-16 (D-10, D-38(h)). Erros em pt-BR abaixo do campo (Field.Error, aria-invalid — CA-01.2).',
+        refs: ['RF-01', 'CA-01.2', 'D-10', 'D-38'],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'submitRule',
+        label: 'canSubmitForm(formState)',
+        detail: 'isValid && !isSubmitting → canSubmit; "Lançar" com disabled={!canSubmit}.',
+        refs: ['D-36'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'form',
+        label: 'toca "Lançar" (só se ativo)',
+        detail: '<form onSubmit={submit} noValidate>; handleSubmit revalida antes de enviar.',
+        refs: ['CA-01.1'],
+        kind: 'event',
+      },
+      {
+        from: 'formHook',
+        to: 'repo',
+        label: 'createTransaction(values)',
+        detail:
+          'O repositório faz transactionInputSchema.parse de novo (defesa em profundidade), gera id (crypto.randomUUID — princípio 9), vínculos nulos e createdAt/updatedAt.',
+        refs: ['RF-01'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [tags, transactions])",
+        detail:
+          'assertTagExists (where("id").equals(tagId).count()) e transactions.add na mesma transação: a tag não pode ser excluída entre a checagem e a gravação (D-01/D-02, D-39). Tag inexistente → TransactionTagNotFoundError.',
+        refs: ['D-01', 'D-02', 'D-39'],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'form',
+        label: 'reset(tipo e data mantidos)',
+        detail:
+          'emptyValues(values.type, values.date): valor, tag e descrição vazios; o botão volta a desabilitar. Falha → saveError (ErrorAlert, botão continua ativo — D-36).',
+        refs: ['CA-01.1', 'D-36', 'D-38'],
+        kind: 'return',
+      },
+      {
+        from: 'formHook',
+        to: 'toast',
+        label: 'toast.show("Lançamento salvo")',
+        detail:
+          'role="status" no topo, 3 s (TOAST_DURATION_MS); não cobre a barra inferior nem o teclado (D-38(b)).',
+        refs: ['D-38'],
+        kind: 'call',
+      },
+      {
+        from: 'dexie',
+        to: 'home',
+        label: 'useLiveQuery reemite',
+        detail:
+          'useOverallBalance, useMonthTotals e useRecentTransactions(5) observam a tabela transactions e se atualizam sem recarregar.',
+        refs: ['CA-02.4'],
+        kind: 'event',
+      },
+    ],
+    tests: [
+      'src/features/home/HomePage.test.tsx',
+      'src/features/home/HomePage.form.test.tsx',
+      'src/components/ui/MoneyInput.test.tsx',
+      'src/domain/transactionSchema.test.ts',
+      'src/repositories/transactionsRepository.crud.test.ts',
+      'src/repositories/transactionsRepository.test.ts',
+    ],
+  },
+  {
+    id: 'transaction-edit',
+    title: 'Editar lançamento',
+    summary:
+      'Tocar numa linha dos últimos lançamentos abre /lancamentos/:id. useTransactionDetail lê o lançamento ao vivo; o TransactionForm abre com os dados salvos e "Salvar" já ativo (startsValid — princípio 16). Salvar chama updateTransaction, que regrava os campos editáveis numa transação rw [tags, transactions] mantendo os vínculos, e a tela volta para a anterior (useGoBack, tela pai /lancamentos — D-38(c)). Todas as telas com useLiveQuery refletem a alteração (CA-01.5).',
+    requirements: ['RF-01', 'CA-01.5', 'D-36', 'D-38', 'D-39'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'row',
+        label: 'TransactionRow',
+        module: 'src/components/transactions/TransactionRow.tsx',
+      },
+      {
+        id: 'page',
+        label: 'TransactionDetailPage',
+        module: 'src/features/transactions/TransactionDetailPage.tsx',
+      },
+      {
+        id: 'detail',
+        label: 'useTransactionDetail',
+        module: 'src/features/transactions/useTransactionDetail.ts',
+      },
+      {
+        id: 'form',
+        label: 'TransactionForm',
+        module: 'src/components/transactions/TransactionForm.tsx',
+      },
+      {
+        id: 'formHook',
+        label: 'useTransactionForm',
+        module: 'src/components/transactions/useTransactionForm.ts',
+      },
+      {
+        id: 'repo',
+        label: 'transactionsRepository',
+        module: 'src/repositories/transactionsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: tags + transactions', module: 'src/db/database.ts' },
+      { id: 'back', label: 'useGoBack', module: 'src/components/ui/useGoBack.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'row',
+        label: 'toca no lançamento',
+        detail: 'Link para /lancamentos/:id (rota lazy).',
+        refs: ['CA-01.5'],
+        kind: 'event',
+      },
+      {
+        from: 'page',
+        to: 'detail',
+        label: 'useTransactionDetail(id)',
+        detail:
+          'useTransaction(id) (useLiveQuery): undefined carregando, null inexistente → EmptyState "Lançamento não encontrado" (D-38(c)).',
+        refs: ['D-38'],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'form',
+        label: 'transaction, onUpdated, extraAction "Excluir"',
+        detail:
+          'key = id; defaultValues do lançamento; startsValid = true, então "Salvar" já começa ativo (canSubmitForm com startsValid).',
+        refs: ['D-36'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'form',
+        label: 'altera um campo e toca "Salvar"',
+        detail: 'Mesma validação a cada alteração do fluxo de lançar.',
+        refs: ['CA-01.5'],
+        kind: 'event',
+      },
+      {
+        from: 'formHook',
+        to: 'repo',
+        label: 'updateTransaction(id, values)',
+        detail: 'Revalida com transactionInputSchema.parse.',
+        refs: ['RF-01'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [tags, transactions]): get → assertTagExists → put",
+        detail:
+          'Lançamento apagado em outra aba → TransactionNotFoundError; tag apagada → TransactionTagNotFoundError (mensagens em saveError). Vínculos de recorrente/parcela e createdAt mantidos; updatedAt renovado.',
+        refs: ['D-01', 'D-39'],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'detail',
+        label: 'onUpdated → finish()',
+        detail: 'isDone = true (não pisca "não encontrado") e goBack().',
+        refs: ['D-38'],
+        kind: 'return',
+      },
+      {
+        from: 'detail',
+        to: 'back',
+        label: 'goBack("/lancamentos")',
+        detail:
+          'Volta no histórico; aberto direto pela URL (location.key "default") vai para /lancamentos (CA-13.2).',
+        refs: ['CA-13.2', 'D-38'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/transactions/TransactionDetailPage.test.tsx',
+      'src/repositories/transactionsRepository.crud.test.ts',
+      'src/lib/formSubmit.test.ts',
+    ],
+  },
+  {
+    id: 'transaction-delete',
+    title: 'Excluir lançamento (com confirmação)',
+    summary:
+      '"Excluir" na edição abre o modal "Excluir lançamento?" (ConfirmDeleteTransactionDialog, <dialog> nativo — D-33). Confirmar chama deleteTransaction e volta para a tela anterior (D-38(c)); falha mostra ErrorAlert no modal e mantém a tela. Os saldos e a lista do Início se atualizam pelo useLiveQuery (CA-01.6). As regras de recorrentes e parcelas chegam nas Fases 9 e 10.',
+    requirements: ['RF-01', 'CA-01.6', 'D-33', 'D-38'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'page',
+        label: 'TransactionDetailPage',
+        module: 'src/features/transactions/TransactionDetailPage.tsx',
+      },
+      {
+        id: 'detail',
+        label: 'useTransactionDetail',
+        module: 'src/features/transactions/useTransactionDetail.ts',
+      },
+      {
+        id: 'dialog',
+        label: 'ConfirmDeleteTransactionDialog',
+        module: 'src/features/transactions/ConfirmDeleteTransactionDialog.tsx',
+      },
+      {
+        id: 'repo',
+        label: 'transactionsRepository',
+        module: 'src/repositories/transactionsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: transactions', module: 'src/db/database.ts' },
+      { id: 'back', label: 'useGoBack', module: 'src/components/ui/useGoBack.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'page',
+        label: 'toca "Excluir"',
+        detail: 'Button danger-outline passado como extraAction do TransactionForm.',
+        refs: ['CA-01.6'],
+        kind: 'event',
+      },
+      {
+        from: 'page',
+        to: 'detail',
+        label: 'requestDelete()',
+        detail: 'Limpa deleteError e isConfirmingDelete = true.',
+        refs: [],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'dialog',
+        label: 'open, description',
+        detail: 'Modal "Excluir lançamento?" com a descrição; Esc/Cancelar → cancelDelete.',
+        refs: ['D-33'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'dialog',
+        label: 'confirma "Excluir"',
+        detail: 'Desabilitado enquanto isDeleting.',
+        refs: ['CA-01.6'],
+        kind: 'event',
+      },
+      {
+        from: 'detail',
+        to: 'repo',
+        label: 'deleteTransaction(id)',
+        detail: 'Exclusão simples (um registro: sem transação explícita).',
+        refs: ['CA-01.6'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: 'transactions.delete(id)',
+        detail: 'Falha → deleteError "Não foi possível excluir o lançamento. Tente de novo."',
+        refs: [],
+        kind: 'call',
+      },
+      {
+        from: 'detail',
+        to: 'back',
+        label: 'finish() → goBack',
+        detail: 'Fecha o modal, isDone = true e volta (tela pai /lancamentos).',
+        refs: ['D-38'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/transactions/TransactionDetailPage.test.tsx',
+      'src/repositories/transactionsRepository.crud.test.ts',
+    ],
+  },
+  {
+    id: 'transaction-create-tag-shortcut',
+    title: 'Criar tag sem perder o formulário (CA-01.7)',
+    summary:
+      'Sem nenhuma tag, o TagPicker mostra o NoTagsNotice no lugar das opções. "Criar tag" abre o CreateTagDialog, renderizado fora do <form> do lançamento (formulários aninhados não são válidos). Ele reutiliza o TagForm de components/tags (D-37) com toda a validação do fluxo "Criar tag"; createTag grava, onSaved(tag) entrega a Tag e o TransactionForm a seleciona com setValue("tagId"). O que já foi digitado no lançamento continua lá; useTags (useLiveQuery) faz a lista de chips aparecer.',
+    requirements: ['RF-01', 'CA-01.7', 'RF-03', 'CA-03.4', 'D-36', 'D-37'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'form',
+        label: 'TransactionForm',
+        module: 'src/components/transactions/TransactionForm.tsx',
+      },
+      { id: 'picker', label: 'TagPicker', module: 'src/components/tags/TagPicker.tsx' },
+      {
+        id: 'notice',
+        label: 'NoTagsNotice',
+        module: 'src/components/transactions/NoTagsNotice.tsx',
+      },
+      {
+        id: 'dialog',
+        label: 'CreateTagDialog',
+        module: 'src/components/tags/CreateTagDialog.tsx',
+      },
+      { id: 'tagForm', label: 'TagForm', module: 'src/components/tags/TagForm.tsx' },
+      { id: 'tagHook', label: 'useTagForm', module: 'src/components/tags/useTagForm.ts' },
+      { id: 'repo', label: 'tagsRepository', module: 'src/repositories/tagsRepository.ts' },
+      { id: 'dexie', label: 'Dexie: tags', module: 'src/db/database.ts' },
+    ],
+    steps: [
+      {
+        from: 'repo',
+        to: 'form',
+        label: 'useTags() → []',
+        detail: 'Enquanto carrega (undefined) o campo de tag não aparece, para o aviso não piscar.',
+        refs: ['CA-01.7'],
+        kind: 'return',
+      },
+      {
+        from: 'form',
+        to: 'picker',
+        label: 'tags = [], emptyState = <NoTagsNotice>',
+        detail: 'Slot emptyState: o TagPicker não sabe criar tags.',
+        refs: ['CA-01.7'],
+        kind: 'call',
+      },
+      {
+        from: 'picker',
+        to: 'notice',
+        label: 'renderiza o aviso',
+        detail: '"Você ainda não tem nenhuma tag… o que já foi digitado continua aqui."',
+        refs: ['CA-01.7'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'notice',
+        label: 'toca "Criar tag"',
+        detail: 'onCreateTag → setIsCreatingTag(true) no TransactionForm.',
+        refs: ['CA-01.7'],
+        kind: 'event',
+      },
+      {
+        from: 'form',
+        to: 'dialog',
+        label: 'open (irmão do <form>)',
+        detail:
+          'Fora do <form> do lançamento: o envio do TagForm não dispara o do lançamento. Modal "Nova tag" (D-33).',
+        refs: ['CA-01.7', 'D-33'],
+        kind: 'call',
+      },
+      {
+        from: 'dialog',
+        to: 'tagForm',
+        label: 'onSaved = onCreated',
+        detail:
+          'Mesmo TagForm de Ajustes → Tags (validação ao digitar, "Salvar" só válido — princípio 16; nome repetido no campo — CA-03.4).',
+        refs: ['CA-03.4', 'D-36', 'D-37'],
+        kind: 'call',
+      },
+      {
+        from: 'tagHook',
+        to: 'repo',
+        label: 'createTag(values)',
+        detail: 'add com &nameKey único; devolve a Tag gravada.',
+        refs: ['RF-03'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: 'tags.add',
+        detail: 'ConstraintError → DuplicateTagNameError → setError("name").',
+        refs: ['CA-03.4'],
+        kind: 'call',
+      },
+      {
+        from: 'tagHook',
+        to: 'form',
+        label: 'onSaved(tag) → setValue("tagId", tag.id)',
+        detail:
+          'Fecha o modal e já escolhe a tag nova (shouldDirty, shouldValidate). Valor, data e descrição ficam como estavam.',
+        refs: ['CA-01.7'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/home/HomePage.form.test.tsx',
+      'src/components/tags/TagPicker.test.tsx',
+      'src/repositories/tagsRepository.listTags.test.ts',
+    ],
+  },
+  {
+    id: 'home-balances',
+    title: 'Saldos do Início (geral e do mês)',
+    summary:
+      'HomePage lê today de useToday e o passa ao BalanceSummary. O saldo geral soma só datas ≤ hoje (D-03): where("date").belowOrEqual(today).toArray() + overallBalance do domínio (um getAll() nativo, mais rápido que um cursor each() com 10.000 lançamentos — D-39, RNF-02). O saldo do mês usa where("date").between(início, fim) + totals, então datas futuras do mês entram (CA-02.3). Os valores aparecem com sinal e cor (SignedAmount — CA-02.1).',
+    requirements: ['RF-02', 'CA-02.1', 'CA-02.3', 'CA-02.4', 'D-03', 'D-38', 'D-39', 'RNF-02'],
+    participants: [
+      { id: 'home', label: 'HomePage', module: 'src/features/home/HomePage.tsx' },
+      { id: 'today', label: 'useToday', module: 'src/components/ui/useToday.ts' },
+      { id: 'summary', label: 'BalanceSummary', module: 'src/features/home/BalanceSummary.tsx' },
+      {
+        id: 'repo',
+        label: 'transactionsRepository',
+        module: 'src/repositories/transactionsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: transactions', module: 'src/db/database.ts' },
+      { id: 'balances', label: 'domain/balances', module: 'src/domain/balances.ts' },
+      { id: 'dates', label: 'domain/dates', module: 'src/domain/dates.ts' },
+      { id: 'amount', label: 'SignedAmount', module: 'src/components/ui/SignedAmount.tsx' },
+    ],
+    steps: [
+      {
+        from: 'home',
+        to: 'today',
+        label: 'useToday()',
+        detail: 'Data local YYYY-MM-DD (today() do domínio) por useSyncExternalStore.',
+        refs: ['CA-02.2'],
+        kind: 'call',
+      },
+      {
+        from: 'home',
+        to: 'summary',
+        label: '<BalanceSummary today>',
+        detail: 'periodOf(today) dá o mês corrente (YYYY-MM).',
+        refs: ['RF-02'],
+        kind: 'call',
+      },
+      {
+        from: 'summary',
+        to: 'repo',
+        label: 'useOverallBalance(today)',
+        detail: 'useLiveQuery com deps [today].',
+        refs: ['D-03'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "where('date').belowOrEqual(today).toArray()",
+        detail: 'Índice date; um getAll() nativo (D-39).',
+        refs: ['D-39', 'RNF-02'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'balances',
+        label: 'overallBalance(transactions, today)',
+        detail: 'Soma inteira em centavos (princípio 1); datas futuras ficam de fora (D-03).',
+        refs: ['D-03', 'CA-02.3'],
+        kind: 'call',
+      },
+      {
+        from: 'summary',
+        to: 'repo',
+        label: 'useMonthTotals(period)',
+        detail: 'useLiveQuery com deps [period].',
+        refs: ['RF-02'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dates',
+        label: 'monthRange(period)',
+        detail: 'Primeiro e último dia do mês, sem fuso (princípio 2).',
+        refs: [],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'balances',
+        label: 'between(início, fim) → totals()',
+        detail:
+          'Entradas, saídas e resultado do mês, inclusive datas futuras dentro dele (CA-02.3).',
+        refs: ['CA-02.3'],
+        kind: 'call',
+      },
+      {
+        from: 'summary',
+        to: 'amount',
+        label: 'SignedAmount + formatMonthLabel',
+        detail:
+          '"+R$ 750,00" verde / "−R$ 45,90" vermelho / neutro no zero; "Saldo de outubro de 2026" (Intl em UTC — D-38(f)). "—" enquanto carrega.',
+        refs: ['CA-02.1', 'D-38'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/repositories/transactionsRepository.balances.test.ts',
+      'src/features/home/HomePage.test.tsx',
+      'src/domain/balances.test.ts',
+      'src/domain/balances.properties.test.ts',
+      'src/domain/dates.format.test.ts',
+      'src/domain/dates.format.timezone.test.ts',
+    ],
+  },
+  {
+    id: 'day-rollover',
+    title: 'Virada do dia com o app aberto (CA-02.2)',
+    summary:
+      'O app instalado pode ficar dias em segundo plano. useToday assina visibilitychange (document), focus e pageshow (window) com useSyncExternalStore e recalcula today() a cada evento; como o valor é uma string, só há nova renderização quando o dia muda. O novo today refaz as consultas de saldo (deps dos useLiveQuery) e o useTransactionForm troca a data do formulário só se ela ainda for a preenchida automaticamente (ref autoFilledDate) — D-38(g). Com o app em primeiro plano na meia-noite, nada muda até o próximo foco ou visibilidade (coerente com a D-38(g)).',
+    requirements: ['RF-02', 'CA-02.2', 'D-38'],
+    participants: [
+      { id: 'browser', label: 'Navegador / iOS' },
+      { id: 'today', label: 'useToday', module: 'src/components/ui/useToday.ts' },
+      { id: 'dates', label: 'domain/dates (today)', module: 'src/domain/dates.ts' },
+      { id: 'home', label: 'HomePage', module: 'src/features/home/HomePage.tsx' },
+      { id: 'summary', label: 'BalanceSummary', module: 'src/features/home/BalanceSummary.tsx' },
+      {
+        id: 'formHook',
+        label: 'useTransactionForm',
+        module: 'src/components/transactions/useTransactionForm.ts',
+      },
+    ],
+    steps: [
+      {
+        from: 'browser',
+        to: 'today',
+        label: 'visibilitychange / focus / pageshow',
+        detail: 'App volta ao primeiro plano ou é restaurado do bfcache.',
+        refs: ['CA-02.2', 'D-38'],
+        kind: 'event',
+      },
+      {
+        from: 'today',
+        to: 'dates',
+        label: 'getSnapshot → today()',
+        detail: 'Data local YYYY-MM-DD; mesma string = sem render.',
+        refs: ['CA-02.2'],
+        kind: 'call',
+      },
+      {
+        from: 'today',
+        to: 'home',
+        label: 'novo today',
+        detail: 'HomePage e useTransactionForm usam o hook.',
+        refs: ['CA-02.2'],
+        kind: 'return',
+      },
+      {
+        from: 'home',
+        to: 'summary',
+        label: 'today → saldos refazem a consulta',
+        detail: 'useOverallBalance([today]) e useMonthTotals([period]) reconsultam com o novo dia.',
+        refs: ['D-03', 'D-38'],
+        kind: 'call',
+      },
+      {
+        from: 'today',
+        to: 'formHook',
+        label: 'useEffect([todayDate])',
+        detail:
+          'Só no modo criar: se getValues("date") === autoFilledDate, setValue("date", novo hoje); data trocada pelo usuário fica como está.',
+        refs: ['CA-02.2', 'D-38'],
+        kind: 'call',
+      },
+    ],
+    tests: ['src/features/home/HomePage.form.test.tsx', 'src/features/home/HomePage.test.tsx'],
+  },
 ]
 
 /** Fluxos exigidos pela §6.12 que ainda não existem no código. */
 export const PLANNED_FLOWS: readonly PlannedFlow[] = [
-  {
-    title: 'Lançar transação',
-    phase: 4,
-    requirements: ['RF-01'],
-    summary:
-      'MoneyInput (centavos) → validação zod → repositório → useLiveQuery atualiza o Início.',
-  },
-  {
-    title: 'Editar/excluir lançamento',
-    phase: 4,
-    requirements: ['RF-01'],
-    summary: 'Detalhe → repositório → confirmação de exclusão.',
-  },
   {
     title: 'Filtrar lista',
     phase: 5,
@@ -2638,14 +3394,14 @@ export const TABLE_NOTES: readonly TableNote[] = [
     type: 'Tag',
     inBackup: 'sim',
     usedFromPhase: 3,
-    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). &nameKey (toTagNameKey: NFD, sem marcas \\p{M}, minúsculas, trim) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags).',
+    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). Fase 4: listTags/useTags (ordenadas por nome) alimentam o TagPicker e as linhas dos últimos lançamentos; transactionsRepository lê tags só em assertTagExists, dentro da transação rw do lançamento (D-39); o atalho do CA-01.7 grava pelo mesmo TagForm → createTag. &nameKey (toTagNameKey: NFD, sem marcas \\p{M}, minúsculas, trim) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags).',
   },
   {
     name: 'transactions',
     type: 'Transaction',
     inBackup: 'sim',
     usedFromPhase: 4,
-    note: 'Sem repositório de escrita até a Fase 4. Desde a Fase 3 o tagsRepository lê, só contando por tag com o índice tagId (where("tagId").equals(id).count()) na lista (CA-03.5) e no bloqueio de exclusão (D-02). Hoje só as ferramentas DEV gravam (5.000 lançamentos de exemplo — D-30) e, nos testes de tela, src/test/seedDatabase.ts (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9).',
+    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (belowOrEqual(hoje).toArray() + overallBalance — D-03), getMonthTotals (between + totals), listRecentTransactions (orderBy("date").reverse().limit(5) acha a data de corte; releitura aboveOrEqual(corte) numa transação r; ordem por takeMostRecent — D-39) e getTransaction; cada uma com hook useLiveQuery. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9).',
   },
   {
     name: 'recurrings',
@@ -2739,17 +3495,37 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
     number: 1,
     title: 'Dinheiro é inteiro (centavos)',
     enforcement: 'check-consistency (parseFloat/toFixed); testes de money e balances.',
-    modules: ['src/domain/money.ts', 'src/domain/types.ts'],
-    tests: ['src/domain/money.test.ts', 'src/domain/balances.properties.test.ts'],
+    modules: [
+      'src/domain/money.ts',
+      'src/domain/types.ts',
+      'src/components/ui/MoneyInput.tsx',
+      'src/domain/transactionSchema.ts',
+    ],
+    tests: [
+      'src/domain/money.test.ts',
+      'src/domain/balances.properties.test.ts',
+      'src/components/ui/MoneyInput.test.tsx',
+      'src/domain/transactionSchema.test.ts',
+    ],
     decisions: ['D-29', 'D-31'],
   },
   {
     number: 2,
     title: 'Datas sem fuso (YYYY-MM-DD / YYYY-MM)',
     enforcement: 'check-consistency (new Date com string de data); testes de fuso.',
-    modules: ['src/domain/dates.ts', 'src/domain/types.ts'],
-    tests: ['src/domain/dates.test.ts', 'src/domain/dates.timezone.test.ts'],
-    decisions: [],
+    modules: [
+      'src/domain/dates.ts',
+      'src/domain/types.ts',
+      'src/components/ui/DateInput.tsx',
+      'src/components/ui/useToday.ts',
+    ],
+    tests: [
+      'src/domain/dates.test.ts',
+      'src/domain/dates.timezone.test.ts',
+      'src/domain/dates.format.timezone.test.ts',
+      'src/components/ui/DateInput.test.tsx',
+    ],
+    decisions: ['D-38'],
   },
   {
     number: 3,
@@ -2763,8 +3539,17 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
     number: 4,
     title: 'Somente BRL, localidade pt-BR',
     enforcement: 'Revisão; testes de formatação.',
-    modules: ['src/domain/money.ts', 'src/features/tags/tagTexts.ts'],
-    tests: ['src/domain/money.test.ts', 'src/features/tags/tagTexts.test.ts'],
+    modules: [
+      'src/domain/money.ts',
+      'src/features/tags/tagTexts.ts',
+      'src/components/ui/SignedAmount.tsx',
+      'src/domain/dates.ts',
+    ],
+    tests: [
+      'src/domain/money.test.ts',
+      'src/features/tags/tagTexts.test.ts',
+      'src/domain/dates.format.test.ts',
+    ],
     decisions: ['D-29'],
   },
   {
@@ -2790,35 +3575,48 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'check-consistency e regras de camada (app/components/features → db proibido); exceção só em src/dev (D-30) e src/test (D-34).',
     modules: [
       'src/repositories/tagsRepository.ts',
+      'src/repositories/transactionsRepository.ts',
       'src/repositories/settingsRepository.ts',
       'src/repositories/databaseInfo.ts',
     ],
     tests: [],
-    decisions: ['D-30', 'D-34'],
+    decisions: ['D-30', 'D-34', 'D-37'],
   },
   {
     number: 8,
     title: 'Escritas atômicas (transação do Dexie)',
     enforcement: 'Revisão; testes de repositório.',
-    modules: ['src/repositories/tagsRepository.ts'],
-    tests: ['src/repositories/tagsRepository.test.ts'],
-    decisions: ['D-02'],
+    modules: ['src/repositories/tagsRepository.ts', 'src/repositories/transactionsRepository.ts'],
+    tests: [
+      'src/repositories/tagsRepository.test.ts',
+      'src/repositories/transactionsRepository.crud.test.ts',
+    ],
+    decisions: ['D-02', 'D-39'],
   },
   {
     number: 9,
     title: 'IDs são UUID (crypto.randomUUID)',
     enforcement: 'check-consistency (Math.random).',
-    modules: ['src/repositories/tagsRepository.ts'],
-    tests: ['src/repositories/tagsRepository.test.ts'],
+    modules: ['src/repositories/tagsRepository.ts', 'src/repositories/transactionsRepository.ts'],
+    tests: [
+      'src/repositories/tagsRepository.test.ts',
+      'src/repositories/transactionsRepository.crud.test.ts',
+    ],
     decisions: ['D-30'],
   },
   {
     number: 10,
     title: 'Mobile-first (alvo ≥ 44 px, safe areas)',
     enforcement: 'Revisão e teste manual no iPhone.',
-    modules: ['src/components/ui/Button.tsx', 'src/styles/utilities.css'],
+    modules: [
+      'src/components/ui/Button.tsx',
+      'src/styles/utilities.css',
+      'src/components/ui/inputClasses.ts',
+      'src/components/ui/Toast.tsx',
+      'src/index.css',
+    ],
     tests: [],
-    decisions: [],
+    decisions: ['D-38'],
   },
   {
     number: 11,
@@ -2864,24 +3662,37 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
     number: 16,
     title: 'Botão de envio só ativo com o formulário válido (spec 1.13)',
     enforcement:
-      'Padrão em src/lib/formSubmit.ts (LIVE_VALIDATION + canSubmitForm), obrigatório nos formulários das fases seguintes; testes de tela conferem o botão desabilitado. Hoje aplicado só ao formulário de tags.',
+      'Padrão em src/lib/formSubmit.ts (LIVE_VALIDATION + canSubmitForm com startsValid), obrigatório em todos os formulários; testes de tela conferem o botão desabilitado. Aplicado ao formulário de tags (Fase 3) e ao de lançamento (Fase 4: "Lançar" e "Salvar").',
     modules: [
       'src/lib/formSubmit.ts',
-      'src/features/tags/useTagForm.ts',
-      'src/features/tags/TagForm.tsx',
+      'src/components/tags/useTagForm.ts',
+      'src/components/tags/TagForm.tsx',
+      'src/components/transactions/useTransactionForm.ts',
+      'src/components/transactions/TransactionForm.tsx',
       'src/components/ui/Button.tsx',
     ],
     tests: [
       'src/lib/formSubmit.test.ts',
       'src/features/tags/TagsPage.validation.test.tsx',
       'src/features/tags/TagsPage.test.tsx',
+      'src/features/home/HomePage.form.test.tsx',
+      'src/features/transactions/TransactionDetailPage.test.tsx',
     ],
     decisions: ['D-36'],
   },
 ]
 
 export const DECISIONS: readonly DecisionInfo[] = [
-  { id: 'D-01', title: 'Exatamente uma tag por lançamento', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-01',
+    title: 'Exatamente uma tag por lançamento',
+    status: 'confirmed',
+    impacts: [
+      'src/components/tags/TagPicker.tsx',
+      'src/domain/transactionSchema.ts',
+      'src/repositories/transactionsRepository.ts',
+    ],
+  },
   {
     id: 'D-02',
     title: 'Tag em uso não pode ser excluída',
@@ -2893,7 +3704,16 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/features/tags/DeleteTagBlockedDialog.tsx',
     ],
   },
-  { id: 'D-03', title: 'Saldo geral só com data ≤ hoje', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-03',
+    title: 'Saldo geral só com data ≤ hoje',
+    status: 'confirmed',
+    impacts: [
+      'src/domain/balances.ts',
+      'src/repositories/transactionsRepository.ts',
+      'src/features/home/BalanceSummary.tsx',
+    ],
+  },
   { id: 'D-04', title: 'Recorrentes mensais, sem dia fixo', status: 'confirmed', impacts: [] },
   { id: 'D-05', title: 'Pendências só no Previsto', status: 'confirmed', impacts: [] },
   { id: 'D-06', title: 'Parcelamento só para saídas', status: 'confirmed', impacts: [] },
@@ -2905,7 +3725,12 @@ export const DECISIONS: readonly DecisionInfo[] = [
     status: 'confirmed',
     impacts: ['index.html', 'src/app/pwa/pwaOptions.ts'],
   },
-  { id: 'D-10', title: 'Descrição obrigatória (1–100)', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-10',
+    title: 'Descrição obrigatória (1–100)',
+    status: 'confirmed',
+    impacts: ['src/domain/transactionSchema.ts', 'src/domain/transactionSchema.test.ts'],
+  },
   { id: 'D-11', title: 'Lembrete de backup após 7 dias', status: 'confirmed', impacts: [] },
   { id: 'D-12', title: 'Gráficos com Chart.js', status: 'confirmed', impacts: [] },
   {
@@ -3053,8 +3878,8 @@ export const DECISIONS: readonly DecisionInfo[] = [
     impacts: [
       'src/domain/tags.ts',
       'src/domain/tagSchema.ts',
-      'src/features/tags/TagColorPicker.tsx',
-      'src/features/tags/useTagForm.ts',
+      'src/components/tags/TagColorPicker.tsx',
+      'src/components/tags/useTagForm.ts',
       'src/domain/tags.test.ts',
     ],
   },
@@ -3095,11 +3920,65 @@ export const DECISIONS: readonly DecisionInfo[] = [
     impacts: [
       'src/lib/formSubmit.ts',
       'src/lib/formSubmit.test.ts',
-      'src/features/tags/useTagForm.ts',
-      'src/features/tags/TagForm.tsx',
+      'src/components/tags/useTagForm.ts',
+      'src/components/tags/TagForm.tsx',
       'src/components/ui/Button.tsx',
       'src/features/tags/TagsPage.validation.test.tsx',
       'src/features/tags/TagsPage.test.tsx',
+      'src/components/transactions/useTransactionForm.ts',
+      'src/components/transactions/TransactionForm.tsx',
+    ],
+  },
+  {
+    id: 'D-37',
+    title:
+      'Componentes de domínio compartilhados em src/components/<entidade>/ (podem usar repositories); components/ui nunca importa repositories, features nem app',
+    status: 'pending',
+    impacts: [
+      'src/components/tags/TagForm.tsx',
+      'src/components/tags/useTagForm.ts',
+      'src/components/tags/TagColorPicker.tsx',
+      'src/components/tags/TagPicker.tsx',
+      'src/components/tags/CreateTagDialog.tsx',
+      'src/components/tags/tagFormTexts.ts',
+      'src/components/transactions/TransactionForm.tsx',
+      'src/components/transactions/useTransactionForm.ts',
+      'src/components/transactions/TransactionRow.tsx',
+      'src/components/transactions/NoTagsNotice.tsx',
+      'src/components/transactions/transactionTexts.ts',
+      'src/features/tags/TagFormDialog.tsx',
+      '.claude/skills/atualizar-arquitetura/scan-architecture.mjs',
+    ],
+  },
+  {
+    id: 'D-38',
+    title:
+      'Telas da Fase 4: tag em chips-rádio, Toast "Lançamento salvo" no topo, edição volta à tela anterior, valor com exemplo R$ 0,00, ordem literal dos últimos (datas futuras no topo), datas DD/MM/AAAA, virada do dia por useToday, descrição em UTF-16',
+    status: 'pending',
+    impacts: [
+      'src/components/tags/TagPicker.tsx',
+      'src/components/ui/Toast.tsx',
+      'src/components/ui/useToast.ts',
+      'src/components/ui/MoneyInput.tsx',
+      'src/components/ui/useToday.ts',
+      'src/components/transactions/useTransactionForm.ts',
+      'src/components/transactions/TransactionRow.tsx',
+      'src/features/transactions/useTransactionDetail.ts',
+      'src/features/home/BalanceSummary.tsx',
+      'src/domain/dates.ts',
+      'src/domain/transactionSchema.ts',
+    ],
+  },
+  {
+    id: 'D-39',
+    title:
+      'Consultas da Fase 4 (saldo por toArray + domínio, mês por between, últimos 5 com data de corte e takeMostRecent, tag conferida na transação rw) e formulário só com Controller (React Compiler)',
+    status: 'pending',
+    impacts: [
+      'src/repositories/transactionsRepository.ts',
+      'src/domain/transactions.ts',
+      'src/components/transactions/TransactionForm.tsx',
+      'src/repositories/transactionsRepository.balances.test.ts',
     ],
   },
 ]
@@ -3146,6 +4025,86 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 // ---------- achados de arquitetura (reportados, não corrigidos) ----------
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
+  {
+    title: 'Pacote principal com 596 kB (188,9 kB gzip): o build avisa chunk acima de 500 kB',
+    severity: 'warn',
+    detail:
+      'Na Fase 4 o index-*.js foi de 423 kB / 135 kB gzip para 596,3 kB / 188,9 kB gzip, porque o Início (única tela fora do React.lazy — RNF-02) passou a montar o TransactionForm. Medições do revisor: zod ~23,6 kB gzip (zod/mini ~6,2 kB), react-hook-form + @hookform/resolvers ~13,3 kB, date-fns format + ptBR ~6,6 kB. O zod também chega ao caminho de abertura pelos repositórios: BalanceSummary → transactionsRepository → transactionSchema e RecentTransactions → tagsRepository → tagSchema (os repositórios validam com os schemas). Efeito colateral: o chunk TagsPage-*.js caiu para 6 kB (zod e RHF agora estão no pacote principal). Pendente de decisão do dono: o revisor recomenda medir no iPhone na Fase 11; a alternativa é carregar o formulário com lazy e separar leitura e escrita nos repositórios (as consultas de leitura não precisam do schema).',
+    modules: [
+      'src/features/home/HomePage.tsx',
+      'src/components/transactions/TransactionForm.tsx',
+      'src/features/home/BalanceSummary.tsx',
+      'src/features/home/RecentTransactions.tsx',
+      'src/repositories/transactionsRepository.ts',
+      'src/repositories/tagsRepository.ts',
+      'src/domain/transactionSchema.ts',
+      'src/domain/tagSchema.ts',
+      'src/app/lazyPages.tsx',
+    ],
+  },
+  {
+    title: 'D-37, D-38 e D-39 aguardando confirmação do dono',
+    severity: 'warn',
+    detail:
+      'Registradas na §8.1 durante a Fase 4 (spec 1.14): componentes de domínio em src/components/<entidade>/ com acesso a repositórios e components/ui proibido de importar repositories/features/app (D-37); comportamento das telas — chips-rádio, Toast no topo, voltar depois de salvar/excluir, exemplo R$ 0,00, ordem literal dos últimos, DD/MM/AAAA, virada do dia, descrição em UTF-16 (D-38); consultas por índice com soma no domínio, últimos 5 com data de corte, tag conferida na transação e formulário só com Controller (D-39). A página mostra as três como "aguardando confirmação" na rastreabilidade.',
+    modules: [
+      'docs/SPEC.md',
+      'src/components/transactions/TransactionForm.tsx',
+      'src/components/ui/useToday.ts',
+      'src/repositories/transactionsRepository.ts',
+    ],
+  },
+  {
+    title: 'D-38(e): "Últimos lançamentos" mostram datas futuras no topo',
+    severity: 'warn',
+    detail:
+      'A ordem segue o RF-02 ao pé da letra (data, depois criação — compareByRecency/takeMostRecent), então um lançamento com data de amanhã aparece antes dos de hoje. Com a Fase 10, cada compra parcelada cria parcelas em meses futuros, que tomariam os 5 lugares. O dono precisa decidir antes da Fase 10 (ex.: limitar a data ≤ hoje ou ordenar por criação).',
+    modules: [
+      'src/domain/transactions.ts',
+      'src/repositories/transactionsRepository.ts',
+      'src/features/home/RecentTransactions.tsx',
+    ],
+  },
+  {
+    title: 'Pendente (dono): teste manual da Fase 4',
+    severity: 'warn',
+    detail:
+      'Fase 4 implementada, testes reforçados (884 passando), revisão aprovada e sugestões aplicadas; falta o roteiro do iPhone da §7 (R$ 19,99 com teclado numérico; entrada de R$ 1.000,00 e saída de R$ 250,00 → +R$ 750,00 nos dois saldos; saída com data de amanhã só no saldo do mês; editar e excluir atualizam os saldos; excluir "Mercado" em uso → bloqueado com a contagem; fechar e reabrir mantém os dados e a data de hoje). Junto, reconfirmar o "Salvar" do princípio 16 nas tags (achado da Fase 3). Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'src/features/home/HomePage.tsx',
+      'src/features/transactions/TransactionDetailPage.tsx',
+      'src/repositories/transactionsRepository.ts',
+    ],
+  },
+  {
+    title: 'useToday só percebe a virada do dia no próximo foco ou visibilidade',
+    severity: 'info',
+    detail:
+      'useToday recalcula "hoje" em visibilitychange, focus e pageshow (useSyncExternalStore); não há timer. Com o app aberto em primeiro plano à meia-noite, saldos e data do formulário continuam no dia anterior até o usuário sair e voltar ou o foco mudar. Coerente com a D-38(g) (aguardando confirmação); um timer até a meia-noite seria a alternativa se o dono quiser.',
+    modules: [
+      'src/components/ui/useToday.ts',
+      'src/components/transactions/useTransactionForm.ts',
+      'src/features/home/HomePage.form.test.tsx',
+    ],
+  },
+  {
+    title: 'Teste instável: uma falha isolada que não se repetiu',
+    severity: 'info',
+    detail:
+      'Durante a Fase 4 a suíte teve uma falha isolada que não voltou a acontecer, provavelmente em ThemeSection.test.tsx: o tema é aplicado num efeito depois do rádio marcado e, com a máquina ocupada, a checagem rodava antes. O teste passou a esperar com waitFor. Observar nas próximas execuções.',
+    modules: ['src/features/settings/ThemeSection.test.tsx'],
+  },
+  {
+    title: 'Padrões diferentes de campo: TagForm usa register, TransactionForm só Controller',
+    severity: 'info',
+    detail:
+      'A D-39 explica que o formulário de lançamento usa Controller em todos os campos porque o React Compiler memoiza o ref do register e o reset depois de "Lançar" não limparia o campo. O TagForm continua com register("name"): não há bug hoje, porque ele nunca chama reset (o Modal desmonta os children ao fechar e cada abertura recria o formulário). Se um formulário de tag passar a ser reutilizado sem desmontar, seguir o padrão da D-39.',
+    modules: [
+      'src/components/tags/TagForm.tsx',
+      'src/components/transactions/TransactionForm.tsx',
+      'src/components/ui/Modal.tsx',
+    ],
+  },
   {
     title: 'Confirmar no iPhone que o aviso de versão nova aparece sem recarregar (item C 9)',
     severity: 'warn',
@@ -3205,6 +4164,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     detail:
       'Na Fase 2 o index-*.js passou a incluir o Dexie e o dexie-react-hooks (o ThemeProvider e o pedido de persist() rodam na abertura, então o banco vai no pacote principal). O revisor considerou não bloqueante; recomendou medir o tempo de abertura no iPhone na Fase 4 ou na Fase 11 (RNF-02). Tamanho atual dos chunks no cartão "Artefatos do último build" (seção PWA).',
     modules: ['src/db/database.ts', 'src/app/App.tsx', 'src/app/theme/ThemeProvider.tsx'],
+    resolved:
+      'Superado na Fase 4 (20/10/2026): o pacote principal cresceu para 596 kB / 188,9 kB gzip com o formulário no Início; ver o achado do bundle no topo.',
   },
   {
     title: 'Ferramentas DEV acessam o db diretamente (exceção ao princípio 7)',
@@ -3236,8 +4197,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     detail:
       'Princípio 16 / D-36 aplicados depois do teste manual da Fase 3: "Nova tag" abre com "Salvar" desabilitado (nome vazio, sem erro na tela); o erro do nome aparece enquanto digita (apagar tudo ou passar de 30 caracteres) e o botão desabilita na hora; nome repetido mostra o erro no campo e o botão volta quando o nome muda; o botão desabilitado é cinza e legível nos temas claro e escuro. Testes automáticos passam (TagsPage.validation.test.tsx, TagsPage.test.tsx, formSubmit.test.ts); falta conferir à mão, inclusive no iPhone. Mover para os resolvidos quando o dono confirmar.',
     modules: [
-      'src/features/tags/useTagForm.ts',
-      'src/features/tags/TagForm.tsx',
+      'src/components/tags/useTagForm.ts',
+      'src/components/tags/TagForm.tsx',
       'src/lib/formSubmit.ts',
       'src/components/ui/Button.tsx',
       'src/features/tags/TagsPage.validation.test.tsx',
@@ -3247,10 +4208,11 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'Princípio 16: falha genérica de gravação fora do setError do React Hook Form',
     severity: 'info',
     detail:
-      'No react-hook-form 7.90, setError (inclusive no root) força isValid = false até a próxima validação; com "Salvar" ligado a canSubmitForm, uma falha do IndexedDB deixaria o botão desabilitado sem o usuário ter o que corrigir. Por isso useTagForm guarda essa falha num useState (saveError) e só o nome repetido, que é erro de campo, usa setError("name"). Os próximos formulários (lançamento na Fase 4, recorrente, parcelamento, backup) devem seguir o mesmo padrão de src/lib/formSubmit.ts; hoje só o de tags o aplica.',
+      'No react-hook-form 7.90, setError (inclusive no root) força isValid = false até a próxima validação; com "Salvar" ligado a canSubmitForm, uma falha do IndexedDB deixaria o botão desabilitado sem o usuário ter o que corrigir. Por isso useTagForm guarda essa falha num useState (saveError) e só o nome repetido, que é erro de campo, usa setError("name"). Desde a Fase 4 o useTransactionForm segue o mesmo padrão (saveError para falha de gravação, tag ou lançamento inexistente); os próximos formulários (recorrente, parcelamento, backup) também devem seguir src/lib/formSubmit.ts.',
     modules: [
       'src/lib/formSubmit.ts',
-      'src/features/tags/useTagForm.ts',
+      'src/components/transactions/useTransactionForm.ts',
+      'src/components/tags/useTagForm.ts',
       'src/features/tags/TagsPage.errors.test.tsx',
     ],
   },
@@ -3283,6 +4245,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     detail:
       'src/domain/balances.ts só é importado por testes (aparece como órfão na saúde) e formatBRL/digitsToCents ainda não têm tela. Esperado: as telas que o usam vêm nas Fases 4 (saldos, MoneyInput) e 7–8 (visões e gráficos). src/domain/tagColor.ts deixou de ser órfão na Fase 3 (TagChip e TagColorPicker).',
     modules: ['src/domain/balances.ts', 'src/domain/tagColor.ts', 'src/domain/money.ts'],
+    resolved:
+      'Fase 4 (20/10/2026): balances é usado em produção (overallBalance e totals pelo transactionsRepository; signedAmount pelo TransactionRow); formatBRL/digitsToCents pelo MoneyInput e formatSignedBRL pelo SignedAmount. groupBy*/runningBalance esperam as Fases 7 e 8.',
   },
   {
     title: 'Chunk da tela de tags com 136 kB (44 kB gzip) por causa do zod e do react-hook-form',
@@ -3292,9 +4256,11 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     modules: [
       'src/features/tags/TagsPage.tsx',
       'src/domain/tagSchema.ts',
-      'src/features/tags/useTagForm.ts',
+      'src/components/tags/useTagForm.ts',
       'src/app/lazyPages.tsx',
     ],
+    resolved:
+      'Fase 4 (20/10/2026): o Vite não criou chunk compartilhado — zod, react-hook-form e o resolver foram para o pacote principal, porque o Início (não lazy) usa o TransactionForm. TagsPage-*.js caiu para 6 kB. O custo passou para o achado do bundle de 596 kB.',
   },
   {
     title: 'recurrings e installmentGroups contados por varredura (sem índice tagId)',
@@ -3318,7 +4284,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'Primitivos novos sem teste próprio: Button, EmptyState e ErrorAlert',
     severity: 'info',
     detail:
-      'Componentes de poucas linhas, sem lógica além de classes e role="alert"; cobertos indiretamente por TagsPage.test.tsx, TagsPage.errors.test.tsx e (o estado desabilitado do Button, princípio 16) TagsPage.validation.test.tsx. Modal e TagChip têm testes próprios. O modo overflow="truncate" (padrão) do TagChip ainda não é usado por nenhuma tela: a tela de tags usa wrap; o truncate é previsto para listas apertadas (lançamentos, Fase 4/5).',
+      'Componentes de poucas linhas, sem lógica além de classes e role="alert"; cobertos indiretamente por TagsPage.test.tsx, TagsPage.errors.test.tsx e (o estado desabilitado do Button, princípio 16) TagsPage.validation.test.tsx. Modal e TagChip têm testes próprios. O modo overflow="truncate" (padrão) do TagChip passou a ser usado na Fase 4 pelo TransactionRow (últimos lançamentos). Na Fase 4 entraram mais primitivos sem teste próprio (SignedAmount, Toast, TextInput), cobertos pelos testes do Início e da edição; MoneyInput, DateInput (com Field) e TagPicker têm testes próprios.',
     modules: [
       'src/components/ui/Button.tsx',
       'src/components/ui/EmptyState.tsx',
@@ -3331,7 +4297,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'src/test/seedDatabase.ts acessa o db diretamente (só testes — D-34)',
     severity: 'info',
     detail:
-      'Os testes de tela não podem importar o Dexie (princípio 7), mas precisam de lançamentos, recorrentes e parcelamentos para testar o bloqueio por uso, e essas tabelas ainda não têm repositório. seedRecords grava numa transação e readAllTags confere o resultado. Deve encolher conforme os repositórios das Fases 4, 9 e 10 surgirem.',
+      'Os testes de tela não podem importar o Dexie (princípio 7), mas precisam de lançamentos, recorrentes e parcelamentos para testar o bloqueio por uso, e essas tabelas ainda não têm repositório. seedRecords grava numa transação e readAllTags confere o resultado. Deve encolher conforme os repositórios surgirem: transactions ganhou repositório na Fase 4, mas o helper ainda grava lançamentos nos testes de tela; recurrings e installmentGroups esperam as Fases 9 e 10.',
     modules: ['src/test/seedDatabase.ts', 'src/features/tags/TagsPage.test.tsx'],
   },
   {
@@ -3512,7 +4478,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/styles/utilities.css':
     'Variante dark e utilitários de safe area, compartilhados com a página DEV. Fase 1: pb-below-nav soma var(--update-notice-space, 0px); reserve-update-notice define esse espaço; bottom-above-nav posiciona o aviso logo acima da barra. Fase 3: max-h-dialog (100dvh menos 2rem e as safe areas de cima e de baixo) para o Modal.',
   'src/index.css':
-    "Tailwind + utilities.css, @source not './dev'. Variáveis --bottom-nav-height e --update-notice-height (Fase 1) como fonte única das alturas.",
+    "Tailwind + utilities.css, @source not './dev'. Variáveis --bottom-nav-height e --update-notice-height (Fase 1) como fonte única das alturas. Fase 4: scroll-margin-top/bottom em input/select/textarea, para o campo em foco (teclado do iPhone) não ficar atrás da barra inferior nem do topo com safe area (princípio 10).",
   'src/app/App.tsx':
     'Cria o router uma vez no nível do módulo e põe o ThemeProvider por fora do RouterProvider (o tema vale também para rotas fora do layout, como esta página). Fase 2: chama usePersistentStorageRequest() no corpo, para o pedido de persist() valer em qualquer rota (CA-11.4).',
   'src/app/routes.tsx':
@@ -3531,7 +4497,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/themeStorage.ts':
     'Fase 2: só o espelho (readThemeMirror/writeThemeMirror) de localStorage[theme], lido pelo script do index.html. A fonte da verdade é a tabela settings (themeRepository). Engole exceções do armazenamento indisponível.',
   'src/components/ui/createRadioGroup.tsx':
-    'Fábrica tipada: cada chamada cria um contexto próprio, então Option só aceita valores do tipo T (verificado por @ts-expect-error no teste).',
+    'Fábrica tipada: cada chamada cria um contexto próprio, então Option só aceita valores do tipo T (verificado por @ts-expect-error no teste). Fase 4: prop variant = list (padrão, ThemeRadio) | segmented (TypeRadio do TransactionForm: alternador lado a lado, rádio sr-only, opção marcada preenchida e em negrito, foco no contorno do grupo); classes por variante em VARIANT_CLASSES.',
   'src/components/ui/useGoBack.ts':
     "Usa location.key === 'default' para saber se a página foi aberta direto pela URL.",
   'src/features/settings/ThemeSection.tsx':
@@ -3547,9 +4513,9 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/domain/money.ts':
     'Centavos inteiros (princípio 1): formatBRL/formatSignedBRL (U+00A0 e U+2212 — D-29), digitsToCents (até MAX_AMOUNT_DIGITS = 10 — D-31, os mesmos dígitos de MAX_AMOUNT_CENTS, o teto do RF-01), addCents com Number.isSafeInteger.',
   'src/domain/dates.ts':
-    'Datas sem fuso (princípio 2) com parseISO do date-fns; semana de segunda (weekStartsOn: 1). Testes de calendário (bissextos, virada de ano) e de fuso (dates.timezone.test.ts).',
+    'Datas sem fuso (princípio 2) com parseISO do date-fns; semana de segunda (weekStartsOn: 1). Testes de calendário (bissextos, virada de ano) e de fuso (dates.timezone.test.ts). Fase 4: isValidDate (usada pelo transactionSchema); formatShortDate ("19/10/2026" só rearranjando o texto, sem date-fns, com checagem aritmética do calendário — rápida em listas, D-38(f)); formatMonthLabel ("outubro de 2026" com um Intl.DateTimeFormat em UTC criado no nível do módulo e Date.UTC, independente do fuso do aparelho). Testes em dates.format.test.ts e dates.format.timezone.test.ts (melhorias da revisão).',
   'src/domain/balances.ts':
-    'totals, overallBalance (date ≤ hoje — D-03), groupByDay/Month/Tag (Map — D-29) e runningBalance. Ainda sem uso em produção (Fases 4, 7 e 8). Teste de propriedade em balances.properties.test.ts.',
+    'totals, overallBalance (date ≤ hoje — D-03), groupByDay/Month/Tag (Map — D-29) e runningBalance. Fase 4: signedAmount exportado (CA-02.1, usado pelo TransactionRow; teste em balances.signedAmount.test.ts); overallBalance e totals usados pelo transactionsRepository. groupBy*/runningBalance esperam as Fases 7 e 8. Teste de propriedade em balances.properties.test.ts.',
   'src/domain/tagColor.ts':
     'readableTextColor pela luminância relativa (WCAG). Desde a Fase 3 usado pelo TagChip (CA-03.6) e pela paleta do TagColorPicker; tags.test.ts confere o contraste AA das 12 cores da D-32.',
   'src/repositories/settingsRepository.ts':
@@ -3597,7 +4563,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/test/dialog.ts':
     'Fase 3 (D-33): installDialogPolyfill — o jsdom não tem showModal()/close(); o substituto só alterna o atributo open e dispara close. Foco preso e camada superior não são simulados.',
   'src/test/seedDatabase.ts':
-    'Fase 3 (D-34): seedRecords (transactions, recurrings, installmentGroups numa transação) e readAllTags, para testes de tela que não podem importar o Dexie enquanto essas tabelas não têm repositório.',
+    'Fase 3 (D-34): seedRecords (transactions, recurrings, installmentGroups numa transação) e readAllTags, para testes de tela que não podem importar o Dexie enquanto essas tabelas não têm repositório (transactions ganhou o seu na Fase 4; recurrings e installmentGroups nas Fases 9 e 10).',
   'src/test/propertyHelpers.ts':
     'Gerador com semente e utilitários de calendário para os testes de propriedade.',
   'src/domain/tags.ts':
@@ -3605,7 +4571,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/domain/tagSchema.ts':
     'Fase 3: tagInputSchema (zod) — nome com trim, 1–30 (D-35), cor #RRGGBB transformada para maiúsculas (D-32); TagInput (z.input, o que a tela envia) e TagValues (z.output, o que é gravado). Separado de tags.ts para não levar o zod a quem só usa as funções puras.',
   'src/repositories/tagsRepository.ts':
-    'Fase 3: createTag (add), updateTag (transação rw get → put), getTagUsage (índice tagId em transactions; filter() em recurrings e installmentGroups), deleteTag (transação rw sobre as 4 tabelas: reconta e exclui — D-02), listTagsWithTransactionCount + useTagsWithTransactionCount (useLiveQuery). ConstraintError do &nameKey → DuplicateTagNameError (sem leitura prévia: vale também para duas abas); TagNotFoundError na edição de tag apagada.',
+    'Fase 3: createTag (add), updateTag (transação rw get → put), getTagUsage (índice tagId em transactions; filter() em recurrings e installmentGroups), deleteTag (transação rw sobre as 4 tabelas: reconta e exclui — D-02), listTagsWithTransactionCount + useTagsWithTransactionCount (useLiveQuery). ConstraintError do &nameKey → DuplicateTagNameError (sem leitura prévia: vale também para duas abas); TagNotFoundError na edição de tag apagada. createTag/updateTag devolvem a Tag gravada (o atalho do CA-01.7 a seleciona). Fase 4: listTags (sortByTagName) + useTags (useLiveQuery) para o TagPicker e as linhas dos últimos lançamentos (teste em tagsRepository.listTags.test.ts).',
   'src/components/ui/Modal.tsx':
     'Fase 3 (D-33): <dialog> nativo com showModal()/close() seguindo a prop open; title obrigatória (aria-labelledby); Esc → onClose; Modal.Body e Modal.Actions; children só enquanto aberto; max-h-dialog. Testado em Modal.test.tsx (com o polyfill de src/test/dialog.ts).',
   'src/components/ui/TagChip.tsx':
@@ -3619,14 +4585,14 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     'Tela /ajustes/tags (RF-03): compõe Page, Button, EmptyState/TagList e os três modais; lê a lista por useTagsWithTransactionCount e o estado da tela por useTagsScreen. Não toca no Dexie.',
   'src/features/tags/useTagsScreen.ts':
     'Estado da tela: dialog (união discriminada TagsDialog), pendingStep (checking-usage | deleting | null) e deleteError. requestDelete confere o uso antes da confirmação; confirmDelete trata deleted/in-use; falhas viram mensagens de tagTexts.',
-  'src/features/tags/useTagForm.ts':
-    'useForm<TagInput, unknown, TagValues> com LIVE_VALIDATION (mode onChange) e zodResolver(tagInputSchema); padrão = valores da tag ou a 1ª cor da paleta (D-32). Devolve { form, submit, saveError, canSubmit } (princípio 16 / D-36): canSubmit = canSubmitForm(formState). DuplicateTagNameError → setError("name") com foco (CA-03.4; o botão volta quando o nome muda); TagNotFoundError/outras → saveError (useState à parte, porque o setError do RHF 7.90 força isValid = false e travaria o "Salvar").',
-  'src/features/tags/TagForm.tsx':
-    'Campos (Nome, Controller → TagColorPicker), prévia TagChip wrap (useWatch) e ações em Modal.Body/Modal.Actions; slots extraAction e notice. Consome canSubmit ("Salvar" com disabled={!canSubmit} — princípio 16) e saveError (ErrorAlert).',
+  'src/components/tags/useTagForm.ts':
+    'Movido de features/tags na Fase 4 (D-37); textos em components/tags/tagFormTexts.ts; onSaved(tag) recebe a Tag gravada. useForm<TagInput, unknown, TagValues> com LIVE_VALIDATION (mode onChange) e zodResolver(tagInputSchema); padrão = valores da tag ou a 1ª cor da paleta (D-32). Devolve { form, submit, saveError, canSubmit } (princípio 16 / D-36): canSubmit = canSubmitForm(formState). DuplicateTagNameError → setError("name") com foco (CA-03.4; o botão volta quando o nome muda); TagNotFoundError/outras → saveError (useState à parte, porque o setError do RHF 7.90 força isValid = false e travaria o "Salvar").',
+  'src/components/tags/TagForm.tsx':
+    'Movido de features/tags na Fase 4 (D-37), usado também pelo CreateTagDialog (CA-01.7). Campos (Field + TextInput com register("name") — revisão da Fase 4, Controller → TagColorPicker), prévia TagChip wrap (useWatch) e ações em Modal.Body/Modal.Actions; slots extraAction e notice. Consome canSubmit ("Salvar" com disabled={!canSubmit} — princípio 16) e saveError (ErrorAlert).',
   'src/features/tags/TagFormDialog.tsx':
     'Modal "Nova tag"/"Editar tag" com TagForm (key = id); injeta "Excluir tag" e o ErrorAlert de falha ao conferir o uso.',
-  'src/features/tags/TagColorPicker.tsx':
-    'Paleta D-32 com rádios nativos (setas do teclado, estado anunciado) + <input type="color">; mostra a cor escolhida em texto (RNF-06).',
+  'src/components/tags/TagColorPicker.tsx':
+    'Movido de features/tags na Fase 4 (D-37), sem mudança de código. Paleta D-32 com rádios nativos (setas do teclado, estado anunciado) + <input type="color">; mostra a cor escolhida em texto (RNF-06).',
   'src/features/tags/TagList.tsx':
     'Lista com TagChip wrap + formatTransactionCount; cada linha é um botão que abre a edição (CA-03.5).',
   'src/features/tags/ConfirmDeleteTagDialog.tsx':
@@ -3634,9 +4600,67 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/features/tags/DeleteTagBlockedDialog.tsx':
     'Aviso de bloqueio com as contagens por tipo de registro (CA-03.2, D-02).',
   'src/features/tags/tagTexts.ts':
-    'Textos pt-BR da tela (nome repetido, falhas ao salvar/conferir/excluir, tag inexistente), formatTransactionCount e formatTagUsage (Intl.NumberFormat e Intl.ListFormat pt-BR).',
+    'Textos pt-BR da tela (falhas ao conferir/excluir), formatTransactionCount e formatTagUsage (Intl.NumberFormat e Intl.ListFormat pt-BR).',
   'src/lib/formSubmit.ts':
-    'Princípio 16 / D-36 (spec 1.13): padrão de todos os formulários com React Hook Form. LIVE_VALIDATION = { mode: "onChange" } (erro do campo aparece enquanto digita) e canSubmitForm({ isValid, isSubmitting }) = isValid && !isSubmitting (botão de envio só ativo com o formulário válido e fora do envio). Só tipos do react-hook-form (import type): nenhum código do pacote entra pelo lib. Usado hoje só por useTagForm; obrigatório nos formulários das fases seguintes.',
+    'Princípio 16 / D-36 (spec 1.13): padrão de todos os formulários com React Hook Form. LIVE_VALIDATION = { mode: "onChange" } (erro do campo aparece enquanto digita) e canSubmitForm({ isValid, isSubmitting }) = isValid && !isSubmitting (botão de envio só ativo com o formulário válido e fora do envio). Só tipos do react-hook-form (import type): nenhum código do pacote entra pelo lib. Opção startsValid: formulário de edição que abre com dados válidos já começa com o botão ativo (o RHF só calcula isValid depois da 1ª renderização). Usado por useTagForm e, desde a Fase 4, por useTransactionForm; obrigatório nos formulários das fases seguintes.',
+  'src/repositories/transactionsRepository.ts':
+    'Fase 4 (RF-01/RF-02, D-39). Escrita: createTransaction e updateTransaction validam com transactionInputSchema.parse e gravam numa transação rw [tags, transactions] com assertTagExists (a tag não some entre a checagem e a gravação; deleteTag conta na mesma tabela — D-01/D-02); deleteTransaction simples. Leitura pelo índice date: getOverallBalance (belowOrEqual(hoje).toArray() + overallBalance — um getAll() nativo, mais rápido que each() — D-03, RNF-02), getMonthTotals (between + totals), listRecentTransactions (data de corte por orderBy("date").reverse().limit(n) + releitura aboveOrEqual(corte) numa transação r; ordem por takeMostRecent) e getTransaction. Hooks useOverallBalance, useMonthTotals, useRecentTransactions e useTransaction (useLiveQuery, null para inexistente). Erros: TransactionNotFoundError e TransactionTagNotFoundError.',
+  'src/domain/transactionSchema.ts':
+    'Fase 4 (RF-01): transactionInputSchema (zod) — tipo income|expense, amountCents inteiro de 1 a MAX_AMOUNT_CENTS, data YYYY-MM-DD existente (isValidDate), tagId não vazio, descrição com trim e 1 a DESCRIPTION_MAX_LENGTH = 100 unidades UTF-16 (D-10, D-38(h)); mensagens em pt-BR. TransactionInput (z.input) e TransactionValues (z.output). Separado das funções puras como o tagSchema; usado pelo formulário e pelo repositório.',
+  'src/domain/transactions.ts':
+    'Fase 4 (RF-02 item 5, D-39): compareByRecency (data, createdAt e id, comparados como texto) e takeMostRecent (toSorted + slice, sem alterar a lista original).',
+  'src/components/ui/MoneyInput.tsx':
+    'Fase 4 (CA-01.3/01.4, D-31, D-38(d)): máscara de app de banco — o valor sai sempre do texto inteiro (só dígitos, sem zeros à esquerda → digitsToCents), então colar ou substituir a seleção dá resultado coerente; inputMode="numeric", placeholder "R$ 0,00", alinhado à direita, cursor no fim. Liga-se ao Field por useFieldControl. Testado em MoneyInput.test.tsx.',
+  'src/components/ui/DateInput.tsx':
+    'Fase 4: <input type="date"> nativo com valor YYYY-MM-DD passado direto (princípio 2) e ajustes para o Safari do iOS. Testado em DateInput.test.tsx.',
+  'src/components/ui/Field.tsx':
+    'Fase 4: compound component Field + Field.Label + Field.Error; o contexto e o hook useFieldControl ficam em useFieldControl.ts, usado pelos controles (TextInput, MoneyInput, DateInput).',
+  'src/components/ui/useFieldControl.ts':
+    'FieldContext, useFieldContext (erro claro fora do <Field>) e useFieldControl: id, aria-invalid e aria-describedby do controle (RNF-06; aria-invalid conferido nos testes — melhoria da revisão).',
+  'src/components/ui/TextInput.tsx':
+    'Fase 4: input text com as props do useFieldControl e as classes comuns de inputClasses.ts.',
+  'src/components/ui/inputClasses.ts':
+    'TEXT_INPUT_CLASSES: alvo ≥ 44 px, fonte de 16 px (sem zoom do Safari no iOS) e borda vermelha com aria-invalid.',
+  'src/components/ui/SignedAmount.tsx':
+    'Fase 4 (CA-02.1): formatSignedBRL com verde/vermelho/neutro (contraste AA nos dois temas) e tamanhos sm | md | lg; o sinal está sempre no texto.',
+  'src/components/ui/Toast.tsx':
+    'Fase 4 (D-38(b)): região viva role="status" sempre montada, fixa no topo abaixo da safe area, pointer-events-none.',
+  'src/components/ui/useToast.ts':
+    'Estado do Toast: show(message) exibe por TOAST_DURATION_MS (3 s); a chave muda a cada show, então a mesma mensagem repetida reinicia o tempo.',
+  'src/components/ui/useToday.ts':
+    'Fase 4 (CA-02.2, D-38(g)): useSyncExternalStore assinando visibilitychange (document), focus e pageshow (window); snapshot = today() (string, sem render à toa). Sem timer: com o app em primeiro plano à meia-noite só atualiza no próximo foco/visibilidade (ver saúde).',
+  'src/components/tags/TagPicker.tsx':
+    'Fase 4 (RF-01, D-01, D-38(a)): chips-rádio nativos na cor da tag, contorno + "✓" na marcada, alvo de 44 px por chip (revisão), slot emptyState sem tags, erro por aria-describedby no fieldset. Testado em TagPicker.test.tsx.',
+  'src/components/tags/CreateTagDialog.tsx':
+    'Fase 4 (CA-01.7): Modal "Nova tag" com TagForm; precisa ficar fora do <form> de quem o abre.',
+  'src/components/tags/tagFormTexts.ts':
+    'Fase 4: textos do formulário de tag (nome repetido — CA-03.4, falha ao salvar, tag inexistente), separados de features/tags/tagTexts.ts para components/ não importar de features (D-37).',
+  'src/components/transactions/TransactionForm.tsx':
+    'Fase 4 (RF-01, D-37): formulário único de lançamento (Início, novo, edição). Todos os campos por Controller (D-39); TagPicker com NoTagsNotice; CreateTagDialog e Toast fora do <form>; "Lançar"/"Salvar" com disabled={!canSubmit} (princípio 16); extraAction para o "Excluir" da edição. Lê useTags (repositório — permitido para components/<entidade>). Coberto pelos testes do Início e da edição.',
+  'src/components/transactions/useTransactionForm.ts':
+    'Fase 4: useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje ou os do lançamento; startsValid na edição; submit → createTransaction (reset mantendo tipo e data + Toast "Lançamento salvo") ou updateTransaction (onUpdated); erros de gravação em saveError (D-36); virada do dia troca a data só se ela ainda for a automática (ref autoFilledDate — D-38(g)).',
+  'src/components/transactions/TransactionRow.tsx':
+    'Fase 4: linha com Link para /lancamentos/:id, descrição, TagChip, formatShortDate e SignedAmount(signedAmount). Pronta para a lista da Fase 5.',
+  'src/components/transactions/NoTagsNotice.tsx': 'Fase 4 (CA-01.7): aviso sem tags + "Criar tag".',
+  'src/components/transactions/transactionTexts.ts':
+    'Fase 4: textos pt-BR do formulário de lançamento ("Lançamento salvo", falhas, lançamento/tag inexistente, aviso sem tags).',
+  'src/features/home/HomePage.tsx':
+    'Fase 4 (RF-02): Page com BalanceSummary (today de useToday), seção "Novo lançamento" com TransactionForm e RecentTransactions. Única tela fora do React.lazy.',
+  'src/features/home/BalanceSummary.tsx':
+    'Fase 4 (RF-02 itens 1–2, D-03, CA-02.3): useOverallBalance(today) e useMonthTotals(periodOf(today)); "—" enquanto carrega; título com formatMonthLabel.',
+  'src/features/home/RecentTransactions.tsx':
+    'Fase 4 (RF-02 item 5): useRecentTransactions(RECENT_TRANSACTIONS_COUNT) + useTags; TransactionRow ou EmptyState; link "Ver todos" para /lancamentos.',
+  'src/features/home/homeTexts.ts': 'RECENT_TRANSACTIONS_COUNT = 5 e a mensagem da lista vazia.',
+  'src/features/transactions/NewTransactionPage.tsx':
+    'Fase 4: Page + BackLink (fallback /lancamentos) + TransactionForm. Parcelado na Fase 10.',
+  'src/features/transactions/TransactionDetailPage.tsx':
+    'Fase 4 (CA-01.5/01.6): TransactionForm em edição com "Excluir" e o modal de confirmação; "Lançamento não encontrado" para id inexistente (exceto durante a saída — isDone).',
+  'src/features/transactions/useTransactionDetail.ts':
+    'Fase 4: useTransaction(id), estado da exclusão (isConfirmingDelete, isDeleting, deleteError), isDone e finish → useGoBack("/lancamentos") depois de salvar ou excluir (D-38(c)).',
+  'src/features/transactions/ConfirmDeleteTransactionDialog.tsx':
+    'Fase 4 (CA-01.6): Modal "Excluir lançamento?" com ErrorAlert e "Excluir" desabilitado durante a exclusão.',
+  'src/test/transactionForm.ts':
+    'Fase 4: ações do formulário de lançamento para testes de tela (typeAmount dígito a dígito, chooseTag, fillTransactionForm, submit esperando o botão habilitar — princípio 16, expectSubmitEnabled), com escopo opcional (within).',
   'src/dev/architecture/model.ts':
     'Importa o JSON gerado e expõe graph/moduleById e filtros comuns. Os índices derivados ficam em layers.ts, composition.ts, traceability.ts, health.ts e search.ts, todos calculados uma vez no carregamento.',
 }

@@ -28,8 +28,31 @@ function findRule(from: Layer, to: Layer): AllowedDependency | null {
   return ALLOWED_DEPENDENCIES.find((r) => r.from === from && r.to === to) ?? null
 }
 
-function findForbidden(from: Layer, to: Layer): ForbiddenDependency | null {
-  return FORBIDDEN_DEPENDENCIES.find((r) => r.from === from && r.to === to) ?? null
+const startsWithAny = (path: string, prefixes: readonly string[]) =>
+  prefixes.some((prefix) => path.startsWith(prefix))
+
+/** O import cai na proibição? Regras com `onlySources` valem só para esses módulos de origem. */
+function isForbiddenEdge(rule: ForbiddenDependency, edge: GraphEdge): boolean {
+  return !rule.onlySources || startsWithAny(edge.from, rule.onlySources)
+}
+
+/** Proibição que algum destes imports viola (null se nenhum). */
+function findForbidden(from: Layer, to: Layer, edges: GraphEdge[]): ForbiddenDependency | null {
+  return (
+    FORBIDDEN_DEPENDENCIES.find(
+      (r) => r.from === from && r.to === to && edges.some((e) => isForbiddenEdge(r, e)),
+    ) ?? null
+  )
+}
+
+/** Imports fora do que a regra permite (destinos e origens restritos). */
+function offendingEdges(rule: AllowedDependency | null, edges: GraphEdge[]): GraphEdge[] {
+  if (!rule) return edges
+  return edges.filter(
+    (e) =>
+      (rule.onlyTargets !== undefined && !startsWithAny(e.to, rule.onlyTargets)) ||
+      (rule.onlySources !== undefined && !startsWithAny(e.from, rule.onlySources)),
+  )
 }
 
 const violationKeys = new Set(graph.violations.map((v) => `${v.from}→${v.to}`))
@@ -47,13 +70,8 @@ function buildLayerEdges(): LayerEdge[] {
   return [...groups].map(([key, edges]) => {
     const [from, to] = key.split('|') as [Layer, Layer]
     const rule = findRule(from, to)
-    const forbidden = findForbidden(from, to)
-    const allowedTargets = rule?.onlyTargets
-    const offending = !rule
-      ? edges
-      : allowedTargets
-        ? edges.filter((e) => !allowedTargets.some((prefix) => e.to.startsWith(prefix)))
-        : []
+    const forbidden = findForbidden(from, to, edges)
+    const offending = offendingEdges(rule, edges)
     const hasViolation = edges.some((e) => violationKeys.has(`${e.from}→${e.to}`))
     const status: LayerEdgeStatus =
       hasViolation || forbidden
@@ -75,5 +93,11 @@ export const unobservedRules: readonly AllowedDependency[] = ALLOWED_DEPENDENCIE
 
 /** Direções proibidas que não aparecem no código (o esperado): mostradas como "não permitida". */
 export const unobservedForbidden: readonly ForbiddenDependency[] = FORBIDDEN_DEPENDENCIES.filter(
-  (rule) => !layerEdges.some((e) => e.from === rule.from && e.to === rule.to),
+  (rule) =>
+    !layerEdges.some(
+      (e) =>
+        e.from === rule.from &&
+        e.to === rule.to &&
+        e.edges.some((edge) => isForbiddenEdge(rule, edge)),
+    ),
 )

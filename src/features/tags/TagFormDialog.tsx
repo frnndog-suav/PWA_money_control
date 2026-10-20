@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/Button'
 import { ErrorAlert } from '@/components/ui/ErrorAlert'
 import { Modal } from '@/components/ui/Modal'
 import type { Tag } from '@/domain/types'
-import { TagForm } from '@/features/tags/TagForm'
+import { TagForm } from '@/components/tags/TagForm'
 
 interface TagFormDialogProps {
   open: boolean

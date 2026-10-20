@@ -112,3 +112,55 @@ export function periodsBetween(start: PeriodString, end: PeriodString): PeriodSt
   }
   return periods
 }
+
+/** `true` se `value` é uma data `YYYY-MM-DD` que existe no calendário (ex.: 2026-02-30 não). */
+export function isValidDate(value: string): boolean {
+  try {
+    parseDate(value)
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Checagem barata de `YYYY-MM-DD` existente, só com aritmética (sem objetos Date): usada
+ * em listas longas, onde o parseISO + format do date-fns pesaria (RNF-02).
+ */
+function isCalendarDateString(date: string): boolean {
+  if (!DATE_PATTERN.test(date)) return false
+  const year = Number(date.slice(0, 4))
+  const month = Number(date.slice(5, 7))
+  const day = Number(date.slice(8, 10))
+  if (year < MIN_YEAR || month < 1 || month > MONTHS_PER_YEAR || day < 1) return false
+  return day <= daysInMonth(year, month)
+}
+
+function daysInMonth(year: number, month: number): number {
+  if (month === 2) return isLeapYear(year) ? 29 : 28
+  return month === 4 || month === 6 || month === 9 || month === 11 ? 30 : 31
+}
+
+function isLeapYear(year: number): boolean {
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+}
+
+/** `'2026-10-19'` → `'19/10/2026'` (pt-BR), só rearranjando o texto: rápido em listas longas. */
+export function formatShortDate(date: DateString): string {
+  if (!isCalendarDateString(date)) throw new RangeError(`Data inválida: ${date}`)
+  return `${date.slice(8, 10)}/${date.slice(5, 7)}/${date.slice(0, 4)}`
+}
+
+// Criado uma vez (RNF-02). Em UTC, com a data montada por Date.UTC a partir dos números: o
+// resultado não depende do fuso do aparelho, nem de o fuso mudar depois de o módulo carregar.
+const monthLabelFormatter = new Intl.DateTimeFormat('pt-BR', {
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+})
+
+/** `'2026-10'` → `'outubro de 2026'` (pt-BR). */
+export function formatMonthLabel(period: PeriodString): string {
+  const { year, month } = parsePeriod(period)
+  return monthLabelFormatter.format(new Date(Date.UTC(year, month - 1, 1)))
+}

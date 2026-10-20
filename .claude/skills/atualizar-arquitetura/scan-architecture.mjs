@@ -105,9 +105,14 @@ const FORBIDDEN = [
   { from: ['app', 'components', 'features'], to: ['db'], rule: '§2.7 componentes não acessam o Dexie diretamente' },
   { from: ['domain'], to: ['db', 'repositories', 'stores', 'components', 'features', 'app', 'dev'], rule: '§2.6 domínio é puro' },
   { from: ['lib'], to: ['db', 'repositories', 'stores', 'components', 'features', 'app', 'dev'], rule: '§2.6 lib é pura' },
-  { from: ['components'], to: ['features', 'app'], rule: 'components/ui não conhece features' },
+  { from: ['components'], to: ['features', 'app'], rule: 'D-37 components (ui e <entidade>) não conhecem features nem app' },
   { from: ['features'], to: ['app'], rule: 'D-22 features não importam de src/app/ (dívida quitada na Fase 2)' },
   { from: ['repositories', 'db'], to: ['components', 'features', 'app'], rule: 'acesso a dados não conhece a interface' },
+];
+// Regras por caminho de origem, mais finas que a camada (D-37): dentro de src/components/, só
+// src/components/<entidade>/ pode usar repositórios; os primitivos de components/ui são genéricos.
+const FORBIDDEN_PATHS = [
+  { fromPrefix: 'src/components/ui/', to: ['repositories'], rule: 'D-37 components/ui não acessa repositórios (só components/<entidade>/)' },
 ];
 const FORBIDDEN_PACKAGES = [
   { from: ['domain', 'lib'], pkg: /^(react|react-dom|dexie|dexie-react-hooks|zustand)$/, rule: '§2.6 domínio/lib sem React e sem Dexie' },
@@ -521,6 +526,11 @@ for (const e of edges) {
   const toLayer = layerOf(e.to);
   for (const r of FORBIDDEN) {
     if (r.from.includes(from.layer) && r.to.includes(toLayer) && e.kind !== 'type') {
+      violations.push({ from: e.from, to: e.to, rule: r.rule });
+    }
+  }
+  for (const r of FORBIDDEN_PATHS) {
+    if (from.id.startsWith(r.fromPrefix) && r.to.includes(toLayer) && e.kind !== 'type') {
       violations.push({ from: e.from, to: e.to, rule: r.rule });
     }
   }

@@ -17,8 +17,8 @@ export interface TransactionGroup extends Totals {
 
 const EMPTY_TOTALS: Totals = { incomeCents: 0, expenseCents: 0, resultCents: 0 }
 
-/** Valor com sinal: entradas somam, saídas subtraem. */
-function signedAmount(transaction: Transaction): Cents {
+/** Valor com sinal: entradas positivas, saídas negativas (CA-02.1). */
+export function signedAmount(transaction: Transaction): Cents {
   return transaction.type === 'income' ? transaction.amountCents : -transaction.amountCents
 }
 

@@ -8,7 +8,7 @@ import {
   DUPLICATE_TAG_NAME_MESSAGE,
   SAVE_TAG_FAILED_MESSAGE,
   TAG_NOT_FOUND_MESSAGE,
-} from '@/features/tags/tagTexts'
+} from '@/components/tags/tagFormTexts'
 import { canSubmitForm, LIVE_VALIDATION } from '@/lib/formSubmit'
 import {
   createTag,
@@ -25,7 +25,8 @@ const DUPLICATE_ERROR_TYPE = 'duplicate'
 interface UseTagFormOptions {
   /** Tag em edição; ausente ao criar. */
   tag?: Tag
-  onSaved: () => void
+  /** Recebe a tag gravada (o atalho do CA-01.7 já a seleciona no lançamento). */
+  onSaved: (tag: Tag) => void
 }
 
 /** RF-03 / princípio 16 — formulário de criar/editar tag (React Hook Form + Zod). */
@@ -60,9 +61,7 @@ export function useTagForm({ tag, onSaved }: UseTagFormOptions) {
   const submit = form.handleSubmit(async (values) => {
     setSaveError(null)
     try {
-      if (tag) await updateTag(tag.id, values)
-      else await createTag(values)
-      onSaved()
+      onSaved(tag ? await updateTag(tag.id, values) : await createTag(values))
     } catch (error) {
       if (error instanceof DuplicateTagNameError) {
         // CA-03.4 — erro abaixo do campo nome; some (e o "Salvar" reativa) ao alterar qualquer campo.

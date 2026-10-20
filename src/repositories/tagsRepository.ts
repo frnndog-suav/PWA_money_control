@@ -124,3 +124,13 @@ export async function listTagsWithTransactionCount(): Promise<TagWithTransaction
 export function useTagsWithTransactionCount(): TagWithTransactionCount[] | undefined {
   return useLiveQuery(listTagsWithTransactionCount)
 }
+
+/** RF-01 — tags em ordem de nome, para o seletor do formulário de lançamento e os chips. */
+export async function listTags(): Promise<Tag[]> {
+  return sortByTagName(await db.tags.toArray(), (tag) => tag)
+}
+
+/** Lista ao vivo das tags: `undefined` enquanto carrega. */
+export function useTags(): Tag[] | undefined {
+  return useLiveQuery(listTags)
+}
