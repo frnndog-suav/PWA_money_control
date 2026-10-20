@@ -3,6 +3,7 @@ import { Card } from '@/dev/architecture/components/Card'
 import { CodeList } from '@/dev/architecture/components/CodeList'
 import { ModuleList } from '@/dev/architecture/components/ModuleList'
 import { Section } from '@/dev/architecture/components/Section'
+import { PRINCIPLES } from '@/dev/architecture/data/curated'
 import { currentPhase, optionalPhases } from '@/dev/architecture/model'
 import {
   decisionTraces,
@@ -67,6 +68,8 @@ export function TraceabilitySection() {
         })}
       </ul>
 
+      <PrinciplesCard />
+
       <Card>
         <Card.Title>Decisões registradas (§8.1)</Card.Title>
         <ul className="flex flex-col divide-y divide-slate-200 text-sm dark:divide-slate-700">
@@ -85,5 +88,32 @@ export function TraceabilitySection() {
         </ul>
       </Card>
     </Section>
+  )
+}
+
+/** §2 — onde cada princípio vira código (curado: o scanner não extrai "princípio N"). */
+function PrinciplesCard() {
+  return (
+    <Card>
+      <Card.Title>Princípios da §2 (constituição)</Card.Title>
+      <ul className="flex flex-col divide-y divide-slate-200 text-sm dark:divide-slate-700">
+        {PRINCIPLES.map((principle) => (
+          <li key={principle.number} className="flex flex-col gap-1 py-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="font-semibold">{principle.number}.</span>
+              <span>{principle.title}</span>
+              <CodeList items={principle.decisions} empty="" />
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-300">{principle.enforcement}</p>
+            <div className="grid gap-1 text-xs sm:grid-cols-[6rem_1fr]">
+              <span className="font-semibold text-slate-500">Padrão</span>
+              <ModuleList ids={principle.modules} short empty="sem módulo próprio" />
+              <span className="font-semibold text-slate-500">Testes</span>
+              <ModuleList ids={principle.tests} short empty="—" />
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Card>
   )
 }

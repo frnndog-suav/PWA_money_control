@@ -12,6 +12,7 @@ import {
   LAYERS,
   LOCAL_COMPONENT_ORIGINS,
   MODULE_NOTES,
+  PRINCIPLES,
   REQUIREMENTS,
   ROUTE_NOTES,
   SCREEN_COMPOSITION,
@@ -45,6 +46,7 @@ function curatedPaths(): string[] {
     ...FLOWS.flatMap((f) => [...f.participants.flatMap((p) => p.module ?? []), ...f.tests]),
     ...DECISIONS.flatMap((d) => d.impacts),
     ...ARCHITECTURE_FINDINGS.flatMap((f) => f.modules),
+    ...PRINCIPLES.flatMap((p) => [...p.modules, ...p.tests]),
   ]
 }
 
@@ -53,6 +55,7 @@ function curatedRefs(): string[] {
     ...ROUTE_NOTES.flatMap((n) => n.requirements),
     ...FLOWS.flatMap((f) => [...f.requirements, ...f.steps.flatMap((s) => s.refs)]),
     ...TIMELINE.flatMap((e) => [...e.requirements, ...e.decisions]),
+    ...PRINCIPLES.flatMap((p) => p.decisions),
   ]
 }
 
@@ -177,6 +180,10 @@ describe('integridade da página de arquitetura (§6.12)', () => {
       const unknown = flow.steps.flatMap((s) => [s.from, s.to]).filter((id) => !ids.has(id))
       expect(unknown, flow.id).toEqual([])
     }
+  })
+
+  it('princípios da §2 numerados de 1 a N, sem lacuna nem repetição', () => {
+    expect(PRINCIPLES.map((p) => p.number)).toEqual(PRINCIPLES.map((_, i) => i + 1))
   })
 
   it('IDs de requisito e decisão citados existem', () => {

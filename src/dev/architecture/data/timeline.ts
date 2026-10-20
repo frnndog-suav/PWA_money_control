@@ -6,7 +6,9 @@
 // da Fase 1, a D-26 e a confirmação de D-23 a D-25 entraram no beaba97 (19/10/2026); a Fase 2
 // inteira (domínio, banco, D-27 a D-30, testes reforçados, revisão e esta página) entrou no
 // b9ad2e1 (19/10/2026); a spec 1.9 (D-31, 10 dígitos), a correção do item C 9 (spec 1.10) e a
-// página atualizada entraram no 7a12619 (19/10/2026). A Fase 3 (tags) ainda não foi commitada.
+// página atualizada entraram no 7a12619 (19/10/2026); a Fase 3 (tags, testes, revisão, spec 1.11/1.12
+// e a página atualizada) entrou no 841800f (20/10/2026). A spec 1.13 (princípio 16, D-36), a aplicação
+// do princípio 16 ao formulário de tags e a página atualizada ainda não foram commitadas.
 
 import type { TimelineEntry } from '@/dev/architecture/types'
 
@@ -1043,8 +1045,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 3: tags (repositório, TagChip, tela /ajustes/tags com modais)',
     summary:
       'Domínio puro em src/domain/tags.ts: toTagNameKey (NFD, remove \\p{M}, minúsculas, trim), TAG_NAME_MAX_LENGTH, paleta de 12 cores (SUGGESTED_TAG_COLORS — D-32), findSuggestedTagColor, sortByTagName (Intl.Collator pt-BR), TagUsage/isTagInUse. Repositório src/repositories/tagsRepository.ts: createTag; updateTag em transação rw; getTagUsage; deleteTag contando e excluindo numa transação rw sobre as 4 tabelas (D-02); lista com contagem de lançamentos por índice e useLiveQuery; DuplicateTagNameError a partir da ConstraintError do &nameKey (CA-03.4) e TagNotFoundError. Primitivos novos em components/ui: TagChip (CA-03.6), Modal sobre <dialog> nativo (D-33), Button e EmptyState, mais o utilitário max-h-dialog. Tela Ajustes → Tags: lista ordenada por nome com contagem (CA-03.5), criar/editar no modal com React Hook Form + Zod (paleta + seletor livre), excluir com conferência de uso antes da confirmação e aviso de bloqueio com as contagens (CA-03.2/03.3). Testes com o polyfill do <dialog> (src/test/dialog.ts) e seedDatabase para as tabelas sem repositório (D-34). O gerador DEV passou a usar toTagNameKey. Pacotes novos da §6.1: react-hook-form 7.90.0, zod 4.6.7, @hookform/resolvers 5.9.2 (D-34). Fase 3 com 4/4 tarefas.',
-    commits: [],
-    committed: false,
+    commits: ['841800f'],
+    committed: true,
     requirements: [
       'RF-03',
       'CA-03.1',
@@ -1112,8 +1114,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Testes da Fase 3 reforçados: 612 testes, 2 divergências do toTagNameKey corrigidas',
     summary:
       'O domain-test-writer ampliou os testes de domínio, repositório e tela de tags (unicidade com maiúsculas, acentos e espaços; NFD/NFC; ordenação pt-BR; contraste AA da paleta; bloqueio com cada tipo de registro; contagem com muitos lançamentos). Os testes acharam 2 divergências em toTagNameKey, corrigidas: o trim passou para o fim (uma marca combinante solta na ponta deixava espaço e a função não era idempotente) e a remoção passou de \\p{Diacritic} para \\p{M} (só marcas combinantes; sinais avulsos como ^, ´ e ¨ continuam no nome). Também foi corrigido um mojibake num comentário de src/test/setup.ts. A suíte chegou a 612 testes.',
-    commits: [],
-    committed: false,
+    commits: ['841800f'],
+    committed: true,
     requirements: ['RNF-07', 'RF-03', 'CA-03.2', 'CA-03.4', 'CA-03.5', 'CA-03.6'],
     decisions: ['D-02', 'D-32'],
     files: {
@@ -1140,8 +1142,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
       'Melhorias da revisão da Fase 3: tagSchema separado, falhas tratadas, chip wrap e Modal com title',
     summary:
       'Revisão aprovada e sugestões aplicadas: (1) o schema Zod saiu de tags.ts para src/domain/tagSchema.ts (tagInputSchema, TagInput, TagValues), para quem só precisa das funções puras (ex.: o gerador DEV) não levar o zod; (2) falhas do IndexedDB ao salvar, conferir o uso ou excluir aparecem em pt-BR num ErrorAlert (role="alert") novo, e useTagsScreen passou a expor pendingStep (checking-usage | deleting) para desabilitar o botão e deleteError; TagForm ganhou o slot notice; testes em TagsPage.errors.test.tsx; (3) TagChip ganhou overflow truncate | wrap e a tela de tags usa wrap (nome inteiro em 375 px); (4) a prop title do Modal passou a ser obrigatória, com aria-labelledby sempre válido.',
-    commits: [],
-    committed: false,
+    commits: ['841800f'],
+    committed: true,
     requirements: ['CA-03.2', 'CA-03.3', 'CA-03.4', 'CA-03.6', 'RNF-06'],
     decisions: ['D-33'],
     files: {
@@ -1180,8 +1182,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Spec 1.11/1.12: D-32 a D-34 registradas e confirmadas; D-35 (limite em UTF-16)',
     summary:
       'Spec 1.11 registrou durante a Fase 3: D-32 (paleta de 12 cores com rótulo pt-BR, cor gravada em maiúsculas, tag nova com a 1ª cor), D-33 (modais com <dialog> nativo no primitivo Modal com title obrigatória; conferir o uso antes de pedir a confirmação; erros em pt-BR e botões desabilitados durante a operação; polyfill nos testes) e D-34 (react-hook-form 7.90.0, zod 4.6.7 e @hookform/resolvers 5.9.2 em vez da 6.0.0 recém-lançada; findBy com 3 s; seedDatabase nos testes de tela). Spec 1.12: as três confirmadas pelo dono e nova D-35, confirmada: o limite de 30 caracteres do nome conta unidades UTF-16 (String.length, .max(30) do Zod); comentário em TAG_NAME_MAX_LENGTH.',
-    commits: [],
-    committed: false,
+    commits: ['841800f'],
+    committed: true,
     requirements: ['RF-03'],
     decisions: ['D-32', 'D-33', 'D-34', 'D-35'],
     files: { created: [], modified: ['docs/SPEC.md', 'src/domain/tags.ts'], removed: [] },
@@ -1195,8 +1197,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Página de arquitetura: Fase 3 (tags)',
     summary:
       'Curadoria atualizada para a Fase 3: rota /ajustes/tags com descrição e composição (estado em useTagsScreen/useTagForm, dados por useLiveQuery); notas de composição dos primitivos novos (Modal, Button, EmptyState, ErrorAlert, TagChip) e dos componentes da tela; 4 fluxos novos (criar, editar, excluir com bloqueio, lista com contagem) no lugar do fluxo previsto; notas das tabelas com os leitores/escritores reais; camadas e direções permitidas citando a Fase 3; D-02 com impactos e D-32 a D-35; saúde com as pendências (teste manual da Fase 3, C 9), os achados resolvidos (D-32 a D-34, limite em UTF-16 pela D-35) e achados novos (contagem por varredura, zod no domínio, primitivos sem teste, seedDatabase). Textos que tratavam a Fase 3 como futura corrigidos. Entradas de 19/10 marcadas com o commit 7a12619. Grafo regenerado.',
-    commits: [],
-    committed: false,
+    commits: ['841800f'],
+    committed: true,
     requirements: [],
     decisions: ['D-17', 'D-32', 'D-33', 'D-34', 'D-35'],
     files: {
@@ -1209,5 +1211,87 @@ export const TIMELINE: readonly TimelineEntry[] = [
       removed: [],
     },
     impact: ['4 fluxos novos', 'rota /ajustes/tags documentada', '2 achados resolvidos'],
+  },
+  {
+    id: 'spec-1-13-principle-16',
+    date: '2026-10-20',
+    phase: 3,
+    type: 'decision',
+    title: 'Spec 1.13: princípio 16 (envio só com formulário válido), D-36 e nota do Tab na D-33',
+    summary:
+      'Resultado do teste manual da Fase 3. Novo princípio 16 na §2: em todos os formulários o botão principal fica desabilitado enquanto houver campo obrigatório vazio ou inválido e durante o envio; o erro de um campo aparece enquanto o usuário digita (campo ainda não tocado não mostra erro, só mantém o botão desabilitado). D-36, confirmada pelo dono: padrão reutilizável em src/lib/formSubmit.ts; erro do banco ligado a um campo (nome repetido) vai para o campo; falha genérica de gravação fica numa mensagem à parte e não desabilita o botão. D-33 ganhou a nota: com o <dialog> nativo o Tab pode seguir para a interface do navegador, mas nunca para o app atrás do modal; comportamento aceito, verificado pelo dono. O dono também confirmou o item C 9 (aviso de versão nova sem recarregar no iPhone) e o restante do roteiro da Fase 3.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-03'],
+    decisions: ['D-33', 'D-36'],
+    files: { created: [], modified: ['docs/SPEC.md', 'CLAUDE.md'], removed: [] },
+    impact: [
+      'novo princípio da §2 (16), válido para todos os formulários das fases seguintes',
+      'nova decisão D-36, confirmada',
+      'C 9 e teste manual da Fase 3 resolvidos; só falta reconfirmar o novo "Salvar"',
+    ],
+  },
+  {
+    id: 'principle-16-tag-form',
+    date: '2026-10-20',
+    phase: 3,
+    type: 'feature',
+    title: 'Princípio 16 no formulário de tags: "Salvar" só ativo com o formulário válido',
+    summary:
+      'Módulo novo src/lib/formSubmit.ts (LIVE_VALIDATION = { mode: "onChange" } e canSubmitForm = isValid && !isSubmitting), com testes. useTagForm passou a usar LIVE_VALIDATION e a devolver { form, submit, saveError, canSubmit }: a falha genérica de gravação (e TagNotFoundError) saiu do erro root do formulário para um useState à parte, porque o setError do react-hook-form 7.90 força isValid = false e travaria o botão; o nome repetido continua indo para o campo com setError("name"). TagForm consome canSubmit (disabled={!canSubmit}) e saveError (ErrorAlert). O Button ganhou o estilo de desabilitado cinza neutro com contraste AA nos dois temas, no lugar da opacidade. Testes novos em TagsPage.validation.test.tsx (botão desabilitado com nome vazio, ao passar do limite, durante o envio e com nome repetido) e TagsPage.test.tsx ajustado.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-03', 'CA-03.1', 'CA-03.4', 'RNF-06'],
+    decisions: ['D-36'],
+    files: {
+      created: [
+        'src/lib/formSubmit.ts',
+        'src/lib/formSubmit.test.ts',
+        'src/features/tags/TagsPage.validation.test.tsx',
+      ],
+      modified: [
+        'src/features/tags/useTagForm.ts',
+        'src/features/tags/TagForm.tsx',
+        'src/components/ui/Button.tsx',
+        'src/features/tags/TagsPage.test.tsx',
+      ],
+      removed: [],
+    },
+    impact: [
+      'novo módulo em src/lib (formSubmit), primeiro padrão de formulário reutilizável',
+      'fluxos de criar e editar tag com validação a cada alteração',
+      'falha genérica de gravação sai do formState (saveError)',
+      'estado desabilitado do Button com contraste AA',
+    ],
+  },
+  {
+    id: 'architecture-page-principle-16',
+    date: '2026-10-20',
+    phase: 3,
+    type: 'docs',
+    title: 'Página de arquitetura: princípio 16, D-36 e princípios da §2 na rastreabilidade',
+    summary:
+      'Fluxos de criar e editar tag refeitos com o passo de validação a cada alteração (RHF + Zod → isValid → canSubmitForm → "Salvar" ativo/desabilitado), o caminho do nome repetido (setError no campo) e o da falha genérica (saveError). Nota do módulo src/lib/formSubmit.ts e notas de useTagForm, TagForm e Button atualizadas, inclusive na composição e no estado da tela /ajustes/tags. Rastreabilidade ganhou o cartão "Princípios da §2" (PRINCIPLES em curated.ts, com módulos, testes e decisões de cada princípio; integridade conferida em architecture.test.ts) e a D-36; a D-33 cita a nota do Tab. Saúde: C 9 e o teste manual da Fase 3 passaram para os resolvidos; novo pendente (reconfirmar o "Salvar") e novo achado informativo sobre o setError do RHF. Entradas da Fase 3 marcadas com o commit 841800f. Grafo regenerado.',
+    commits: [],
+    committed: false,
+    requirements: [],
+    decisions: ['D-17', 'D-33', 'D-36'],
+    files: {
+      created: [],
+      modified: [
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+        'src/dev/architecture/data/module-graph.json',
+        'src/dev/architecture/types.ts',
+        'src/dev/architecture/components/TraceabilitySection.tsx',
+        'src/dev/architecture/architecture.test.ts',
+      ],
+      removed: [],
+    },
+    impact: [
+      '2 fluxos refeitos',
+      'princípios da §2 na rastreabilidade',
+      '2 achados resolvidos, 1 pendente novo',
+    ],
   },
 ]

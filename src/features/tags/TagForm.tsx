@@ -19,15 +19,14 @@ interface TagFormProps {
   notice?: ReactNode
 }
 
-/** RF-03 / CA-03.1 / CA-03.4 — campos da tag, prévia do chip e ações, dentro de um Modal. */
+/** RF-03 / CA-03.1 / CA-03.4 / princípio 16 — campos da tag, prévia do chip e ações, dentro de um Modal. */
 export function TagForm({ tag, onSaved, onCancel, extraAction, notice }: TagFormProps) {
-  const { form, submit } = useTagForm({ tag, onSaved })
+  const { form, submit, saveError, canSubmit } = useTagForm({ tag, onSaved })
   const { control, register, formState } = form
   const [name, color] = useWatch({ control, name: ['name', 'color'] })
   const nameId = useId()
   const nameErrorId = useId()
   const nameError = formState.errors.name?.message
-  const rootError = formState.errors.root?.message
 
   return (
     <form onSubmit={submit} noValidate className="contents">
@@ -66,7 +65,7 @@ export function TagForm({ tag, onSaved, onCancel, extraAction, notice }: TagForm
           </div>
         </div>
 
-        {rootError && <ErrorAlert>{rootError}</ErrorAlert>}
+        {saveError && <ErrorAlert>{saveError}</ErrorAlert>}
         {notice}
       </Modal.Body>
 
@@ -75,7 +74,7 @@ export function TagForm({ tag, onSaved, onCancel, extraAction, notice }: TagForm
         <Button variant="secondary" onClick={onCancel}>
           Cancelar
         </Button>
-        <Button variant="primary" type="submit" disabled={formState.isSubmitting}>
+        <Button variant="primary" type="submit" disabled={!canSubmit}>
           Salvar
         </Button>
       </Modal.Actions>

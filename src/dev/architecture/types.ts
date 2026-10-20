@@ -319,6 +319,19 @@ export interface RequirementInfo {
   phases: number[]
 }
 
+/** Princípio da §2 e onde ele vira código: padrão reutilizável, testes e verificação. */
+export interface PrincipleInfo {
+  number: number
+  title: string
+  /** Como é garantido (lint, check-consistency, regra de camada, teste, revisão). */
+  enforcement: string
+  /** Módulos que implementam o padrão (caminhos reais). */
+  modules: string[]
+  /** Testes que citam o princípio ou cobrem o padrão. */
+  tests: string[]
+  decisions: string[]
+}
+
 export type DecisionStatus = 'confirmed' | 'pending'
 
 export interface DecisionInfo {

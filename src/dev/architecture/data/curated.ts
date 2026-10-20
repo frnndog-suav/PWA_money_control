@@ -14,6 +14,7 @@ import type {
   PlannedDomainFunction,
   PlannedFlow,
   PlannedUiField,
+  PrincipleInfo,
   RequirementInfo,
   RouteNote,
   ScreenComposition,
@@ -84,7 +85,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Lib',
     folder: 'src/lib',
     description:
-      'Utilitários puros e adaptadores de APIs do navegador: tema e espelho em localStorage, modo instalado, storage (persist/persisted/estimate), formatBytes e APP_VERSION (Fase 2); cripto e backup na Fase 6.',
+      'Utilitários puros e adaptadores de APIs do navegador: tema e espelho em localStorage, modo instalado, storage (persist/persisted/estimate), formatBytes e APP_VERSION (Fase 2); padrão de formulário do princípio 16 (formSubmit: LIVE_VALIDATION e canSubmitForm — D-36, spec 1.13); cripto e backup na Fase 6.',
     position: { x: 130, y: 450 },
   },
   {
@@ -208,7 +209,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'lib',
     status: 'allowed',
     reason:
-      'Utilitários puros: rótulos do tema, storage/formatBytes/APP_VERSION na tela Sobre (Fase 2); cripto na Fase 6.',
+      'Utilitários puros: rótulos do tema, storage/formatBytes/APP_VERSION na tela Sobre (Fase 2); useTagForm usa formSubmit (princípio 16 — D-36); cripto na Fase 6.',
   },
   {
     from: 'features',
@@ -527,7 +528,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'Button',
-    note: 'Primitivo (Fase 3): variantes primary, secondary, danger e danger-outline; type="button" por padrão; alvo ≥ 44 px.',
+    note: 'Primitivo (Fase 3): variantes primary, secondary, danger e danger-outline; type="button" por padrão; alvo ≥ 44 px. Estado desabilitado com disabled nativo e estilo cinza neutro com contraste AA nos dois temas (princípio 16, spec 1.13).',
   },
   {
     component: 'EmptyState',
@@ -535,7 +536,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'ErrorAlert',
-    note: 'Primitivo (Fase 3): role="alert" com o texto em pt-BR; usado no rodapé do TagForm (erro root e slot notice) e no ConfirmDeleteTagDialog.',
+    note: 'Primitivo (Fase 3): role="alert" com o texto em pt-BR; usado no rodapé do TagForm (saveError e slot notice) e no ConfirmDeleteTagDialog.',
   },
   {
     component: 'TagChip',
@@ -547,7 +548,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'TagForm',
-    note: 'Conteúdo do modal (<form className="contents">): Modal.Body com Nome (register), Controller → TagColorPicker, prévia TagChip (useWatch) e ErrorAlert do erro root + slot notice; Modal.Actions com extraAction | Cancelar | Salvar. Estado do formulário em useTagForm (React Hook Form + zodResolver).',
+    note: 'Conteúdo do modal (<form className="contents">): Modal.Body com Nome (register), Controller → TagColorPicker, prévia TagChip (useWatch) e ErrorAlert do saveError + slot notice; Modal.Actions com extraAction | Cancelar | Salvar (disabled={!canSubmit}). Estado do formulário em useTagForm (React Hook Form com LIVE_VALIDATION + zodResolver; canSubmit de src/lib/formSubmit.ts — princípio 16).',
   },
   {
     component: 'TagColorPicker',
@@ -597,7 +598,7 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '/ajustes/tags',
     stateAndData:
-      'Dados: useTagsWithTransactionCount (src/repositories/tagsRepository.ts, useLiveQuery) — undefined enquanto carrega (nada na tela), [] → EmptyState, senão TagList; criar/editar/excluir re-emitem a consulta e a lista atualiza sozinha. Estado da tela em useTagsScreen: dialog (closed | create | edit | confirm-delete | delete-blocked, uma união discriminada que decide qual Modal está aberto), pendingStep (checking-usage | deleting | null, desabilita o botão que disparou) e deleteError (mensagem em pt-BR no modal aberto). Estado do formulário em useTagForm (useForm + zodResolver(tagInputSchema), valores padrão da tag ou 1ª cor da paleta — D-32); erros de campo e root ficam no formState.',
+      'Dados: useTagsWithTransactionCount (src/repositories/tagsRepository.ts, useLiveQuery) — undefined enquanto carrega (nada na tela), [] → EmptyState, senão TagList; criar/editar/excluir re-emitem a consulta e a lista atualiza sozinha. Estado da tela em useTagsScreen: dialog (closed | create | edit | confirm-delete | delete-blocked, uma união discriminada que decide qual Modal está aberto), pendingStep (checking-usage | deleting | null, desabilita o botão que disparou) e deleteError (mensagem em pt-BR no modal aberto). Estado do formulário em useTagForm (useForm com LIVE_VALIDATION + zodResolver(tagInputSchema), valores padrão da tag ou 1ª cor da paleta — D-32): erros de campo no formState (validação a cada alteração), canSubmit = canSubmitForm(formState) (princípio 16 / D-36) e saveError num useState à parte para a falha genérica de gravação.',
   },
   {
     route: '/',
@@ -2005,18 +2006,20 @@ export const FLOWS: readonly Flow[] = [
   },
   {
     id: 'tag-create',
-    title: 'Criar tag (nome único — CA-03.4)',
+    title: 'Criar tag (validação ao digitar — princípio 16; nome único — CA-03.4)',
     summary:
-      '"Nova tag" abre o TagFormDialog; useTagForm valida com zodResolver(tagInputSchema) (nome 1–30 em UTF-16 — D-35, cor #RRGGBB em maiúsculas — D-32) e chama createTag, que calcula o nameKey (toTagNameKey) e grava com db.tags.add. Não há leitura prévia: o índice único &nameKey é a única checagem, e a ConstraintError vira DuplicateTagNameError, mostrada abaixo do campo Nome. Sucesso fecha o modal e o useLiveQuery atualiza a lista.',
-    requirements: ['RF-03', 'CA-03.1', 'CA-03.4', 'CA-03.6', 'D-32', 'D-33', 'D-35'],
+      '"Nova tag" abre o TagFormDialog. useTagForm usa useForm com LIVE_VALIDATION (mode onChange) e zodResolver(tagInputSchema) (nome 1–30 em UTF-16 — D-35, cor #RRGGBB em maiúsculas — D-32): a cada alteração o Zod revalida, o RHF atualiza errors/isValid e canSubmitForm (src/lib/formSubmit.ts) decide se "Salvar" fica ativo (válido e fora do envio — princípio 16, D-36). Com nome vazio o botão já abre desabilitado, sem erro na tela; o erro aparece abaixo do campo enquanto o usuário digita. Salvar chama createTag, que calcula o nameKey (toTagNameKey) e grava com db.tags.add. Não há leitura prévia: o índice único &nameKey é a única checagem, e a ConstraintError vira DuplicateTagNameError → setError("name") (erro no campo; o botão volta quando o nome muda). Qualquer outra falha vai para saveError, um estado à parte: o setError do RHF 7.90 força isValid=false e desabilitaria o "Salvar" sem chance de tentar de novo. Sucesso fecha o modal e o useLiveQuery atualiza a lista.',
+    requirements: ['RF-03', 'CA-03.1', 'CA-03.4', 'CA-03.6', 'D-32', 'D-33', 'D-35', 'D-36'],
     participants: [
       { id: 'user', label: 'Usuário' },
       { id: 'page', label: 'TagsPage', module: 'src/features/tags/TagsPage.tsx' },
       { id: 'screen', label: 'useTagsScreen', module: 'src/features/tags/useTagsScreen.ts' },
       { id: 'dialog', label: 'TagFormDialog', module: 'src/features/tags/TagFormDialog.tsx' },
       { id: 'form', label: 'TagForm', module: 'src/features/tags/TagForm.tsx' },
-      { id: 'formHook', label: 'useTagForm', module: 'src/features/tags/useTagForm.ts' },
+      { id: 'formHook', label: 'useTagForm (RHF)', module: 'src/features/tags/useTagForm.ts' },
       { id: 'schema', label: 'tagInputSchema (zod)', module: 'src/domain/tagSchema.ts' },
+      { id: 'submitRule', label: 'canSubmitForm', module: 'src/lib/formSubmit.ts' },
+      { id: 'button', label: 'Button "Salvar"', module: 'src/components/ui/Button.tsx' },
       { id: 'repo', label: 'tagsRepository', module: 'src/repositories/tagsRepository.ts' },
       { id: 'tags', label: 'domain/tags', module: 'src/domain/tags.ts' },
       { id: 'dexie', label: 'Dexie: tags', module: 'src/db/database.ts' },
@@ -2048,9 +2051,18 @@ export const FLOWS: readonly Flow[] = [
         kind: 'call',
       },
       {
+        from: 'formHook',
+        to: 'button',
+        label: 'abre desabilitado (isValid = false)',
+        detail:
+          'Nome obrigatório ainda vazio: canSubmit = false e nenhum erro na tela, porque o campo não foi tocado (princípio 16).',
+        refs: ['D-36'],
+        kind: 'return',
+      },
+      {
         from: 'user',
         to: 'form',
-        label: 'digita o nome, escolhe a cor, Salvar',
+        label: 'digita o nome / escolhe a cor',
         detail:
           'Rádio da paleta ou <input type="color"> pelo Controller; a prévia TagChip (wrap) acompanha por useWatch, com texto legível pela luminância (CA-03.6).',
         refs: ['CA-03.6'],
@@ -2059,18 +2071,63 @@ export const FLOWS: readonly Flow[] = [
       {
         from: 'form',
         to: 'formHook',
-        label: 'submit (handleSubmit)',
-        detail: 'Salvar fica desabilitado enquanto isSubmitting.',
-        refs: [],
+        label: 'onChange (register / Controller)',
+        detail: 'LIVE_VALIDATION = { mode: "onChange" }: cada alteração dispara a validação.',
+        refs: ['D-36'],
         kind: 'call',
       },
       {
         from: 'formHook',
         to: 'schema',
-        label: 'zodResolver(tagInputSchema)',
+        label: 'zodResolver(tagInputSchema) a cada alteração',
         detail:
-          'trim; "Informe o nome da tag" se vazio; máximo de 30 unidades UTF-16 (D-35); cor #RRGGBB → maiúsculas. Erro de validação para aqui, abaixo do campo.',
+          'trim; "Informe o nome da tag" se vazio; máximo de 30 unidades UTF-16 (D-35); cor #RRGGBB → maiúsculas. O resultado vira formState.errors e formState.isValid.',
         refs: ['RF-03', 'D-35'],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'submitRule',
+        label: 'canSubmitForm({ isValid, isSubmitting })',
+        detail:
+          'Regra pura: isValid && !isSubmitting. useTagForm devolve o resultado como canSubmit.',
+        refs: ['D-36'],
+        kind: 'call',
+      },
+      {
+        from: 'submitRule',
+        to: 'form',
+        label: 'canSubmit + errors.name',
+        detail:
+          'Inválido: erro abaixo do campo enquanto digita (aria-invalid, aria-describedby) e "Salvar" desabilitado. Válido: erro some e o botão ativa.',
+        refs: ['D-36'],
+        kind: 'return',
+      },
+      {
+        from: 'form',
+        to: 'button',
+        label: 'disabled={!canSubmit}',
+        detail:
+          'disabled nativo (anunciado pelo leitor de tela) com o estilo cinza neutro do Button, contraste AA nos dois temas.',
+        refs: ['RNF-06', 'D-36'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'button',
+        label: 'toca "Salvar" (só se ativo)',
+        detail:
+          'Enter no campo também envia o <form>; handleSubmit revalida antes de chamar o envio.',
+        refs: ['CA-03.1'],
+        kind: 'event',
+      },
+      {
+        from: 'form',
+        to: 'formHook',
+        label: 'submit (handleSubmit)',
+        detail:
+          'isSubmitting = true → canSubmitForm = false: "Salvar" desabilitado durante o envio (evita gravar duas vezes). Limpa saveError.',
+        refs: ['D-36'],
         kind: 'call',
       },
       {
@@ -2110,10 +2167,19 @@ export const FLOWS: readonly Flow[] = [
       {
         from: 'repo',
         to: 'formHook',
-        label: 'throw DuplicateTagNameError',
+        label: 'nome repetido → setError("name")',
         detail:
-          'setError("name", "Já existe uma tag com esse nome", shouldFocus). Outras falhas viram erro root "Não foi possível salvar a tag. Tente de novo." (ErrorAlert).',
-        refs: ['CA-03.4'],
+          'DuplicateTagNameError → "Já existe uma tag com esse nome" abaixo do campo, com foco nele. O setError deixa isValid = false: "Salvar" fica desabilitado até o usuário alterar o nome (a revalidação onChange limpa o erro).',
+        refs: ['CA-03.4', 'D-36'],
+        kind: 'return',
+      },
+      {
+        from: 'repo',
+        to: 'formHook',
+        label: 'outra falha → saveError',
+        detail:
+          'Erro do IndexedDB (ou TagNotFoundError na edição) vira saveError, um useState à parte, mostrado no ErrorAlert do Modal.Body: "Não foi possível salvar a tag. Tente de novo." Fica fora do setError para não forçar isValid = false: "Salvar" continua ativo para tentar de novo.',
+        refs: ['D-33', 'D-36'],
         kind: 'return',
       },
       {
@@ -2136,7 +2202,9 @@ export const FLOWS: readonly Flow[] = [
     ],
     tests: [
       'src/features/tags/TagsPage.test.tsx',
+      'src/features/tags/TagsPage.validation.test.tsx',
       'src/features/tags/TagsPage.errors.test.tsx',
+      'src/lib/formSubmit.test.ts',
       'src/repositories/tagsRepository.test.ts',
       'src/domain/tags.test.ts',
       'src/domain/tagSchema.test.ts',
@@ -2146,16 +2214,19 @@ export const FLOWS: readonly Flow[] = [
   },
   {
     id: 'tag-edit',
-    title: 'Editar tag (renomear e trocar a cor — CA-03.1)',
+    title: 'Editar tag (renomear e trocar a cor — CA-03.1, princípio 16)',
     summary:
-      'Tocar numa tag da lista abre o modal "Editar tag" com os valores dela. Salvar chama updateTag, que lê e grava numa transação rw (get → put): se a tag sumiu (outra aba), TagNotFoundError; nome igual ao de outra tag, DuplicateTagNameError. Os lançamentos guardam só o tagId, então a mudança aparece em todas as telas.',
-    requirements: ['RF-03', 'CA-03.1', 'CA-03.4'],
+      'Tocar numa tag da lista abre o modal "Editar tag" com os valores dela; como os valores iniciais já são válidos, "Salvar" abre ativo. A validação a cada alteração é a mesma do criar (LIVE_VALIDATION + zodResolver → isValid → canSubmitForm): apagar o nome mostra o erro e desabilita o botão na hora. Salvar chama updateTag, que lê e grava numa transação rw (get → put): se a tag sumiu (outra aba), TagNotFoundError → saveError; nome igual ao de outra tag, DuplicateTagNameError → erro no campo. Os lançamentos guardam só o tagId, então a mudança aparece em todas as telas.',
+    requirements: ['RF-03', 'CA-03.1', 'CA-03.4', 'D-36'],
     participants: [
       { id: 'user', label: 'Usuário' },
       { id: 'list', label: 'TagList', module: 'src/features/tags/TagList.tsx' },
       { id: 'screen', label: 'useTagsScreen', module: 'src/features/tags/useTagsScreen.ts' },
       { id: 'dialog', label: 'TagFormDialog', module: 'src/features/tags/TagFormDialog.tsx' },
-      { id: 'formHook', label: 'useTagForm', module: 'src/features/tags/useTagForm.ts' },
+      { id: 'form', label: 'TagForm', module: 'src/features/tags/TagForm.tsx' },
+      { id: 'formHook', label: 'useTagForm (RHF)', module: 'src/features/tags/useTagForm.ts' },
+      { id: 'schema', label: 'tagInputSchema (zod)', module: 'src/domain/tagSchema.ts' },
+      { id: 'submitRule', label: 'canSubmitForm', module: 'src/lib/formSubmit.ts' },
       { id: 'repo', label: 'tagsRepository', module: 'src/repositories/tagsRepository.ts' },
       { id: 'dexie', label: 'Dexie: tags', module: 'src/db/database.ts' },
     ],
@@ -2181,16 +2252,42 @@ export const FLOWS: readonly Flow[] = [
         to: 'dialog',
         label: 'Modal "Editar tag"',
         detail:
-          'TagForm com key = tag.id (trocar de tag recria o formulário) e o botão "Excluir tag" como extraAction.',
-        refs: ['D-33'],
+          'TagForm com key = tag.id (trocar de tag recria o formulário) e o botão "Excluir tag" como extraAction. Valores iniciais válidos: "Salvar" ativo.',
+        refs: ['D-33', 'D-36'],
         kind: 'call',
       },
       {
         from: 'user',
-        to: 'formHook',
-        label: 'altera nome/cor, Salvar',
-        detail: 'Mesma validação do criar (zodResolver).',
+        to: 'form',
+        label: 'altera nome/cor',
+        detail: 'Cada alteração passa pelo register/Controller (mode onChange).',
         refs: ['CA-03.1'],
+        kind: 'event',
+      },
+      {
+        from: 'formHook',
+        to: 'schema',
+        label: 'zodResolver a cada alteração',
+        detail:
+          'Mesma validação do criar: nome vazio ou com mais de 30 unidades UTF-16 é inválido.',
+        refs: ['RF-03', 'D-35'],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'submitRule',
+        label: 'canSubmitForm → canSubmit',
+        detail:
+          'Inválido: erro abaixo do campo e "Salvar" desabilitado; corrigido: botão volta a ativar.',
+        refs: ['D-36'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'form',
+        label: 'Salvar',
+        detail: 'handleSubmit; isSubmitting desabilita o botão durante o envio.',
+        refs: ['D-36'],
         kind: 'event',
       },
       {
@@ -2206,7 +2303,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'dexie',
         label: "transaction('rw', tags): get → put",
         detail:
-          'Sem registro → TagNotFoundError ("Esta tag não existe mais."). Mantém id e createdAt; novo updatedAt. Renomear "Lazer" para "LAZER" é permitido (mesmo registro com o mesmo nameKey).',
+          'Mantém id e createdAt; novo updatedAt. Renomear "Lazer" para "LAZER" é permitido (mesmo registro com o mesmo nameKey).',
         refs: ['CA-03.1'],
         kind: 'call',
       },
@@ -2214,8 +2311,18 @@ export const FLOWS: readonly Flow[] = [
         from: 'dexie',
         to: 'repo',
         label: 'ConstraintError → DuplicateTagNameError',
-        detail: 'Nome de outra tag: erro abaixo do campo Nome (CA-03.4).',
-        refs: ['CA-03.4'],
+        detail:
+          'Nome de outra tag: setError("name") abaixo do campo (CA-03.4); "Salvar" desabilitado até o nome mudar.',
+        refs: ['CA-03.4', 'D-36'],
+        kind: 'return',
+      },
+      {
+        from: 'repo',
+        to: 'formHook',
+        label: 'TagNotFoundError / falha → saveError',
+        detail:
+          'Sem registro (apagada em outra aba) → "Esta tag não existe mais."; outra falha → "Não foi possível salvar a tag. Tente de novo." No ErrorAlert, fora do setError: "Salvar" continua ativo.',
+        refs: ['D-33', 'D-36'],
         kind: 'return',
       },
       {
@@ -2229,7 +2336,9 @@ export const FLOWS: readonly Flow[] = [
     ],
     tests: [
       'src/features/tags/TagsPage.test.tsx',
+      'src/features/tags/TagsPage.validation.test.tsx',
       'src/features/tags/TagsPage.errors.test.tsx',
+      'src/lib/formSubmit.test.ts',
       'src/repositories/tagsRepository.test.ts',
     ],
   },
@@ -2624,6 +2733,153 @@ export const REQUIREMENTS: readonly RequirementInfo[] = [
   { id: 'RNF-09', title: 'Contexto seguro (HTTPS)', phases: [1] },
 ]
 
+// O scanner só extrai IDs RF/RNF/CA/D; "princípio N" nos comentários é curado aqui.
+export const PRINCIPLES: readonly PrincipleInfo[] = [
+  {
+    number: 1,
+    title: 'Dinheiro é inteiro (centavos)',
+    enforcement: 'check-consistency (parseFloat/toFixed); testes de money e balances.',
+    modules: ['src/domain/money.ts', 'src/domain/types.ts'],
+    tests: ['src/domain/money.test.ts', 'src/domain/balances.properties.test.ts'],
+    decisions: ['D-29', 'D-31'],
+  },
+  {
+    number: 2,
+    title: 'Datas sem fuso (YYYY-MM-DD / YYYY-MM)',
+    enforcement: 'check-consistency (new Date com string de data); testes de fuso.',
+    modules: ['src/domain/dates.ts', 'src/domain/types.ts'],
+    tests: ['src/domain/dates.test.ts', 'src/domain/dates.timezone.test.ts'],
+    decisions: [],
+  },
+  {
+    number: 3,
+    title: 'Semana começa na segunda-feira',
+    enforcement: 'check-consistency (weekStartsOn diferente de 1).',
+    modules: ['src/domain/dates.ts'],
+    tests: ['src/domain/dates.test.ts', 'src/domain/dates.calendar.test.ts'],
+    decisions: [],
+  },
+  {
+    number: 4,
+    title: 'Somente BRL, localidade pt-BR',
+    enforcement: 'Revisão; testes de formatação.',
+    modules: ['src/domain/money.ts', 'src/features/tags/tagTexts.ts'],
+    tests: ['src/domain/money.test.ts', 'src/features/tags/tagTexts.test.ts'],
+    decisions: ['D-29'],
+  },
+  {
+    number: 5,
+    title: 'Local-first (nada sai do aparelho)',
+    enforcement: 'check-consistency (chamadas de rede no código).',
+    modules: [],
+    tests: [],
+    decisions: [],
+  },
+  {
+    number: 6,
+    title: 'Lógica de negócio pura e testada',
+    enforcement: 'Regras de camada (domain/lib sem React e sem Dexie); cobertura RNF-07.',
+    modules: [],
+    tests: [],
+    decisions: [],
+  },
+  {
+    number: 7,
+    title: 'Acesso a dados isolado em src/repositories',
+    enforcement:
+      'check-consistency e regras de camada (app/components/features → db proibido); exceção só em src/dev (D-30) e src/test (D-34).',
+    modules: [
+      'src/repositories/tagsRepository.ts',
+      'src/repositories/settingsRepository.ts',
+      'src/repositories/databaseInfo.ts',
+    ],
+    tests: [],
+    decisions: ['D-30', 'D-34'],
+  },
+  {
+    number: 8,
+    title: 'Escritas atômicas (transação do Dexie)',
+    enforcement: 'Revisão; testes de repositório.',
+    modules: ['src/repositories/tagsRepository.ts'],
+    tests: ['src/repositories/tagsRepository.test.ts'],
+    decisions: ['D-02'],
+  },
+  {
+    number: 9,
+    title: 'IDs são UUID (crypto.randomUUID)',
+    enforcement: 'check-consistency (Math.random).',
+    modules: ['src/repositories/tagsRepository.ts'],
+    tests: ['src/repositories/tagsRepository.test.ts'],
+    decisions: ['D-30'],
+  },
+  {
+    number: 10,
+    title: 'Mobile-first (alvo ≥ 44 px, safe areas)',
+    enforcement: 'Revisão e teste manual no iPhone.',
+    modules: ['src/components/ui/Button.tsx', 'src/styles/utilities.css'],
+    tests: [],
+    decisions: [],
+  },
+  {
+    number: 11,
+    title: 'Interface em pt-BR; código em inglês',
+    enforcement: 'Revisão.',
+    modules: [],
+    tests: [],
+    decisions: [],
+  },
+  {
+    number: 12,
+    title: 'TypeScript estrito',
+    enforcement: 'typecheck; check-consistency (strict no tsconfig, any explícito).',
+    modules: ['tsconfig.app.json'],
+    tests: [],
+    decisions: [],
+  },
+  {
+    number: 13,
+    title: 'Nada de segredos no front-end',
+    enforcement: 'check-consistency (VITE_* com cara de segredo).',
+    modules: [],
+    tests: [],
+    decisions: [],
+  },
+  {
+    number: 14,
+    title: 'Escopo fechado',
+    enforcement: 'Política de dependências (D-18) e revisão contra a spec.',
+    modules: ['package.json'],
+    tests: [],
+    decisions: ['D-18'],
+  },
+  {
+    number: 15,
+    title: 'Nada depende de passar o mouse',
+    enforcement: 'check-consistency (tooltip do Chart.js); revisão.',
+    modules: [],
+    tests: [],
+    decisions: [],
+  },
+  {
+    number: 16,
+    title: 'Botão de envio só ativo com o formulário válido (spec 1.13)',
+    enforcement:
+      'Padrão em src/lib/formSubmit.ts (LIVE_VALIDATION + canSubmitForm), obrigatório nos formulários das fases seguintes; testes de tela conferem o botão desabilitado. Hoje aplicado só ao formulário de tags.',
+    modules: [
+      'src/lib/formSubmit.ts',
+      'src/features/tags/useTagForm.ts',
+      'src/features/tags/TagForm.tsx',
+      'src/components/ui/Button.tsx',
+    ],
+    tests: [
+      'src/lib/formSubmit.test.ts',
+      'src/features/tags/TagsPage.validation.test.tsx',
+      'src/features/tags/TagsPage.test.tsx',
+    ],
+    decisions: ['D-36'],
+  },
+]
+
 export const DECISIONS: readonly DecisionInfo[] = [
   { id: 'D-01', title: 'Exatamente uma tag por lançamento', status: 'confirmed', impacts: [] },
   {
@@ -2805,7 +3061,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
   {
     id: 'D-33',
     title:
-      'Modais com <dialog> nativo (Modal com title obrigatória); conferir uso antes de confirmar; erros em pt-BR',
+      'Modais com <dialog> nativo (Modal com title obrigatória); conferir uso antes de confirmar; erros em pt-BR; Tab pode ir à interface do navegador, nunca ao app atrás (nota da spec 1.13)',
     status: 'confirmed',
     impacts: [
       'src/components/ui/Modal.tsx',
@@ -2830,6 +3086,21 @@ export const DECISIONS: readonly DecisionInfo[] = [
     title: 'Limite de 30 caracteres do nome da tag contado em unidades UTF-16',
     status: 'confirmed',
     impacts: ['src/domain/tags.ts', 'src/domain/tagSchema.ts', 'src/domain/tagSchema.test.ts'],
+  },
+  {
+    id: 'D-36',
+    title:
+      'Princípio 16: envio só com formulário válido e fora do envio; erro de campo ao digitar; falha genérica fora do setError',
+    status: 'confirmed',
+    impacts: [
+      'src/lib/formSubmit.ts',
+      'src/lib/formSubmit.test.ts',
+      'src/features/tags/useTagForm.ts',
+      'src/features/tags/TagForm.tsx',
+      'src/components/ui/Button.tsx',
+      'src/features/tags/TagsPage.validation.test.tsx',
+      'src/features/tags/TagsPage.test.tsx',
+    ],
   },
 ]
 
@@ -2876,10 +3147,12 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
   {
-    title: 'Pendente (dono): confirmar no iPhone que o aviso de versão nova aparece sem recarregar',
+    title: 'Confirmar no iPhone que o aviso de versão nova aparece sem recarregar (item C 9)',
     severity: 'warn',
     detail:
       'Item C 9 do roteiro da Fase 2: o aviso "Nova versão disponível" só apareceu depois de recarregar a página no app instalado no iPhone, porque o visibilitychange nem sempre dispara. Corrigido em 19/10/2026 (spec 1.10, D-24 ampliada): checagem ao abrir, no visibilitychange, no focus, no online e a cada 30 min, decidida por shouldCheckForUpdate. Os testes automáticos (registerPwa.test.ts, inclusive "procura versão nova logo ao abrir, sem esperar visibilitychange") passam, mas falta a verificação manual: depois de um deploy, abrir ou voltar ao app instalado no iPhone e ver o aviso sem recarregar. Mover para os resolvidos quando o dono confirmar.',
+    resolved:
+      'Confirmado pelo dono em 20/10/2026, no teste manual da Fase 3: no app instalado no iPhone o aviso de versão nova aparece sem recarregar.',
     modules: [
       'src/app/pwa/registerPwa.ts',
       'src/app/pwa/registerPwa.test.ts',
@@ -2945,14 +3218,40 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     ],
   },
   {
-    title: 'Pendente (dono): teste manual da Fase 3 (tags)',
+    title: 'Teste manual da Fase 3 (tags)',
     severity: 'warn',
     detail:
       'Fase 3 implementada, revisada e aprovada, com 612 testes automáticos passando; falta o roteiro de teste manual da §7 (criar "Mercado", "Salário" e "Lazer"; tentar "mercado" → "Já existe uma tag com esse nome"; renomear "Lazer" para "Diversão" e trocar a cor; excluir "Diversão"). O bloqueio por uso só pode ser testado à mão na Fase 4 (ou com os dados de exemplo DEV). Mover para os resolvidos quando o dono confirmar.',
+    resolved:
+      'Testado pelo dono em 20/10/2026: criar, editar, excluir, validação ao salvar, bloqueio com os dados de exemplo DEV, Esc, tema escuro e iPhone passaram. Dois pontos viraram mudanças da spec 1.13: o "Salvar" passou a ficar desabilitado com o formulário inválido (princípio 16, D-36) e o Tab que segue para a interface do navegador foi aceito (nota da D-33). Falta só reconfirmar o novo "Salvar" (achado abaixo).',
     modules: [
       'src/features/tags/TagsPage.tsx',
       'src/repositories/tagsRepository.ts',
       'src/components/ui/Modal.tsx',
+    ],
+  },
+  {
+    title: 'Pendente (dono): reconfirmar o novo comportamento do "Salvar" no formulário de tags',
+    severity: 'warn',
+    detail:
+      'Princípio 16 / D-36 aplicados depois do teste manual da Fase 3: "Nova tag" abre com "Salvar" desabilitado (nome vazio, sem erro na tela); o erro do nome aparece enquanto digita (apagar tudo ou passar de 30 caracteres) e o botão desabilita na hora; nome repetido mostra o erro no campo e o botão volta quando o nome muda; o botão desabilitado é cinza e legível nos temas claro e escuro. Testes automáticos passam (TagsPage.validation.test.tsx, TagsPage.test.tsx, formSubmit.test.ts); falta conferir à mão, inclusive no iPhone. Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'src/features/tags/useTagForm.ts',
+      'src/features/tags/TagForm.tsx',
+      'src/lib/formSubmit.ts',
+      'src/components/ui/Button.tsx',
+      'src/features/tags/TagsPage.validation.test.tsx',
+    ],
+  },
+  {
+    title: 'Princípio 16: falha genérica de gravação fora do setError do React Hook Form',
+    severity: 'info',
+    detail:
+      'No react-hook-form 7.90, setError (inclusive no root) força isValid = false até a próxima validação; com "Salvar" ligado a canSubmitForm, uma falha do IndexedDB deixaria o botão desabilitado sem o usuário ter o que corrigir. Por isso useTagForm guarda essa falha num useState (saveError) e só o nome repetido, que é erro de campo, usa setError("name"). Os próximos formulários (lançamento na Fase 4, recorrente, parcelamento, backup) devem seguir o mesmo padrão de src/lib/formSubmit.ts; hoje só o de tags o aplica.',
+    modules: [
+      'src/lib/formSubmit.ts',
+      'src/features/tags/useTagForm.ts',
+      'src/features/tags/TagsPage.errors.test.tsx',
     ],
   },
   {
@@ -2989,7 +3288,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'Chunk da tela de tags com 136 kB (44 kB gzip) por causa do zod e do react-hook-form',
     severity: 'info',
     detail:
-      'No build da Fase 3, TagsPage-*.js tem 136,5 kB (43,7 kB gzip), quase tudo zod 4 + react-hook-form + @hookform/resolvers. Fica fora do pacote principal (a tela é lazy; index-*.js continua com 423,5 kB / 135,3 kB gzip). Na Fase 4 o formulário de lançamento usa os mesmos pacotes: conferir se o Vite os separa num chunk compartilhado e medir no iPhone (RNF-02, Fase 11).',
+      'No build da Fase 3, TagsPage-*.js tem 136,8 kB (43,9 kB gzip, com o princípio 16), quase tudo zod 4 + react-hook-form + @hookform/resolvers. Fica fora do pacote principal (a tela é lazy; index-*.js continua com 423,5 kB / 135,3 kB gzip). Na Fase 4 o formulário de lançamento usa os mesmos pacotes: conferir se o Vite os separa num chunk compartilhado e medir no iPhone (RNF-02, Fase 11).',
     modules: [
       'src/features/tags/TagsPage.tsx',
       'src/domain/tagSchema.ts',
@@ -3019,7 +3318,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'Primitivos novos sem teste próprio: Button, EmptyState e ErrorAlert',
     severity: 'info',
     detail:
-      'Componentes de poucas linhas, sem lógica além de classes e role="alert"; cobertos indiretamente por TagsPage.test.tsx e TagsPage.errors.test.tsx. Modal e TagChip têm testes próprios. O modo overflow="truncate" (padrão) do TagChip ainda não é usado por nenhuma tela: a tela de tags usa wrap; o truncate é previsto para listas apertadas (lançamentos, Fase 4/5).',
+      'Componentes de poucas linhas, sem lógica além de classes e role="alert"; cobertos indiretamente por TagsPage.test.tsx, TagsPage.errors.test.tsx e (o estado desabilitado do Button, princípio 16) TagsPage.validation.test.tsx. Modal e TagChip têm testes próprios. O modo overflow="truncate" (padrão) do TagChip ainda não é usado por nenhuma tela: a tela de tags usa wrap; o truncate é previsto para listas apertadas (lançamentos, Fase 4/5).',
     modules: [
       'src/components/ui/Button.tsx',
       'src/components/ui/EmptyState.tsx',
@@ -3312,7 +3611,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/ui/TagChip.tsx':
     'Fase 3 (CA-03.6): fundo na cor, texto de readableTextColor, contorno leve; overflow truncate (padrão) | wrap. A cor nunca é a única informação: o nome está sempre escrito (RNF-06).',
   'src/components/ui/Button.tsx':
-    'Fase 3: variantes primary | secondary | danger | danger-outline, min-h-11, type="button" por padrão, disabled com opacidade. Sem teste próprio.',
+    'Fase 3: variantes primary | secondary | danger | danger-outline, min-h-11, type="button" por padrão. Desde o princípio 16 (spec 1.13) o disabled nativo vira cinza neutro em qualquer variante (DISABLED_CLASSES: slate-200/slate-600 no claro, slate-800/slate-400 no escuro, texto ≥ 4,5:1, cursor-not-allowed), no lugar da opacidade. Sem teste próprio (coberto por TagsPage.validation.test.tsx).',
   'src/components/ui/EmptyState.tsx': 'Fase 3: <p> de lista vazia. Sem teste próprio.',
   'src/components/ui/ErrorAlert.tsx':
     'Fase 3: <p role="alert"> em vermelho, anunciado assim que aparece. Sem teste próprio.',
@@ -3321,9 +3620,9 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/features/tags/useTagsScreen.ts':
     'Estado da tela: dialog (união discriminada TagsDialog), pendingStep (checking-usage | deleting | null) e deleteError. requestDelete confere o uso antes da confirmação; confirmDelete trata deleted/in-use; falhas viram mensagens de tagTexts.',
   'src/features/tags/useTagForm.ts':
-    'useForm<TagInput, unknown, TagValues> com zodResolver(tagInputSchema); padrão = valores da tag ou a 1ª cor da paleta (D-32). DuplicateTagNameError → erro no campo name (CA-03.4); TagNotFoundError/outras → erro root.',
+    'useForm<TagInput, unknown, TagValues> com LIVE_VALIDATION (mode onChange) e zodResolver(tagInputSchema); padrão = valores da tag ou a 1ª cor da paleta (D-32). Devolve { form, submit, saveError, canSubmit } (princípio 16 / D-36): canSubmit = canSubmitForm(formState). DuplicateTagNameError → setError("name") com foco (CA-03.4; o botão volta quando o nome muda); TagNotFoundError/outras → saveError (useState à parte, porque o setError do RHF 7.90 força isValid = false e travaria o "Salvar").',
   'src/features/tags/TagForm.tsx':
-    'Campos (Nome, Controller → TagColorPicker), prévia TagChip wrap (useWatch) e ações em Modal.Body/Modal.Actions; slots extraAction e notice.',
+    'Campos (Nome, Controller → TagColorPicker), prévia TagChip wrap (useWatch) e ações em Modal.Body/Modal.Actions; slots extraAction e notice. Consome canSubmit ("Salvar" com disabled={!canSubmit} — princípio 16) e saveError (ErrorAlert).',
   'src/features/tags/TagFormDialog.tsx':
     'Modal "Nova tag"/"Editar tag" com TagForm (key = id); injeta "Excluir tag" e o ErrorAlert de falha ao conferir o uso.',
   'src/features/tags/TagColorPicker.tsx':
@@ -3336,6 +3635,8 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     'Aviso de bloqueio com as contagens por tipo de registro (CA-03.2, D-02).',
   'src/features/tags/tagTexts.ts':
     'Textos pt-BR da tela (nome repetido, falhas ao salvar/conferir/excluir, tag inexistente), formatTransactionCount e formatTagUsage (Intl.NumberFormat e Intl.ListFormat pt-BR).',
+  'src/lib/formSubmit.ts':
+    'Princípio 16 / D-36 (spec 1.13): padrão de todos os formulários com React Hook Form. LIVE_VALIDATION = { mode: "onChange" } (erro do campo aparece enquanto digita) e canSubmitForm({ isValid, isSubmitting }) = isValid && !isSubmitting (botão de envio só ativo com o formulário válido e fora do envio). Só tipos do react-hook-form (import type): nenhum código do pacote entra pelo lib. Usado hoje só por useTagForm; obrigatório nos formulários das fases seguintes.',
   'src/dev/architecture/model.ts':
     'Importa o JSON gerado e expõe graph/moduleById e filtros comuns. Os índices derivados ficam em layers.ts, composition.ts, traceability.ts, health.ts e search.ts, todos calculados uma vez no carregamento.',
 }

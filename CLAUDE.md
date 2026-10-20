@@ -41,6 +41,7 @@ Estas regras valem para **todas** as fases e não devem ser violadas.
 13. **Nada de segredos no front-end.** Nenhuma senha ou chave em variáveis `VITE_*` ou no código.
 14. **Escopo fechado.** Não adicionar funcionalidades, bibliotecas ou telas que não estejam na especificação sem perguntar.
 15. **Nada depende de "passar o mouse".** No iPhone não existe *hover*. Toda explicação ou detalhe é exibido como texto visível ou aberto por **toque**.
+16. **Botão de envio só ativo com o formulário válido.** Em todos os formulários, o botão principal fica desabilitado enquanto houver campo obrigatório vazio ou inválido e durante o envio; o erro do campo aparece enquanto o usuário digita (D-36).
 
 ## Notas do repositório
 

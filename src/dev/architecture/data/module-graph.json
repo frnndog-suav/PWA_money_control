@@ -1,13 +1,13 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-20T13:05:22.731Z",
+  "generatedAt": "2026-10-20T17:58:58.895Z",
   "totals": {
-    "modules": 199,
-    "loc": 16501,
+    "modules": 202,
+    "loc": 17155,
     "components": 84,
     "hooks": 15,
-    "tests": 50,
-    "edges": 521,
+    "tests": 52,
+    "edges": 527,
     "configFiles": 11
   },
   "layerSummary": {
@@ -27,7 +27,7 @@
     },
     "components": {
       "modules": 17,
-      "loc": 568,
+      "loc": 575,
       "components": 11,
       "hooks": 1,
       "tests": 4
@@ -41,7 +41,7 @@
     },
     "dev": {
       "modules": 65,
-      "loc": 9863,
+      "loc": 10293,
       "components": 36,
       "hooks": 2,
       "tests": 5
@@ -54,18 +54,18 @@
       "tests": 9
     },
     "features": {
-      "modules": 31,
-      "loc": 1229,
+      "modules": 32,
+      "loc": 1396,
       "components": 20,
       "hooks": 3,
-      "tests": 5
+      "tests": 6
     },
     "lib": {
-      "modules": 15,
-      "loc": 434,
+      "modules": 17,
+      "loc": 484,
       "components": 0,
       "hooks": 0,
-      "tests": 8
+      "tests": 9
     },
     "entry": {
       "modules": 1,
@@ -96,7 +96,7 @@
       "tests": 0
     }
   },
-  "specVersion": "1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
@@ -2783,7 +2783,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 21,
+      "loc": 28,
       "exports": [
         "Button",
         "ButtonVariant"
@@ -3929,7 +3929,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 165,
+      "loc": 171,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -6315,7 +6315,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 85,
+      "loc": 113,
       "exports": [
         "TraceabilitySection"
       ],
@@ -6339,6 +6339,7 @@
         "Card.Title",
         "CodeList",
         "ModuleList",
+        "PrinciplesCard",
         "Section"
       ],
       "storesUsed": [],
@@ -6364,6 +6365,7 @@
         "src/dev/architecture/components/CodeList.tsx",
         "src/dev/architecture/components/ModuleList.tsx",
         "src/dev/architecture/components/Section.tsx",
+        "src/dev/architecture/data/curated.ts",
         "src/dev/architecture/model.ts",
         "src/dev/architecture/traceability.ts"
       ],
@@ -6622,7 +6624,7 @@
         "database",
         "data"
       ],
-      "loc": 3312,
+      "loc": 3612,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
@@ -6637,6 +6639,7 @@
         "PLANNED_DOMAIN",
         "PLANNED_FLOWS",
         "PLANNED_UI_FIELDS",
+        "PRINCIPLES",
         "REQUIREMENTS",
         "ROUTE_NOTES",
         "SCREEN_COMPOSITION",
@@ -6678,6 +6681,7 @@
         "src/dev/architecture/components/ModuleGraphSection.tsx",
         "src/dev/architecture/components/PackagesSection.tsx",
         "src/dev/architecture/components/PwaSection.tsx",
+        "src/dev/architecture/components/TraceabilitySection.tsx",
         "src/dev/architecture/components/UiStateSection.tsx",
         "src/dev/architecture/composition.ts",
         "src/dev/architecture/layerDiagramGeometry.ts",
@@ -6702,7 +6706,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 1209,
+      "loc": 1293,
       "exports": [
         "TIMELINE"
       ],
@@ -7179,7 +7183,7 @@
       "kinds": [
         "types"
       ],
-      "loc": 359,
+      "loc": 371,
       "exports": [
         "AllowedDependency",
         "ArchitectureFinding",
@@ -7214,6 +7218,7 @@
         "PlannedDomainFunction",
         "PlannedFlow",
         "PlannedUiField",
+        "PrincipleInfo",
         "RequirementInfo",
         "RouteNote",
         "ScreenComposition",
@@ -7256,6 +7261,7 @@
         "PlannedDomainFunction",
         "PlannedFlow",
         "PlannedUiField",
+        "PrincipleInfo",
         "RequirementInfo",
         "RouteNote",
         "ScreenComposition",
@@ -10112,7 +10118,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 77,
+      "loc": 76,
       "exports": [
         "TagForm"
       ],
@@ -10382,7 +10388,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 189,
+      "loc": 180,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -10402,13 +10408,13 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
-        "CA-01.2",
         "CA-03.1",
         "CA-03.2",
         "CA-03.3",
         "CA-03.4",
         "CA-03.5",
         "D-02",
+        "D-36",
         "RF-03"
       ],
       "external": [
@@ -10517,6 +10523,70 @@
       "testedBy": [
         "src/features/tags/TagsPage.test.tsx"
       ]
+    },
+    {
+      "id": "src/features/tags/TagsPage.validation.test.tsx",
+      "layer": "features",
+      "feature": "tags",
+      "group": "features/tags",
+      "kinds": [
+        "test"
+      ],
+      "loc": 147,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-03.4",
+        "D-36"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "screen",
+            "waitFor",
+            "within"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/repositories/tagsRepository.ts",
+        "src/test/renderApp.tsx",
+        "src/test/seedDatabase.ts"
+      ],
+      "assets": []
     },
     {
       "id": "src/features/tags/tagTexts.test.ts",
@@ -10641,7 +10711,7 @@
       "kinds": [
         "hook"
       ],
-      "loc": 47,
+      "loc": 77,
       "exports": [
         "useTagForm"
       ],
@@ -10658,7 +10728,9 @@
       "hooksDefined": [
         "useTagForm"
       ],
-      "hooksUsed": [],
+      "hooksUsed": [
+        "useEffect"
+      ],
       "jsxUsed": [],
       "storesUsed": [],
       "dexieTables": {},
@@ -10684,6 +10756,15 @@
           ]
         },
         {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
           "package": "react-hook-form",
           "specifier": "react-hook-form",
           "kind": "static",
@@ -10700,6 +10781,7 @@
         "src/domain/tags.ts",
         "src/domain/types.ts",
         "src/features/tags/tagTexts.ts",
+        "src/lib/formSubmit.ts",
         "src/repositories/tagsRepository.ts"
       ],
       "assets": [],
@@ -11277,6 +11359,114 @@
       "assets": [],
       "testedBy": [
         "src/lib/formatBytes.test.ts"
+      ]
+    },
+    {
+      "id": "src/lib/formSubmit.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 26,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-36"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/formSubmit.ts"
+      ],
+      "assets": []
+    },
+    {
+      "id": "src/lib/formSubmit.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "module"
+      ],
+      "loc": 24,
+      "exports": [
+        "LIVE_VALIDATION",
+        "canSubmitForm"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "canSubmitForm",
+          "signature": "canSubmitForm({ isValid, isSubmitting, isDirty, errors }: SubmitState, { startsValid = false }: CanSubmitOptions = {}): boolean"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-36"
+      ],
+      "external": [
+        {
+          "package": "react-hook-form",
+          "specifier": "react-hook-form",
+          "kind": "type",
+          "names": [
+            "FieldValues",
+            "FormState",
+            "UseFormProps"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/tags/useTagForm.ts",
+        "src/lib/formSubmit.test.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/lib/formSubmit.test.ts"
       ]
     },
     {
@@ -12529,6 +12719,7 @@
         "src/features/tags/TagsPage.errors.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
         "src/features/tags/TagsPage.tsx",
+        "src/features/tags/TagsPage.validation.test.tsx",
         "src/features/tags/useTagForm.ts",
         "src/features/tags/useTagsScreen.ts",
         "src/repositories/tagsRepository.test.ts"
@@ -12543,6 +12734,7 @@
       "testedBy": [
         "src/features/tags/TagsPage.errors.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.validation.test.tsx",
         "src/repositories/tagsRepository.test.ts"
       ]
     },
@@ -13423,7 +13615,8 @@
         "src/dev/architecture/ArchitecturePage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
         "src/features/tags/TagsPage.errors.test.tsx",
-        "src/features/tags/TagsPage.test.tsx"
+        "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.validation.test.tsx"
       ],
       "imports": [
         "src/app/routes.tsx",
@@ -13439,7 +13632,8 @@
         "src/dev/architecture/ArchitecturePage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
         "src/features/tags/TagsPage.errors.test.tsx",
-        "src/features/tags/TagsPage.test.tsx"
+        "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.validation.test.tsx"
       ]
     },
     {
@@ -13509,7 +13703,8 @@
       "requirementRefs": [],
       "external": [],
       "importedBy": [
-        "src/features/tags/TagsPage.test.tsx"
+        "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.validation.test.tsx"
       ],
       "imports": [
         "src/db/database.ts",
@@ -13517,7 +13712,8 @@
       ],
       "assets": [],
       "testedBy": [
-        "src/features/tags/TagsPage.test.tsx"
+        "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.validation.test.tsx"
       ]
     },
     {
@@ -14483,6 +14679,7 @@
         "LAYERS",
         "LOCAL_COMPONENT_ORIGINS",
         "MODULE_NOTES",
+        "PRINCIPLES",
         "REQUIREMENTS",
         "ROUTE_NOTES",
         "SCREEN_COMPOSITION",
@@ -15993,6 +16190,14 @@
     },
     {
       "from": "src/dev/architecture/components/TraceabilitySection.tsx",
+      "to": "src/dev/architecture/data/curated.ts",
+      "kind": "static",
+      "names": [
+        "PRINCIPLES"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/TraceabilitySection.tsx",
       "to": "src/dev/architecture/model.ts",
       "kind": "static",
       "names": [
@@ -16151,6 +16356,7 @@
         "PlannedDomainFunction",
         "PlannedFlow",
         "PlannedUiField",
+        "PrincipleInfo",
         "RequirementInfo",
         "RouteNote",
         "ScreenComposition",
@@ -17584,6 +17790,30 @@
       ]
     },
     {
+      "from": "src/features/tags/TagsPage.validation.test.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "* as tagsRepository"
+      ]
+    },
+    {
+      "from": "src/features/tags/TagsPage.validation.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/features/tags/TagsPage.validation.test.tsx",
+      "to": "src/test/seedDatabase.ts",
+      "kind": "static",
+      "names": [
+        "readAllTags"
+      ]
+    },
+    {
       "from": "src/features/tags/tagTexts.test.ts",
       "to": "src/features/tags/tagTexts.ts",
       "kind": "static",
@@ -17634,6 +17864,15 @@
         "DUPLICATE_TAG_NAME_MESSAGE",
         "SAVE_TAG_FAILED_MESSAGE",
         "TAG_NOT_FOUND_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/features/tags/useTagForm.ts",
+      "to": "src/lib/formSubmit.ts",
+      "kind": "static",
+      "names": [
+        "canSubmitForm",
+        "LIVE_VALIDATION"
       ]
     },
     {
@@ -17762,6 +18001,15 @@
       "names": [
         "formatBytes",
         "formatStorageUsage"
+      ]
+    },
+    {
+      "from": "src/lib/formSubmit.test.ts",
+      "to": "src/lib/formSubmit.ts",
+      "kind": "static",
+      "names": [
+        "canSubmitForm",
+        "LIVE_VALIDATION"
       ]
     },
     {
@@ -18480,6 +18728,7 @@
         "src/features/settings/useStorageStatus.ts",
         "src/features/tags/TagColorPicker.tsx",
         "src/features/tags/TagForm.tsx",
+        "src/features/tags/useTagForm.ts",
         "src/features/tags/useTagsScreen.ts",
         "src/main.tsx",
         "src/repositories/ThemeContext.ts",
@@ -18506,7 +18755,8 @@
       "builtin": false,
       "importedBy": [
         "src/features/tags/TagForm.tsx",
-        "src/features/tags/useTagForm.ts"
+        "src/features/tags/useTagForm.ts",
+        "src/lib/formSubmit.ts"
       ]
     },
     "react-router": {
@@ -18597,6 +18847,7 @@
         "src/features/settings/ThemeSection.test.tsx",
         "src/features/tags/TagsPage.errors.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.validation.test.tsx",
         "src/repositories/settingsRepository.test.ts",
         "src/repositories/themePreference.test.ts",
         "src/test/renderApp.tsx",
@@ -18776,9 +19027,11 @@
         "src/features/settings/ThemeSection.test.tsx",
         "src/features/tags/TagsPage.errors.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
+        "src/features/tags/TagsPage.validation.test.tsx",
         "src/features/tags/tagTexts.test.ts",
         "src/lib/appVersion.test.ts",
         "src/lib/displayMode.test.ts",
+        "src/lib/formSubmit.test.ts",
         "src/lib/formatBytes.test.ts",
         "src/lib/storage.navigator.test.ts",
         "src/lib/storage.test.ts",
@@ -19214,27 +19467,27 @@
     ]
   },
   "build": {
-    "builtAt": "2026-10-20T13:03:35.821Z",
+    "builtAt": "2026-10-20T17:58:58.543Z",
     "serviceWorker": "sw.js",
     "workboxRuntime": "workbox-2fbc6a65.js",
     "manifest": "manifest.webmanifest",
     "manifestLink": "<link rel=\"manifest\" href=\"/manifest.webmanifest\" crossorigin=\"use-credentials\">",
     "precache": [
       "apple-touch-icon.png",
-      "assets/AboutPage-Dr60NgfQ.js",
-      "assets/BackLink-BKvlY_Rr.js",
-      "assets/BackupPage-DzEiABUB.js",
-      "assets/ChartsPage-DIrz8R3v.js",
-      "assets/NewTransactionPage-C1M3RSeB.js",
-      "assets/RecurringDetailPage-DMpBV4Ri.js",
-      "assets/RecurringsPage-CEnCKynS.js",
-      "assets/SettingsPage-BamstjJ3.js",
-      "assets/TagsPage-xi__yuRc.js",
-      "assets/TransactionDetailPage-kC8LfTXb.js",
-      "assets/TransactionsPage-YnmicQ4B.js",
-      "assets/ViewsPage-Gq2-wplA.js",
-      "assets/index-B0DL_FMP.js",
-      "assets/index-DXIUZR1U.css",
+      "assets/AboutPage-CP1H2KGe.js",
+      "assets/BackLink-BEPXluRO.js",
+      "assets/BackupPage-BFHY9Xoz.js",
+      "assets/ChartsPage-YPRpDTi7.js",
+      "assets/NewTransactionPage-B_OXxOic.js",
+      "assets/RecurringDetailPage-Bn9aVwAb.js",
+      "assets/RecurringsPage-BgFGKEsJ.js",
+      "assets/SettingsPage-YjUq4Vdp.js",
+      "assets/TagsPage-CHt1rIBP.js",
+      "assets/TransactionDetailPage-ChzcJhYb.js",
+      "assets/TransactionsPage-BGDSIQIr.js",
+      "assets/ViewsPage-DHYEbZGB.js",
+      "assets/index-DhLTAoh7.css",
+      "assets/index-uENyPl_d.js",
       "assets/workbox-window.prod.es5-Bd17z0YL.js",
       "favicon.png",
       "index.html",
@@ -19246,69 +19499,69 @@
     "navigationRoute": true,
     "css": [
       {
-        "file": "assets/index-DXIUZR1U.css",
-        "bytes": 20688
+        "file": "assets/index-DhLTAoh7.css",
+        "bytes": 21205
       }
     ],
     "js": [
       {
-        "file": "assets/index-B0DL_FMP.js",
+        "file": "assets/index-uENyPl_d.js",
         "bytes": 423519
       },
       {
-        "file": "assets/TagsPage-xi__yuRc.js",
-        "bytes": 136451
+        "file": "assets/TagsPage-CHt1rIBP.js",
+        "bytes": 136993
       },
       {
         "file": "assets/workbox-window.prod.es5-Bd17z0YL.js",
         "bytes": 5653
       },
       {
-        "file": "assets/SettingsPage-BamstjJ3.js",
+        "file": "assets/SettingsPage-YjUq4Vdp.js",
         "bytes": 3635
       },
       {
-        "file": "assets/AboutPage-Dr60NgfQ.js",
+        "file": "assets/AboutPage-CP1H2KGe.js",
         "bytes": 3049
       },
       {
-        "file": "assets/BackLink-BKvlY_Rr.js",
+        "file": "assets/BackLink-BEPXluRO.js",
         "bytes": 850
       },
       {
-        "file": "assets/RecurringDetailPage-DMpBV4Ri.js",
+        "file": "assets/RecurringDetailPage-Bn9aVwAb.js",
         "bytes": 377
       },
       {
-        "file": "assets/NewTransactionPage-C1M3RSeB.js",
+        "file": "assets/NewTransactionPage-B_OXxOic.js",
         "bytes": 374
       },
       {
-        "file": "assets/TransactionDetailPage-kC8LfTXb.js",
+        "file": "assets/TransactionDetailPage-ChzcJhYb.js",
         "bytes": 372
       },
       {
-        "file": "assets/RecurringsPage-CEnCKynS.js",
+        "file": "assets/RecurringsPage-BgFGKEsJ.js",
         "bytes": 361
       },
       {
-        "file": "assets/BackupPage-DzEiABUB.js",
+        "file": "assets/BackupPage-BFHY9Xoz.js",
         "bytes": 352
       },
       {
-        "file": "assets/TransactionsPage-YnmicQ4B.js",
+        "file": "assets/TransactionsPage-BGDSIQIr.js",
         "bytes": 276
       },
       {
-        "file": "assets/ChartsPage-DIrz8R3v.js",
+        "file": "assets/ChartsPage-YPRpDTi7.js",
         "bytes": 267
       },
       {
-        "file": "assets/ViewsPage-Gq2-wplA.js",
+        "file": "assets/ViewsPage-DHYEbZGB.js",
         "bytes": 264
       }
     ],
-    "totalBytes": 625248,
+    "totalBytes": 626307,
     "devLeaks": []
   },
   "violations": [],
@@ -19316,19 +19569,27 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "7a12619",
+    "head": "841800f",
     "workingTree": [
+      {
+        "status": "M",
+        "path": "CLAUDE.md"
+      },
       {
         "status": "M",
         "path": "docs/SPEC.md"
       },
       {
         "status": "M",
-        "path": "package-lock.json"
+        "path": "src/components/ui/Button.tsx"
       },
       {
         "status": "M",
-        "path": "package.json"
+        "path": "src/dev/architecture/architecture.test.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/components/TraceabilitySection.tsx"
       },
       {
         "status": "M",
@@ -19340,135 +19601,196 @@
       },
       {
         "status": "M",
-        "path": "src/dev/sampleData/buildSampleData.ts"
+        "path": "src/dev/architecture/types.ts"
       },
       {
         "status": "M",
-        "path": "src/features/tags/TagsPage.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/styles/utilities.css"
-      },
-      {
-        "status": "M",
-        "path": "src/test/factories.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/test/setup.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/Button.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/EmptyState.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/ErrorAlert.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/Modal.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/Modal.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/TagChip.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/TagChip.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/tagSchema.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/tagSchema.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/tags.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/tags.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/tags/ConfirmDeleteTagDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/tags/DeleteTagBlockedDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/tags/TagColorPicker.tsx"
-      },
-      {
-        "status": "??",
         "path": "src/features/tags/TagForm.tsx"
       },
       {
-        "status": "??",
-        "path": "src/features/tags/TagFormDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/tags/TagList.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/tags/TagsPage.errors.test.tsx"
-      },
-      {
-        "status": "??",
+        "status": "M",
         "path": "src/features/tags/TagsPage.test.tsx"
       },
       {
-        "status": "??",
-        "path": "src/features/tags/tagTexts.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/tags/tagTexts.ts"
-      },
-      {
-        "status": "??",
+        "status": "M",
         "path": "src/features/tags/useTagForm.ts"
       },
       {
         "status": "??",
-        "path": "src/features/tags/useTagsScreen.ts"
+        "path": "src/features/tags/TagsPage.validation.test.tsx"
       },
       {
         "status": "??",
-        "path": "src/repositories/tagsRepository.test.ts"
+        "path": "src/lib/formSubmit.test.ts"
       },
       {
         "status": "??",
-        "path": "src/repositories/tagsRepository.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/test/dialog.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/test/seedDatabase.ts"
+        "path": "src/lib/formSubmit.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "841800f",
+      "date": "2026-10-20T14:07:47-03:00",
+      "author": "Fernando",
+      "subject": "feat/finishing phase 3",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "M",
+          "path": "package-lock.json"
+        },
+        {
+          "status": "M",
+          "path": "package.json"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/Button.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/EmptyState.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/ErrorAlert.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/Modal.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/Modal.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/TagChip.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/TagChip.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/sampleData/buildSampleData.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/tagSchema.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/tagSchema.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/tags.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/tags.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/ConfirmDeleteTagDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/DeleteTagBlockedDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/TagColorPicker.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/TagForm.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/TagFormDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/TagList.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/TagsPage.errors.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/TagsPage.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/tags/TagsPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/tagTexts.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/tagTexts.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/useTagForm.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/useTagsScreen.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/tagsRepository.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/tagsRepository.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/styles/utilities.css"
+        },
+        {
+          "status": "A",
+          "path": "src/test/dialog.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/test/factories.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/test/seedDatabase.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/test/setup.ts"
+        }
+      ]
+    },
     {
       "hash": "7a12619",
       "date": "2026-10-19T19:46:07-03:00",
@@ -21102,6 +21424,7 @@
     "src/features/tags/TagsPage.errors.test.tsx",
     "src/features/tags/TagsPage.test.tsx",
     "src/features/tags/TagsPage.tsx",
+    "src/features/tags/TagsPage.validation.test.tsx",
     "src/features/tags/tagTexts.test.ts",
     "src/features/tags/tagTexts.ts",
     "src/features/tags/useTagForm.ts",
@@ -21116,6 +21439,8 @@
     "src/lib/appVersion.ts",
     "src/lib/displayMode.test.ts",
     "src/lib/displayMode.ts",
+    "src/lib/formSubmit.test.ts",
+    "src/lib/formSubmit.ts",
     "src/lib/formatBytes.test.ts",
     "src/lib/formatBytes.ts",
     "src/lib/storage.navigator.test.ts",

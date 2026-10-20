@@ -19,8 +19,11 @@ function fillName(dialog: HTMLElement, name: string) {
   fireEvent.change(within(dialog).getByLabelText('Nome'), { target: { value: name } })
 }
 
-function save(dialog: HTMLElement) {
-  fireEvent.click(within(dialog).getByRole('button', { name: 'Salvar' }))
+// Princípio 16 / D-36 — o "Salvar" só ativa depois da validação (assíncrona) do formulário.
+async function save(dialog: HTMLElement) {
+  const button = within(dialog).getByRole<HTMLButtonElement>('button', { name: 'Salvar' })
+  await waitFor(() => expect(button.disabled).toBe(false))
+  fireEvent.click(button)
 }
 
 async function openEditDialog(tagName: string) {
@@ -45,7 +48,7 @@ describe('TagsPage (RF-03)', () => {
       true,
     )
     expect(within(dialog).getByText('Cor escolhida: Verde')).toBeDefined()
-    save(dialog)
+    await save(dialog)
 
     expect(
       await screen.findByRole('button', { name: /^Mercado\s*Nenhum lançamento/ }),
@@ -70,7 +73,7 @@ describe('TagsPage (RF-03)', () => {
     ).toBe(false)
 
     fillName(dialog, 'Viagem')
-    save(dialog)
+    await save(dialog)
     await screen.findByRole('button', { name: /^Viagem/ })
     expect((await readAllTags())[0].color).toBe('#A1B2C3')
   })
@@ -83,21 +86,6 @@ describe('TagsPage (RF-03)', () => {
     expect(within(dialog).getByText('Lazer')).toBeDefined()
   })
 
-  // CA-01.2 (padrão de formulário) / RF-03 — erro abaixo do campo, nada é salvo.
-  it('nome vazio ou com mais de 30 caracteres mostra erro abaixo do campo', async () => {
-    await openTagsPage()
-    const dialog = await openNewTagDialog()
-
-    save(dialog)
-    expect(await within(dialog).findByText('Informe o nome da tag')).toBeDefined()
-    expect(within(dialog).getByLabelText('Nome').getAttribute('aria-invalid')).toBe('true')
-
-    fillName(dialog, 'a'.repeat(31))
-    save(dialog)
-    expect(await within(dialog).findByText('O nome pode ter no máximo 30 caracteres')).toBeDefined()
-    expect(await readAllTags()).toHaveLength(0)
-  })
-
   // CA-03.4 — texto exato do erro de nome repetido (sem diferenciar maiúsculas e acentos).
   it('nome repetido → "Já existe uma tag com esse nome"', async () => {
     await createTag({ name: 'Mercado', color: '#16A34A' })
@@ -105,7 +93,7 @@ describe('TagsPage (RF-03)', () => {
     const dialog = await openNewTagDialog()
 
     fillName(dialog, 'mércado')
-    save(dialog)
+    await save(dialog)
 
     const error = await within(dialog).findByText('Já existe uma tag com esse nome')
     expect(within(dialog).getByLabelText('Nome').getAttribute('aria-describedby')).toBe(error.id)
@@ -122,7 +110,7 @@ describe('TagsPage (RF-03)', () => {
     expect(within(dialog).getByRole<HTMLInputElement>('radio', { name: 'Roxo' }).checked).toBe(true)
     fillName(dialog, 'Diversão')
     fireEvent.click(within(dialog).getByRole('radio', { name: 'Rosa' }))
-    save(dialog)
+    await save(dialog)
 
     expect(await screen.findByRole('button', { name: /^Diversão/ })).toBeDefined()
     expect(screen.queryByRole('button', { name: /^Lazer/ })).toBeNull()
