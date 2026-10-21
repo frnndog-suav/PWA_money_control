@@ -1,9 +1,10 @@
 @import 'tailwindcss';
 @import './styles/utilities.css';
 
-/* §6.12 — a página DEV de arquitetura não pode entrar no build de produção, nem pelas
-   classes que ela usa. Ela tem o próprio CSS (src/dev/architecture/architecture.css). */
-@source not './dev';
+/* D-43 — única folha Tailwind do projeto (o teste tailwindEntry.test.ts impede outra).
+   O alias troca as fontes conforme o comando: em DEV inclui src/dev (páginas DEV); no
+   build exclui src/dev, para nada delas entrar no CSS de produção (§6.12). */
+@import '@tailwind-sources';
 
 :root {
   /* Fonte única da altura da barra inferior: usada pela própria barra (TabBar) e pelo

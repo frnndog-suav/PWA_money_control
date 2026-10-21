@@ -1,0 +1,4 @@
+/* Fontes do Tailwind no servidor DEV (`vite serve`), escolhido pelo alias
+   `@tailwind-sources` do vite.config.ts. D-43: a detecção automática já varre src/
+   inteiro, inclusive src/dev, então não há nada a excluir. Assim as páginas DEV usam a
+   mesma (e única) folha do app, sem uma segunda folha Tailwind sobrescrevendo variantes. */

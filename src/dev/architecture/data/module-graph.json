@@ -1,19 +1,19 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-20T20:14:56.683Z",
+  "generatedAt": "2026-10-21T16:39:46.913Z",
   "totals": {
-    "modules": 245,
-    "loc": 21638,
+    "modules": 246,
+    "loc": 22311,
     "components": 98,
     "hooks": 26,
-    "tests": 68,
-    "edges": 670,
+    "tests": 69,
+    "edges": 672,
     "configFiles": 11
   },
   "layerSummary": {
     "config": {
       "modules": 11,
-      "loc": 350,
+      "loc": 360,
       "components": 0,
       "hooks": 0,
       "tests": 0
@@ -41,21 +41,21 @@
     },
     "dev": {
       "modules": 65,
-      "loc": 11584,
+      "loc": 11999,
       "components": 36,
       "hooks": 2,
       "tests": 5
     },
     "domain": {
       "modules": 23,
-      "loc": 2389,
+      "loc": 2407,
       "components": 0,
       "hooks": 0,
       "tests": 14
     },
     "features": {
       "modules": 38,
-      "loc": 1899,
+      "loc": 2035,
       "components": 21,
       "hooks": 3,
       "tests": 10
@@ -76,7 +76,7 @@
     },
     "repositories": {
       "modules": 20,
-      "loc": 2032,
+      "loc": 2100,
       "components": 0,
       "hooks": 9,
       "tests": 11
@@ -88,6 +88,13 @@
       "hooks": 1,
       "tests": 1
     },
+    "other": {
+      "modules": 1,
+      "loc": 36,
+      "components": 0,
+      "hooks": 0,
+      "tests": 1
+    },
     "test": {
       "modules": 9,
       "loc": 361,
@@ -96,7 +103,7 @@
       "tests": 0
     }
   },
-  "specVersion": "1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
@@ -5678,7 +5685,7 @@
         "component",
         "page"
       ],
-      "loc": 94,
+      "loc": 93,
       "exports": [
         "ArchitecturePage"
       ],
@@ -5762,9 +5769,7 @@
         "src/dev/architecture/components/TraceabilitySection.tsx",
         "src/dev/architecture/components/UiStateSection.tsx"
       ],
-      "assets": [
-        "src/dev/architecture/architecture.css"
-      ],
+      "assets": [],
       "testedBy": [
         "src/dev/architecture/ArchitecturePage.test.tsx"
       ]
@@ -6519,7 +6524,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 210,
+      "loc": 215,
       "exports": [
         "HealthSection"
       ],
@@ -7375,7 +7380,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 288,
+      "loc": 303,
       "exports": [
         "PwaSection"
       ],
@@ -7424,6 +7429,7 @@
         "D-25",
         "D-26",
         "D-30",
+        "D-43",
         "RNF-02"
       ],
       "external": [],
@@ -7718,7 +7724,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 62,
+      "loc": 113,
       "exports": [
         "StylesheetsCard"
       ],
@@ -7737,6 +7743,7 @@
       "hooksDefined": [],
       "hooksUsed": [],
       "jsxUsed": [
+        "AliasImports",
         "Badge",
         "Card",
         "Card.Title",
@@ -7753,7 +7760,7 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
-        "D-30"
+        "D-43"
       ],
       "external": [],
       "importedBy": [
@@ -7763,6 +7770,7 @@
         "src/dev/architecture/components/Badge.tsx",
         "src/dev/architecture/components/Card.tsx",
         "src/dev/architecture/components/ModuleList.tsx",
+        "src/dev/architecture/data/timeline.ts",
         "src/dev/architecture/model.ts",
         "src/dev/architecture/types.ts"
       ],
@@ -7946,7 +7954,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 113,
+      "loc": 118,
       "exports": [
         "TraceabilitySection"
       ],
@@ -8255,7 +8263,7 @@
         "database",
         "data"
       ],
-      "loc": 4636,
+      "loc": 4781,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
@@ -8337,7 +8345,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 1485,
+      "loc": 1663,
       "exports": [
         "TIMELINE"
       ],
@@ -8362,6 +8370,7 @@
       "external": [],
       "importedBy": [
         "src/dev/architecture/architecture.test.ts",
+        "src/dev/architecture/components/StylesheetsCard.tsx",
         "src/dev/architecture/components/TimelineSection.tsx",
         "src/dev/architecture/model.ts"
       ],
@@ -8814,7 +8823,7 @@
       "kinds": [
         "types"
       ],
-      "loc": 381,
+      "loc": 399,
       "exports": [
         "AllowedDependency",
         "ArchitectureFinding",
@@ -8831,6 +8840,8 @@
         "ForbiddenDependency",
         "GraphBuild",
         "GraphCommit",
+        "GraphCssAliasImport",
+        "GraphCssAliasVariant",
         "GraphEdge",
         "GraphModule",
         "GraphPackage",
@@ -8874,6 +8885,8 @@
         "ForbiddenDependency",
         "GraphBuild",
         "GraphCommit",
+        "GraphCssAliasImport",
+        "GraphCssAliasVariant",
         "GraphEdge",
         "GraphModule",
         "GraphPackage",
@@ -8925,6 +8938,8 @@
         "D-22",
         "D-26",
         "D-37",
+        "D-41",
+        "D-43",
         "RNF-02"
       ],
       "external": [],
@@ -9412,7 +9427,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 45,
+      "loc": 44,
       "exports": [
         "SampleDataTools"
       ],
@@ -9450,9 +9465,7 @@
       "imports": [
         "src/dev/sampleData/useSampleDataTools.ts"
       ],
-      "assets": [
-        "src/dev/sampleData/sampleData.css"
-      ],
+      "assets": [],
       "testedBy": []
     },
     {
@@ -9675,7 +9688,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 176,
+      "loc": 194,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -9697,8 +9710,9 @@
       "requirementRefs": [
         "CA-02.3",
         "CA-08.1",
-        "D-03",
+        "D-42",
         "RF-01",
+        "RF-02",
         "RF-06"
       ],
       "external": [
@@ -9804,8 +9818,8 @@
       "requirementRefs": [
         "CA-02.3",
         "CA-04.1",
-        "D-03",
         "D-31",
+        "D-42",
         "RF-01",
         "RF-06"
       ],
@@ -9838,7 +9852,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 112,
+      "loc": 110,
       "exports": [
         "Totals",
         "TransactionGroup",
@@ -9866,7 +9880,7 @@
         },
         {
           "name": "overallBalance",
-          "signature": "overallBalance(transactions: readonly Transaction[], today: DateString): Cents"
+          "signature": "overallBalance(transactions: readonly Transaction[]): Cents"
         },
         {
           "name": "groupByDay",
@@ -9902,7 +9916,7 @@
       "requirementRefs": [
         "CA-02.1",
         "CA-02.3",
-        "D-03",
+        "D-42",
         "RF-06",
         "RNF-02"
       ],
@@ -10140,7 +10154,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 126,
+      "loc": 127,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -10160,7 +10174,8 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
-        "D-03"
+        "CA-02.3",
+        "D-42"
       ],
       "external": [
         {
@@ -10912,7 +10927,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 14,
+      "loc": 15,
       "exports": [
         "compareByRecency",
         "takeMostRecent"
@@ -10944,6 +10959,7 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
+        "D-40",
         "RF-02"
       ],
       "external": [],
@@ -11157,6 +11173,7 @@
         "src/domain/transactions.test.ts",
         "src/domain/transactions.ts",
         "src/features/home/BalanceSummary.tsx",
+        "src/features/home/RecentTransactions.tsx",
         "src/features/tags/ConfirmDeleteTagDialog.tsx",
         "src/features/tags/DeleteTagBlockedDialog.tsx",
         "src/features/tags/TagFormDialog.tsx",
@@ -11291,7 +11308,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 45,
+      "loc": 46,
       "exports": [
         "BalanceSummary"
       ],
@@ -11328,7 +11345,7 @@
       "storeMembersUsed": [],
       "requirementRefs": [
         "CA-02.3",
-        "D-03",
+        "D-42",
         "RF-02"
       ],
       "external": [],
@@ -11353,7 +11370,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 125,
+      "loc": 237,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -11378,7 +11395,11 @@
       "requirementRefs": [
         "CA-01.7",
         "CA-02.2",
-        "D-36"
+        "CA-02.3",
+        "D-36",
+        "D-40",
+        "D-42",
+        "RF-02"
       ],
       "external": [
         {
@@ -11425,7 +11446,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 201,
+      "loc": 219,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -11449,10 +11470,12 @@
         "CA-01.2",
         "CA-02.1",
         "CA-02.2",
+        "CA-02.3",
         "CA-02.4",
-        "D-03",
         "D-29",
         "D-36",
+        "D-40",
+        "D-42",
         "RF-01",
         "RF-02"
       ],
@@ -11624,7 +11647,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 42,
+      "loc": 47,
       "exports": [
         "RecentTransactions"
       ],
@@ -11633,13 +11656,15 @@
       "functions": [
         {
           "name": "RecentTransactions",
-          "signature": "RecentTransactions()"
+          "signature": "RecentTransactions({ today }: RecentTransactionsProps)"
         }
       ],
       "components": [
         "RecentTransactions"
       ],
-      "props": {},
+      "props": {
+        "RecentTransactionsProps": 1
+      },
       "hooksDefined": [],
       "hooksUsed": [
         "useId",
@@ -11661,6 +11686,7 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
+        "D-40",
         "RF-02"
       ],
       "external": [
@@ -11687,6 +11713,7 @@
       "imports": [
         "src/components/transactions/TransactionRow.tsx",
         "src/components/ui/EmptyState.tsx",
+        "src/domain/types.ts",
         "src/features/home/homeTexts.ts",
         "src/repositories/tagsRepository.ts",
         "src/repositories/transactionsRepository.ts"
@@ -15593,7 +15620,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 250,
+      "loc": 309,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -15622,9 +15649,10 @@
       "storeMembersUsed": [],
       "requirementRefs": [
         "CA-02.3",
-        "D-03",
         "D-38",
         "D-39",
+        "D-40",
+        "D-42",
         "RF-01",
         "RF-02"
       ],
@@ -15754,7 +15782,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 203,
+      "loc": 205,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -15797,7 +15825,8 @@
         "CA-02.3",
         "CA-03.2",
         "D-01",
-        "D-03",
+        "D-40",
+        "D-42",
         "RF-01",
         "RF-02"
       ],
@@ -15831,7 +15860,7 @@
       "kinds": [
         "hook"
       ],
-      "loc": 118,
+      "loc": 125,
       "exports": [
         "TransactionNotFoundError",
         "TransactionTagNotFoundError",
@@ -15868,7 +15897,7 @@
         },
         {
           "name": "getOverallBalance",
-          "signature": "getOverallBalance(today: DateString): Promise<Cents>"
+          "signature": "getOverallBalance(): Promise<Cents>"
         },
         {
           "name": "getMonthTotals",
@@ -15876,11 +15905,11 @@
         },
         {
           "name": "listRecentTransactions",
-          "signature": "listRecentTransactions(count: number): Promise<Transaction[]>"
+          "signature": "listRecentTransactions(today: DateString, count: number): Promise<Transaction[]>"
         },
         {
           "name": "useOverallBalance",
-          "signature": "useOverallBalance(today: DateString): Cents | undefined"
+          "signature": "useOverallBalance(): Cents | undefined"
         },
         {
           "name": "useMonthTotals",
@@ -15888,7 +15917,7 @@
         },
         {
           "name": "useRecentTransactions",
-          "signature": "useRecentTransactions(count: number): Transaction[] | undefined"
+          "signature": "useRecentTransactions(today: DateString, count: number): Transaction[] | undefined"
         },
         {
           "name": "useTransaction",
@@ -15918,7 +15947,7 @@
         "transactions": {
           "reads": [
             "get",
-            "orderBy",
+            "toArray",
             "where"
           ],
           "writes": [
@@ -15943,7 +15972,8 @@
         "CA-02.4",
         "D-01",
         "D-02",
-        "D-03",
+        "D-40",
+        "D-42",
         "RF-01",
         "RF-02",
         "RF-07",
@@ -16261,6 +16291,69 @@
         "src/app/pwa/UpdateNotice.test.tsx",
         "src/stores/uiStore.test.ts"
       ]
+    },
+    {
+      "id": "src/styles/tailwindEntry.test.ts",
+      "layer": "other",
+      "feature": null,
+      "group": "styles",
+      "kinds": [
+        "test"
+      ],
+      "loc": 36,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-43"
+      ],
+      "external": [
+        {
+          "package": "node:fs",
+          "specifier": "node:fs",
+          "kind": "static",
+          "names": [
+            "readdirSync",
+            "readFileSync"
+          ]
+        },
+        {
+          "package": "node:path",
+          "specifier": "node:path",
+          "kind": "static",
+          "names": [
+            "join"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [],
+      "assets": []
     },
     {
       "id": "src/test/dialog.ts",
@@ -16986,7 +17079,7 @@
       "kinds": [
         "config"
       ],
-      "loc": 29,
+      "loc": 31,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -17005,7 +17098,9 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "D-43"
+      ],
       "external": [],
       "config": {
         "strict": true,
@@ -17099,7 +17194,8 @@
         "paths": [],
         "include": [
           "vite.config.ts",
-          "src/app/pwa/pwaOptions.ts"
+          "src/app/pwa/pwaOptions.ts",
+          "src/styles/tailwindEntry.test.ts"
         ],
         "references": []
       },
@@ -17116,7 +17212,7 @@
       "kinds": [
         "config"
       ],
-      "loc": 45,
+      "loc": 53,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -17137,6 +17233,7 @@
       "storeMembersUsed": [],
       "requirementRefs": [
         "CA-11.5",
+        "D-43",
         "RF-11",
         "RNF-07"
       ],
@@ -17208,7 +17305,8 @@
           "VitePWA"
         ],
         "aliases": [
-          "@"
+          "@",
+          "@tailwind-sources"
         ],
         "testEnvironment": "jsdom",
         "coverageInclude": [
@@ -19751,6 +19849,14 @@
     },
     {
       "from": "src/dev/architecture/components/StylesheetsCard.tsx",
+      "to": "src/dev/architecture/data/timeline.ts",
+      "kind": "static",
+      "names": [
+        "TIMELINE"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/StylesheetsCard.tsx",
       "to": "src/dev/architecture/model.ts",
       "kind": "static",
       "names": [
@@ -19762,6 +19868,7 @@
       "to": "src/dev/architecture/types.ts",
       "kind": "type",
       "names": [
+        "GraphCssAliasImport",
         "GraphStylesheet"
       ]
     },
@@ -20589,6 +20696,7 @@
       "names": [
         "addMonthsClamped",
         "monthRange",
+        "periodOf",
         "periodsBetween",
         "weekRange"
       ]
@@ -20606,6 +20714,7 @@
       "to": "src/domain/types.ts",
       "kind": "type",
       "names": [
+        "DateString",
         "Transaction"
       ]
     },
@@ -21083,7 +21192,8 @@
       "to": "src/domain/money.ts",
       "kind": "static",
       "names": [
-        "formatBRL"
+        "formatBRL",
+        "formatSignedBRL"
       ]
     },
     {
@@ -21247,6 +21357,14 @@
       "kind": "static",
       "names": [
         "EmptyState"
+      ]
+    },
+    {
+      "from": "src/features/home/RecentTransactions.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString"
       ]
     },
     {
@@ -22943,79 +23061,81 @@
       "src/dev/architecture/architecture.test.ts",
       "src/dev/architecture/model.ts"
     ],
-    "src/dev/architecture/architecture.css": [
-      "src/dev/architecture/ArchitecturePage.tsx"
-    ],
-    "src/dev/sampleData/sampleData.css": [
-      "src/dev/sampleData/SampleDataTools.tsx"
-    ],
     "src/index.css": [
       "src/main.tsx"
     ],
     "src/styles/utilities.css": [
-      "src/dev/architecture/architecture.css",
-      "src/dev/sampleData/sampleData.css",
+      "src/index.css"
+    ],
+    "src/styles/tailwind-sources.build.css": [
+      "src/index.css"
+    ],
+    "src/styles/tailwind-sources.serve.css": [
       "src/index.css"
     ]
   },
   "stylesheets": {
-    "src/dev/architecture/architecture.css": {
-      "imports": [
-        "src/styles/utilities.css"
-      ],
-      "packages": [
-        "tailwindcss"
-      ],
-      "sourceNone": true,
-      "sources": [
-        "src/dev/architecture"
-      ],
-      "sourceNot": [],
-      "importedBy": [
-        "src/dev/architecture/ArchitecturePage.tsx"
-      ]
-    },
-    "src/dev/sampleData/sampleData.css": {
-      "imports": [
-        "src/styles/utilities.css"
-      ],
-      "packages": [
-        "tailwindcss"
-      ],
-      "sourceNone": true,
-      "sources": [
-        "src/dev/sampleData"
-      ],
-      "sourceNot": [],
-      "importedBy": [
-        "src/dev/sampleData/SampleDataTools.tsx"
-      ]
-    },
     "src/index.css": {
       "imports": [
         "src/styles/utilities.css"
+      ],
+      "aliasImports": [
+        {
+          "alias": "@tailwind-sources",
+          "variants": [
+            {
+              "when": "build",
+              "target": "src/styles/tailwind-sources.build.css"
+            },
+            {
+              "when": "serve",
+              "target": "src/styles/tailwind-sources.serve.css"
+            }
+          ]
+        }
       ],
       "packages": [
         "tailwindcss"
       ],
       "sourceNone": false,
       "sources": [],
-      "sourceNot": [
-        "src/dev"
-      ],
+      "sourceNot": [],
       "importedBy": [
         "src/main.tsx"
       ]
     },
     "src/styles/utilities.css": {
       "imports": [],
+      "aliasImports": [],
       "packages": [],
       "sourceNone": false,
       "sources": [],
       "sourceNot": [],
       "importedBy": [
-        "src/dev/architecture/architecture.css",
-        "src/dev/sampleData/sampleData.css",
+        "src/index.css"
+      ]
+    },
+    "src/styles/tailwind-sources.build.css": {
+      "imports": [],
+      "aliasImports": [],
+      "packages": [],
+      "sourceNone": false,
+      "sources": [],
+      "sourceNot": [
+        "src/dev"
+      ],
+      "importedBy": [
+        "src/index.css"
+      ]
+    },
+    "src/styles/tailwind-sources.serve.css": {
+      "imports": [],
+      "aliasImports": [],
+      "packages": [],
+      "sourceNone": false,
+      "sources": [],
+      "sourceNot": [],
+      "importedBy": [
         "src/index.css"
       ]
     }
@@ -23368,8 +23488,6 @@
       "dev": true,
       "builtin": false,
       "importedBy": [
-        "src/dev/architecture/architecture.css",
-        "src/dev/sampleData/sampleData.css",
         "src/index.css"
       ]
     },
@@ -23477,6 +23595,7 @@
         "src/repositories/transactionsRepository.crud.test.ts",
         "src/repositories/transactionsRepository.test.ts",
         "src/stores/uiStore.test.ts",
+        "src/styles/tailwindEntry.test.ts",
         "src/test/setup.ts",
         "src/test/transactionForm.ts",
         "vite.config.ts"
@@ -23490,6 +23609,7 @@
       "builtin": true,
       "importedBy": [
         "scripts/generate-icons.mjs",
+        "src/styles/tailwindEntry.test.ts",
         "vite.config.ts"
       ]
     },
@@ -23522,6 +23642,16 @@
       "builtin": true,
       "importedBy": [
         "src/main.tsx"
+      ]
+    },
+    "node:path": {
+      "version": null,
+      "installed": null,
+      "declared": false,
+      "dev": false,
+      "builtin": true,
+      "importedBy": [
+        "src/styles/tailwindEntry.test.ts"
       ]
     }
   },
@@ -23909,28 +24039,28 @@
     ]
   },
   "build": {
-    "builtAt": "2026-10-20T20:14:56.209Z",
+    "builtAt": "2026-10-21T16:39:45.980Z",
     "serviceWorker": "sw.js",
     "workboxRuntime": "workbox-2fbc6a65.js",
     "manifest": "manifest.webmanifest",
     "manifestLink": "<link rel=\"manifest\" href=\"/manifest.webmanifest\" crossorigin=\"use-credentials\">",
     "precache": [
       "apple-touch-icon.png",
-      "assets/AboutPage-D35-5ZDX.js",
-      "assets/BackLink-DBaEr-r9.js",
-      "assets/BackupPage-EFoZP7Ri.js",
+      "assets/AboutPage-B7To0qem.js",
+      "assets/BackLink-B-1T2O4z.js",
+      "assets/BackupPage-nykZ_kde.js",
       "assets/ChartsPage-BVxTL7iQ.js",
-      "assets/NewTransactionPage-FOQ-UjCL.js",
+      "assets/NewTransactionPage-KuGjX_YK.js",
       "assets/Page-DOqY1DpW.js",
-      "assets/RecurringDetailPage-DTLKx1T7.js",
-      "assets/RecurringsPage-CFIyYiR9.js",
-      "assets/SettingsPage-DZ6xFXRA.js",
-      "assets/TagsPage-au6Jo4wf.js",
-      "assets/TransactionDetailPage-D_KMn5vp.js",
+      "assets/RecurringDetailPage-C-gbgMnI.js",
+      "assets/RecurringsPage-DEOh7Czf.js",
+      "assets/SettingsPage-CuBWtxfx.js",
+      "assets/TagsPage-bpkOlNHt.js",
+      "assets/TransactionDetailPage-DNFWDg1S.js",
       "assets/TransactionsPage-4wb1NZC3.js",
       "assets/ViewsPage-ysEy8sw1.js",
+      "assets/index-BkgGPndQ.js",
       "assets/index-C8LcJMuP.css",
-      "assets/index-pNcc3Nip.js",
       "assets/workbox-window.prod.es5-Bd17z0YL.js",
       "favicon.png",
       "index.html",
@@ -23948,15 +24078,15 @@
     ],
     "js": [
       {
-        "file": "assets/index-pNcc3Nip.js",
-        "bytes": 596323
+        "file": "assets/index-BkgGPndQ.js",
+        "bytes": 596329
       },
       {
         "file": "assets/Page-DOqY1DpW.js",
         "bytes": 9597
       },
       {
-        "file": "assets/TagsPage-au6Jo4wf.js",
+        "file": "assets/TagsPage-bpkOlNHt.js",
         "bytes": 6038
       },
       {
@@ -23964,35 +24094,35 @@
         "bytes": 5653
       },
       {
-        "file": "assets/AboutPage-D35-5ZDX.js",
+        "file": "assets/AboutPage-B7To0qem.js",
         "bytes": 3076
       },
       {
-        "file": "assets/TransactionDetailPage-D_KMn5vp.js",
+        "file": "assets/TransactionDetailPage-DNFWDg1S.js",
         "bytes": 2875
       },
       {
-        "file": "assets/SettingsPage-DZ6xFXRA.js",
+        "file": "assets/SettingsPage-CuBWtxfx.js",
         "bytes": 2194
       },
       {
-        "file": "assets/BackLink-DBaEr-r9.js",
+        "file": "assets/BackLink-B-1T2O4z.js",
         "bytes": 889
       },
       {
-        "file": "assets/NewTransactionPage-FOQ-UjCL.js",
+        "file": "assets/NewTransactionPage-KuGjX_YK.js",
         "bytes": 432
       },
       {
-        "file": "assets/RecurringDetailPage-DTLKx1T7.js",
+        "file": "assets/RecurringDetailPage-C-gbgMnI.js",
         "bytes": 376
       },
       {
-        "file": "assets/RecurringsPage-CFIyYiR9.js",
+        "file": "assets/RecurringsPage-DEOh7Czf.js",
         "bytes": 360
       },
       {
-        "file": "assets/BackupPage-EFoZP7Ri.js",
+        "file": "assets/BackupPage-nykZ_kde.js",
         "bytes": 351
       },
       {
@@ -24008,7 +24138,7 @@
         "bytes": 263
       }
     ],
-    "totalBytes": 681266,
+    "totalBytes": 681272,
     "devLeaks": []
   },
   "violations": [],
@@ -24016,7 +24146,7 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "df58be4",
+    "head": "f10e466",
     "workingTree": [
       {
         "status": "M",
@@ -24027,28 +24157,28 @@
         "path": "docs/SPEC.md"
       },
       {
-        "status": "R",
-        "path": "src/components/tags/TagColorPicker.tsx"
+        "status": "M",
+        "path": "src/dev/architecture/ArchitecturePage.tsx"
       },
       {
-        "status": "RM",
-        "path": "src/components/tags/TagForm.tsx"
-      },
-      {
-        "status": "RM",
-        "path": "src/components/tags/useTagForm.ts"
+        "status": "D",
+        "path": "src/dev/architecture/architecture.css"
       },
       {
         "status": "M",
-        "path": "src/components/ui/createRadioGroup.tsx"
+        "path": "src/dev/architecture/components/HealthSection.tsx"
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/architecture.test.ts"
+        "path": "src/dev/architecture/components/PwaSection.tsx"
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx"
+        "path": "src/dev/architecture/components/StylesheetsCard.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/components/TraceabilitySection.tsx"
       },
       {
         "status": "M",
@@ -24060,11 +24190,23 @@
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/layers.ts"
+        "path": "src/dev/architecture/types.ts"
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/types.ts"
+        "path": "src/dev/sampleData/SampleDataTools.tsx"
+      },
+      {
+        "status": "D",
+        "path": "src/dev/sampleData/sampleData.css"
+      },
+      {
+        "status": "M",
+        "path": "src/domain/balances.properties.test.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/domain/balances.test.ts"
       },
       {
         "status": "M",
@@ -24072,7 +24214,23 @@
       },
       {
         "status": "M",
-        "path": "src/domain/dates.ts"
+        "path": "src/domain/dates.timezone.test.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/domain/transactions.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/features/home/BalanceSummary.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/home/HomePage.form.test.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/home/HomePage.test.tsx"
       },
       {
         "status": "M",
@@ -24080,23 +24238,7 @@
       },
       {
         "status": "M",
-        "path": "src/features/settings/ThemeSection.test.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/tags/TagFormDialog.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/tags/tagTexts.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/features/transactions/NewTransactionPage.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/transactions/TransactionDetailPage.tsx"
+        "path": "src/features/home/RecentTransactions.tsx"
       },
       {
         "status": "M",
@@ -24104,183 +24246,320 @@
       },
       {
         "status": "M",
-        "path": "src/repositories/tagsRepository.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/tags/CreateTagDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/tags/TagPicker.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/tags/TagPicker.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/tags/tagFormTexts.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/transactions/NoTagsNotice.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/transactions/TransactionForm.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/transactions/TransactionRow.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/transactions/transactionTexts.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/transactions/useTransactionForm.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/DateInput.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/DateInput.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/Field.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/MoneyInput.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/MoneyInput.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/SignedAmount.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/TextInput.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/Toast.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/inputClasses.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/useFieldControl.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/useToast.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/useToday.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/balances.signedAmount.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/dates.format.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/dates.format.timezone.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/transactionSchema.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/transactionSchema.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/transactions.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/transactions.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/home/BalanceSummary.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/home/HomePage.form.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/home/HomePage.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/home/RecentTransactions.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/home/homeTexts.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/tags/TagsPage.transactions.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/ConfirmDeleteTransactionDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/TransactionDetailPage.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/useTransactionDetail.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/tagsRepository.listTags.test.ts"
-      },
-      {
-        "status": "??",
         "path": "src/repositories/transactionsRepository.balances.test.ts"
       },
       {
-        "status": "??",
-        "path": "src/repositories/transactionsRepository.crud.test.ts"
-      },
-      {
-        "status": "??",
+        "status": "M",
         "path": "src/repositories/transactionsRepository.test.ts"
       },
       {
-        "status": "??",
+        "status": "M",
         "path": "src/repositories/transactionsRepository.ts"
       },
       {
+        "status": "M",
+        "path": "src/styles/utilities.css"
+      },
+      {
+        "status": "M",
+        "path": "tsconfig.app.json"
+      },
+      {
+        "status": "M",
+        "path": "tsconfig.node.json"
+      },
+      {
+        "status": "M",
+        "path": "vite.config.ts"
+      },
+      {
         "status": "??",
-        "path": "src/test/transactionForm.ts"
+        "path": "src/styles/tailwind-sources.build.css"
+      },
+      {
+        "status": "??",
+        "path": "src/styles/tailwind-sources.serve.css"
+      },
+      {
+        "status": "??",
+        "path": "src/styles/tailwindEntry.test.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "f10e466",
+      "date": "2026-10-20T17:42:46-03:00",
+      "author": "Fernando",
+      "subject": "feat/finishing phase 4",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
+        },
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "A",
+          "path": "src/components/tags/CreateTagDialog.tsx"
+        },
+        {
+          "status": "R",
+          "path": "src/components/tags/TagColorPicker.tsx"
+        },
+        {
+          "status": "R",
+          "path": "src/components/tags/TagForm.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/tags/TagPicker.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/tags/TagPicker.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/tags/tagFormTexts.ts"
+        },
+        {
+          "status": "R",
+          "path": "src/components/tags/useTagForm.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/transactions/NoTagsNotice.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/transactions/TransactionForm.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/transactions/TransactionRow.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/transactions/transactionTexts.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/transactions/useTransactionForm.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/DateInput.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/DateInput.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/Field.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/MoneyInput.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/MoneyInput.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/SignedAmount.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/TextInput.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/Toast.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/components/ui/createRadioGroup.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/inputClasses.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/useFieldControl.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/useToast.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/useToday.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/architecture.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/ForbiddenDependenciesCard.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/layers.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/types.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/balances.signedAmount.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/domain/balances.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/dates.format.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/dates.format.timezone.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/domain/dates.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/transactionSchema.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/transactionSchema.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/transactions.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/transactions.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/home/BalanceSummary.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/home/HomePage.form.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/home/HomePage.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/home/HomePage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/home/RecentTransactions.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/home/homeTexts.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/features/settings/ThemeSection.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/tags/TagFormDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/tags/TagsPage.transactions.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/tags/tagTexts.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/ConfirmDeleteTransactionDialog.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/transactions/NewTransactionPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/TransactionDetailPage.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/transactions/TransactionDetailPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/useTransactionDetail.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/index.css"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/tagsRepository.listTags.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/repositories/tagsRepository.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/transactionsRepository.balances.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/transactionsRepository.crud.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/transactionsRepository.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/transactionsRepository.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/test/transactionForm.ts"
+        }
+      ]
+    },
     {
       "hash": "df58be4",
       "date": "2026-10-20T15:58:51-03:00",
@@ -26063,7 +26342,6 @@
     "src/db/database.ts",
     "src/dev/architecture/ArchitecturePage.test.tsx",
     "src/dev/architecture/ArchitecturePage.tsx",
-    "src/dev/architecture/architecture.css",
     "src/dev/architecture/architecture.test.ts",
     "src/dev/architecture/components/Badge.tsx",
     "src/dev/architecture/components/Card.tsx",
@@ -26122,7 +26400,6 @@
     "src/dev/sampleData/buildSampleData.ts",
     "src/dev/sampleData/sampleCatalog.ts",
     "src/dev/sampleData/sampleContext.ts",
-    "src/dev/sampleData/sampleData.css",
     "src/dev/sampleData/sampleDataStore.test.ts",
     "src/dev/sampleData/sampleDataStore.ts",
     "src/dev/sampleData/sampleInstallments.ts",
@@ -26232,6 +26509,9 @@
     "src/repositories/useThemePreference.ts",
     "src/stores/uiStore.test.ts",
     "src/stores/uiStore.ts",
+    "src/styles/tailwind-sources.build.css",
+    "src/styles/tailwind-sources.serve.css",
+    "src/styles/tailwindEntry.test.ts",
     "src/styles/utilities.css",
     "src/test/dialog.ts",
     "src/test/factories.ts",

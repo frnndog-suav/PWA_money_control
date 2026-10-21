@@ -12,8 +12,9 @@ import {
 import { expense, income, makeTransaction } from '@/test/factories'
 import { createTestRandom, daysInMonth, toDateString } from '@/test/propertyHelpers'
 
-// RF-02 itens 1, 2 e 5 / D-03 / CA-02.3 / D-39 — consultas de saldo e "Últimos lançamentos"
-// sobre o fake-indexeddb, sempre com "hoje" injetado (nada depende do relógio da máquina).
+// RF-02 itens 1, 2 e 5 / CA-02.3 / D-42 / D-39 — consultas de saldo e "Últimos lançamentos"
+// sobre o fake-indexeddb. O saldo geral não depende de "hoje" (D-42); o saldo do mês recebe o
+// período e os últimos lançamentos recebem "hoje" injetado (nada depende do relógio da máquina).
 
 async function seed(transactions: Transaction[]): Promise<void> {
   await db.transactions.bulkAdd(transactions)
@@ -23,25 +24,26 @@ async function reset(): Promise<void> {
   await db.transactions.clear()
 }
 
-describe('D-03 / CA-02.3 — onde cada data entra (hoje = 2026-10-20)', () => {
+describe('CA-02.3 / D-42 — onde cada data entra (hoje = 2026-10-20)', () => {
   const TODAY = '2026-10-20'
   const PERIOD = periodOf(TODAY)
 
   it.each([
-    // [descrição, data, entra no geral, entra no mês corrente]
-    ['hoje', '2026-10-20', true, true],
-    ['amanhã', '2026-10-21', false, true],
-    ['último dia do mês (futuro)', '2026-10-31', false, true],
-    ['1º dia do mês seguinte', '2026-11-01', false, false],
-    ['mês seguinte', '2026-11-15', false, false],
-    ['ontem', '2026-10-19', true, true],
-    ['1º dia do mês', '2026-10-01', true, true],
-    ['último dia do mês anterior', '2026-09-30', true, false],
-    ['mês anterior', '2026-09-15', true, false],
-    ['ano anterior', '2025-10-20', true, false],
-  ])('%s (%s): geral=%s, mês=%s', async (_label, date, inOverall, inMonth) => {
+    // [descrição, data, entra no mês corrente] — no saldo geral todos entram (D-42).
+    ['hoje', '2026-10-20', true],
+    ['amanhã, no mesmo mês', '2026-10-21', true],
+    ['último dia do mês (futuro)', '2026-10-31', true],
+    ['1º dia do mês seguinte', '2026-11-01', false],
+    ['mês seguinte', '2026-11-15', false],
+    ['ano seguinte', '2027-10-20', false],
+    ['ontem', '2026-10-19', true],
+    ['1º dia do mês', '2026-10-01', true],
+    ['último dia do mês anterior', '2026-09-30', false],
+    ['mês anterior', '2026-09-15', false],
+    ['ano anterior', '2025-10-20', false],
+  ])('%s (%s): entra no geral; no mês = %s', async (_label, date, inMonth) => {
     await seed([income(1234, date)])
-    expect(await getOverallBalance(TODAY)).toBe(inOverall ? 1234 : 0)
+    expect(await getOverallBalance()).toBe(1234)
     expect(await getMonthTotals(PERIOD)).toEqual(
       inMonth
         ? { incomeCents: 1234, expenseCents: 0, resultCents: 1234 }
@@ -56,7 +58,7 @@ describe('D-03 / CA-02.3 — onde cada data entra (hoje = 2026-10-20)', () => {
       expense(400, '2026-11-01'),
       expense(800, '2026-09-30'),
     ])
-    expect(await getOverallBalance(TODAY)).toBe(-900)
+    expect(await getOverallBalance()).toBe(-1500)
     expect(await getMonthTotals(PERIOD)).toEqual({
       incomeCents: 0,
       expenseCents: 300,
@@ -64,22 +66,26 @@ describe('D-03 / CA-02.3 — onde cada data entra (hoje = 2026-10-20)', () => {
     })
   })
 
-  // Roteiro da Fase 4, passos 2 e 3.
-  it('roteiro: +1.000,00 e −250,00 hoje; −80,00 amanhã muda só o mês', async () => {
+  // Roteiro da Fase 4, passos 2 e 3 (D-42).
+  it('roteiro: −80,00 amanhã muda os dois saldos; −40,00 no mês seguinte só o geral', async () => {
     await seed([income(100000, TODAY), expense(25000, TODAY)])
-    expect(await getOverallBalance(TODAY)).toBe(75000)
+    expect(await getOverallBalance()).toBe(75000)
     expect((await getMonthTotals(PERIOD)).resultCents).toBe(75000)
 
     await seed([expense(8000, '2026-10-21')])
-    expect(await getOverallBalance(TODAY)).toBe(75000)
+    expect(await getOverallBalance()).toBe(67000)
+    expect((await getMonthTotals(PERIOD)).resultCents).toBe(67000)
+
+    await seed([expense(4000, '2026-11-20')])
+    expect(await getOverallBalance()).toBe(63000)
     expect((await getMonthTotals(PERIOD)).resultCents).toBe(67000)
   })
 })
 
-describe('virada de mês e de ano (31/12 → 01/01)', () => {
-  it('hoje = 2026-12-31: 01/01 fica fora do geral e do mês de dezembro', async () => {
+describe('virada de mês e de ano (31/12 → 01/01) — CA-02.3 / D-42', () => {
+  it('hoje = 2026-12-31: 01/01 entra no geral, mas não no mês de dezembro', async () => {
     await seed([income(500, '2026-12-31'), expense(200, '2027-01-01')])
-    expect(await getOverallBalance('2026-12-31')).toBe(500)
+    expect(await getOverallBalance()).toBe(300)
     expect(await getMonthTotals('2026-12')).toEqual({
       incomeCents: 500,
       expenseCents: 0,
@@ -94,7 +100,7 @@ describe('virada de mês e de ano (31/12 → 01/01)', () => {
 
   it('hoje = 2027-01-01: os dois entram no geral; 31/12 não entra no mês de janeiro', async () => {
     await seed([income(500, '2026-12-31'), expense(200, '2027-01-01')])
-    expect(await getOverallBalance('2027-01-01')).toBe(300)
+    expect(await getOverallBalance()).toBe(300)
     expect((await getMonthTotals('2027-01')).resultCents).toBe(-200)
   })
 
@@ -105,18 +111,18 @@ describe('virada de mês e de ano (31/12 → 01/01)', () => {
       income(4, '2028-02-29'),
       income(8, '2028-03-01'),
     ])
-    expect(await getOverallBalance('2026-10-31')).toBe(1)
+    expect(await getOverallBalance()).toBe(15)
     expect((await getMonthTotals('2026-10')).resultCents).toBe(1)
     expect((await getMonthTotals('2026-11')).resultCents).toBe(2)
     expect((await getMonthTotals('2028-02')).resultCents).toBe(4)
-    expect(await getOverallBalance('2028-02-29')).toBe(7)
+    expect((await getMonthTotals('2028-03')).resultCents).toBe(8)
   })
 })
 
 describe('valores no teto (RF-01 / princípio 1)', () => {
   it('50 entradas de MAX_AMOUNT_CENTS somam como inteiro seguro e exato', async () => {
     await seed(Array.from({ length: 50 }, () => income(MAX_AMOUNT_CENTS, '2026-10-20')))
-    const overall = await getOverallBalance('2026-10-20')
+    const overall = await getOverallBalance()
     expect(overall).toBe(499_999_999_950)
     expect(Number.isSafeInteger(overall)).toBe(true)
     expect(await getMonthTotals('2026-10')).toEqual({
@@ -132,7 +138,7 @@ describe('valores no teto (RF-01 / princípio 1)', () => {
       ...Array.from({ length: 29 }, () => expense(MAX_AMOUNT_CENTS, '2026-10-02')),
       expense(1, '2026-10-03'),
     ])
-    expect(await getOverallBalance('2026-10-20')).toBe(MAX_AMOUNT_CENTS - 1)
+    expect(await getOverallBalance()).toBe(MAX_AMOUNT_CENTS - 1)
     const month = await getMonthTotals('2026-10')
     expect(month.resultCents).toBe(MAX_AMOUNT_CENTS - 1)
     expect(Number.isSafeInteger(month.incomeCents)).toBe(true)
@@ -165,6 +171,7 @@ describe('propriedade: repositório = domínio puro (D-39 / princípio 6)', () =
   it.each(SEEDS)('semente %i: getOverallBalance e getMonthTotals', async (seedValue) => {
     const list = randomTransactions(seedValue, 300)
     await seed(list)
+    expect(await getOverallBalance()).toBe(overallBalance(list))
     const random = createTestRandom(seedValue * 3 + 1)
     for (let i = 0; i < 8; i++) {
       const year = random.int(2025, 2027)
@@ -173,7 +180,6 @@ describe('propriedade: repositório = domínio puro (D-39 / princípio 6)', () =
       const period = periodOf(todayDate)
       const { start, end } = monthRange(period)
 
-      expect(await getOverallBalance(todayDate)).toBe(overallBalance(list, todayDate))
       expect(await getMonthTotals(period)).toEqual(
         totals(list.filter((t) => t.date >= start && t.date <= end)),
       )
@@ -191,7 +197,9 @@ function byDateThenCreation(a: Transaction, b: Transaction): number {
 
 const recencyKey = (t: Transaction) => `${t.date}|${t.createdAt}`
 
-describe('últimos 5 (RF-02 item 5 / D-38(e) / D-39)', () => {
+describe('últimos 5 (RF-02 item 5 / D-39 / D-40)', () => {
+  // D-40 — "hoje" injetado: igual ou depois de todas as datas dos casos só de ordem.
+  const TODAY = '2026-10-20'
   const at = (minute: number) => `2026-10-20T12:${String(minute).padStart(2, '0')}:00.000Z`
 
   it('7 lançamentos na mesma data do corte, abaixo de 2 de datas mais novas', async () => {
@@ -203,7 +211,7 @@ describe('últimos 5 (RF-02 item 5 / D-38(e) / D-39)', () => {
       ),
       makeTransaction({ description: 'velho', date: '2026-10-09', createdAt: at(59) }),
     ])
-    const recent = await listRecentTransactions(5)
+    const recent = await listRecentTransactions(TODAY, 5)
     expect(recent.map((t) => t.description)).toEqual(['n2', 'n1', 'c6', 'c5', 'c4'])
   })
 
@@ -214,7 +222,7 @@ describe('últimos 5 (RF-02 item 5 / D-38(e) / D-39)', () => {
         makeTransaction({ description: `d${minute}`, date: '2026-10-02', createdAt: at(minute) }),
       ),
     ])
-    const recent = await listRecentTransactions(5)
+    const recent = await listRecentTransactions(TODAY, 5)
     expect(recent.map((t) => t.description)).toEqual(['d4', 'd3', 'd2', 'd1', 'd0'])
   })
 
@@ -224,7 +232,7 @@ describe('últimos 5 (RF-02 item 5 / D-38(e) / D-39)', () => {
         makeTransaction({ description: date, date }),
       ),
     )
-    expect((await listRecentTransactions(5)).map((t) => t.description)).toEqual([
+    expect((await listRecentTransactions(TODAY, 5)).map((t) => t.description)).toEqual([
       '2026-10-05',
       '2026-10-04',
       '2026-10-03',
@@ -234,44 +242,100 @@ describe('últimos 5 (RF-02 item 5 / D-38(e) / D-39)', () => {
   })
 
   it('nenhum lançamento → lista vazia', async () => {
-    expect(await listRecentTransactions(5)).toEqual([])
+    expect(await listRecentTransactions(TODAY, 5)).toEqual([])
   })
 
   it('um único lançamento → ele mesmo', async () => {
     const only = makeTransaction({ date: '2026-10-20' })
     await seed([only])
-    expect(await listRecentTransactions(5)).toEqual([only])
+    expect(await listRecentTransactions(TODAY, 5)).toEqual([only])
   })
 
-  // D-38(e) — ordem literal do RF-02: datas futuras ficam no topo.
-  it('datas futuras aparecem no topo', async () => {
+  // RF-02 / D-40 — substitui a D-38(e): datas futuras não entram; hoje entra.
+  it('datas futuras não aparecem; hoje aparece', async () => {
     await seed([
       makeTransaction({ description: 'hoje', date: '2026-10-20', createdAt: at(30) }),
       makeTransaction({ description: 'ano-que-vem', date: '2027-01-01', createdAt: at(0) }),
       makeTransaction({ description: 'amanhã', date: '2026-10-21', createdAt: at(1) }),
       makeTransaction({ description: 'ontem', date: '2026-10-19', createdAt: at(59) }),
     ])
-    expect((await listRecentTransactions(5)).map((t) => t.description)).toEqual([
-      'ano-que-vem',
-      'amanhã',
+    expect((await listRecentTransactions(TODAY, 5)).map((t) => t.description)).toEqual([
       'hoje',
       'ontem',
     ])
   })
 
-  it.each(SEEDS)('propriedade, semente %i: igual a ordenar tudo e pegar 5', async (seedValue) => {
-    for (const count of [0, 1, 4, 5, 6, 40, 300]) {
-      const list = randomTransactions(seedValue + count, count)
-      await seed(list)
-      const recent = await listRecentTransactions(5)
-      const expected = list.toSorted(byDateThenCreation).slice(0, 5)
-      // Empates totais de data e criação podem vir em qualquer ordem: compara as chaves da regra.
-      expect(recent.map(recencyKey)).toEqual(expected.map(recencyKey))
-      expect(recent).toHaveLength(Math.min(5, count))
-      // Cada item devolvido é um lançamento gravado, sem repetição.
-      expect(new Set(recent.map((t) => t.id)).size).toBe(recent.length)
-      for (const t of recent) expect(list).toContainEqual(t)
-      await reset()
-    }
+  it('só datas futuras → lista vazia (RF-02 / D-40)', async () => {
+    await seed([makeTransaction({ date: '2026-10-21' }), makeTransaction({ date: '2026-12-01' })])
+    expect(await listRecentTransactions(TODAY, 5)).toEqual([])
   })
+
+  // RF-02 / D-40 — a data de corte é hoje: 7 empates hoje, com futuros de criação mais nova.
+  it('empates na data de corte (hoje) seguem a criação, sem puxar os futuros', async () => {
+    await seed([
+      ...[3, 6, 0, 5, 1, 4, 2].map((minute) =>
+        makeTransaction({ description: `h${minute}`, date: TODAY, createdAt: at(minute) }),
+      ),
+      makeTransaction({ description: 'amanhã', date: '2026-10-21', createdAt: at(59) }),
+      makeTransaction({ description: 'ontem', date: '2026-10-19', createdAt: at(59) }),
+    ])
+    const recent = await listRecentTransactions(TODAY, 5)
+    expect(recent.map((t) => t.description)).toEqual(['h6', 'h5', 'h4', 'h3', 'h2'])
+  })
+
+  // RF-02 / D-40 — empates num dia de corte anterior a hoje, com futuros acima.
+  it('empates num corte anterior a hoje, com futuros de criação mais nova', async () => {
+    await seed([
+      makeTransaction({ description: 'hoje', date: TODAY, createdAt: at(0) }),
+      ...[2, 0, 5, 3, 1, 4].map((minute) =>
+        makeTransaction({ description: `c${minute}`, date: '2026-10-12', createdAt: at(minute) }),
+      ),
+      makeTransaction({ description: 'f1', date: '2026-10-21', createdAt: at(59) }),
+      makeTransaction({ description: 'f2', date: '2026-11-30', createdAt: at(58) }),
+      makeTransaction({ description: 'velho', date: '2026-10-11', createdAt: at(59) }),
+    ])
+    const recent = await listRecentTransactions(TODAY, 5)
+    expect(recent.map((t) => t.description)).toEqual(['hoje', 'c5', 'c4', 'c3', 'c2'])
+  })
+
+  // RF-02 / D-40 — na virada do dia, o lançamento de "amanhã" passa a entrar.
+  it('virada do dia: o que era futuro passa a aparecer', async () => {
+    await seed([
+      makeTransaction({ description: 'hoje', date: '2026-10-20', createdAt: at(0) }),
+      makeTransaction({ description: 'amanhã', date: '2026-10-21', createdAt: at(1) }),
+    ])
+    expect((await listRecentTransactions('2026-10-20', 5)).map((t) => t.description)).toEqual([
+      'hoje',
+    ])
+    expect((await listRecentTransactions('2026-10-21', 5)).map((t) => t.description)).toEqual([
+      'amanhã',
+      'hoje',
+    ])
+  })
+
+  // RF-02 / D-40 — igual a filtrar `date <= hoje`, ordenar tudo em memória e pegar 5.
+  it.each(SEEDS)(
+    'propriedade, semente %i: igual a filtrar até hoje, ordenar e pegar 5',
+    async (seedValue) => {
+      const random = createTestRandom(seedValue * 5 + 3)
+      for (const count of [0, 1, 4, 5, 6, 40, 300]) {
+        const list = randomTransactions(seedValue + count, count)
+        await seed(list)
+        // "Hoje" aleatório entre 2024 (nada entra) e 2028 (tudo entra), passando por 2025–2027.
+        const year = random.int(2024, 2028)
+        const month = random.int(1, 12)
+        const todayDate = toDateString(year, month, random.int(1, daysInMonth(year, month)))
+        const recent = await listRecentTransactions(todayDate, 5)
+        const upToToday = list.filter((t) => t.date <= todayDate)
+        const expected = upToToday.toSorted(byDateThenCreation).slice(0, 5)
+        // Empates totais de data e criação podem vir em qualquer ordem: compara as chaves da regra.
+        expect(recent.map(recencyKey)).toEqual(expected.map(recencyKey))
+        expect(recent).toHaveLength(Math.min(5, upToToday.length))
+        // Cada item devolvido é um lançamento gravado, sem repetição.
+        expect(new Set(recent.map((t) => t.id)).size).toBe(recent.length)
+        for (const t of recent) expect(upToToday).toContainEqual(t)
+        await reset()
+      }
+    },
+  )
 })

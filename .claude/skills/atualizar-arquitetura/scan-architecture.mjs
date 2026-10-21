@@ -792,21 +792,49 @@ const ensurePackage = (name) =>
 for (const name of Object.keys(declared)) ensurePackage(name);
 for (const m of modules) for (const ext of m.external) ensurePackage(ext.package).importedBy.push(m.id);
 // Folhas de estilo: parte do CSS importado pelo código e segue os `@import` relativos
-// (CSS → CSS). Registra pacotes (`@import 'tailwindcss'`), `source(none)` e as diretivas
+// (CSS → CSS) e os que usam um alias do vite.config.ts (ex.: `@tailwind-sources`, D-43).
+// Registra pacotes (`@import 'tailwindcss'`), `source(none)` e as diretivas
 // `@source` / `@source not` do Tailwind v4 (caminhos relativos ao arquivo CSS).
+//
+// Aliases lidos do vite.config.ts no formato `'@nome': fileURLToPath(new URL('./caminho', ...))`.
+// Um trecho `${command === 'build' ? 'a' : 'b'}` no caminho gera dois destinos, um para
+// `vite build` e outro para `vite serve`. (O `@` → src/ é tratado pelo resolvedor de TS.)
+const COMMAND_TERNARY = /\$\{\s*command\s*===\s*['"]build['"]\s*\?\s*['"]([^'"]*)['"]\s*:\s*['"]([^'"]*)['"]\s*\}/;
+function viteAliases() {
+  const configPath = join(root, 'vite.config.ts');
+  if (!existsSync(configPath)) return {};
+  const raw = readFileSync(configPath, 'utf8');
+  const aliases = {};
+  const aliasRe = /['"](@[^'"]+)['"]\s*:\s*fileURLToPath\(\s*new URL\(\s*(['"`])([\s\S]*?)\2/g;
+  for (const [, name, , path] of raw.matchAll(aliasRe)) {
+    const ternary = path.match(COMMAND_TERNARY);
+    const variants = ternary
+      ? { build: path.replace(COMMAND_TERNARY, ternary[1]), serve: path.replace(COMMAND_TERNARY, ternary[2]) }
+      : { always: path };
+    aliases[name] = Object.entries(variants).map(([when, rel]) => ({ when, target: toId(join(root, rel)) }));
+  }
+  return aliases;
+}
+const cssAliases = viteAliases();
 const stylesheets = {};
 const cssQueue = [...assets.keys()].filter((id) => id.endsWith('.css'));
 while (cssQueue.length) {
   const cssId = cssQueue.shift();
   if (stylesheets[cssId] || !existsSync(join(root, cssId))) continue;
   const css = readFileSync(join(root, cssId), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
-  const sheet = { imports: [], packages: [], sourceNone: false, sources: [], sourceNot: [] };
+  const sheet = { imports: [], aliasImports: [], packages: [], sourceNone: false, sources: [], sourceNot: [] };
+  const follow = (target) => {
+    (assets.get(target) ?? assets.set(target, []).get(target)).push(cssId);
+    cssQueue.push(target);
+  };
   for (const [, spec, rest] of css.matchAll(/@import\s+['"]([^'"]+)['"]([^;]*);/g)) {
     if (spec.startsWith('.')) {
       const target = toId(join(dirname(join(root, cssId)), spec));
       sheet.imports.push(target);
-      (assets.get(target) ?? assets.set(target, []).get(target)).push(cssId);
-      cssQueue.push(target);
+      follow(target);
+    } else if (cssAliases[spec]) {
+      sheet.aliasImports.push({ alias: spec, variants: cssAliases[spec] });
+      for (const { target } of cssAliases[spec]) follow(target);
     } else {
       const name = packageName(spec);
       sheet.packages.push(name);

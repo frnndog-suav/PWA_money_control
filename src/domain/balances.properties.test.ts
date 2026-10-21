@@ -7,13 +7,13 @@ import {
   runningBalance,
   totals,
 } from '@/domain/balances'
-import { addMonthsClamped, monthRange, periodsBetween, weekRange } from '@/domain/dates'
+import { addMonthsClamped, monthRange, periodOf, periodsBetween, weekRange } from '@/domain/dates'
 import { MAX_AMOUNT_CENTS } from '@/domain/money'
-import type { Transaction } from '@/domain/types'
+import type { DateString, Transaction } from '@/domain/types'
 import { expense, income, makeTransaction } from '@/test/factories'
 import { createTestRandom, daysInMonth, toDateString } from '@/test/propertyHelpers'
 
-// Reforço da auditoria da Fase 2 (§6.5 / §6.11 / D-03): saldos com casos-limite e
+// Reforço da auditoria da Fase 2 (§6.5 / §6.11 / D-42): saldos com casos-limite e
 // propriedades verificadas com listas geradas por semente.
 
 /** Lançamentos aleatórios (mas reproduzíveis) entre 2025 e 2027. */
@@ -108,21 +108,36 @@ describe('propriedade: totals (§6.5)', () => {
   })
 })
 
-describe('overallBalance — D-03 / CA-02.3', () => {
-  // D-03 — data igual a hoje entra; amanhã não entra.
-  it('hoje entra e amanhã não, inclusive na virada do ano e do mês', () => {
-    const transactions = [income(1000, '2026-12-31'), expense(400, '2027-01-01')]
-    expect(overallBalance(transactions, '2026-12-31')).toBe(1000)
-    expect(overallBalance(transactions, '2027-01-01')).toBe(600)
+describe('overallBalance — CA-02.3 / D-42', () => {
+  /** Saldo do mês de `today` (RF-02 item 2): só os lançamentos do mês corrente. */
+  function monthBalance(transactions: readonly Transaction[], today: DateString): number {
+    const { start, end } = monthRange(periodOf(today))
+    return totals(transactions.filter(({ date }) => date >= start && date <= end)).resultCents
+  }
 
-    const monthEnd = [income(100, '2028-02-29'), income(10, '2028-03-01')]
-    expect(overallBalance(monthEnd, '2028-02-28')).toBe(0)
-    expect(overallBalance(monthEnd, '2028-02-29')).toBe(100)
-  })
+  // CA-02.3 / D-42 — matriz: o saldo geral soma tudo; o do mês, só o mês corrente.
+  it.each([
+    // [hoje, data do lançamento, entra no saldo do mês]
+    ['2026-10-20', '2026-10-20', true], // hoje
+    ['2026-10-20', '2026-10-21', true], // amanhã, no mesmo mês
+    ['2026-10-20', '2026-11-01', false], // mês seguinte
+    ['2026-10-20', '2026-09-30', false], // mês anterior
+    ['2026-10-31', '2026-11-01', false], // amanhã, na virada do mês
+    ['2026-12-31', '2027-01-01', false], // amanhã, na virada do ano
+    ['2027-01-01', '2026-12-31', false], // ontem, no ano anterior
+    ['2028-02-28', '2028-02-29', true], // amanhã, 29/02 de ano bissexto
+  ] as const)(
+    'hoje %s, lançamento em %s: saldo geral sempre; no mês = %s',
+    (today, date, inMonth) => {
+      const transactions = [income(100000, '2026-01-01'), expense(1234, date)]
+      expect(overallBalance(transactions)).toBe(100000 - 1234)
+      expect(monthBalance(transactions, today)).toBe(inMonth ? -1234 : 0)
+    },
+  )
 
-  // CA-02.3 / D-03 — parcelas futuras ficam fora do saldo geral até a data chegar. Valores e
-  // datas do CA-08.1 (R$ 100,00 em 3x a partir de 2026-10-31).
-  it('parcelas futuras entram uma a uma, conforme as datas chegam (CA-08.1)', () => {
+  // CA-02.3 / D-42 — todas as parcelas entram no saldo geral desde a criação. Valores e datas
+  // do CA-08.1 (R$ 100,00 em 3x a partir de 2026-10-31).
+  it('todas as parcelas futuras entram no saldo geral desde a criação (CA-08.1)', () => {
     const installments = [3334, 3333, 3333].map((cents, k) =>
       expense(cents, addMonthsClamped('2026-10-31', k)),
     )
@@ -131,21 +146,21 @@ describe('overallBalance — D-03 / CA-02.3', () => {
       '2026-11-30',
       '2026-12-31',
     ])
-    expect(overallBalance(installments, '2026-10-30')).toBe(0)
-    expect(overallBalance(installments, '2026-10-31')).toBe(-3334)
-    expect(overallBalance(installments, '2026-11-29')).toBe(-3334)
-    expect(overallBalance(installments, '2026-11-30')).toBe(-6667)
-    expect(overallBalance(installments, '2026-12-31')).toBe(-10000)
+    expect(overallBalance(installments)).toBe(-10000)
+    expect(monthBalance(installments, '2026-10-20')).toBe(-3334)
+    expect(monthBalance(installments, '2026-11-15')).toBe(-3333)
   })
 
-  it('propriedade: é o resultado de totals dos lançamentos com data <= hoje', () => {
+  it('propriedade: é o resultado de totals de todos os lançamentos', () => {
     for (let seed = 100; seed < 130; seed++) {
       const transactions = randomTransactions(seed, 150)
-      const random = createTestRandom(seed)
-      const day = toDateString(2026, random.int(1, 12), random.int(1, 28))
-      const expected = totals(transactions.filter((transaction) => transaction.date <= day))
-      expect(overallBalance(transactions, day)).toBe(expected.resultCents)
+      expect(overallBalance(transactions)).toBe(totals(transactions).resultCents)
     }
+  })
+
+  it('não depende da ordem dos lançamentos', () => {
+    const transactions = randomTransactions(11, 200)
+    expect(overallBalance([...transactions].reverse())).toBe(overallBalance(transactions))
   })
 })
 
@@ -182,13 +197,17 @@ describe('runningBalance — saldo inicial e subperíodos vazios (§6.5 / RF-06)
     )
   })
 
-  // Propriedade: o saldo ao fim de cada subperíodo é o saldo geral (D-03) naquele dia.
-  it('propriedade: cada valor é o overallBalance no fim do subperíodo', () => {
+  // Propriedade: o saldo ao fim de cada subperíodo é a soma de tudo com data até o fim dele.
+  it('propriedade: cada valor é o overallBalance dos lançamentos até o fim do subperíodo', () => {
     for (let seed = 200; seed < 215; seed++) {
       const transactions = randomTransactions(seed, 250)
       const buckets = periodsBetween('2026-01', '2026-12').map(monthRange)
       const running = runningBalance(transactions, buckets)
-      expect(running).toEqual(buckets.map((bucket) => overallBalance(transactions, bucket.end)))
+      expect(running).toEqual(
+        buckets.map((bucket) =>
+          overallBalance(transactions.filter((transaction) => transaction.date <= bucket.end)),
+        ),
+      )
     }
   })
 })

@@ -62,11 +62,12 @@ function snapshot() {
       today(new Date(2026, 11, 31, 23, 59, 59, 999)),
       today(new Date(2027, 0, 1, 0, 0, 0, 0)),
     ],
-    // D-03 — hoje entra, amanhã não, em qualquer fuso.
-    overall: overallBalance(
-      [income(1000, '2026-10-19'), expense(300, '2026-10-20'), expense(1, '2026-10-18')],
-      '2026-10-19',
-    ),
+    // CA-02.3 / D-42 — todos os lançamentos, inclusive os futuros, em qualquer fuso.
+    overall: overallBalance([
+      income(1000, '2026-10-19'),
+      expense(300, '2026-10-20'),
+      expense(1, '2026-10-18'),
+    ]),
     running: runningBalance(
       [income(500, '2026-12-31'), expense(200, '2027-01-01')],
       [weekRange('2026-12-21'), weekRange('2026-12-28')],
@@ -90,7 +91,7 @@ const EXPECTED = {
   clamped: ['2026-02-28', '2028-02-29', '2027-01-31', '2026-11-30', '2026-02-01'],
   periods: ['2026-11', '2026-12', '2027-01', '2027-02'],
   today: ['2026-10-19', '2026-10-19', '2026-12-31', '2027-01-01'],
-  overall: 999,
+  overall: 699,
   running: [0, 300],
 }
 

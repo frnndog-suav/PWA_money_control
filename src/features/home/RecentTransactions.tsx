@@ -2,14 +2,20 @@ import { useId } from 'react'
 import { Link } from 'react-router'
 import { TransactionRow } from '@/components/transactions/TransactionRow'
 import { EmptyState } from '@/components/ui/EmptyState'
+import type { DateString } from '@/domain/types'
 import { NO_TRANSACTIONS_MESSAGE, RECENT_TRANSACTIONS_COUNT } from '@/features/home/homeTexts'
 import { useTags } from '@/repositories/tagsRepository'
 import { useRecentTransactions } from '@/repositories/transactionsRepository'
 
-/** RF-02 item 5 — os 5 lançamentos mais recentes e o link "Ver todos". */
-export function RecentTransactions() {
+interface RecentTransactionsProps {
+  /** Vem do `useToday`: na virada do dia a lista passa a incluir o novo dia (D-40). */
+  today: DateString
+}
+
+/** RF-02 item 5 / D-40 — os 5 lançamentos mais recentes até hoje e o link "Ver todos". */
+export function RecentTransactions({ today }: RecentTransactionsProps) {
   const titleId = useId()
-  const transactions = useRecentTransactions(RECENT_TRANSACTIONS_COUNT)
+  const transactions = useRecentTransactions(today, RECENT_TRANSACTIONS_COUNT)
   const tags = useTags()
   const tagsById = new Map(tags?.map((tag) => [tag.id, tag]))
 

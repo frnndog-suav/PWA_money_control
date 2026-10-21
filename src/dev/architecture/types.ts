@@ -112,10 +112,26 @@ export interface GraphPackage {
   importedBy: string[]
 }
 
+/** Destino de um alias de CSS conforme o comando do Vite. */
+export interface GraphCssAliasVariant {
+  when: 'build' | 'serve' | 'always'
+  target: string
+}
+
+export interface GraphCssAliasImport {
+  alias: string
+  variants: GraphCssAliasVariant[]
+}
+
 /** Folha de estilo encontrada pelo scanner (CSS importado pelo código ou por outro CSS). */
 export interface GraphStylesheet {
   /** `@import` relativos (CSS → CSS), já resolvidos para caminhos do repositório. */
   imports: string[]
+  /**
+   * `@import` por alias do vite.config.ts (ex.: `@tailwind-sources`, D-43). Cada variante diz
+   * para qual arquivo o alias aponta em cada comando do Vite (`build`, `serve` ou `always`).
+   */
+  aliasImports: GraphCssAliasImport[]
   /** `@import` de pacotes (ex.: tailwindcss). */
   packages: string[]
   /** `@import 'tailwindcss' source(none)`: desliga a detecção automática de fontes. */
@@ -342,12 +358,14 @@ export interface PrincipleInfo {
   decisions: string[]
 }
 
-export type DecisionStatus = 'confirmed' | 'pending'
+export type DecisionStatus = 'confirmed' | 'pending' | 'superseded'
 
 export interface DecisionInfo {
   id: string
   title: string
   status: DecisionStatus
+  /** Decisão que substituiu esta (só com status superseded). */
+  supersededBy?: string
   /** Módulos/arquivos onde a decisão aparece no código (além dos que citam o ID). */
   impacts: string[]
 }
@@ -396,6 +414,8 @@ export interface ArchitectureFinding {
   modules: string[]
   /** Achado que só vale se uma fase opcional for feita (ex.: 12 — acesso restrito, D-26). */
   optionalPhase?: number
+  /** Achado que continua aberto, mas com decisão tomada (ex.: aguardar a Fase 11 — D-41). */
+  decided?: string
   /** Preenchido quando o achado foi resolvido: como e quando (fica no histórico, em verde). */
   resolved?: string
 }

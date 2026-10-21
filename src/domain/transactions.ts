@@ -1,6 +1,7 @@
 import type { Transaction } from '@/domain/types'
 
 // RF-02 item 5 — ordem dos "Últimos lançamentos": por data e, no mesmo dia, por criação.
+// (O corte por data até hoje — D-40 — é feito na consulta, pelo índice `date`.)
 
 /** Mais recente primeiro: data, depois `createdAt` e, por fim, `id` (ordem estável). */
 export function compareByRecency(a: Transaction, b: Transaction): number {

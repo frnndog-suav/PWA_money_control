@@ -44,6 +44,8 @@ function FindingList({ findings }: { findings: readonly ArchitectureFinding[] })
           <div className="flex flex-wrap items-center gap-2">
             {finding.resolved ? (
               <Badge variant="ok">resolvido</Badge>
+            ) : finding.decided ? (
+              <Badge variant="info">decidido</Badge>
             ) : finding.optionalPhase !== undefined ? (
               <Badge>Fase {finding.optionalPhase} · opcional</Badge>
             ) : (
@@ -52,6 +54,9 @@ function FindingList({ findings }: { findings: readonly ArchitectureFinding[] })
             <span className="font-semibold">{finding.title}</span>
           </div>
           <p className="text-slate-600 dark:text-slate-400">{finding.detail}</p>
+          {finding.decided && !finding.resolved && (
+            <p className="text-sky-800 dark:text-sky-300">{finding.decided}</p>
+          )}
           {finding.resolved && (
             <p className="text-emerald-800 dark:text-emerald-300">{finding.resolved}</p>
           )}

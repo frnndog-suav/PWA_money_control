@@ -1,6 +1,0 @@
-/* §6.11 — CSS somente das ferramentas DEV de dados de exemplo. O CSS do app ignora src/dev
-   (@source not em src/index.css); este arquivo gera só as classes usadas aqui e é
-   importado pelo componente, que é carregado com lazy() apenas em DEV. */
-@import 'tailwindcss' source(none);
-@import '../../styles/utilities.css';
-@source './';

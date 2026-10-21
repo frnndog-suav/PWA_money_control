@@ -47,20 +47,20 @@ describe('totals', () => {
 })
 
 describe('overallBalance', () => {
-  // D-03 / CA-02.3 — lançamentos futuros não entram no saldo geral.
-  it('ignora lançamentos com data depois de hoje', () => {
+  // CA-02.3 / D-42 — todos os lançamentos entram no saldo geral, inclusive os com data futura.
+  it('soma todos os lançamentos, inclusive os com data futura', () => {
     const transactions = [
       income(100000, '2026-10-01'),
-      expense(30000, '2026-10-19'), // hoje entra
-      expense(50000, '2026-10-20'), // amanhã não entra
-      expense(20000, '2026-11-19'), // parcela futura não entra
+      expense(30000, '2026-10-19'), // hoje
+      expense(50000, '2026-10-20'), // amanhã
+      expense(20000, '2026-11-19'), // parcela futura
     ]
-    expect(overallBalance(transactions, '2026-10-19')).toBe(70000)
+    expect(overallBalance(transactions)).toBe(0)
   })
 
   it('pode ser negativo e é zero sem lançamentos', () => {
-    expect(overallBalance([expense(4590, '2026-01-01')], '2026-10-19')).toBe(-4590)
-    expect(overallBalance([], '2026-10-19')).toBe(0)
+    expect(overallBalance([expense(4590, '2026-01-01')])).toBe(-4590)
+    expect(overallBalance([])).toBe(0)
   })
 })
 

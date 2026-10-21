@@ -81,6 +81,11 @@ export function TraceabilitySection() {
                 {decision.status === 'pending' && (
                   <Badge variant="warn">aguardando confirmação</Badge>
                 )}
+                {decision.status === 'superseded' && (
+                  <Badge variant="neutral">
+                    substituída{decision.supersededBy ? ` pela ${decision.supersededBy}` : ''}
+                  </Badge>
+                )}
               </div>
               <ModuleList ids={decision.modules} short empty="sem impacto no código ainda" />
             </li>

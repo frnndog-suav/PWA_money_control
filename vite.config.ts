@@ -16,7 +16,7 @@ const packageJson = JSON.parse(
 }
 
 // Vitest fica neste arquivo para herdar o alias `@/` e os plugins do Vite.
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] }),
@@ -30,6 +30,14 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      // D-43 — fontes do Tailwind importadas por src/index.css: o build exclui src/dev
+      // (§6.12); o servidor DEV inclui, para existir uma única folha Tailwind.
+      '@tailwind-sources': fileURLToPath(
+        new URL(
+          `./src/styles/tailwind-sources.${command === 'build' ? 'build' : 'serve'}.css`,
+          import.meta.url,
+        ),
+      ),
     },
   },
   test: {
@@ -44,4 +52,4 @@ export default defineConfig({
       thresholds: { lines: 90, functions: 90, branches: 90, statements: 90 },
     },
   },
-})
+}))

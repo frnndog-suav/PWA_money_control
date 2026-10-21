@@ -1,0 +1,4 @@
+/* Fontes do Tailwind no build de produção (`vite build`), escolhido pelo alias
+   `@tailwind-sources` do vite.config.ts. §6.12 / D-43: nada de src/dev entra no CSS do
+   dist/, nem as classes que só as páginas DEV usam. Caminho relativo a este arquivo. */
+@source not '../dev';

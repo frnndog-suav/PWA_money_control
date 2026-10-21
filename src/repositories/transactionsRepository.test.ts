@@ -15,6 +15,8 @@ import {
 } from '@/repositories/transactionsRepository'
 import { makeTransaction } from '@/test/factories'
 
+// "Hoje" injetado nos últimos lançamentos (RF-02 / D-40).
+const TODAY = '2026-10-20'
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
 
 async function makeStoredTag(name = 'Mercado') {
@@ -126,9 +128,7 @@ describe('transactionsRepository — editar e excluir (CA-01.5 / CA-01.6)', () =
   })
 })
 
-describe('transactionsRepository — saldos (RF-02 / D-03 / CA-02.3)', () => {
-  const TODAY = '2026-10-20'
-
+describe('transactionsRepository — saldos (RF-02 / CA-02.3 / D-42)', () => {
   // Roteiro da Fase 4: +1.000,00 e −250,00 hoje, −80,00 amanhã; mais +500,00 no mês
   // passado e −40,00 no mês que vem.
   async function seedRoteiro() {
@@ -141,9 +141,10 @@ describe('transactionsRepository — saldos (RF-02 / D-03 / CA-02.3)', () => {
     ])
   }
 
-  it('saldo geral só considera datas até hoje (inclusive)', async () => {
+  // CA-02.3 / D-42 — inclusive amanhã e o mês que vem.
+  it('saldo geral considera todos os lançamentos, inclusive os futuros', async () => {
     await seedRoteiro()
-    expect(await getOverallBalance(TODAY)).toBe(100000 - 25000 + 50000)
+    expect(await getOverallBalance()).toBe(100000 - 25000 - 8000 + 50000 - 4000)
   })
 
   it('saldo do mês inclui as datas futuras do mês e exclui outros meses', async () => {
@@ -156,7 +157,7 @@ describe('transactionsRepository — saldos (RF-02 / D-03 / CA-02.3)', () => {
   })
 
   it('sem lançamentos → zero', async () => {
-    expect(await getOverallBalance(TODAY)).toBe(0)
+    expect(await getOverallBalance()).toBe(0)
     expect(await getMonthTotals('2026-10')).toEqual({
       incomeCents: 0,
       expenseCents: 0,
@@ -186,7 +187,7 @@ describe('transactionsRepository — últimos lançamentos (RF-02 item 5)', () =
       makeTransaction({ description: 'd17', date: '2026-10-17' }),
     ])
 
-    const recent = await listRecentTransactions(5)
+    const recent = await listRecentTransactions(TODAY, 5)
     expect(recent.map((t) => t.description)).toEqual(['d20-c', 'd20-b', 'd20-a', 'd19', 'd18'])
   })
 
@@ -198,7 +199,7 @@ describe('transactionsRepository — últimos lançamentos (RF-02 item 5)', () =
         makeTransaction({ description: `m${minute}`, date: '2026-10-10', createdAt: at(minute) }),
       ),
     )
-    const recent = await listRecentTransactions(5)
+    const recent = await listRecentTransactions(TODAY, 5)
     expect(recent.map((t) => t.description)).toEqual(['m6', 'm5', 'm4', 'm3', 'm2'])
   })
 
@@ -207,7 +208,7 @@ describe('transactionsRepository — últimos lançamentos (RF-02 item 5)', () =
       makeTransaction({ description: 'a', date: '2026-10-01' }),
       makeTransaction({ description: 'b', date: '2026-10-02' }),
     ])
-    expect((await listRecentTransactions(5)).map((t) => t.description)).toEqual(['b', 'a'])
+    expect((await listRecentTransactions(TODAY, 5)).map((t) => t.description)).toEqual(['b', 'a'])
   })
 })
 

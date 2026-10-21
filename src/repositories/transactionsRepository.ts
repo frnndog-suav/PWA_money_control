@@ -84,14 +84,13 @@ export async function getTransaction(id: string): Promise<Transaction | undefine
 }
 
 /**
- * D-03 / CA-02.3 — saldo geral (só `date <= today`). Lê pelo índice `date` com `toArray()`,
- * que o Dexie resolve com um único `getAll()` nativo, e soma no domínio. Somar com `each()`
- * evitaria o array, mas abre um cursor com uma volta ao IndexedDB por registro, bem mais
- * lento com 10.000 lançamentos (RNF-02); o array temporário é de poucos MB.
+ * D-42 / CA-02.3 — saldo geral: todos os lançamentos, inclusive os com data futura. Lê a tabela
+ * inteira com `toArray()`, que o Dexie resolve com um único `getAll()` nativo, e soma no domínio.
+ * Somar com `each()` evitaria o array, mas abre um cursor com uma volta ao IndexedDB por registro,
+ * bem mais lento com 10.000 lançamentos (RNF-02); o array temporário é de poucos MB.
  */
-export async function getOverallBalance(today: DateString): Promise<Cents> {
-  const transactions = await db.transactions.where('date').belowOrEqual(today).toArray()
-  return overallBalance(transactions, today)
+export async function getOverallBalance(): Promise<Cents> {
+  return overallBalance(await db.transactions.toArray())
 }
 
 /** CA-02.3 — entradas, saídas e resultado do mês, inclusive datas futuras dentro dele. */
@@ -101,16 +100,24 @@ export async function getMonthTotals(period: PeriodString): Promise<Totals> {
 }
 
 /**
- * RF-02 item 5 — os `count` mais recentes por data e, no mesmo dia, por criação. O índice só
- * ordena por data: pega os `count` de datas mais altas para achar a data de corte e relê
- * todos os lançamentos desde ela, para o desempate por criação valer também nesse dia.
+ * RF-02 item 5 / D-40 — os `count` mais recentes com data até `today` (inclusive), por data e,
+ * no mesmo dia, por criação. O índice só ordena por data: pega os `count` de datas mais altas
+ * até hoje para achar a data de corte e relê todos os lançamentos entre ela e hoje, para o
+ * desempate por criação valer também nesse dia.
  */
-export async function listRecentTransactions(count: number): Promise<Transaction[]> {
+export async function listRecentTransactions(
+  today: DateString,
+  count: number,
+): Promise<Transaction[]> {
   return db.transaction('r', db.transactions, async () => {
-    const newest = await db.transactions.orderBy('date').reverse().limit(count).toArray()
+    const upToToday = db.transactions.where('date').belowOrEqual(today)
+    const newest = await upToToday.reverse().limit(count).toArray()
     if (newest.length < count) return takeMostRecent(newest, count)
     const cutoffDate = newest[newest.length - 1].date
-    const candidates = await db.transactions.where('date').aboveOrEqual(cutoffDate).toArray()
+    const candidates = await db.transactions
+      .where('date')
+      .between(cutoffDate, today, true, true)
+      .toArray()
     return takeMostRecent(candidates, count)
   })
 }
@@ -118,16 +125,16 @@ export async function listRecentTransactions(count: number): Promise<Transaction
 // Hooks ao vivo (`useLiveQuery`): `undefined` enquanto carrega; a tela se atualiza sozinha
 // quando a tabela muda (CA-02.4).
 
-export function useOverallBalance(today: DateString): Cents | undefined {
-  return useLiveQuery(() => getOverallBalance(today), [today])
+export function useOverallBalance(): Cents | undefined {
+  return useLiveQuery(getOverallBalance, [])
 }
 
 export function useMonthTotals(period: PeriodString): Totals | undefined {
   return useLiveQuery(() => getMonthTotals(period), [period])
 }
 
-export function useRecentTransactions(count: number): Transaction[] | undefined {
-  return useLiveQuery(() => listRecentTransactions(count), [count])
+export function useRecentTransactions(today: DateString, count: number): Transaction[] | undefined {
+  return useLiveQuery(() => listRecentTransactions(today, count), [today, count])
 }
 
 /** `null` quando o lançamento não existe (ou foi excluído). */

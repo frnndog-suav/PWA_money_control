@@ -22,7 +22,7 @@ export function HomePage() {
           </h2>
           <TransactionForm />
         </section>
-        <RecentTransactions />
+        <RecentTransactions today={todayDate} />
       </Page.Body>
     </Page>
   )

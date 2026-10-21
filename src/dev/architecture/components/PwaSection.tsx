@@ -14,6 +14,19 @@ const { build, pwa } = graph
 const publicFiles = Object.entries(graph.publicFiles)
 const precache = new Set(build?.precache ?? [])
 
+/** D-43 — destino do alias de fontes do Tailwind no `vite build` (lido pelo scanner). */
+const tailwindBuildSources = Object.entries(graph.stylesheets).flatMap(([id, sheet]) =>
+  sheet.aliasImports.flatMap(({ alias, variants }) =>
+    variants
+      .filter((variant) => variant.when !== 'serve')
+      .map((variant) => {
+        const excluded = graph.stylesheets[variant.target]?.sourceNot ?? []
+        const scope = excluded.length > 0 ? ` (@source not ${excluded.join(', ')})` : ''
+        return `${baseName(id)} → ${alias} → ${baseName(variant.target)}${scope}`
+      }),
+  ),
+)
+
 const pendingHumanTasks = graph.phases
   .filter((phase) => !phase.optional && phase.number <= currentPhase)
   .flatMap((phase) =>
@@ -149,6 +162,9 @@ function BuildCard() {
               (sheet) => `${baseName(sheet.file)} · ${formatKilobytes(sheet.bytes)}`,
             )}
           />
+        </Fields.Item>
+        <Fields.Item label="Fontes do Tailwind no build (D-43)">
+          <CodeList items={tailwindBuildSources} />
         </Fields.Item>
         <Fields.Item label="JS (maiores primeiro — RNF-02)">
           <CodeList

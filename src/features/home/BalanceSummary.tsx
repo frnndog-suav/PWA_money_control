@@ -12,12 +12,13 @@ interface BalanceSummaryProps {
 const LOADING = <span className="text-slate-500 dark:text-slate-400">—</span>
 
 /**
- * RF-02 itens 1 e 2 — saldo geral em destaque (só datas até hoje — D-03) e o resultado do
- * mês corrente, com entradas e saídas em texto menor (inclui datas futuras do mês — CA-02.3).
+ * RF-02 itens 1 e 2 — saldo geral em destaque (todos os lançamentos, inclusive os futuros —
+ * D-42) e o resultado do mês corrente, com entradas e saídas em texto menor (só o mês corrente,
+ * inclusive as datas futuras dele — CA-02.3).
  */
 export function BalanceSummary({ today }: BalanceSummaryProps) {
   const period = periodOf(today)
-  const overall = useOverallBalance(today)
+  const overall = useOverallBalance()
   const month = useMonthTotals(period)
 
   return (

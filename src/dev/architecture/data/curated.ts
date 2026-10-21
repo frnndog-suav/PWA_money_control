@@ -61,7 +61,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Componentes',
     folder: 'src/components',
     description:
-      'Duas partes (§6.2, D-37 — aguardando confirmação). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts) e transactions/ (TransactionForm, useTransactionForm, TransactionRow, NoTagsNotice, transactionTexts). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
+      'Duas partes (§6.2, D-37 — confirmada em 21/10/2026). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts) e transactions/ (TransactionForm, useTransactionForm, TransactionRow, NoTagsNotice, transactionTexts). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
     position: { x: 130, y: 330 },
   },
   {
@@ -117,7 +117,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Somente DEV',
     folder: 'src/dev',
     description:
-      'Esta página (§6.12) e as ferramentas de dados de exemplo da tela Sobre (§6.11, D-30). Carregadas só por import dinâmico atrás de import.meta.env.DEV, cada uma com CSS próprio.',
+      'Esta página (§6.12) e as ferramentas de dados de exemplo da tela Sobre (§6.11, D-30). Carregadas só por import dinâmico atrás de import.meta.env.DEV. Sem folha CSS própria: as classes vêm da folha Tailwind única do app (src/index.css), que só em vite serve varre src/dev (D-43).',
     position: { x: 740, y: 216 },
   },
 ]
@@ -237,7 +237,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'repositories',
     status: 'exception',
     reason:
-      'D-37 (aguardando confirmação do dono): só os componentes de domínio de src/components/<entidade>/ usam repositórios — useTagForm (createTag/updateTag), TransactionForm (useTags) e useTransactionForm (createTransaction/updateTransaction). src/components/ui/ nunca importa repositories (proibição por caminho, também no scanner). Uma pasta de entidade nova precisa entrar em onlySources.',
+      'D-37 (confirmada em 21/10/2026): só os componentes de domínio de src/components/<entidade>/ usam repositórios — useTagForm (createTag/updateTag), TransactionForm (useTags) e useTransactionForm (createTransaction/updateTransaction). src/components/ui/ nunca importa repositories (proibição por caminho, também no scanner). Uma pasta de entidade nova precisa entrar em onlySources.',
     onlySources: ['src/components/tags/', 'src/components/transactions/'],
   },
   {
@@ -337,7 +337,7 @@ export const FORBIDDEN_DEPENDENCIES: readonly ForbiddenDependency[] = [
     to: 'features',
     rule: 'D-37',
     reason:
-      'Nada de src/components conhece features: nem os primitivos de components/ui nem os componentes de domínio de components/<entidade> (D-37, aguardando confirmação; antes era a regra de "Qualidade de código").',
+      'Nada de src/components conhece features: nem os primitivos de components/ui nem os componentes de domínio de components/<entidade> (D-37, confirmada em 21/10/2026; antes era a regra de "Qualidade de código").',
     inDiagram: true,
   },
   {
@@ -401,12 +401,14 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
       'CA-02.2',
       'CA-02.3',
       'CA-02.4',
-      'D-03',
       'D-38',
       'D-39',
+      'D-40',
+      'D-41',
+      'D-42',
     ],
     description:
-      'Fase 4. Única tela fora do React.lazy (vai no pacote principal — RNF-02; ver o achado do bundle de 596 kB). HomePage (useToday) compõe, de cima para baixo: BalanceSummary (saldo geral só com data ≤ hoje — D-03, em destaque; "Saldo de outubro de 2026" com entradas e saídas do mês, inclusive datas futuras do mês — CA-02.3; valores com SignedAmount — CA-02.1), a seção "Novo lançamento" com o TransactionForm rápido (Saída/Entrada, valor, data, tag, descrição e "Lançar" — CA-01.1; atalho de criar tag sem perder o digitado — CA-01.7; Toast "Lançamento salvo" — D-38(b)) e RecentTransactions (os 5 mais recentes por data e criação — D-38(e)/D-39, TransactionRow com link para /lancamentos/:id, ou EmptyState; link "Ver todos" para /lancamentos). Tudo por useLiveQuery: um lançamento novo atualiza saldos e lista sem recarregar (CA-02.4). Pendências recorrentes (item 4 do RF-02) entram na Fase 9. Tabelas: transactions (leitura e escrita) e tags (leitura; escrita pelo atalho de criar tag).',
+      'Fase 4. Única tela fora do React.lazy (vai no pacote principal — RNF-02; ver o achado do bundle de 596 kB, decidido pela D-41). HomePage (useToday) compõe, de cima para baixo: BalanceSummary (saldo geral com todos os lançamentos, inclusive os futuros — D-42, em destaque; "Saldo de outubro de 2026" com entradas e saídas do mês, inclusive datas futuras do mês — CA-02.3; valores com SignedAmount — CA-02.1), a seção "Novo lançamento" com o TransactionForm rápido (Saída/Entrada, valor, data, tag, descrição e "Lançar" — CA-01.1; atalho de criar tag sem perder o digitado — CA-01.7; Toast "Lançamento salvo" — D-38(b)) e RecentTransactions (recebe today; os 5 mais recentes com data até hoje, por data e criação — D-40/D-39, TransactionRow com link para /lancamentos/:id, ou EmptyState; link "Ver todos" para /lancamentos). Tudo por useLiveQuery: um lançamento novo atualiza saldos e lista sem recarregar (CA-02.4). Pendências recorrentes (item 4 do RF-02) entram na Fase 9. Tabelas: transactions (leitura e escrita) e tags (leitura; escrita pelo atalho de criar tag).',
     contentPhase: 4,
   },
   {
@@ -557,7 +559,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'SampleDataTools',
-    note: 'Somente DEV (D-30): carregado com lazy() dentro de Suspense fallback null, só quando import.meta.env.DEV. Estado (isBusy, message) em useSampleDataTools; CSS próprio (sampleData.css).',
+    note: 'Somente DEV (D-30): carregado com lazy() dentro de Suspense fallback null, só quando import.meta.env.DEV. Estado (isBusy, message) em useSampleDataTools. Sem CSS próprio desde a D-43: usa a folha Tailwind única do app.',
   },
   {
     component: 'Suspense',
@@ -666,11 +668,11 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'BalanceSummary',
-    note: 'Fase 4 (RF-02 itens 1 e 2): recebe today do HomePage; lê useOverallBalance(today) e useMonthTotals(periodOf(today)); "—" enquanto carrega (sem R$ 0,00 falso); título "Saldo de {formatMonthLabel}" (D-38(f)).',
+    note: 'Fase 4 (RF-02 itens 1 e 2): recebe today do HomePage; lê useOverallBalance() (sem today: todos os lançamentos — D-42) e useMonthTotals(periodOf(today)); "—" enquanto carrega (sem R$ 0,00 falso); título "Saldo de {formatMonthLabel}" (D-38(f)).',
   },
   {
     component: 'RecentTransactions',
-    note: 'Fase 4 (RF-02 item 5): useRecentTransactions(5) + useTags (Map por id); EmptyState só depois da resposta (não pisca); lista de TransactionRow; link "Ver todos" (Link do react-router, 44 px).',
+    note: 'Fase 4 (RF-02 item 5, D-40): recebe today do HomePage; useRecentTransactions(today, 5) (só datas até hoje) + useTags (Map por id); EmptyState só depois da resposta (não pisca); lista de TransactionRow; link "Ver todos" (Link do react-router, 44 px).',
   },
   {
     component: 'TransactionRow',
@@ -715,7 +717,7 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '/',
     stateAndData:
-      'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary. Dados por useLiveQuery: useOverallBalance(today) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(5) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4).',
+      'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary e ao RecentTransactions. Dados por useLiveQuery: useOverallBalance() (sem today — D-42) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(today, 5) (D-40) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4).',
   },
   {
     route: '/lancamentos/novo',
@@ -1275,7 +1277,8 @@ export const FLOWS: readonly Flow[] = [
         label: 'ArchitecturePage',
         module: 'src/dev/architecture/ArchitecturePage.tsx',
       },
-      { id: 'css', label: 'architecture.css', module: 'src/dev/architecture/architecture.css' },
+      { id: 'css', label: 'index.css (folha única)', module: 'src/index.css' },
+      { id: 'vite', label: 'vite.config.ts', module: 'vite.config.ts' },
       { id: 'model', label: 'model.ts', module: 'src/dev/architecture/model.ts' },
     ],
     steps: [
@@ -1304,13 +1307,22 @@ export const FLOWS: readonly Flow[] = [
         kind: 'call',
       },
       {
-        from: 'page',
-        to: 'css',
-        label: "import './architecture.css'",
+        from: 'css',
+        to: 'vite',
+        label: "@import '@tailwind-sources'",
         detail:
-          "CSS próprio da página: @import 'tailwindcss' source(none) + @source './' (varre só src/dev/architecture) + src/styles/utilities.css. O CSS do app tem @source not './dev', então nenhuma classe desta página entra no CSS de produção.",
-        refs: ['D-17'],
+          'A página não importa CSS próprio (D-43): usa a folha Tailwind única do app, src/index.css. O alias @tailwind-sources do vite.config.ts aponta, em vite serve, para src/styles/tailwind-sources.serve.css (sem @source: a detecção automática varre src/dev e gera as classes desta página).',
+        refs: ['D-43'],
         kind: 'call',
+      },
+      {
+        from: 'vite',
+        to: 'css',
+        label: 'build: tailwind-sources.build.css',
+        detail:
+          "Em vite build o mesmo alias aponta para src/styles/tailwind-sources.build.css (@source not '../dev'): nenhuma classe desta página entra no CSS do dist/ (§6.12). O teste src/styles/tailwindEntry.test.ts impede uma segunda folha com @import 'tailwindcss'.",
+        refs: ['D-17', 'D-43'],
+        kind: 'return',
       },
       {
         from: 'page',
@@ -2033,7 +2045,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'tools',
         label: 'lazy(import()) só em DEV',
         detail:
-          'loadSampleDataTools(): guard import.meta.env.DEV antes do import dinâmico; em produção vira código morto e src/dev não entra no dist/. Suspense fallback null; CSS próprio (sampleData.css).',
+          'loadSampleDataTools(): guard import.meta.env.DEV antes do import dinâmico; em produção vira código morto e src/dev não entra no dist/. Suspense fallback null; sem CSS próprio (folha Tailwind única do app — D-43).',
         refs: ['D-30'],
         kind: 'call',
       },
@@ -2832,7 +2844,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'home',
         label: 'useLiveQuery reemite',
         detail:
-          'useOverallBalance, useMonthTotals e useRecentTransactions(5) observam a tabela transactions e se atualizam sem recarregar.',
+          'useOverallBalance, useMonthTotals e useRecentTransactions(today, 5) observam a tabela transactions e se atualizam sem recarregar.',
         refs: ['CA-02.4'],
         kind: 'event',
       },
@@ -3173,8 +3185,8 @@ export const FLOWS: readonly Flow[] = [
     id: 'home-balances',
     title: 'Saldos do Início (geral e do mês)',
     summary:
-      'HomePage lê today de useToday e o passa ao BalanceSummary. O saldo geral soma só datas ≤ hoje (D-03): where("date").belowOrEqual(today).toArray() + overallBalance do domínio (um getAll() nativo, mais rápido que um cursor each() com 10.000 lançamentos — D-39, RNF-02). O saldo do mês usa where("date").between(início, fim) + totals, então datas futuras do mês entram (CA-02.3). Os valores aparecem com sinal e cor (SignedAmount — CA-02.1).',
-    requirements: ['RF-02', 'CA-02.1', 'CA-02.3', 'CA-02.4', 'D-03', 'D-38', 'D-39', 'RNF-02'],
+      'HomePage lê today de useToday e o passa ao BalanceSummary. O saldo geral soma todos os lançamentos, inclusive os de data futura e todas as parcelas desde a criação (D-42), sem depender de today: db.transactions.toArray() (a tabela inteira) + overallBalance do domínio (um getAll() nativo, mais rápido que um cursor each() com 10.000 lançamentos — D-39, RNF-02). O saldo do mês usa where("date").between(início, fim) + totals, então datas futuras do mês entram (CA-02.3). Os valores aparecem com sinal e cor (SignedAmount — CA-02.1).',
+    requirements: ['RF-02', 'CA-02.1', 'CA-02.3', 'CA-02.4', 'D-38', 'D-39', 'D-42', 'RNF-02'],
     participants: [
       { id: 'home', label: 'HomePage', module: 'src/features/home/HomePage.tsx' },
       { id: 'today', label: 'useToday', module: 'src/components/ui/useToday.ts' },
@@ -3209,25 +3221,26 @@ export const FLOWS: readonly Flow[] = [
       {
         from: 'summary',
         to: 'repo',
-        label: 'useOverallBalance(today)',
-        detail: 'useLiveQuery com deps [today].',
-        refs: ['D-03'],
+        label: 'useOverallBalance()',
+        detail:
+          'useLiveQuery com deps []: não refaz a consulta na virada do dia, só quando a tabela muda.',
+        refs: ['D-42'],
         kind: 'call',
       },
       {
         from: 'repo',
         to: 'dexie',
-        label: "where('date').belowOrEqual(today).toArray()",
-        detail: 'Índice date; um getAll() nativo (D-39).',
-        refs: ['D-39', 'RNF-02'],
+        label: 'db.transactions.toArray()',
+        detail: 'A tabela inteira; um getAll() nativo (D-39).',
+        refs: ['D-39', 'D-42', 'RNF-02'],
         kind: 'call',
       },
       {
         from: 'repo',
         to: 'balances',
-        label: 'overallBalance(transactions, today)',
-        detail: 'Soma inteira em centavos (princípio 1); datas futuras ficam de fora (D-03).',
-        refs: ['D-03', 'CA-02.3'],
+        label: 'overallBalance(transactions)',
+        detail: 'Soma inteira em centavos (princípio 1); datas futuras entram (D-42).',
+        refs: ['D-42', 'CA-02.3'],
         kind: 'call',
       },
       {
@@ -3251,7 +3264,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'balances',
         label: 'between(início, fim) → totals()',
         detail:
-          'Entradas, saídas e resultado do mês, inclusive datas futuras dentro dele (CA-02.3).',
+          'Entradas, saídas e resultado só do mês corrente, inclusive datas futuras dentro dele; outros meses não o alteram (CA-02.3, D-42).',
         refs: ['CA-02.3'],
         kind: 'call',
       },
@@ -3278,14 +3291,24 @@ export const FLOWS: readonly Flow[] = [
     id: 'day-rollover',
     title: 'Virada do dia com o app aberto (CA-02.2)',
     summary:
-      'O app instalado pode ficar dias em segundo plano. useToday assina visibilitychange (document), focus e pageshow (window) com useSyncExternalStore e recalcula today() a cada evento; como o valor é uma string, só há nova renderização quando o dia muda. O novo today refaz as consultas de saldo (deps dos useLiveQuery) e o useTransactionForm troca a data do formulário só se ela ainda for a preenchida automaticamente (ref autoFilledDate) — D-38(g). Com o app em primeiro plano na meia-noite, nada muda até o próximo foco ou visibilidade (coerente com a D-38(g)).',
-    requirements: ['RF-02', 'CA-02.2', 'D-38'],
+      'O app instalado pode ficar dias em segundo plano. useToday assina visibilitychange (document), focus e pageshow (window) com useSyncExternalStore e recalcula today() a cada evento; como o valor é uma string, só há nova renderização quando o dia muda. O novo today refaz só as consultas que dependem dele — useMonthTotals(period) e useRecentTransactions(today, 5), que passa a mostrar um lançamento que era futuro (D-40); o saldo geral não depende de today (D-42) — e o useTransactionForm troca a data do formulário só se ela ainda for a preenchida automaticamente (ref autoFilledDate) — D-38(g). Com o app em primeiro plano na meia-noite, nada muda até o próximo foco ou visibilidade (coerente com a D-38(g)).',
+    requirements: ['RF-02', 'CA-02.2', 'D-38', 'D-40', 'D-42'],
     participants: [
       { id: 'browser', label: 'Navegador / iOS' },
       { id: 'today', label: 'useToday', module: 'src/components/ui/useToday.ts' },
       { id: 'dates', label: 'domain/dates (today)', module: 'src/domain/dates.ts' },
       { id: 'home', label: 'HomePage', module: 'src/features/home/HomePage.tsx' },
       { id: 'summary', label: 'BalanceSummary', module: 'src/features/home/BalanceSummary.tsx' },
+      {
+        id: 'recent',
+        label: 'RecentTransactions',
+        module: 'src/features/home/RecentTransactions.tsx',
+      },
+      {
+        id: 'repo',
+        label: 'transactionsRepository',
+        module: 'src/repositories/transactionsRepository.ts',
+      },
       {
         id: 'formHook',
         label: 'useTransactionForm',
@@ -3320,9 +3343,27 @@ export const FLOWS: readonly Flow[] = [
       {
         from: 'home',
         to: 'summary',
-        label: 'today → saldos refazem a consulta',
-        detail: 'useOverallBalance([today]) e useMonthTotals([period]) reconsultam com o novo dia.',
-        refs: ['D-03', 'D-38'],
+        label: 'today → saldo do mês',
+        detail:
+          'Só useMonthTotals([period]) reconsulta (se o mês mudou); useOverallBalance() não depende de today (D-42).',
+        refs: ['D-42', 'D-38'],
+        kind: 'call',
+      },
+      {
+        from: 'home',
+        to: 'recent',
+        label: '<RecentTransactions today>',
+        detail: 'O novo today chega por prop (D-40).',
+        refs: ['D-40'],
+        kind: 'call',
+      },
+      {
+        from: 'recent',
+        to: 'repo',
+        label: 'useRecentTransactions(today, 5)',
+        detail:
+          'useLiveQuery com deps [today, count]: belowOrEqual(today).reverse().limit(5) acha o corte, between(corte, today) relê e takeMostRecent ordena; um lançamento que era futuro passa a aparecer.',
+        refs: ['D-40', 'D-39'],
         kind: 'call',
       },
       {
@@ -3401,7 +3442,7 @@ export const TABLE_NOTES: readonly TableNote[] = [
     type: 'Transaction',
     inBackup: 'sim',
     usedFromPhase: 4,
-    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (belowOrEqual(hoje).toArray() + overallBalance — D-03), getMonthTotals (between + totals), listRecentTransactions (orderBy("date").reverse().limit(5) acha a data de corte; releitura aboveOrEqual(corte) numa transação r; ordem por takeMostRecent — D-39) e getTransaction; cada uma com hook useLiveQuery. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9).',
+    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (toArray() da tabela inteira + overallBalance — D-42), getMonthTotals (between + totals), listRecentTransactions (where("date").belowOrEqual(hoje).reverse().limit(5) acha a data de corte; releitura between(corte, hoje) numa transação r; ordem por takeMostRecent — D-39/D-40) e getTransaction; cada uma com hook useLiveQuery. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9).',
   },
   {
     name: 'recurrings',
@@ -3706,13 +3747,10 @@ export const DECISIONS: readonly DecisionInfo[] = [
   },
   {
     id: 'D-03',
-    title: 'Saldo geral só com data ≤ hoje',
-    status: 'confirmed',
-    impacts: [
-      'src/domain/balances.ts',
-      'src/repositories/transactionsRepository.ts',
-      'src/features/home/BalanceSummary.tsx',
-    ],
+    title: 'Saldo geral só com data ≤ hoje (substituída pela D-42 em 21/10/2026)',
+    status: 'superseded',
+    supersededBy: 'D-42',
+    impacts: [],
   },
   { id: 'D-04', title: 'Recorrentes mensais, sem dia fixo', status: 'confirmed', impacts: [] },
   { id: 'D-05', title: 'Pendências só no Previsto', status: 'confirmed', impacts: [] },
@@ -3852,7 +3890,8 @@ export const DECISIONS: readonly DecisionInfo[] = [
   },
   {
     id: 'D-30',
-    title: 'Ferramentas DEV de dados de exemplo (semente, substituir, apagar mantendo settings)',
+    title:
+      'Ferramentas DEV de dados de exemplo (semente, substituir, apagar mantendo settings; sem folha CSS própria — D-43)',
     status: 'confirmed',
     impacts: [
       'src/dev/sampleData/buildSampleData.ts',
@@ -3860,8 +3899,8 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/dev/sampleData/sampleDataStore.ts',
       'src/dev/sampleData/useSampleDataTools.ts',
       'src/dev/sampleData/SampleDataTools.tsx',
-      'src/dev/sampleData/sampleData.css',
       'src/features/settings/AboutPage.tsx',
+      'src/index.css',
     ],
   },
   {
@@ -3933,7 +3972,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
     id: 'D-37',
     title:
       'Componentes de domínio compartilhados em src/components/<entidade>/ (podem usar repositories); components/ui nunca importa repositories, features nem app',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'src/components/tags/TagForm.tsx',
       'src/components/tags/useTagForm.ts',
@@ -3953,8 +3992,8 @@ export const DECISIONS: readonly DecisionInfo[] = [
   {
     id: 'D-38',
     title:
-      'Telas da Fase 4: tag em chips-rádio, Toast "Lançamento salvo" no topo, edição volta à tela anterior, valor com exemplo R$ 0,00, ordem literal dos últimos (datas futuras no topo), datas DD/MM/AAAA, virada do dia por useToday, descrição em UTF-16',
-    status: 'pending',
+      'Telas da Fase 4: tag em chips-rádio, Toast "Lançamento salvo" no topo, edição volta à tela anterior, valor com exemplo R$ 0,00, datas DD/MM/AAAA (o item (e), ordem literal dos últimos, foi substituído pela D-40), virada do dia por useToday, descrição em UTF-16',
+    status: 'confirmed',
     impacts: [
       'src/components/tags/TagPicker.tsx',
       'src/components/ui/Toast.tsx',
@@ -3973,12 +4012,61 @@ export const DECISIONS: readonly DecisionInfo[] = [
     id: 'D-39',
     title:
       'Consultas da Fase 4 (saldo por toArray + domínio, mês por between, últimos 5 com data de corte e takeMostRecent, tag conferida na transação rw) e formulário só com Controller (React Compiler)',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'src/repositories/transactionsRepository.ts',
       'src/domain/transactions.ts',
       'src/components/transactions/TransactionForm.tsx',
       'src/repositories/transactionsRepository.balances.test.ts',
+    ],
+  },
+  {
+    id: 'D-40',
+    title: '"Últimos lançamentos" só com data até hoje (substitui a D-38(e))',
+    status: 'confirmed',
+    impacts: [
+      'src/repositories/transactionsRepository.ts',
+      'src/features/home/RecentTransactions.tsx',
+      'src/features/home/HomePage.tsx',
+      'src/domain/transactions.ts',
+      'src/features/home/HomePage.form.test.tsx',
+    ],
+  },
+  {
+    id: 'D-41',
+    title: 'Nenhuma otimização do bundle principal agora; medir a abertura no iPhone na Fase 11',
+    status: 'confirmed',
+    impacts: ['src/features/home/HomePage.tsx', 'src/app/lazyPages.tsx'],
+  },
+  {
+    id: 'D-42',
+    title:
+      'Saldo geral = todos os lançamentos, inclusive futuros e todas as parcelas (substitui a D-03); saldo do mês só o mês corrente',
+    status: 'confirmed',
+    impacts: [
+      'src/domain/balances.ts',
+      'src/repositories/transactionsRepository.ts',
+      'src/features/home/BalanceSummary.tsx',
+      'src/features/home/HomePage.form.test.tsx',
+      'src/repositories/transactionsRepository.balances.test.ts',
+    ],
+  },
+  {
+    id: 'D-43',
+    title:
+      'Uma única folha Tailwind (src/index.css), inclusive em DEV; fontes pelo alias @tailwind-sources (serve inclui src/dev, build exclui)',
+    status: 'pending',
+    impacts: [
+      'src/index.css',
+      'vite.config.ts',
+      'src/styles/tailwind-sources.build.css',
+      'src/styles/tailwind-sources.serve.css',
+      'src/styles/utilities.css',
+      'src/styles/tailwindEntry.test.ts',
+      'tsconfig.app.json',
+      'tsconfig.node.json',
+      'src/dev/architecture/ArchitecturePage.tsx',
+      'src/dev/sampleData/SampleDataTools.tsx',
     ],
   },
 ]
@@ -4027,9 +4115,10 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
   {
     title: 'Pacote principal com 596 kB (188,9 kB gzip): o build avisa chunk acima de 500 kB',
-    severity: 'warn',
+    severity: 'info',
     detail:
-      'Na Fase 4 o index-*.js foi de 423 kB / 135 kB gzip para 596,3 kB / 188,9 kB gzip, porque o Início (única tela fora do React.lazy — RNF-02) passou a montar o TransactionForm. Medições do revisor: zod ~23,6 kB gzip (zod/mini ~6,2 kB), react-hook-form + @hookform/resolvers ~13,3 kB, date-fns format + ptBR ~6,6 kB. O zod também chega ao caminho de abertura pelos repositórios: BalanceSummary → transactionsRepository → transactionSchema e RecentTransactions → tagsRepository → tagSchema (os repositórios validam com os schemas). Efeito colateral: o chunk TagsPage-*.js caiu para 6 kB (zod e RHF agora estão no pacote principal). Pendente de decisão do dono: o revisor recomenda medir no iPhone na Fase 11; a alternativa é carregar o formulário com lazy e separar leitura e escrita nos repositórios (as consultas de leitura não precisam do schema).',
+      'Na Fase 4 o index-*.js foi de 423 kB / 135 kB gzip para 596,3 kB / 188,9 kB gzip, porque o Início (única tela fora do React.lazy — RNF-02) passou a montar o TransactionForm. Medições do revisor: zod ~23,6 kB gzip (zod/mini ~6,2 kB), react-hook-form + @hookform/resolvers ~13,3 kB, date-fns format + ptBR ~6,6 kB. O zod também chega ao caminho de abertura pelos repositórios: BalanceSummary → transactionsRepository → transactionSchema e RecentTransactions → tagsRepository → tagSchema (os repositórios validam com os schemas). Efeito colateral: o chunk TagsPage-*.js caiu para 6 kB (zod e RHF agora estão no pacote principal). Decidido pela D-41 (21/10/2026): aguardar a Fase 11 — nenhuma otimização agora; a abertura (RNF-02) será medida no iPhone e só então se decide entre formulário lazy, separar leitura e escrita nos repositórios (as consultas de leitura não precisam do schema) ou nada.',
+    decided: 'Aguardar Fase 11 (D-41).',
     modules: [
       'src/features/home/HomePage.tsx',
       'src/components/transactions/TransactionForm.tsx',
@@ -4046,13 +4135,15 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'D-37, D-38 e D-39 aguardando confirmação do dono',
     severity: 'warn',
     detail:
-      'Registradas na §8.1 durante a Fase 4 (spec 1.14): componentes de domínio em src/components/<entidade>/ com acesso a repositórios e components/ui proibido de importar repositories/features/app (D-37); comportamento das telas — chips-rádio, Toast no topo, voltar depois de salvar/excluir, exemplo R$ 0,00, ordem literal dos últimos, DD/MM/AAAA, virada do dia, descrição em UTF-16 (D-38); consultas por índice com soma no domínio, últimos 5 com data de corte, tag conferida na transação e formulário só com Controller (D-39). A página mostra as três como "aguardando confirmação" na rastreabilidade.',
+      'Registradas na §8.1 durante a Fase 4 (spec 1.14): componentes de domínio em src/components/<entidade>/ com acesso a repositórios e components/ui proibido de importar repositories/features/app (D-37); comportamento das telas — chips-rádio, Toast no topo, voltar depois de salvar/excluir, exemplo R$ 0,00, ordem literal dos últimos, DD/MM/AAAA, virada do dia, descrição em UTF-16 (D-38); consultas por índice com soma no domínio, últimos 5 com data de corte, tag conferida na transação e formulário só com Controller (D-39). A página mostrava as três como "aguardando confirmação" na rastreabilidade.',
     modules: [
       'docs/SPEC.md',
       'src/components/transactions/TransactionForm.tsx',
       'src/components/ui/useToday.ts',
       'src/repositories/transactionsRepository.ts',
     ],
+    resolved:
+      'Confirmadas pelo dono em 21/10/2026: D-37 e D-38 na spec 1.15 (o item (e) da D-38 foi substituído pela D-40) e D-39 na spec 1.16 (texto ajustado à D-42).',
   },
   {
     title: 'D-38(e): "Últimos lançamentos" mostram datas futuras no topo',
@@ -4064,23 +4155,69 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/repositories/transactionsRepository.ts',
       'src/features/home/RecentTransactions.tsx',
     ],
+    resolved:
+      'Resolvido pela D-40 (spec 1.15, 21/10/2026): a lista só mostra datas até hoje — listRecentTransactions(today, count) usa belowOrEqual(today) para o corte e between(corte, today) na releitura; na virada do dia um lançamento que era futuro passa a aparecer.',
   },
   {
     title: 'Pendente (dono): teste manual da Fase 4',
     severity: 'warn',
     detail:
-      'Fase 4 implementada, testes reforçados (884 passando), revisão aprovada e sugestões aplicadas; falta o roteiro do iPhone da §7 (R$ 19,99 com teclado numérico; entrada de R$ 1.000,00 e saída de R$ 250,00 → +R$ 750,00 nos dois saldos; saída com data de amanhã só no saldo do mês; editar e excluir atualizam os saldos; excluir "Mercado" em uso → bloqueado com a contagem; fechar e reabrir mantém os dados e a data de hoje). Junto, reconfirmar o "Salvar" do princípio 16 nas tags (achado da Fase 3). Mover para os resolvidos quando o dono confirmar.',
+      'Fase 4 implementada, testes reforçados (884 passando), revisão aprovada e sugestões aplicadas; falta o roteiro do iPhone da §7 (R$ 19,99 com teclado numérico; entrada de R$ 1.000,00 e saída de R$ 250,00 → +R$ 750,00 nos dois saldos; saída com data de amanhã muda o saldo geral e o do mês e não aparece nos últimos lançamentos — D-42/D-40; editar e excluir atualizam os saldos; excluir "Mercado" em uso → bloqueado com a contagem; fechar e reabrir mantém os dados e a data de hoje). Junto, reconfirmar o "Salvar" do princípio 16 nas tags (achado da Fase 3). Mover para os resolvidos quando o dono confirmar.',
     modules: [
       'src/features/home/HomePage.tsx',
       'src/features/transactions/TransactionDetailPage.tsx',
       'src/repositories/transactionsRepository.ts',
     ],
+    resolved:
+      'Validado pelo dono em 21/10/2026, exceto o aviso "Lançamento salvo" (Toast) no PC com o tema escuro, que saiu ilegível em DEV e virou a correção D-43 (achados próprios abaixo). Os demais itens do roteiro, inclusive o "Salvar" das tags (princípio 16), passaram.',
+  },
+  {
+    title: 'Toast "Lançamento salvo" com fundo claro e texto branco em DEV (tema escuro)',
+    severity: 'danger',
+    detail:
+      'Teste manual da Fase 4, no PC com npm run dev e o tema escuro. Em DEV havia duas folhas Tailwind completas: src/index.css e as folhas próprias de src/dev (architecture.css e sampleData.css). Cada uma redeclarava as camadas; a folha DEV, carregada depois, fazia o .text-white vencer o .dark:text-slate-900 do app. O CSS de produção não era afetado.',
+    modules: [
+      'src/components/ui/Toast.tsx',
+      'src/index.css',
+      'vite.config.ts',
+      'src/styles/tailwind-sources.serve.css',
+      'src/styles/tailwind-sources.build.css',
+    ],
+    resolved:
+      "Corrigido em 21/10/2026 (D-43, não commitado): folha Tailwind única. src/index.css faz @import '@tailwind-sources'; o vite.config.ts aponta o alias para tailwind-sources.build.css (@source not '../dev') no build e para tailwind-sources.serve.css nos outros comandos. architecture.css e sampleData.css foram removidos; utilities.css passou a ter um único importador. O teste src/styles/tailwindEntry.test.ts falha se outro .css fizer @import 'tailwindcss'.",
+  },
+  {
+    title: 'Pendente (dono): confirmar a D-43 e revalidar o Toast no PC, tema escuro',
+    severity: 'warn',
+    detail:
+      'A D-43 (spec 1.17) aguarda confirmação do dono, junto com o ajuste da D-30 e da §6.12 ("Estilos"). Falta revalidar no PC, com npm run dev e o tema escuro, que o aviso "Lançamento salvo" aparece legível (fundo escuro do app, texto claro) e que esta página e as ferramentas de dados de exemplo continuam estilizadas. Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'docs/SPEC.md',
+      'src/components/ui/Toast.tsx',
+      'src/index.css',
+      'vite.config.ts',
+      'src/styles/tailwindEntry.test.ts',
+    ],
+  },
+  {
+    title:
+      'Testes do Início instáveis depois da D-42: esperam um saldo e conferem o resto sem esperar',
+    severity: 'warn',
+    detail:
+      'Visto em 21/10/2026 nesta atualização (não corrigido, fora do escopo da página): com a D-42 o saldo geral, o saldo do mês e os últimos lançamentos são três useLiveQuery independentes que respondem em ordens diferentes. Em HomePage.test.tsx, "saldo zero é neutro" espera só o saldo geral e lê o bloco do mês na hora (ainda "—"), e "lançar atualiza saldos e últimos lançamentos…" confere a lista dos últimos sem waitFor (veio só 1 item). Falharam na suíte completa e no arquivo isolado, alternando entre um e outro. Correção sugerida: esperar cada consulta com waitFor/findBy (como o teste novo do saldo do mês já faz).',
+    modules: [
+      'src/features/home/HomePage.test.tsx',
+      'src/features/home/BalanceSummary.tsx',
+      'src/features/home/RecentTransactions.tsx',
+    ],
+    resolved:
+      'Corrigido em 21/10/2026: cada consulta passou a ser esperada com waitFor/findBy, e as asserções negativas da D-40 só rodam depois de um marcador de hoje aparecer na lista (helper expectFutureNotListed). 5 rodadas seguidas de src/features/home e 2 da suíte completa sem falha; uma D-40 quebrada de propósito derrubou 4 testes.',
   },
   {
     title: 'useToday só percebe a virada do dia no próximo foco ou visibilidade',
     severity: 'info',
     detail:
-      'useToday recalcula "hoje" em visibilitychange, focus e pageshow (useSyncExternalStore); não há timer. Com o app aberto em primeiro plano à meia-noite, saldos e data do formulário continuam no dia anterior até o usuário sair e voltar ou o foco mudar. Coerente com a D-38(g) (aguardando confirmação); um timer até a meia-noite seria a alternativa se o dono quiser.',
+      'useToday recalcula "hoje" em visibilitychange, focus e pageshow (useSyncExternalStore); não há timer. Com o app aberto em primeiro plano à meia-noite, o saldo do mês, os últimos lançamentos e a data do formulário continuam no dia anterior até o usuário sair e voltar ou o foco mudar. Coerente com a D-38(g) (confirmada em 21/10/2026); um timer até a meia-noite seria a alternativa se o dono quiser.',
     modules: [
       'src/components/ui/useToday.ts',
       'src/components/transactions/useTransactionForm.ts',
@@ -4389,11 +4526,11 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     modules: [
       'src/index.css',
       'src/styles/utilities.css',
-      'src/dev/architecture/architecture.css',
+      'src/styles/tailwind-sources.build.css',
       'src/dev/architecture/ArchitecturePage.tsx',
     ],
     resolved:
-      "Resolvido em 17/10/2026 (não commitado): src/index.css tem @source not './dev'; a página importa o próprio src/dev/architecture/architecture.css (source(none) + @source './'); variante dark e utilitários de safe area foram para src/styles/utilities.css, importado pelos dois. CSS de produção: 39,7 kB → 12,2 kB.",
+      "Resolvido em 17/10/2026 (não commitado): src/index.css tem @source not './dev'; a página importa o próprio src/dev/architecture/architecture.css (source(none) + @source './'); variante dark e utilitários de safe area foram para src/styles/utilities.css, importado pelos dois. CSS de produção: 39,7 kB → 12,2 kB. Substituído em 21/10/2026 pela D-43: as duas folhas Tailwind completas em DEV causaram o bug do Toast; agora há uma folha única e o build exclui src/dev pelo alias @tailwind-sources (architecture.css e sampleData.css removidos).",
   },
   {
     title: 'D-21 aguardava confirmação do dono',
@@ -4444,11 +4581,11 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'index.html':
     'Script inline (único) que aplica tema e theme-color antes do bundle (CA-09.3). Duplica regras de src/lib/theme.ts; a sincronia é garantida por indexHtmlThemeScript.test.ts. Fase 1: favicon.png, apple-touch-icon e metatags do iOS (capable, status-bar-style, title "Gastos" — D-25); o <link rel="manifest" crossorigin="use-credentials"> NÃO fica aqui: é injetado no build pelo plugin (indexHtmlPwaTags.test.ts impede a duplicata).',
   'vite.config.ts':
-    'Plugins: React + React Compiler (via Babel) + Tailwind + VitePWA(PWA_OPTIONS) (importado de src/app/pwa/pwaOptions.ts por caminho relativo). Alias @/ → src/. Vitest no mesmo arquivo (jsdom, setup, cobertura ≥ 90% em domain/lib). Fase 2: define { __APP_VERSION__ } com o version do package.json (D-27), que vale também nos testes.',
+    'Plugins: React + React Compiler (via Babel) + Tailwind + VitePWA(PWA_OPTIONS) (importado de src/app/pwa/pwaOptions.ts por caminho relativo). Alias @/ → src/. Desde a D-43 é defineConfig(({ command }) => ...) e o alias @tailwind-sources aponta para src/styles/tailwind-sources.build.css quando command === "build" e para tailwind-sources.serve.css nos outros casos. Vitest no mesmo arquivo (jsdom, setup, cobertura ≥ 90% em domain/lib). Fase 2: define { __APP_VERSION__ } com o version do package.json (D-27), que vale também nos testes.',
   'tsconfig.node.json':
-    'Inclui vite.config.ts e src/app/pwa/pwaOptions.ts (Fase 1), com allowImportingTsExtensions para o import relativo com .ts.',
+    'Inclui vite.config.ts e src/app/pwa/pwaOptions.ts (Fase 1) e, desde a D-43, src/styles/tailwindEntry.test.ts (lê o disco com node:fs), com allowImportingTsExtensions para o import relativo com .ts.',
   'tsconfig.app.json':
-    'types: vite/client e vite-plugin-pwa/vanillajs (tipos do módulo virtual:pwa-register — Fase 1).',
+    'types: vite/client e vite-plugin-pwa/vanillajs (tipos do módulo virtual:pwa-register — Fase 1). D-43: exclude de src/styles/tailwindEntry.test.ts (tipado pelo tsconfig.node.json).',
   'scripts/generate-icons.mjs':
     'Gera os 5 PNGs provisórios de public/ montando o PNG à mão com zlib (só módulos nativos do Node — D-25). Símbolo de três barras sobre o azul blue-600; o maskable usa escala menor para caber na área segura de 80%. Rodar à mão: node scripts/generate-icons.mjs (não faz parte do build).',
   'src/main.tsx':
@@ -4476,9 +4613,9 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/displayMode.ts':
     'Regra pura do modo instalado + a constante da media query (reusada pelo dublê src/test/matchMedia.ts).',
   'src/styles/utilities.css':
-    'Variante dark e utilitários de safe area, compartilhados com a página DEV. Fase 1: pb-below-nav soma var(--update-notice-space, 0px); reserve-update-notice define esse espaço; bottom-above-nav posiciona o aviso logo acima da barra. Fase 3: max-h-dialog (100dvh menos 2rem e as safe areas de cima e de baixo) para o Modal.',
+    'Variante dark e utilitários de safe area. Desde a D-43 tem um único importador, src/index.css (antes também era importado pelas folhas DEV, hoje removidas). Fase 1: pb-below-nav soma var(--update-notice-space, 0px); reserve-update-notice define esse espaço; bottom-above-nav posiciona o aviso logo acima da barra. Fase 3: max-h-dialog (100dvh menos 2rem e as safe areas de cima e de baixo) para o Modal.',
   'src/index.css':
-    "Tailwind + utilities.css, @source not './dev'. Variáveis --bottom-nav-height e --update-notice-height (Fase 1) como fonte única das alturas. Fase 4: scroll-margin-top/bottom em input/select/textarea, para o campo em foco (teclado do iPhone) não ficar atrás da barra inferior nem do topo com safe area (princípio 10).",
+    "Única folha Tailwind do projeto (D-43): @import 'tailwindcss' + utilities.css + @import '@tailwind-sources' (alias do vite.config.ts: no build, tailwind-sources.build.css com @source not '../dev'; em vite serve, tailwind-sources.serve.css sem @source, então as páginas DEV usam esta mesma folha). Variáveis --bottom-nav-height e --update-notice-height (Fase 1) como fonte única das alturas. Fase 4: scroll-margin-top/bottom em input/select/textarea, para o campo em foco (teclado do iPhone) não ficar atrás da barra inferior nem do topo com safe area (princípio 10).",
   'src/app/App.tsx':
     'Cria o router uma vez no nível do módulo e põe o ThemeProvider por fora do RouterProvider (o tema vale também para rotas fora do layout, como esta página). Fase 2: chama usePersistentStorageRequest() no corpo, para o pedido de persist() valer em qualquer rota (CA-11.4).',
   'src/app/routes.tsx':
@@ -4515,7 +4652,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/domain/dates.ts':
     'Datas sem fuso (princípio 2) com parseISO do date-fns; semana de segunda (weekStartsOn: 1). Testes de calendário (bissextos, virada de ano) e de fuso (dates.timezone.test.ts). Fase 4: isValidDate (usada pelo transactionSchema); formatShortDate ("19/10/2026" só rearranjando o texto, sem date-fns, com checagem aritmética do calendário — rápida em listas, D-38(f)); formatMonthLabel ("outubro de 2026" com um Intl.DateTimeFormat em UTC criado no nível do módulo e Date.UTC, independente do fuso do aparelho). Testes em dates.format.test.ts e dates.format.timezone.test.ts (melhorias da revisão).',
   'src/domain/balances.ts':
-    'totals, overallBalance (date ≤ hoje — D-03), groupByDay/Month/Tag (Map — D-29) e runningBalance. Fase 4: signedAmount exportado (CA-02.1, usado pelo TransactionRow; teste em balances.signedAmount.test.ts); overallBalance e totals usados pelo transactionsRepository. groupBy*/runningBalance esperam as Fases 7 e 8. Teste de propriedade em balances.properties.test.ts.',
+    'totals, overallBalance (todos os lançamentos, inclusive os futuros, sem today — D-42), groupByDay/Month/Tag (Map — D-29) e runningBalance. Fase 4: signedAmount exportado (CA-02.1, usado pelo TransactionRow; teste em balances.signedAmount.test.ts); overallBalance e totals usados pelo transactionsRepository. groupBy*/runningBalance esperam as Fases 7 e 8. Teste de propriedade em balances.properties.test.ts.',
   'src/domain/tagColor.ts':
     'readableTextColor pela luminância relativa (WCAG). Desde a Fase 3 usado pelo TagChip (CA-03.6) e pela paleta do TagColorPicker; tags.test.ts confere o contraste AA das 12 cores da D-32.',
   'src/repositories/settingsRepository.ts':
@@ -4554,8 +4691,16 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     'replaceWithSampleData e clearAllData numa transação sobre as 4 tabelas de dados; mantém settings (D-30).',
   'src/dev/sampleData/useSampleDataTools.ts':
     'Importa o db (exceção ao princípio 7 — D-30), pede window.confirm e mostra a mensagem do resultado.',
-  'src/dev/sampleData/sampleData.css':
-    "CSS próprio das ferramentas DEV: @import 'tailwindcss' source(none) + @source './' + utilities.css. Nada vai para o CSS de produção.",
+  'src/styles/tailwind-sources.build.css':
+    "D-43: fontes do Tailwind no vite build, escolhido pelo alias @tailwind-sources. Só @source not '../dev': nenhuma classe de src/dev entra no CSS do dist/ (§6.12).",
+  'src/styles/tailwind-sources.serve.css':
+    'D-43: fontes do Tailwind em vite serve (npm run dev). Sem @source: a detecção automática já varre src/ inteiro, inclusive src/dev, e as páginas DEV usam a folha única do app.',
+  'src/styles/tailwindEntry.test.ts':
+    "D-43: lê src/ com node:fs e falha se outro .css além de src/index.css fizer @import 'tailwindcss'. Tipado pelo tsconfig.node.json e excluído do tsconfig.app.json.",
+  'src/dev/architecture/ArchitecturePage.tsx':
+    'Página DEV (§6.12), carregada por React.lazy em src/app/devRoutes.tsx. Sem CSS próprio desde a D-43 (architecture.css removido): as classes vêm da folha Tailwind única, src/index.css, que só em vite serve varre src/dev.',
+  'src/dev/sampleData/SampleDataTools.tsx':
+    'Ferramentas DEV de dados de exemplo (D-30), carregadas com lazy() em Ajustes → Sobre. Sem CSS próprio desde a D-43 (sampleData.css removido).',
   'src/test/themeReference.ts':
     'parseStoredThemePreference: referência da regra do script inline do index.html (veio de lib/theme na revisão da Fase 2).',
   'src/test/factories.ts':
@@ -4604,11 +4749,11 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/formSubmit.ts':
     'Princípio 16 / D-36 (spec 1.13): padrão de todos os formulários com React Hook Form. LIVE_VALIDATION = { mode: "onChange" } (erro do campo aparece enquanto digita) e canSubmitForm({ isValid, isSubmitting }) = isValid && !isSubmitting (botão de envio só ativo com o formulário válido e fora do envio). Só tipos do react-hook-form (import type): nenhum código do pacote entra pelo lib. Opção startsValid: formulário de edição que abre com dados válidos já começa com o botão ativo (o RHF só calcula isValid depois da 1ª renderização). Usado por useTagForm e, desde a Fase 4, por useTransactionForm; obrigatório nos formulários das fases seguintes.',
   'src/repositories/transactionsRepository.ts':
-    'Fase 4 (RF-01/RF-02, D-39). Escrita: createTransaction e updateTransaction validam com transactionInputSchema.parse e gravam numa transação rw [tags, transactions] com assertTagExists (a tag não some entre a checagem e a gravação; deleteTag conta na mesma tabela — D-01/D-02); deleteTransaction simples. Leitura pelo índice date: getOverallBalance (belowOrEqual(hoje).toArray() + overallBalance — um getAll() nativo, mais rápido que each() — D-03, RNF-02), getMonthTotals (between + totals), listRecentTransactions (data de corte por orderBy("date").reverse().limit(n) + releitura aboveOrEqual(corte) numa transação r; ordem por takeMostRecent) e getTransaction. Hooks useOverallBalance, useMonthTotals, useRecentTransactions e useTransaction (useLiveQuery, null para inexistente). Erros: TransactionNotFoundError e TransactionTagNotFoundError.',
+    'Fase 4 (RF-01/RF-02, D-39). Escrita: createTransaction e updateTransaction validam com transactionInputSchema.parse e gravam numa transação rw [tags, transactions] com assertTagExists (a tag não some entre a checagem e a gravação; deleteTag conta na mesma tabela — D-01/D-02); deleteTransaction simples. Leitura pelo índice date: getOverallBalance() (toArray() da tabela inteira + overallBalance — um getAll() nativo, mais rápido que each() — D-42, RNF-02), getMonthTotals (between + totals), listRecentTransactions(today, count) (data de corte por where("date").belowOrEqual(today).reverse().limit(n) + releitura between(corte, today) numa transação r; ordem por takeMostRecent — D-40) e getTransaction. Hooks useOverallBalance, useMonthTotals, useRecentTransactions e useTransaction (useLiveQuery, null para inexistente). Erros: TransactionNotFoundError e TransactionTagNotFoundError.',
   'src/domain/transactionSchema.ts':
     'Fase 4 (RF-01): transactionInputSchema (zod) — tipo income|expense, amountCents inteiro de 1 a MAX_AMOUNT_CENTS, data YYYY-MM-DD existente (isValidDate), tagId não vazio, descrição com trim e 1 a DESCRIPTION_MAX_LENGTH = 100 unidades UTF-16 (D-10, D-38(h)); mensagens em pt-BR. TransactionInput (z.input) e TransactionValues (z.output). Separado das funções puras como o tagSchema; usado pelo formulário e pelo repositório.',
   'src/domain/transactions.ts':
-    'Fase 4 (RF-02 item 5, D-39): compareByRecency (data, createdAt e id, comparados como texto) e takeMostRecent (toSorted + slice, sem alterar a lista original).',
+    'Fase 4 (RF-02 item 5, D-39): compareByRecency (data, createdAt e id, comparados como texto) e takeMostRecent (toSorted + slice, sem alterar a lista original). O corte por data até hoje (D-40) fica na consulta do repositório, pelo índice date.',
   'src/components/ui/MoneyInput.tsx':
     'Fase 4 (CA-01.3/01.4, D-31, D-38(d)): máscara de app de banco — o valor sai sempre do texto inteiro (só dígitos, sem zeros à esquerda → digitsToCents), então colar ou substituir a seleção dá resultado coerente; inputMode="numeric", placeholder "R$ 0,00", alinhado à direita, cursor no fim. Liga-se ao Field por useFieldControl. Testado em MoneyInput.test.tsx.',
   'src/components/ui/DateInput.tsx':
@@ -4645,11 +4790,11 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/transactions/transactionTexts.ts':
     'Fase 4: textos pt-BR do formulário de lançamento ("Lançamento salvo", falhas, lançamento/tag inexistente, aviso sem tags).',
   'src/features/home/HomePage.tsx':
-    'Fase 4 (RF-02): Page com BalanceSummary (today de useToday), seção "Novo lançamento" com TransactionForm e RecentTransactions. Única tela fora do React.lazy.',
+    'Fase 4 (RF-02): Page com BalanceSummary (today de useToday), seção "Novo lançamento" com TransactionForm e RecentTransactions (today — D-40). Única tela fora do React.lazy (bundle decidido pela D-41).',
   'src/features/home/BalanceSummary.tsx':
-    'Fase 4 (RF-02 itens 1–2, D-03, CA-02.3): useOverallBalance(today) e useMonthTotals(periodOf(today)); "—" enquanto carrega; título com formatMonthLabel.',
+    'Fase 4 (RF-02 itens 1–2, D-42, CA-02.3): useOverallBalance() (sem today) e useMonthTotals(periodOf(today)); "—" enquanto carrega; título com formatMonthLabel.',
   'src/features/home/RecentTransactions.tsx':
-    'Fase 4 (RF-02 item 5): useRecentTransactions(RECENT_TRANSACTIONS_COUNT) + useTags; TransactionRow ou EmptyState; link "Ver todos" para /lancamentos.',
+    'Fase 4 (RF-02 item 5, D-40): prop today (do useToday do HomePage); useRecentTransactions(today, RECENT_TRANSACTIONS_COUNT) + useTags; TransactionRow ou EmptyState; link "Ver todos" para /lancamentos.',
   'src/features/home/homeTexts.ts': 'RECENT_TRANSACTIONS_COUNT = 5 e a mensagem da lista vazia.',
   'src/features/transactions/NewTransactionPage.tsx':
     'Fase 4: Page + BackLink (fallback /lancamentos) + TransactionForm. Parcelado na Fase 10.',

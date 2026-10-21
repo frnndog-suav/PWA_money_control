@@ -38,12 +38,10 @@ export function totals(transactions: readonly Transaction[]): Totals {
   return transactions.reduce(accumulate, { ...EMPTY_TOTALS })
 }
 
-/** D-03 / CA-02.3 — saldo geral: só lançamentos com data até hoje (inclusive). */
-export function overallBalance(transactions: readonly Transaction[], today: DateString): Cents {
-  // Strings YYYY-MM-DD comparadas como texto seguem a ordem cronológica.
+/** D-42 / CA-02.3 — saldo geral: todos os lançamentos, inclusive os com data futura. */
+export function overallBalance(transactions: readonly Transaction[]): Cents {
   return transactions.reduce(
-    (balance, transaction) =>
-      transaction.date <= today ? addCents(balance, signedAmount(transaction)) : balance,
+    (balance, transaction) => addCents(balance, signedAmount(transaction)),
     0,
   )
 }

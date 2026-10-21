@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import '@/dev/architecture/architecture.css'
 import { Badge } from '@/dev/architecture/components/Badge'
 import { CompositionSection } from '@/dev/architecture/components/CompositionSection'
 import { DataModelSection } from '@/dev/architecture/components/DataModelSection'

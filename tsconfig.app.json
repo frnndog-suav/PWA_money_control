@@ -28,5 +28,7 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  // Teste que lê o disco com node:fs: tipado pelo tsconfig.node.json (D-43).
+  "exclude": ["src/styles/tailwindEntry.test.ts"]
 }

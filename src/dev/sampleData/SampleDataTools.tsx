@@ -1,4 +1,3 @@
-import '@/dev/sampleData/sampleData.css'
 import { useSampleDataTools } from '@/dev/sampleData/useSampleDataTools'
 
 const BUTTON_BASE = 'min-h-11 rounded-lg px-4 font-semibold disabled:opacity-50'

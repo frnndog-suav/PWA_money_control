@@ -24,7 +24,7 @@ const text = (value: string) => value.replace(/\s/g, ' ')
 
 const TODAY = today()
 const TOMORROW = format(addDays(parseISO(TODAY), 1), 'yyyy-MM-dd')
-const NEXT_MONTH = addMonthsClamped(TODAY, 1)
+const PREVIOUS_MONTH = addMonthsClamped(TODAY, -1)
 
 async function openHome() {
   const router = renderApp(['/'])
@@ -58,7 +58,10 @@ describe('HomePage (RF-02)', () => {
     await openHome()
 
     await waitFor(() => expect(overallBalanceText()).toContain(formatSignedBRL(0)))
-    expect(within(monthBalanceBlock()).getAllByText(text(formatSignedBRL(0)))).toHaveLength(3)
+    // Cada saldo tem a sua consulta ao vivo: o do mês pode chegar depois do geral.
+    await waitFor(() =>
+      expect(within(monthBalanceBlock()).getAllByText(text(formatSignedBRL(0)))).toHaveLength(3),
+    )
     expect(await screen.findByText(/Nenhum lançamento ainda/)).toBeDefined()
     expect(screen.getByRole('link', { name: 'Ver todos' }).getAttribute('href')).toBe(
       '/lancamentos',
@@ -104,11 +107,16 @@ describe('HomePage (RF-02)', () => {
     await submit('Lançar')
 
     await waitFor(() => expect(overallBalanceText()).toContain(formatSignedBRL(75000)))
+    // Cada saldo tem a sua consulta ao vivo: espera também a do mês.
+    await waitFor(() =>
+      expect(within(monthBalanceBlock()).getByText(text(formatSignedBRL(75000)))).toBeDefined(),
+    )
     const month = monthBalanceBlock()
-    expect(within(month).getByText(text(formatSignedBRL(75000)))).toBeDefined()
     expect(within(month).getByText(text(formatBRL(100000)))).toBeDefined()
     expect(within(month).getByText(text(formatBRL(25000)))).toBeDefined()
 
+    // A lista também é uma consulta ao vivo à parte.
+    await waitFor(() => expect(within(recentList()).getAllByRole('link')).toHaveLength(2))
     const items = within(recentList()).getAllByRole('link')
     expect(items.map((item) => item.textContent)).toEqual([
       expect.stringContaining('Feira'),
@@ -117,7 +125,8 @@ describe('HomePage (RF-02)', () => {
     expect(items[0].textContent).toContain(formatSignedBRL(-25000))
     expect(items[0].textContent).toContain(TODAY.split('-').reverse().join('/'))
 
-    // Roteiro, item 3 — saída amanhã: muda o saldo do mês, não o saldo geral (D-03).
+    // Roteiro, item 3 — saída amanhã: muda o saldo geral (CA-02.3 / D-42) e o do mês (se amanhã
+    // for no mês corrente), e não entra em "Últimos lançamentos" (RF-02 / D-40).
     await fillTransactionForm({ digits: '8000', tag: 'Mercado', description: 'Padaria' })
     fireEvent.change(dateInput(), { target: { value: TOMORROW } })
     await submit('Lançar')
@@ -127,10 +136,18 @@ describe('HomePage (RF-02)', () => {
         expect(within(monthBalanceBlock()).getByText(text(formatSignedBRL(67000)))).toBeDefined(),
       )
     }
-    await waitFor(() => expect(within(recentList()).getAllByRole('link')).toHaveLength(3))
-    expect(overallBalanceText()).toContain(formatSignedBRL(75000))
+    await waitFor(() => expect(overallBalanceText()).toContain(formatSignedBRL(67000)))
+    await waitFor(() => expect(descriptionInput().value).toBe(''))
     // A data escolhida (amanhã) continua no formulário para o próximo lançamento.
     expect(dateInput().value).toBe(TOMORROW)
+
+    // D-40 — lança um item de hoje e espera vê-lo na lista: essa releitura já enxerga a Padaria,
+    // então a ausência dela prova a regra (e não só uma lista ainda não relida).
+    await fillTransactionForm({ digits: '100', date: TODAY, tag: 'Mercado', description: 'Pão' })
+    await submit('Lançar')
+    await within(recentList()).findByText(/Pão/)
+    expect(within(recentList()).getAllByRole('link')).toHaveLength(3)
+    expect(within(recentList()).queryByText(/Padaria/)).toBeNull()
   })
 
   // CA-02.1 — positivo verde, negativo vermelho, zero neutro; o sinal sempre no texto.
@@ -146,7 +163,8 @@ describe('HomePage (RF-02)', () => {
     await createTransaction({
       type: 'income',
       amountCents: 12000,
-      date: NEXT_MONTH,
+      // Mês passado: aparece nos últimos lançamentos (D-40) e fica fora do saldo do mês.
+      date: PREVIOUS_MONTH,
       tagId: market.id,
       description: 'Reembolso',
     })
@@ -164,7 +182,8 @@ describe('HomePage (RF-02)', () => {
   it('saldo zero é neutro (sem verde nem vermelho)', async () => {
     await openHome()
     await waitFor(() => expect(overallBalanceText()).toContain(formatSignedBRL(0)))
-    const [zero] = within(monthBalanceBlock()).getAllByText(text(formatSignedBRL(0)))
+    // O saldo do mês vem de outra consulta ao vivo: espera por ele também.
+    const [zero] = await within(monthBalanceBlock()).findAllByText(text(formatSignedBRL(0)))
     expect(zero.className).not.toMatch(/text-(green|red)/)
   })
 

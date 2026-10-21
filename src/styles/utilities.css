@@ -1,5 +1,5 @@
-/* Variante e utilitários próprios compartilhados entre o CSS do app (src/index.css)
-   e o CSS da página DEV de arquitetura (src/dev/architecture/architecture.css). */
+/* Variante e utilitários próprios, importados uma única vez pela folha Tailwind do app
+   (src/index.css), que em DEV também gera as classes das páginas de src/dev (D-43). */
 
 /* §6.1 / RF-09 — tema escuro pela classe `dark` no <html>, aplicada pelo script inline
    do index.html e depois pelo ThemeProvider. */
