@@ -151,7 +151,7 @@ export function formatShortDate(date: DateString): string {
   return `${date.slice(8, 10)}/${date.slice(5, 7)}/${date.slice(0, 4)}`
 }
 
-// Criado uma vez (RNF-02). Em UTC, com a data montada por Date.UTC a partir dos números: o
+// Formatadores criados uma vez (RNF-02). Em UTC, com a data montada a partir dos números: o
 // resultado não depende do fuso do aparelho, nem de o fuso mudar depois de o módulo carregar.
 const monthLabelFormatter = new Intl.DateTimeFormat('pt-BR', {
   month: 'long',
@@ -159,8 +159,33 @@ const monthLabelFormatter = new Intl.DateTimeFormat('pt-BR', {
   timeZone: 'UTC',
 })
 
+const longDateFormatter = new Intl.DateTimeFormat('pt-BR', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+})
+
+/** Meia-noite UTC do dia informado (mês de 1 a 12), só para formatar com os formatadores em UTC. */
+function toUtcDate(year: number, month: number, day: number): Date {
+  const date = new Date(0)
+  // setUTCFullYear, e não Date.UTC, porque o Date.UTC trata os anos 0 a 99 como 1900 a 1999.
+  date.setUTCFullYear(year, month - 1, day)
+  return date
+}
+
 /** `'2026-10'` → `'outubro de 2026'` (pt-BR). */
 export function formatMonthLabel(period: PeriodString): string {
   const { year, month } = parsePeriod(period)
-  return monthLabelFormatter.format(new Date(Date.UTC(year, month - 1, 1)))
+  return monthLabelFormatter.format(toUtcDate(year, month, 1))
+}
+
+/** CA-04.1 — `'2026-10-20'` → `'terça-feira, 20 de outubro de 2026'` (pt-BR). */
+export function formatLongDate(date: DateString): string {
+  if (!isCalendarDateString(date)) throw new RangeError(`Data inválida: ${date}`)
+  const year = Number(date.slice(0, 4))
+  const month = Number(date.slice(5, 7))
+  const day = Number(date.slice(8, 10))
+  return longDateFormatter.format(toUtcDate(year, month, day))
 }

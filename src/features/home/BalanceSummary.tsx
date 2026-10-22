@@ -1,6 +1,6 @@
+import { IncomeExpenseTotals } from '@/components/transactions/IncomeExpenseTotals'
 import { SignedAmount } from '@/components/ui/SignedAmount'
 import { formatMonthLabel, periodOf } from '@/domain/dates'
-import { formatBRL } from '@/domain/money'
 import type { DateString } from '@/domain/types'
 import { useMonthTotals, useOverallBalance } from '@/repositories/transactionsRepository'
 
@@ -34,16 +34,7 @@ export function BalanceSummary({ today }: BalanceSummaryProps) {
         </h2>
         <p>{month ? <SignedAmount cents={month.resultCents} size="md" /> : LOADING}</p>
         {month && (
-          <dl className="flex flex-wrap gap-x-4 text-sm text-slate-600 dark:text-slate-300">
-            <div className="flex gap-1">
-              <dt>Entradas</dt>
-              <dd className="tabular-nums">{formatBRL(month.incomeCents)}</dd>
-            </div>
-            <div className="flex gap-1">
-              <dt>Saídas</dt>
-              <dd className="tabular-nums">{formatBRL(month.expenseCents)}</dd>
-            </div>
-          </dl>
+          <IncomeExpenseTotals incomeCents={month.incomeCents} expenseCents={month.expenseCents} />
         )}
       </div>
     </section>

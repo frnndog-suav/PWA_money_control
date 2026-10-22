@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { compareByRecency, takeMostRecent } from '@/domain/transactions'
+import { compareByRecency, sortByRecency, takeMostRecent } from '@/domain/transactions'
 import type { Transaction } from '@/domain/types'
 import { makeTransaction } from '@/test/factories'
 import { createTestRandom } from '@/test/propertyHelpers'
@@ -80,5 +80,20 @@ describe('compareByRecency — simetria e propriedade', () => {
       const expected = list.map(key).toSorted().toReversed().slice(0, count)
       expect(takeMostRecent(list, count).map(key)).toEqual(expected)
     }
+  })
+})
+
+// RF-04 / CA-04.1 — ordem da lista: a mesma da tela inicial, com todos os itens.
+describe('sortByRecency', () => {
+  it('ordena todos, do mais recente para o mais antigo, sem alterar a original', () => {
+    const items = [
+      makeTransaction({ date: '2026-10-01' }),
+      makeTransaction({ date: '2026-11-15' }),
+      makeTransaction({ date: '2026-10-20', createdAt: '2026-10-20T09:00:00.000Z' }),
+      makeTransaction({ date: '2026-10-20', createdAt: '2026-10-20T10:00:00.000Z' }),
+    ]
+    const copy = [...items]
+    expect(sortByRecency(items)).toEqual([items[1], items[3], items[2], items[0]])
+    expect(items).toEqual(copy)
   })
 })

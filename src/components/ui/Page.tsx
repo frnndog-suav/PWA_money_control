@@ -7,14 +7,17 @@ interface PageProps {
 interface PageHeaderProps {
   /** Elemento antes do título, ex.: `<BackLink />` nas subpáginas. */
   leading?: ReactNode
+  /** Ação no fim da linha do título, ex.: o atalho "Novo" da lista de lançamentos. */
+  trailing?: ReactNode
   children: ReactNode
 }
 
-function PageHeader({ leading, children }: PageHeaderProps) {
+function PageHeader({ leading, trailing, children }: PageHeaderProps) {
   return (
     <header className="flex min-h-11 items-center gap-1">
       {leading}
-      <h1 className="text-2xl font-bold">{children}</h1>
+      <h1 className="flex-1 text-2xl font-bold">{children}</h1>
+      {trailing}
     </header>
   )
 }

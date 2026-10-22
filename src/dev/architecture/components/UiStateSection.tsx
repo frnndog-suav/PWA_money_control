@@ -1,4 +1,5 @@
-import { PLANNED_UI_FIELDS } from '@/dev/architecture/data/curated'
+import { PLANNED_UI_FIELDS, UI_FIELD_ACCESS } from '@/dev/architecture/data/curated'
+import { ModuleLink } from '@/dev/architecture/components/ModuleLink'
 import { Badge } from '@/dev/architecture/components/Badge'
 import { Card } from '@/dev/architecture/components/Card'
 import { CodeList } from '@/dev/architecture/components/CodeList'
@@ -77,7 +78,7 @@ export function UiStateSection() {
     <Section
       id="estado"
       title="Estado de interface"
-      description="Stores Zustand encontradas pelo scanner (campos das interfaces *State/*Actions) e quem lê cada campo e chama cada ação; campos da §6.7 que ainda faltam, com a fase em que entram. O tema não fica no Zustand: desde a Fase 2 fica na tabela settings (useThemePreference, com espelho em localStorage — D-28)."
+      description="Stores Zustand encontradas pelo scanner (campos das interfaces *State/*Actions) e quem lê cada campo e chama cada ação; campos da §6.7 que ainda faltam, com a fase em que entram. Desde a Fase 5 a store guarda os filtros da lista (transactionFilters, sem persist — D-45(f)). O tema não fica no Zustand: desde a Fase 2 fica na tabela settings (useThemePreference, com espelho em localStorage — D-28)."
     >
       {stores.length ? (
         stores.map((store) => <StoreCard key={store.id} store={store} />)
@@ -89,6 +90,32 @@ export function UiStateSection() {
           <p className="text-sm text-slate-600 dark:text-slate-400">Nenhuma ainda.</p>
         </Card>
       )}
+      <Card>
+        <Card.Title trailing={<Badge variant="info">curado</Badge>}>
+          Subcampos: quem lê e quem escreve
+        </Card.Title>
+        <p className="text-sm text-slate-600 dark:text-slate-400">
+          O scanner só enxerga o campo de primeiro nível (ex.: <code>transactionFilters</code>);
+          aqui fica cada subcampo lido com o seu seletor e o que cada módulo grava.
+        </p>
+        <ul className="flex flex-col divide-y divide-slate-200 text-sm dark:divide-slate-700">
+          {UI_FIELD_ACCESS.map((access) => (
+            <li key={access.module} className="flex flex-col gap-1 py-2">
+              <ModuleLink id={access.module} short />
+              <div className="flex flex-wrap items-center gap-1 text-xs">
+                lê: <CodeList items={access.reads} />
+              </div>
+              <div className="flex flex-wrap items-center gap-1 text-xs">
+                escreve:{' '}
+                {access.writes.length ? <CodeList items={access.writes} /> : <span>—</span>}
+              </div>
+              {access.note && (
+                <p className="text-xs text-slate-600 dark:text-slate-400">{access.note}</p>
+              )}
+            </li>
+          ))}
+        </ul>
+      </Card>
       <Card>
         <Card.Title>Campos da §6.7</Card.Title>
         <ul className="flex flex-col divide-y divide-slate-200 text-sm dark:divide-slate-700">

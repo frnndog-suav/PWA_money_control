@@ -2,7 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/db/database'
 import { overallBalance, totals, type Totals } from '@/domain/balances'
 import { monthRange } from '@/domain/dates'
-import { takeMostRecent } from '@/domain/transactions'
+import { sortByRecency, takeMostRecent } from '@/domain/transactions'
 import { transactionInputSchema, type TransactionInput } from '@/domain/transactionSchema'
 import type { Cents, DateString, PeriodString, Transaction } from '@/domain/types'
 
@@ -122,6 +122,36 @@ export async function listRecentTransactions(
   })
 }
 
+/**
+ * RF-04 / CA-04.1 — lançamentos do período (datas inclusivas; `null` = sem limite), do mais
+ * recente para o mais antigo, inclusive os com data futura. Usa o índice `date` em ordem
+ * crescente, que o Dexie lê com um único `getAll()` nativo; com `.reverse()` ele abriria um
+ * cursor com uma volta ao IndexedDB por registro (o Safari não tem `getAll` com direção), bem
+ * mais lento com 10.000 lançamentos (RNF-02). A inversão é feita no array, que então chega
+ * quase ordenado ao desempate por criação (`sortByRecency`).
+ */
+export async function listTransactionsInPeriod(
+  from: DateString | null,
+  to: DateString | null,
+): Promise<Transaction[]> {
+  const ascending = await transactionsByDate(from, to).toArray()
+  return sortByRecency(ascending.reverse())
+}
+
+function transactionsByDate(from: DateString | null, to: DateString | null) {
+  if (from !== null && to !== null) {
+    return db.transactions.where('date').between(from, to, true, true)
+  }
+  if (from !== null) return db.transactions.where('date').aboveOrEqual(from)
+  if (to !== null) return db.transactions.where('date').belowOrEqual(to)
+  return db.transactions.orderBy('date')
+}
+
+/** Quantos lançamentos existem (`count()` do IndexedDB, sem ler os registros). */
+export async function countTransactions(): Promise<number> {
+  return db.transactions.count()
+}
+
 // Hooks ao vivo (`useLiveQuery`): `undefined` enquanto carrega; a tela se atualiza sozinha
 // quando a tabela muda (CA-02.4).
 
@@ -135,6 +165,17 @@ export function useMonthTotals(period: PeriodString): Totals | undefined {
 
 export function useRecentTransactions(today: DateString, count: number): Transaction[] | undefined {
   return useLiveQuery(() => listRecentTransactions(today, count), [today, count])
+}
+
+export function useTransactionsInPeriod(
+  from: DateString | null,
+  to: DateString | null,
+): Transaction[] | undefined {
+  return useLiveQuery(() => listTransactionsInPeriod(from, to), [from, to])
+}
+
+export function useTransactionCount(): number | undefined {
+  return useLiveQuery(countTransactions, [])
 }
 
 /** `null` quando o lançamento não existe (ou foi excluído). */

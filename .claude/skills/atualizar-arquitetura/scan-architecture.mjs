@@ -266,6 +266,14 @@ function analyze(abs) {
           [...code.matchAll(/(?<![\w$.])<([A-Z][\w$]*(?:\.[A-Z][\w$]*)*)(?=[\s/>])(?!>\s*\()/g)].map((m) => m[1]),
         )
       : [];
+  // Partes de compound component atribuídas no módulo: `FilterBar.Text = TextFilter` (Fase 5).
+  // A árvore de composição segue a parte até o módulo do componente atribuído.
+  const compoundParts =
+    isTsx && analyzed
+      ? Object.fromEntries(
+          [...code.matchAll(/^([A-Z][\w$]*)\.([A-Z][\w$]*)\s*=\s*([A-Z][\w$]*)\s*;?\s*$/gm)].map((m) => [m[2], m[3]]),
+        )
+      : {};
 
   // `db.<tabela>.<op>(` ou `database.<tabela>.<op>(` (instância recebida por parâmetro, como nos
   // dados de exemplo da tela Sobre — D-30).
@@ -315,6 +323,7 @@ function analyze(abs) {
     hooksDefined,
     hooksUsed,
     jsxUsed,
+    ...(Object.keys(compoundParts).length ? { compoundParts } : {}),
     storesUsed: analyzed ? unique(matchAll(code, /\b(use[A-Z]\w*Store)\b/g)) : [],
     dexieTables: dexieOps,
     usesTransaction: analyzed && /\.transaction\s*\(/.test(code),

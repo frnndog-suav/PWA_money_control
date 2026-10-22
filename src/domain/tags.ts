@@ -1,3 +1,4 @@
+import { foldText } from '@/domain/text'
 import type { Tag } from '@/domain/types'
 
 // RF-03 — regras puras das tags: chave de unicidade, paleta e ordenação. A validação
@@ -6,17 +7,13 @@ import type { Tag } from '@/domain/types'
 // D-35: contado em unidades UTF-16 (`String.length`); um emoji simples conta como 2.
 export const TAG_NAME_MAX_LENGTH = 30
 
-// Só marcas combinantes (acentos, cedilha e til separados pelo NFD); sinais avulsos como
-// ^, `, ´, ¨ e · não são acentos de letra e continuam no nome (RF-03).
-const COMBINING_MARKS_PATTERN = /\p{M}/gu
-
 /**
  * §6.3 — `nameKey`: minúsculas, sem acentos e sem espaços nas pontas, para a unicidade
- * "Mercado" = "mercado" = " Mércado " (RF-03). NFD separa a letra do acento, que é removido;
- * o trim vem por último para uma marca solta na ponta não deixar espaço (e a função ser idempotente).
+ * "Mercado" = "mercado" = " Mércado " (RF-03). O trim vem depois de tirar os acentos para uma
+ * marca solta na ponta não deixar espaço (e a função ser idempotente).
  */
 export function toTagNameKey(name: string): string {
-  return name.normalize('NFD').replace(COMBINING_MARKS_PATTERN, '').toLowerCase().trim()
+  return foldText(name).trim()
 }
 
 export interface SuggestedTagColor {

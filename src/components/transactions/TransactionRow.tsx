@@ -9,10 +9,15 @@ interface TransactionRowProps {
   transaction: Transaction
   /** Tag do lançamento (D-01); ausente só enquanto as tags carregam. */
   tag: Tag | undefined
+  /** `false` na lista agrupada por dia (CA-04.1), onde a data já está no cabeçalho do dia. */
+  showDate?: boolean
 }
 
-/** RF-02 item 5 — descrição, tag, data e valor com sinal; tocar abre a edição (CA-01.5). */
-export function TransactionRow({ transaction, tag }: TransactionRowProps) {
+/**
+ * RF-02 item 5 / RF-04 — descrição, tag, data e valor com sinal; tocar abre a edição
+ * (CA-01.5 / CA-04.5).
+ */
+export function TransactionRow({ transaction, tag, showDate = true }: TransactionRowProps) {
   return (
     <li>
       <Link
@@ -23,7 +28,7 @@ export function TransactionRow({ transaction, tag }: TransactionRowProps) {
           <span className="w-full truncate font-medium">{transaction.description}</span>
           <span className="flex max-w-full flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
             {tag && <TagChip name={tag.name} color={tag.color} />}
-            <span className="tabular-nums">{formatShortDate(transaction.date)}</span>
+            {showDate && <span className="tabular-nums">{formatShortDate(transaction.date)}</span>}
           </span>
         </span>
         <SignedAmount cents={signedAmount(transaction)} />

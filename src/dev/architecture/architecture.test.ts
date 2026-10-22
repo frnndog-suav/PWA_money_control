@@ -17,6 +17,7 @@ import {
   ROUTE_NOTES,
   SCREEN_COMPOSITION,
   TABLE_NOTES,
+  UI_FIELD_ACCESS,
 } from '@/dev/architecture/data/curated'
 import { TIMELINE } from '@/dev/architecture/data/timeline'
 import type { ModuleGraph } from '@/dev/architecture/types'
@@ -47,6 +48,7 @@ function curatedPaths(): string[] {
     ...DECISIONS.flatMap((d) => d.impacts),
     ...ARCHITECTURE_FINDINGS.flatMap((f) => f.modules),
     ...PRINCIPLES.flatMap((p) => [...p.modules, ...p.tests]),
+    ...UI_FIELD_ACCESS.map((a) => a.module),
   ]
 }
 
@@ -223,6 +225,20 @@ describe('integridade da página de arquitetura (§6.12)', () => {
 
   it('princípios da §2 numerados de 1 a N, sem lacuna nem repetição', () => {
     expect(PRINCIPLES.map((p) => p.number)).toEqual(PRINCIPLES.map((_, i) => i + 1))
+  })
+
+  // §6.7 — o acesso curado por subcampo precisa bater com o que o scanner vê no módulo.
+  it('acesso curado a subcampos da store bate com os membros que o módulo usa', () => {
+    const moduleOf = new Map(graph.modules.map((m) => [m.id, m]))
+    const mismatches = UI_FIELD_ACCESS.flatMap((access) => {
+      const used = moduleOf.get(access.module)?.storeMembersUsed ?? []
+      const cited = [
+        ...access.reads.map((r) => r.split('.')[0]),
+        ...access.writes.map((w) => w.split('(')[0]),
+      ]
+      return cited.filter((member) => !used.includes(member)).map((m) => `${access.module}: ${m}`)
+    })
+    expect(mismatches).toEqual([])
   })
 
   it('IDs de requisito e decisão citados existem', () => {

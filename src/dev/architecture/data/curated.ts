@@ -19,6 +19,7 @@ import type {
   RouteNote,
   ScreenComposition,
   TableNote,
+  UiFieldAccess,
 } from '@/dev/architecture/types'
 
 // ---------- camadas (§6.2) ----------
@@ -61,7 +62,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Componentes',
     folder: 'src/components',
     description:
-      'Duas partes (§6.2, D-37 — confirmada em 21/10/2026). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts) e transactions/ (TransactionForm, useTransactionForm, TransactionRow, NoTagsNotice, transactionTexts). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
+      'Duas partes (§6.2, D-37 — confirmada em 21/10/2026). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup; Fase 5: LoadMore, useDebouncedValue e o slot trailing do Page.Header). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts) e transactions/ (TransactionForm, useTransactionForm, TransactionRow — com showDate desde a Fase 5 —, NoTagsNotice, transactionTexts; Fase 5: IncomeExpenseTotals). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
     position: { x: 130, y: 330 },
   },
   {
@@ -69,7 +70,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Repositórios',
     folder: 'src/repositories',
     description:
-      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError). Fase 4: transactionsRepository (createTransaction/updateTransaction em transação rw [tags, transactions] com assertTagExists, deleteTransaction, saldo geral, totais do mês, últimos 5 e lançamento por id, todos com hook useLiveQuery; TransactionNotFoundError/TransactionTagNotFoundError — D-39) e listTags/useTags no tagsRepository.',
+      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError). Fase 4: transactionsRepository (createTransaction/updateTransaction em transação rw [tags, transactions] com assertTagExists, deleteTransaction, saldo geral, totais do mês, últimos 5 e lançamento por id, todos com hook useLiveQuery; TransactionNotFoundError/TransactionTagNotFoundError — D-39) e listTags/useTags no tagsRepository. Fase 5: listTransactionsInPeriod (índice date crescente, invertido em memória — D-44) e countTransactions, com useTransactionsInPeriod/useTransactionCount.',
     position: { x: 390, y: 330 },
   },
   {
@@ -77,7 +78,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Stores',
     folder: 'src/stores',
     description:
-      'Zustand só para estado de interface (§6.7). uiStore desde a Fase 1 (updateAvailable); filtros e visões nas Fases 5 e 7.',
+      'Zustand só para estado de interface (§6.7). uiStore desde a Fase 1 (updateAvailable); desde a Fase 5, transactionFilters com setFilters/clearFilters, sem persist (D-45(f)); visões na Fase 7.',
     position: { x: 650, y: 330 },
   },
   {
@@ -101,7 +102,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Domínio',
     folder: 'src/domain',
     description:
-      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. Fase 3: tags (toTagNameKey, paleta D-32, sortByTagName, isTagInUse, TAG_NAME_MAX_LENGTH — D-35) e tagSchema (zod, único módulo do domínio com pacote externo; separado para quem só precisa das funções puras não levar o zod). Fase 4: transactionSchema (zod, RF-01: valor 1..MAX_AMOUNT_CENTS, data existente, tag, descrição 1–100 em UTF-16 — D-38(h)), transactions (compareByRecency e takeMostRecent — D-39), isValidDate/formatShortDate/formatMonthLabel em dates e signedAmount exportado em balances. recurring (Fase 9) e installments (Fase 10) ainda não existem.',
+      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. Fase 3: tags (toTagNameKey, paleta D-32, sortByTagName, isTagInUse, TAG_NAME_MAX_LENGTH — D-35) e tagSchema (zod, único módulo do domínio com pacote externo; separado para quem só precisa das funções puras não levar o zod). Fase 4: transactionSchema (zod, RF-01: valor 1..MAX_AMOUNT_CENTS, data existente, tag, descrição 1–100 em UTF-16 — D-38(h)), transactions (compareByRecency e takeMostRecent — D-39), isValidDate/formatShortDate/formatMonthLabel em dates e signedAmount exportado em balances. Fase 5: text (foldText, também usado por toTagNameKey), transactionFilters (filtros, resumo por dia e paginação por dias inteiros — D-44), sortByRecency em transactions e formatLongDate em dates. recurring (Fase 9) e installments (Fase 10) ainda não existem.',
     position: { x: 650, y: 450 },
   },
   {
@@ -414,9 +415,20 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
   {
     route: '/lancamentos',
     screen: 'Lista + filtros',
-    requirements: ['RF-04'],
+    requirements: [
+      'RF-04',
+      'CA-04.1',
+      'CA-04.2',
+      'CA-04.3',
+      'CA-04.4',
+      'CA-04.5',
+      'CA-04.6',
+      'RNF-02',
+      'D-44',
+      'D-45',
+    ],
     description:
-      'Ainda placeholder (Fase 5: lista paginada, busca e filtros no Zustand). Desde a Fase 4 é o destino do "Ver todos" do Início e a tela pai (fallback do Voltar/useGoBack) de /lancamentos/novo e /lancamentos/:id.',
+      'Fase 5 (lazy). TransactionsPage compõe: Page.Header "Lançamentos" com o atalho "+ Novo" no slot trailing (NewTransactionLink → /lancamentos/novo — D-45(e)); FilterBar (role="search") com "Buscar na descrição" sempre visível, botão "Filtros (N)" e "Limpar filtros", e o painel recolhível com Tipo (Todos/Entradas/Saídas), Tag (TagPicker com "Todas") e Período (Data inicial/final, aviso de período invertido no campo final — D-44(b)); FilterSummary ("N lançamentos encontrados", resultado, entradas e saídas do conjunto filtrado inteiro — CA-04.3) só com filtro aplicado; EmptyState "Nenhum lançamento ainda…" ou "Nenhum lançamento encontrado com esses filtros." (D-45(d)); TransactionDayList com DaySection por dia (data por extenso + totais do dia — CA-04.1; TransactionRow showDate={false}) e LoadMore (50 lançamentos por página em dias inteiros, IntersectionObserver a 600 px + "Carregar mais" — CA-04.6, D-44(d)). Dados por useTransactionList: filtros do Zustand (um seletor por campo), texto com espera de 250 ms, useTransactionsInPeriod pelo índice date (crescente, invertido em memória — D-44(a)), useTransactionCount e useTags; tipo/tag/texto aplicados no domínio (summarizeTransactionList). Tocar numa linha abre /lancamentos/:id (CA-04.5) e o Voltar mantém os filtros (Zustand, sem persist — D-45(f)). Continua sendo a tela pai (fallback do useGoBack) de /lancamentos/novo e /lancamentos/:id. Tabelas: transactions e tags (só leitura).',
     contentPhase: 5,
   },
   {
@@ -530,7 +542,7 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
 export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   {
     component: 'Page',
-    note: 'Compound component: Page.Header (slot `leading` para o BackLink) e Page.Body. Sem estado.',
+    note: 'Compound component: Page.Header (slot `leading` para o BackLink e, desde a Fase 5, slot `trailing` para uma ação no fim da linha do título — o "+ Novo" da lista, D-45(e)) e Page.Body. Sem estado.',
   },
   {
     component: 'TabBar',
@@ -547,7 +559,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'TypeRadio',
-    note: 'Fase 4: instância local de createRadioGroup<TransactionType>() no TransactionForm, com variant="segmented" (alternador Saída | Entrada lado a lado, rádio sr-only; a marcada fica preenchida e em negrito, não só pela cor — RNF-06; foco do teclado no contorno do grupo). Ligada ao RHF por Controller.',
+    note: 'Fase 4: instância local de createRadioGroup<TransactionType>() no TransactionForm, com variant="segmented" (alternador Saída | Entrada lado a lado, rádio sr-only; a marcada fica preenchida e em negrito, não só pela cor — RNF-06; foco do teclado no contorno do grupo). Ligada ao RHF por Controller. Fase 5: outra instância com o mesmo nome local no TypeFilter da lista, createRadioGroup<TransactionTypeFilter>() com Todos | Entradas | Saídas, ligada ao Zustand (setFilters({ type })).',
   },
   {
     component: 'ThemeProvider',
@@ -648,7 +660,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'TagPicker',
-    note: 'Fase 4, src/components/tags (D-38(a)): <fieldset> "Tag" com chips-rádio nativos (sr-only) na cor da tag; a marcada tem contorno e "✓" (RNF-06); alvo de 44 px por chip (ajustado na revisão). Sem tags, renderiza o slot emptyState. Erro ligado por aria-describedby (aria-invalid não vale em fieldset). ref no 1º rádio para o foco de erro.',
+    note: 'Fase 4, src/components/tags (D-38(a)): <fieldset> "Tag" com chips-rádio nativos (sr-only) na cor da tag; a marcada tem contorno e "✓" (RNF-06); alvo de 44 px por chip (ajustado na revisão). Sem tags, renderiza o slot emptyState. Erro ligado por aria-describedby (aria-invalid não vale em fieldset). ref no 1º rádio para o foco de erro. Fase 5: cada chip é a parte interna TagOption (sem cor = chip neutro); com allOptionLabel (ex.: "Todas" no TagFilter da lista — CA-04.2, D-45(a)) a 1ª opção vale "" e recebe o ref.',
   },
   {
     component: 'NoTagsNotice',
@@ -668,7 +680,59 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'BalanceSummary',
-    note: 'Fase 4 (RF-02 itens 1 e 2): recebe today do HomePage; lê useOverallBalance() (sem today: todos os lançamentos — D-42) e useMonthTotals(periodOf(today)); "—" enquanto carrega (sem R$ 0,00 falso); título "Saldo de {formatMonthLabel}" (D-38(f)).',
+    note: 'Fase 4 (RF-02 itens 1 e 2): recebe today do HomePage; lê useOverallBalance() (sem today: todos os lançamentos — D-42) e useMonthTotals(periodOf(today)); "—" enquanto carrega (sem R$ 0,00 falso); título "Saldo de {formatMonthLabel}" (D-38(f)). Desde a Fase 5 as entradas e saídas do mês vêm do IncomeExpenseTotals (o mesmo do cabeçalho do dia e do resumo dos filtros).',
+  },
+  {
+    component: 'IncomeExpenseTotals',
+    note: 'Fase 5, src/components/transactions (D-45(c)): <dl> "Entradas R$ X · Saídas R$ Y" em texto menor, com o rótulo escrito (a cor nunca é a única informação — RNF-06). Sem estado. Usado em BalanceSummary (saldo do mês), DaySection (totais do dia — CA-04.1) e FilterSummary (conjunto filtrado — CA-04.3).',
+  },
+  {
+    component: 'NewTransactionLink',
+    note: 'Fase 5: definido no próprio TransactionsPage; Link "+ Novo" (nome acessível "Novo lançamento", 44 px) para /lancamentos/novo, no slot trailing do Page.Header (D-45(e)).',
+  },
+  {
+    component: 'FilterBar',
+    note: 'Fase 5, compound component (CA-04.2, D-45(a)): <div role="search">. Estado local (isPanelOpen, panelId de useId e searchInputRef) compartilhado pelo FilterBarContext (filterBarContext.ts, useFilterBar com erro claro fora do FilterBar). Partes locais: .Actions (linha de botões) e .Panel (hidden enquanto fechado; começa fechado). Partes importadas: .Text, .Toggle, .Clear, .Type, .Tag e .Period, cada uma lendo e gravando o seu campo de transactionFilters no Zustand.',
+  },
+  {
+    component: 'FilterBar.Text',
+    note: 'TextFilter: Field "Buscar na descrição" + TextInput com ref = searchInputRef (recebe o foco depois de "Limpar filtros"), enterKeyHint="search"; Enter só fecha o teclado. Grava setFilters({ text }) a cada tecla; a espera de 250 ms fica no useTransactionList (D-44(c)).',
+  },
+  {
+    component: 'FilterBar.Toggle',
+    note: 'FilterToggle: Button "Filtros (N)" com aria-expanded/aria-controls; N = countActiveFilters de tipo, tag e período (o texto, sempre visível, não entra). Só lê o Zustand.',
+  },
+  {
+    component: 'FilterBar.Clear',
+    note: 'ClearFiltersButton (CA-04.4): aparece com algum filtro preenchido (pelo texto digitado, sem esperar a busca); chama clearFilters e foca o campo de busca pelo searchInputRef (RNF-06 — o botão some ao limpar).',
+  },
+  {
+    component: 'FilterBar.Type',
+    note: 'TypeFilter: instância local createRadioGroup<TransactionTypeFilter>() com variant="segmented": Todos | Entradas | Saídas; grava setFilters({ type }).',
+  },
+  {
+    component: 'FilterBar.Tag',
+    note: 'TagFilter: recebe as tags do useTransactionList (nada enquanto carregam) e reutiliza o TagPicker com allOptionLabel="Todas"; "" ↔ tagId null.',
+  },
+  {
+    component: 'FilterBar.Period',
+    note: 'PeriodFilter: <fieldset> "Período" com dois Field + DateInput (Data inicial / Data final; "" ↔ null). Período invertido → Field.Error no campo final com INVERTED_PERIOD_MESSAGE e o período não é aplicado (D-44(b)).',
+  },
+  {
+    component: 'FilterSummary',
+    note: 'Fase 5 (CA-04.3, D-45(b)): <section> com "N lançamentos encontrados" (role="status", formatResultCount com separador de milhar), Resultado (SignedAmount) e IncomeExpenseTotals. Só aparece com filtro aplicado (texto depois da espera) e depois de os dados chegarem.',
+  },
+  {
+    component: 'TransactionDayList',
+    note: 'Fase 5 (CA-04.1/CA-04.6, D-44(d)): estado itemTarget (meta de itens, começa em 50); countVisibleDays(days, itemTarget) decide quantos dias inteiros montar; LoadMore pede itemCount + 50. O TransactionsPage troca a key (filtersKey) quando os filtros aplicados mudam, o que volta à 1ª página.',
+  },
+  {
+    component: 'DaySection',
+    note: 'Fase 5 (CA-04.1, D-45(c)): <section aria-labelledby> com h2 da data por extenso (formatLongDate; 1ª letra maiúscula só pelo CSS), IncomeExpenseTotals do dia e <ul> de TransactionRow com showDate={false}.',
+  },
+  {
+    component: 'LoadMore',
+    note: 'Primitivo (Fase 5, components/ui — CA-04.6): IntersectionObserver com rootMargin de 600 px abaixo da tela, refeito a cada página (loadedCount nas deps, para avisar de novo se o fim ainda estiver à vista); botão "Carregar mais" como alternativa acessível (toque/teclado). Sem IntersectionObserver (jsdom), fica só o botão.',
   },
   {
     component: 'RecentTransactions',
@@ -676,7 +740,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'TransactionRow',
-    note: 'Fase 4, src/components/transactions: <li> com Link para /lancamentos/:id; descrição truncada, TagChip (truncate), data DD/MM/AAAA (formatShortDate — D-38(f)) e SignedAmount(signedAmount). Sem estado; pensado para ser reaproveitado na lista da Fase 5.',
+    note: 'Fase 4, src/components/transactions: <li> com Link para /lancamentos/:id (CA-01.5 / CA-04.5); descrição truncada, TagChip (truncate), data DD/MM/AAAA (formatShortDate — D-38(f)) e SignedAmount(signedAmount). Sem estado. Fase 5: prop showDate (padrão true); a DaySection da lista passa showDate={false}, porque a data já está no cabeçalho do dia (D-45(c)). Usado em RecentTransactions (com data) e DaySection (sem data).',
   },
   {
     component: 'ConfirmDeleteTransactionDialog',
@@ -718,6 +782,11 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
     route: '/',
     stateAndData:
       'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary e ao RecentTransactions. Dados por useLiveQuery: useOverallBalance() (sem today — D-42) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(today, 5) (D-40) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4).',
+  },
+  {
+    route: '/lancamentos',
+    stateAndData:
+      'Árvore (D-45): Page.Header (trailing: NewTransactionLink) → FilterBar { .Text; .Actions { .Toggle, .Clear }; .Panel { .Type, .Tag (TagPicker com "Todas"), .Period (2 Field + DateInput) } } → FilterSummary (IncomeExpenseTotals + SignedAmount) → EmptyState → TransactionDayList { DaySection × N (IncomeExpenseTotals + TransactionRow showDate={false}), LoadMore }. Estado: os filtros ficam no Zustand (src/stores/uiStore.ts, transactionFilters, sem persist — D-45(f)); cada parte do FilterBar lê e grava o seu campo com seletor próprio; o painel aberto/fechado e o searchInputRef são estado local do FilterBar (FilterBarContext); a página da lista (itemTarget) é estado local do TransactionDayList, zerado pela troca de key (filtersKey) quando os filtros aplicados mudam. Dados: useTransactionList (src/features/transactions/useTransactionList.ts) lê os 5 campos, faz o debounce do texto (useDebouncedValue, 250 ms, "" na hora), calcula effectivePeriod, consulta useTransactionsInPeriod(from, to) (useLiveQuery no índice date; ordenado por sortByRecency no repositório), useTransactionCount e useTags, e monta summarizeTransactionList com os filtros aplicados (o React Compiler memoiza). Tag do filtro que sumiu (excluída) vale como "Todas" e setFilters({ tagId: null }) limpa o Zustand. undefined enquanto carrega: nada na tela (sem piscar estado vazio).',
   },
   {
     route: '/lancamentos/novo',
@@ -3378,16 +3447,459 @@ export const FLOWS: readonly Flow[] = [
     ],
     tests: ['src/features/home/HomePage.form.test.tsx', 'src/features/home/HomePage.test.tsx'],
   },
+  {
+    id: 'list-filter',
+    title: 'Filtrar a lista de lançamentos',
+    summary:
+      'Um campo do FilterBar grava no Zustand; useTransactionList espera o texto, consulta só o período pelo índice date e aplica tipo, tag e texto no domínio; a tela mostra o resumo do conjunto filtrado e os dias.',
+    requirements: ['RF-04', 'CA-04.2', 'CA-04.3', 'RNF-02'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'field',
+        label: 'TextFilter / TypeFilter / TagFilter / PeriodFilter',
+        module: 'src/features/transactions/filters/TextFilter.tsx',
+      },
+      { id: 'store', label: 'uiStore (Zustand)', module: 'src/stores/uiStore.ts' },
+      {
+        id: 'list',
+        label: 'useTransactionList',
+        module: 'src/features/transactions/useTransactionList.ts',
+      },
+      {
+        id: 'debounce',
+        label: 'useDebouncedValue',
+        module: 'src/components/ui/useDebouncedValue.ts',
+      },
+      {
+        id: 'filters',
+        label: 'domain/transactionFilters',
+        module: 'src/domain/transactionFilters.ts',
+      },
+      {
+        id: 'repo',
+        label: 'transactionsRepository',
+        module: 'src/repositories/transactionsRepository.ts',
+      },
+      { id: 'recency', label: 'sortByRecency', module: 'src/domain/transactions.ts' },
+      {
+        id: 'page',
+        label: 'TransactionsPage',
+        module: 'src/features/transactions/TransactionsPage.tsx',
+      },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'field',
+        label: 'digita / toca num filtro',
+        detail:
+          'Texto no campo "Buscar na descrição" (sempre visível); tipo, tag e período no painel aberto por "Filtros" (D-45(a)).',
+        refs: ['CA-04.2', 'D-45'],
+        kind: 'event',
+      },
+      {
+        from: 'field',
+        to: 'store',
+        label: 'setFilters({ campo })',
+        detail:
+          'Atualização parcial: só o campo informado muda; o texto é gravado a cada tecla. Sem persist: some ao fechar o app (D-45(f)).',
+        refs: ['CA-04.2', 'D-45'],
+        kind: 'call',
+      },
+      {
+        from: 'store',
+        to: 'list',
+        label: '5 seletores (text, type, tagId, from, to)',
+        detail: 'Um seletor por campo: o hook só renderiza de novo quando um filtro usado muda.',
+        refs: ['RNF-02'],
+        kind: 'return',
+      },
+      {
+        from: 'list',
+        to: 'debounce',
+        label: "useDebouncedValue(texto, 250, '')",
+        detail:
+          'SEARCH_DEBOUNCE_MS = 250; texto vazio (ou só espaços) vale na hora e zera o valor atrasado, para a busca anterior não reaparecer (D-44(c)).',
+        refs: ['D-44', 'RNF-02'],
+        kind: 'call',
+      },
+      {
+        from: 'list',
+        to: 'filters',
+        label: 'effectivePeriod({ from, to })',
+        detail: 'Período invertido (inicial > final) não é aplicado: vira sem limites (D-44(b)).',
+        refs: ['CA-04.2', 'D-44'],
+        kind: 'call',
+      },
+      {
+        from: 'list',
+        to: 'repo',
+        label: 'useTransactionsInPeriod(from, to)',
+        detail:
+          'useLiveQuery com deps [from, to]: índice date em ordem crescente (between / aboveOrEqual / belowOrEqual / orderBy), um getAll() nativo; sem .reverse() do Dexie (cursor lento no Safari — D-44(a)). Também useTransactionCount (count()) e useTags.',
+        refs: ['D-44', 'RNF-02'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'recency',
+        label: 'sortByRecency(array.reverse())',
+        detail:
+          'Inverte em memória e ordena por data, createdAt e id (a mesma ordem do Início); o array chega quase ordenado.',
+        refs: ['CA-04.1', 'D-44'],
+        kind: 'call',
+      },
+      {
+        from: 'list',
+        to: 'filters',
+        label: 'summarizeTransactionList(lista, filtros aplicados)',
+        detail:
+          'createTransactionMatcher numa passada (tipo, tag, período, foldText(descrição).includes) → groupByDay → totais do conjunto filtrado inteiro. Filtros aplicados = texto já com a espera e tag excluída como "Todas"; isFiltering e filtersKey saem deles (CA-04.3).',
+        refs: ['CA-04.2', 'CA-04.3', 'D-44', 'D-45'],
+        kind: 'call',
+      },
+      {
+        from: 'list',
+        to: 'page',
+        label: '{ summary, totalCount, tags, isFiltering, filtersKey }',
+        detail:
+          'FilterSummary só com filtro aplicado; EmptyState conforme totalCount/summary.count (D-45(d)); TransactionDayList com key = filtersKey.',
+        refs: ['CA-04.3', 'D-45'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/transactions/TransactionsPage.filters.test.tsx',
+      'src/features/transactions/TransactionsPage.test.tsx',
+      'src/features/transactions/useTransactionList.test.ts',
+      'src/domain/transactionFilters.test.ts',
+      'src/domain/transactionFilters.properties.test.ts',
+      'src/domain/transactionFilters.performance.test.ts',
+      'src/repositories/transactionsRepository.list.test.ts',
+      'src/components/ui/useDebouncedValue.test.ts',
+    ],
+  },
+  {
+    id: 'list-paginate',
+    title: 'Paginar a lista (dias inteiros)',
+    summary:
+      'TransactionDayList guarda uma meta de itens e monta só os dias inteiros que a cobrem; LoadMore aumenta a meta perto do fim da lista ou pelo botão; mudar um filtro troca a key e volta à 1ª página.',
+    requirements: ['RF-04', 'CA-04.6', 'RNF-02'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'page',
+        label: 'TransactionsPage',
+        module: 'src/features/transactions/TransactionsPage.tsx',
+      },
+      {
+        id: 'dayList',
+        label: 'TransactionDayList',
+        module: 'src/features/transactions/list/TransactionDayList.tsx',
+      },
+      {
+        id: 'filters',
+        label: 'countVisibleDays',
+        module: 'src/domain/transactionFilters.ts',
+      },
+      { id: 'day', label: 'DaySection', module: 'src/features/transactions/list/DaySection.tsx' },
+      { id: 'loadMore', label: 'LoadMore', module: 'src/components/ui/LoadMore.tsx' },
+    ],
+    steps: [
+      {
+        from: 'page',
+        to: 'dayList',
+        label: '<TransactionDayList key={filtersKey} days>',
+        detail: 'Nova key quando os filtros aplicados mudam: o componente remonta na 1ª página.',
+        refs: ['CA-04.6', 'D-44'],
+        kind: 'call',
+      },
+      {
+        from: 'dayList',
+        to: 'filters',
+        label: 'countVisibleDays(days, itemTarget)',
+        detail:
+          'itemTarget começa em LIST_PAGE_ITEM_COUNT = 50; soma dias inteiros até cobrir a meta (um dia nunca é cortado). Guarda a meta, não a quantidade de dias: acompanha a lista ao vivo.',
+        refs: ['CA-04.6', 'D-44'],
+        kind: 'call',
+      },
+      {
+        from: 'dayList',
+        to: 'day',
+        label: 'days.slice(0, dayCount)',
+        detail:
+          'Cabeçalho com formatLongDate + totais do dia; linhas com showDate={false} (D-45(c)).',
+        refs: ['CA-04.1', 'D-45'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'loadMore',
+        label: 'rola até 600 px do fim / toca "Carregar mais"',
+        detail:
+          'IntersectionObserver com rootMargin 0 0 600px 0, refeito a cada página (loadedCount); o botão é a alternativa acessível.',
+        refs: ['CA-04.6', 'D-44'],
+        kind: 'event',
+      },
+      {
+        from: 'loadMore',
+        to: 'dayList',
+        label: 'onLoadMore()',
+        detail: 'setItemTarget(itemCount + 50): sempre acrescenta pelo menos um dia.',
+        refs: ['CA-04.6'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/transactions/TransactionsPage.pagination.test.tsx',
+      'src/domain/transactionFilters.test.ts',
+      'src/domain/transactionFilters.properties.test.ts',
+    ],
+  },
+  {
+    id: 'list-clear-filters',
+    title: 'Limpar filtros',
+    summary:
+      '"Limpar filtros" aparece com algum filtro preenchido; ao tocar, zera os filtros no Zustand e leva o foco ao campo de busca.',
+    requirements: ['RF-04', 'CA-04.4', 'RNF-06'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'clear',
+        label: 'ClearFiltersButton',
+        module: 'src/features/transactions/filters/ClearFiltersButton.tsx',
+      },
+      { id: 'store', label: 'uiStore (Zustand)', module: 'src/stores/uiStore.ts' },
+      {
+        id: 'bar',
+        label: 'FilterBar (contexto)',
+        module: 'src/features/transactions/filters/FilterBar.tsx',
+      },
+      {
+        id: 'text',
+        label: 'TextFilter',
+        module: 'src/features/transactions/filters/TextFilter.tsx',
+      },
+      {
+        id: 'list',
+        label: 'useTransactionList',
+        module: 'src/features/transactions/useTransactionList.ts',
+      },
+    ],
+    steps: [
+      {
+        from: 'store',
+        to: 'clear',
+        label: 'hasActiveFilters(5 campos)',
+        detail:
+          'Visível pelo texto digitado, sem esperar a busca; período invertido conta como preenchido (D-45(b)).',
+        refs: ['CA-04.4', 'D-45'],
+        kind: 'return',
+      },
+      {
+        from: 'user',
+        to: 'clear',
+        label: 'toca "Limpar filtros"',
+        detail: 'Button secondary, 44 px.',
+        refs: ['CA-04.4'],
+        kind: 'event',
+      },
+      {
+        from: 'clear',
+        to: 'store',
+        label: 'clearFilters()',
+        detail: 'transactionFilters = EMPTY_TRANSACTION_FILTERS.',
+        refs: ['CA-04.4'],
+        kind: 'call',
+      },
+      {
+        from: 'clear',
+        to: 'bar',
+        label: 'searchInputRef.current?.focus()',
+        detail: 'O botão some ao limpar; sem isto o foco cairia no <body> (RNF-06).',
+        refs: ['RNF-06', 'D-45'],
+        kind: 'call',
+      },
+      {
+        from: 'bar',
+        to: 'text',
+        label: 'foco em "Buscar na descrição"',
+        detail: 'O ref vem do FilterBarContext e está ligado ao TextInput.',
+        refs: ['D-45'],
+        kind: 'return',
+      },
+      {
+        from: 'store',
+        to: 'list',
+        label: 'filtros vazios',
+        detail:
+          'Texto "" vale na hora (sem espera); a lista volta completa, sem resumo, na 1ª página (nova filtersKey).',
+        refs: ['CA-04.4', 'D-44'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/transactions/TransactionsPage.filters.test.tsx',
+      'src/stores/uiStore.filters.test.ts',
+    ],
+  },
+  {
+    id: 'list-open-transaction',
+    title: 'Abrir um lançamento da lista e voltar',
+    summary:
+      'A linha leva a /lancamentos/:id; o Voltar retorna à lista com os mesmos filtros, que ficam no Zustand enquanto o app está aberto.',
+    requirements: ['RF-04', 'CA-04.5', 'CA-13.2'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'row',
+        label: 'TransactionRow',
+        module: 'src/components/transactions/TransactionRow.tsx',
+      },
+      {
+        id: 'detail',
+        label: 'TransactionDetailPage',
+        module: 'src/features/transactions/TransactionDetailPage.tsx',
+      },
+      { id: 'back', label: 'BackLink / useGoBack', module: 'src/components/ui/useGoBack.ts' },
+      { id: 'store', label: 'uiStore (Zustand)', module: 'src/stores/uiStore.ts' },
+      {
+        id: 'page',
+        label: 'TransactionsPage',
+        module: 'src/features/transactions/TransactionsPage.tsx',
+      },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'row',
+        label: 'toca na linha',
+        detail: '<Link to="/lancamentos/:id"> (CA-04.5); a lista desmonta.',
+        refs: ['CA-04.5'],
+        kind: 'event',
+      },
+      {
+        from: 'row',
+        to: 'detail',
+        label: 'navega para /lancamentos/:id',
+        detail: 'Editar/excluir como na Fase 4 (fluxos próprios).',
+        refs: ['CA-04.5', 'CA-01.5'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'back',
+        label: 'Voltar (ou salvar/excluir)',
+        detail: 'useGoBack: navigate(-1) com histórico; sem histórico, a tela pai /lancamentos.',
+        refs: ['CA-13.2', 'D-38'],
+        kind: 'event',
+      },
+      {
+        from: 'back',
+        to: 'page',
+        label: 'remonta a lista',
+        detail: 'O painel começa fechado e a lista volta à 1ª página (D-45(a)/(f)).',
+        refs: ['D-45'],
+        kind: 'call',
+      },
+      {
+        from: 'store',
+        to: 'page',
+        label: 'transactionFilters mantidos',
+        detail:
+          'A store vive em memória enquanto o app está aberto (sem persist): trocar de aba ou abrir um lançamento mantém os filtros; fechar o app zera (D-45(f)).',
+        refs: ['CA-04.5', 'D-45'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/transactions/TransactionsPage.filters.test.tsx',
+      'src/features/transactions/TransactionsPage.test.tsx',
+    ],
+  },
+  {
+    id: 'list-deleted-tag',
+    title: 'Tag do filtro excluída',
+    summary:
+      'Se a tag escolhida no filtro some (excluída em Ajustes → Tags), o filtro passa a valer como "Todas" e é limpo no Zustand.',
+    requirements: ['RF-04', 'CA-04.2', 'RF-03'],
+    participants: [
+      {
+        id: 'tagsRepo',
+        label: 'tagsRepository (useTags)',
+        module: 'src/repositories/tagsRepository.ts',
+      },
+      {
+        id: 'list',
+        label: 'useTransactionList',
+        module: 'src/features/transactions/useTransactionList.ts',
+      },
+      { id: 'store', label: 'uiStore (Zustand)', module: 'src/stores/uiStore.ts' },
+      {
+        id: 'tagFilter',
+        label: 'TagFilter',
+        module: 'src/features/transactions/filters/TagFilter.tsx',
+      },
+      {
+        id: 'toggle',
+        label: 'FilterToggle',
+        module: 'src/features/transactions/filters/FilterToggle.tsx',
+      },
+    ],
+    steps: [
+      {
+        from: 'tagsRepo',
+        to: 'list',
+        label: 'useTags() sem o tagId',
+        detail:
+          'useLiveQuery re-emite depois de deleteTag (só possível sem uso — D-02, mas o filtro pode estar parado numa tag recém-excluída).',
+        refs: ['RF-03', 'D-02'],
+        kind: 'return',
+      },
+      {
+        from: 'list',
+        to: 'list',
+        label: 'isTagMissing',
+        detail:
+          'Só depois de as tags carregarem (tags !== undefined); nos filtros aplicados a tag vira null na mesma renderização.',
+        refs: ['D-44'],
+        kind: 'call',
+      },
+      {
+        from: 'list',
+        to: 'store',
+        label: 'setFilters({ tagId: null }) (useEffect)',
+        detail: 'Limpa também a store, para o chip e o contador ficarem coerentes (D-44(a)).',
+        refs: ['D-44'],
+        kind: 'call',
+      },
+      {
+        from: 'store',
+        to: 'tagFilter',
+        label: 'tagId null → "Todas"',
+        detail: 'TagPicker com allOptionLabel marca a opção "".',
+        refs: ['CA-04.2', 'D-45'],
+        kind: 'return',
+      },
+      {
+        from: 'store',
+        to: 'toggle',
+        label: 'contador "Filtros (N)" sem a tag',
+        detail: 'countActiveFilters deixa de contar a tag.',
+        refs: ['D-45'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/transactions/useTransactionList.test.ts',
+      'src/features/transactions/TransactionsPage.filters.test.tsx',
+    ],
+  },
 ]
 
 /** Fluxos exigidos pela §6.12 que ainda não existem no código. */
 export const PLANNED_FLOWS: readonly PlannedFlow[] = [
-  {
-    title: 'Filtrar lista',
-    phase: 5,
-    requirements: ['RF-04'],
-    summary: 'transactionFilters no Zustand → consulta por índice → lista paginada.',
-  },
   {
     title: 'Exportar e importar backup (criptografia)',
     phase: 6,
@@ -3435,14 +3947,14 @@ export const TABLE_NOTES: readonly TableNote[] = [
     type: 'Tag',
     inBackup: 'sim',
     usedFromPhase: 3,
-    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). Fase 4: listTags/useTags (ordenadas por nome) alimentam o TagPicker e as linhas dos últimos lançamentos; transactionsRepository lê tags só em assertTagExists, dentro da transação rw do lançamento (D-39); o atalho do CA-01.7 grava pelo mesmo TagForm → createTag. &nameKey (toTagNameKey: NFD, sem marcas \\p{M}, minúsculas, trim) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags).',
+    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). Fase 4: listTags/useTags (ordenadas por nome) alimentam o TagPicker e as linhas dos últimos lançamentos; transactionsRepository lê tags só em assertTagExists, dentro da transação rw do lançamento (D-39); o atalho do CA-01.7 grava pelo mesmo TagForm → createTag. Fase 5: useTags também alimenta o filtro de tag da lista (TagFilter) e a detecção de tag do filtro excluída (useTransactionList). &nameKey (toTagNameKey = foldText + trim desde a Fase 5: NFD, sem marcas \\p{M}, minúsculas) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags).',
   },
   {
     name: 'transactions',
     type: 'Transaction',
     inBackup: 'sim',
     usedFromPhase: 4,
-    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (toArray() da tabela inteira + overallBalance — D-42), getMonthTotals (between + totals), listRecentTransactions (where("date").belowOrEqual(hoje).reverse().limit(5) acha a data de corte; releitura between(corte, hoje) numa transação r; ordem por takeMostRecent — D-39/D-40) e getTransaction; cada uma com hook useLiveQuery. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9).',
+    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (toArray() da tabela inteira + overallBalance — D-42), getMonthTotals (between + totals), listRecentTransactions (where("date").belowOrEqual(hoje).reverse().limit(5) acha a data de corte; releitura between(corte, hoje) numa transação r; ordem por takeMostRecent — D-39/D-40) e getTransaction; cada uma com hook useLiveQuery. Fase 5 (D-44(a)): listTransactionsInPeriod(from, to) lê o índice date sempre em ordem crescente — between (período fechado), aboveOrEqual/belowOrEqual (uma ponta) ou orderBy("date") (sem período) — com toArray() (um getAll() nativo; .reverse() do Dexie abriria um cursor com uma volta por registro no Safari) e inverte em memória antes de sortByRecency; countTransactions() usa count() sem ler registros. Hooks useTransactionsInPeriod e useTransactionCount. Os índices type/tagId não são usados pela lista: tipo, tag e texto são filtrados no domínio. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9).',
   },
   {
     name: 'recurrings',
@@ -3486,6 +3998,65 @@ export const PLANNED_UI_FIELDS: readonly PlannedUiField[] = [
     type: 'DateString',
     actions: ['goPrev', 'goNext', 'goToday'],
     phase: 7,
+  },
+]
+
+/** Fase 5 — quem lê e quem escreve cada subcampo de transactionFilters (§6.7, D-45(f)). */
+export const UI_FIELD_ACCESS: readonly UiFieldAccess[] = [
+  {
+    module: 'src/features/transactions/filters/TextFilter.tsx',
+    reads: ['transactionFilters.text'],
+    writes: ['setFilters({ text })'],
+  },
+  {
+    module: 'src/features/transactions/filters/TypeFilter.tsx',
+    reads: ['transactionFilters.type'],
+    writes: ['setFilters({ type })'],
+  },
+  {
+    module: 'src/features/transactions/filters/TagFilter.tsx',
+    reads: ['transactionFilters.tagId'],
+    writes: ['setFilters({ tagId })'],
+  },
+  {
+    module: 'src/features/transactions/filters/PeriodFilter.tsx',
+    reads: ['transactionFilters.from', 'transactionFilters.to'],
+    writes: ['setFilters({ from })', 'setFilters({ to })'],
+  },
+  {
+    module: 'src/features/transactions/filters/ClearFiltersButton.tsx',
+    reads: [
+      'transactionFilters.text',
+      'transactionFilters.type',
+      'transactionFilters.tagId',
+      'transactionFilters.from',
+      'transactionFilters.to',
+    ],
+    writes: ['clearFilters()'],
+    note: 'Depois de limpar, foca "Buscar na descrição" pelo searchInputRef do FilterBarContext (CA-04.4, RNF-06).',
+  },
+  {
+    module: 'src/features/transactions/filters/FilterToggle.tsx',
+    reads: [
+      'transactionFilters.type',
+      'transactionFilters.tagId',
+      'transactionFilters.from',
+      'transactionFilters.to',
+    ],
+    writes: [],
+    note: 'Só o contador "Filtros (N)"; o texto fica fora do painel e não conta.',
+  },
+  {
+    module: 'src/features/transactions/useTransactionList.ts',
+    reads: [
+      'transactionFilters.text',
+      'transactionFilters.type',
+      'transactionFilters.tagId',
+      'transactionFilters.from',
+      'transactionFilters.to',
+    ],
+    writes: ['setFilters({ tagId: null })'],
+    note: 'Um seletor por campo. Escreve só quando a tag do filtro foi excluída (vale como "Todas" — D-44(a)).',
   },
 ]
 
@@ -3564,9 +4135,11 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/dates.test.ts',
       'src/domain/dates.timezone.test.ts',
       'src/domain/dates.format.timezone.test.ts',
+      'src/domain/dates.longDate.test.ts',
+      'src/domain/dates.longDate.properties.test.ts',
       'src/components/ui/DateInput.test.tsx',
     ],
-    decisions: ['D-38'],
+    decisions: ['D-38', 'D-45'],
   },
   {
     number: 3,
@@ -3694,10 +4267,15 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
   {
     number: 15,
     title: 'Nada depende de passar o mouse',
-    enforcement: 'check-consistency (tooltip do Chart.js); revisão.',
-    modules: [],
-    tests: [],
-    decisions: [],
+    enforcement:
+      'check-consistency (tooltip do Chart.js); revisão. Fase 5: o painel de filtros abre por toque no botão "Filtros" e a paginação tem o botão "Carregar mais" além do IntersectionObserver.',
+    modules: [
+      'src/features/transactions/filters/FilterBar.tsx',
+      'src/features/transactions/filters/FilterToggle.tsx',
+      'src/components/ui/LoadMore.tsx',
+    ],
+    tests: ['src/features/transactions/TransactionsPage.pagination.test.tsx'],
+    decisions: ['D-44', 'D-45'],
   },
   {
     number: 16,
@@ -4055,7 +4633,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
     id: 'D-43',
     title:
       'Uma única folha Tailwind (src/index.css), inclusive em DEV; fontes pelo alias @tailwind-sources (serve inclui src/dev, build exclui)',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'src/index.css',
       'vite.config.ts',
@@ -4067,6 +4645,47 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'tsconfig.node.json',
       'src/dev/architecture/ArchitecturePage.tsx',
       'src/dev/sampleData/SampleDataTools.tsx',
+    ],
+  },
+  {
+    id: 'D-44',
+    title:
+      'Lista: índice date crescente invertido em memória, filtros no domínio, busca com foldText e espera de 250 ms, paginação por dias inteiros (50) com LoadMore',
+    status: 'pending',
+    impacts: [
+      'src/repositories/transactionsRepository.ts',
+      'src/domain/transactionFilters.ts',
+      'src/domain/text.ts',
+      'src/domain/tags.ts',
+      'src/domain/transactions.ts',
+      'src/features/transactions/useTransactionList.ts',
+      'src/features/transactions/transactionListTexts.ts',
+      'src/features/transactions/list/TransactionDayList.tsx',
+      'src/features/transactions/filters/PeriodFilter.tsx',
+      'src/components/ui/useDebouncedValue.ts',
+      'src/components/ui/LoadMore.tsx',
+      'src/domain/transactionFilters.performance.test.ts',
+    ],
+  },
+  {
+    id: 'D-45',
+    title:
+      'Tela da lista: busca sempre visível, painel "Filtros (N)", "Limpar filtros" com foco na busca, resumo pelos filtros aplicados, data por extenso no dia, "+ Novo", filtros no Zustand sem persist',
+    status: 'pending',
+    impacts: [
+      'src/features/transactions/TransactionsPage.tsx',
+      'src/features/transactions/filters/FilterBar.tsx',
+      'src/features/transactions/filters/FilterToggle.tsx',
+      'src/features/transactions/filters/ClearFiltersButton.tsx',
+      'src/features/transactions/filters/TagFilter.tsx',
+      'src/features/transactions/list/FilterSummary.tsx',
+      'src/features/transactions/list/DaySection.tsx',
+      'src/components/transactions/IncomeExpenseTotals.tsx',
+      'src/components/transactions/TransactionRow.tsx',
+      'src/components/tags/TagPicker.tsx',
+      'src/components/ui/Page.tsx',
+      'src/domain/dates.ts',
+      'src/stores/uiStore.ts',
     ],
   },
 ]
@@ -4113,6 +4732,53 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 // ---------- achados de arquitetura (reportados, não corrigidos) ----------
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
+  {
+    title: 'D-44 e D-45 aguardando confirmação do dono',
+    severity: 'warn',
+    detail:
+      'Registradas na §8.1 durante a Fase 5 (spec 1.19). D-44: consulta da lista pelo índice date em ordem crescente com inversão em memória, tipo/tag/texto filtrados no domínio, período invertido ignorado, busca com foldText e espera de 250 ms (texto vazio na hora), paginação por dias inteiros de 50 lançamentos com LoadMore (600 px + botão), tag do filtro excluída vale como "Todas", medições de desempenho. D-45: tela da lista — busca sempre visível, painel "Filtros (N)", "Limpar filtros" com foco na busca, resumo pelos filtros aplicados, cabeçalho do dia por extenso com IncomeExpenseTotals, TransactionRow sem data, estados vazios, "+ Novo" e filtros no Zustand sem persist. A rastreabilidade mostra as duas como "aguardando confirmação". Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'docs/SPEC.md',
+      'src/repositories/transactionsRepository.ts',
+      'src/domain/transactionFilters.ts',
+      'src/features/transactions/useTransactionList.ts',
+      'src/features/transactions/TransactionsPage.tsx',
+      'src/stores/uiStore.ts',
+    ],
+  },
+  {
+    title: 'Pendente (dono): teste manual da Fase 5',
+    severity: 'warn',
+    detail:
+      'Fase 5 implementada, testes reforçados (1.724 passando), revisão aprovada e sugestões aplicadas; falta o roteiro da §7: gerar os dados de exemplo no PC e conferir que a rolagem é fluida; buscar "merc" e achar "Mercado" e "mercado do bairro"; combinar tag + período e conferir os totais com a soma manual de alguns itens; trocar de aba e voltar com os filtros mantidos e fechar o app com os filtros zerados. Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'src/features/transactions/TransactionsPage.tsx',
+      'src/features/transactions/list/TransactionDayList.tsx',
+      'src/dev/sampleData/SampleDataTools.tsx',
+    ],
+  },
+  {
+    title:
+      'Lista relê o período inteiro a cada gravação: 10.000 registros no Safari do iPhone ainda não medidos',
+    severity: 'info',
+    detail:
+      'useTransactionsInPeriod é um useLiveQuery: qualquer gravação em transactions refaz toArray() do período (sem filtro de período, a tabela inteira) e o sortByRecency/summarizeTransactionList em memória. No PC (Node/Vitest), 10.000 lançamentos levam ~6 ms para ordenar e 1–5 ms para filtrar + agrupar + totalizar (teste de desempenho < 300 ms — RNF-02), mas a leitura real do IndexedDB no Safari do iPhone não foi medida. A D-44(a) adia a medição para a Fase 11, como a D-41.',
+    decided: 'Medir na Fase 11 (D-44(a)).',
+    modules: [
+      'src/repositories/transactionsRepository.ts',
+      'src/features/transactions/useTransactionList.ts',
+      'src/domain/transactionFilters.ts',
+      'src/domain/transactionFilters.performance.test.ts',
+    ],
+  },
+  {
+    title:
+      'Suíte de testes leva ~70–90 s: o gargalo é o jsdom, criado uma vez por arquivo de teste',
+    severity: 'info',
+    detail:
+      'Visto na Fase 5 (1.724 testes): o tempo vai para criar o ambiente jsdom em cada arquivo de teste (84 vezes na medição do orquestrador, 85 nesta atualização — metade do tempo medido pelo Vitest, inclusive nos de src/domain e src/lib, que não usam DOM), e não para os testes de propriedade. Opção: test.projects no vite.config.ts com environment: "node" para src/domain e src/lib (e o jsdom só para componentes, hooks e repositórios). Não aplicado: mexe na configuração do Vitest e é decisão do dono.',
+    modules: ['vite.config.ts', 'src/test/setup.ts'],
+  },
   {
     title: 'Pacote principal com 596 kB (188,9 kB gzip): o build avisa chunk acima de 500 kB',
     severity: 'info',
@@ -4198,6 +4864,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'vite.config.ts',
       'src/styles/tailwindEntry.test.ts',
     ],
+    resolved: 'Confirmado pelo dono em 21/10/2026 (spec 1.18: D-43 confirmada e Fase 4 concluída).',
   },
   {
     title:
@@ -4605,7 +5272,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/app/pwa/InstallHint.tsx':
     'Texto exato do CA-11.6; posição definida pela D-23 (confirmada pelo dono).',
   'src/stores/uiStore.ts':
-    'Primeira store Zustand: só updateAvailable/setUpdateAvailable. INITIAL_UI_STATE é exportado para src/test/setup.ts resetar o estado entre testes. transactionFilters (Fase 5) e viewGranularity/viewAnchorDate (Fase 7) ainda não existem.',
+    'Store Zustand única (§6.7), só em memória (sem persist): updateAvailable/setUpdateAvailable (Fase 1) e, desde a Fase 5, transactionFilters { text, type, tagId, from, to } com setFilters (parcial: só os campos informados mudam) e clearFilters (volta a EMPTY_TRANSACTION_FILTERS, de domain/transactionFilters). Os filtros duram enquanto o app está aberto e zeram ao fechar (D-45(f)). INITIAL_UI_STATE é exportado para src/test/setup.ts resetar o estado entre testes. viewGranularity/viewAnchorDate entram na Fase 7.',
   'src/components/ui/Notice.tsx':
     'Primitivo genérico (sem conhecimento de PWA). Sem teste próprio: coberto pelos testes de UpdateNotice e InstallHint.',
   'src/lib/updateCheck.ts':
@@ -4650,7 +5317,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/domain/money.ts':
     'Centavos inteiros (princípio 1): formatBRL/formatSignedBRL (U+00A0 e U+2212 — D-29), digitsToCents (até MAX_AMOUNT_DIGITS = 10 — D-31, os mesmos dígitos de MAX_AMOUNT_CENTS, o teto do RF-01), addCents com Number.isSafeInteger.',
   'src/domain/dates.ts':
-    'Datas sem fuso (princípio 2) com parseISO do date-fns; semana de segunda (weekStartsOn: 1). Testes de calendário (bissextos, virada de ano) e de fuso (dates.timezone.test.ts). Fase 4: isValidDate (usada pelo transactionSchema); formatShortDate ("19/10/2026" só rearranjando o texto, sem date-fns, com checagem aritmética do calendário — rápida em listas, D-38(f)); formatMonthLabel ("outubro de 2026" com um Intl.DateTimeFormat em UTC criado no nível do módulo e Date.UTC, independente do fuso do aparelho). Testes em dates.format.test.ts e dates.format.timezone.test.ts (melhorias da revisão).',
+    'Datas sem fuso (princípio 2) com parseISO do date-fns; semana de segunda (weekStartsOn: 1). Testes de calendário (bissextos, virada de ano) e de fuso (dates.timezone.test.ts). Fase 4: isValidDate (usada pelo transactionSchema); formatShortDate ("19/10/2026" só rearranjando o texto, sem date-fns, com checagem aritmética do calendário — rápida em listas, D-38(f)); formatMonthLabel ("outubro de 2026" com um Intl.DateTimeFormat em UTC criado no nível do módulo e Date.UTC, independente do fuso do aparelho). Testes em dates.format.test.ts e dates.format.timezone.test.ts (melhorias da revisão). Fase 5: formatLongDate ("terça-feira, 20 de outubro de 2026" com um Intl.DateTimeFormat em UTC no nível do módulo — CA-04.1, D-45(c)); toUtcDate usa setUTCFullYear porque Date.UTC trata os anos 0 a 99 como 1900 a 1999. Testes em dates.longDate.test.ts e dates.longDate.properties.test.ts.',
   'src/domain/balances.ts':
     'totals, overallBalance (todos os lançamentos, inclusive os futuros, sem today — D-42), groupByDay/Month/Tag (Map — D-29) e runningBalance. Fase 4: signedAmount exportado (CA-02.1, usado pelo TransactionRow; teste em balances.signedAmount.test.ts); overallBalance e totals usados pelo transactionsRepository. groupBy*/runningBalance esperam as Fases 7 e 8. Teste de propriedade em balances.properties.test.ts.',
   'src/domain/tagColor.ts':
@@ -4712,7 +5379,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/test/propertyHelpers.ts':
     'Gerador com semente e utilitários de calendário para os testes de propriedade.',
   'src/domain/tags.ts':
-    'Fase 3, sem dependência externa: toTagNameKey (NFD → remove \\p{M} → minúsculas → trim no fim, idempotente; sinais avulsos como ^ e ´ ficam), TAG_NAME_MAX_LENGTH = 30 em unidades UTF-16 (D-35), SUGGESTED_TAG_COLORS (12 cores com rótulo pt-BR — D-32), findSuggestedTagColor, sortByTagName (Intl.Collator pt-BR, base, numeric; toSorted), TagUsage e isTagInUse (D-02).',
+    'Fase 3, sem dependência externa: toTagNameKey (desde a Fase 5 = foldText(name).trim(): NFD → remove \\p{M} → minúsculas → trim no fim, idempotente; sinais avulsos como ^ e ´ ficam), TAG_NAME_MAX_LENGTH = 30 em unidades UTF-16 (D-35), SUGGESTED_TAG_COLORS (12 cores com rótulo pt-BR — D-32), findSuggestedTagColor, sortByTagName (Intl.Collator pt-BR, base, numeric; toSorted), TagUsage e isTagInUse (D-02).',
   'src/domain/tagSchema.ts':
     'Fase 3: tagInputSchema (zod) — nome com trim, 1–30 (D-35), cor #RRGGBB transformada para maiúsculas (D-32); TagInput (z.input, o que a tela envia) e TagValues (z.output, o que é gravado). Separado de tags.ts para não levar o zod a quem só usa as funções puras.',
   'src/repositories/tagsRepository.ts':
@@ -4749,11 +5416,11 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/formSubmit.ts':
     'Princípio 16 / D-36 (spec 1.13): padrão de todos os formulários com React Hook Form. LIVE_VALIDATION = { mode: "onChange" } (erro do campo aparece enquanto digita) e canSubmitForm({ isValid, isSubmitting }) = isValid && !isSubmitting (botão de envio só ativo com o formulário válido e fora do envio). Só tipos do react-hook-form (import type): nenhum código do pacote entra pelo lib. Opção startsValid: formulário de edição que abre com dados válidos já começa com o botão ativo (o RHF só calcula isValid depois da 1ª renderização). Usado por useTagForm e, desde a Fase 4, por useTransactionForm; obrigatório nos formulários das fases seguintes.',
   'src/repositories/transactionsRepository.ts':
-    'Fase 4 (RF-01/RF-02, D-39). Escrita: createTransaction e updateTransaction validam com transactionInputSchema.parse e gravam numa transação rw [tags, transactions] com assertTagExists (a tag não some entre a checagem e a gravação; deleteTag conta na mesma tabela — D-01/D-02); deleteTransaction simples. Leitura pelo índice date: getOverallBalance() (toArray() da tabela inteira + overallBalance — um getAll() nativo, mais rápido que each() — D-42, RNF-02), getMonthTotals (between + totals), listRecentTransactions(today, count) (data de corte por where("date").belowOrEqual(today).reverse().limit(n) + releitura between(corte, today) numa transação r; ordem por takeMostRecent — D-40) e getTransaction. Hooks useOverallBalance, useMonthTotals, useRecentTransactions e useTransaction (useLiveQuery, null para inexistente). Erros: TransactionNotFoundError e TransactionTagNotFoundError.',
+    'Fase 4 (RF-01/RF-02, D-39). Escrita: createTransaction e updateTransaction validam com transactionInputSchema.parse e gravam numa transação rw [tags, transactions] com assertTagExists (a tag não some entre a checagem e a gravação; deleteTag conta na mesma tabela — D-01/D-02); deleteTransaction simples. Leitura pelo índice date: getOverallBalance() (toArray() da tabela inteira + overallBalance — um getAll() nativo, mais rápido que each() — D-42, RNF-02), getMonthTotals (between + totals), listRecentTransactions(today, count) (data de corte por where("date").belowOrEqual(today).reverse().limit(n) + releitura between(corte, today) numa transação r; ordem por takeMostRecent — D-40) e getTransaction. Hooks useOverallBalance, useMonthTotals, useRecentTransactions e useTransaction (useLiveQuery, null para inexistente). Erros: TransactionNotFoundError e TransactionTagNotFoundError. Fase 5 (RF-04, D-44(a)): listTransactionsInPeriod(from, to) pelo índice date em ordem crescente (between / aboveOrEqual / belowOrEqual / orderBy) + toArray() (getAll nativo) e inversão em memória antes de sortByRecency — sem .reverse() do Dexie, que no Safari abriria um cursor com uma volta por registro; countTransactions() com count(). Hooks useTransactionsInPeriod(from, to) e useTransactionCount(). Testes em transactionsRepository.list.test.ts e .list.properties.test.ts.',
   'src/domain/transactionSchema.ts':
     'Fase 4 (RF-01): transactionInputSchema (zod) — tipo income|expense, amountCents inteiro de 1 a MAX_AMOUNT_CENTS, data YYYY-MM-DD existente (isValidDate), tagId não vazio, descrição com trim e 1 a DESCRIPTION_MAX_LENGTH = 100 unidades UTF-16 (D-10, D-38(h)); mensagens em pt-BR. TransactionInput (z.input) e TransactionValues (z.output). Separado das funções puras como o tagSchema; usado pelo formulário e pelo repositório.',
   'src/domain/transactions.ts':
-    'Fase 4 (RF-02 item 5, D-39): compareByRecency (data, createdAt e id, comparados como texto) e takeMostRecent (toSorted + slice, sem alterar a lista original). O corte por data até hoje (D-40) fica na consulta do repositório, pelo índice date.',
+    'Fase 4 (RF-02 item 5, D-39): compareByRecency (data, createdAt e id, comparados como texto) e takeMostRecent (sortByRecency + slice). Fase 5: sortByRecency (toSorted, sem alterar a original), usada também por listTransactionsInPeriod na lista (RF-04 / CA-04.1). O corte por data até hoje (D-40) fica na consulta do repositório, pelo índice date.',
   'src/components/ui/MoneyInput.tsx':
     'Fase 4 (CA-01.3/01.4, D-31, D-38(d)): máscara de app de banco — o valor sai sempre do texto inteiro (só dígitos, sem zeros à esquerda → digitsToCents), então colar ou substituir a seleção dá resultado coerente; inputMode="numeric", placeholder "R$ 0,00", alinhado à direita, cursor no fim. Liga-se ao Field por useFieldControl. Testado em MoneyInput.test.tsx.',
   'src/components/ui/DateInput.tsx':
@@ -4775,7 +5442,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/ui/useToday.ts':
     'Fase 4 (CA-02.2, D-38(g)): useSyncExternalStore assinando visibilitychange (document), focus e pageshow (window); snapshot = today() (string, sem render à toa). Sem timer: com o app em primeiro plano à meia-noite só atualiza no próximo foco/visibilidade (ver saúde).',
   'src/components/tags/TagPicker.tsx':
-    'Fase 4 (RF-01, D-01, D-38(a)): chips-rádio nativos na cor da tag, contorno + "✓" na marcada, alvo de 44 px por chip (revisão), slot emptyState sem tags, erro por aria-describedby no fieldset. Testado em TagPicker.test.tsx.',
+    'Fase 4 (RF-01, D-01, D-38(a)): chips-rádio nativos na cor da tag, contorno + "✓" na marcada, alvo de 44 px por chip (revisão), slot emptyState sem tags, erro por aria-describedby no fieldset. Fase 5: parte interna TagOption e prop allOptionLabel (opção "Todas" com valor "", chip neutro) para o TagFilter da lista (CA-04.2, D-45(a)). Testado em TagPicker.test.tsx e, com "Todas", nos testes de filtro da lista.',
   'src/components/tags/CreateTagDialog.tsx':
     'Fase 4 (CA-01.7): Modal "Nova tag" com TagForm; precisa ficar fora do <form> de quem o abre.',
   'src/components/tags/tagFormTexts.ts':
@@ -4785,14 +5452,14 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/transactions/useTransactionForm.ts':
     'Fase 4: useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje ou os do lançamento; startsValid na edição; submit → createTransaction (reset mantendo tipo e data + Toast "Lançamento salvo") ou updateTransaction (onUpdated); erros de gravação em saveError (D-36); virada do dia troca a data só se ela ainda for a automática (ref autoFilledDate — D-38(g)).',
   'src/components/transactions/TransactionRow.tsx':
-    'Fase 4: linha com Link para /lancamentos/:id, descrição, TagChip, formatShortDate e SignedAmount(signedAmount). Pronta para a lista da Fase 5.',
+    'Fase 4: linha com Link para /lancamentos/:id (CA-01.5 / CA-04.5), descrição, TagChip, formatShortDate e SignedAmount(signedAmount). Fase 5: prop showDate (padrão true); a DaySection da lista passa showDate={false}, porque a data está no cabeçalho do dia (D-45(c)).',
   'src/components/transactions/NoTagsNotice.tsx': 'Fase 4 (CA-01.7): aviso sem tags + "Criar tag".',
   'src/components/transactions/transactionTexts.ts':
     'Fase 4: textos pt-BR do formulário de lançamento ("Lançamento salvo", falhas, lançamento/tag inexistente, aviso sem tags).',
   'src/features/home/HomePage.tsx':
     'Fase 4 (RF-02): Page com BalanceSummary (today de useToday), seção "Novo lançamento" com TransactionForm e RecentTransactions (today — D-40). Única tela fora do React.lazy (bundle decidido pela D-41).',
   'src/features/home/BalanceSummary.tsx':
-    'Fase 4 (RF-02 itens 1–2, D-42, CA-02.3): useOverallBalance() (sem today) e useMonthTotals(periodOf(today)); "—" enquanto carrega; título com formatMonthLabel.',
+    'Fase 4 (RF-02 itens 1–2, D-42, CA-02.3): useOverallBalance() (sem today) e useMonthTotals(periodOf(today)); "—" enquanto carrega; título com formatMonthLabel. Fase 5: entradas e saídas do mês pelo IncomeExpenseTotals.',
   'src/features/home/RecentTransactions.tsx':
     'Fase 4 (RF-02 item 5, D-40): prop today (do useToday do HomePage); useRecentTransactions(today, RECENT_TRANSACTIONS_COUNT) + useTags; TransactionRow ou EmptyState; link "Ver todos" para /lancamentos.',
   'src/features/home/homeTexts.ts': 'RECENT_TRANSACTIONS_COUNT = 5 e a mensagem da lista vazia.',
@@ -4804,6 +5471,48 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     'Fase 4: useTransaction(id), estado da exclusão (isConfirmingDelete, isDeleting, deleteError), isDone e finish → useGoBack("/lancamentos") depois de salvar ou excluir (D-38(c)).',
   'src/features/transactions/ConfirmDeleteTransactionDialog.tsx':
     'Fase 4 (CA-01.6): Modal "Excluir lançamento?" com ErrorAlert e "Excluir" desabilitado durante a exclusão.',
+  'src/domain/text.ts':
+    'Fase 5 (D-44(c)): foldText — normalize("NFD"), remove \\p{M} (só marcas combinantes; sinais avulsos ficam) e toLowerCase; não faz trim. Normalização única para a unicidade do nome da tag (toTagNameKey) e a busca na descrição (createTransactionMatcher). Testes de exemplos e de propriedade (idempotência, NFC × NFD).',
+  'src/domain/transactionFilters.ts':
+    'Fase 5 (RF-04, D-44), puro: TransactionFilters/EMPTY_TRANSACTION_FILTERS (§6.7), isPeriodInverted e effectivePeriod (período invertido não é aplicado), countActiveFilters/hasActiveFilters (período conta como um, mesmo inválido), createTransactionMatcher (testes baratos antes do foldText da descrição), filterTransactions, summarizeTransactionList (filtra, groupByDay e soma os totais pelos dias com addCents — CA-04.1/04.3) e countVisibleDays (páginas de dias inteiros — CA-04.6). Teste de desempenho com 10.000 lançamentos (< 300 ms — RNF-02), testes de propriedade e de auditoria.',
+  'src/components/ui/useDebouncedValue.ts':
+    'Fase 5 (D-44(c)): valor mais recente depois de delayMs sem mudanças, sem biblioteca. immediateValue (opcional) vale na hora e também substitui o valor atrasado (ajuste de estado durante a renderização, sem render extra): a busca vazia limpa a lista na hora e a anterior não reaparece se o usuário redigitar antes da espera (correção da revisão).',
+  'src/components/ui/LoadMore.tsx':
+    'Fase 5 (CA-04.6, D-44(d)): primitivo de fim de lista paginada. IntersectionObserver com rootMargin "0px 0px 600px 0px", refeito a cada página (loadedCount nas deps) para avisar de novo se o fim continuar à vista; botão "Carregar mais" como alternativa acessível. Sem IntersectionObserver (jsdom), só o botão.',
+  'src/components/transactions/IncomeExpenseTotals.tsx':
+    'Fase 5 (D-45(c)): <dl> com "Entradas" e "Saídas" escritos (RNF-06), formatBRL e tabular-nums. Extraído do BalanceSummary; usado também por DaySection e FilterSummary.',
+  'src/features/transactions/TransactionsPage.tsx':
+    'Fase 5 (RF-04, D-45): substitui o placeholder. Page.Header com NewTransactionLink (local) no trailing, FilterBar composto, FilterSummary com filtro aplicado, os dois EmptyState (sem lançamentos / sem resultado) e TransactionDayList com key = filtersKey. Nada aparece enquanto os dados carregam. Dados só por useTransactionList.',
+  'src/features/transactions/useTransactionList.ts':
+    'Fase 5 (RF-04, D-44): um seletor do Zustand por campo de transactionFilters; texto com useDebouncedValue(…, SEARCH_DEBOUNCE_MS, "") — só espaços conta como vazio; effectivePeriod; useTransactionsInPeriod (índice date), useTransactionCount e useTags. Tag do filtro excluída: vale como "Todas" nos filtros aplicados e um useEffect chama setFilters({ tagId: null }) (correção da revisão). summary = summarizeTransactionList(transações, filtros aplicados); isFiltering e filtersKey também pelos filtros aplicados (o resumo não mostra os totais sem filtro durante a espera — correção da revisão).',
+  'src/features/transactions/transactionListTexts.ts':
+    'Fase 5: textos pt-BR da lista (Limpar filtros, Carregar mais, Novo, estados vazios, aviso de período invertido), SEARCH_DEBOUNCE_MS = 250, LIST_PAGE_ITEM_COUNT = 50 e formatResultCount ("5.000 lançamentos encontrados", Intl.NumberFormat criado uma vez).',
+  'src/features/transactions/filters/FilterBar.tsx':
+    'Fase 5 (CA-04.2, D-45(a)): compound component com role="search". Estado local isPanelOpen, panelId (useId) e searchInputRef, repassados pelo FilterBarContext. Partes locais FilterBarActions e FilterBarPanel (hidden enquanto fechado); partes importadas por atribuição (FilterBar.Text = TextFilter etc.), que o scanner lê em compoundParts.',
+  'src/features/transactions/filters/filterBarContext.ts':
+    'Fase 5: FilterBarContext (isPanelOpen, togglePanel, panelId, searchInputRef) e useFilterBar(part) com erro claro quando a parte está fora do <FilterBar>.',
+  'src/features/transactions/filters/FilterToggle.tsx':
+    'Fase 5: botão "Filtros (N)" com aria-expanded/aria-controls; N = countActiveFilters de tipo, tag e período (o texto não conta). Só lê o Zustand.',
+  'src/features/transactions/filters/ClearFiltersButton.tsx':
+    'Fase 5 (CA-04.4): só aparece com filtro preenchido (hasActiveFilters dos 5 campos, pelo texto digitado); clearFilters() e foco no campo de busca pelo searchInputRef (RNF-06 — correção da revisão).',
+  'src/features/transactions/filters/TextFilter.tsx':
+    'Fase 5 (CA-04.2): Field "Buscar na descrição" + TextInput ligado ao searchInputRef; grava setFilters({ text }) a cada tecla; enterKeyHint="search" e Enter só fecha o teclado (D-45(a)).',
+  'src/features/transactions/filters/TypeFilter.tsx':
+    'Fase 5 (CA-04.2): createRadioGroup<TransactionTypeFilter>() segmented com Todos | Entradas | Saídas; grava setFilters({ type }).',
+  'src/features/transactions/filters/TagFilter.tsx':
+    'Fase 5 (CA-04.2): TagPicker com allOptionLabel="Todas" ("" ↔ null) e emptyState "Nenhuma tag cadastrada."; nada enquanto as tags carregam.',
+  'src/features/transactions/filters/PeriodFilter.tsx':
+    'Fase 5 (CA-04.2, D-44(b)): Data inicial e Data final (DateInput, "" ↔ null), inclusivas; período invertido mostra INVERTED_PERIOD_MESSAGE no campo final (Field.Error) e não é aplicado. Em coluna no iPhone, duas colunas a partir de sm.',
+  'src/features/transactions/list/FilterSummary.tsx':
+    'Fase 5 (CA-04.3): "N lançamentos encontrados" (role="status"), Resultado com SignedAmount e IncomeExpenseTotals do conjunto filtrado inteiro, não só da parte visível.',
+  'src/features/transactions/list/DaySection.tsx':
+    'Fase 5 (CA-04.1): h2 com formatLongDate (1ª letra maiúscula pelo CSS first-letter), totais do dia e TransactionRow com showDate={false}.',
+  'src/features/transactions/list/TransactionDayList.tsx':
+    'Fase 5 (CA-04.6, D-44(d)): guarda itemTarget (meta de itens) e deriva os dias visíveis por countVisibleDays a cada render, acompanhando a lista ao vivo; LoadMore pede itemCount + LIST_PAGE_ITEM_COUNT. Volta à 1ª página quando o pai troca a key.',
+  'src/test/transactionList.ts':
+    'Fase 5: apoio aos testes de tela da lista (openList, transactionLinks, expectRowCount, searchInput/typeSearch, openFiltersPanel e afins), sobre renderApp, seedRecords e makeTransaction.',
+  'src/components/ui/Page.tsx':
+    'Compound component Page (Page.Header com leading, Page.Body). Fase 5: slot trailing no Page.Header (h1 com flex-1), para o "+ Novo" da lista (D-45(e)).',
   'src/test/transactionForm.ts':
     'Fase 4: ações do formulário de lançamento para testes de tela (typeAmount dígito a dígito, chooseTag, fillTransactionForm, submit esperando o botão habilitar — princípio 16, expectSubmitEnabled), com escopo opcional (within).',
   'src/dev/architecture/model.ts':

@@ -63,6 +63,8 @@ export interface GraphModule {
   hooksDefined: string[]
   hooksUsed: string[]
   jsxUsed: string[]
+  /** Partes de compound component atribuídas no módulo (`FilterBar.Text = TextFilter` → Text: TextFilter). */
+  compoundParts?: Record<string, string>
   storesUsed: string[]
   /** Só em stores Zustand: chaves das interfaces `*State` e `*Actions` (§6.7). */
   store?: { state: string[]; actions: string[] }
@@ -385,6 +387,20 @@ export interface PlannedUiField {
   type: string
   actions: string[]
   phase: number
+}
+
+/**
+ * Acesso a subcampos de um campo da store (ex.: `transactionFilters.text`), que o scanner não
+ * separa: ele só vê o campo de primeiro nível em `storeMembersUsed`.
+ */
+export interface UiFieldAccess {
+  /** Módulo que lê/escreve (caminho real). */
+  module: string
+  /** Subcampos lidos, cada um com seu seletor (ex.: `transactionFilters.text`). */
+  reads: string[]
+  /** Ações chamadas e o que gravam (ex.: `setFilters({ text })`). */
+  writes: string[]
+  note?: string
 }
 
 export interface PlannedDomainFunction {

@@ -55,8 +55,46 @@ export function buildComponentTree(moduleId: string, seen: Set<string> = new Set
       module,
       external,
       repeated: repeated && !isSelf,
-      children: module && !repeated ? buildComponentTree(module, nextSeen) : [],
+      children:
+        module && !repeated
+          ? [
+              ...buildComponentTree(module, nextSeen),
+              ...compoundPartNodes(name, parts, module, nextSeen),
+            ]
+          : [],
     }
+  })
+}
+
+/**
+ * Partes de um compound component que são componentes de outro módulo (ex.: `FilterBar.Text`
+ * → `TextFilter`): viram filhos da árvore, para ela descer até o que cada parte renderiza.
+ */
+function compoundPartNodes(
+  name: string,
+  parts: readonly string[],
+  moduleId: string,
+  seen: Set<string>,
+): TreeNode[] {
+  const owner = moduleById.get(moduleId)
+  if (!owner?.compoundParts) return []
+  const nextSeen = new Set(seen).add(moduleId)
+  return parts.flatMap((part) => {
+    const assigned = owner.compoundParts?.[part]
+    if (!assigned) return []
+    const { module } = resolveComponent(owner, assigned)
+    if (!module || module === moduleId) return []
+    const repeated = nextSeen.has(module)
+    return [
+      {
+        name: `${name}.${part}`,
+        parts: [],
+        module,
+        external: null,
+        repeated,
+        children: repeated ? [] : buildComponentTree(module, nextSeen),
+      },
+    ]
   })
 }
 
