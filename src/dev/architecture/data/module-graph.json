@@ -1,19 +1,19 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-21T18:38:47.357Z",
+  "generatedAt": "2026-10-22T13:47:47.039Z",
   "totals": {
-    "modules": 281,
-    "loc": 26154,
+    "modules": 282,
+    "loc": 26296,
     "components": 110,
     "hooks": 31,
     "tests": 85,
-    "edges": 806,
+    "edges": 807,
     "configFiles": 11
   },
   "layerSummary": {
     "config": {
       "modules": 11,
-      "loc": 360,
+      "loc": 399,
       "components": 0,
       "hooks": 0,
       "tests": 0
@@ -41,7 +41,7 @@
     },
     "dev": {
       "modules": 65,
-      "loc": 12987,
+      "loc": 13116,
       "components": 36,
       "hooks": 2,
       "tests": 5
@@ -55,7 +55,7 @@
     },
     "features": {
       "modules": 55,
-      "loc": 3058,
+      "loc": 3062,
       "components": 31,
       "hooks": 5,
       "tests": 14
@@ -96,14 +96,14 @@
       "tests": 1
     },
     "test": {
-      "modules": 10,
-      "loc": 408,
+      "modules": 11,
+      "loc": 417,
       "components": 0,
       "hooks": 0,
       "tests": 0
     }
   },
-  "specVersion": "1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.21 — 22/10/2026 (testes em dois projetos do Vitest, `unit` em node e `dom` em jsdom — D-46 aguardando confirmação) · 1.20 — 22/10/2026 (D-44 e D-45 confirmadas) · 1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
@@ -871,7 +871,7 @@
       "kinds": [
         "config"
       ],
-      "loc": 52,
+      "loc": 54,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -903,6 +903,8 @@
           "format:check",
           "test",
           "test:watch",
+          "test:unit",
+          "test:dom",
           "test:coverage"
         ]
       },
@@ -1197,7 +1199,8 @@
         "src/stores/uiStore.ts",
         "src/test/renderApp.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/app/layout/AppLayout.tsx",
@@ -1331,7 +1334,8 @@
       "imports": [
         "src/test/renderApp.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/app/layout/BottomNav.tsx",
@@ -1583,7 +1587,8 @@
       "imports": [
         "index.html"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/app/pwa/InstallHint.test.tsx",
@@ -1642,7 +1647,8 @@
         "src/test/matchMedia.ts",
         "src/test/renderApp.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/app/pwa/InstallHint.tsx",
@@ -1753,7 +1759,8 @@
         "src/app/pwa/pwaOptions.ts",
         "src/lib/theme.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/app/pwa/pwaOptions.ts",
@@ -1883,7 +1890,8 @@
         "src/lib/updateCheck.ts",
         "src/stores/uiStore.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/app/pwa/registerPwa.ts",
@@ -2026,7 +2034,8 @@
         "src/app/pwa/UpdateNotice.tsx",
         "src/stores/uiStore.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/app/pwa/UpdateNotice.tsx",
@@ -2263,7 +2272,8 @@
       "imports": [
         "src/test/renderApp.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/app/routes.tsx",
@@ -2511,7 +2521,8 @@
         "src/test/renderApp.tsx",
         "src/test/themeReference.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/app/theme/ThemeProvider.tsx",
@@ -2972,7 +2983,8 @@
         "src/components/tags/TagPicker.tsx",
         "src/test/factories.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/components/tags/TagPicker.tsx",
@@ -3632,7 +3644,8 @@
       "imports": [
         "src/components/ui/BackLink.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/components/ui/BackLink.tsx",
@@ -3823,7 +3836,8 @@
       "imports": [
         "src/components/ui/createRadioGroup.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/components/ui/createRadioGroup.tsx",
@@ -3963,7 +3977,8 @@
         "src/components/ui/DateInput.tsx",
         "src/components/ui/Field.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/components/ui/DateInput.tsx",
@@ -4457,7 +4472,8 @@
       "imports": [
         "src/components/ui/Modal.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/components/ui/Modal.tsx",
@@ -4618,7 +4634,8 @@
         "src/domain/money.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/components/ui/MoneyInput.tsx",
@@ -5094,7 +5111,8 @@
       "imports": [
         "src/components/ui/TagChip.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/components/ui/TagChip.tsx",
@@ -5329,7 +5347,8 @@
       "imports": [
         "src/components/ui/useDebouncedValue.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/components/ui/useDebouncedValue.ts",
@@ -5719,7 +5738,8 @@
         "src/repositories/databaseInfo.ts",
         "src/test/factories.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/db/database.test.ts",
@@ -5767,7 +5787,8 @@
       "imports": [
         "src/db/database.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/db/database.ts",
@@ -5836,7 +5857,8 @@
         "src/repositories/transactionsRepository.test.ts",
         "src/repositories/transactionsRepository.ts",
         "src/test/seedDatabase.ts",
-        "src/test/setup.ts"
+        "src/test/setup.ts",
+        "src/test/setup.unit.ts"
       ],
       "imports": [
         "src/domain/types.ts"
@@ -5864,7 +5886,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 224,
+      "loc": 230,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -5888,6 +5910,7 @@
         "D-22",
         "D-26",
         "D-37",
+        "D-46",
         "RF-09"
       ],
       "external": [
@@ -5910,7 +5933,8 @@
       ],
       "assets": [
         "src/dev/architecture/data/module-graph.json"
-      ]
+      ],
+      "testProject": "unit"
     },
     {
       "id": "src/dev/architecture/ArchitecturePage.test.tsx",
@@ -5972,7 +5996,8 @@
         "src/dev/architecture/ArchitecturePage.tsx",
         "src/test/renderApp.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/dev/architecture/ArchitecturePage.tsx",
@@ -7143,7 +7168,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 149,
+      "loc": 154,
       "exports": [
         "ModuleDetails"
       ],
@@ -8571,7 +8596,7 @@
         "database",
         "data"
       ],
-      "loc": 5489,
+      "loc": 5526,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
@@ -8654,7 +8679,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 1849,
+      "loc": 1926,
       "exports": [
         "TIMELINE"
       ],
@@ -9132,7 +9157,7 @@
       "kinds": [
         "types"
       ],
-      "loc": 414,
+      "loc": 418,
       "exports": [
         "AllowedDependency",
         "ArchitectureFinding",
@@ -9174,6 +9199,7 @@
         "RouteNote",
         "ScreenComposition",
         "TableNote",
+        "TestProject",
         "TimelineEntry",
         "TimelinePhase",
         "TimelineType",
@@ -9220,6 +9246,7 @@
         "RouteNote",
         "ScreenComposition",
         "TableNote",
+        "TestProject",
         "TimelineEntry",
         "TimelinePhase",
         "TimelineType",
@@ -9251,6 +9278,7 @@
         "D-37",
         "D-41",
         "D-43",
+        "D-46",
         "RNF-02"
       ],
       "external": [],
@@ -9338,7 +9366,8 @@
         "src/domain/dates.ts",
         "src/domain/money.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/dev/sampleData/buildSampleData.test.ts",
@@ -9391,7 +9420,8 @@
         "src/dev/sampleData/buildSampleData.ts",
         "src/domain/dates.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/dev/sampleData/buildSampleData.ts",
@@ -9649,7 +9679,8 @@
         "src/dev/sampleData/buildSampleData.ts",
         "src/dev/sampleData/sampleDataStore.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/dev/sampleData/sampleDataStore.ts",
@@ -10047,7 +10078,8 @@
         "src/test/factories.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/balances.signedAmount.test.ts",
@@ -10097,7 +10129,8 @@
         "src/domain/money.ts",
         "src/test/factories.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/balances.test.ts",
@@ -10153,7 +10186,8 @@
         "src/domain/money.ts",
         "src/test/factories.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/balances.ts",
@@ -10314,7 +10348,8 @@
         "src/domain/dates.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/dates.format.test.ts",
@@ -10362,7 +10397,8 @@
       "imports": [
         "src/domain/dates.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/dates.format.timezone.test.ts",
@@ -10413,7 +10449,8 @@
       "imports": [
         "src/domain/dates.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/dates.longDate.properties.test.ts",
@@ -10464,7 +10501,8 @@
         "src/domain/dates.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/dates.longDate.test.ts",
@@ -10514,7 +10552,8 @@
       "imports": [
         "src/domain/dates.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/dates.test.ts",
@@ -10562,7 +10601,8 @@
       "imports": [
         "src/domain/dates.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/dates.timezone.test.ts",
@@ -10615,7 +10655,8 @@
         "src/test/factories.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/dates.ts",
@@ -10836,7 +10877,8 @@
         "src/domain/money.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/money.ts",
@@ -10989,7 +11031,8 @@
       "imports": [
         "src/domain/tagColor.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/tagColor.ts",
@@ -11107,7 +11150,8 @@
         "src/domain/tags.ts",
         "src/test/factories.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/tags.ts",
@@ -11248,7 +11292,8 @@
         "src/domain/tagSchema.ts",
         "src/domain/tags.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/tagSchema.ts",
@@ -11365,7 +11410,8 @@
         "src/test/factories.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/text.test.ts",
@@ -11416,7 +11462,8 @@
         "src/domain/tags.ts",
         "src/domain/text.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/text.ts",
@@ -11535,7 +11582,8 @@
         "src/test/factories.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/transactionFilters.performance.test.ts",
@@ -11589,7 +11637,8 @@
         "src/test/factories.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/transactionFilters.properties.test.ts",
@@ -11643,7 +11692,8 @@
         "src/test/factories.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/transactionFilters.test.ts",
@@ -11699,7 +11749,8 @@
         "src/domain/types.ts",
         "src/test/factories.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/transactionFilters.ts",
@@ -11880,7 +11931,8 @@
         "src/test/factories.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/transactions.ts",
@@ -12004,7 +12056,8 @@
         "src/domain/money.ts",
         "src/domain/transactionSchema.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/transactionSchema.ts",
@@ -12436,7 +12489,8 @@
         "src/test/seedDatabase.ts",
         "src/test/transactionForm.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/home/HomePage.test.tsx",
@@ -12521,7 +12575,8 @@
         "src/test/renderApp.tsx",
         "src/test/transactionForm.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/home/HomePage.tsx",
@@ -12901,7 +12956,8 @@
         "src/features/settings/AboutPage.tsx",
         "src/lib/appVersion.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/settings/AboutPage.tsx",
@@ -13269,7 +13325,8 @@
         "src/test/matchMedia.ts",
         "src/test/renderApp.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/settings/ThemeSection.tsx",
@@ -13697,7 +13754,8 @@
         "src/repositories/tagsRepository.ts",
         "src/test/renderApp.tsx"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/tags/TagsPage.test.tsx",
@@ -13766,7 +13824,8 @@
         "src/test/renderApp.tsx",
         "src/test/seedDatabase.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/tags/TagsPage.transactions.test.tsx",
@@ -13828,7 +13887,8 @@
         "src/test/seedDatabase.ts",
         "src/test/transactionForm.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/tags/TagsPage.tsx",
@@ -13967,7 +14027,8 @@
         "src/test/renderApp.tsx",
         "src/test/seedDatabase.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/tags/tagTexts.test.ts",
@@ -14016,7 +14077,8 @@
       "imports": [
         "src/features/tags/tagTexts.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/features/tags/tagTexts.ts",
@@ -15063,7 +15125,8 @@
         "src/test/renderApp.tsx",
         "src/test/transactionForm.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/transactions/TransactionDetailPage.tsx",
@@ -15286,7 +15349,8 @@
         "src/stores/uiStore.ts",
         "src/test/transactionList.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/transactions/TransactionsPage.pagination.test.tsx",
@@ -15296,7 +15360,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 84,
+      "loc": 88,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -15326,7 +15390,8 @@
           "kind": "static",
           "names": [
             "fireEvent",
-            "screen"
+            "screen",
+            "waitFor"
           ]
         },
         {
@@ -15348,7 +15413,8 @@
         "src/features/transactions/transactionListTexts.ts",
         "src/test/transactionList.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/transactions/TransactionsPage.test.tsx",
@@ -15412,7 +15478,8 @@
         "src/features/transactions/transactionListTexts.ts",
         "src/test/transactionList.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/transactions/TransactionsPage.tsx",
@@ -15640,7 +15707,8 @@
         "src/stores/uiStore.ts",
         "src/test/factories.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/transactions/useTransactionList.ts",
@@ -15825,7 +15893,8 @@
         "package.json",
         "src/lib/appVersion.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/lib/appVersion.ts",
@@ -15919,7 +15988,8 @@
       "imports": [
         "src/lib/displayMode.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/lib/displayMode.ts",
@@ -16020,7 +16090,8 @@
       "imports": [
         "src/lib/formatBytes.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/lib/formatBytes.ts",
@@ -16121,7 +16192,8 @@
       "imports": [
         "src/lib/formSubmit.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/lib/formSubmit.ts",
@@ -16235,7 +16307,8 @@
       "imports": [
         "src/lib/storage.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/lib/storage.test.ts",
@@ -16286,7 +16359,8 @@
       "imports": [
         "src/lib/storage.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/lib/storage.ts",
@@ -16403,7 +16477,8 @@
       "imports": [
         "src/lib/theme.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/lib/theme.ts",
@@ -16549,7 +16624,8 @@
         "src/lib/theme.ts",
         "src/lib/themeStorage.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/lib/themeStorage.ts",
@@ -16655,7 +16731,8 @@
       "imports": [
         "src/lib/updateCheck.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/lib/updateCheck.ts",
@@ -16877,7 +16954,8 @@
         "src/repositories/persistentStorageRepository.ts",
         "src/repositories/settingsRepository.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/repositories/persistentStorageRepository.test.ts",
@@ -16928,7 +17006,8 @@
         "src/repositories/persistentStorageRepository.ts",
         "src/repositories/settingsRepository.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/repositories/persistentStorageRepository.ts",
@@ -17045,7 +17124,8 @@
         "src/db/database.ts",
         "src/repositories/settingsRepository.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/repositories/settingsRepository.test.ts",
@@ -17103,7 +17183,8 @@
       "imports": [
         "src/repositories/settingsRepository.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/repositories/settingsRepository.ts",
@@ -17261,7 +17342,8 @@
       "imports": [
         "src/repositories/tagsRepository.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/repositories/tagsRepository.test.ts",
@@ -17369,7 +17451,8 @@
         "src/repositories/tagsRepository.ts",
         "src/test/factories.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/repositories/tagsRepository.ts",
@@ -17683,7 +17766,8 @@
         "src/repositories/useTheme.ts",
         "src/repositories/useThemePreference.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/repositories/themeRepository.test.ts",
@@ -17734,7 +17818,8 @@
         "src/repositories/settingsRepository.ts",
         "src/repositories/themeRepository.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/repositories/themeRepository.ts",
@@ -17878,7 +17963,8 @@
         "src/test/factories.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/repositories/transactionsRepository.crud.test.ts",
@@ -17971,7 +18057,8 @@
         "src/repositories/transactionsRepository.ts",
         "src/test/factories.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/repositories/transactionsRepository.list.properties.test.ts",
@@ -18052,7 +18139,8 @@
         "src/test/factories.ts",
         "src/test/propertyHelpers.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/repositories/transactionsRepository.list.test.ts",
@@ -18113,7 +18201,8 @@
         "src/repositories/transactionsRepository.ts",
         "src/test/factories.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/repositories/transactionsRepository.test.ts",
@@ -18191,7 +18280,8 @@
         "src/repositories/transactionsRepository.ts",
         "src/test/factories.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/repositories/transactionsRepository.ts",
@@ -18592,7 +18682,8 @@
         "src/domain/transactionFilters.ts",
         "src/stores/uiStore.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/stores/uiStore.test.ts",
@@ -18652,7 +18743,8 @@
         "src/domain/transactionFilters.ts",
         "src/stores/uiStore.ts"
       ],
-      "assets": []
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/stores/uiStore.ts",
@@ -18812,7 +18904,8 @@
       ],
       "importedBy": [],
       "imports": [],
-      "assets": []
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/test/dialog.ts",
@@ -19381,6 +19474,57 @@
       "testedBy": []
     },
     {
+      "id": "src/test/setup.unit.ts",
+      "layer": "test",
+      "feature": null,
+      "group": "test",
+      "kinds": [
+        "module"
+      ],
+      "loc": 9,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": true,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach"
+          ]
+        },
+        {
+          "package": "fake-indexeddb",
+          "specifier": "fake-indexeddb/auto",
+          "kind": "side-effect",
+          "names": []
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/test/themeReference.ts",
       "layer": "test",
       "feature": null,
@@ -19820,7 +19964,7 @@
       "kinds": [
         "config"
       ],
-      "loc": 53,
+      "loc": 90,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -19842,6 +19986,7 @@
       "requirementRefs": [
         "CA-11.5",
         "D-43",
+        "D-46",
         "RF-11",
         "RNF-07"
       ],
@@ -19916,7 +20061,7 @@
           "@",
           "@tailwind-sources"
         ],
-        "testEnvironment": "jsdom",
+        "testEnvironment": "node",
         "coverageInclude": [
           "src/domain/**/*.ts",
           "src/lib/**/*.ts"
@@ -22003,7 +22148,8 @@
       "kind": "type",
       "names": [
         "ConfigValue",
-        "GraphModule"
+        "GraphModule",
+        "TestProject"
       ]
     },
     {
@@ -26765,6 +26911,14 @@
       ]
     },
     {
+      "from": "src/test/setup.unit.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
       "from": "src/test/themeReference.ts",
       "to": "src/lib/theme.ts",
       "kind": "static",
@@ -27238,7 +27392,8 @@
       "dev": true,
       "builtin": false,
       "importedBy": [
-        "src/test/setup.ts"
+        "src/test/setup.ts",
+        "src/test/setup.unit.ts"
       ]
     },
     "jsdom": {
@@ -27397,6 +27552,7 @@
         "src/stores/uiStore.test.ts",
         "src/styles/tailwindEntry.test.ts",
         "src/test/setup.ts",
+        "src/test/setup.unit.ts",
         "src/test/transactionForm.ts",
         "src/test/transactionList.ts",
         "vite.config.ts"
@@ -27842,7 +27998,7 @@
     ]
   },
   "build": {
-    "builtAt": "2026-10-21T18:38:46.790Z",
+    "builtAt": "2026-10-22T13:47:46.067Z",
     "serviceWorker": "sw.js",
     "workboxRuntime": "workbox-2fbc6a65.js",
     "manifest": "manifest.webmanifest",
@@ -27959,11 +28115,19 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "240cb87",
+    "head": "f4c6cad",
     "workingTree": [
       {
         "status": "M",
+        "path": ".claude/agents/domain-test-writer.md"
+      },
+      {
+        "status": "M",
         "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
+      },
+      {
+        "status": "M",
+        "path": "CLAUDE.md"
       },
       {
         "status": "M",
@@ -27971,15 +28135,7 @@
       },
       {
         "status": "M",
-        "path": "src/components/tags/TagPicker.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/components/transactions/TransactionRow.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/components/ui/Page.tsx"
+        "path": "package.json"
       },
       {
         "status": "M",
@@ -27987,11 +28143,7 @@
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/UiStateSection.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/composition.ts"
+        "path": "src/dev/architecture/components/ModuleDetails.tsx"
       },
       {
         "status": "M",
@@ -28007,183 +28159,252 @@
       },
       {
         "status": "M",
-        "path": "src/domain/dates.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/domain/tags.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/domain/transactions.test.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/domain/transactions.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/features/home/BalanceSummary.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/transactions/TransactionsPage.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/repositories/transactionsRepository.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/stores/uiStore.test.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/stores/uiStore.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/transactions/IncomeExpenseTotals.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/LoadMore.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/useDebouncedValue.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/useDebouncedValue.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/dates.longDate.properties.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/dates.longDate.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/text.properties.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/text.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/text.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/transactionFilters.audit.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/transactionFilters.performance.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/transactionFilters.properties.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/transactionFilters.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/transactionFilters.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/TransactionsPage.filters.test.tsx"
-      },
-      {
-        "status": "??",
         "path": "src/features/transactions/TransactionsPage.pagination.test.tsx"
       },
       {
-        "status": "??",
-        "path": "src/features/transactions/TransactionsPage.test.tsx"
+        "status": "M",
+        "path": "vite.config.ts"
       },
       {
         "status": "??",
-        "path": "src/features/transactions/filters/ClearFiltersButton.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/filters/FilterBar.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/filters/FilterToggle.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/filters/PeriodFilter.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/filters/TagFilter.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/filters/TextFilter.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/filters/TypeFilter.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/filters/filterBarContext.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/list/DaySection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/list/FilterSummary.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/list/TransactionDayList.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/transactionListTexts.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/useTransactionList.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/useTransactionList.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/transactionsRepository.list.properties.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/transactionsRepository.list.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/stores/uiStore.filters.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/test/transactionList.ts"
+        "path": "src/test/setup.unit.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "f4c6cad",
+      "date": "2026-10-22T09:44:40-03:00",
+      "author": "Fernando",
+      "subject": "feat/finishing phase 5",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
+        },
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "M",
+          "path": "src/components/tags/TagPicker.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/transactions/IncomeExpenseTotals.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/components/transactions/TransactionRow.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/LoadMore.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/components/ui/Page.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/useDebouncedValue.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/useDebouncedValue.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/architecture.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/UiStateSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/composition.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/types.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/dates.longDate.properties.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/dates.longDate.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/domain/dates.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/domain/tags.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/text.properties.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/text.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/text.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/transactionFilters.audit.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/transactionFilters.performance.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/transactionFilters.properties.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/transactionFilters.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/transactionFilters.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/domain/transactions.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/domain/transactions.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/features/home/BalanceSummary.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/TransactionsPage.filters.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/TransactionsPage.pagination.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/TransactionsPage.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/transactions/TransactionsPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/filters/ClearFiltersButton.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/filters/FilterBar.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/filters/FilterToggle.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/filters/PeriodFilter.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/filters/TagFilter.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/filters/TextFilter.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/filters/TypeFilter.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/filters/filterBarContext.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/list/DaySection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/list/FilterSummary.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/list/TransactionDayList.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/transactionListTexts.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/useTransactionList.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/useTransactionList.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/transactionsRepository.list.properties.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/transactionsRepository.list.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/repositories/transactionsRepository.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/stores/uiStore.filters.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/stores/uiStore.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/stores/uiStore.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/test/transactionList.ts"
+        }
+      ]
+    },
     {
       "hash": "240cb87",
       "date": "2026-10-21T14:32:34-03:00",
@@ -30600,6 +30821,7 @@
     "src/test/renderApp.tsx",
     "src/test/seedDatabase.ts",
     "src/test/setup.ts",
+    "src/test/setup.unit.ts",
     "src/test/themeReference.ts",
     "src/test/transactionForm.ts",
     "src/test/transactionList.ts",

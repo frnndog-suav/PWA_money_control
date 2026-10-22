@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react'
+import { fireEvent, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { addMonthsClamped } from '@/domain/dates'
 import { LIST_PAGE_ITEM_COUNT } from '@/features/transactions/transactionListTexts'
@@ -77,8 +77,12 @@ describe('TransactionsPage — paginação (CA-04.6)', () => {
     await openList()
     await expectRowCount(LIST_PAGE_ITEM_COUNT)
 
-    observer.reachEnd()
-    await expectRowCount(80)
+    // Dispara de novo a cada tentativa: um único disparo se perde se a lista ainda refizer o
+    // observador (novo render ou troca de key) logo depois de mostrar a 1ª página.
+    await waitFor(() => {
+      observer.reachEnd()
+      expect(transactionLinks()).toHaveLength(80)
+    })
     expect(screen.queryByRole('button', { name: 'Carregar mais' })).toBeNull()
   })
 

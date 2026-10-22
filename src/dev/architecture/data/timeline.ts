@@ -13,7 +13,8 @@
 // página) entrou no f10e466 (20/10/2026); as specs 1.15 a 1.17 (D-40 a D-43), as correções da D-40,
 // da D-42 e da D-43 e a página atualizada entraram no 240cb87 (21/10/2026). A spec 1.18 (D-43
 // confirmada) e a Fase 5 inteira (lista, busca e filtros, testes reforçados, correções da revisão
-// e esta página) ainda não foram commitadas.
+// e esta página) entraram no f4c6cad (22/10/2026). A spec 1.20 (D-44 e D-45 confirmadas), a
+// spec 1.21 (D-46, projetos do Vitest) e a página atualizada ainda não foram commitadas.
 
 import type { TimelineEntry } from '@/dev/architecture/types'
 
@@ -1675,8 +1676,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Spec 1.18: D-43 confirmada e Fase 4 concluída',
     summary:
       'O dono confirmou a D-43 (folha Tailwind única, inclusive em DEV) depois de revalidar o aviso "Lançamento salvo" no PC com o tema escuro; a Fase 4 foi dada como concluída.',
-    commits: [],
-    committed: false,
+    commits: ['f4c6cad'],
+    committed: true,
     requirements: [],
     decisions: ['D-43'],
     files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
@@ -1689,9 +1690,9 @@ export const TIMELINE: readonly TimelineEntry[] = [
     type: 'feature',
     title: 'Fase 5: lista de lançamentos com busca, filtros e paginação',
     summary:
-      'A tela /lancamentos deixa de ser placeholder. Domínio: foldText (src/domain/text.ts), agora também usado por toTagNameKey; transactionFilters (TransactionFilters, EMPTY_TRANSACTION_FILTERS, isPeriodInverted, effectivePeriod, countActiveFilters, hasActiveFilters, createTransactionMatcher, filterTransactions, summarizeTransactionList, countVisibleDays); formatLongDate em dates (Intl em UTC); sortByRecency em transactions. Repositório: listTransactionsInPeriod pelo índice date em ordem crescente, invertido em memória (D-44(a)), countTransactions, useTransactionsInPeriod e useTransactionCount. Store: transactionFilters { text, type, tagId, from, to } com setFilters (parcial) e clearFilters, sem persist. Componentes: LoadMore (IntersectionObserver a 600 px + "Carregar mais"), useDebouncedValue, slot trailing do Page.Header, IncomeExpenseTotals (também no BalanceSummary), TransactionRow com showDate e TagPicker com allOptionLabel/TagOption. Feature: TransactionsPage, useTransactionList, transactionListTexts, FilterBar composto (Text, Actions, Toggle, Clear, Panel, Type, Tag, Period) e a lista (FilterSummary, DaySection, TransactionDayList). Spec 1.19 com a Fase 5 marcada e D-44/D-45 aguardando confirmação. (A divisão dos testes entre esta entrada e a dos testes reforçados é aproximada: nada disso foi commitado ainda.)',
-    commits: [],
-    committed: false,
+      'A tela /lancamentos deixa de ser placeholder. Domínio: foldText (src/domain/text.ts), agora também usado por toTagNameKey; transactionFilters (TransactionFilters, EMPTY_TRANSACTION_FILTERS, isPeriodInverted, effectivePeriod, countActiveFilters, hasActiveFilters, createTransactionMatcher, filterTransactions, summarizeTransactionList, countVisibleDays); formatLongDate em dates (Intl em UTC); sortByRecency em transactions. Repositório: listTransactionsInPeriod pelo índice date em ordem crescente, invertido em memória (D-44(a)), countTransactions, useTransactionsInPeriod e useTransactionCount. Store: transactionFilters { text, type, tagId, from, to } com setFilters (parcial) e clearFilters, sem persist. Componentes: LoadMore (IntersectionObserver a 600 px + "Carregar mais"), useDebouncedValue, slot trailing do Page.Header, IncomeExpenseTotals (também no BalanceSummary), TransactionRow com showDate e TagPicker com allOptionLabel/TagOption. Feature: TransactionsPage, useTransactionList, transactionListTexts, FilterBar composto (Text, Actions, Toggle, Clear, Panel, Type, Tag, Period) e a lista (FilterSummary, DaySection, TransactionDayList). Spec 1.19 com a Fase 5 marcada e D-44/D-45 aguardando confirmação. (A divisão dos testes entre esta entrada e a dos testes reforçados é aproximada: tudo entrou junto no f4c6cad.)',
+    commits: ['f4c6cad'],
+    committed: true,
     requirements: [
       'RF-04',
       'CA-04.1',
@@ -1765,8 +1766,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 5: testes reforçados (1.724 passando)',
     summary:
       'Testes de propriedade de foldText, formatLongDate, transactionFilters e listTransactionsInPeriod; auditoria dos filtros contra uma implementação ingênua; teste de desempenho com 10.000 lançamentos (< 300 ms — RNF-02); testes de tela de filtros (busca sem acento, tipo, tag com "Todas", período invertido, limpar com foco, tag excluída, filtros mantidos ao voltar) e de paginação (dias inteiros, "Carregar mais", volta à 1ª página ao filtrar); useTransactionList isolado; helper src/test/transactionList.ts.',
-    commits: [],
-    committed: false,
+    commits: ['f4c6cad'],
+    committed: true,
     requirements: ['RF-04', 'CA-04.2', 'CA-04.3', 'CA-04.4', 'CA-04.6', 'RNF-02', 'RNF-07'],
     decisions: ['D-44'],
     files: {
@@ -1798,8 +1799,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 5: correções da revisão',
     summary:
       'useDebouncedValue ganhou immediateValue: o texto vazio vale na hora e zera o valor atrasado, para a busca anterior não reaparecer se o usuário redigitar antes da espera. O resumo (FilterSummary), isFiltering e filtersKey passaram a sair dos filtros aplicados (texto já com a espera), para nunca mostrar os totais sem filtro como resultado da busca. Tag do filtro excluída vale como "Todas" e useTransactionList limpa o Zustand com setFilters({ tagId: null }). Depois de "Limpar filtros" o foco vai para "Buscar na descrição" (searchInputRef no FilterBarContext — RNF-06). Texto da D-44 ajustado na spec.',
-    commits: [],
-    committed: false,
+    commits: ['f4c6cad'],
+    committed: true,
     requirements: ['CA-04.3', 'CA-04.4', 'RNF-06'],
     decisions: ['D-44', 'D-45'],
     files: {
@@ -1825,8 +1826,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Página de arquitetura: Fase 5 (lista, busca e filtros)',
     summary:
       'Rota /lancamentos descrita com conteúdo real e a composição da tela; 5 fluxos novos (filtrar, paginar, limpar filtros, abrir lançamento e voltar, tag do filtro excluída) e "Filtrar lista" retirado dos previstos; notas de composição de FilterBar e de cada parte, FilterSummary, TransactionDayList, DaySection, LoadMore, IncomeExpenseTotals e NewTransactionLink; Page (trailing), TagPicker (allOptionLabel/TagOption), TransactionRow (showDate) e BalanceSummary atualizados. Scanner: lê partes de compound component atribuídas no módulo (FilterBar.Text = TextFilter → compoundParts) e a árvore de composição desce até o que cada parte renderiza. Estado de interface: cartão curado com quem lê e quem escreve cada subcampo de transactionFilters (UI_FIELD_ACCESS), checado por teste contra os membros que o scanner vê. Modelo de dados: notas de transactions e tags. Decisões: D-43 confirmada, D-44 e D-45 aguardando confirmação. Saúde: achado da D-43 resolvido; novos achados D-44/D-45 pendentes, teste manual da Fase 5, leitura de 10.000 registros no iPhone (decidido: Fase 11) e suíte de ~70 s por causa do jsdom. Entradas das specs 1.15 a 1.17 marcadas com o commit 240cb87. Grafo regenerado.',
-    commits: [],
-    committed: false,
+    commits: ['f4c6cad'],
+    committed: true,
     requirements: ['RF-04'],
     decisions: ['D-43', 'D-44', 'D-45'],
     files: {
@@ -1848,6 +1849,82 @@ export const TIMELINE: readonly TimelineEntry[] = [
       'scanner entende partes de compound component importadas',
       'acesso por subcampo da store (curado e testado)',
       '1 achado resolvido, 4 novos',
+    ],
+  },
+  {
+    id: 'spec-1-20-d44-d45-confirmed',
+    date: '2026-10-22',
+    phase: 5,
+    type: 'decision',
+    title: 'Spec 1.20: D-44 e D-45 confirmadas',
+    summary:
+      'O dono confirmou a D-44 (consulta da lista pelo índice date, filtros no domínio, busca com foldText e espera de 250 ms, paginação por dias inteiros com LoadMore) e a D-45 (tela da lista: busca visível, painel "Filtros (N)", "Limpar filtros" com foco, resumo pelos filtros aplicados, "+ Novo", filtros no Zustand sem persist).',
+    commits: [],
+    committed: false,
+    requirements: ['RF-04'],
+    decisions: ['D-44', 'D-45'],
+    files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
+    impact: ['2 decisões confirmadas', 'achado D-44/D-45 resolvido'],
+  },
+  {
+    id: 'd46-vitest-projects',
+    date: '2026-10-22',
+    phase: 5,
+    type: 'config',
+    title: 'D-46: testes em dois projetos do Vitest (unit em node, dom em jsdom)',
+    summary:
+      'Spec 1.21 (D-46 aguardando confirmação). test.projects no vite.config.ts, ambos com extends: true: unit (environment node, setup novo src/test/setup.unit.ts só com fake-indexeddb/auto e limpeza do Dexie; todo src/**/*.test.ts menos DOM_TEST_FILES — 48 arquivos, 1.450 testes, ~15 s) e dom (jsdom, src/test/setup.ts; todo *.test.tsx e os 12 *.test.ts de DOM_TEST_FILES — 37 arquivos, 275 testes, ~44 s). Scripts test:unit e test:dom; npm test e test:coverage continuam rodando tudo. Pool forks mantido: com threads os testes de fuso quebram (process.env.TZ é compartilhado entre threads). Suíte de ~72–85 s para ~50–55 s. Corrigida também uma corrida em TransactionsPage.pagination.test.tsx: o IntersectionObserver simulado dispara a cada tentativa dentro do waitFor. CLAUDE.md, domain-test-writer e a §6.11 da spec passaram a explicar em que projeto roda cada teste e a regra de DOM_TEST_FILES.',
+    commits: [],
+    committed: false,
+    requirements: ['RNF-07'],
+    decisions: ['D-46'],
+    files: {
+      created: ['src/test/setup.unit.ts'],
+      modified: [
+        'vite.config.ts',
+        'package.json',
+        'docs/SPEC.md',
+        'CLAUDE.md',
+        '.claude/agents/domain-test-writer.md',
+        'src/features/transactions/TransactionsPage.pagination.test.tsx',
+      ],
+      removed: [],
+    },
+    impact: [
+      'dois projetos de teste (unit/dom)',
+      'novo setup de teste em node',
+      'suíte de ~72–85 s para ~50–55 s',
+      'regra: *.test.ts com DOM entra em DOM_TEST_FILES',
+    ],
+  },
+  {
+    id: 'architecture-page-d46',
+    date: '2026-10-22',
+    phase: 5,
+    type: 'docs',
+    title: 'Página de arquitetura: D-44/D-45 confirmadas e projetos do Vitest (D-46)',
+    summary:
+      'Decisões: D-44 e D-45 confirmadas; D-46 nova, aguardando confirmação. Saúde: achado D-44/D-45 resolvido; achado da lentidão do jsdom resolvido pela D-46 (de ~72–85 s para ~50–55 s); pendência nova "D-46 aguardando confirmação"; teste manual da Fase 5 continua pendente. Camadas config e test, notas do vite.config.ts, setup.ts, setup.unit.ts e do teste de paginação descrevem os dois projetos e a regra de DOM_TEST_FILES. Scanner: lê DOM_TEST_FILES do vite.config.ts e marca o projeto de cada teste (testProject: unit | dom), mostrado como selo no inspetor e checado pelo teste de integridade. Entradas da spec 1.18 e da Fase 5 marcadas com o commit f4c6cad. Grafo regenerado.',
+    commits: [],
+    committed: false,
+    requirements: [],
+    decisions: ['D-44', 'D-45', 'D-46'],
+    files: {
+      created: [],
+      modified: [
+        '.claude/skills/atualizar-arquitetura/scan-architecture.mjs',
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+        'src/dev/architecture/data/module-graph.json',
+        'src/dev/architecture/types.ts',
+        'src/dev/architecture/components/ModuleDetails.tsx',
+        'src/dev/architecture/architecture.test.ts',
+      ],
+      removed: [],
+    },
+    impact: [
+      'scanner marca o projeto do Vitest de cada teste',
+      '2 achados resolvidos, 1 pendente novo',
     ],
   },
 ]

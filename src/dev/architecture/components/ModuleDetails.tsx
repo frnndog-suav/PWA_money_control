@@ -6,7 +6,12 @@ import { formatDay } from '@/dev/architecture/components/format'
 import { LAYER_STYLES } from '@/dev/architecture/components/layerStyles'
 import { ModuleList } from '@/dev/architecture/components/ModuleList'
 import { flowsTouching, graph, timelineEntriesTouching } from '@/dev/architecture/model'
-import type { ConfigValue, GraphModule } from '@/dev/architecture/types'
+import type { ConfigValue, GraphModule, TestProject } from '@/dev/architecture/types'
+
+const TEST_PROJECT_LABELS: Readonly<Record<TestProject, string>> = {
+  unit: 'Vitest: unit (node)',
+  dom: 'Vitest: dom (jsdom)',
+}
 
 const formatConfigValue = (value: ConfigValue) =>
   Array.isArray(value) ? value.join(', ') || '—' : String(value)
@@ -32,6 +37,7 @@ export function ModuleDetails({ module: m }: ModuleDetailsProps) {
             <Badge key={kind}>{kind}</Badge>
           ))}
           <Badge>{m.loc} linhas</Badge>
+          {m.testProject && <Badge variant="info">{TEST_PROJECT_LABELS[m.testProject]}</Badge>}
           {m.devOnly && <Badge variant="dev">somente DEV</Badge>}
           {pendingChange && <Badge variant="warn">não commitado ({pendingChange.status})</Badge>}
         </div>

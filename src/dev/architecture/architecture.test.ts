@@ -241,6 +241,13 @@ describe('integridade da página de arquitetura (§6.12)', () => {
     expect(mismatches).toEqual([])
   })
 
+  it('todo arquivo de teste tem o projeto do Vitest em que roda (D-46)', () => {
+    const withoutProject = graph.modules
+      .filter((m) => m.kinds.includes('test') && !m.testProject)
+      .map((m) => m.id)
+    expect(withoutProject).toEqual([])
+  })
+
   it('IDs de requisito e decisão citados existem', () => {
     const unknown = [...new Set(curatedRefs())].filter((ref) => !isKnownRef(ref))
     expect(unknown).toEqual([])

@@ -83,8 +83,13 @@ export interface GraphModule {
   imports: string[]
   assets: string[]
   testedBy?: string[]
+  /** Só em arquivos de teste: projeto do Vitest em que roda (D-46 — DOM_TEST_FILES no vite.config.ts). */
+  testProject?: TestProject
   config?: Record<string, ConfigValue>
 }
+
+/** Projetos do Vitest (D-46): `unit` em node, `dom` em jsdom. */
+export type TestProject = 'unit' | 'dom'
 
 export interface GraphEdge {
   from: string

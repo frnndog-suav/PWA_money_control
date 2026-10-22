@@ -30,7 +30,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Configuração',
     folder: '(raiz)',
     description:
-      'index.html (script inline do tema, metatags do iOS), vite.config.ts (plugins, VitePWA, alias, Vitest), tsconfig, oxlint, Prettier e scripts/ (gerador de ícones).',
+      'index.html (script inline do tema, metatags do iOS), vite.config.ts (plugins, VitePWA, alias, Vitest em dois projetos — unit em node e dom em jsdom, D-46), tsconfig, oxlint, Prettier e scripts/ (gerador de ícones).',
     position: { x: 130, y: 16 },
   },
   {
@@ -110,7 +110,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Apoio a testes',
     folder: 'src/test',
     description:
-      'Setup do Vitest (fake-indexeddb, limpa as tabelas do Dexie entre testes, findBy com 3 s — D-34), dublês de matchMedia e de <dialog> (dialog.ts — D-33), seedDatabase (prepara tabelas ainda sem repositório — D-34), renderApp, fábricas de lançamentos, ações do formulário de lançamento (transactionForm.ts — Fase 4), gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código).',
+      'Dois setups do Vitest (D-46): setup.unit.ts do projeto unit (node; só fake-indexeddb e limpeza do Dexie) e setup.ts do projeto dom (jsdom; Testing Library, fake-indexeddb, limpa as tabelas do Dexie entre testes, findBy com 3 s — D-34). Regra: *.test.tsx roda em dom; *.test.ts roda em unit, salvo os listados em DOM_TEST_FILES no vite.config.ts — um *.test.ts novo que precise de DOM (document, window, localStorage, matchMedia, renderHook) tem de entrar nessa lista. Também: dublês de matchMedia e de <dialog> (dialog.ts — D-33), seedDatabase (prepara tabelas ainda sem repositório — D-34), renderApp, fábricas de lançamentos, ações do formulário de lançamento (transactionForm.ts — Fase 4), gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código).',
     position: { x: 740, y: 112 },
   },
   {
@@ -4651,7 +4651,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
     id: 'D-44',
     title:
       'Lista: índice date crescente invertido em memória, filtros no domínio, busca com foldText e espera de 250 ms, paginação por dias inteiros (50) com LoadMore',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'src/repositories/transactionsRepository.ts',
       'src/domain/transactionFilters.ts',
@@ -4671,7 +4671,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
     id: 'D-45',
     title:
       'Tela da lista: busca sempre visível, painel "Filtros (N)", "Limpar filtros" com foco na busca, resumo pelos filtros aplicados, data por extenso no dia, "+ Novo", filtros no Zustand sem persist',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'src/features/transactions/TransactionsPage.tsx',
       'src/features/transactions/filters/FilterBar.tsx',
@@ -4686,6 +4686,20 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/components/ui/Page.tsx',
       'src/domain/dates.ts',
       'src/stores/uiStore.ts',
+    ],
+  },
+  {
+    id: 'D-46',
+    title:
+      'Testes em dois projetos do Vitest: unit (node, setup.unit.ts, todo *.test.ts fora de DOM_TEST_FILES) e dom (jsdom, setup.ts, todo *.test.tsx + DOM_TEST_FILES); pool forks mantido por causa do process.env.TZ',
+    status: 'pending',
+    impacts: [
+      'vite.config.ts',
+      'package.json',
+      'src/test/setup.unit.ts',
+      'src/test/setup.ts',
+      'src/features/transactions/TransactionsPage.pagination.test.tsx',
+      '.claude/skills/atualizar-arquitetura/scan-architecture.mjs',
     ],
   },
 ]
@@ -4733,10 +4747,26 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
   {
-    title: 'D-44 e D-45 aguardando confirmação do dono',
+    title: 'D-46 aguardando confirmação do dono',
     severity: 'warn',
     detail:
-      'Registradas na §8.1 durante a Fase 5 (spec 1.19). D-44: consulta da lista pelo índice date em ordem crescente com inversão em memória, tipo/tag/texto filtrados no domínio, período invertido ignorado, busca com foldText e espera de 250 ms (texto vazio na hora), paginação por dias inteiros de 50 lançamentos com LoadMore (600 px + botão), tag do filtro excluída vale como "Todas", medições de desempenho. D-45: tela da lista — busca sempre visível, painel "Filtros (N)", "Limpar filtros" com foco na busca, resumo pelos filtros aplicados, cabeçalho do dia por extenso com IncomeExpenseTotals, TransactionRow sem data, estados vazios, "+ Novo" e filtros no Zustand sem persist. A rastreabilidade mostra as duas como "aguardando confirmação". Mover para os resolvidos quando o dono confirmar.',
+      'Registrada na §8.1 em 22/10/2026 (spec 1.21): testes em dois projetos do Vitest (test.projects, extends: true). unit: environment node com src/test/setup.unit.ts (só fake-indexeddb/auto e limpeza do Dexie), todo src/**/*.test.ts menos DOM_TEST_FILES — 48 arquivos e 1.450 testes, ~15 s. dom: jsdom com src/test/setup.ts, todo *.test.tsx e os 12 *.test.ts de DOM_TEST_FILES — 37 arquivos e 275 testes, ~44 s. Scripts test:unit e test:dom; npm test e test:coverage continuam rodando tudo. Pool forks mantido (threads quebra os testes de fuso: process.env.TZ é compartilhado entre threads). Junto, a corrida do IntersectionObserver simulado em TransactionsPage.pagination.test.tsx foi corrigida (dispara a cada tentativa do waitFor). Regra nova: um *.test.ts que precise de DOM tem de entrar em DOM_TEST_FILES. A rastreabilidade mostra a D-46 como "aguardando confirmação". Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'docs/SPEC.md',
+      'vite.config.ts',
+      'package.json',
+      'src/test/setup.unit.ts',
+      'src/test/setup.ts',
+      'src/features/transactions/TransactionsPage.pagination.test.tsx',
+      'CLAUDE.md',
+      '.claude/agents/domain-test-writer.md',
+    ],
+  },
+  {
+    title: 'D-44 e D-45 aguardavam confirmação do dono',
+    severity: 'warn',
+    detail:
+      'Registradas na §8.1 durante a Fase 5 (spec 1.19). D-44: consulta da lista pelo índice date em ordem crescente com inversão em memória, tipo/tag/texto filtrados no domínio, período invertido ignorado, busca com foldText e espera de 250 ms (texto vazio na hora), paginação por dias inteiros de 50 lançamentos com LoadMore (600 px + botão), tag do filtro excluída vale como "Todas", medições de desempenho. D-45: tela da lista — busca sempre visível, painel "Filtros (N)", "Limpar filtros" com foco na busca, resumo pelos filtros aplicados, cabeçalho do dia por extenso com IncomeExpenseTotals, TransactionRow sem data, estados vazios, "+ Novo" e filtros no Zustand sem persist. A rastreabilidade mostrava as duas como "aguardando confirmação".',
     modules: [
       'docs/SPEC.md',
       'src/repositories/transactionsRepository.ts',
@@ -4745,6 +4775,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/features/transactions/TransactionsPage.tsx',
       'src/stores/uiStore.ts',
     ],
+    resolved: 'Confirmadas pelo dono em 22/10/2026 (spec 1.20).',
   },
   {
     title: 'Pendente (dono): teste manual da Fase 5',
@@ -4756,6 +4787,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/features/transactions/list/TransactionDayList.tsx',
       'src/dev/sampleData/SampleDataTools.tsx',
     ],
+    resolved:
+      'Validado pelo dono em 22/10/2026: roteiro da Fase 5 (rolagem com dados de exemplo, busca "merc", tag + período com totais, filtros mantidos ao trocar de aba e zerados ao fechar) funcionou no PC e no iPhone. Fase 5 concluída.',
   },
   {
     title:
@@ -4776,8 +4809,10 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'Suíte de testes leva ~70–90 s: o gargalo é o jsdom, criado uma vez por arquivo de teste',
     severity: 'info',
     detail:
-      'Visto na Fase 5 (1.724 testes): o tempo vai para criar o ambiente jsdom em cada arquivo de teste (84 vezes na medição do orquestrador, 85 nesta atualização — metade do tempo medido pelo Vitest, inclusive nos de src/domain e src/lib, que não usam DOM), e não para os testes de propriedade. Opção: test.projects no vite.config.ts com environment: "node" para src/domain e src/lib (e o jsdom só para componentes, hooks e repositórios). Não aplicado: mexe na configuração do Vitest e é decisão do dono.',
-    modules: ['vite.config.ts', 'src/test/setup.ts'],
+      'Visto na Fase 5 (1.724 testes): o tempo vai para criar o ambiente jsdom em cada arquivo de teste (84 vezes na medição do orquestrador, 85 nesta atualização — metade do tempo medido pelo Vitest, inclusive nos de src/domain e src/lib, que não usam DOM), e não para os testes de propriedade. Opção: test.projects no vite.config.ts com environment: "node" para src/domain e src/lib (e o jsdom só para componentes, hooks e repositórios). Não aplicado na época: mexe na configuração do Vitest e é decisão do dono.',
+    modules: ['vite.config.ts', 'src/test/setup.ts', 'src/test/setup.unit.ts', 'package.json'],
+    resolved:
+      'Resolvido pela D-46 (spec 1.21, 22/10/2026 — aguardando confirmação do dono): dois projetos do Vitest. unit em node com setup.unit.ts (48 arquivos, 1.450 testes, ~15 s) e dom em jsdom com setup.ts (37 arquivos, 275 testes, ~44 s); só os *.test.tsx e os 12 *.test.ts de DOM_TEST_FILES pagam o jsdom. Tempo total da suíte de ~72–85 s para ~50–55 s. Pool forks mantido (threads quebra os testes de fuso).',
   },
   {
     title: 'Pacote principal com 596 kB (188,9 kB gzip): o build avisa chunk acima de 500 kB',
@@ -5248,7 +5283,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'index.html':
     'Script inline (único) que aplica tema e theme-color antes do bundle (CA-09.3). Duplica regras de src/lib/theme.ts; a sincronia é garantida por indexHtmlThemeScript.test.ts. Fase 1: favicon.png, apple-touch-icon e metatags do iOS (capable, status-bar-style, title "Gastos" — D-25); o <link rel="manifest" crossorigin="use-credentials"> NÃO fica aqui: é injetado no build pelo plugin (indexHtmlPwaTags.test.ts impede a duplicata).',
   'vite.config.ts':
-    'Plugins: React + React Compiler (via Babel) + Tailwind + VitePWA(PWA_OPTIONS) (importado de src/app/pwa/pwaOptions.ts por caminho relativo). Alias @/ → src/. Desde a D-43 é defineConfig(({ command }) => ...) e o alias @tailwind-sources aponta para src/styles/tailwind-sources.build.css quando command === "build" e para tailwind-sources.serve.css nos outros casos. Vitest no mesmo arquivo (jsdom, setup, cobertura ≥ 90% em domain/lib). Fase 2: define { __APP_VERSION__ } com o version do package.json (D-27), que vale também nos testes.',
+    'Plugins: React + React Compiler (via Babel) + Tailwind + VitePWA(PWA_OPTIONS) (importado de src/app/pwa/pwaOptions.ts por caminho relativo). Alias @/ → src/. Desde a D-43 é defineConfig(({ command }) => ...) e o alias @tailwind-sources aponta para src/styles/tailwind-sources.build.css quando command === "build" e para tailwind-sources.serve.css nos outros casos. Vitest no mesmo arquivo, desde a D-46 em dois projetos (test.projects, ambos com extends: true, herdando plugins, os aliases @/ e @tailwind-sources e o define): unit (environment node, setup src/test/setup.unit.ts, include src/**/*.test.ts menos DOM_TEST_FILES — 48 arquivos, 1.450 testes, ~15 s) e dom (jsdom, setup src/test/setup.ts, todo *.test.tsx + os 12 *.test.ts de DOM_TEST_FILES — 37 arquivos, 275 testes, ~44 s). Um *.test.ts novo que use DOM (document, window, localStorage, matchMedia, renderHook) falha em node com "document is not defined" e tem de entrar em DOM_TEST_FILES. Pool forks mantido: com threads os testes de fuso quebram (process.env.TZ é do processo, compartilhado entre as threads). Cobertura ≥ 90% em domain/lib somando os dois projetos (RNF-07). O scanner lê DOM_TEST_FILES e marca o projeto de cada teste (testProject, mostrado no inspetor). Fase 2: define { __APP_VERSION__ } com o version do package.json (D-27), que vale também nos testes.',
   'tsconfig.node.json':
     'Inclui vite.config.ts e src/app/pwa/pwaOptions.ts (Fase 1) e, desde a D-43, src/styles/tailwindEntry.test.ts (lê o disco com node:fs), com allowImportingTsExtensions para o import relativo com .ts.',
   'tsconfig.app.json':
@@ -5307,7 +5342,11 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/features/settings/ThemeSection.tsx':
     'Usa useTheme de src/repositories (D-22 quitada na Fase 2: nenhuma feature importa de src/app).',
   'src/test/setup.ts':
-    'fake-indexeddb/auto, dublê de matchMedia e limpeza de DOM/localStorage após cada teste; desde a Fase 1 reseta o uiStore (INITIAL_UI_STATE); desde a Fase 2 limpa todas as tabelas do Dexie numa transação, depois do cleanup() (gravações pendentes dos componentes terminam antes). Fase 3: installDialogPolyfill() (src/test/dialog.ts — D-33) e configure({ asyncUtilTimeout: 3000 }) para o findBy (D-34); um mojibake num comentário foi corrigido no reforço dos testes.',
+    'fake-indexeddb/auto, dublê de matchMedia e limpeza de DOM/localStorage após cada teste; desde a Fase 1 reseta o uiStore (INITIAL_UI_STATE); desde a Fase 2 limpa todas as tabelas do Dexie numa transação, depois do cleanup() (gravações pendentes dos componentes terminam antes). Fase 3: installDialogPolyfill() (src/test/dialog.ts — D-33) e configure({ asyncUtilTimeout: 3000 }) para o findBy (D-34); um mojibake num comentário foi corrigido no reforço dos testes. Desde a D-46 é o setup só do projeto dom (jsdom): todo *.test.tsx e os *.test.ts de DOM_TEST_FILES; os demais *.test.ts usam o setup.unit.ts, em node.',
+  'src/features/transactions/TransactionsPage.pagination.test.tsx':
+    'Projeto dom (jsdom). Simula o IntersectionObserver (o jsdom não tem) guardando os callbacks. D-46: com a nova ordem de execução apareceu uma corrida que já existia em "chegar perto do fim carrega mais sozinho" (1 falha em 10 rodadas): o observador simulado disparava uma vez só, às vezes antes de o LoadMore observar o fim da página. Corrigido: o disparo passou para dentro do waitFor, a cada tentativa.',
+  'src/test/setup.unit.ts':
+    'D-46: setup do projeto unit do Vitest (environment node). Só importa fake-indexeddb/auto e limpa todas as tabelas do Dexie numa transação depois de cada teste — sem Testing Library, polyfills de DOM, localStorage nem reset do Zustand. Serve aos testes de domain/lib e aos de repositório que chamam funções (sem renderHook). Os testes de repositório com renderHook ou localStorage ficam em DOM_TEST_FILES e usam o setup.ts.',
   'src/test/matchMedia.ts':
     'Dublê de window.matchMedia: esquema escuro controlável (com evento change) e, desde a Fase 1, o modo instalado (setDisplayModeStandalone).',
   'src/db/database.ts':

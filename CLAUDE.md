@@ -52,3 +52,4 @@ Estas regras valem para **todas** as fases e não devem ser violadas.
 - **Autorização:** só implemente uma fase depois que o usuário autorizar explicitamente aquela fase. Mostrar o plano ou tirar dúvidas não é autorização.
 - Ambiente de desenvolvimento: Windows. Scripts auxiliares devem ser em Node (`.mjs`), não em bash nem Python.
 - **Vitest no Windows:** rode npm/Vitest pelo PowerShell em `D:\Github\money_control` (D maiúsculo). Com o diretório em minúsculo (`d:\...`, como no Git Bash) o Vitest falha com "failed to find the runner".
+- **Projetos do Vitest (D-46):** `*.test.ts` roda no projeto `unit` (node, sem DOM, setup `src/test/setup.unit.ts`); `*.test.tsx` e os `*.test.ts` de `DOM_TEST_FILES` (`vite.config.ts`) rodam no `dom` (jsdom + Testing Library). `npm test` roda os dois; `npm run test:unit` / `npm run test:dom` rodam um só.

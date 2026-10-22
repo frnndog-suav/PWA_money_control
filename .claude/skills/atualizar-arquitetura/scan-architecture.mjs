@@ -526,6 +526,20 @@ for (const m of modules.filter((x) => !isTestFile(x.id))) {
     .map((t) => t.id);
 }
 
+// ---------- projeto do Vitest de cada teste (D-46) ----------
+
+// `*.test.tsx` e os listados em DOM_TEST_FILES (vite.config.ts) rodam no projeto `dom`
+// (jsdom); os demais `*.test.ts`, no `unit` (node). Sem a lista, não marca nada.
+const viteConfigPath = join(root, 'vite.config.ts');
+const viteConfigSource = existsSync(viteConfigPath) ? readFileSync(viteConfigPath, 'utf8') : '';
+const domListMatch = /const\s+DOM_TEST_FILES\s*=\s*\[([^\]]*)\]/.exec(viteConfigSource);
+const domTestFiles = domListMatch ? matchAll(domListMatch[1], /['"]([^'"]+)['"]/g) : null;
+if (domTestFiles) {
+  for (const m of modules.filter((x) => isTestFile(x.id))) {
+    m.testProject = m.id.endsWith('.tsx') || domTestFiles.includes(m.id) ? 'dom' : 'unit';
+  }
+}
+
 // ---------- violações de camada ----------
 
 const violations = [];
