@@ -2,6 +2,7 @@ import { FLOWS, PLANNED_FLOWS } from '@/dev/architecture/data/curated'
 import { Badge } from '@/dev/architecture/components/Badge'
 import { Card } from '@/dev/architecture/components/Card'
 import { CodeList } from '@/dev/architecture/components/CodeList'
+import { CryptoPipelineDiagram } from '@/dev/architecture/components/CryptoPipelineDiagram'
 import { FlowSequence } from '@/dev/architecture/components/FlowSequence'
 import { ModuleLink } from '@/dev/architecture/components/ModuleLink'
 import { ModuleList } from '@/dev/architecture/components/ModuleList'
@@ -62,6 +63,12 @@ export function FlowsSection() {
           <FlowCard key={flow.id} flow={flow} />
         ))}
       </div>
+      <Card id="pipeline-criptografia">
+        <Card.Title trailing={<CodeList items={['RNF-05', 'CA-10.6', 'D-47']} />}>
+          Pipeline de criptografia do backup (§6.8)
+        </Card.Title>
+        <CryptoPipelineDiagram />
+      </Card>
       <Card>
         <Card.Title>Fluxos previstos (ainda não existem no código)</Card.Title>
         <ul className="flex flex-col gap-2 text-sm">

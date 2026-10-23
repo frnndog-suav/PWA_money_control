@@ -24,3 +24,12 @@ export async function setSetting(key: SettingKey, value: string): Promise<void> 
 export function useSetting(key: SettingKey): string | null | undefined {
   return useLiveQuery(() => getSetting(key), [key])
 }
+
+/**
+ * RF-10 — data do último backup exportado (ISO 8601): `undefined` enquanto carrega, `null`
+ * se nunca houve backup. Fica aqui (e não no repositório do backup) para a tela inicial
+ * ler o valor sem levar a criptografia para o pacote principal.
+ */
+export function useLastBackupAt(): string | null | undefined {
+  return useSetting('lastBackupAt')
+}

@@ -6,6 +6,8 @@ import graphJson from '@/dev/architecture/data/module-graph.json'
 import {
   ALLOWED_DEPENDENCIES,
   ARCHITECTURE_FINDINGS,
+  CRYPTO_PIPELINE,
+  CRYPTO_PIPELINE_ARROWS,
   DECISIONS,
   FLOWS,
   FORBIDDEN_DEPENDENCIES,
@@ -49,6 +51,7 @@ function curatedPaths(): string[] {
     ...ARCHITECTURE_FINDINGS.flatMap((f) => f.modules),
     ...PRINCIPLES.flatMap((p) => [...p.modules, ...p.tests]),
     ...UI_FIELD_ACCESS.map((a) => a.module),
+    ...CRYPTO_PIPELINE.flatMap((box) => box.module ?? []),
   ]
 }
 
@@ -58,6 +61,7 @@ function curatedRefs(): string[] {
     ...FLOWS.flatMap((f) => [...f.requirements, ...f.steps.flatMap((s) => s.refs)]),
     ...TIMELINE.flatMap((e) => [...e.requirements, ...e.decisions]),
     ...PRINCIPLES.flatMap((p) => p.decisions),
+    ...CRYPTO_PIPELINE.flatMap((box) => box.refs),
   ]
 }
 
@@ -155,6 +159,28 @@ describe('integridade da página de arquitetura (§6.12)', () => {
   it('toda tabela do esquema Dexie tem nota curada (e vice-versa)', () => {
     const schemaTables = Object.keys(graph.schema?.versions.at(-1)?.stores ?? {}).sort()
     expect(TABLE_NOTES.map((t) => t.name).sort()).toEqual(schemaTables)
+  })
+
+  // §8.3 — "Toda tabela nova está incluída no backup e no teste de ida e volta".
+  it('toda tabela do esquema está no backup e é lida pelo repositório do backup (§8.3)', () => {
+    expect(TABLE_NOTES.filter((t) => !t.inBackup).map((t) => t.name)).toEqual([])
+    const schemaTables = Object.keys(graph.schema?.versions.at(-1)?.stores ?? {})
+    const backupRepository = graph.modules.find(
+      (m) => m.id === 'src/repositories/backupRepository.ts',
+    )
+    const readByBackup = Object.entries(backupRepository?.dexieTables ?? {})
+      .filter(([, use]) => use.reads.length > 0)
+      .map(([table]) => table)
+    expect(schemaTables.filter((table) => !readByBackup.includes(table))).toEqual([])
+  })
+
+  it('setas do pipeline de criptografia ligam caixas declaradas', () => {
+    const ids = new Set(CRYPTO_PIPELINE.map((box) => box.id))
+    expect(ids.size).toBe(CRYPTO_PIPELINE.length)
+    const unknown = CRYPTO_PIPELINE_ARROWS.flatMap((a) => [a.from, a.to]).filter(
+      (id) => !ids.has(id),
+    )
+    expect(unknown).toEqual([])
   })
 
   it('toda rota implementada tem descrição curada', () => {

@@ -1,3 +1,4 @@
+import { vi } from 'vitest'
 import { db } from '@/db/database'
 import type { InstallmentGroup, Recurring, Tag, Transaction } from '@/domain/types'
 
@@ -20,4 +21,12 @@ export async function seedRecords(records: SeedRecords): Promise<void> {
 
 export function readAllTags(): Promise<Tag[]> {
   return db.tags.toArray()
+}
+
+/**
+ * Faz a próxima gravação em lote de lançamentos falhar (como um disco cheio), para os testes
+ * de tela conferirem que a importação não altera nada (D-07) sem importar o Dexie.
+ */
+export function failNextTransactionsBulkAdd(): void {
+  vi.spyOn(db.transactions, 'bulkAdd').mockRejectedValueOnce(new Error('disco cheio'))
 }

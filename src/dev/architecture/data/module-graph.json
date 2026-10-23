@@ -1,19 +1,19 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-22T13:47:47.039Z",
+  "generatedAt": "2026-10-22T18:47:07.492Z",
   "totals": {
-    "modules": 282,
-    "loc": 26296,
-    "components": 110,
-    "hooks": 31,
-    "tests": 85,
-    "edges": 807,
+    "modules": 313,
+    "loc": 31950,
+    "components": 118,
+    "hooks": 34,
+    "tests": 98,
+    "edges": 926,
     "configFiles": 11
   },
   "layerSummary": {
     "config": {
       "modules": 11,
-      "loc": 399,
+      "loc": 401,
       "components": 0,
       "hooks": 0,
       "tests": 0
@@ -26,9 +26,9 @@
       "tests": 9
     },
     "components": {
-      "modules": 45,
-      "loc": 1988,
-      "components": 26,
+      "modules": 47,
+      "loc": 2042,
+      "components": 28,
       "hooks": 8,
       "tests": 8
     },
@@ -40,32 +40,32 @@
       "tests": 2
     },
     "dev": {
-      "modules": 65,
-      "loc": 13116,
-      "components": 36,
+      "modules": 66,
+      "loc": 14483,
+      "components": 37,
       "hooks": 2,
       "tests": 5
     },
     "domain": {
-      "modules": 33,
-      "loc": 3585,
+      "modules": 38,
+      "loc": 3924,
       "components": 0,
       "hooks": 0,
-      "tests": 22
+      "tests": 25
     },
     "features": {
-      "modules": 55,
-      "loc": 3062,
-      "components": 31,
-      "hooks": 5,
-      "tests": 14
+      "modules": 65,
+      "loc": 4033,
+      "components": 36,
+      "hooks": 7,
+      "tests": 16
     },
     "lib": {
-      "modules": 17,
-      "loc": 484,
+      "modules": 25,
+      "loc": 2307,
       "components": 0,
       "hooks": 0,
-      "tests": 9
+      "tests": 14
     },
     "entry": {
       "modules": 1,
@@ -75,11 +75,11 @@
       "tests": 0
     },
     "repositories": {
-      "modules": 22,
-      "loc": 2328,
+      "modules": 26,
+      "loc": 3287,
       "components": 0,
-      "hooks": 11,
-      "tests": 13
+      "hooks": 12,
+      "tests": 16
     },
     "stores": {
       "modules": 3,
@@ -96,14 +96,14 @@
       "tests": 1
     },
     "test": {
-      "modules": 11,
-      "loc": 417,
+      "modules": 12,
+      "loc": 558,
       "components": 0,
       "hooks": 0,
       "tests": 0
     }
   },
-  "specVersion": "1.21 — 22/10/2026 (testes em dois projetos do Vitest, `unit` em node e `dom` em jsdom — D-46 aguardando confirmação) · 1.20 — 22/10/2026 (D-44 e D-45 confirmadas) · 1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.24 — 22/10/2026 (Fase 6: ajustes da revisão — validação do backup, senha em NFC e foco; D-47 e D-48 aguardando confirmação) · 1.23 — 22/10/2026 (Fase 6: backup — D-47 e D-48 aguardando confirmação) · 1.22 — 22/10/2026 (Fase 5 concluída — roteiro validado pelo dono) · 1.21 — 22/10/2026 (testes em dois projetos do Vitest, `unit` em node e `dom` em jsdom — D-46 aguardando confirmação) · 1.20 — 22/10/2026 (D-44 e D-45 confirmadas) · 1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
@@ -342,37 +342,37 @@
       "requirements": "RF-10",
       "tasks": [
         {
-          "done": false,
+          "done": true,
           "text": "`lib/crypto.ts` (PBKDF2 + AES-GCM) com testes (ida e volta, senha errada, adulteração do texto cifrado).",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "`lib/backupFormat.ts`: schemas zod, verificação de versão, estrutura de migrações (vazia por enquanto).",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "`lib/share.ts`: Web Share API com arquivo e fallback de download.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Tela `/ajustes/backup`: exportar (senha + confirmação), importar (arquivo + senha + resumo + confirmação), \"Último backup: há N dias\".",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Aviso de backup na tela inicial (regra dos 7 dias).",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Teste de integração: exportar → limpar banco → importar → dados idênticos.",
           "human": false
         }
       ],
-      "done": 0,
+      "done": 6,
       "total": 6
     },
     {
@@ -3715,7 +3715,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 28,
+      "loc": 29,
       "exports": [
         "Button",
         "ButtonVariant"
@@ -3755,7 +3755,8 @@
           "specifier": "react",
           "kind": "type",
           "names": [
-            "ButtonHTMLAttributes"
+            "ButtonHTMLAttributes",
+            "Ref"
           ]
         }
       ],
@@ -3764,6 +3765,9 @@
         "src/components/transactions/NoTagsNotice.tsx",
         "src/components/transactions/TransactionForm.tsx",
         "src/components/ui/LoadMore.tsx",
+        "src/features/backup/ConfirmImportDialog.tsx",
+        "src/features/backup/ExportBackupSection.tsx",
+        "src/features/backup/ImportBackupSection.tsx",
         "src/features/tags/ConfirmDeleteTagDialog.tsx",
         "src/features/tags/DeleteTagBlockedDialog.tsx",
         "src/features/tags/TagFormDialog.tsx",
@@ -4156,6 +4160,9 @@
       "importedBy": [
         "src/components/tags/TagForm.tsx",
         "src/components/transactions/TransactionForm.tsx",
+        "src/features/backup/ConfirmImportDialog.tsx",
+        "src/features/backup/ExportBackupSection.tsx",
+        "src/features/backup/ImportBackupSection.tsx",
         "src/features/tags/ConfirmDeleteTagDialog.tsx",
         "src/features/tags/TagFormDialog.tsx",
         "src/features/transactions/ConfirmDeleteTransactionDialog.tsx"
@@ -4231,6 +4238,8 @@
         "src/components/transactions/TransactionForm.tsx",
         "src/components/ui/DateInput.test.tsx",
         "src/components/ui/MoneyInput.test.tsx",
+        "src/features/backup/ExportBackupSection.tsx",
+        "src/features/backup/ImportBackupSection.tsx",
         "src/features/transactions/filters/PeriodFilter.tsx",
         "src/features/transactions/filters/TextFilter.tsx"
       ],
@@ -4242,6 +4251,67 @@
         "src/components/ui/DateInput.test.tsx",
         "src/components/ui/MoneyInput.test.tsx"
       ]
+    },
+    {
+      "id": "src/components/ui/FileInput.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "component"
+      ],
+      "loc": 27,
+      "exports": [
+        "FileInput"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "FileInput",
+          "signature": "FileInput({ onFileChange, className = '', ...props }: FileInputProps)"
+        }
+      ],
+      "components": [
+        "FileInput"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFieldControl"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "type",
+          "names": [
+            "InputHTMLAttributes",
+            "Ref"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/backup/ImportBackupSection.tsx"
+      ],
+      "imports": [
+        "src/components/ui/useFieldControl.ts"
+      ],
+      "assets": [],
+      "testedBy": []
     },
     {
       "id": "src/components/ui/InfoList.tsx",
@@ -4299,6 +4369,7 @@
         }
       ],
       "importedBy": [
+        "src/features/backup/ConfirmImportDialog.tsx",
         "src/features/settings/AboutPage.tsx"
       ],
       "imports": [],
@@ -4341,6 +4412,7 @@
       "importedBy": [
         "src/components/ui/DateInput.tsx",
         "src/components/ui/MoneyInput.tsx",
+        "src/components/ui/PasswordInput.tsx",
         "src/components/ui/TextInput.tsx"
       ],
       "imports": [],
@@ -4542,6 +4614,7 @@
         "src/components/tags/CreateTagDialog.tsx",
         "src/components/tags/TagForm.tsx",
         "src/components/ui/Modal.test.tsx",
+        "src/features/backup/ConfirmImportDialog.tsx",
         "src/features/tags/ConfirmDeleteTagDialog.tsx",
         "src/features/tags/DeleteTagBlockedDialog.tsx",
         "src/features/tags/TagFormDialog.tsx",
@@ -4843,7 +4916,8 @@
       ],
       "importedBy": [
         "src/app/pwa/InstallHint.tsx",
-        "src/app/pwa/UpdateNotice.tsx"
+        "src/app/pwa/UpdateNotice.tsx",
+        "src/features/home/BackupReminder.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -4918,6 +4992,67 @@
         "src/features/views/ViewsPage.tsx"
       ],
       "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/ui/PasswordInput.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "component"
+      ],
+      "loc": 26,
+      "exports": [
+        "PasswordInput"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "PasswordInput",
+          "signature": "PasswordInput({ className = '', ...props }: PasswordInputProps)"
+        }
+      ],
+      "components": [
+        "PasswordInput"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFieldControl"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "type",
+          "names": [
+            "InputHTMLAttributes",
+            "Ref"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/backup/ExportBackupSection.tsx",
+        "src/features/backup/ImportBackupSection.tsx"
+      ],
+      "imports": [
+        "src/components/ui/inputClasses.ts",
+        "src/components/ui/useFieldControl.ts"
+      ],
       "assets": [],
       "testedBy": []
     },
@@ -5481,7 +5616,9 @@
       "importedBy": [
         "src/components/ui/DateInput.tsx",
         "src/components/ui/Field.tsx",
+        "src/components/ui/FileInput.tsx",
         "src/components/ui/MoneyInput.tsx",
+        "src/components/ui/PasswordInput.tsx",
         "src/components/ui/TextInput.tsx"
       ],
       "imports": [],
@@ -5662,6 +5799,7 @@
       ],
       "importedBy": [
         "src/components/transactions/useTransactionForm.ts",
+        "src/features/backup/LastBackupStatus.tsx",
         "src/features/home/HomePage.tsx"
       ],
       "imports": [
@@ -5842,6 +5980,10 @@
         "src/dev/sampleData/sampleDataStore.test.ts",
         "src/dev/sampleData/sampleDataStore.ts",
         "src/dev/sampleData/useSampleDataTools.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/databaseInfo.ts",
         "src/repositories/persistentStorageRepository.ts",
         "src/repositories/settingsRepository.crud.test.ts",
@@ -5868,6 +6010,9 @@
         "src/db/database.schema.test.ts",
         "src/db/database.test.ts",
         "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
         "src/repositories/settingsRepository.crud.test.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/themePreference.test.ts",
@@ -5886,7 +6031,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 230,
+      "loc": 254,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -6152,6 +6297,7 @@
       "importedBy": [
         "src/dev/architecture/ArchitecturePage.tsx",
         "src/dev/architecture/components/CompositionTree.tsx",
+        "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
         "src/dev/architecture/components/DataModelSection.tsx",
         "src/dev/architecture/components/DomainSection.tsx",
         "src/dev/architecture/components/FlowsSection.tsx",
@@ -6421,6 +6567,76 @@
       "testedBy": []
     },
     {
+      "id": "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
+      "layer": "dev",
+      "feature": null,
+      "group": "dev/architecture",
+      "kinds": [
+        "component"
+      ],
+      "loc": 206,
+      "exports": [
+        "CryptoPipelineDiagram"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "CryptoPipelineDiagram",
+          "signature": "CryptoPipelineDiagram()"
+        }
+      ],
+      "components": [
+        "CryptoPipelineDiagram"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useId",
+        "useInspector"
+      ],
+      "jsxUsed": [
+        "Badge",
+        "ModuleLink",
+        "PipelineNode",
+        "PipelineSvg"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": true,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RNF-05"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useId"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/dev/architecture/components/FlowsSection.tsx"
+      ],
+      "imports": [
+        "src/dev/architecture/components/Badge.tsx",
+        "src/dev/architecture/components/ModuleLink.tsx",
+        "src/dev/architecture/components/useInspector.ts",
+        "src/dev/architecture/data/curated.ts",
+        "src/dev/architecture/types.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/dev/architecture/components/DataModelSection.tsx",
       "layer": "dev",
       "feature": null,
@@ -6428,7 +6644,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 164,
+      "loc": 186,
       "exports": [
         "DataModelSection"
       ],
@@ -6675,7 +6891,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 79,
+      "loc": 86,
       "exports": [
         "FlowsSection"
       ],
@@ -6698,6 +6914,7 @@
         "Card",
         "Card.Title",
         "CodeList",
+        "CryptoPipelineDiagram",
         "FlowCard",
         "FlowSequence",
         "ModuleLink",
@@ -6713,7 +6930,11 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "CA-10.6",
+        "D-47",
+        "RNF-05"
+      ],
       "external": [],
       "importedBy": [
         "src/dev/architecture/ArchitecturePage.tsx"
@@ -6722,6 +6943,7 @@
         "src/dev/architecture/components/Badge.tsx",
         "src/dev/architecture/components/Card.tsx",
         "src/dev/architecture/components/CodeList.tsx",
+        "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
         "src/dev/architecture/components/FlowSequence.tsx",
         "src/dev/architecture/components/ModuleLink.tsx",
         "src/dev/architecture/components/ModuleList.tsx",
@@ -7453,6 +7675,7 @@
       "importedBy": [
         "src/dev/architecture/components/CompositionSection.tsx",
         "src/dev/architecture/components/CompositionTree.tsx",
+        "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
         "src/dev/architecture/components/DomainSection.tsx",
         "src/dev/architecture/components/FlowsSection.tsx",
         "src/dev/architecture/components/HealthSection.tsx",
@@ -8457,6 +8680,7 @@
         }
       ],
       "importedBy": [
+        "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
         "src/dev/architecture/components/FlowSequence.tsx",
         "src/dev/architecture/components/ModuleGraphSection.tsx",
         "src/dev/architecture/components/ModuleInspector.tsx",
@@ -8596,11 +8820,13 @@
         "database",
         "data"
       ],
-      "loc": 5526,
+      "loc": 6425,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
         "COMPOSITION_NOTES",
+        "CRYPTO_PIPELINE",
+        "CRYPTO_PIPELINE_ARROWS",
         "DECISIONS",
         "FLOWS",
         "FORBIDDEN_DEPENDENCIES",
@@ -8642,6 +8868,7 @@
         "src/dev/architecture/architecture.test.ts",
         "src/dev/architecture/components/CompositionSection.tsx",
         "src/dev/architecture/components/CompositionTree.tsx",
+        "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
         "src/dev/architecture/components/DataModelSection.tsx",
         "src/dev/architecture/components/DomainSection.tsx",
         "src/dev/architecture/components/FlowsSection.tsx",
@@ -8679,7 +8906,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 1926,
+      "loc": 2108,
       "exports": [
         "TIMELINE"
       ],
@@ -9157,7 +9384,7 @@
       "kinds": [
         "types"
       ],
-      "loc": 418,
+      "loc": 445,
       "exports": [
         "AllowedDependency",
         "ArchitectureFinding",
@@ -9191,6 +9418,8 @@
         "ModuleGraph",
         "ModuleKind",
         "PackageSource",
+        "PipelineArrow",
+        "PipelineBox",
         "PlannedDomainFunction",
         "PlannedFlow",
         "PlannedUiField",
@@ -9238,6 +9467,8 @@
         "ModuleGraph",
         "ModuleKind",
         "PackageSource",
+        "PipelineArrow",
+        "PipelineBox",
         "PlannedDomainFunction",
         "PlannedFlow",
         "PlannedUiField",
@@ -9284,6 +9515,7 @@
       "external": [],
       "importedBy": [
         "src/dev/architecture/architecture.test.ts",
+        "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
         "src/dev/architecture/components/FlowSequence.tsx",
         "src/dev/architecture/components/FlowsSection.tsx",
         "src/dev/architecture/components/ForbiddenDependenciesCard.tsx",
@@ -10021,6 +10253,305 @@
       ],
       "assets": [],
       "testedBy": []
+    },
+    {
+      "id": "src/domain/backupPasswordSchema.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 89,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-08",
+        "D-48",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/backupPasswordSchema.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/domain/backupPasswordSchema.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "module"
+      ],
+      "loc": 29,
+      "exports": [
+        "BACKUP_PASSWORD_MIN_LENGTH",
+        "ExportPasswordValues",
+        "ImportBackupInput",
+        "ImportBackupValues",
+        "PASSWORDS_DO_NOT_MATCH_MESSAGE",
+        "PASSWORD_REQUIRED_MESSAGE",
+        "PASSWORD_TOO_SHORT_MESSAGE",
+        "exportPasswordSchema",
+        "importBackupSchema"
+      ],
+      "typeExports": [
+        "ExportPasswordValues",
+        "ImportBackupInput",
+        "ImportBackupValues"
+      ],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.2",
+        "CA-10.3",
+        "D-08",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "zod",
+          "specifier": "zod",
+          "kind": "static",
+          "names": [
+            "z"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/domain/backupPasswordSchema.test.ts",
+        "src/features/backup/useExportBackup.ts",
+        "src/features/backup/useImportBackup.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/domain/backupPasswordSchema.test.ts"
+      ]
+    },
+    {
+      "id": "src/domain/backupReminder.audit.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 112,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-11",
+        "D-46",
+        "D-48",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/backupReminder.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/domain/backupReminder.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 66,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-11",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/backupReminder.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/domain/backupReminder.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "module"
+      ],
+      "loc": 43,
+      "exports": [
+        "BACKUP_REMINDER_DAYS",
+        "daysSinceLastBackup",
+        "describeLastBackup",
+        "shouldShowBackupReminder"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "daysSinceLastBackup",
+          "signature": "daysSinceLastBackup(lastBackupAt: string | null, today: DateString): number | null"
+        },
+        {
+          "name": "describeLastBackup",
+          "signature": "describeLastBackup(days: number | null): string"
+        },
+        {
+          "name": "shouldShowBackupReminder",
+          "signature": "shouldShowBackupReminder({ lastBackupAt, today, transactionCount, }: BackupReminderInput): boolean"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-11",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "date-fns",
+          "specifier": "date-fns",
+          "kind": "static",
+          "names": [
+            "differenceInCalendarDays",
+            "isValid",
+            "parseISO"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/domain/backupReminder.audit.test.ts",
+        "src/domain/backupReminder.test.ts",
+        "src/features/backup/LastBackupStatus.tsx",
+        "src/features/home/BackupReminder.tsx"
+      ],
+      "imports": [
+        "src/domain/dates.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/domain/backupReminder.audit.test.ts",
+        "src/domain/backupReminder.test.ts"
+      ]
     },
     {
       "id": "src/domain/balances.properties.test.ts",
@@ -10784,6 +11315,7 @@
         "src/dev/sampleData/sampleInstallments.ts",
         "src/dev/sampleData/sampleRecurrings.ts",
         "src/dev/sampleData/useSampleDataTools.ts",
+        "src/domain/backupReminder.ts",
         "src/domain/balances.properties.test.ts",
         "src/domain/balances.test.ts",
         "src/domain/balances.ts",
@@ -10800,6 +11332,8 @@
         "src/features/transactions/TransactionsPage.pagination.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
         "src/features/transactions/list/DaySection.tsx",
+        "src/lib/backupFormat.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.ts"
       ],
@@ -11230,7 +11764,11 @@
         "src/features/tags/DeleteTagBlockedDialog.tsx",
         "src/features/tags/tagTexts.ts",
         "src/features/tags/useTagsScreen.ts",
-        "src/repositories/tagsRepository.ts"
+        "src/lib/backupFormat.test.ts",
+        "src/lib/backupFormat.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/test/backupDataset.ts",
+        "src/test/factories.ts"
       ],
       "imports": [
         "src/domain/text.ts",
@@ -11241,7 +11779,8 @@
         "src/domain/tags.test.ts",
         "src/domain/tagSchema.test.ts",
         "src/domain/text.properties.test.ts",
-        "src/domain/text.test.ts"
+        "src/domain/text.test.ts",
+        "src/lib/backupFormat.test.ts"
       ]
     },
     {
@@ -12199,6 +12738,7 @@
         "src/dev/sampleData/sampleContext.ts",
         "src/dev/sampleData/sampleInstallments.ts",
         "src/dev/sampleData/sampleRecurrings.ts",
+        "src/domain/backupReminder.ts",
         "src/domain/balances.properties.test.ts",
         "src/domain/balances.ts",
         "src/domain/dates.ts",
@@ -12211,6 +12751,7 @@
         "src/domain/transactionFilters.ts",
         "src/domain/transactions.test.ts",
         "src/domain/transactions.ts",
+        "src/features/home/BackupReminder.tsx",
         "src/features/home/BalanceSummary.tsx",
         "src/features/home/RecentTransactions.tsx",
         "src/features/tags/ConfirmDeleteTagDialog.tsx",
@@ -12224,11 +12765,14 @@
         "src/features/transactions/list/TransactionDayList.tsx",
         "src/features/transactions/useTransactionList.test.ts",
         "src/features/transactions/useTransactionList.ts",
+        "src/lib/backupFormat.ts",
+        "src/repositories/backupRepository.test.ts",
         "src/repositories/settingsRepository.ts",
         "src/repositories/tagsRepository.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.list.properties.test.ts",
         "src/repositories/transactionsRepository.ts",
+        "src/test/backupDataset.ts",
         "src/test/factories.ts",
         "src/test/seedDatabase.ts",
         "src/test/transactionList.ts"
@@ -12244,9 +12788,90 @@
         "src/domain/transactions.test.ts",
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/transactions/useTransactionList.test.ts",
+        "src/repositories/backupRepository.test.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.list.properties.test.ts"
       ]
+    },
+    {
+      "id": "src/features/backup/BackupPage.test.tsx",
+      "layer": "features",
+      "feature": "backup",
+      "group": "features/backup",
+      "kinds": [
+        "test"
+      ],
+      "loc": 385,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [
+        "src/repositories/backupRepository.ts",
+        "src/repositories/backupRepository.ts"
+      ],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.2",
+        "CA-10.3",
+        "CA-10.5",
+        "D-07",
+        "D-28",
+        "D-36",
+        "RF-10",
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "screen",
+            "waitFor",
+            "within"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/crypto.ts",
+        "src/lib/theme.ts",
+        "src/repositories/backupRepository.ts",
+        "src/repositories/settingsRepository.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.ts",
+        "src/test/renderApp.tsx",
+        "src/test/seedDatabase.ts"
+      ],
+      "assets": [],
+      "testProject": "dom"
     },
     {
       "id": "src/features/backup/BackupPage.tsx",
@@ -12257,7 +12882,7 @@
         "component",
         "page"
       ],
-      "loc": 9,
+      "loc": 19,
       "exports": [
         "BackupPage"
       ],
@@ -12277,7 +12902,11 @@
       "hooksUsed": [],
       "jsxUsed": [
         "BackLink",
+        "ExportBackupSection",
+        "ImportBackupSection",
+        "LastBackupStatus",
         "Page",
+        "Page.Body",
         "Page.Header"
       ],
       "storesUsed": [],
@@ -12289,14 +12918,581 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "RF-10"
+      ],
       "external": [],
       "importedBy": [
         "src/app/lazyPages.tsx"
       ],
       "imports": [
         "src/components/ui/BackLink.tsx",
-        "src/components/ui/Page.tsx"
+        "src/components/ui/Page.tsx",
+        "src/features/backup/ExportBackupSection.tsx",
+        "src/features/backup/ImportBackupSection.tsx",
+        "src/features/backup/LastBackupStatus.tsx"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/features/backup/BackupPage.test.tsx"
+      ]
+    },
+    {
+      "id": "src/features/backup/backupTexts.ts",
+      "layer": "features",
+      "feature": "backup",
+      "group": "features/backup",
+      "kinds": [
+        "module"
+      ],
+      "loc": 41,
+      "exports": [
+        "CONFIRM_IMPORT_LABEL",
+        "EXPORTING_LABEL",
+        "EXPORT_CANCELLED_MESSAGE",
+        "EXPORT_DONE_MESSAGE",
+        "EXPORT_FAILED_MESSAGE",
+        "EXPORT_LABEL",
+        "EXPORT_READY_MESSAGE",
+        "IMPORT_DONE_MESSAGE",
+        "IMPORT_LABEL",
+        "INVALID_FILE_MESSAGE",
+        "NEWER_VERSION_MESSAGE",
+        "OPENING_LABEL",
+        "OPEN_FAILED_MESSAGE",
+        "REPLACE_WARNING",
+        "RESTORE_FAILED_MESSAGE",
+        "RESTORING_LABEL",
+        "SAVE_FILE_LABEL",
+        "WRONG_PASSWORD_MESSAGE",
+        "describeOpenError",
+        "formatBackupDate",
+        "formatCount"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "describeOpenError",
+          "signature": "describeOpenError(error: unknown): string"
+        },
+        {
+          "name": "formatCount",
+          "signature": "formatCount(count: number, singular: string, plural: string): string"
+        },
+        {
+          "name": "formatBackupDate",
+          "signature": "formatBackupDate(isoDateTime: string): string"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.2",
+        "CA-10.3",
+        "CA-10.5",
+        "RF-10",
+        "RNF-02"
+      ],
+      "external": [
+        {
+          "package": "date-fns",
+          "specifier": "date-fns",
+          "kind": "static",
+          "names": [
+            "format",
+            "parseISO"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/backup/ConfirmImportDialog.tsx",
+        "src/features/backup/ExportBackupSection.tsx",
+        "src/features/backup/ImportBackupSection.tsx",
+        "src/features/backup/useExportBackup.ts",
+        "src/features/backup/useImportBackup.ts"
+      ],
+      "imports": [
+        "src/lib/backupFormat.ts",
+        "src/lib/crypto.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/backup/ConfirmImportDialog.tsx",
+      "layer": "features",
+      "feature": "backup",
+      "group": "features/backup",
+      "kinds": [
+        "component"
+      ],
+      "loc": 64,
+      "exports": [
+        "ConfirmImportDialog"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "ConfirmImportDialog",
+          "signature": "ConfirmImportDialog({ summary, onConfirm, onCancel, isRestoring, errorMessage, }: ConfirmImportDialogProps)"
+        }
+      ],
+      "components": [
+        "ConfirmImportDialog"
+      ],
+      "props": {
+        "ConfirmImportDialogProps": 5
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "Button",
+        "ErrorAlert",
+        "InfoList",
+        "InfoList.Item",
+        "Modal",
+        "Modal.Actions",
+        "Modal.Body"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-07",
+        "RF-10"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/backup/ImportBackupSection.tsx"
+      ],
+      "imports": [
+        "src/components/ui/Button.tsx",
+        "src/components/ui/ErrorAlert.tsx",
+        "src/components/ui/InfoList.tsx",
+        "src/components/ui/Modal.tsx",
+        "src/features/backup/backupTexts.ts",
+        "src/lib/backupFormat.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/backup/ExportBackupSection.tsx",
+      "layer": "features",
+      "feature": "backup",
+      "group": "features/backup",
+      "kinds": [
+        "component"
+      ],
+      "loc": 70,
+      "exports": [
+        "ExportBackupSection"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "ExportBackupSection",
+          "signature": "ExportBackupSection()"
+        }
+      ],
+      "components": [
+        "ExportBackupSection"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useExportBackup",
+        "useId"
+      ],
+      "jsxUsed": [
+        "Button",
+        "Controller",
+        "ErrorAlert",
+        "Field",
+        "Field.Error",
+        "Field.Label",
+        "PasswordInput"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-39",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useId"
+          ]
+        },
+        {
+          "package": "react-hook-form",
+          "specifier": "react-hook-form",
+          "kind": "static",
+          "names": [
+            "Controller"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/backup/BackupPage.tsx"
+      ],
+      "imports": [
+        "src/components/ui/Button.tsx",
+        "src/components/ui/ErrorAlert.tsx",
+        "src/components/ui/Field.tsx",
+        "src/components/ui/PasswordInput.tsx",
+        "src/features/backup/backupTexts.ts",
+        "src/features/backup/useExportBackup.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/backup/ImportBackupSection.tsx",
+      "layer": "features",
+      "feature": "backup",
+      "group": "features/backup",
+      "kinds": [
+        "component"
+      ],
+      "loc": 79,
+      "exports": [
+        "ImportBackupSection"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "ImportBackupSection",
+          "signature": "ImportBackupSection()"
+        }
+      ],
+      "components": [
+        "ImportBackupSection"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useId",
+        "useImportBackup"
+      ],
+      "jsxUsed": [
+        "Button",
+        "ConfirmImportDialog",
+        "Controller",
+        "ErrorAlert",
+        "Field",
+        "Field.Error",
+        "Field.Label",
+        "FileInput",
+        "PasswordInput"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-10",
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useId"
+          ]
+        },
+        {
+          "package": "react-hook-form",
+          "specifier": "react-hook-form",
+          "kind": "static",
+          "names": [
+            "Controller"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/backup/BackupPage.tsx"
+      ],
+      "imports": [
+        "src/components/ui/Button.tsx",
+        "src/components/ui/ErrorAlert.tsx",
+        "src/components/ui/Field.tsx",
+        "src/components/ui/FileInput.tsx",
+        "src/components/ui/PasswordInput.tsx",
+        "src/features/backup/ConfirmImportDialog.tsx",
+        "src/features/backup/backupTexts.ts",
+        "src/features/backup/useImportBackup.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/backup/LastBackupStatus.tsx",
+      "layer": "features",
+      "feature": "backup",
+      "group": "features/backup",
+      "kinds": [
+        "component"
+      ],
+      "loc": 15,
+      "exports": [
+        "LastBackupStatus"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "LastBackupStatus",
+          "signature": "LastBackupStatus()"
+        }
+      ],
+      "components": [
+        "LastBackupStatus"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useLastBackupAt",
+        "useToday"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-10"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/backup/BackupPage.tsx"
+      ],
+      "imports": [
+        "src/components/ui/useToday.ts",
+        "src/domain/backupReminder.ts",
+        "src/repositories/settingsRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/backup/useExportBackup.ts",
+      "layer": "features",
+      "feature": "backup",
+      "group": "features/backup",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 108,
+      "exports": [
+        "useExportBackup"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useExportBackup",
+          "signature": "useExportBackup()"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useExportBackup"
+      ],
+      "hooksUsed": [
+        "useEffect",
+        "useState"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-36",
+        "D-45",
+        "RF-10",
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "@hookform/resolvers",
+          "specifier": "@hookform/resolvers/zod",
+          "kind": "static",
+          "names": [
+            "zodResolver"
+          ]
+        },
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useEffect",
+            "useRef",
+            "useState"
+          ]
+        },
+        {
+          "package": "react-hook-form",
+          "specifier": "react-hook-form",
+          "kind": "static",
+          "names": [
+            "useForm"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/backup/ExportBackupSection.tsx"
+      ],
+      "imports": [
+        "src/domain/backupPasswordSchema.ts",
+        "src/features/backup/backupTexts.ts",
+        "src/lib/formSubmit.ts",
+        "src/lib/share.ts",
+        "src/repositories/backupRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/backup/useImportBackup.ts",
+      "layer": "features",
+      "feature": "backup",
+      "group": "features/backup",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 102,
+      "exports": [
+        "useImportBackup"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "useImportBackup",
+          "signature": "useImportBackup()"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useImportBackup"
+      ],
+      "hooksUsed": [
+        "useEffect",
+        "useState",
+        "useTheme"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.2",
+        "CA-10.3",
+        "CA-10.5",
+        "D-07",
+        "D-45",
+        "RF-10",
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "@hookform/resolvers",
+          "specifier": "@hookform/resolvers/zod",
+          "kind": "static",
+          "names": [
+            "zodResolver"
+          ]
+        },
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useEffect",
+            "useRef",
+            "useState"
+          ]
+        },
+        {
+          "package": "react-hook-form",
+          "specifier": "react-hook-form",
+          "kind": "static",
+          "names": [
+            "useForm"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/backup/ImportBackupSection.tsx"
+      ],
+      "imports": [
+        "src/domain/backupPasswordSchema.ts",
+        "src/features/backup/backupTexts.ts",
+        "src/lib/backupFormat.ts",
+        "src/lib/formSubmit.ts",
+        "src/repositories/backupRepository.ts",
+        "src/repositories/useTheme.ts"
       ],
       "assets": [],
       "testedBy": []
@@ -12351,6 +13547,153 @@
       ],
       "assets": [],
       "testedBy": []
+    },
+    {
+      "id": "src/features/home/BackupReminder.test.tsx",
+      "layer": "features",
+      "feature": "home",
+      "group": "features/home",
+      "kinds": [
+        "test"
+      ],
+      "loc": 55,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-11",
+        "D-48",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "screen"
+          ]
+        },
+        {
+          "package": "date-fns",
+          "specifier": "date-fns",
+          "kind": "static",
+          "names": [
+            "subDays"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/features/home/homeTexts.ts",
+        "src/repositories/settingsRepository.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.ts",
+        "src/test/renderApp.tsx"
+      ],
+      "assets": [],
+      "testProject": "dom"
+    },
+    {
+      "id": "src/features/home/BackupReminder.tsx",
+      "layer": "features",
+      "feature": "home",
+      "group": "features/home",
+      "kinds": [
+        "component"
+      ],
+      "loc": 39,
+      "exports": [
+        "BackupReminder"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "BackupReminder",
+          "signature": "BackupReminder({ today }: BackupReminderProps)"
+        }
+      ],
+      "components": [
+        "BackupReminder"
+      ],
+      "props": {
+        "BackupReminderProps": 1
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useLastBackupAt",
+        "useTransactionCount"
+      ],
+      "jsxUsed": [
+        "Link",
+        "Notice",
+        "Notice.Message"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-11",
+        "D-41",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "react-router",
+          "specifier": "react-router",
+          "kind": "static",
+          "names": [
+            "Link"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/home/HomePage.tsx"
+      ],
+      "imports": [
+        "src/components/ui/Notice.tsx",
+        "src/domain/backupReminder.ts",
+        "src/domain/types.ts",
+        "src/repositories/settingsRepository.ts",
+        "src/repositories/transactionsRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/features/home/BackupReminder.test.tsx"
+      ]
     },
     {
       "id": "src/features/home/BalanceSummary.tsx",
@@ -12587,7 +13930,7 @@
         "component",
         "page"
       ],
-      "loc": 27,
+      "loc": 30,
       "exports": [
         "HomePage"
       ],
@@ -12609,6 +13952,7 @@
         "useToday"
       ],
       "jsxUsed": [
+        "BackupReminder",
         "BalanceSummary",
         "Page",
         "Page.Body",
@@ -12626,7 +13970,8 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
-        "RF-02"
+        "RF-02",
+        "RF-10"
       ],
       "external": [
         {
@@ -12645,6 +13990,7 @@
         "src/components/transactions/TransactionForm.tsx",
         "src/components/ui/Page.tsx",
         "src/components/ui/useToday.ts",
+        "src/features/home/BackupReminder.tsx",
         "src/features/home/BalanceSummary.tsx",
         "src/features/home/RecentTransactions.tsx"
       ],
@@ -12688,11 +14034,14 @@
       ],
       "external": [],
       "importedBy": [
+        "src/features/home/BackupReminder.test.tsx",
         "src/features/home/RecentTransactions.tsx"
       ],
       "imports": [],
       "assets": [],
-      "testedBy": []
+      "testedBy": [
+        "src/features/home/BackupReminder.test.tsx"
+      ]
     },
     {
       "id": "src/features/home/RecentTransactions.tsx",
@@ -15942,6 +17291,470 @@
       ]
     },
     {
+      "id": "src/lib/backupFormat.audit.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 423,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.1",
+        "CA-10.3",
+        "CA-10.4",
+        "CA-10.5",
+        "D-47",
+        "RF-08",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/backupFormat.ts",
+        "src/test/backupDataset.ts",
+        "src/test/factories.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/lib/backupFormat.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 387,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.1",
+        "CA-10.3",
+        "CA-10.4",
+        "CA-10.5",
+        "D-47",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/tags.ts",
+        "src/lib/backupFormat.ts",
+        "src/lib/crypto.ts",
+        "src/test/factories.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/lib/backupFormat.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "module"
+      ],
+      "loc": 354,
+      "exports": [
+        "BACKUP_APP_ID",
+        "BACKUP_FILE_MIME_TYPE",
+        "BACKUP_MIGRATIONS",
+        "BackupContent",
+        "BackupData",
+        "BackupMigration",
+        "BackupSetting",
+        "BackupSummary",
+        "BackupTables",
+        "InvalidBackupFileError",
+        "MAX_BACKUP_FILE_BYTES",
+        "MAX_PBKDF2_ITERATIONS",
+        "NewerBackupVersionError",
+        "backupFileName",
+        "buildBackupContent",
+        "hasReferentialIntegrity",
+        "migrateBackupContent",
+        "parseBackupContent",
+        "parseBackupEnvelope",
+        "selectBackupSettings",
+        "summarizeBackup"
+      ],
+      "typeExports": [
+        "BackupContent",
+        "BackupData",
+        "BackupMigration",
+        "BackupSetting",
+        "BackupSummary",
+        "BackupTables"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "parseBackupEnvelope",
+          "signature": "parseBackupEnvelope(text: string): BackupEnvelope"
+        },
+        {
+          "name": "selectBackupSettings",
+          "signature": "selectBackupSettings(settings: readonly Setting[]): BackupSetting[]"
+        },
+        {
+          "name": "buildBackupContent",
+          "signature": "buildBackupContent(tables: BackupTables, { schemaVersion, now = new Date() }: BuildContentOptions): BackupContent"
+        },
+        {
+          "name": "backupFileName",
+          "signature": "backupFileName(date: DateString = today()): string"
+        },
+        {
+          "name": "migrateBackupContent",
+          "signature": "migrateBackupContent(content: Record<string, unknown>, fromVersion: number, toVersion: number, migrations: Readonly<Record<number, BackupMigration>> = BACKUP_MIGRATIONS): Record<string, unknown>"
+        },
+        {
+          "name": "hasReferentialIntegrity",
+          "signature": "hasReferentialIntegrity(data: BackupData): boolean"
+        },
+        {
+          "name": "parseBackupContent",
+          "signature": "parseBackupContent(plaintext: string, { schemaVersion, migrations = BACKUP_MIGRATIONS }: ParseContentOptions): BackupContent"
+        },
+        {
+          "name": "summarizeBackup",
+          "signature": "summarizeBackup(content: BackupContent): BackupSummary"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.3",
+        "CA-10.4",
+        "CA-10.5",
+        "RF-03",
+        "RF-08",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "date-fns",
+          "specifier": "date-fns",
+          "kind": "static",
+          "names": [
+            "formatISO"
+          ]
+        },
+        {
+          "package": "zod",
+          "specifier": "zod",
+          "kind": "static",
+          "names": [
+            "z"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/backup/ConfirmImportDialog.tsx",
+        "src/features/backup/backupTexts.ts",
+        "src/features/backup/useImportBackup.ts",
+        "src/lib/backupFormat.audit.test.ts",
+        "src/lib/backupFormat.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.ts"
+      ],
+      "imports": [
+        "src/domain/dates.ts",
+        "src/domain/tags.ts",
+        "src/domain/types.ts",
+        "src/lib/crypto.ts",
+        "src/lib/theme.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/lib/backupFormat.audit.test.ts",
+        "src/lib/backupFormat.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts"
+      ]
+    },
+    {
+      "id": "src/lib/crypto.audit.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 237,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.1",
+        "CA-10.2",
+        "CA-10.6",
+        "D-47",
+        "RNF-05"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/crypto.ts",
+        "src/test/propertyHelpers.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/lib/crypto.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 171,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.1",
+        "CA-10.2",
+        "CA-10.6",
+        "D-47",
+        "RF-10",
+        "RNF-05"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/crypto.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/lib/crypto.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "module"
+      ],
+      "loc": 137,
+      "exports": [
+        "AES_KEY_LENGTH",
+        "BackupDecryptionError",
+        "BackupEnvelope",
+        "ENVELOPE_FORMAT",
+        "ENVELOPE_FORMAT_VERSION",
+        "EncryptOptions",
+        "IV_BYTES",
+        "PBKDF2_ITERATIONS",
+        "SALT_BYTES",
+        "base64ToBytes",
+        "bytesToBase64",
+        "decryptBackupText",
+        "encryptBackupText"
+      ],
+      "typeExports": [
+        "BackupEnvelope",
+        "EncryptOptions"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "bytesToBase64",
+          "signature": "bytesToBase64(bytes: Uint8Array): string"
+        },
+        {
+          "name": "base64ToBytes",
+          "signature": "base64ToBytes(base64: string): Uint8Array<ArrayBuffer>"
+        },
+        {
+          "name": "encryptBackupText",
+          "signature": "encryptBackupText(plaintext: string, password: string, { iterations = PBKDF2_ITERATIONS, now = new Date() }: EncryptOptions = {}): Promise<BackupEnvelope>"
+        },
+        {
+          "name": "decryptBackupText",
+          "signature": "decryptBackupText(envelope: BackupEnvelope, password: string): Promise<string>"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.2",
+        "RF-10",
+        "RNF-05",
+        "RNF-09"
+      ],
+      "external": [
+        {
+          "package": "date-fns",
+          "specifier": "date-fns",
+          "kind": "static",
+          "names": [
+            "formatISO"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/backup/backupTexts.ts",
+        "src/lib/backupFormat.test.ts",
+        "src/lib/backupFormat.ts",
+        "src/lib/crypto.audit.test.ts",
+        "src/lib/crypto.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/features/backup/BackupPage.test.tsx",
+        "src/lib/backupFormat.test.ts",
+        "src/lib/crypto.audit.test.ts",
+        "src/lib/crypto.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts"
+      ]
+    },
+    {
       "id": "src/lib/displayMode.test.ts",
       "layer": "lib",
       "feature": null,
@@ -16248,12 +18061,122 @@
       "importedBy": [
         "src/components/tags/useTagForm.ts",
         "src/components/transactions/useTransactionForm.ts",
+        "src/features/backup/useExportBackup.ts",
+        "src/features/backup/useImportBackup.ts",
         "src/lib/formSubmit.test.ts"
       ],
       "imports": [],
       "assets": [],
       "testedBy": [
         "src/lib/formSubmit.test.ts"
+      ]
+    },
+    {
+      "id": "src/lib/share.test.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "test"
+      ],
+      "loc": 70,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFakeTimers",
+        "useRealTimers"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/share.ts"
+      ],
+      "assets": [],
+      "testProject": "dom"
+    },
+    {
+      "id": "src/lib/share.ts",
+      "layer": "lib",
+      "feature": null,
+      "group": "lib",
+      "kinds": [
+        "module"
+      ],
+      "loc": 44,
+      "exports": [
+        "OBJECT_URL_REVOKE_DELAY_MS",
+        "ShareOutcome",
+        "shareOrDownloadFile"
+      ],
+      "typeExports": [
+        "ShareOutcome"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "shareOrDownloadFile",
+          "signature": "shareOrDownloadFile(file: File): Promise<ShareOutcome>"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-10"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/backup/useExportBackup.ts",
+        "src/lib/share.test.ts",
+        "src/repositories/backupRepository.ts"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": [
+        "src/lib/share.test.ts"
       ]
     },
     {
@@ -16548,13 +18471,17 @@
         "src/app/theme/applyThemeToDocument.ts",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/app/theme/useSystemPrefersDark.ts",
+        "src/features/backup/BackupPage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
         "src/features/settings/ThemeSection.tsx",
         "src/features/settings/themeOptionLabels.ts",
+        "src/lib/backupFormat.ts",
         "src/lib/theme.test.ts",
         "src/lib/themeStorage.test.ts",
         "src/lib/themeStorage.ts",
         "src/repositories/ThemeContext.ts",
+        "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/themePreference.test.ts",
         "src/repositories/themeRepository.test.ts",
         "src/repositories/themeRepository.ts",
@@ -16567,9 +18494,11 @@
       "testedBy": [
         "src/app/pwa/pwaOptions.test.ts",
         "src/app/theme/indexHtmlThemeScript.test.ts",
+        "src/features/backup/BackupPage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
         "src/lib/theme.test.ts",
         "src/lib/themeStorage.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
         "src/repositories/themePreference.test.ts",
         "src/repositories/themeRepository.test.ts"
       ]
@@ -16673,6 +18602,7 @@
       "external": [],
       "importedBy": [
         "src/lib/themeStorage.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/themeRepository.ts",
         "src/repositories/useThemePreference.ts"
       ],
@@ -16858,6 +18788,458 @@
         "src/index.css"
       ],
       "testedBy": []
+    },
+    {
+      "id": "src/repositories/backupRepository.audit.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 388,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFakeTimers",
+        "useRealTimers"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "tags": {
+          "reads": [
+            "get",
+            "toArray"
+          ],
+          "writes": [
+            "add",
+            "bulkAdd",
+            "delete"
+          ]
+        },
+        "recurrings": {
+          "reads": [
+            "toArray"
+          ],
+          "writes": [
+            "add",
+            "bulkAdd"
+          ]
+        },
+        "installmentGroups": {
+          "reads": [
+            "toArray"
+          ],
+          "writes": [
+            "add",
+            "bulkAdd"
+          ]
+        },
+        "transactions": {
+          "reads": [
+            "get",
+            "toArray"
+          ],
+          "writes": [
+            "add",
+            "bulkAdd"
+          ]
+        },
+        "settings": {
+          "reads": [
+            "get",
+            "toArray"
+          ],
+          "writes": [
+            "bulkPut",
+            "put"
+          ]
+        }
+      },
+      "usesTransaction": true,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.1",
+        "CA-10.3",
+        "D-07",
+        "D-47",
+        "RF-10",
+        "RNF-05"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts",
+        "src/lib/backupFormat.ts",
+        "src/lib/crypto.ts",
+        "src/repositories/backupRepository.ts",
+        "src/test/backupDataset.ts",
+        "src/test/factories.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/repositories/backupRepository.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 366,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "tags": {
+          "reads": [
+            "count"
+          ],
+          "writes": [
+            "add",
+            "bulkAdd"
+          ]
+        },
+        "recurrings": {
+          "reads": [],
+          "writes": [
+            "bulkAdd"
+          ]
+        },
+        "installmentGroups": {
+          "reads": [],
+          "writes": [
+            "bulkAdd"
+          ]
+        },
+        "transactions": {
+          "reads": [
+            "count"
+          ],
+          "writes": [
+            "bulkAdd"
+          ]
+        },
+        "settings": {
+          "reads": [
+            "get"
+          ],
+          "writes": [
+            "bulkAdd",
+            "put"
+          ]
+        }
+      },
+      "usesTransaction": true,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.1",
+        "CA-10.2",
+        "CA-10.3",
+        "CA-10.5",
+        "CA-10.6",
+        "D-07",
+        "D-28",
+        "RF-10",
+        "RNF-05"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts",
+        "src/domain/types.ts",
+        "src/lib/backupFormat.ts",
+        "src/lib/crypto.ts",
+        "src/repositories/backupRepository.ts",
+        "src/test/factories.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/repositories/backupRepository.theme.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 65,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "tags": {
+          "reads": [],
+          "writes": [
+            "bulkAdd"
+          ]
+        },
+        "recurrings": {
+          "reads": [],
+          "writes": [
+            "bulkAdd"
+          ]
+        },
+        "installmentGroups": {
+          "reads": [],
+          "writes": [
+            "bulkAdd"
+          ]
+        },
+        "transactions": {
+          "reads": [],
+          "writes": [
+            "bulkAdd"
+          ]
+        },
+        "settings": {
+          "reads": [
+            "get"
+          ],
+          "writes": [
+            "bulkAdd",
+            "put"
+          ]
+        }
+      },
+      "usesTransaction": true,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.1",
+        "D-28",
+        "D-46",
+        "D-47"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts",
+        "src/lib/theme.ts",
+        "src/repositories/backupRepository.ts",
+        "src/test/backupDataset.ts"
+      ],
+      "assets": [],
+      "testProject": "dom"
+    },
+    {
+      "id": "src/repositories/backupRepository.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "module"
+      ],
+      "loc": 111,
+      "exports": [
+        "CreateBackupOptions",
+        "createBackupFile",
+        "deliverBackupFile",
+        "openBackupFile",
+        "readBackupTables",
+        "recordBackupDone",
+        "restoreBackup"
+      ],
+      "typeExports": [
+        "CreateBackupOptions"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "readBackupTables",
+          "signature": "readBackupTables(): Promise<BackupTables>"
+        },
+        {
+          "name": "createBackupFile",
+          "signature": "createBackupFile(password: string, { iterations, now = new Date() }: CreateBackupOptions = {}): Promise<File>"
+        },
+        {
+          "name": "recordBackupDone",
+          "signature": "recordBackupDone(now: Date = new Date()): Promise<void>"
+        },
+        {
+          "name": "deliverBackupFile",
+          "signature": "deliverBackupFile(file: File, share: (file: File) => Promise<ShareOutcome> = shareOrDownloadFile): Promise<ShareOutcome>"
+        },
+        {
+          "name": "openBackupFile",
+          "signature": "openBackupFile(file: Blob, password: string): Promise<BackupContent>"
+        },
+        {
+          "name": "restoreBackup",
+          "signature": "restoreBackup(data: BackupData): Promise<ThemePreference>"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "tags": {
+          "reads": [
+            "toArray"
+          ],
+          "writes": [
+            "bulkAdd",
+            "clear"
+          ]
+        },
+        "transactions": {
+          "reads": [
+            "toArray"
+          ],
+          "writes": [
+            "bulkAdd",
+            "clear"
+          ]
+        },
+        "recurrings": {
+          "reads": [
+            "toArray"
+          ],
+          "writes": [
+            "bulkAdd",
+            "clear"
+          ]
+        },
+        "installmentGroups": {
+          "reads": [
+            "toArray"
+          ],
+          "writes": [
+            "bulkAdd",
+            "clear"
+          ]
+        },
+        "settings": {
+          "reads": [
+            "toArray"
+          ],
+          "writes": [
+            "put"
+          ]
+        }
+      },
+      "usesTransaction": true,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-07",
+        "D-28",
+        "D-41",
+        "RF-10",
+        "RNF-02",
+        "RNF-05"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/backup/useExportBackup.ts",
+        "src/features/backup/useImportBackup.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/settingsRepository.test.ts"
+      ],
+      "imports": [
+        "src/db/database.ts",
+        "src/domain/dates.ts",
+        "src/lib/backupFormat.ts",
+        "src/lib/crypto.ts",
+        "src/lib/share.ts",
+        "src/lib/theme.ts",
+        "src/lib/themeStorage.ts",
+        "src/repositories/settingsRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/features/backup/BackupPage.test.tsx",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/settingsRepository.test.ts"
+      ]
     },
     {
       "id": "src/repositories/databaseInfo.ts",
@@ -17135,7 +19517,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 22,
+      "loc": 43,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -17144,6 +19526,7 @@
       "props": {},
       "hooksDefined": [],
       "hooksUsed": [
+        "useLastBackupAt",
         "useSetting"
       ],
       "jsxUsed": [],
@@ -17156,7 +19539,10 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "D-47",
+        "RF-10"
+      ],
       "external": [
         {
           "package": "@testing-library/react",
@@ -17181,6 +19567,7 @@
       ],
       "importedBy": [],
       "imports": [
+        "src/repositories/backupRepository.ts",
         "src/repositories/settingsRepository.ts"
       ],
       "assets": [],
@@ -17194,11 +19581,12 @@
       "kinds": [
         "hook"
       ],
-      "loc": 21,
+      "loc": 29,
       "exports": [
         "SettingKey",
         "getSetting",
         "setSetting",
+        "useLastBackupAt",
         "useSetting"
       ],
       "typeExports": [
@@ -17217,11 +19605,16 @@
         {
           "name": "useSetting",
           "signature": "useSetting(key: SettingKey): string | null | undefined"
+        },
+        {
+          "name": "useLastBackupAt",
+          "signature": "useLastBackupAt(): string | null | undefined"
         }
       ],
       "components": [],
       "props": {},
       "hooksDefined": [
+        "useLastBackupAt",
         "useSetting"
       ],
       "hooksUsed": [
@@ -17246,7 +19639,9 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "RF-10"
+      ],
       "external": [
         {
           "package": "dexie-react-hooks",
@@ -17258,7 +19653,12 @@
         }
       ],
       "importedBy": [
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/backup/LastBackupStatus.tsx",
+        "src/features/home/BackupReminder.test.tsx",
+        "src/features/home/BackupReminder.tsx",
         "src/features/settings/ThemeSection.test.tsx",
+        "src/repositories/backupRepository.ts",
         "src/repositories/persistentStorage.navigator.test.ts",
         "src/repositories/persistentStorageRepository.test.ts",
         "src/repositories/settingsRepository.crud.test.ts",
@@ -17273,6 +19673,8 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/home/BackupReminder.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
         "src/repositories/persistentStorage.navigator.test.ts",
         "src/repositories/persistentStorageRepository.test.ts",
@@ -17589,6 +19991,8 @@
       "importedBy": [
         "src/components/tags/useTagForm.ts",
         "src/components/transactions/TransactionForm.tsx",
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/home/BackupReminder.test.tsx",
         "src/features/home/HomePage.form.test.tsx",
         "src/features/home/HomePage.test.tsx",
         "src/features/home/RecentTransactions.tsx",
@@ -17615,6 +20019,8 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/home/BackupReminder.test.tsx",
         "src/features/home/HomePage.form.test.tsx",
         "src/features/home/HomePage.test.tsx",
         "src/features/tags/TagsPage.errors.test.tsx",
@@ -18449,6 +20855,9 @@
       ],
       "importedBy": [
         "src/components/transactions/useTransactionForm.ts",
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/home/BackupReminder.test.tsx",
+        "src/features/home/BackupReminder.tsx",
         "src/features/home/BalanceSummary.tsx",
         "src/features/home/HomePage.form.test.tsx",
         "src/features/home/HomePage.test.tsx",
@@ -18472,6 +20881,8 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/home/BackupReminder.test.tsx",
         "src/features/home/HomePage.form.test.tsx",
         "src/features/home/HomePage.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
@@ -18532,6 +20943,7 @@
         }
       ],
       "importedBy": [
+        "src/features/backup/useImportBackup.ts",
         "src/features/settings/ThemeSection.tsx",
         "src/repositories/themePreference.test.ts"
       ],
@@ -18908,6 +21320,69 @@
       "testProject": "unit"
     },
     {
+      "id": "src/test/backupDataset.ts",
+      "layer": "test",
+      "feature": null,
+      "group": "test",
+      "kinds": [
+        "module"
+      ],
+      "loc": 128,
+      "exports": [
+        "BackupDataset",
+        "GenerateOptions",
+        "generateBackupDataset"
+      ],
+      "typeExports": [
+        "BackupDataset",
+        "GenerateOptions"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "generateBackupDataset",
+          "signature": "generateBackupDataset(seed: number, { maxTransactions = 40 }: GenerateOptions = {}): BackupDataset"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-10.1",
+        "D-31",
+        "RF-01",
+        "RF-10"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/lib/backupFormat.audit.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.theme.test.ts"
+      ],
+      "imports": [
+        "src/domain/tags.ts",
+        "src/domain/types.ts",
+        "src/test/propertyHelpers.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/lib/backupFormat.audit.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.theme.test.ts"
+      ]
+    },
+    {
       "id": "src/test/dialog.ts",
       "layer": "test",
       "feature": null,
@@ -18958,7 +21433,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 71,
+      "loc": 76,
       "exports": [
         "expense",
         "income",
@@ -19019,6 +21494,10 @@
         "src/domain/transactions.test.ts",
         "src/features/tags/TagsPage.test.tsx",
         "src/features/transactions/useTransactionList.test.ts",
+        "src/lib/backupFormat.audit.test.ts",
+        "src/lib/backupFormat.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.crud.test.ts",
@@ -19028,6 +21507,7 @@
         "src/test/transactionList.ts"
       ],
       "imports": [
+        "src/domain/tags.ts",
         "src/domain/types.ts"
       ],
       "assets": [],
@@ -19047,6 +21527,10 @@
         "src/domain/transactions.test.ts",
         "src/features/tags/TagsPage.test.tsx",
         "src/features/transactions/useTransactionList.test.ts",
+        "src/lib/backupFormat.audit.test.ts",
+        "src/lib/backupFormat.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.crud.test.ts",
@@ -19201,8 +21685,10 @@
         "src/domain/transactionFilters.performance.test.ts",
         "src/domain/transactionFilters.properties.test.ts",
         "src/domain/transactions.test.ts",
+        "src/lib/crypto.audit.test.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
-        "src/repositories/transactionsRepository.list.properties.test.ts"
+        "src/repositories/transactionsRepository.list.properties.test.ts",
+        "src/test/backupDataset.ts"
       ],
       "imports": [],
       "assets": [],
@@ -19218,6 +21704,7 @@
         "src/domain/transactionFilters.performance.test.ts",
         "src/domain/transactionFilters.properties.test.ts",
         "src/domain/transactions.test.ts",
+        "src/lib/crypto.audit.test.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.list.properties.test.ts"
       ]
@@ -19291,6 +21778,8 @@
         "src/app/routes.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/dev/architecture/ArchitecturePage.test.tsx",
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/home/BackupReminder.test.tsx",
         "src/features/home/HomePage.form.test.tsx",
         "src/features/home/HomePage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
@@ -19313,6 +21802,8 @@
         "src/app/routes.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/dev/architecture/ArchitecturePage.test.tsx",
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/home/BackupReminder.test.tsx",
         "src/features/home/HomePage.form.test.tsx",
         "src/features/home/HomePage.test.tsx",
         "src/features/settings/ThemeSection.test.tsx",
@@ -19331,8 +21822,9 @@
       "kinds": [
         "module"
       ],
-      "loc": 19,
+      "loc": 27,
       "exports": [
+        "failNextTransactionsBulkAdd",
         "readAllTags",
         "seedRecords"
       ],
@@ -19346,6 +21838,10 @@
         {
           "name": "readAllTags",
           "signature": "readAllTags(): Promise<Tag[]>"
+        },
+        {
+          "name": "failNextTransactionsBulkAdd",
+          "signature": "failNextTransactionsBulkAdd(): void"
         }
       ],
       "components": [],
@@ -19387,9 +21883,21 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
-      "external": [],
+      "requirementRefs": [
+        "D-07"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "vi"
+          ]
+        }
+      ],
       "importedBy": [
+        "src/features/backup/BackupPage.test.tsx",
         "src/features/home/HomePage.form.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
         "src/features/tags/TagsPage.transactions.test.tsx",
@@ -19402,6 +21910,7 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/features/backup/BackupPage.test.tsx",
         "src/features/home/HomePage.form.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
         "src/features/tags/TagsPage.transactions.test.tsx",
@@ -19964,7 +22473,7 @@
       "kinds": [
         "config"
       ],
-      "loc": 90,
+      "loc": 92,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -21091,6 +23600,14 @@
       ]
     },
     {
+      "from": "src/components/ui/FileInput.tsx",
+      "to": "src/components/ui/useFieldControl.ts",
+      "kind": "static",
+      "names": [
+        "useFieldControl"
+      ]
+    },
+    {
       "from": "src/components/ui/LoadMore.tsx",
       "to": "src/components/ui/Button.tsx",
       "kind": "static",
@@ -21170,6 +23687,22 @@
       "kind": "type",
       "names": [
         "Cents"
+      ]
+    },
+    {
+      "from": "src/components/ui/PasswordInput.tsx",
+      "to": "src/components/ui/inputClasses.ts",
+      "kind": "static",
+      "names": [
+        "TEXT_INPUT_CLASSES"
+      ]
+    },
+    {
+      "from": "src/components/ui/PasswordInput.tsx",
+      "to": "src/components/ui/useFieldControl.ts",
+      "kind": "static",
+      "names": [
+        "useFieldControl"
       ]
     },
     {
@@ -21298,6 +23831,8 @@
       "names": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
+        "CRYPTO_PIPELINE",
+        "CRYPTO_PIPELINE_ARROWS",
         "DECISIONS",
         "FLOWS",
         "FORBIDDEN_DEPENDENCIES",
@@ -21589,6 +24124,47 @@
       ]
     },
     {
+      "from": "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
+      "to": "src/dev/architecture/components/Badge.tsx",
+      "kind": "static",
+      "names": [
+        "Badge"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
+      "to": "src/dev/architecture/components/ModuleLink.tsx",
+      "kind": "static",
+      "names": [
+        "ModuleLink"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
+      "to": "src/dev/architecture/components/useInspector.ts",
+      "kind": "static",
+      "names": [
+        "useInspector"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
+      "to": "src/dev/architecture/data/curated.ts",
+      "kind": "static",
+      "names": [
+        "CRYPTO_PIPELINE",
+        "CRYPTO_PIPELINE_ARROWS"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
+      "to": "src/dev/architecture/types.ts",
+      "kind": "type",
+      "names": [
+        "PipelineBox"
+      ]
+    },
+    {
       "from": "src/dev/architecture/components/DataModelSection.tsx",
       "to": "src/dev/architecture/components/Badge.tsx",
       "kind": "static",
@@ -21743,6 +24319,14 @@
       "kind": "static",
       "names": [
         "CodeList"
+      ]
+    },
+    {
+      "from": "src/dev/architecture/components/FlowsSection.tsx",
+      "to": "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
+      "kind": "static",
+      "names": [
+        "CryptoPipelineDiagram"
       ]
     },
     {
@@ -22998,6 +25582,8 @@
         "ForbiddenDependency",
         "LayerInfo",
         "PackageSource",
+        "PipelineArrow",
+        "PipelineBox",
         "PlannedDomainFunction",
         "PlannedFlow",
         "PlannedUiField",
@@ -23471,6 +26057,55 @@
       "kind": "static",
       "names": [
         "today"
+      ]
+    },
+    {
+      "from": "src/domain/backupPasswordSchema.test.ts",
+      "to": "src/domain/backupPasswordSchema.ts",
+      "kind": "static",
+      "names": [
+        "exportPasswordSchema",
+        "importBackupSchema",
+        "PASSWORD_REQUIRED_MESSAGE",
+        "PASSWORD_TOO_SHORT_MESSAGE",
+        "PASSWORDS_DO_NOT_MATCH_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/domain/backupReminder.audit.test.ts",
+      "to": "src/domain/backupReminder.ts",
+      "kind": "static",
+      "names": [
+        "daysSinceLastBackup",
+        "describeLastBackup",
+        "shouldShowBackupReminder"
+      ]
+    },
+    {
+      "from": "src/domain/backupReminder.test.ts",
+      "to": "src/domain/backupReminder.ts",
+      "kind": "static",
+      "names": [
+        "BACKUP_REMINDER_DAYS",
+        "daysSinceLastBackup",
+        "describeLastBackup",
+        "shouldShowBackupReminder"
+      ]
+    },
+    {
+      "from": "src/domain/backupReminder.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "today as localDateOf"
+      ]
+    },
+    {
+      "from": "src/domain/backupReminder.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString"
       ]
     },
     {
@@ -24254,6 +26889,84 @@
       ]
     },
     {
+      "from": "src/features/backup/BackupPage.test.tsx",
+      "to": "src/lib/crypto.ts",
+      "kind": "static",
+      "names": [
+        "encryptBackupText"
+      ]
+    },
+    {
+      "from": "src/features/backup/BackupPage.test.tsx",
+      "to": "src/lib/theme.ts",
+      "kind": "static",
+      "names": [
+        "THEME_STORAGE_KEY"
+      ]
+    },
+    {
+      "from": "src/features/backup/BackupPage.test.tsx",
+      "to": "src/repositories/backupRepository.ts",
+      "kind": "static",
+      "names": [
+        "createBackupFile",
+        "readBackupTables"
+      ]
+    },
+    {
+      "from": "src/features/backup/BackupPage.test.tsx",
+      "to": "src/repositories/backupRepository.ts",
+      "kind": "dynamic",
+      "names": []
+    },
+    {
+      "from": "src/features/backup/BackupPage.test.tsx",
+      "to": "src/repositories/backupRepository.ts",
+      "kind": "dynamic",
+      "names": []
+    },
+    {
+      "from": "src/features/backup/BackupPage.test.tsx",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "getSetting",
+        "setSetting"
+      ]
+    },
+    {
+      "from": "src/features/backup/BackupPage.test.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag"
+      ]
+    },
+    {
+      "from": "src/features/backup/BackupPage.test.tsx",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTransaction"
+      ]
+    },
+    {
+      "from": "src/features/backup/BackupPage.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/features/backup/BackupPage.test.tsx",
+      "to": "src/test/seedDatabase.ts",
+      "kind": "static",
+      "names": [
+        "failNextTransactionsBulkAdd"
+      ]
+    },
+    {
       "from": "src/features/backup/BackupPage.tsx",
       "to": "src/components/ui/BackLink.tsx",
       "kind": "static",
@@ -24270,11 +26983,428 @@
       ]
     },
     {
+      "from": "src/features/backup/BackupPage.tsx",
+      "to": "src/features/backup/ExportBackupSection.tsx",
+      "kind": "static",
+      "names": [
+        "ExportBackupSection"
+      ]
+    },
+    {
+      "from": "src/features/backup/BackupPage.tsx",
+      "to": "src/features/backup/ImportBackupSection.tsx",
+      "kind": "static",
+      "names": [
+        "ImportBackupSection"
+      ]
+    },
+    {
+      "from": "src/features/backup/BackupPage.tsx",
+      "to": "src/features/backup/LastBackupStatus.tsx",
+      "kind": "static",
+      "names": [
+        "LastBackupStatus"
+      ]
+    },
+    {
+      "from": "src/features/backup/backupTexts.ts",
+      "to": "src/lib/backupFormat.ts",
+      "kind": "static",
+      "names": [
+        "InvalidBackupFileError",
+        "NewerBackupVersionError"
+      ]
+    },
+    {
+      "from": "src/features/backup/backupTexts.ts",
+      "to": "src/lib/crypto.ts",
+      "kind": "static",
+      "names": [
+        "BackupDecryptionError"
+      ]
+    },
+    {
+      "from": "src/features/backup/ConfirmImportDialog.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
+      "from": "src/features/backup/ConfirmImportDialog.tsx",
+      "to": "src/components/ui/ErrorAlert.tsx",
+      "kind": "static",
+      "names": [
+        "ErrorAlert"
+      ]
+    },
+    {
+      "from": "src/features/backup/ConfirmImportDialog.tsx",
+      "to": "src/components/ui/InfoList.tsx",
+      "kind": "static",
+      "names": [
+        "InfoList"
+      ]
+    },
+    {
+      "from": "src/features/backup/ConfirmImportDialog.tsx",
+      "to": "src/components/ui/Modal.tsx",
+      "kind": "static",
+      "names": [
+        "Modal"
+      ]
+    },
+    {
+      "from": "src/features/backup/ConfirmImportDialog.tsx",
+      "to": "src/features/backup/backupTexts.ts",
+      "kind": "static",
+      "names": [
+        "CONFIRM_IMPORT_LABEL",
+        "formatBackupDate",
+        "formatCount",
+        "REPLACE_WARNING",
+        "RESTORING_LABEL"
+      ]
+    },
+    {
+      "from": "src/features/backup/ConfirmImportDialog.tsx",
+      "to": "src/lib/backupFormat.ts",
+      "kind": "type",
+      "names": [
+        "BackupSummary"
+      ]
+    },
+    {
+      "from": "src/features/backup/ExportBackupSection.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
+      "from": "src/features/backup/ExportBackupSection.tsx",
+      "to": "src/components/ui/ErrorAlert.tsx",
+      "kind": "static",
+      "names": [
+        "ErrorAlert"
+      ]
+    },
+    {
+      "from": "src/features/backup/ExportBackupSection.tsx",
+      "to": "src/components/ui/Field.tsx",
+      "kind": "static",
+      "names": [
+        "Field"
+      ]
+    },
+    {
+      "from": "src/features/backup/ExportBackupSection.tsx",
+      "to": "src/components/ui/PasswordInput.tsx",
+      "kind": "static",
+      "names": [
+        "PasswordInput"
+      ]
+    },
+    {
+      "from": "src/features/backup/ExportBackupSection.tsx",
+      "to": "src/features/backup/backupTexts.ts",
+      "kind": "static",
+      "names": [
+        "EXPORT_LABEL",
+        "EXPORTING_LABEL",
+        "SAVE_FILE_LABEL"
+      ]
+    },
+    {
+      "from": "src/features/backup/ExportBackupSection.tsx",
+      "to": "src/features/backup/useExportBackup.ts",
+      "kind": "static",
+      "names": [
+        "useExportBackup"
+      ]
+    },
+    {
+      "from": "src/features/backup/ImportBackupSection.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
+      "from": "src/features/backup/ImportBackupSection.tsx",
+      "to": "src/components/ui/ErrorAlert.tsx",
+      "kind": "static",
+      "names": [
+        "ErrorAlert"
+      ]
+    },
+    {
+      "from": "src/features/backup/ImportBackupSection.tsx",
+      "to": "src/components/ui/Field.tsx",
+      "kind": "static",
+      "names": [
+        "Field"
+      ]
+    },
+    {
+      "from": "src/features/backup/ImportBackupSection.tsx",
+      "to": "src/components/ui/FileInput.tsx",
+      "kind": "static",
+      "names": [
+        "FileInput"
+      ]
+    },
+    {
+      "from": "src/features/backup/ImportBackupSection.tsx",
+      "to": "src/components/ui/PasswordInput.tsx",
+      "kind": "static",
+      "names": [
+        "PasswordInput"
+      ]
+    },
+    {
+      "from": "src/features/backup/ImportBackupSection.tsx",
+      "to": "src/features/backup/backupTexts.ts",
+      "kind": "static",
+      "names": [
+        "IMPORT_LABEL",
+        "OPENING_LABEL"
+      ]
+    },
+    {
+      "from": "src/features/backup/ImportBackupSection.tsx",
+      "to": "src/features/backup/ConfirmImportDialog.tsx",
+      "kind": "static",
+      "names": [
+        "ConfirmImportDialog"
+      ]
+    },
+    {
+      "from": "src/features/backup/ImportBackupSection.tsx",
+      "to": "src/features/backup/useImportBackup.ts",
+      "kind": "static",
+      "names": [
+        "useImportBackup"
+      ]
+    },
+    {
+      "from": "src/features/backup/LastBackupStatus.tsx",
+      "to": "src/components/ui/useToday.ts",
+      "kind": "static",
+      "names": [
+        "useToday"
+      ]
+    },
+    {
+      "from": "src/features/backup/LastBackupStatus.tsx",
+      "to": "src/domain/backupReminder.ts",
+      "kind": "static",
+      "names": [
+        "daysSinceLastBackup",
+        "describeLastBackup"
+      ]
+    },
+    {
+      "from": "src/features/backup/LastBackupStatus.tsx",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "useLastBackupAt"
+      ]
+    },
+    {
+      "from": "src/features/backup/useExportBackup.ts",
+      "to": "src/domain/backupPasswordSchema.ts",
+      "kind": "static",
+      "names": [
+        "exportPasswordSchema",
+        "ExportPasswordValues"
+      ]
+    },
+    {
+      "from": "src/features/backup/useExportBackup.ts",
+      "to": "src/features/backup/backupTexts.ts",
+      "kind": "static",
+      "names": [
+        "EXPORT_CANCELLED_MESSAGE",
+        "EXPORT_DONE_MESSAGE",
+        "EXPORT_FAILED_MESSAGE",
+        "EXPORT_READY_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/features/backup/useExportBackup.ts",
+      "to": "src/lib/formSubmit.ts",
+      "kind": "static",
+      "names": [
+        "canSubmitForm",
+        "LIVE_VALIDATION"
+      ]
+    },
+    {
+      "from": "src/features/backup/useExportBackup.ts",
+      "to": "src/lib/share.ts",
+      "kind": "type",
+      "names": [
+        "ShareOutcome"
+      ]
+    },
+    {
+      "from": "src/features/backup/useExportBackup.ts",
+      "to": "src/repositories/backupRepository.ts",
+      "kind": "static",
+      "names": [
+        "createBackupFile",
+        "deliverBackupFile"
+      ]
+    },
+    {
+      "from": "src/features/backup/useImportBackup.ts",
+      "to": "src/domain/backupPasswordSchema.ts",
+      "kind": "static",
+      "names": [
+        "importBackupSchema",
+        "ImportBackupInput",
+        "ImportBackupValues"
+      ]
+    },
+    {
+      "from": "src/features/backup/useImportBackup.ts",
+      "to": "src/features/backup/backupTexts.ts",
+      "kind": "static",
+      "names": [
+        "describeOpenError",
+        "IMPORT_DONE_MESSAGE",
+        "RESTORE_FAILED_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/features/backup/useImportBackup.ts",
+      "to": "src/lib/backupFormat.ts",
+      "kind": "static",
+      "names": [
+        "summarizeBackup",
+        "BackupContent",
+        "BackupSummary"
+      ]
+    },
+    {
+      "from": "src/features/backup/useImportBackup.ts",
+      "to": "src/lib/formSubmit.ts",
+      "kind": "static",
+      "names": [
+        "canSubmitForm",
+        "LIVE_VALIDATION"
+      ]
+    },
+    {
+      "from": "src/features/backup/useImportBackup.ts",
+      "to": "src/repositories/backupRepository.ts",
+      "kind": "static",
+      "names": [
+        "openBackupFile",
+        "restoreBackup"
+      ]
+    },
+    {
+      "from": "src/features/backup/useImportBackup.ts",
+      "to": "src/repositories/useTheme.ts",
+      "kind": "static",
+      "names": [
+        "useTheme"
+      ]
+    },
+    {
       "from": "src/features/charts/ChartsPage.tsx",
       "to": "src/components/ui/Page.tsx",
       "kind": "static",
       "names": [
         "Page"
+      ]
+    },
+    {
+      "from": "src/features/home/BackupReminder.test.tsx",
+      "to": "src/features/home/homeTexts.ts",
+      "kind": "static",
+      "names": [
+        "NO_TRANSACTIONS_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/features/home/BackupReminder.test.tsx",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "setSetting"
+      ]
+    },
+    {
+      "from": "src/features/home/BackupReminder.test.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag"
+      ]
+    },
+    {
+      "from": "src/features/home/BackupReminder.test.tsx",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTransaction"
+      ]
+    },
+    {
+      "from": "src/features/home/BackupReminder.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/features/home/BackupReminder.tsx",
+      "to": "src/components/ui/Notice.tsx",
+      "kind": "static",
+      "names": [
+        "Notice"
+      ]
+    },
+    {
+      "from": "src/features/home/BackupReminder.tsx",
+      "to": "src/domain/backupReminder.ts",
+      "kind": "static",
+      "names": [
+        "daysSinceLastBackup",
+        "describeLastBackup",
+        "shouldShowBackupReminder"
+      ]
+    },
+    {
+      "from": "src/features/home/BackupReminder.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString"
+      ]
+    },
+    {
+      "from": "src/features/home/BackupReminder.tsx",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "useLastBackupAt"
+      ]
+    },
+    {
+      "from": "src/features/home/BackupReminder.tsx",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "useTransactionCount"
       ]
     },
     {
@@ -24457,6 +27587,14 @@
       "kind": "static",
       "names": [
         "useToday"
+      ]
+    },
+    {
+      "from": "src/features/home/HomePage.tsx",
+      "to": "src/features/home/BackupReminder.tsx",
+      "kind": "static",
+      "names": [
+        "BackupReminder"
       ]
     },
     {
@@ -26004,6 +29142,184 @@
       ]
     },
     {
+      "from": "src/lib/backupFormat.audit.test.ts",
+      "to": "src/lib/backupFormat.ts",
+      "kind": "static",
+      "names": [
+        "BACKUP_APP_ID",
+        "buildBackupContent",
+        "InvalidBackupFileError",
+        "MAX_BACKUP_FILE_BYTES",
+        "MAX_PBKDF2_ITERATIONS",
+        "NewerBackupVersionError",
+        "parseBackupContent",
+        "parseBackupEnvelope",
+        "BackupMigration"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.audit.test.ts",
+      "to": "src/test/backupDataset.ts",
+      "kind": "static",
+      "names": [
+        "generateBackupDataset"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.audit.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "makeInstallmentGroup",
+        "makeRecurring",
+        "makeTag",
+        "makeTransaction"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.test.ts",
+      "to": "src/domain/tags.ts",
+      "kind": "static",
+      "names": [
+        "toTagNameKey"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.test.ts",
+      "to": "src/lib/backupFormat.ts",
+      "kind": "static",
+      "names": [
+        "BACKUP_APP_ID",
+        "backupFileName",
+        "buildBackupContent",
+        "hasReferentialIntegrity",
+        "InvalidBackupFileError",
+        "MAX_PBKDF2_ITERATIONS",
+        "migrateBackupContent",
+        "NewerBackupVersionError",
+        "parseBackupContent",
+        "parseBackupEnvelope",
+        "selectBackupSettings",
+        "summarizeBackup",
+        "BackupData",
+        "BackupMigration",
+        "BackupTables"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.test.ts",
+      "to": "src/lib/crypto.ts",
+      "kind": "static",
+      "names": [
+        "bytesToBase64",
+        "BackupEnvelope"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "makeInstallmentGroup",
+        "makeRecurring",
+        "makeTag",
+        "makeTransaction"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "isValidDate",
+        "today"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.ts",
+      "to": "src/domain/tags.ts",
+      "kind": "static",
+      "names": [
+        "toTagNameKey"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString",
+        "InstallmentGroup",
+        "Recurring",
+        "Setting",
+        "Tag",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.ts",
+      "to": "src/lib/crypto.ts",
+      "kind": "static",
+      "names": [
+        "AES_KEY_LENGTH",
+        "ENVELOPE_FORMAT",
+        "ENVELOPE_FORMAT_VERSION",
+        "IV_BYTES",
+        "SALT_BYTES",
+        "BackupEnvelope"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.ts",
+      "to": "src/lib/theme.ts",
+      "kind": "static",
+      "names": [
+        "isThemePreference",
+        "THEME_PREFERENCES",
+        "ThemePreference"
+      ]
+    },
+    {
+      "from": "src/lib/crypto.audit.test.ts",
+      "to": "src/lib/crypto.ts",
+      "kind": "static",
+      "names": [
+        "base64ToBytes",
+        "BackupDecryptionError",
+        "bytesToBase64",
+        "decryptBackupText",
+        "encryptBackupText",
+        "BackupEnvelope"
+      ]
+    },
+    {
+      "from": "src/lib/crypto.audit.test.ts",
+      "to": "src/test/propertyHelpers.ts",
+      "kind": "static",
+      "names": [
+        "createTestRandom"
+      ]
+    },
+    {
+      "from": "src/lib/crypto.test.ts",
+      "to": "src/lib/crypto.ts",
+      "kind": "static",
+      "names": [
+        "AES_KEY_LENGTH",
+        "base64ToBytes",
+        "BackupDecryptionError",
+        "bytesToBase64",
+        "decryptBackupText",
+        "encryptBackupText",
+        "ENVELOPE_FORMAT",
+        "ENVELOPE_FORMAT_VERSION",
+        "IV_BYTES",
+        "PBKDF2_ITERATIONS",
+        "SALT_BYTES",
+        "BackupEnvelope"
+      ]
+    },
+    {
       "from": "src/lib/displayMode.test.ts",
       "to": "src/lib/displayMode.ts",
       "kind": "static",
@@ -26028,6 +29344,15 @@
       "names": [
         "canSubmitForm",
         "LIVE_VALIDATION"
+      ]
+    },
+    {
+      "from": "src/lib/share.test.ts",
+      "to": "src/lib/share.ts",
+      "kind": "static",
+      "names": [
+        "OBJECT_URL_REVOKE_DELAY_MS",
+        "shareOrDownloadFile"
       ]
     },
     {
@@ -26117,6 +29442,244 @@
       ]
     },
     {
+      "from": "src/repositories/backupRepository.audit.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db",
+        "SCHEMA_VERSION"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.audit.test.ts",
+      "to": "src/lib/backupFormat.ts",
+      "kind": "static",
+      "names": [
+        "BACKUP_APP_ID",
+        "InvalidBackupFileError",
+        "MAX_BACKUP_FILE_BYTES",
+        "BackupData"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.audit.test.ts",
+      "to": "src/lib/crypto.ts",
+      "kind": "static",
+      "names": [
+        "decryptBackupText",
+        "encryptBackupText",
+        "BackupEnvelope"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.audit.test.ts",
+      "to": "src/repositories/backupRepository.ts",
+      "kind": "static",
+      "names": [
+        "createBackupFile",
+        "deliverBackupFile",
+        "openBackupFile",
+        "restoreBackup"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.audit.test.ts",
+      "to": "src/test/backupDataset.ts",
+      "kind": "static",
+      "names": [
+        "generateBackupDataset",
+        "BackupDataset"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.audit.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "makeInstallmentGroup",
+        "makeRecurring",
+        "makeTag",
+        "makeTransaction"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db",
+        "SCHEMA_VERSION"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.test.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "InstallmentGroup",
+        "Recurring",
+        "Setting",
+        "Tag",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.test.ts",
+      "to": "src/lib/backupFormat.ts",
+      "kind": "static",
+      "names": [
+        "BACKUP_APP_ID",
+        "InvalidBackupFileError",
+        "NewerBackupVersionError"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.test.ts",
+      "to": "src/lib/crypto.ts",
+      "kind": "static",
+      "names": [
+        "BackupDecryptionError",
+        "base64ToBytes",
+        "bytesToBase64",
+        "encryptBackupText"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.test.ts",
+      "to": "src/repositories/backupRepository.ts",
+      "kind": "static",
+      "names": [
+        "createBackupFile",
+        "deliverBackupFile",
+        "openBackupFile",
+        "readBackupTables",
+        "recordBackupDone",
+        "restoreBackup"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "makeInstallmentGroup",
+        "makeRecurring",
+        "makeTag",
+        "makeTransaction"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.theme.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.theme.test.ts",
+      "to": "src/lib/theme.ts",
+      "kind": "static",
+      "names": [
+        "THEME_STORAGE_KEY"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.theme.test.ts",
+      "to": "src/repositories/backupRepository.ts",
+      "kind": "static",
+      "names": [
+        "createBackupFile",
+        "openBackupFile",
+        "restoreBackup"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.theme.test.ts",
+      "to": "src/test/backupDataset.ts",
+      "kind": "static",
+      "names": [
+        "generateBackupDataset"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db",
+        "SCHEMA_VERSION"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "today"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.ts",
+      "to": "src/lib/backupFormat.ts",
+      "kind": "static",
+      "names": [
+        "BACKUP_FILE_MIME_TYPE",
+        "backupFileName",
+        "buildBackupContent",
+        "InvalidBackupFileError",
+        "MAX_BACKUP_FILE_BYTES",
+        "parseBackupContent",
+        "parseBackupEnvelope",
+        "BackupContent",
+        "BackupData",
+        "BackupTables"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.ts",
+      "to": "src/lib/crypto.ts",
+      "kind": "static",
+      "names": [
+        "decryptBackupText",
+        "encryptBackupText"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.ts",
+      "to": "src/lib/share.ts",
+      "kind": "static",
+      "names": [
+        "shareOrDownloadFile",
+        "ShareOutcome"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.ts",
+      "to": "src/lib/theme.ts",
+      "kind": "static",
+      "names": [
+        "DEFAULT_THEME_PREFERENCE",
+        "ThemePreference"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.ts",
+      "to": "src/lib/themeStorage.ts",
+      "kind": "static",
+      "names": [
+        "writeThemeMirror"
+      ]
+    },
+    {
+      "from": "src/repositories/backupRepository.ts",
+      "to": "src/repositories/settingsRepository.ts",
+      "kind": "static",
+      "names": [
+        "setSetting"
+      ]
+    },
+    {
       "from": "src/repositories/databaseInfo.ts",
       "to": "src/db/database.ts",
       "kind": "reexport",
@@ -26192,11 +29755,21 @@
     },
     {
       "from": "src/repositories/settingsRepository.test.ts",
+      "to": "src/repositories/backupRepository.ts",
+      "kind": "static",
+      "names": [
+        "deliverBackupFile",
+        "recordBackupDone"
+      ]
+    },
+    {
+      "from": "src/repositories/settingsRepository.test.ts",
       "to": "src/repositories/settingsRepository.ts",
       "kind": "static",
       "names": [
         "getSetting",
         "setSetting",
+        "useLastBackupAt",
         "useSetting"
       ]
     },
@@ -26815,6 +30388,44 @@
       ]
     },
     {
+      "from": "src/test/backupDataset.ts",
+      "to": "src/domain/tags.ts",
+      "kind": "static",
+      "names": [
+        "toTagNameKey"
+      ]
+    },
+    {
+      "from": "src/test/backupDataset.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "InstallmentGroup",
+        "Recurring",
+        "Setting",
+        "Tag",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/test/backupDataset.ts",
+      "to": "src/test/propertyHelpers.ts",
+      "kind": "static",
+      "names": [
+        "createTestRandom",
+        "daysInMonth",
+        "toDateString"
+      ]
+    },
+    {
+      "from": "src/test/factories.ts",
+      "to": "src/domain/tags.ts",
+      "kind": "static",
+      "names": [
+        "toTagNameKey"
+      ]
+    },
+    {
       "from": "src/test/factories.ts",
       "to": "src/domain/types.ts",
       "kind": "type",
@@ -27071,7 +30682,9 @@
       "builtin": false,
       "importedBy": [
         "src/components/tags/useTagForm.ts",
-        "src/components/transactions/useTransactionForm.ts"
+        "src/components/transactions/useTransactionForm.ts",
+        "src/features/backup/useExportBackup.ts",
+        "src/features/backup/useImportBackup.ts"
       ]
     },
     "date-fns": {
@@ -27082,8 +30695,13 @@
       "builtin": false,
       "importedBy": [
         "src/dev/sampleData/buildSampleData.ts",
+        "src/domain/backupReminder.ts",
         "src/domain/dates.ts",
-        "src/features/home/HomePage.test.tsx"
+        "src/features/backup/backupTexts.ts",
+        "src/features/home/BackupReminder.test.tsx",
+        "src/features/home/HomePage.test.tsx",
+        "src/lib/backupFormat.ts",
+        "src/lib/crypto.ts"
       ]
     },
     "dexie": {
@@ -27136,6 +30754,7 @@
         "src/components/ui/EmptyState.tsx",
         "src/components/ui/ErrorAlert.tsx",
         "src/components/ui/Field.tsx",
+        "src/components/ui/FileInput.tsx",
         "src/components/ui/InfoList.tsx",
         "src/components/ui/LoadMore.tsx",
         "src/components/ui/Modal.tsx",
@@ -27144,6 +30763,7 @@
         "src/components/ui/NavList.tsx",
         "src/components/ui/Notice.tsx",
         "src/components/ui/Page.tsx",
+        "src/components/ui/PasswordInput.tsx",
         "src/components/ui/TabBar.tsx",
         "src/components/ui/TextInput.tsx",
         "src/components/ui/createRadioGroup.tsx",
@@ -27154,6 +30774,7 @@
         "src/dev/architecture/ArchitecturePage.tsx",
         "src/dev/architecture/components/Badge.tsx",
         "src/dev/architecture/components/Card.tsx",
+        "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
         "src/dev/architecture/components/Fields.tsx",
         "src/dev/architecture/components/FlowSequence.tsx",
         "src/dev/architecture/components/HealthSection.tsx",
@@ -27168,6 +30789,10 @@
         "src/dev/architecture/components/TimelineSection.tsx",
         "src/dev/architecture/components/useInspector.ts",
         "src/dev/sampleData/useSampleDataTools.ts",
+        "src/features/backup/ExportBackupSection.tsx",
+        "src/features/backup/ImportBackupSection.tsx",
+        "src/features/backup/useExportBackup.ts",
+        "src/features/backup/useImportBackup.ts",
         "src/features/home/HomePage.tsx",
         "src/features/home/RecentTransactions.tsx",
         "src/features/settings/AboutPage.tsx",
@@ -27208,6 +30833,10 @@
         "src/components/tags/useTagForm.ts",
         "src/components/transactions/TransactionForm.tsx",
         "src/components/transactions/useTransactionForm.ts",
+        "src/features/backup/ExportBackupSection.tsx",
+        "src/features/backup/ImportBackupSection.tsx",
+        "src/features/backup/useExportBackup.ts",
+        "src/features/backup/useImportBackup.ts",
         "src/lib/formSubmit.ts"
       ]
     },
@@ -27227,6 +30856,7 @@
         "src/components/ui/NavList.tsx",
         "src/components/ui/TabBar.tsx",
         "src/components/ui/useGoBack.ts",
+        "src/features/home/BackupReminder.tsx",
         "src/features/home/RecentTransactions.tsx",
         "src/features/settings/AboutPage.test.tsx",
         "src/features/transactions/TransactionDetailPage.tsx",
@@ -27241,8 +30871,10 @@
       "dev": false,
       "builtin": false,
       "importedBy": [
+        "src/domain/backupPasswordSchema.ts",
         "src/domain/tagSchema.ts",
-        "src/domain/transactionSchema.ts"
+        "src/domain/transactionSchema.ts",
+        "src/lib/backupFormat.ts"
       ]
     },
     "zustand": {
@@ -27304,6 +30936,8 @@
         "src/components/ui/createRadioGroup.test.tsx",
         "src/components/ui/useDebouncedValue.test.ts",
         "src/dev/architecture/ArchitecturePage.test.tsx",
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/home/BackupReminder.test.tsx",
         "src/features/home/HomePage.form.test.tsx",
         "src/features/home/HomePage.test.tsx",
         "src/features/settings/AboutPage.test.tsx",
@@ -27490,6 +31124,9 @@
         "src/dev/sampleData/buildSampleData.model.test.ts",
         "src/dev/sampleData/buildSampleData.test.ts",
         "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/domain/backupPasswordSchema.test.ts",
+        "src/domain/backupReminder.audit.test.ts",
+        "src/domain/backupReminder.test.ts",
         "src/domain/balances.properties.test.ts",
         "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
@@ -27512,6 +31149,8 @@
         "src/domain/transactionFilters.test.ts",
         "src/domain/transactionSchema.test.ts",
         "src/domain/transactions.test.ts",
+        "src/features/backup/BackupPage.test.tsx",
+        "src/features/home/BackupReminder.test.tsx",
         "src/features/home/HomePage.form.test.tsx",
         "src/features/home/HomePage.test.tsx",
         "src/features/settings/AboutPage.test.tsx",
@@ -27527,14 +31166,22 @@
         "src/features/transactions/TransactionsPage.test.tsx",
         "src/features/transactions/useTransactionList.test.ts",
         "src/lib/appVersion.test.ts",
+        "src/lib/backupFormat.audit.test.ts",
+        "src/lib/backupFormat.test.ts",
+        "src/lib/crypto.audit.test.ts",
+        "src/lib/crypto.test.ts",
         "src/lib/displayMode.test.ts",
         "src/lib/formSubmit.test.ts",
         "src/lib/formatBytes.test.ts",
+        "src/lib/share.test.ts",
         "src/lib/storage.navigator.test.ts",
         "src/lib/storage.test.ts",
         "src/lib/theme.test.ts",
         "src/lib/themeStorage.test.ts",
         "src/lib/updateCheck.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
         "src/repositories/persistentStorage.navigator.test.ts",
         "src/repositories/persistentStorageRepository.test.ts",
         "src/repositories/settingsRepository.crud.test.ts",
@@ -27551,6 +31198,7 @@
         "src/stores/uiStore.filters.test.ts",
         "src/stores/uiStore.test.ts",
         "src/styles/tailwindEntry.test.ts",
+        "src/test/seedDatabase.ts",
         "src/test/setup.ts",
         "src/test/setup.unit.ts",
         "src/test/transactionForm.ts",
@@ -27617,6 +31265,9 @@
       "readers": [
         "src/db/database.schema.test.ts",
         "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/tagsRepository.ts",
         "src/repositories/transactionsRepository.crud.test.ts",
@@ -27627,6 +31278,10 @@
       "writers": [
         "src/db/database.schema.test.ts",
         "src/dev/sampleData/sampleDataStore.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/tagsRepository.ts"
       ]
@@ -27635,6 +31290,9 @@
       "readers": [
         "src/db/database.schema.test.ts",
         "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/tagsRepository.ts",
         "src/repositories/transactionsRepository.crud.test.ts",
@@ -27644,6 +31302,10 @@
       "writers": [
         "src/db/database.schema.test.ts",
         "src/dev/sampleData/sampleDataStore.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.crud.test.ts",
@@ -27657,11 +31319,17 @@
     "recurrings": {
       "readers": [
         "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/tagsRepository.ts"
       ],
       "writers": [
         "src/dev/sampleData/sampleDataStore.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/test/seedDatabase.ts"
       ]
@@ -27669,11 +31337,17 @@
     "installmentGroups": {
       "readers": [
         "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/tagsRepository.ts"
       ],
       "writers": [
         "src/dev/sampleData/sampleDataStore.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/test/seedDatabase.ts"
       ]
@@ -27681,6 +31355,10 @@
     "settings": {
       "readers": [
         "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/persistentStorageRepository.ts",
         "src/repositories/settingsRepository.crud.test.ts",
         "src/repositories/settingsRepository.ts",
@@ -27688,6 +31366,10 @@
       ],
       "writers": [
         "src/dev/sampleData/sampleDataStore.test.ts",
+        "src/repositories/backupRepository.audit.test.ts",
+        "src/repositories/backupRepository.test.ts",
+        "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/backupRepository.ts",
         "src/repositories/persistentStorageRepository.ts",
         "src/repositories/settingsRepository.ts",
         "src/repositories/themeRepository.ts"
@@ -27998,30 +31680,34 @@
     ]
   },
   "build": {
-    "builtAt": "2026-10-22T13:47:46.067Z",
+    "builtAt": "2026-10-22T18:47:06.909Z",
     "serviceWorker": "sw.js",
     "workboxRuntime": "workbox-2fbc6a65.js",
     "manifest": "manifest.webmanifest",
     "manifestLink": "<link rel=\"manifest\" href=\"/manifest.webmanifest\" crossorigin=\"use-credentials\">",
     "precache": [
       "apple-touch-icon.png",
-      "assets/AboutPage-D3OtuLRl.js",
-      "assets/BackLink-CT0EXDbz.js",
-      "assets/BackupPage--3beYWzU.js",
+      "assets/AboutPage-CHrPBsMw.js",
+      "assets/BackLink-CAAQNH_i.js",
+      "assets/BackupPage-Bq0_xMdR.js",
       "assets/ChartsPage-DCr2mz9z.js",
-      "assets/NewTransactionPage-C6ksAz3a.js",
+      "assets/InfoList-C3J93wfy.js",
+      "assets/NewTransactionPage-DPKbdQb2.js",
       "assets/Page-l_FoqQCp.js",
-      "assets/RecurringDetailPage-D_eWLyuV.js",
-      "assets/RecurringsPage-CvS0fuZH.js",
-      "assets/SettingsPage-B3Y3k-Nm.js",
-      "assets/TagsPage-B0Ijz624.js",
-      "assets/TransactionDetailPage-CjOm_9IG.js",
-      "assets/TransactionsPage-vgA-keh7.js",
+      "assets/RecurringDetailPage-BVg2ijHf.js",
+      "assets/RecurringsPage-DdhvUQ7N.js",
+      "assets/SettingsPage--Wdrw4IF.js",
+      "assets/TagsPage-AM-ZzSJP.js",
+      "assets/TransactionDetailPage-B6K_x26N.js",
+      "assets/TransactionsPage-TWU0wFq0.js",
       "assets/ViewsPage-BiZch7rj.js",
       "assets/database-Bnj1r7Is.js",
-      "assets/index-BLNeSlY7.js",
-      "assets/index-BTlYC5Vr.css",
-      "assets/tagsRepository-66MsDd3p.js",
+      "assets/dexie-react-hooks-CgMS60nF.js",
+      "assets/formSubmit-CF9OztiO.js",
+      "assets/index-BE4Pl8Va.css",
+      "assets/index-yYBqeMU8.js",
+      "assets/tagsRepository-NI_DN3VT.js",
+      "assets/useTheme-CppThVBx.js",
       "assets/workbox-window.prod.es5-Bd17z0YL.js",
       "favicon.png",
       "index.html",
@@ -28033,70 +31719,82 @@
     "navigationRoute": true,
     "css": [
       {
-        "file": "assets/index-BTlYC5Vr.css",
-        "bytes": 23674
+        "file": "assets/index-BE4Pl8Va.css",
+        "bytes": 24690
       }
     ],
     "js": [
       {
-        "file": "assets/index-BLNeSlY7.js",
-        "bytes": 413261
+        "file": "assets/index-yYBqeMU8.js",
+        "bytes": 373361
       },
       {
         "file": "assets/database-Bnj1r7Is.js",
         "bytes": 95343
       },
       {
-        "file": "assets/tagsRepository-66MsDd3p.js",
-        "bytes": 91440
+        "file": "assets/dexie-react-hooks-CgMS60nF.js",
+        "bytes": 89816
       },
       {
-        "file": "assets/TransactionsPage-vgA-keh7.js",
-        "bytes": 13897
+        "file": "assets/formSubmit-CF9OztiO.js",
+        "bytes": 41375
+      },
+      {
+        "file": "assets/BackupPage-Bq0_xMdR.js",
+        "bytes": 19159
+      },
+      {
+        "file": "assets/TransactionsPage-TWU0wFq0.js",
+        "bytes": 13937
       },
       {
         "file": "assets/Page-l_FoqQCp.js",
         "bytes": 9634
       },
       {
-        "file": "assets/TagsPage-B0Ijz624.js",
-        "bytes": 6075
+        "file": "assets/TagsPage-AM-ZzSJP.js",
+        "bytes": 6158
       },
       {
         "file": "assets/workbox-window.prod.es5-Bd17z0YL.js",
         "bytes": 5653
       },
       {
-        "file": "assets/AboutPage-D3OtuLRl.js",
-        "bytes": 3107
+        "file": "assets/tagsRepository-NI_DN3VT.js",
+        "bytes": 3516
       },
       {
-        "file": "assets/TransactionDetailPage-CjOm_9IG.js",
-        "bytes": 2922
+        "file": "assets/TransactionDetailPage-B6K_x26N.js",
+        "bytes": 2963
       },
       {
-        "file": "assets/SettingsPage-B3Y3k-Nm.js",
-        "bytes": 2194
+        "file": "assets/AboutPage-CHrPBsMw.js",
+        "bytes": 2444
       },
       {
-        "file": "assets/BackLink-CT0EXDbz.js",
+        "file": "assets/SettingsPage--Wdrw4IF.js",
+        "bytes": 2089
+      },
+      {
+        "file": "assets/BackLink-CAAQNH_i.js",
         "bytes": 889
       },
       {
-        "file": "assets/NewTransactionPage-C6ksAz3a.js",
+        "file": "assets/InfoList-C3J93wfy.js",
+        "bytes": 779
+      },
+      {
+        "file": "assets/NewTransactionPage-DPKbdQb2.js",
         "bytes": 432
       },
       {
-        "file": "assets/RecurringDetailPage-D_eWLyuV.js",
+        "file": "assets/RecurringDetailPage-BVg2ijHf.js",
         "bytes": 376
       },
       {
-        "file": "assets/RecurringsPage-CvS0fuZH.js",
+        "file": "assets/RecurringsPage-DdhvUQ7N.js",
         "bytes": 360
-      },
-      {
-        "file": "assets/BackupPage--3beYWzU.js",
-        "bytes": 351
       },
       {
         "file": "assets/ChartsPage-DCr2mz9z.js",
@@ -28105,9 +31803,13 @@
       {
         "file": "assets/ViewsPage-BiZch7rj.js",
         "bytes": 263
+      },
+      {
+        "file": "assets/useTheme-CppThVBx.js",
+        "bytes": 223
       }
     ],
-    "totalBytes": 699288,
+    "totalBytes": 723257,
     "devLeaks": []
   },
   "violations": [],
@@ -28115,27 +31817,15 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "f4c6cad",
+    "head": "bb2cc34",
     "workingTree": [
-      {
-        "status": "M",
-        "path": ".claude/agents/domain-test-writer.md"
-      },
-      {
-        "status": "M",
-        "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
-      },
-      {
-        "status": "M",
-        "path": "CLAUDE.md"
-      },
       {
         "status": "M",
         "path": "docs/SPEC.md"
       },
       {
         "status": "M",
-        "path": "package.json"
+        "path": "src/components/ui/Button.tsx"
       },
       {
         "status": "M",
@@ -28143,7 +31833,11 @@
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/ModuleDetails.tsx"
+        "path": "src/dev/architecture/components/DataModelSection.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/components/FlowsSection.tsx"
       },
       {
         "status": "M",
@@ -28159,7 +31853,27 @@
       },
       {
         "status": "M",
-        "path": "src/features/transactions/TransactionsPage.pagination.test.tsx"
+        "path": "src/features/backup/BackupPage.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/home/HomePage.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/repositories/settingsRepository.test.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/repositories/settingsRepository.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/test/factories.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/test/seedDatabase.ts"
       },
       {
         "status": "M",
@@ -28167,11 +31881,196 @@
       },
       {
         "status": "??",
-        "path": "src/test/setup.unit.ts"
+        "path": "src/components/ui/FileInput.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/components/ui/PasswordInput.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/dev/architecture/components/CryptoPipelineDiagram.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/backupPasswordSchema.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/backupPasswordSchema.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/backupReminder.audit.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/backupReminder.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/backupReminder.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/features/backup/BackupPage.test.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/backup/ConfirmImportDialog.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/backup/ExportBackupSection.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/backup/ImportBackupSection.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/backup/LastBackupStatus.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/backup/backupTexts.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/features/backup/useExportBackup.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/features/backup/useImportBackup.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/features/home/BackupReminder.test.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/home/BackupReminder.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/backupFormat.audit.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/backupFormat.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/backupFormat.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/crypto.audit.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/crypto.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/crypto.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/share.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/lib/share.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/backupRepository.audit.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/backupRepository.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/backupRepository.theme.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/repositories/backupRepository.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/test/backupDataset.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "bb2cc34",
+      "date": "2026-10-22T14:35:37-03:00",
+      "author": "Fernando",
+      "subject": "refactor/final adjustments",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": ".claude/agents/domain-test-writer.md"
+        },
+        {
+          "status": "M",
+          "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
+        },
+        {
+          "status": "M",
+          "path": "CLAUDE.md"
+        },
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "M",
+          "path": "package.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/architecture.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/ModuleDetails.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/types.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/features/transactions/TransactionsPage.pagination.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/test/setup.unit.ts"
+        },
+        {
+          "status": "M",
+          "path": "vite.config.ts"
+        }
+      ]
+    },
     {
       "hash": "f4c6cad",
       "date": "2026-10-22T09:44:40-03:00",
@@ -30584,6 +34483,7 @@
     "src/components/ui/EmptyState.tsx",
     "src/components/ui/ErrorAlert.tsx",
     "src/components/ui/Field.tsx",
+    "src/components/ui/FileInput.tsx",
     "src/components/ui/InfoList.tsx",
     "src/components/ui/LoadMore.tsx",
     "src/components/ui/Modal.test.tsx",
@@ -30593,6 +34493,7 @@
     "src/components/ui/NavList.tsx",
     "src/components/ui/Notice.tsx",
     "src/components/ui/Page.tsx",
+    "src/components/ui/PasswordInput.tsx",
     "src/components/ui/SignedAmount.tsx",
     "src/components/ui/TabBar.tsx",
     "src/components/ui/TagChip.test.tsx",
@@ -30619,6 +34520,7 @@
     "src/dev/architecture/components/CodeList.tsx",
     "src/dev/architecture/components/CompositionSection.tsx",
     "src/dev/architecture/components/CompositionTree.tsx",
+    "src/dev/architecture/components/CryptoPipelineDiagram.tsx",
     "src/dev/architecture/components/DataModelSection.tsx",
     "src/dev/architecture/components/DomainSection.tsx",
     "src/dev/architecture/components/Fields.tsx",
@@ -30677,6 +34579,11 @@
     "src/dev/sampleData/sampleRecurrings.ts",
     "src/dev/sampleData/seededRandom.ts",
     "src/dev/sampleData/useSampleDataTools.ts",
+    "src/domain/backupPasswordSchema.test.ts",
+    "src/domain/backupPasswordSchema.ts",
+    "src/domain/backupReminder.audit.test.ts",
+    "src/domain/backupReminder.test.ts",
+    "src/domain/backupReminder.ts",
     "src/domain/balances.properties.test.ts",
     "src/domain/balances.signedAmount.test.ts",
     "src/domain/balances.test.ts",
@@ -30710,8 +34617,18 @@
     "src/domain/transactions.test.ts",
     "src/domain/transactions.ts",
     "src/domain/types.ts",
+    "src/features/backup/BackupPage.test.tsx",
     "src/features/backup/BackupPage.tsx",
+    "src/features/backup/ConfirmImportDialog.tsx",
+    "src/features/backup/ExportBackupSection.tsx",
+    "src/features/backup/ImportBackupSection.tsx",
+    "src/features/backup/LastBackupStatus.tsx",
+    "src/features/backup/backupTexts.ts",
+    "src/features/backup/useExportBackup.ts",
+    "src/features/backup/useImportBackup.ts",
     "src/features/charts/ChartsPage.tsx",
+    "src/features/home/BackupReminder.test.tsx",
+    "src/features/home/BackupReminder.tsx",
     "src/features/home/BalanceSummary.tsx",
     "src/features/home/HomePage.form.test.tsx",
     "src/features/home/HomePage.test.tsx",
@@ -30769,12 +34686,20 @@
     "src/index.css",
     "src/lib/appVersion.test.ts",
     "src/lib/appVersion.ts",
+    "src/lib/backupFormat.audit.test.ts",
+    "src/lib/backupFormat.test.ts",
+    "src/lib/backupFormat.ts",
+    "src/lib/crypto.audit.test.ts",
+    "src/lib/crypto.test.ts",
+    "src/lib/crypto.ts",
     "src/lib/displayMode.test.ts",
     "src/lib/displayMode.ts",
     "src/lib/formSubmit.test.ts",
     "src/lib/formSubmit.ts",
     "src/lib/formatBytes.test.ts",
     "src/lib/formatBytes.ts",
+    "src/lib/share.test.ts",
+    "src/lib/share.ts",
     "src/lib/storage.navigator.test.ts",
     "src/lib/storage.test.ts",
     "src/lib/storage.ts",
@@ -30786,6 +34711,10 @@
     "src/lib/updateCheck.ts",
     "src/main.tsx",
     "src/repositories/ThemeContext.ts",
+    "src/repositories/backupRepository.audit.test.ts",
+    "src/repositories/backupRepository.test.ts",
+    "src/repositories/backupRepository.theme.test.ts",
+    "src/repositories/backupRepository.ts",
     "src/repositories/databaseInfo.ts",
     "src/repositories/persistentStorage.navigator.test.ts",
     "src/repositories/persistentStorageRepository.test.ts",
@@ -30814,6 +34743,7 @@
     "src/styles/tailwind-sources.serve.css",
     "src/styles/tailwindEntry.test.ts",
     "src/styles/utilities.css",
+    "src/test/backupDataset.ts",
     "src/test/dialog.ts",
     "src/test/factories.ts",
     "src/test/matchMedia.ts",

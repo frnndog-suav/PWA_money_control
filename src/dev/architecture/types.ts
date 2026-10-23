@@ -339,6 +339,32 @@ export interface Flow {
   tests: string[]
 }
 
+/**
+ * Caixa do diagrama do pipeline de criptografia do backup (§6.8). A posição é uma grade:
+ * `column` da esquerda para a direita e `row` 0 (cadeia principal) ou 1 (entradas aleatórias
+ * e o texto em claro, abaixo).
+ */
+export interface PipelineBox {
+  id: string
+  title: string
+  lines: string[]
+  /** Detalhe mostrado em texto na lista abaixo do diagrama (nada depende de hover). */
+  detail: string
+  column: number
+  row: 0 | 1
+  tone: 'input' | 'secret' | 'process' | 'output'
+  /** Módulo responsável (caminho real); abre o inspetor ao tocar. */
+  module?: string
+  refs: string[]
+}
+
+export interface PipelineArrow {
+  from: string
+  to: string
+  /** Tracejada: o valor só é copiado (em base64) para o envelope, não entra no cálculo. */
+  copy?: boolean
+}
+
 export interface PlannedFlow {
   title: string
   phase: number
@@ -381,7 +407,10 @@ export interface DecisionInfo {
 export interface TableNote {
   name: string
   type: string
-  inBackup: string
+  /** §8.3 — toda tabela precisa estar no backup e no teste de ida e volta. */
+  inBackup: boolean
+  /** O que vai para o arquivo (ex.: só a chave theme de settings — §6.8). */
+  backupDetail: string
   /** Fase em que a tabela passa a ser usada pelo app (repositórios de produção). */
   usedFromPhase: number
   note: string

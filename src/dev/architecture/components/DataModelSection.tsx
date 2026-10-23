@@ -24,6 +24,11 @@ function splitUsers(ids: readonly string[]) {
   }
 }
 
+/** §8.3 — toda tabela do esquema está no backup e no teste de ida e volta. */
+const tablesOutOfBackup = tableNames.filter(
+  (name) => !TABLE_NOTES.find((t) => t.name === name)?.inBackup,
+)
+
 const transactionUsers = splitUsers(graph.modules.filter((m) => m.usesTransaction).map((m) => m.id))
 const liveQueryModules = graph.modules.filter((m) => m.usesLiveQuery).map((m) => m.id)
 
@@ -69,6 +74,11 @@ export function DataModelSection() {
         </Badge>
         <Badge>{tableNames.length} tabelas</Badge>
         <Badge variant="info">esquema × §6.4 conferido por database.schema.test.ts</Badge>
+        <Badge variant={tablesOutOfBackup.length === 0 ? 'ok' : 'danger'}>
+          {tablesOutOfBackup.length === 0
+            ? '§8.3: todas as tabelas no backup'
+            : `§8.3: fora do backup — ${tablesOutOfBackup.join(', ')}`}
+        </Badge>
       </div>
 
       <div className="overflow-x-auto">
@@ -112,7 +122,20 @@ export function DataModelSection() {
                   <td className={cellClass}>
                     <code className="text-xs">{note?.type ?? '—'}</code>
                   </td>
-                  <td className={cellClass}>{note?.inBackup ?? '—'}</td>
+                  <td className={cellClass}>
+                    {note ? (
+                      <div className="flex max-w-56 flex-col gap-1">
+                        <Badge variant={note.inBackup ? 'ok' : 'danger'}>
+                          {note.inBackup ? 'sim' : 'não'}
+                        </Badge>
+                        <span className="text-xs text-slate-600 dark:text-slate-400">
+                          {note.backupDetail}
+                        </span>
+                      </div>
+                    ) : (
+                      '—'
+                    )}
+                  </td>
                   <td className={cellClass}>{note ? `Fase ${note.usedFromPhase}` : '—'}</td>
                   <td className={cellClass}>
                     <UsersCell ids={usage?.readers ?? []} />

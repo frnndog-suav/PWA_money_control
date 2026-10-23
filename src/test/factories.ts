@@ -1,3 +1,4 @@
+import { toTagNameKey } from '@/domain/tags'
 import type { InstallmentGroup, Recurring, Tag, Transaction } from '@/domain/types'
 
 let sequence = 0
@@ -9,13 +10,17 @@ function nextId(prefix: string): string {
 
 const TIMESTAMP = '2026-10-19T12:00:00.000Z'
 
-/** Tag válida para testes; sobrescreva só os campos que importam no caso. */
+/**
+ * Tag válida para testes; sobrescreva só os campos que importam no caso. Sem `nameKey`
+ * explícito, ele é derivado do nome (§6.3), como no repositório.
+ */
 export function makeTag(overrides: Partial<Tag> = {}): Tag {
   const id = nextId('tag')
+  const name = overrides.name ?? `Tag ${id}`
   return {
     id,
-    name: `Tag ${id}`,
-    nameKey: `tag ${id}`,
+    name,
+    nameKey: toTagNameKey(name),
     color: '#16A34A',
     createdAt: TIMESTAMP,
     updatedAt: TIMESTAMP,

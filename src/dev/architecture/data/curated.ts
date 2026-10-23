@@ -11,6 +11,8 @@ import type {
   ForbiddenDependency,
   LayerInfo,
   PackageSource,
+  PipelineArrow,
+  PipelineBox,
   PlannedDomainFunction,
   PlannedFlow,
   PlannedUiField,
@@ -62,7 +64,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Componentes',
     folder: 'src/components',
     description:
-      'Duas partes (§6.2, D-37 — confirmada em 21/10/2026). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup; Fase 5: LoadMore, useDebouncedValue e o slot trailing do Page.Header). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts) e transactions/ (TransactionForm, useTransactionForm, TransactionRow — com showDate desde a Fase 5 —, NoTagsNotice, transactionTexts; Fase 5: IncomeExpenseTotals). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
+      'Duas partes (§6.2, D-37 — confirmada em 21/10/2026). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup; Fase 5: LoadMore, useDebouncedValue e o slot trailing do Page.Header; Fase 6: PasswordInput, FileInput e Button com ref — D-48(d)). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts) e transactions/ (TransactionForm, useTransactionForm, TransactionRow — com showDate desde a Fase 5 —, NoTagsNotice, transactionTexts; Fase 5: IncomeExpenseTotals). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
     position: { x: 130, y: 330 },
   },
   {
@@ -70,7 +72,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Repositórios',
     folder: 'src/repositories',
     description:
-      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError). Fase 4: transactionsRepository (createTransaction/updateTransaction em transação rw [tags, transactions] com assertTagExists, deleteTransaction, saldo geral, totais do mês, últimos 5 e lançamento por id, todos com hook useLiveQuery; TransactionNotFoundError/TransactionTagNotFoundError — D-39) e listTags/useTags no tagsRepository. Fase 5: listTransactionsInPeriod (índice date crescente, invertido em memória — D-44) e countTransactions, com useTransactionsInPeriod/useTransactionCount.',
+      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError). Fase 4: transactionsRepository (createTransaction/updateTransaction em transação rw [tags, transactions] com assertTagExists, deleteTransaction, saldo geral, totais do mês, últimos 5 e lançamento por id, todos com hook useLiveQuery; TransactionNotFoundError/TransactionTagNotFoundError — D-39) e listTags/useTags no tagsRepository. Fase 5: listTransactionsInPeriod (índice date crescente, invertido em memória — D-44) e countTransactions, com useTransactionsInPeriod/useTransactionCount. Fase 6: backupRepository (readBackupTables numa transação r das 5 tabelas, createBackupFile, deliverBackupFile, recordBackupDone, openBackupFile sem tocar no banco e restoreBackup numa única transação rw — D-07/D-47(e)) e useLastBackupAt no settingsRepository (fora do backupRepository, para o Início não levar cripto e zod — D-41).',
     position: { x: 390, y: 330 },
   },
   {
@@ -86,7 +88,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Lib',
     folder: 'src/lib',
     description:
-      'Utilitários puros e adaptadores de APIs do navegador: tema e espelho em localStorage, modo instalado, storage (persist/persisted/estimate), formatBytes e APP_VERSION (Fase 2); padrão de formulário do princípio 16 (formSubmit: LIVE_VALIDATION e canSubmitForm com startsValid — D-36, spec 1.13; usado pelos formulários de tag e, desde a Fase 4, de lançamento); cripto e backup na Fase 6.',
+      'Utilitários puros e adaptadores de APIs do navegador: tema e espelho em localStorage, modo instalado, storage (persist/persisted/estimate), formatBytes e APP_VERSION (Fase 2); padrão de formulário do princípio 16 (formSubmit: LIVE_VALIDATION e canSubmitForm com startsValid — D-36, spec 1.13; usado pelos formulários de tag e, desde a Fase 4, de lançamento e, desde a Fase 6, de backup). Fase 6: crypto (PBKDF2-SHA-256 600k + AES-GCM 256 pela Web Crypto, envelope da §6.8, BackupDecryptionError — RNF-05/D-47(a)), backupFormat (schemas zod do envelope e do conteúdo, versão e migrações, integridade, settings só com theme — D-47(b)–(d); sem Dexie: SCHEMA_VERSION chega por parâmetro) e share (Web Share API com arquivo ou download).',
     position: { x: 130, y: 450 },
   },
   {
@@ -195,7 +197,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'repositories',
     status: 'allowed',
     reason:
-      'Dados persistidos só por repositórios (§2.7). Fase 2: ThemeSection usa useTheme (D-22) e AboutPage lê SCHEMA_VERSION por databaseInfo. Fase 3: a tela de tags usa tagsRepository (hook da lista, create/update/delete, getTagUsage e as classes de erro). Fase 4: BalanceSummary (useOverallBalance, useMonthTotals), RecentTransactions (useRecentTransactions, useTags) e useTransactionDetail (useTransaction, deleteTransaction).',
+      'Dados persistidos só por repositórios (§2.7). Fase 2: ThemeSection usa useTheme (D-22) e AboutPage lê SCHEMA_VERSION por databaseInfo. Fase 3: a tela de tags usa tagsRepository (hook da lista, create/update/delete, getTagUsage e as classes de erro). Fase 4: BalanceSummary (useOverallBalance, useMonthTotals), RecentTransactions (useRecentTransactions, useTags) e useTransactionDetail (useTransaction, deleteTransaction). Fase 6: useExportBackup (createBackupFile, deliverBackupFile), useImportBackup (openBackupFile, restoreBackup, useTheme().setPreference), LastBackupStatus e BackupReminder (useLastBackupAt; BackupReminder também useTransactionCount).',
   },
   { from: 'features', to: 'stores', status: 'allowed', reason: 'Filtros e visões (§6.7).' },
   {
@@ -203,14 +205,14 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'domain',
     status: 'allowed',
     reason:
-      'Regras puras e tipos. Fase 3: useTagsScreen usa isTagInUse (useTagForm e TagColorPicker foram para components/tags na Fase 4 — D-37). Fase 4: BalanceSummary usa periodOf/formatMonthLabel e formatBRL.',
+      'Regras puras e tipos. Fase 3: useTagsScreen usa isTagInUse (useTagForm e TagColorPicker foram para components/tags na Fase 4 — D-37). Fase 4: BalanceSummary usa periodOf/formatMonthLabel e formatBRL. Fase 6: LastBackupStatus e BackupReminder usam backupReminder (daysSinceLastBackup, describeLastBackup, shouldShowBackupReminder — D-11); useExportBackup/useImportBackup usam backupPasswordSchema.',
   },
   {
     from: 'features',
     to: 'lib',
     status: 'allowed',
     reason:
-      'Utilitários puros: rótulos do tema, storage/formatBytes/APP_VERSION na tela Sobre (Fase 2); cripto na Fase 6. (formSubmit passou a ser usado de components/<entidade> — useTagForm e useTransactionForm.)',
+      'Utilitários puros: rótulos do tema, storage/formatBytes/APP_VERSION na tela Sobre (Fase 2). Fase 6: features/backup usa formSubmit (useExportBackup/useImportBackup — princípio 16), backupFormat (summarizeBackup, tipos BackupSummary/BackupContent e os erros em backupTexts), crypto (BackupDecryptionError em backupTexts) e share (tipo ShareOutcome); a criptografia em si é chamada pelo backupRepository. (formSubmit passou a ser usado de components/<entidade> — useTagForm e useTransactionForm.)',
   },
   {
     from: 'features',
@@ -259,13 +261,14 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'lib',
     status: 'allowed',
     reason:
-      'Regras do tema, espelho em localStorage (themeStorage) e requestPersistentStorage (lib/storage).',
+      'Regras do tema, espelho em localStorage (themeStorage) e requestPersistentStorage (lib/storage). Fase 6: backupRepository usa crypto (encryptBackupText/decryptBackupText), backupFormat (build/parse, limites e erros), share (shareOrDownloadFile, injetável nos testes) e themeStorage (writeThemeMirror depois do commit da importação — D-28).',
   },
   {
     from: 'repositories',
     to: 'repositories',
     status: 'allowed',
-    reason: 'themeRepository usa settingsRepository; useTheme lê ThemeContext.',
+    reason:
+      'themeRepository usa settingsRepository; useTheme lê ThemeContext. Fase 6: backupRepository usa setSetting (lastBackupAt) do settingsRepository.',
   },
   { from: 'db', to: 'domain', status: 'allowed', reason: 'Tipos das tabelas (§6.3).' },
   {
@@ -278,9 +281,16 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     from: 'lib',
     to: 'domain',
     status: 'allowed',
-    reason: 'Formato de backup usa os tipos do domínio.',
+    reason:
+      'Fase 6: backupFormat usa os tipos da §6.3, isValidDate/today (dates) e toTagNameKey (tags) para conferir o nameKey coerente.',
   },
-  { from: 'lib', to: 'lib', status: 'allowed', reason: 'themeStorage usa as regras de theme.ts.' },
+  {
+    from: 'lib',
+    to: 'lib',
+    status: 'allowed',
+    reason:
+      'themeStorage usa as regras de theme.ts. Fase 6: backupFormat usa crypto (tipo BackupEnvelope e constantes do envelope) e theme (isThemePreference em selectBackupSettings).',
+  },
   {
     from: 'domain',
     to: 'domain',
@@ -407,9 +417,12 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
       'D-40',
       'D-41',
       'D-42',
+      'RF-10',
+      'D-11',
+      'D-48',
     ],
     description:
-      'Fase 4. Única tela fora do React.lazy (vai no pacote principal — RNF-02; ver o achado do bundle de 596 kB, decidido pela D-41). HomePage (useToday) compõe, de cima para baixo: BalanceSummary (saldo geral com todos os lançamentos, inclusive os futuros — D-42, em destaque; "Saldo de outubro de 2026" com entradas e saídas do mês, inclusive datas futuras do mês — CA-02.3; valores com SignedAmount — CA-02.1), a seção "Novo lançamento" com o TransactionForm rápido (Saída/Entrada, valor, data, tag, descrição e "Lançar" — CA-01.1; atalho de criar tag sem perder o digitado — CA-01.7; Toast "Lançamento salvo" — D-38(b)) e RecentTransactions (recebe today; os 5 mais recentes com data até hoje, por data e criação — D-40/D-39, TransactionRow com link para /lancamentos/:id, ou EmptyState; link "Ver todos" para /lancamentos). Tudo por useLiveQuery: um lançamento novo atualiza saldos e lista sem recarregar (CA-02.4). Pendências recorrentes (item 4 do RF-02) entram na Fase 9. Tabelas: transactions (leitura e escrita) e tags (leitura; escrita pelo atalho de criar tag).',
+      'Fase 4. Única tela fora do React.lazy (vai no pacote principal — RNF-02; ver o achado do bundle de 596 kB, decidido pela D-41). HomePage (useToday) compõe, de cima para baixo: BalanceSummary (saldo geral com todos os lançamentos, inclusive os futuros — D-42, em destaque; "Saldo de outubro de 2026" com entradas e saídas do mês, inclusive datas futuras do mês — CA-02.3; valores com SignedAmount — CA-02.1), a seção "Novo lançamento" com o TransactionForm rápido (Saída/Entrada, valor, data, tag, descrição e "Lançar" — CA-01.1; atalho de criar tag sem perder o digitado — CA-01.7; Toast "Lançamento salvo" — D-38(b)) e RecentTransactions (recebe today; os 5 mais recentes com data até hoje, por data e criação — D-40/D-39, TransactionRow com link para /lancamentos/:id, ou EmptyState; link "Ver todos" para /lancamentos). Tudo por useLiveQuery: um lançamento novo atualiza saldos e lista sem recarregar (CA-02.4). Pendências recorrentes (item 4 do RF-02) entram na Fase 9. Fase 6: BackupReminder no topo (antes do BalanceSummary) — Notice subtle "Último backup: há N dias. Faça um backup para não perder seus dados." + link "Fazer backup" para /ajustes/backup, só com pelo menos um lançamento e sem backup ou com 7 dias ou mais (D-11, D-48(c)); lê useLastBackupAt (settingsRepository) e useTransactionCount, sem levar a criptografia para o pacote principal (D-41/D-47(e)). Tabelas: transactions (leitura e escrita), tags (leitura; escrita pelo atalho de criar tag) e settings (leitura de lastBackupAt).',
     contentPhase: 4,
   },
   {
@@ -506,8 +519,24 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
   {
     route: '/ajustes/backup',
     screen: 'Backup',
-    requirements: ['RF-10'],
-    description: 'Placeholder com Voltar. Exportar/importar criptografado na Fase 6.',
+    requirements: [
+      'RF-10',
+      'RNF-05',
+      'CA-10.1',
+      'CA-10.2',
+      'CA-10.3',
+      'CA-10.4',
+      'CA-10.5',
+      'CA-10.6',
+      'D-07',
+      'D-08',
+      'D-11',
+      'D-28',
+      'D-47',
+      'D-48',
+    ],
+    description:
+      'Fase 6 (lazy — a criptografia e o zod do backup ficam fora do pacote principal). BackupPage: Page.Header com BackLink (fallback /ajustes) e, no Page.Body, LastBackupStatus ("Último backup: nunca / hoje / há N dias" — D-48(c)), ExportBackupSection (Senha + Confirmar senha, mínimo 8 e "As senhas não coincidem" enquanto digita; "Exportar backup" → "Gerando backup…"; resultado em role="status"; "Salvar backup" se a folha foi bloqueada por falta de toque recente — D-48(a)) e ImportBackupSection (Arquivo do backup + Senha do backup → "Verificando backup…"; erros exatos dos CA-10.2/10.3/10.5; modal "Importar backup?" com data, contagens e "Isso vai substituir todos os dados atuais." — D-48(b), D-07). Foco no botão novo ou na mensagem de resultado (D-48(e), RNF-06). Dados só pelo backupRepository e useLastBackupAt. Tabelas: lê as 5 na exportação (transação r); a importação limpa e regrava tags, transactions, recurrings e installmentGroups e troca settings.theme numa única transação rw; a exportação grava settings.lastBackupAt só depois de compartilhar ou baixar.',
     contentPhase: 6,
   },
   {
@@ -567,7 +596,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'InfoList',
-    note: 'Compound component (Fase 2): <dl> com InfoList.Item (rótulo <dt> + valor <dd>, tabular-nums, min-h-11). Somente leitura, sem estado.',
+    note: 'Compound component (Fase 2): <dl> com InfoList.Item (rótulo <dt> + valor <dd>, tabular-nums, min-h-11). Somente leitura, sem estado. Usado na tela Sobre e, desde a Fase 6, no resumo do ConfirmImportDialog (data do backup e contagens).',
   },
   {
     component: 'SampleDataTools',
@@ -580,7 +609,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   { component: 'Outlet', note: 'Ponto onde o React Router injeta a tela da rota filha.' },
   {
     component: 'Notice',
-    note: 'Compound component (Fase 1): Notice.Message (texto, flex-1) e Notice.Action (botão ≥ 44 px, foco branco para aparecer sobre o azul). Variantes accent (com ação) e subtle (só texto). Não decide região viva nem posição: quem usa decide.',
+    note: 'Compound component (Fase 1): Notice.Message (texto, flex-1) e Notice.Action (botão ≥ 44 px, foco branco para aparecer sobre o azul). Variantes accent (com ação) e subtle (só texto). Não decide região viva nem posição: quem usa decide. Fase 6: o BackupReminder usa a variante subtle com um Link "Fazer backup" ao lado do Notice.Message.',
   },
   {
     component: 'UpdateNotice',
@@ -596,7 +625,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'Button',
-    note: 'Primitivo (Fase 3): variantes primary, secondary, danger e danger-outline; type="button" por padrão; alvo ≥ 44 px. Estado desabilitado com disabled nativo e estilo cinza neutro com contraste AA nos dois temas (princípio 16, spec 1.13).',
+    note: 'Primitivo (Fase 3): variantes primary, secondary, danger e danger-outline; type="button" por padrão; alvo ≥ 44 px. Estado desabilitado com disabled nativo e estilo cinza neutro com contraste AA nos dois temas (princípio 16, spec 1.13). Fase 6: aceita ref (prop do React 19, sem forwardRef) para o foco ir ao "Salvar backup" quando ele aparece (D-48(d)/(e)).',
   },
   {
     component: 'EmptyState',
@@ -604,7 +633,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'ErrorAlert',
-    note: 'Primitivo (Fase 3): role="alert" com o texto em pt-BR; usado no rodapé do TagForm (saveError e slot notice) e no ConfirmDeleteTagDialog.',
+    note: 'Primitivo (Fase 3): role="alert" com o texto em pt-BR; usado no rodapé do TagForm (saveError e slot notice) e no ConfirmDeleteTagDialog. Fase 6: falha de exportação (ExportBackupSection), erro de abertura do backup (ImportBackupSection — some ao trocar arquivo ou senha) e falha da substituição (ConfirmImportDialog).',
   },
   {
     component: 'TagChip',
@@ -747,6 +776,34 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
     note: 'Fase 4 (CA-01.6): Modal "Excluir lançamento?" com a descrição, ErrorAlert de falha e "Excluir" (danger) desabilitado durante a exclusão. Estado vem de useTransactionDetail.',
   },
   { component: 'Link', note: 'Do react-router: navegação por toque, sem recarregar a página.' },
+  {
+    component: 'PasswordInput',
+    note: 'Primitivo (Fase 6, D-48(d)): <input type="password"> com autoCapitalize="none", autoCorrect="off" e spellCheck={false}; autoComplete obrigatório ("new-password" na exportação, "current-password" na importação); id/aria-invalid/aria-describedby pelo useFieldControl do Field em volta; aceita ref (Controller).',
+  },
+  {
+    component: 'FileInput',
+    note: 'Primitivo (Fase 6, D-48(d)): <input type="file"> com o botão nativo estilizado como secundário (alvo ≥ 44 px) e o nome do arquivo visível ao lado; onFileChange(file | null) em vez de value/onChange (o input de arquivo não é controlável pelo valor). Ligado ao Field pelo useFieldControl.',
+  },
+  {
+    component: 'LastBackupStatus',
+    note: 'Fase 6 (RF-10, D-48(c)): <p> "Último backup: nunca / hoje / há 1 dia / há N dias" (describeLastBackup(daysSinceLastBackup(...))) com useToday e useLastBackupAt; nada enquanto o IndexedDB carrega (sem "nunca" falso).',
+  },
+  {
+    component: 'ExportBackupSection',
+    note: 'Fase 6 (RF-10 exportar, D-48(a)): <section> com <form noValidate>: dois Controller → Field + PasswordInput (Senha, Confirmar senha), ErrorAlert da falha, <p role="status" tabIndex={-1}> do resultado e um único botão — "Exportar backup"/"Gerando backup…" (disabled={!canSubmit} — princípio 16) ou, com o arquivo à espera, "Salvar backup" (ref saveButtonRef, recebe o foco). Estado todo em useExportBackup; statusRef e saveButtonRef saem do objeto devolvido antes de ler o resto (regra react/refs).',
+  },
+  {
+    component: 'ImportBackupSection',
+    note: 'Fase 6 (RF-10 importar, D-48(b)): <section> com <form key={formKey} noValidate> (a key recria o formulário depois de importar, porque o <input type="file"> não se limpa pelo valor): Controller → Field + FileInput (accept "application/json,.json"), Controller → Field + PasswordInput (current-password), ErrorAlert do openError e "Importar backup"/"Verificando backup…". O <p role="status"> fica fora do <form> (sobrevive à recriação e recebe o foco — RNF-06) e o ConfirmImportDialog é irmão do formulário. Estado em useImportBackup.',
+  },
+  {
+    component: 'ConfirmImportDialog',
+    note: 'Fase 6 (RF-10, D-07, D-48(b)): Modal "Importar backup?" aberto quando summary ≠ null; Modal.Body com InfoList (Data do backup "17/10/2026 às 15:05", Lançamentos, Tags, Recorrentes — formatCount em pt-BR), o aviso "Isso vai substituir todos os dados atuais." em negrito e ErrorAlert da falha; Modal.Actions com "Cancelar" (secondary) e "Substituir dados"/"Substituindo…" (danger), ambos desabilitados durante a substituição. Sem estado.',
+  },
+  {
+    component: 'BackupReminder',
+    note: 'Fase 6 (RF-10 "Lembrete", D-11, D-48(c)): recebe today do HomePage; useLastBackupAt + useTransactionCount; nada enquanto carrega; com shouldShowBackupReminder, Notice subtle com a mensagem e o Link "Fazer backup" (44 px) para /ajustes/backup. Fica no topo do Início, antes do BalanceSummary.',
+  },
 ]
 
 /** Componentes locais (não importados) e o módulo de onde vêm. */
@@ -781,12 +838,17 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '/',
     stateAndData:
-      'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary e ao RecentTransactions. Dados por useLiveQuery: useOverallBalance() (sem today — D-42) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(today, 5) (D-40) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4).',
+      'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary e ao RecentTransactions. Dados por useLiveQuery: useOverallBalance() (sem today — D-42) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(today, 5) (D-40) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4). Fase 6: BackupReminder (topo) lê useLastBackupAt e useTransactionCount (useLiveQuery) e decide por shouldShowBackupReminder com o mesmo today; o 1º lançamento já faz o aviso aparecer se nunca houve backup.',
   },
   {
     route: '/lancamentos',
     stateAndData:
       'Árvore (D-45): Page.Header (trailing: NewTransactionLink) → FilterBar { .Text; .Actions { .Toggle, .Clear }; .Panel { .Type, .Tag (TagPicker com "Todas"), .Period (2 Field + DateInput) } } → FilterSummary (IncomeExpenseTotals + SignedAmount) → EmptyState → TransactionDayList { DaySection × N (IncomeExpenseTotals + TransactionRow showDate={false}), LoadMore }. Estado: os filtros ficam no Zustand (src/stores/uiStore.ts, transactionFilters, sem persist — D-45(f)); cada parte do FilterBar lê e grava o seu campo com seletor próprio; o painel aberto/fechado e o searchInputRef são estado local do FilterBar (FilterBarContext); a página da lista (itemTarget) é estado local do TransactionDayList, zerado pela troca de key (filtersKey) quando os filtros aplicados mudam. Dados: useTransactionList (src/features/transactions/useTransactionList.ts) lê os 5 campos, faz o debounce do texto (useDebouncedValue, 250 ms, "" na hora), calcula effectivePeriod, consulta useTransactionsInPeriod(from, to) (useLiveQuery no índice date; ordenado por sortByRecency no repositório), useTransactionCount e useTags, e monta summarizeTransactionList com os filtros aplicados (o React Compiler memoiza). Tag do filtro que sumiu (excluída) vale como "Todas" e setFilters({ tagId: null }) limpa o Zustand. undefined enquanto carrega: nada na tela (sem piscar estado vazio).',
+  },
+  {
+    route: '/ajustes/backup',
+    stateAndData:
+      'Árvore: Page > Page.Header (leading: BackLink) > Page.Body > [ LastBackupStatus, ExportBackupSection (Field + PasswordInput × 2, ErrorAlert, status, Button "Exportar backup" ou "Salvar backup"), ImportBackupSection (Field + FileInput, Field + PasswordInput, ErrorAlert, Button; status fora do <form>; ConfirmImportDialog (Modal, InfoList, Button × 2)) ]. Sem estado na página. Exportação: useExportBackup — useForm com LIVE_VALIDATION + zodResolver(exportPasswordSchema) (a confirmação é reconferida quando a senha muda, por form.subscribe), state { message, error, pendingFile } e isDelivering em useState, statusRef e saveButtonRef; canSubmit = canSubmitForm && !isBusy (princípio 16). Importação: useImportBackup — useForm com zodResolver(importBackupSchema), openError (limpo por form.subscribe ao trocar arquivo ou senha), pending { content, summary }, isRestoring, restoreError, message (objeto novo a cada resultado, para refocar), formKey e statusRef; setPreference de useTheme aplica o tema importado. Dados: useLastBackupAt (useLiveQuery em settings.lastBackupAt) e as funções assíncronas do backupRepository (nenhum useLiveQuery para as tabelas de dados: a tela não as mostra).',
   },
   {
     route: '/lancamentos/novo',
@@ -3896,16 +3958,500 @@ export const FLOWS: readonly Flow[] = [
       'src/features/transactions/TransactionsPage.filters.test.tsx',
     ],
   },
+  {
+    id: 'backup-export',
+    title: 'Exportar backup criptografado',
+    summary:
+      'Senha e confirmação (princípio 16) → leitura das 5 tabelas numa transação r → conteúdo em claro (settings só com theme) → PBKDF2 + AES-GCM com sal e IV novos → envelope da §6.8 num File gastos-backup-YYYY-MM-DD.json → folha de compartilhamento ou download. lastBackupAt só é gravado se a entrega deu shared ou downloaded; se o navegador bloquear a folha (NotAllowedError, sem toque recente depois da derivação), aparece "Salvar backup", que recebe o foco.',
+    requirements: ['RF-10', 'RNF-05', 'CA-10.6', 'D-08', 'D-36', 'D-47', 'D-48'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'section',
+        label: 'ExportBackupSection',
+        module: 'src/features/backup/ExportBackupSection.tsx',
+      },
+      { id: 'hook', label: 'useExportBackup', module: 'src/features/backup/useExportBackup.ts' },
+      {
+        id: 'schema',
+        label: 'backupPasswordSchema',
+        module: 'src/domain/backupPasswordSchema.ts',
+      },
+      { id: 'repo', label: 'backupRepository', module: 'src/repositories/backupRepository.ts' },
+      { id: 'dexie', label: 'Dexie (5 tabelas)', module: 'src/db/database.ts' },
+      { id: 'format', label: 'backupFormat', module: 'src/lib/backupFormat.ts' },
+      { id: 'crypto', label: 'crypto', module: 'src/lib/crypto.ts' },
+      { id: 'share', label: 'share', module: 'src/lib/share.ts' },
+      { id: 'browser', label: 'Navegador (Web Share / download)' },
+      {
+        id: 'settings',
+        label: 'settingsRepository',
+        module: 'src/repositories/settingsRepository.ts',
+      },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'section',
+        label: 'digita Senha e Confirmar senha',
+        detail:
+          'Dois PasswordInput (autocomplete new-password) ligados por Controller (o reset depois de exportar limpa os campos com o React Compiler — D-39).',
+        refs: ['RF-10', 'D-48', 'D-39'],
+        kind: 'event',
+      },
+      {
+        from: 'hook',
+        to: 'schema',
+        label: 'zodResolver(exportPasswordSchema)',
+        detail:
+          'LIVE_VALIDATION: "A senha precisa ter pelo menos 8 caracteres" e "As senhas não coincidem" enquanto digita; form.subscribe reconfere a confirmação quando a senha muda. canSubmit = canSubmitForm && !isBusy (princípio 16).',
+        refs: ['D-08', 'D-36', 'D-48'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'section',
+        label: 'toca "Exportar backup"',
+        detail: 'O botão vira "Gerando backup…" durante a derivação da chave (isGenerating).',
+        refs: ['D-48'],
+        kind: 'event',
+      },
+      {
+        from: 'hook',
+        to: 'repo',
+        label: 'createBackupFile(password)',
+        detail: 'Falha em qualquer etapa → "Não foi possível gerar o backup. Tente novamente."',
+        refs: ['RF-10', 'D-48'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('r', 5 tabelas) → toArray × 5",
+        detail:
+          'readBackupTables: tags, transactions, recurrings, installmentGroups e settings numa única transação de leitura (§6.8 passo 1): o arquivo é um retrato coerente.',
+        refs: ['RF-10', 'D-47'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'format',
+        label: 'buildBackupContent(tabelas, { schemaVersion })',
+        detail:
+          'Conteúdo em claro { app, schemaVersion: SCHEMA_VERSION, exportedAt, data }; selectBackupSettings leva só theme (lastBackupAt e persistRequested ficam no aparelho — D-47(d)). O módulo não importa o Dexie: a versão chega por parâmetro.',
+        refs: ['RF-10', 'D-47'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'crypto',
+        label: 'encryptBackupText(JSON.stringify(conteúdo), senha)',
+        detail:
+          'Sal de 16 e IV de 12 bytes novos (getRandomValues) → PBKDF2-SHA-256 com 600.000 iterações sobre a senha em NFC → chave AES-GCM 256 não extraível → encrypt → envelope com base64 em blocos de 32 KiB (ver o pipeline de criptografia).',
+        refs: ['RNF-05', 'CA-10.6', 'D-47'],
+        kind: 'call',
+      },
+      {
+        from: 'crypto',
+        to: 'repo',
+        label: 'envelope { format, kdf, cipher, ciphertext }',
+        detail:
+          'Só parâmetros públicos (iterações, sal, IV) e o texto cifrado: nenhuma descrição, valor ou tag legível (CA-10.6).',
+        refs: ['CA-10.6'],
+        kind: 'return',
+      },
+      {
+        from: 'repo',
+        to: 'hook',
+        label: 'File gastos-backup-YYYY-MM-DD.json',
+        detail: 'backupFileName(today(now)) com a data local (princípio 2); type application/json.',
+        refs: ['RF-10'],
+        kind: 'return',
+      },
+      {
+        from: 'hook',
+        to: 'repo',
+        label: 'deliverBackupFile(file)',
+        detail: 'isDelivering = true; a função de compartilhar é injetável nos testes.',
+        refs: ['RF-10'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'share',
+        label: 'shareOrDownloadFile(file)',
+        detail: 'Nada vai para a rede (princípio 5): só a folha do sistema ou o download local.',
+        refs: ['RF-10'],
+        kind: 'call',
+      },
+      {
+        from: 'share',
+        to: 'browser',
+        label: 'canShare({ files }) ? share() : <a download>',
+        detail:
+          'No iPhone, a folha de compartilhamento ("Salvar em Arquivos"). Sem Web Share com arquivo, download com a URL liberada 10 s depois.',
+        refs: ['RF-10', 'D-48'],
+        kind: 'call',
+      },
+      {
+        from: 'browser',
+        to: 'share',
+        label: 'shared | downloaded | cancelled | blocked',
+        detail:
+          'AbortError → cancelled (folha fechada); NotAllowedError → blocked (sem toque recente); outras falhas são relançadas.',
+        refs: ['D-48'],
+        kind: 'return',
+      },
+      {
+        from: 'repo',
+        to: 'settings',
+        label: "setSetting('lastBackupAt') só se shared/downloaded",
+        detail:
+          'recordBackupDone grava a data ISO 8601 (local ao aparelho). Cancelado ou bloqueado não conta como backup feito.',
+        refs: ['RF-10', 'D-48'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'section',
+        label: 'applyOutcome → mensagem + foco',
+        detail:
+          '"Backup exportado." (form.reset: a senha sai da memória) ou "Exportação cancelada. O backup não foi salvo."; foco na mensagem role="status". blocked: "O backup está pronto. Toque em “Salvar backup” para guardá-lo." e o botão "Salvar backup" recebe o foco (saveButtonRef — Button com ref).',
+        refs: ['D-48', 'RNF-06'],
+        kind: 'return',
+      },
+      {
+        from: 'user',
+        to: 'section',
+        label: 'toca "Salvar backup" (se bloqueado)',
+        detail:
+          'savePendingFile → deliverBackupFile com o mesmo arquivo, agora com toque recente; a chave não é derivada de novo.',
+        refs: ['D-48'],
+        kind: 'event',
+      },
+    ],
+    tests: [
+      'src/lib/crypto.test.ts',
+      'src/lib/crypto.audit.test.ts',
+      'src/lib/backupFormat.test.ts',
+      'src/lib/share.test.ts',
+      'src/domain/backupPasswordSchema.test.ts',
+      'src/repositories/backupRepository.test.ts',
+      'src/repositories/backupRepository.audit.test.ts',
+      'src/features/backup/BackupPage.test.tsx',
+    ],
+  },
+  {
+    id: 'backup-import',
+    title: 'Importar backup (substitui tudo)',
+    summary:
+      'Arquivo + senha → openBackupFile confere tamanho, envelope, senha (AES-GCM autenticado), versão, migrações, estrutura (zod) e integridade sem tocar no banco → resumo no modal com o aviso "Isso vai substituir todos os dados atuais." → restoreBackup numa única transação rw → espelho do tema no localStorage → setPreference → foco na mensagem. Qualquer erro mostra a mensagem exata do CA e nada é alterado.',
+    requirements: [
+      'RF-10',
+      'CA-10.1',
+      'CA-10.2',
+      'CA-10.3',
+      'CA-10.4',
+      'CA-10.5',
+      'D-07',
+      'D-28',
+      'D-47',
+      'D-48',
+    ],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'section',
+        label: 'ImportBackupSection',
+        module: 'src/features/backup/ImportBackupSection.tsx',
+      },
+      { id: 'hook', label: 'useImportBackup', module: 'src/features/backup/useImportBackup.ts' },
+      { id: 'repo', label: 'backupRepository', module: 'src/repositories/backupRepository.ts' },
+      { id: 'format', label: 'backupFormat', module: 'src/lib/backupFormat.ts' },
+      { id: 'crypto', label: 'crypto', module: 'src/lib/crypto.ts' },
+      { id: 'texts', label: 'backupTexts', module: 'src/features/backup/backupTexts.ts' },
+      {
+        id: 'dialog',
+        label: 'ConfirmImportDialog',
+        module: 'src/features/backup/ConfirmImportDialog.tsx',
+      },
+      { id: 'dexie', label: 'Dexie (5 tabelas)', module: 'src/db/database.ts' },
+      { id: 'mirror', label: 'themeStorage (espelho)', module: 'src/lib/themeStorage.ts' },
+      { id: 'theme', label: 'useTheme', module: 'src/repositories/useTheme.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'section',
+        label: 'escolhe o arquivo e digita a senha',
+        detail:
+          'FileInput (accept application/json,.json) e PasswordInput (current-password); importBackupSchema exige o arquivo e a senha preenchida ("Informe a senha").',
+        refs: ['RF-10', 'D-48'],
+        kind: 'event',
+      },
+      {
+        from: 'hook',
+        to: 'repo',
+        label: 'openBackupFile(file, senha)',
+        detail:
+          '"Importar backup" vira "Verificando backup…". Nenhuma escrita no banco até a confirmação.',
+        refs: ['RF-10', 'D-07'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'repo',
+        label: 'file.size > 50 MB → Arquivo inválido',
+        detail:
+          'MAX_BACKUP_FILE_BYTES: evita travar o aparelho com um arquivo escolhido por engano ou forjado.',
+        refs: ['CA-10.3', 'D-47'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'format',
+        label: 'parseBackupEnvelope(texto)',
+        detail:
+          'JSON, format/formatVersion, PBKDF2/SHA-256, AES-GCM 256, sal de 16 e IV de 12 bytes em base64, iterações ≤ 10.000.000 e texto cifrado com pelo menos a tag do GCM. Falha → InvalidBackupFileError.',
+        refs: ['CA-10.3', 'D-47'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'crypto',
+        label: 'decryptBackupText(envelope, senha)',
+        detail:
+          'Deriva a chave com o sal e as iterações do envelope (senha em NFC) e descriptografa; a autenticação do AES-GCM falha com senha errada ou arquivo alterado: OperationError → BackupDecryptionError.',
+        refs: ['CA-10.2', 'RNF-05', 'D-47'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'format',
+        label: 'parseBackupContent(texto, { schemaVersion })',
+        detail:
+          'Cabeçalho app/schemaVersion; mais nova que SCHEMA_VERSION → NewerBackupVersionError (CA-10.5); mais antiga → migrateBackupContent em cadeia por BACKUP_MIGRATIONS (vazio na v1; migração faltando = inválido — CA-10.4); zod dos registros com os .refine (ordem de amounts, nameKey coerente, pares recurring/installment); hasReferentialIntegrity (IDs e nameKey únicos, vínculos existentes, parcela ≤ count).',
+        refs: ['CA-10.3', 'CA-10.4', 'CA-10.5', 'D-47'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'hook',
+        label: 'BackupContent válido no esquema atual',
+        detail: 'Os erros chegam ao hook sem nenhuma alteração no banco.',
+        refs: ['D-07'],
+        kind: 'return',
+      },
+      {
+        from: 'hook',
+        to: 'texts',
+        label: 'describeOpenError(erro) (se falhou)',
+        detail:
+          '"Senha incorreta ou arquivo corrompido" (CA-10.2), "Arquivo inválido" (CA-10.3), "Backup de uma versão mais nova do app. Atualize o app e tente novamente." (CA-10.5) ou "Não foi possível abrir o backup. Nenhum dado foi alterado."; o ErrorAlert some quando o usuário troca o arquivo ou a senha.',
+        refs: ['CA-10.2', 'CA-10.3', 'CA-10.5', 'D-48'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'format',
+        label: 'summarizeBackup(content)',
+        detail: 'exportedAt e as contagens de lançamentos, tags e recorrentes.',
+        refs: ['RF-10'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'dialog',
+        label: 'summary ≠ null → Modal "Importar backup?"',
+        detail:
+          'Data e hora ("17/10/2026 às 15:05"), contagens e "Isso vai substituir todos os dados atuais."; "Cancelar" fecha sem mudar nada.',
+        refs: ['RF-10', 'D-07', 'D-48'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'dialog',
+        label: 'toca "Substituir dados"',
+        detail: 'confirmImport; os dois botões ficam desabilitados ("Substituindo…").',
+        refs: ['D-07', 'D-48'],
+        kind: 'event',
+      },
+      {
+        from: 'hook',
+        to: 'repo',
+        label: 'restoreBackup(content.data)',
+        detail: 'Devolve o tema aplicado (o do backup ou system).',
+        refs: ['CA-10.1', 'D-07'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', 5 tabelas): clear × 4 → bulkAdd × 4 → put theme",
+        detail:
+          'Uma única transação: tags, transactions, recurrings e installmentGroups limpas e regravadas; settings troca só theme; lastBackupAt e persistRequested do aparelho ficam como estão. Qualquer falha desfaz tudo.',
+        refs: ['CA-10.1', 'D-07', 'D-47'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'mirror',
+        label: 'writeThemeMirror(tema) depois do commit',
+        detail: 'O script inline do index.html abre com o tema importado na próxima carga (D-28).',
+        refs: ['D-28'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'theme',
+        label: 'setPreference(tema)',
+        detail: 'O tema vale na hora, também se o usuário o trocou nesta sessão (D-47(d)).',
+        refs: ['D-28', 'D-47'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'section',
+        label: '"Backup importado." + formKey + 1 + foco',
+        detail:
+          'O formulário é recriado (o input de arquivo não se limpa pelo valor) e o foco vai para a mensagem role="status", fora do <form>. Falha na transação: "Não foi possível importar o backup. Nenhum dado foi alterado." dentro do modal.',
+        refs: ['D-48', 'RNF-06', 'D-07'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/lib/backupFormat.test.ts',
+      'src/lib/backupFormat.audit.test.ts',
+      'src/lib/crypto.test.ts',
+      'src/domain/backupPasswordSchema.test.ts',
+      'src/repositories/backupRepository.test.ts',
+      'src/repositories/backupRepository.audit.test.ts',
+      'src/repositories/backupRepository.theme.test.ts',
+      'src/features/backup/BackupPage.test.tsx',
+    ],
+  },
+  {
+    id: 'backup-reminder',
+    title: 'Lembrete de backup no Início',
+    summary:
+      'O Início mostra uma faixa discreta "Último backup: há N dias. Faça um backup para não perder seus dados." com o link "Fazer backup" quando há pelo menos um lançamento e nunca houve backup ou já se passaram 7 dias ou mais. Lê só a data e a contagem: a criptografia fica na tela de backup, lazy.',
+    requirements: ['RF-10', 'D-11', 'D-41', 'D-48'],
+    participants: [
+      { id: 'home', label: 'HomePage', module: 'src/features/home/HomePage.tsx' },
+      { id: 'reminder', label: 'BackupReminder', module: 'src/features/home/BackupReminder.tsx' },
+      {
+        id: 'settings',
+        label: 'settingsRepository',
+        module: 'src/repositories/settingsRepository.ts',
+      },
+      {
+        id: 'txRepo',
+        label: 'transactionsRepository',
+        module: 'src/repositories/transactionsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie', module: 'src/db/database.ts' },
+      { id: 'domain', label: 'backupReminder', module: 'src/domain/backupReminder.ts' },
+      { id: 'user', label: 'Usuário' },
+      { id: 'page', label: 'BackupPage (lazy)', module: 'src/features/backup/BackupPage.tsx' },
+    ],
+    steps: [
+      {
+        from: 'home',
+        to: 'reminder',
+        label: '<BackupReminder today={todayDate} />',
+        detail: 'No topo do Page.Body, antes do BalanceSummary; today vem do useToday do HomePage.',
+        refs: ['RF-10', 'D-48'],
+        kind: 'call',
+      },
+      {
+        from: 'reminder',
+        to: 'settings',
+        label: 'useLastBackupAt()',
+        detail:
+          "useSetting('lastBackupAt') com useLiveQuery: undefined carregando, null se nunca houve. Fica no settingsRepository para o Início não importar o backupRepository (D-41/D-47(e)).",
+        refs: ['RF-10', 'D-41', 'D-47'],
+        kind: 'call',
+      },
+      {
+        from: 'settings',
+        to: 'dexie',
+        label: "settings.get('lastBackupAt')",
+        detail: 'Chave local ao aparelho (não vai para o backup).',
+        refs: ['RF-10'],
+        kind: 'call',
+      },
+      {
+        from: 'reminder',
+        to: 'txRepo',
+        label: 'useTransactionCount()',
+        detail: 'count() sem ler registros (o mesmo hook da lista — Fase 5).',
+        refs: ['RF-10'],
+        kind: 'call',
+      },
+      {
+        from: 'reminder',
+        to: 'domain',
+        label: 'shouldShowBackupReminder({ lastBackupAt, today, transactionCount })',
+        detail:
+          'Pelo menos um lançamento e (nunca houve backup ou daysSinceLastBackup ≥ 7). Enquanto qualquer consulta carrega, nada aparece (sem piscar).',
+        refs: ['D-11'],
+        kind: 'call',
+      },
+      {
+        from: 'reminder',
+        to: 'domain',
+        label: 'describeLastBackup(daysSinceLastBackup(...))',
+        detail:
+          '"Último backup: nunca / hoje / há 1 dia / há N dias", em dias de calendário locais; relógio atrasado conta como "hoje" (D-48(c)). O mesmo texto aparece no topo de Ajustes → Backup (LastBackupStatus).',
+        refs: ['RF-10', 'D-48'],
+        kind: 'call',
+      },
+      {
+        from: 'reminder',
+        to: 'home',
+        label: 'Notice subtle + Link "Fazer backup" (ou null)',
+        detail:
+          'O Início só mostra "Último backup" dentro do aviso (D-48(c), aguardando confirmação — ver a pendência D-48(c) × RF-10 em Saúde).',
+        refs: ['D-48'],
+        kind: 'return',
+      },
+      {
+        from: 'user',
+        to: 'reminder',
+        label: 'toca "Fazer backup"',
+        detail: 'Link do react-router com alvo de 44 px (nada depende de hover).',
+        refs: ['RF-10'],
+        kind: 'event',
+      },
+      {
+        from: 'reminder',
+        to: 'page',
+        label: 'navega para /ajustes/backup',
+        detail:
+          'Tela lazy: só agora o chunk com crypto, backupFormat e o zod do backup é carregado.',
+        refs: ['RF-10', 'D-41'],
+        kind: 'call',
+      },
+      {
+        from: 'settings',
+        to: 'reminder',
+        label: 'lastBackupAt novo → o aviso some',
+        detail: 'Depois de recordBackupDone, o useLiveQuery re-emite e o aviso deixa de aparecer.',
+        refs: ['D-11'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/domain/backupReminder.test.ts',
+      'src/domain/backupReminder.audit.test.ts',
+      'src/features/home/BackupReminder.test.tsx',
+      'src/repositories/settingsRepository.test.ts',
+    ],
+  },
 ]
 
 /** Fluxos exigidos pela §6.12 que ainda não existem no código. */
 export const PLANNED_FLOWS: readonly PlannedFlow[] = [
-  {
-    title: 'Exportar e importar backup (criptografia)',
-    phase: 6,
-    requirements: ['RF-10', 'RNF-05'],
-    summary: 'Leitura em transação → PBKDF2/AES-GCM → Web Share/download; importação atômica.',
-  },
   {
     title: 'Navegar nas visões',
     phase: 7,
@@ -3932,6 +4478,140 @@ export const PLANNED_FLOWS: readonly PlannedFlow[] = [
   },
 ]
 
+// ---------- pipeline de criptografia do backup (§6.8, RNF-05) ----------
+
+const CRYPTO_MODULE = 'src/lib/crypto.ts'
+
+/** Caixas do diagrama "senha + sal → PBKDF2 → chave → AES-GCM + IV → ciphertext → envelope". */
+export const CRYPTO_PIPELINE: readonly PipelineBox[] = [
+  {
+    id: 'password',
+    title: 'Senha (NFC)',
+    lines: ["normalize('NFC')", 'UTF-8 (TextEncoder)'],
+    detail:
+      'A senha digitada (mínimo 8 caracteres — D-08) é normalizada em NFC dentro da derivação, na exportação e na importação: "é" composto ou "e" + acento combinante abre o mesmo backup. Nunca vai para log nem para mensagem de erro.',
+    column: 0,
+    row: 0,
+    tone: 'secret',
+    module: CRYPTO_MODULE,
+    refs: ['D-08', 'D-47'],
+  },
+  {
+    id: 'salt',
+    title: 'Sal (16 bytes)',
+    lines: ['getRandomValues', 'novo a cada exportação'],
+    detail:
+      'Gerado por crypto.getRandomValues a cada exportação (dois backups com a mesma senha têm chaves diferentes). Público: vai em base64 para kdf.salt do envelope.',
+    column: 0,
+    row: 1,
+    tone: 'input',
+    module: CRYPTO_MODULE,
+    refs: ['RNF-05'],
+  },
+  {
+    id: 'pbkdf2',
+    title: 'PBKDF2-SHA-256',
+    lines: ['600.000 iterações', 'importKey → deriveKey'],
+    detail:
+      'importKey("raw", senha, "PBKDF2") e deriveKey com o sal e PBKDF2_ITERATIONS = 600.000 (só os testes passam menos; o envelope grava o número usado). Na importação, iterações acima de 10.000.000 são recusadas antes de derivar. ~345 ms no PC; no iPhone será medido na Fase 11.',
+    column: 1,
+    row: 0,
+    tone: 'process',
+    module: CRYPTO_MODULE,
+    refs: ['RNF-05', 'D-47'],
+  },
+  {
+    id: 'key',
+    title: 'Chave AES-GCM 256',
+    lines: ['não extraível', 'usos: encrypt, decrypt'],
+    detail:
+      'CryptoKey de 256 bits com extractable = false: nem o próprio app consegue exportá-la. Vive só durante a operação.',
+    column: 2,
+    row: 0,
+    tone: 'secret',
+    module: CRYPTO_MODULE,
+    refs: ['RNF-05', 'D-47'],
+  },
+  {
+    id: 'plaintext',
+    title: 'Conteúdo em claro',
+    lines: ['buildBackupContent', 'JSON.stringify → UTF-8'],
+    detail:
+      '{ app: "app-gastos", schemaVersion, exportedAt, data } com as 5 tabelas (settings só com theme), lidas numa transação r pelo backupRepository. Existe só na memória: nunca é gravado em disco.',
+    column: 2,
+    row: 1,
+    tone: 'input',
+    module: 'src/lib/backupFormat.ts',
+    refs: ['RF-10', 'D-47'],
+  },
+  {
+    id: 'aes',
+    title: 'AES-GCM encrypt',
+    lines: ['crypto.subtle.encrypt', 'autentica (tag de 16 B)'],
+    detail:
+      'Cifra autenticada: na importação, senha errada ou um único bit alterado faz o decrypt falhar com OperationError, que vira BackupDecryptionError ("Senha incorreta ou arquivo corrompido" — CA-10.2).',
+    column: 3,
+    row: 0,
+    tone: 'process',
+    module: CRYPTO_MODULE,
+    refs: ['RNF-05', 'CA-10.2'],
+  },
+  {
+    id: 'iv',
+    title: 'IV (12 bytes)',
+    lines: ['getRandomValues', 'novo a cada exportação'],
+    detail:
+      'Vetor de inicialização do AES-GCM, nunca reutilizado com a mesma chave. Público: vai em base64 para cipher.iv do envelope.',
+    column: 3,
+    row: 1,
+    tone: 'input',
+    module: CRYPTO_MODULE,
+    refs: ['RNF-05'],
+  },
+  {
+    id: 'ciphertext',
+    title: 'ciphertext',
+    lines: ['bytes cifrados + tag', 'base64 em blocos de 32 KiB'],
+    detail:
+      'bytesToBase64 converte em blocos de 32 KiB (String.fromCharCode com milhões de argumentos estouraria a pilha). Nenhuma descrição, valor ou tag fica legível (CA-10.6).',
+    column: 4,
+    row: 0,
+    tone: 'output',
+    module: CRYPTO_MODULE,
+    refs: ['CA-10.6'],
+  },
+  {
+    id: 'envelope',
+    title: 'Envelope (§6.8)',
+    lines: [
+      'format, formatVersion',
+      'createdAt',
+      'kdf { iterations, salt }',
+      'cipher { iv }',
+      'ciphertext',
+    ],
+    detail:
+      'JSON gravado no File gastos-backup-YYYY-MM-DD.json: só parâmetros públicos e o texto cifrado. Na importação, parseBackupEnvelope (zod) confere tudo isso antes de derivar a chave.',
+    column: 5,
+    row: 0,
+    tone: 'output',
+    module: CRYPTO_MODULE,
+    refs: ['RF-10', 'CA-10.6', 'CA-10.3'],
+  },
+]
+
+export const CRYPTO_PIPELINE_ARROWS: readonly PipelineArrow[] = [
+  { from: 'password', to: 'pbkdf2' },
+  { from: 'salt', to: 'pbkdf2' },
+  { from: 'pbkdf2', to: 'key' },
+  { from: 'key', to: 'aes' },
+  { from: 'plaintext', to: 'aes' },
+  { from: 'iv', to: 'aes' },
+  { from: 'aes', to: 'ciphertext' },
+  { from: 'ciphertext', to: 'envelope' },
+  { from: 'salt', to: 'envelope', copy: true },
+  { from: 'iv', to: 'envelope', copy: true },
+]
 // ---------- modelo de dados, estado e domínio ----------
 
 /** Esquema da §6.4 (para comparar com o esquema que o scanner lê de src/db/database.ts). */
@@ -3945,37 +4625,47 @@ export const TABLE_NOTES: readonly TableNote[] = [
   {
     name: 'tags',
     type: 'Tag',
-    inBackup: 'sim',
+    inBackup: true,
+    backupDetail:
+      'todos os registros; na importação, nameKey precisa ser igual a toTagNameKey(name) e único (D-47(c)); ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 3,
-    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). Fase 4: listTags/useTags (ordenadas por nome) alimentam o TagPicker e as linhas dos últimos lançamentos; transactionsRepository lê tags só em assertTagExists, dentro da transação rw do lançamento (D-39); o atalho do CA-01.7 grava pelo mesmo TagForm → createTag. Fase 5: useTags também alimenta o filtro de tag da lista (TagFilter) e a detecção de tag do filtro excluída (useTransactionList). &nameKey (toTagNameKey = foldText + trim desde a Fase 5: NFD, sem marcas \\p{M}, minúsculas) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags).',
+    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). Fase 4: listTags/useTags (ordenadas por nome) alimentam o TagPicker e as linhas dos últimos lançamentos; transactionsRepository lê tags só em assertTagExists, dentro da transação rw do lançamento (D-39); o atalho do CA-01.7 grava pelo mesmo TagForm → createTag. Fase 5: useTags também alimenta o filtro de tag da lista (TagFilter) e a detecção de tag do filtro excluída (useTransactionList). &nameKey (toTagNameKey = foldText + trim desde a Fase 5: NFD, sem marcas \\p{M}, minúsculas) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags). Fase 6: backupRepository lê tudo na exportação (transação r) e, na importação, limpa e regrava com bulkAdd na transação rw (D-07).',
   },
   {
     name: 'transactions',
     type: 'Transaction',
-    inBackup: 'sim',
+    inBackup: true,
+    backupDetail:
+      'todos os registros; na importação, tagId/recurringId/installmentGroupId precisam existir e installmentNumber ≤ count do parcelamento (hasReferentialIntegrity — D-47(c)); ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 4,
-    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (toArray() da tabela inteira + overallBalance — D-42), getMonthTotals (between + totals), listRecentTransactions (where("date").belowOrEqual(hoje).reverse().limit(5) acha a data de corte; releitura between(corte, hoje) numa transação r; ordem por takeMostRecent — D-39/D-40) e getTransaction; cada uma com hook useLiveQuery. Fase 5 (D-44(a)): listTransactionsInPeriod(from, to) lê o índice date sempre em ordem crescente — between (período fechado), aboveOrEqual/belowOrEqual (uma ponta) ou orderBy("date") (sem período) — com toArray() (um getAll() nativo; .reverse() do Dexie abriria um cursor com uma volta por registro no Safari) e inverte em memória antes de sortByRecency; countTransactions() usa count() sem ler registros. Hooks useTransactionsInPeriod e useTransactionCount. Os índices type/tagId não são usados pela lista: tipo, tag e texto são filtrados no domínio. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9).',
+    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (toArray() da tabela inteira + overallBalance — D-42), getMonthTotals (between + totals), listRecentTransactions (where("date").belowOrEqual(hoje).reverse().limit(5) acha a data de corte; releitura between(corte, hoje) numa transação r; ordem por takeMostRecent — D-39/D-40) e getTransaction; cada uma com hook useLiveQuery. Fase 5 (D-44(a)): listTransactionsInPeriod(from, to) lê o índice date sempre em ordem crescente — between (período fechado), aboveOrEqual/belowOrEqual (uma ponta) ou orderBy("date") (sem período) — com toArray() (um getAll() nativo; .reverse() do Dexie abriria um cursor com uma volta por registro no Safari) e inverte em memória antes de sortByRecency; countTransactions() usa count() sem ler registros. Hooks useTransactionsInPeriod e useTransactionCount. Os índices type/tagId não são usados pela lista: tipo, tag e texto são filtrados no domínio. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9). Fase 6: backupRepository lê e regrava a tabela inteira (exportar/importar); o BackupReminder do Início usa useTransactionCount (count()).',
   },
   {
     name: 'recurrings',
     type: 'Recurring',
-    inBackup: 'sim',
+    inBackup: true,
+    backupDetail:
+      'todos os registros, com amounts (ordem estritamente crescente de fromPeriod, 1º igual ao startPeriod) e skippedPeriods; ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 9,
-    note: 'Sem repositório de escrita até a Fase 9. Desde a Fase 3 o tagsRepository conta os recorrentes de uma tag com filter().count() (sem índice tagId na v1 — §6.4; tabela pequena) para o bloqueio de exclusão (D-02). Hoje só as ferramentas DEV gravam (4 recorrentes — D-30) e src/test/seedDatabase.ts nos testes.',
+    note: 'Sem repositório de escrita até a Fase 9. Desde a Fase 3 o tagsRepository conta os recorrentes de uma tag com filter().count() (sem índice tagId na v1 — §6.4; tabela pequena) para o bloqueio de exclusão (D-02). Hoje só as ferramentas DEV gravam (4 recorrentes — D-30) e src/test/seedDatabase.ts nos testes. Fase 6: backupRepository lê e regrava (exportar/importar).',
   },
   {
     name: 'installmentGroups',
     type: 'InstallmentGroup',
-    inBackup: 'sim',
+    inBackup: true,
+    backupDetail:
+      'todos os registros (2 a 48 parcelas — D-47(c)); ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 10,
-    note: 'Sem repositório de escrita até a Fase 10. Desde a Fase 3 o tagsRepository conta os parcelamentos de uma tag com filter().count() (sem índice tagId na v1 — §6.4) para o bloqueio de exclusão (D-02). Hoje só as ferramentas DEV gravam (3 parcelamentos — D-30) e src/test/seedDatabase.ts nos testes.',
+    note: 'Sem repositório de escrita até a Fase 10. Desde a Fase 3 o tagsRepository conta os parcelamentos de uma tag com filter().count() (sem índice tagId na v1 — §6.4) para o bloqueio de exclusão (D-02). Hoje só as ferramentas DEV gravam (3 parcelamentos — D-30) e src/test/seedDatabase.ts nos testes. Fase 6: backupRepository lê e regrava (exportar/importar).',
   },
   {
     name: 'settings',
     type: 'Setting',
-    inBackup: 'só a chave theme (lastBackupAt e persistRequested são locais)',
+    inBackup: true,
+    backupDetail:
+      'só a chave theme (selectBackupSettings; settings: [] se nunca foi escolhido). lastBackupAt e persistRequested são do aparelho: não vão para o arquivo e a importação os preserva; outra chave no arquivo = "Arquivo inválido" (§6.8, D-47(d)); tema conferido em backupRepository.theme.test.ts.',
     usedFromPhase: 2,
-    note: 'Fase 2: chave theme (fonte da verdade do tema, com espelho em localStorage — D-28) e persistRequested (data do pedido de persist(), gravada antes do pedido — D-28). lastBackupAt entra na Fase 6. "Apagar todos os dados" (DEV) mantém esta tabela (D-30).',
+    note: 'Fase 2: chave theme (fonte da verdade do tema, com espelho em localStorage — D-28) e persistRequested (data do pedido de persist(), gravada antes do pedido — D-28). Fase 6: lastBackupAt (ISO 8601) gravado por recordBackupDone só depois de a entrega dar shared ou downloaded, lido por useLastBackupAt (Ajustes → Backup e BackupReminder); a importação troca só theme (put na transação rw) e atualiza o espelho do localStorage depois do commit (D-28). "Apagar todos os dados" (DEV) mantém esta tabela (D-30).',
   },
 ]
 
@@ -4061,7 +4751,6 @@ export const UI_FIELD_ACCESS: readonly UiFieldAccess[] = [
 ]
 
 export const PLANNED_DOMAIN: readonly PlannedDomainFunction[] = [
-  { module: 'lib/crypto.ts + lib/backupFormat.ts + lib/share.ts', names: ['(backup)'], phase: 6 },
   {
     module: 'domain/recurring.ts',
     names: ['amountFor', 'isActiveIn', 'pendingOccurrences', 'setAmountFrom', 'projected'],
@@ -4169,18 +4858,32 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
   {
     number: 5,
     title: 'Local-first (nada sai do aparelho)',
-    enforcement: 'check-consistency (chamadas de rede no código).',
-    modules: [],
-    tests: [],
-    decisions: [],
+    enforcement:
+      'check-consistency (chamadas de rede no código). Fase 6: o único caminho para fora é o arquivo de backup que o usuário entrega pela folha de compartilhamento ou pelo download (lib/share), sem rede.',
+    modules: ['src/lib/share.ts', 'src/repositories/backupRepository.ts'],
+    tests: ['src/lib/share.test.ts'],
+    decisions: ['D-08'],
   },
   {
     number: 6,
     title: 'Lógica de negócio pura e testada',
-    enforcement: 'Regras de camada (domain/lib sem React e sem Dexie); cobertura RNF-07.',
-    modules: [],
-    tests: [],
-    decisions: [],
+    enforcement:
+      'Regras de camada (domain/lib sem React e sem Dexie); cobertura RNF-07. Fase 6: criptografia, formato/migrações/integridade do backup e a regra do lembrete são funções puras; backupFormat recebe SCHEMA_VERSION por parâmetro para não importar o Dexie (D-47(b)).',
+    modules: [
+      'src/lib/crypto.ts',
+      'src/lib/backupFormat.ts',
+      'src/domain/backupReminder.ts',
+      'src/domain/backupPasswordSchema.ts',
+    ],
+    tests: [
+      'src/lib/crypto.test.ts',
+      'src/lib/crypto.audit.test.ts',
+      'src/lib/backupFormat.test.ts',
+      'src/lib/backupFormat.audit.test.ts',
+      'src/domain/backupReminder.test.ts',
+      'src/domain/backupPasswordSchema.test.ts',
+    ],
+    decisions: ['D-47'],
   },
   {
     number: 7,
@@ -4192,6 +4895,7 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/repositories/transactionsRepository.ts',
       'src/repositories/settingsRepository.ts',
       'src/repositories/databaseInfo.ts',
+      'src/repositories/backupRepository.ts',
     ],
     tests: [],
     decisions: ['D-30', 'D-34', 'D-37'],
@@ -4200,12 +4904,18 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
     number: 8,
     title: 'Escritas atômicas (transação do Dexie)',
     enforcement: 'Revisão; testes de repositório.',
-    modules: ['src/repositories/tagsRepository.ts', 'src/repositories/transactionsRepository.ts'],
+    modules: [
+      'src/repositories/tagsRepository.ts',
+      'src/repositories/transactionsRepository.ts',
+      'src/repositories/backupRepository.ts',
+    ],
     tests: [
       'src/repositories/tagsRepository.test.ts',
       'src/repositories/transactionsRepository.crud.test.ts',
+      'src/repositories/backupRepository.test.ts',
+      'src/repositories/backupRepository.audit.test.ts',
     ],
-    decisions: ['D-02', 'D-39'],
+    decisions: ['D-02', 'D-39', 'D-07', 'D-47'],
   },
   {
     number: 9,
@@ -4251,10 +4961,11 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
   {
     number: 13,
     title: 'Nada de segredos no front-end',
-    enforcement: 'check-consistency (VITE_* com cara de segredo).',
-    modules: [],
-    tests: [],
-    decisions: [],
+    enforcement:
+      'check-consistency (VITE_* com cara de segredo). Fase 6: a chave do backup vem só da senha digitada (PBKDF2), não é extraível e nunca é gravada; a senha não vai para log nem para mensagem de erro e sai do formulário depois de exportar.',
+    modules: ['src/lib/crypto.ts', 'src/features/backup/useExportBackup.ts'],
+    tests: ['src/lib/crypto.audit.test.ts'],
+    decisions: ['D-08', 'D-47'],
   },
   {
     number: 14,
@@ -4281,7 +4992,7 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
     number: 16,
     title: 'Botão de envio só ativo com o formulário válido (spec 1.13)',
     enforcement:
-      'Padrão em src/lib/formSubmit.ts (LIVE_VALIDATION + canSubmitForm com startsValid), obrigatório em todos os formulários; testes de tela conferem o botão desabilitado. Aplicado ao formulário de tags (Fase 3) e ao de lançamento (Fase 4: "Lançar" e "Salvar").',
+      'Padrão em src/lib/formSubmit.ts (LIVE_VALIDATION + canSubmitForm com startsValid), obrigatório em todos os formulários; testes de tela conferem o botão desabilitado. Aplicado ao formulário de tags (Fase 3), ao de lançamento (Fase 4: "Lançar" e "Salvar") e aos de backup (Fase 6: "Exportar backup" também fica desabilitado durante a geração/entrega; "Importar backup" só com arquivo e senha; falhas de gravação ou de abertura ficam fora do setError — D-36).',
     modules: [
       'src/lib/formSubmit.ts',
       'src/components/tags/useTagForm.ts',
@@ -4289,9 +5000,12 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/components/transactions/useTransactionForm.ts',
       'src/components/transactions/TransactionForm.tsx',
       'src/components/ui/Button.tsx',
+      'src/features/backup/useExportBackup.ts',
+      'src/features/backup/useImportBackup.ts',
     ],
     tests: [
       'src/lib/formSubmit.test.ts',
+      'src/features/backup/BackupPage.test.tsx',
       'src/features/tags/TagsPage.validation.test.tsx',
       'src/features/tags/TagsPage.test.tsx',
       'src/features/home/HomePage.form.test.tsx',
@@ -4333,8 +5047,28 @@ export const DECISIONS: readonly DecisionInfo[] = [
   { id: 'D-04', title: 'Recorrentes mensais, sem dia fixo', status: 'confirmed', impacts: [] },
   { id: 'D-05', title: 'Pendências só no Previsto', status: 'confirmed', impacts: [] },
   { id: 'D-06', title: 'Parcelamento só para saídas', status: 'confirmed', impacts: [] },
-  { id: 'D-07', title: 'Importação substitui tudo', status: 'confirmed', impacts: [] },
-  { id: 'D-08', title: 'Criptografia só no arquivo de backup', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-07',
+    title: 'Importação substitui tudo',
+    status: 'confirmed',
+    impacts: [
+      'src/repositories/backupRepository.ts',
+      'src/features/backup/useImportBackup.ts',
+      'src/features/backup/ConfirmImportDialog.tsx',
+      'src/repositories/backupRepository.test.ts',
+      'src/features/backup/BackupPage.test.tsx',
+    ],
+  },
+  {
+    id: 'D-08',
+    title: 'Criptografia só no arquivo de backup (senha obrigatória, mínimo 8)',
+    status: 'confirmed',
+    impacts: [
+      'src/lib/crypto.ts',
+      'src/domain/backupPasswordSchema.ts',
+      'src/domain/backupPasswordSchema.test.ts',
+    ],
+  },
   {
     id: 'D-09',
     title: 'Nome provisório "Meus Gastos"',
@@ -4347,7 +5081,17 @@ export const DECISIONS: readonly DecisionInfo[] = [
     status: 'confirmed',
     impacts: ['src/domain/transactionSchema.ts', 'src/domain/transactionSchema.test.ts'],
   },
-  { id: 'D-11', title: 'Lembrete de backup após 7 dias', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-11',
+    title: 'Lembrete de backup após 7 dias',
+    status: 'confirmed',
+    impacts: [
+      'src/domain/backupReminder.ts',
+      'src/features/home/BackupReminder.tsx',
+      'src/domain/backupReminder.test.ts',
+      'src/features/home/BackupReminder.test.tsx',
+    ],
+  },
   { id: 'D-12', title: 'Gráficos com Chart.js', status: 'confirmed', impacts: [] },
   {
     id: 'D-13',
@@ -4457,6 +5201,8 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/lib/themeStorage.ts',
       'src/repositories/persistentStorageRepository.ts',
       'src/app/storage/usePersistentStorageRequest.ts',
+      'src/repositories/backupRepository.ts',
+      'src/repositories/backupRepository.theme.test.ts',
     ],
   },
   {
@@ -4544,6 +5290,8 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/features/tags/TagsPage.test.tsx',
       'src/components/transactions/useTransactionForm.ts',
       'src/components/transactions/TransactionForm.tsx',
+      'src/features/backup/useExportBackup.ts',
+      'src/features/backup/useImportBackup.ts',
     ],
   },
   {
@@ -4614,7 +5362,13 @@ export const DECISIONS: readonly DecisionInfo[] = [
     id: 'D-41',
     title: 'Nenhuma otimização do bundle principal agora; medir a abertura no iPhone na Fase 11',
     status: 'confirmed',
-    impacts: ['src/features/home/HomePage.tsx', 'src/app/lazyPages.tsx'],
+    impacts: [
+      'src/features/home/HomePage.tsx',
+      'src/app/lazyPages.tsx',
+      'src/features/home/BackupReminder.tsx',
+      'src/repositories/settingsRepository.ts',
+      'src/features/backup/BackupPage.tsx',
+    ],
   },
   {
     id: 'D-42',
@@ -4702,6 +5456,43 @@ export const DECISIONS: readonly DecisionInfo[] = [
       '.claude/skills/atualizar-arquitetura/scan-architecture.mjs',
     ],
   },
+  {
+    id: 'D-47',
+    title:
+      'Backup: envelope e cripto em lib/crypto (sal/IV novos, chave não extraível, senha NFC, base64 em blocos), backupFormat sem Dexie (migrações em cadeia, zod com invariantes, integridade, tetos de 10M iterações e 50 MB), settings só theme, repositório com transação r e rw única; useLastBackupAt no settingsRepository',
+    status: 'pending',
+    impacts: [
+      'src/lib/crypto.ts',
+      'src/lib/backupFormat.ts',
+      'src/repositories/backupRepository.ts',
+      'src/repositories/settingsRepository.ts',
+      'src/lib/crypto.audit.test.ts',
+      'src/lib/backupFormat.audit.test.ts',
+      'src/repositories/backupRepository.audit.test.ts',
+      'src/test/backupDataset.ts',
+    ],
+  },
+  {
+    id: 'D-48',
+    title:
+      'Tela de backup e lembrete: textos e estados de exportar/importar, "Salvar backup" quando a folha é bloqueada, modal "Importar backup?", "Último backup" no Início só dentro do aviso, PasswordInput/FileInput, Button com ref e foco no resultado',
+    status: 'pending',
+    impacts: [
+      'src/features/backup/BackupPage.tsx',
+      'src/features/backup/ExportBackupSection.tsx',
+      'src/features/backup/useExportBackup.ts',
+      'src/features/backup/ImportBackupSection.tsx',
+      'src/features/backup/useImportBackup.ts',
+      'src/features/backup/ConfirmImportDialog.tsx',
+      'src/features/backup/LastBackupStatus.tsx',
+      'src/features/backup/backupTexts.ts',
+      'src/features/home/BackupReminder.tsx',
+      'src/components/ui/PasswordInput.tsx',
+      'src/components/ui/FileInput.tsx',
+      'src/components/ui/Button.tsx',
+      'src/lib/share.ts',
+    ],
+  },
 ]
 
 // ---------- dependências externas ----------
@@ -4746,6 +5537,79 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 // ---------- achados de arquitetura (reportados, não corrigidos) ----------
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
+  {
+    title: 'D-47 e D-48 aguardando confirmação do dono',
+    severity: 'warn',
+    detail:
+      'Registradas na §8.1 em 22/10/2026 (spec 1.23, ajustadas na 1.24 pela revisão). D-47: formato, criptografia e repositório do backup — envelope da §6.8 com a Web Crypto nativa (sal de 16 e IV de 12 bytes novos, chave AES-GCM 256 não extraível, PBKDF2-SHA-256 600.000, senha em NFC, base64 em blocos de 32 KiB, BackupDecryptionError); backupFormat sem Dexie (SCHEMA_VERSION por parâmetro, BACKUP_MIGRATIONS em cadeia, zod com as invariantes da §6.3, ordem de amounts, nameKey coerente, integridade com parcela ≤ count, tetos de 10.000.000 iterações e 50 MB); settings só com theme; leitura numa transação r e importação numa única rw; useLastBackupAt no settingsRepository. D-48: textos e estados da tela de backup, "Salvar backup" quando a folha é bloqueada, modal "Importar backup?", "Último backup" no Início só dentro do aviso, PasswordInput/FileInput, Button com ref e foco no resultado. Junto com a D-46 (projetos do Vitest), são três decisões aguardando confirmação. Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'docs/SPEC.md',
+      'src/lib/crypto.ts',
+      'src/lib/backupFormat.ts',
+      'src/repositories/backupRepository.ts',
+      'src/features/backup/BackupPage.tsx',
+      'src/features/home/BackupReminder.tsx',
+    ],
+  },
+  {
+    title: 'Spec: "Último backup" no Início (RF-10) × só dentro do aviso (D-48(c))',
+    severity: 'warn',
+    detail:
+      'O RF-10 ("Lembrete") diz: "Em Ajustes e na tela inicial aparece \'Último backup: há N dias\'". A D-48(c) decidiu que, no Início, o texto só aparece dentro do aviso dos 7 dias (com pelo menos um lançamento e sem backup ou com 7 dias ou mais); em Ajustes → Backup ele aparece sempre (LastBackupStatus). Hoje o código segue a D-48(c): com backup recente, o Início não mostra "Último backup". Depende do dono: confirmar a D-48 (e ajustar o texto do RF-10) ou pedir a linha sempre visível no Início.',
+    modules: [
+      'docs/SPEC.md',
+      'src/features/home/BackupReminder.tsx',
+      'src/features/home/HomePage.tsx',
+      'src/features/backup/LastBackupStatus.tsx',
+      'src/domain/backupReminder.ts',
+    ],
+  },
+  {
+    title: 'Pendente (dono): teste manual da Fase 6 no iPhone',
+    severity: 'warn',
+    detail:
+      'Fase 6 implementada, testes reforçados (2.214 passando), revisão aprovada (inclusive segurança) e sugestões aplicadas; falta o roteiro da §7 no iPhone: exportar com uma senha → folha de compartilhamento → "Salvar em Arquivos" → iCloud Drive; abrir o arquivo no app Arquivos e conferir que está ilegível; importar com senha errada (erro, nada muda); remover o app da tela de início, adicionar de novo (app vazio) e importar (todos os dados voltam); conferir "Último backup: hoje". Só depois disso o app pode receber dados reais. Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'src/features/backup/BackupPage.tsx',
+      'src/lib/share.ts',
+      'src/lib/crypto.ts',
+      'src/repositories/backupRepository.ts',
+    ],
+  },
+  {
+    title: 'PBKDF2 com 600.000 iterações: ~345 ms no PC, iPhone ainda não medido',
+    severity: 'info',
+    detail:
+      'D-47(f): derivar a chave leva ~345 ms no PC de desenvolvimento (Node 22) e validar um backup de 10.000 lançamentos (~3 MB) ~130 ms. No Safari do iPhone a derivação pode ser várias vezes mais lenta; o botão mostra "Gerando backup…"/"Verificando backup…" e, se a demora fizer o navegador recusar a folha de compartilhamento (NotAllowedError), aparece "Salvar backup". RNF-05 fixa as 600.000 iterações: nada a mudar agora.',
+    decided: 'Medir na Fase 11, junto com a abertura do app (D-41).',
+    modules: ['src/lib/crypto.ts', 'src/features/backup/useExportBackup.ts', 'src/lib/share.ts'],
+  },
+  {
+    title: 'Fase 6: Início +1,6 kB gzip e o Rolldown separou o chunk formSubmit (14,5 kB gzip)',
+    severity: 'info',
+    detail:
+      'O Início ganhou o BackupReminder (domain/backupReminder + useLastBackupAt + useTransactionCount): ~1,6 kB gzip a mais no caminho de abertura. A criptografia, o backupFormat e o zod do backup ficam no chunk lazy BackupPage-*.js (~7,3 kB gzip). Com a tela de backup usando também o formulário, o Rolldown passou a separar o código compartilhado em formSubmit-*.js (~14,5 kB gzip: react-hook-form, resolvers e o padrão do princípio 16) e dexie-react-hooks-*.js: é o mesmo código que antes ficava no index-*.js, sem peso novo. Enquadra-se na D-41.',
+    decided: 'Sem otimização agora (D-41); medir na Fase 11.',
+    modules: [
+      'src/features/home/HomePage.tsx',
+      'src/features/home/BackupReminder.tsx',
+      'src/repositories/settingsRepository.ts',
+      'src/features/backup/BackupPage.tsx',
+      'src/app/lazyPages.tsx',
+      'src/lib/formSubmit.ts',
+    ],
+  },
+  {
+    title: 'PasswordInput e FileInput sem teste próprio',
+    severity: 'info',
+    detail:
+      'Os dois primitivos novos de components/ui (D-48(d)) são cobertos só pelos testes de tela (BackupPage.test.tsx: campos achados pelo rótulo, autocomplete new-password, escolha do arquivo e troca de senha/arquivo limpando o erro). Mesma situação de Button, EmptyState e ErrorAlert desde a Fase 3; aceitável enquanto só a tela de backup os usa.',
+    modules: [
+      'src/components/ui/PasswordInput.tsx',
+      'src/components/ui/FileInput.tsx',
+      'src/features/backup/BackupPage.test.tsx',
+    ],
+  },
   {
     title: 'D-46 aguardando confirmação do dono',
     severity: 'warn',
@@ -5047,7 +5911,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'Princípio 16: falha genérica de gravação fora do setError do React Hook Form',
     severity: 'info',
     detail:
-      'No react-hook-form 7.90, setError (inclusive no root) força isValid = false até a próxima validação; com "Salvar" ligado a canSubmitForm, uma falha do IndexedDB deixaria o botão desabilitado sem o usuário ter o que corrigir. Por isso useTagForm guarda essa falha num useState (saveError) e só o nome repetido, que é erro de campo, usa setError("name"). Desde a Fase 4 o useTransactionForm segue o mesmo padrão (saveError para falha de gravação, tag ou lançamento inexistente); os próximos formulários (recorrente, parcelamento, backup) também devem seguir src/lib/formSubmit.ts.',
+      'No react-hook-form 7.90, setError (inclusive no root) força isValid = false até a próxima validação; com "Salvar" ligado a canSubmitForm, uma falha do IndexedDB deixaria o botão desabilitado sem o usuário ter o que corrigir. Por isso useTagForm guarda essa falha num useState (saveError) e só o nome repetido, que é erro de campo, usa setError("name"). Desde a Fase 4 o useTransactionForm segue o mesmo padrão (saveError para falha de gravação, tag ou lançamento inexistente); os próximos formulários (recorrente, parcelamento) também devem seguir src/lib/formSubmit.ts. Fase 6: os formulários de backup seguem o padrão — useExportBackup guarda a falha em state.error e useImportBackup em openError/restoreError, fora do setError.',
     modules: [
       'src/lib/formSubmit.ts',
       'src/components/transactions/useTransactionForm.ts',
@@ -5283,7 +6147,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'index.html':
     'Script inline (único) que aplica tema e theme-color antes do bundle (CA-09.3). Duplica regras de src/lib/theme.ts; a sincronia é garantida por indexHtmlThemeScript.test.ts. Fase 1: favicon.png, apple-touch-icon e metatags do iOS (capable, status-bar-style, title "Gastos" — D-25); o <link rel="manifest" crossorigin="use-credentials"> NÃO fica aqui: é injetado no build pelo plugin (indexHtmlPwaTags.test.ts impede a duplicata).',
   'vite.config.ts':
-    'Plugins: React + React Compiler (via Babel) + Tailwind + VitePWA(PWA_OPTIONS) (importado de src/app/pwa/pwaOptions.ts por caminho relativo). Alias @/ → src/. Desde a D-43 é defineConfig(({ command }) => ...) e o alias @tailwind-sources aponta para src/styles/tailwind-sources.build.css quando command === "build" e para tailwind-sources.serve.css nos outros casos. Vitest no mesmo arquivo, desde a D-46 em dois projetos (test.projects, ambos com extends: true, herdando plugins, os aliases @/ e @tailwind-sources e o define): unit (environment node, setup src/test/setup.unit.ts, include src/**/*.test.ts menos DOM_TEST_FILES — 48 arquivos, 1.450 testes, ~15 s) e dom (jsdom, setup src/test/setup.ts, todo *.test.tsx + os 12 *.test.ts de DOM_TEST_FILES — 37 arquivos, 275 testes, ~44 s). Um *.test.ts novo que use DOM (document, window, localStorage, matchMedia, renderHook) falha em node com "document is not defined" e tem de entrar em DOM_TEST_FILES. Pool forks mantido: com threads os testes de fuso quebram (process.env.TZ é do processo, compartilhado entre as threads). Cobertura ≥ 90% em domain/lib somando os dois projetos (RNF-07). O scanner lê DOM_TEST_FILES e marca o projeto de cada teste (testProject, mostrado no inspetor). Fase 2: define { __APP_VERSION__ } com o version do package.json (D-27), que vale também nos testes.',
+    'Plugins: React + React Compiler (via Babel) + Tailwind + VitePWA(PWA_OPTIONS) (importado de src/app/pwa/pwaOptions.ts por caminho relativo). Alias @/ → src/. Desde a D-43 é defineConfig(({ command }) => ...) e o alias @tailwind-sources aponta para src/styles/tailwind-sources.build.css quando command === "build" e para tailwind-sources.serve.css nos outros casos. Vitest no mesmo arquivo, desde a D-46 em dois projetos (test.projects, ambos com extends: true, herdando plugins, os aliases @/ e @tailwind-sources e o define): unit (environment node, setup src/test/setup.unit.ts, include src/**/*.test.ts menos DOM_TEST_FILES — 48 arquivos, 1.450 testes, ~15 s) e dom (jsdom, setup src/test/setup.ts, todo *.test.tsx + os 12 *.test.ts de DOM_TEST_FILES — 37 arquivos, 275 testes, ~44 s). Um *.test.ts novo que use DOM (document, window, localStorage, matchMedia, renderHook) falha em node com "document is not defined" e tem de entrar em DOM_TEST_FILES. Pool forks mantido: com threads os testes de fuso quebram (process.env.TZ é do processo, compartilhado entre as threads). Cobertura ≥ 90% em domain/lib somando os dois projetos (RNF-07). O scanner lê DOM_TEST_FILES e marca o projeto de cada teste (testProject, mostrado no inspetor). Fase 2: define { __APP_VERSION__ } com o version do package.json (D-27), que vale também nos testes. Fase 6: DOM_TEST_FILES ganhou src/lib/share.test.ts (navigator.share, document e URL.createObjectURL) e src/repositories/backupRepository.theme.test.ts (espelho do tema no localStorage) — agora 14 *.test.ts no dom; no total 98 arquivos de teste: 57 no unit e 41 no dom.',
   'tsconfig.node.json':
     'Inclui vite.config.ts e src/app/pwa/pwaOptions.ts (Fase 1) e, desde a D-43, src/styles/tailwindEntry.test.ts (lê o disco com node:fs), com allowImportingTsExtensions para o import relativo com .ts.',
   'tsconfig.app.json':
@@ -5362,7 +6226,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/domain/tagColor.ts':
     'readableTextColor pela luminância relativa (WCAG). Desde a Fase 3 usado pelo TagChip (CA-03.6) e pela paleta do TagColorPicker; tags.test.ts confere o contraste AA das 12 cores da D-32.',
   'src/repositories/settingsRepository.ts':
-    'getSetting/setSetting e useSetting (useLiveQuery). Base de themeRepository; persistentStorageRepository usa o db direto porque precisa de transação com leitura e escrita.',
+    'getSetting/setSetting e useSetting (useLiveQuery). Base de themeRepository; persistentStorageRepository usa o db direto porque precisa de transação com leitura e escrita. Fase 6: useLastBackupAt (useSetting("lastBackupAt")), aqui e não no backupRepository, para o Início (BackupReminder) e o LastBackupStatus lerem a data sem levar a criptografia e o zod do backup (D-47(e), D-41); o backupRepository grava a chave com setSetting.',
   'src/repositories/themeRepository.ts':
     'getStoredThemePreference, saveThemePreference (espelho primeiro, Dexie depois) e migrateThemePreferenceFromMirror (transação rw, uma vez — D-28).',
   'src/repositories/useThemePreference.ts':
@@ -5410,11 +6274,11 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/test/themeReference.ts':
     'parseStoredThemePreference: referência da regra do script inline do index.html (veio de lib/theme na revisão da Fase 2).',
   'src/test/factories.ts':
-    'makeTransaction, income e expense (Fase 2); Fase 3: makeTag, makeRecurring e makeInstallmentGroup com um gerador de id compartilhado (nextId) e TIMESTAMP fixo.',
+    'makeTransaction, income e expense (Fase 2); Fase 3: makeTag, makeRecurring e makeInstallmentGroup com um gerador de id compartilhado (nextId) e TIMESTAMP fixo. Fase 6: makeTag deriva o nameKey do nome com toTagNameKey (a validação do backup exige nameKey coerente — D-47(c)).',
   'src/test/dialog.ts':
     'Fase 3 (D-33): installDialogPolyfill — o jsdom não tem showModal()/close(); o substituto só alterna o atributo open e dispara close. Foco preso e camada superior não são simulados.',
   'src/test/seedDatabase.ts':
-    'Fase 3 (D-34): seedRecords (transactions, recurrings, installmentGroups numa transação) e readAllTags, para testes de tela que não podem importar o Dexie enquanto essas tabelas não têm repositório (transactions ganhou o seu na Fase 4; recurrings e installmentGroups nas Fases 9 e 10).',
+    'Fase 3 (D-34): seedRecords (transactions, recurrings, installmentGroups numa transação) e readAllTags, para testes de tela que não podem importar o Dexie enquanto essas tabelas não têm repositório (transactions ganhou o seu na Fase 4; recurrings e installmentGroups nas Fases 9 e 10). Fase 6: failNextTransactionsBulkAdd (vi.spyOn em db.transactions.bulkAdd) faz a próxima gravação em lote falhar, para o BackupPage.test.tsx conferir que a importação não altera nada (D-07) sem importar o Dexie.',
   'src/test/propertyHelpers.ts':
     'Gerador com semente e utilitários de calendário para os testes de propriedade.',
   'src/domain/tags.ts':
@@ -5428,7 +6292,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/ui/TagChip.tsx':
     'Fase 3 (CA-03.6): fundo na cor, texto de readableTextColor, contorno leve; overflow truncate (padrão) | wrap. A cor nunca é a única informação: o nome está sempre escrito (RNF-06).',
   'src/components/ui/Button.tsx':
-    'Fase 3: variantes primary | secondary | danger | danger-outline, min-h-11, type="button" por padrão. Desde o princípio 16 (spec 1.13) o disabled nativo vira cinza neutro em qualquer variante (DISABLED_CLASSES: slate-200/slate-600 no claro, slate-800/slate-400 no escuro, texto ≥ 4,5:1, cursor-not-allowed), no lugar da opacidade. Sem teste próprio (coberto por TagsPage.validation.test.tsx).',
+    'Fase 3: variantes primary | secondary | danger | danger-outline, min-h-11, type="button" por padrão. Desde o princípio 16 (spec 1.13) o disabled nativo vira cinza neutro em qualquer variante (DISABLED_CLASSES: slate-200/slate-600 no claro, slate-800/slate-400 no escuro, texto ≥ 4,5:1, cursor-not-allowed), no lugar da opacidade. Sem teste próprio (coberto por TagsPage.validation.test.tsx). Fase 6: ref?: Ref<HTMLButtonElement> como prop (React 19), para o foco ir ao "Salvar backup" (D-48(d)/(e)).',
   'src/components/ui/EmptyState.tsx': 'Fase 3: <p> de lista vazia. Sem teste próprio.',
   'src/components/ui/ErrorAlert.tsx':
     'Fase 3: <p role="alert"> em vermelho, anunciado assim que aparece. Sem teste próprio.',
@@ -5496,7 +6360,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/transactions/transactionTexts.ts':
     'Fase 4: textos pt-BR do formulário de lançamento ("Lançamento salvo", falhas, lançamento/tag inexistente, aviso sem tags).',
   'src/features/home/HomePage.tsx':
-    'Fase 4 (RF-02): Page com BalanceSummary (today de useToday), seção "Novo lançamento" com TransactionForm e RecentTransactions (today — D-40). Única tela fora do React.lazy (bundle decidido pela D-41).',
+    'Fase 4 (RF-02): Page com BalanceSummary (today de useToday), seção "Novo lançamento" com TransactionForm e RecentTransactions (today — D-40). Única tela fora do React.lazy (bundle decidido pela D-41). Fase 6: BackupReminder (today) no topo, antes do BalanceSummary (RF-10, D-11, D-48(c)).',
   'src/features/home/BalanceSummary.tsx':
     'Fase 4 (RF-02 itens 1–2, D-42, CA-02.3): useOverallBalance() (sem today) e useMonthTotals(periodOf(today)); "—" enquanto carrega; título com formatMonthLabel. Fase 5: entradas e saídas do mês pelo IncomeExpenseTotals.',
   'src/features/home/RecentTransactions.tsx':
@@ -5556,4 +6420,40 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     'Fase 4: ações do formulário de lançamento para testes de tela (typeAmount dígito a dígito, chooseTag, fillTransactionForm, submit esperando o botão habilitar — princípio 16, expectSubmitEnabled), com escopo opcional (within).',
   'src/dev/architecture/model.ts':
     'Importa o JSON gerado e expõe graph/moduleById e filtros comuns. Os índices derivados ficam em layers.ts, composition.ts, traceability.ts, health.ts e search.ts, todos calculados uma vez no carregamento.',
+  'src/lib/crypto.ts':
+    'Fase 6 (RF-10, RNF-05, §6.8, D-47(a)): Web Crypto nativa (crypto.subtle, só em contexto seguro — RNF-09). encryptBackupText: sal de 16 e IV de 12 bytes novos por chamada (getRandomValues), deriveKey = importKey(raw, senha.normalize("NFC")) + deriveKey(PBKDF2-SHA-256, PBKDF2_ITERATIONS = 600.000) → chave AES-GCM 256 não extraível (encrypt/decrypt), encrypt e o envelope { format: "app-gastos-backup", formatVersion: 1, createdAt, kdf, cipher, ciphertext }. decryptBackupText usa o sal, o IV e as iterações do envelope; OperationError (autenticação do GCM) vira BackupDecryptionError ("Senha incorreta ou arquivo corrompido" — CA-10.2). bytesToBase64 em blocos de 32 KiB (não estoura a pilha); base64ToBytes lança em texto inválido. iterations e now só são passados pelos testes. A senha e o texto em claro nunca vão para log nem mensagem de erro (princípio 13).',
+  'src/lib/backupFormat.ts':
+    'Fase 6 (§6.8, CA-10.3 a CA-10.5, D-47(b)–(d)): sem Dexie (SCHEMA_VERSION chega por parâmetro). parseBackupEnvelope: zod do envelope (base64 do sal com 16 e do IV com 12 bytes, ciphertext com pelo menos a tag do GCM, iterações ≤ MAX_PBKDF2_ITERATIONS = 10.000.000). parseBackupContent: cabeçalho app/schemaVersion → NewerBackupVersionError se mais nova → migrateBackupContent em cadeia (BACKUP_MIGRATIONS vazio; migração faltando = InvalidBackupFileError) → zod dos registros (cents z.int().positive(), datas que existem, YYYY-MM, #RRGGBB, ISO 8601, pares recurringId/recurringPeriod e installmentGroupId/installmentNumber, 2 a 48 parcelas, .refine da ordem de amounts e do nameKey = toTagNameKey(name)) → hasReferentialIntegrity (IDs únicos por tabela, nameKey único, tagId/recurringId/installmentGroupId existentes, parcela ≤ count). Exportação: selectBackupSettings (só theme válido; senão []), buildBackupContent, backupFileName (data local). summarizeBackup para o modal. MAX_BACKUP_FILE_BYTES = 50 MB.',
+  'src/lib/share.ts':
+    'Fase 6 (RF-10, §6.8 passos 6–7): shareOrDownloadFile(file) → "shared" | "downloaded" | "cancelled" | "blocked". navigator.canShare({ files }) → navigator.share; AbortError = cancelled, NotAllowedError = blocked (sem toque recente — D-48(a)), outras falhas relançadas. Sem suporte: <a download> escondido e URL liberada depois de OBJECT_URL_REVOKE_DELAY_MS (10 s). Nada vai para a rede (princípio 5). Teste no projeto dom (DOM_TEST_FILES).',
+  'src/domain/backupReminder.ts':
+    'Fase 6 (RF-10, D-11, D-48(c)): BACKUP_REMINDER_DAYS = 7; daysSinceLastBackup(lastBackupAt ISO, today) em dias de calendário locais (parseISO + differenceInCalendarDays; relógio atrasado → 0; data inválida → null); describeLastBackup → "Último backup: nunca / hoje / há 1 dia / há N dias"; shouldShowBackupReminder exige pelo menos um lançamento e (nunca ou ≥ 7 dias).',
+  'src/domain/backupPasswordSchema.ts':
+    'Fase 6 (RF-10, D-08, D-48): exportPasswordSchema (senha ≥ 8 — BACKUP_PASSWORD_MIN_LENGTH — e confirmação igual, erro no campo confirmation) e importBackupSchema (arquivo obrigatório e senha preenchida — "Informe a senha"; o tamanho mínimo não é conferido na importação). Mensagens exportadas para os testes.',
+  'src/repositories/backupRepository.ts':
+    'Fase 6 (RF-10, §6.8, D-07, D-47(e)): único caminho da tela de backup até o Dexie (princípio 7), importado só pela tela lazy (crypto e zod fora do pacote principal — D-41). readBackupTables: transaction("r") nas 5 tabelas com toArray. createBackupFile(password): buildBackupContent → encryptBackupText → File(gastos-backup-YYYY-MM-DD.json). deliverBackupFile(file, share = shareOrDownloadFile) chama recordBackupDone (setSetting lastBackupAt, ISO 8601) só com shared/downloaded. openBackupFile(file, senha): tamanho → envelope → decrypt → conteúdo; não toca no banco. restoreBackup(data): uma transação("rw") nas 5 tabelas — clear das 4 tabelas de dados, bulkAdd de tags, recurrings, installmentGroups e transactions, put de settings.theme (o do backup ou system); lastBackupAt e persistRequested ficam; writeThemeMirror depois do commit (D-28) e devolve o tema.',
+  'src/components/ui/PasswordInput.tsx':
+    'Fase 6 (D-48(d)): input type="password" sem autocapitalização, autocorreção nem verificação ortográfica; autoComplete obrigatório (new-password | current-password); useFieldControl liga rótulo e erro do Field; ref como prop (React 19). Sem teste próprio (coberto por BackupPage.test.tsx).',
+  'src/components/ui/FileInput.tsx':
+    'Fase 6 (D-48(d)): input type="file" com o botão nativo estilizado (file:min-h-11, visual de botão secundário) e onFileChange(File | null) no lugar de value/onChange; useFieldControl e ref. Sem teste próprio (coberto por BackupPage.test.tsx).',
+  'src/features/backup/BackupPage.tsx':
+    'Fase 6 (RF-10): Page com BackLink (fallback /ajustes) e LastBackupStatus, ExportBackupSection e ImportBackupSection. Lazy (lazyPages.tsx); sem estado próprio.',
+  'src/features/backup/LastBackupStatus.tsx':
+    'Fase 6 (RF-10, D-48(c)): "Último backup: …" com useToday + useLastBackupAt; nada enquanto carrega.',
+  'src/features/backup/ExportBackupSection.tsx':
+    'Fase 6 (RF-10, D-48(a)): formulário de senha + confirmação com Controller → PasswordInput, ErrorAlert, status role="status" e um único botão: "Exportar backup"/"Gerando backup…" ou "Salvar backup" (ref saveButtonRef). statusRef e saveButtonRef saem do objeto do hook antes de ler o resto (regra react/refs).',
+  'src/features/backup/useExportBackup.ts':
+    'Fase 6 (RF-10, princípio 16, D-48(a)/(e)): useForm com LIVE_VALIDATION + zodResolver(exportPasswordSchema); form.subscribe na senha reconfere a confirmação já mexida. submit: createBackupFile → deliver (deliverBackupFile) → applyOutcome: blocked guarda pendingFile ("Salvar backup"), cancelled só a mensagem, shared/downloaded reset do formulário (a senha sai da memória) + "Backup exportado.". Falha → "Não foi possível gerar o backup. Tente novamente." em state.error (fora do setError — D-36). Foco por useEffect: botão "Salvar backup" ou a mensagem. Devolve statusRef e saveButtonRef; canSubmit = canSubmitForm && !isBusy.',
+  'src/features/backup/ImportBackupSection.tsx':
+    'Fase 6 (RF-10, D-48(b)): <form key={formKey}> com Controller → FileInput (accept application/json,.json) e PasswordInput (current-password), ErrorAlert do openError e "Importar backup"/"Verificando backup…"; status fora do <form> (sobrevive à recriação e recebe o foco); ConfirmImportDialog como irmão.',
+  'src/features/backup/useImportBackup.ts':
+    'Fase 6 (RF-10, CA-10.2/10.3/10.5, D-07, D-48(b)/(e)): useForm com zodResolver(importBackupSchema); submit → openBackupFile → pending { content, summary: summarizeBackup } ou openError = describeOpenError (limpo por form.subscribe ao trocar arquivo ou senha). confirmImport → restoreBackup → setPreference(tema) (useTheme) → reset + formKey + 1 + mensagem nova (objeto, para refocar); falha → restoreError no modal. cancelImport ignorado durante a substituição. Devolve statusRef.',
+  'src/features/backup/ConfirmImportDialog.tsx':
+    'Fase 6 (RF-10, D-07): Modal "Importar backup?" com InfoList (data e hora, lançamentos, tags, recorrentes), REPLACE_WARNING, ErrorAlert e Cancelar | Substituir dados (desabilitados durante a substituição). Sem estado.',
+  'src/features/backup/backupTexts.ts':
+    'Fase 6: rótulos e mensagens da tela de backup (as dos CA-10.2, CA-10.3 e CA-10.5 exatamente como na spec); describeOpenError mapeia BackupDecryptionError, InvalidBackupFileError e NewerBackupVersionError; formatCount (Intl pt-BR) e formatBackupDate ("17/10/2026 às 15:05", parseISO + format).',
+  'src/features/home/BackupReminder.tsx':
+    'Fase 6 (RF-10 "Lembrete", D-11, D-48(c)): recebe today; useLastBackupAt + useTransactionCount; null enquanto carrega ou sem motivo; Notice subtle com describeLastBackup + "Faça um backup para não perder seus dados." e Link "Fazer backup" para /ajustes/backup. Não importa o backupRepository (D-41).',
+  'src/test/backupDataset.ts':
+    'Fase 6 (testes reforçados, CA-10.1): generateBackupDataset(seed, { maxTransactions }) gera, com semente (createTestRandom, sem bibliotecas extras), as 5 tabelas da §6.3 — tags com nameKey, lançamentos avulsos, de recorrente e de parcelamento, recorrentes com histórico de valores e meses pulados, parcelamentos de 2 a 48 parcelas e as 3 chaves de settings — com textos difíceis (acentos, emoji, aspas, quebras de linha, escrita não latina) e IDs UUID reprodutíveis (princípio 9). Usado nos testes de ida e volta e de auditoria do backup.',
 }
