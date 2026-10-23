@@ -16,7 +16,9 @@
 // e esta página) entraram no f4c6cad (22/10/2026). A spec 1.20 (D-44 e D-45 confirmadas), a
 // spec 1.21 (D-46, projetos do Vitest), a spec 1.22 (Fase 5 concluída) e a página atualizada entraram
 // no bb2cc34 (22/10/2026). A Fase 6 inteira (backup criptografado, specs 1.23 e 1.24 com D-47 e D-48,
-// testes reforçados, correções da revisão e esta página) ainda não foi commitada.
+// testes reforçados, correções da revisão e a página atualizada) e a correção do "Salvar backup" no PC
+// (spec 1.25) entraram no 67d72be (23/10/2026). A spec 1.26 ("Último backup" sempre no Início), o
+// teste manual da Fase 6 validado e o fechamento da Fase 6 nesta página ainda não foram commitados.
 
 import type { TimelineEntry } from '@/dev/architecture/types'
 
@@ -1952,8 +1954,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 6: backup criptografado (exportar, importar e lembrete)',
     summary:
       'lib: crypto.ts (PBKDF2-SHA-256 com 600.000 iterações, chave AES-GCM 256 não extraível, sal de 16 e IV de 12 bytes novos a cada exportação, envelope da §6.8, base64 em blocos de 32 KiB, BackupDecryptionError), backupFormat.ts (schemas zod do envelope, do conteúdo e dos registros; tetos de 10.000.000 iterações e 50 MB; NewerBackupVersionError; BACKUP_MIGRATIONS vazio com migrações em cadeia; hasReferentialIntegrity com tags, recorrentes, parcelamentos, IDs e nameKey únicos; selectBackupSettings só com theme; backupFileName; summarizeBackup) e share.ts (shareOrDownloadFile → shared | downloaded | cancelled | blocked). domain: backupReminder.ts (daysSinceLastBackup, describeLastBackup, shouldShowBackupReminder — D-11) e backupPasswordSchema.ts. repositories: backupRepository.ts (readBackupTables numa transação r das 5 tabelas, createBackupFile, deliverBackupFile, recordBackupDone só depois de shared/downloaded, openBackupFile sem tocar no banco, restoreBackup numa única transação rw que limpa as 4 tabelas de dados, troca settings.theme, preserva lastBackupAt e persistRequested e atualiza o espelho do localStorage depois do commit) e useLastBackupAt no settingsRepository. UI: PasswordInput e FileInput em components/ui, Button com ref; features/backup com BackupPage (lazy), LastBackupStatus, ExportBackupSection + useExportBackup, ImportBackupSection + useImportBackup, ConfirmImportDialog e backupTexts; BackupReminder no topo do Início. vite.config.ts: share.test.ts em DOM_TEST_FILES. Spec 1.23 com a Fase 6 marcada e D-47/D-48 aguardando confirmação. (A divisão dos testes entre esta entrada, a dos testes reforçados e a das correções é aproximada.)',
-    commits: [],
-    committed: false,
+    commits: ['67d72be'],
+    committed: true,
     requirements: [
       'RF-10',
       'RNF-05',
@@ -2020,8 +2022,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 6: testes reforçados (2.214 passando)',
     summary:
       'Auditorias independentes: crypto.audit.test.ts (campos exatos do envelope da §6.8, 600.000 iterações por padrão, interoperabilidade com uma implementação PBKDF2 + AES-GCM escrita à parte nos dois sentidos, senha em NFD igual à NFC, ida e volta com semente, texto de ~1 MB sem nada legível no envelope — CA-10.6, nenhum sal ou IV repetido em 50 criptografias); backupFormat.audit.test.ts (limites do envelope — iterações de 1 a 10.000.000, 16 bytes cifrados, 50 MB —, migrações v1 → v4 em cadeia e migração ausente, registros na fronteira da §6.3, integridade com dados gerados, settings só com theme); backupReminder.audit.test.ts (dias de calendário locais: 23:59 de ontem já é "há 1 dia"); backupRepository.audit.test.ts (exportar → limpar → importar com até 2.000 lançamentos gerados, arquivo aberto por uma implementação independente, nenhuma chamada de rede — princípio 5, importação substitui tudo e preserva lastBackupAt/persistRequested, teto de 50 MB, atomicidade em cada etapa do restoreBackup, lastBackupAt só depois de salvar). backupRepository.theme.test.ts (projeto dom): tema no Dexie e no espelho, rollback sem mexer no espelho e localStorage bloqueado. Gerador src/test/backupDataset.ts.',
-    commits: [],
-    committed: false,
+    commits: ['67d72be'],
+    committed: true,
     requirements: [
       'RF-10',
       'CA-10.1',
@@ -2056,8 +2058,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 6: correções da revisão (inclusive segurança)',
     summary:
       'Spec 1.24. Validação do backup: número da parcela ≤ count do parcelamento (integridade), amounts com o 1º fromPeriod igual ao startPeriod e fromPeriod estritamente crescente, tag com nameKey = toTagNameKey(name); makeTag passou a derivar o nameKey do nome. Senha normalizada em NFC dentro da derivação da chave (exportar e importar). Testes de tela ampliados (falha inesperada ao abrir, falha ao gravar sem alterar nada com seedDatabase.failNextTransactionsBulkAdd, data e hora no modal). Foco (RNF-06): "Salvar backup" recebe o foco quando aparece e a mensagem de resultado depois de exportar, cancelar ou importar (status fora do <form>). Um erro de abertura antigo some quando o usuário troca o arquivo ou a senha.',
-    commits: [],
-    committed: false,
+    commits: ['67d72be'],
+    committed: true,
     requirements: ['RF-10', 'CA-10.2', 'CA-10.3', 'RNF-05', 'RNF-06'],
     decisions: ['D-07', 'D-47', 'D-48'],
     files: {
@@ -2086,8 +2088,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Página de arquitetura: Fase 6 (backup criptografado)',
     summary:
       'Fluxos novos: exportar, importar e lembrete de backup, e o diagrama do pipeline de criptografia (senha NFC + sal → PBKDF2 → chave → AES-GCM + IV → ciphertext → envelope base64) com a mesma informação em texto (componente CryptoPipelineDiagram). Removidos os "previstos" da Fase 6 (fluxo e funções de lib). Modelo de dados: coluna "No backup" tipada (inBackup + backupDetail), todas as tabelas no backup com o selo da §8.3 e um teste de integridade que confere se o backupRepository lê toda tabela do esquema. Rotas /ajustes/backup e Início, composição da tela de backup, notas dos módulos novos, regras de camada, princípios 5, 6, 7, 8, 13 e 16, D-07, D-08, D-11, D-28, D-36 e D-41 com impactos; D-47 e D-48 novas, aguardando confirmação (com a D-46). Saúde: D-47/D-48 pendentes, divergência D-48(c) × RF-10, teste manual da Fase 6 no iPhone, tempo do PBKDF2 a medir na Fase 11, bundle do Início (D-41) e primitivos sem teste próprio. Entradas da spec 1.20/1.21/1.22 e da D-46 marcadas com o commit bb2cc34. Grafo regenerado.',
-    commits: [],
-    committed: false,
+    commits: ['67d72be'],
+    committed: true,
     requirements: ['RF-10'],
     decisions: ['D-46', 'D-47', 'D-48'],
     files: {
@@ -2108,5 +2110,101 @@ export const TIMELINE: readonly TimelineEntry[] = [
       '§8.3 conferida por teste',
       '6 achados novos',
     ],
+  },
+  {
+    id: 'phase-6-save-backup-download-fix',
+    date: '2026-10-23',
+    phase: 6,
+    type: 'fix',
+    title:
+      'Teste manual da Fase 6 (PC): "Salvar backup" baixa o arquivo se a folha for recusada de novo',
+    summary:
+      'Spec 1.25 (D-48(a)). No navegador do Windows a folha de compartilhamento recusava o .json também no 2º toque (NotAllowedError mesmo com toque recente): o resultado voltava a blocked em loop e o botão "Salvar backup" não fazia nada. lib/share.ts: shareOrDownloadFile(file, { downloadIfBlocked }) com o tipo exportado ShareOrDownloadOptions — com downloadIfBlocked: true, o NotAllowedError vira download (<a download>) e o retorno é "downloaded". useExportBackup: deliver(file, share?); savePendingFile usa deliverBackupFile(file, shareOrDownloadOnRetry). No 2º toque, se a folha for recusada de novo, o arquivo é baixado, lastBackupAt é gravado e aparece "Backup exportado.". Na 1ª tentativa nada muda (o erro é o mesmo para "sem toque recente" e "arquivo não aceito"). Testes novos em share.test.ts e BackupPage.test.tsx.',
+    commits: ['67d72be'],
+    committed: true,
+    requirements: ['RF-10'],
+    decisions: ['D-48'],
+    files: {
+      created: [],
+      modified: [
+        'src/lib/share.ts',
+        'src/lib/share.test.ts',
+        'src/features/backup/useExportBackup.ts',
+        'src/features/backup/BackupPage.test.tsx',
+        'docs/SPEC.md',
+      ],
+      removed: [],
+    },
+    impact: ['fluxo de exportação: passo novo de download na 2ª recusa', 'nova opção em lib/share'],
+  },
+  {
+    id: 'phase-6-last-backup-line',
+    date: '2026-10-23',
+    phase: 6,
+    type: 'feature',
+    title: '"Último backup" sempre no Início (D-48(c), opção (a) do dono)',
+    summary:
+      'Spec 1.26. O RF-10 pede "Último backup" também na tela inicial; a D-48(c) só o mostrava dentro do aviso dos 7 dias. Pela opção (a) do dono, o BackupReminder monta a frase com describeLastBackup e decide o que fica no topo do Início: o aviso (Notice, quando a regra da D-11 vale — já contém a frase), a linha discreta LastBackupLine (componente novo: Link para /ajustes/backup com alvo de 44 px) nos outros casos, ou nada enquanto os dados carregam. Composição: HomePage → BackupReminder → Notice | LastBackupLine. BackupReminder.test.tsx cobre aviso, linha ("nunca" sem lançamentos, "hoje", "há 3 dias"), link e carregamento. Resolve o achado D-48(c) × RF-10.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-10', 'RF-02', 'RNF-06'],
+    decisions: ['D-11', 'D-41', 'D-48'],
+    files: {
+      created: ['src/features/home/LastBackupLine.tsx'],
+      modified: [
+        'src/features/home/BackupReminder.tsx',
+        'src/features/home/BackupReminder.test.tsx',
+        'src/features/home/HomePage.tsx',
+        'docs/SPEC.md',
+      ],
+      removed: [],
+    },
+    impact: [
+      'novo componente no Início',
+      'fluxo do lembrete com dois desfechos',
+      'achado D-48(c) × RF-10 resolvido',
+    ],
+  },
+  {
+    id: 'phase-6-manual-test-validated',
+    date: '2026-10-23',
+    phase: 6,
+    type: 'test',
+    title: 'Teste manual da Fase 6 validado (PC e iPhone) — Fase 6 concluída',
+    summary:
+      'O dono rodou o roteiro da §7 no PC e no iPhone: exportar com senha → folha de compartilhamento → "Salvar em Arquivos"; arquivo ilegível no app Arquivos; importar com senha errada sem mudar nada; remover e adicionar o app de novo (vazio) e importar com todos os dados de volta; "Último backup: hoje". A única falha (o "Salvar backup" em loop no Windows) foi corrigida pela spec 1.25. A partir daqui o app pode receber dados reais. D-46, D-47 e D-48 continuam aguardando confirmação.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-10', 'RNF-05', 'CA-10.1', 'CA-10.2', 'CA-10.6'],
+    decisions: ['D-48'],
+    files: { created: [], modified: [], removed: [] },
+    impact: [
+      'Fase 6 concluída',
+      'pendência do teste manual resolvida',
+      'app liberado para dados reais',
+    ],
+  },
+  {
+    id: 'architecture-page-phase-6-closed',
+    date: '2026-10-23',
+    phase: 6,
+    type: 'docs',
+    title: 'Página de arquitetura: fechamento da Fase 6',
+    summary:
+      'Fluxo "Exportar backup" com o download na 2ª recusa do "Salvar backup" (deliver(file, share?), shareOrDownloadOnRetry, ShareOrDownloadOptions). Fluxo do lembrete com os dois desfechos (aviso ou LastBackupLine) e o novo participante. Notas da rota /, da composição do Início (BackupReminder → Notice | LastBackupLine), de share.ts, useExportBackup, BackupReminder, HomePage e do novo LastBackupLine; D-11 e D-48 com o módulo novo nos impactos e o título da D-48 atualizado. Saúde: D-48(c) × RF-10 e o teste manual da Fase 6 movidos para os resolvidos; D-46, D-47 e D-48 continuam aguardando confirmação. Entradas da Fase 6 e da spec 1.25 marcadas com o commit 67d72be. Grafo regenerado.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-10'],
+    decisions: ['D-48'],
+    files: {
+      created: [],
+      modified: [
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+        'src/dev/architecture/data/module-graph.json',
+      ],
+      removed: [],
+    },
+    impact: ['2 achados resolvidos', 'fluxos de exportação e lembrete atualizados'],
   },
 ]

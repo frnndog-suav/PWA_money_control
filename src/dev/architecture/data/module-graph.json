@@ -1,13 +1,13 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-22T18:47:07.492Z",
+  "generatedAt": "2026-10-23T16:41:49.659Z",
   "totals": {
-    "modules": 313,
-    "loc": 31950,
-    "components": 118,
+    "modules": 314,
+    "loc": 32279,
+    "components": 119,
     "hooks": 34,
     "tests": 98,
-    "edges": 926,
+    "edges": 927,
     "configFiles": 11
   },
   "layerSummary": {
@@ -41,7 +41,7 @@
     },
     "dev": {
       "modules": 66,
-      "loc": 14483,
+      "loc": 14632,
       "components": 37,
       "hooks": 2,
       "tests": 5
@@ -54,15 +54,15 @@
       "tests": 25
     },
     "features": {
-      "modules": 65,
-      "loc": 4033,
-      "components": 36,
+      "modules": 66,
+      "loc": 4152,
+      "components": 37,
       "hooks": 7,
       "tests": 16
     },
     "lib": {
       "modules": 25,
-      "loc": 2307,
+      "loc": 2368,
       "components": 0,
       "hooks": 0,
       "tests": 14
@@ -103,7 +103,7 @@
       "tests": 0
     }
   },
-  "specVersion": "1.24 — 22/10/2026 (Fase 6: ajustes da revisão — validação do backup, senha em NFC e foco; D-47 e D-48 aguardando confirmação) · 1.23 — 22/10/2026 (Fase 6: backup — D-47 e D-48 aguardando confirmação) · 1.22 — 22/10/2026 (Fase 5 concluída — roteiro validado pelo dono) · 1.21 — 22/10/2026 (testes em dois projetos do Vitest, `unit` em node e `dom` em jsdom — D-46 aguardando confirmação) · 1.20 — 22/10/2026 (D-44 e D-45 confirmadas) · 1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.26 — 23/10/2026 (Fase 6: \"Último backup\" sempre na tela inicial — linha discreta sem aviso, só o aviso quando ele aparece; D-48 (c), opção (a) do dono, aguardando confirmação) · 1.25 — 23/10/2026 (Fase 6: teste manual — \"Salvar backup\" baixa o arquivo quando a folha é recusada de novo; D-48 aguardando confirmação) · 1.24 — 22/10/2026 (Fase 6: ajustes da revisão — validação do backup, senha em NFC e foco; D-47 e D-48 aguardando confirmação) · 1.23 — 22/10/2026 (Fase 6: backup — D-47 e D-48 aguardando confirmação) · 1.22 — 22/10/2026 (Fase 5 concluída — roteiro validado pelo dono) · 1.21 — 22/10/2026 (testes em dois projetos do Vitest, `unit` em node e `dom` em jsdom — D-46 aguardando confirmação) · 1.20 — 22/10/2026 (D-44 e D-45 confirmadas) · 1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
@@ -8820,7 +8820,7 @@
         "database",
         "data"
       ],
-      "loc": 6425,
+      "loc": 6476,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
@@ -8906,7 +8906,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 2108,
+      "loc": 2206,
       "exports": [
         "TIMELINE"
       ],
@@ -12801,7 +12801,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 385,
+      "loc": 424,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -12830,6 +12830,7 @@
         "D-07",
         "D-28",
         "D-36",
+        "D-48",
         "RF-10",
         "RNF-06"
       ],
@@ -13328,7 +13329,7 @@
       "kinds": [
         "hook"
       ],
-      "loc": 108,
+      "loc": 113,
       "exports": [
         "useExportBackup"
       ],
@@ -13362,6 +13363,7 @@
       "requirementRefs": [
         "D-36",
         "D-45",
+        "D-48",
         "RF-10",
         "RNF-06"
       ],
@@ -13556,7 +13558,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 55,
+      "loc": 105,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -13603,6 +13605,7 @@
           "specifier": "vitest",
           "kind": "static",
           "names": [
+            "afterEach",
             "describe",
             "expect",
             "it"
@@ -13628,7 +13631,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 39,
+      "loc": 43,
       "exports": [
         "BackupReminder"
       ],
@@ -13652,6 +13655,7 @@
         "useTransactionCount"
       ],
       "jsxUsed": [
+        "LastBackupLine",
         "Link",
         "Notice",
         "Notice.Message"
@@ -13668,6 +13672,7 @@
       "requirementRefs": [
         "D-11",
         "D-41",
+        "D-48",
         "RF-10"
       ],
       "external": [
@@ -13687,6 +13692,7 @@
         "src/components/ui/Notice.tsx",
         "src/domain/backupReminder.ts",
         "src/domain/types.ts",
+        "src/features/home/LastBackupLine.tsx",
         "src/repositories/settingsRepository.ts",
         "src/repositories/transactionsRepository.ts"
       ],
@@ -13930,7 +13936,7 @@
         "component",
         "page"
       ],
-      "loc": 30,
+      "loc": 31,
       "exports": [
         "HomePage"
       ],
@@ -13970,6 +13976,7 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
+        "D-48",
         "RF-02",
         "RF-10"
       ],
@@ -14042,6 +14049,68 @@
       "testedBy": [
         "src/features/home/BackupReminder.test.tsx"
       ]
+    },
+    {
+      "id": "src/features/home/LastBackupLine.tsx",
+      "layer": "features",
+      "feature": "home",
+      "group": "features/home",
+      "kinds": [
+        "component"
+      ],
+      "loc": 20,
+      "exports": [
+        "LastBackupLine"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "LastBackupLine",
+          "signature": "LastBackupLine({ children }: LastBackupLineProps)"
+        }
+      ],
+      "components": [
+        "LastBackupLine"
+      ],
+      "props": {
+        "LastBackupLineProps": 1
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "Link"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-48",
+        "RF-10",
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "react-router",
+          "specifier": "react-router",
+          "kind": "static",
+          "names": [
+            "Link"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/home/BackupReminder.tsx"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
     },
     {
       "id": "src/features/home/RecentTransactions.tsx",
@@ -18079,7 +18148,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 70,
+      "loc": 116,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -18102,6 +18171,7 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
+        "D-48",
         "RF-10"
       ],
       "external": [
@@ -18134,20 +18204,22 @@
       "kinds": [
         "module"
       ],
-      "loc": 44,
+      "loc": 59,
       "exports": [
         "OBJECT_URL_REVOKE_DELAY_MS",
+        "ShareOrDownloadOptions",
         "ShareOutcome",
         "shareOrDownloadFile"
       ],
       "typeExports": [
+        "ShareOrDownloadOptions",
         "ShareOutcome"
       ],
       "defaultExport": null,
       "functions": [
         {
           "name": "shareOrDownloadFile",
-          "signature": "shareOrDownloadFile(file: File): Promise<ShareOutcome>"
+          "signature": "shareOrDownloadFile(file: File, { downloadIfBlocked = false }: ShareOrDownloadOptions = {}): Promise<ShareOutcome>"
         }
       ],
       "components": [],
@@ -18165,6 +18237,7 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
+        "D-48",
         "RF-10"
       ],
       "external": [],
@@ -27247,8 +27320,9 @@
     {
       "from": "src/features/backup/useExportBackup.ts",
       "to": "src/lib/share.ts",
-      "kind": "type",
+      "kind": "static",
       "names": [
+        "shareOrDownloadFile",
         "ShareOutcome"
       ]
     },
@@ -27389,6 +27463,14 @@
       "kind": "type",
       "names": [
         "DateString"
+      ]
+    },
+    {
+      "from": "src/features/home/BackupReminder.tsx",
+      "to": "src/features/home/LastBackupLine.tsx",
+      "kind": "static",
+      "names": [
+        "LastBackupLine"
       ]
     },
     {
@@ -30857,6 +30939,7 @@
         "src/components/ui/TabBar.tsx",
         "src/components/ui/useGoBack.ts",
         "src/features/home/BackupReminder.tsx",
+        "src/features/home/LastBackupLine.tsx",
         "src/features/home/RecentTransactions.tsx",
         "src/features/settings/AboutPage.test.tsx",
         "src/features/transactions/TransactionDetailPage.tsx",
@@ -31680,34 +31763,34 @@
     ]
   },
   "build": {
-    "builtAt": "2026-10-22T18:47:06.909Z",
+    "builtAt": "2026-10-23T16:41:49.144Z",
     "serviceWorker": "sw.js",
     "workboxRuntime": "workbox-2fbc6a65.js",
     "manifest": "manifest.webmanifest",
     "manifestLink": "<link rel=\"manifest\" href=\"/manifest.webmanifest\" crossorigin=\"use-credentials\">",
     "precache": [
       "apple-touch-icon.png",
-      "assets/AboutPage-CHrPBsMw.js",
-      "assets/BackLink-CAAQNH_i.js",
-      "assets/BackupPage-Bq0_xMdR.js",
+      "assets/AboutPage-BSfuSgXO.js",
+      "assets/BackLink-DTbUFLeM.js",
+      "assets/BackupPage-Ck7pD6KL.js",
       "assets/ChartsPage-DCr2mz9z.js",
       "assets/InfoList-C3J93wfy.js",
-      "assets/NewTransactionPage-DPKbdQb2.js",
+      "assets/NewTransactionPage-C9mlzqml.js",
       "assets/Page-l_FoqQCp.js",
-      "assets/RecurringDetailPage-BVg2ijHf.js",
-      "assets/RecurringsPage-DdhvUQ7N.js",
-      "assets/SettingsPage--Wdrw4IF.js",
-      "assets/TagsPage-AM-ZzSJP.js",
-      "assets/TransactionDetailPage-B6K_x26N.js",
-      "assets/TransactionsPage-TWU0wFq0.js",
+      "assets/RecurringDetailPage-G9W-Z1n5.js",
+      "assets/RecurringsPage-hscq7KWl.js",
+      "assets/SettingsPage-XLEBjaia.js",
+      "assets/TagsPage-ByYP_ksQ.js",
+      "assets/TransactionDetailPage-Bt4OPYNX.js",
+      "assets/TransactionsPage-BCUaXoDM.js",
       "assets/ViewsPage-BiZch7rj.js",
       "assets/database-Bnj1r7Is.js",
       "assets/dexie-react-hooks-CgMS60nF.js",
       "assets/formSubmit-CF9OztiO.js",
-      "assets/index-BE4Pl8Va.css",
-      "assets/index-yYBqeMU8.js",
+      "assets/index-B4LGbzIK.css",
+      "assets/index-DIoUNBmk.js",
       "assets/tagsRepository-NI_DN3VT.js",
-      "assets/useTheme-CppThVBx.js",
+      "assets/useTheme-vc9uKkgI.js",
       "assets/workbox-window.prod.es5-Bd17z0YL.js",
       "favicon.png",
       "index.html",
@@ -31719,14 +31802,14 @@
     "navigationRoute": true,
     "css": [
       {
-        "file": "assets/index-BE4Pl8Va.css",
-        "bytes": 24690
+        "file": "assets/index-B4LGbzIK.css",
+        "bytes": 24724
       }
     ],
     "js": [
       {
-        "file": "assets/index-yYBqeMU8.js",
-        "bytes": 373361
+        "file": "assets/index-DIoUNBmk.js",
+        "bytes": 373680
       },
       {
         "file": "assets/database-Bnj1r7Is.js",
@@ -31741,11 +31824,11 @@
         "bytes": 41375
       },
       {
-        "file": "assets/BackupPage-Bq0_xMdR.js",
-        "bytes": 19159
+        "file": "assets/BackupPage-Ck7pD6KL.js",
+        "bytes": 19253
       },
       {
-        "file": "assets/TransactionsPage-TWU0wFq0.js",
+        "file": "assets/TransactionsPage-BCUaXoDM.js",
         "bytes": 13937
       },
       {
@@ -31753,7 +31836,7 @@
         "bytes": 9634
       },
       {
-        "file": "assets/TagsPage-AM-ZzSJP.js",
+        "file": "assets/TagsPage-ByYP_ksQ.js",
         "bytes": 6158
       },
       {
@@ -31765,19 +31848,19 @@
         "bytes": 3516
       },
       {
-        "file": "assets/TransactionDetailPage-B6K_x26N.js",
+        "file": "assets/TransactionDetailPage-Bt4OPYNX.js",
         "bytes": 2963
       },
       {
-        "file": "assets/AboutPage-CHrPBsMw.js",
+        "file": "assets/AboutPage-BSfuSgXO.js",
         "bytes": 2444
       },
       {
-        "file": "assets/SettingsPage--Wdrw4IF.js",
+        "file": "assets/SettingsPage-XLEBjaia.js",
         "bytes": 2089
       },
       {
-        "file": "assets/BackLink-CAAQNH_i.js",
+        "file": "assets/BackLink-DTbUFLeM.js",
         "bytes": 889
       },
       {
@@ -31785,15 +31868,15 @@
         "bytes": 779
       },
       {
-        "file": "assets/NewTransactionPage-DPKbdQb2.js",
+        "file": "assets/NewTransactionPage-C9mlzqml.js",
         "bytes": 432
       },
       {
-        "file": "assets/RecurringDetailPage-BVg2ijHf.js",
+        "file": "assets/RecurringDetailPage-G9W-Z1n5.js",
         "bytes": 376
       },
       {
-        "file": "assets/RecurringsPage-DdhvUQ7N.js",
+        "file": "assets/RecurringsPage-hscq7KWl.js",
         "bytes": 360
       },
       {
@@ -31805,11 +31888,11 @@
         "bytes": 263
       },
       {
-        "file": "assets/useTheme-CppThVBx.js",
+        "file": "assets/useTheme-vc9uKkgI.js",
         "bytes": 223
       }
     ],
-    "totalBytes": 723257,
+    "totalBytes": 723704,
     "devLeaks": []
   },
   "violations": [],
@@ -31817,27 +31900,11 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "bb2cc34",
+    "head": "67d72be",
     "workingTree": [
       {
         "status": "M",
         "path": "docs/SPEC.md"
-      },
-      {
-        "status": "M",
-        "path": "src/components/ui/Button.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/architecture.test.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/components/DataModelSection.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/dev/architecture/components/FlowsSection.tsx"
       },
       {
         "status": "M",
@@ -31849,163 +31916,220 @@
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/types.ts"
+        "path": "src/features/home/BackupReminder.test.tsx"
       },
       {
         "status": "M",
-        "path": "src/features/backup/BackupPage.tsx"
+        "path": "src/features/home/BackupReminder.tsx"
       },
       {
         "status": "M",
         "path": "src/features/home/HomePage.tsx"
       },
       {
-        "status": "M",
-        "path": "src/repositories/settingsRepository.test.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/repositories/settingsRepository.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/test/factories.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/test/seedDatabase.ts"
-      },
-      {
-        "status": "M",
-        "path": "vite.config.ts"
-      },
-      {
         "status": "??",
-        "path": "src/components/ui/FileInput.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/components/ui/PasswordInput.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/dev/architecture/components/CryptoPipelineDiagram.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/backupPasswordSchema.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/backupPasswordSchema.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/backupReminder.audit.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/backupReminder.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/backupReminder.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/backup/BackupPage.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/backup/ConfirmImportDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/backup/ExportBackupSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/backup/ImportBackupSection.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/backup/LastBackupStatus.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/backup/backupTexts.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/backup/useExportBackup.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/backup/useImportBackup.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/home/BackupReminder.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/home/BackupReminder.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/backupFormat.audit.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/backupFormat.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/backupFormat.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/crypto.audit.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/crypto.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/crypto.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/share.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/lib/share.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/backupRepository.audit.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/backupRepository.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/backupRepository.theme.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/backupRepository.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/test/backupDataset.ts"
+        "path": "src/features/home/LastBackupLine.tsx"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "67d72be",
+      "date": "2026-10-23T13:03:55-03:00",
+      "author": "Fernando",
+      "subject": "feat/finishing phase 6",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "M",
+          "path": "src/components/ui/Button.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/FileInput.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/PasswordInput.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/architecture.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/dev/architecture/components/CryptoPipelineDiagram.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/DataModelSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/FlowsSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/types.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/backupPasswordSchema.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/backupPasswordSchema.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/backupReminder.audit.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/backupReminder.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/backupReminder.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/backup/BackupPage.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/backup/BackupPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/backup/ConfirmImportDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/backup/ExportBackupSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/backup/ImportBackupSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/backup/LastBackupStatus.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/backup/backupTexts.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/backup/useExportBackup.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/backup/useImportBackup.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/home/BackupReminder.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/home/BackupReminder.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/home/HomePage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/backupFormat.audit.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/backupFormat.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/backupFormat.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/crypto.audit.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/crypto.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/crypto.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/share.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/lib/share.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/backupRepository.audit.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/backupRepository.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/backupRepository.theme.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/backupRepository.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/repositories/settingsRepository.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/repositories/settingsRepository.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/test/backupDataset.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/test/factories.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/test/seedDatabase.ts"
+        },
+        {
+          "status": "M",
+          "path": "vite.config.ts"
+        }
+      ]
+    },
     {
       "hash": "bb2cc34",
       "date": "2026-10-22T14:35:37-03:00",
@@ -34633,6 +34757,7 @@
     "src/features/home/HomePage.form.test.tsx",
     "src/features/home/HomePage.test.tsx",
     "src/features/home/HomePage.tsx",
+    "src/features/home/LastBackupLine.tsx",
     "src/features/home/RecentTransactions.tsx",
     "src/features/home/homeTexts.ts",
     "src/features/recurrings/RecurringDetailPage.tsx",

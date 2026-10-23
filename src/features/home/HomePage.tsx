@@ -6,7 +6,8 @@ import { BackupReminder } from '@/features/home/BackupReminder'
 import { BalanceSummary } from '@/features/home/BalanceSummary'
 import { RecentTransactions } from '@/features/home/RecentTransactions'
 
-// RF-02 — Início, de cima para baixo: aviso de backup (RF-10, só quando vale), saldos,
+// RF-02 — Início, de cima para baixo: "Último backup" (RF-10 — aviso quando vale, senão linha
+// discreta; D-48 c), saldos,
 // lançamento rápido e últimos lançamentos.
 // (Recorrentes pendentes — item 4 — chegam na Fase 9.)
 export function HomePage() {

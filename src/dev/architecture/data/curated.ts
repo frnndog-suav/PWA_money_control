@@ -422,7 +422,7 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
       'D-48',
     ],
     description:
-      'Fase 4. Única tela fora do React.lazy (vai no pacote principal — RNF-02; ver o achado do bundle de 596 kB, decidido pela D-41). HomePage (useToday) compõe, de cima para baixo: BalanceSummary (saldo geral com todos os lançamentos, inclusive os futuros — D-42, em destaque; "Saldo de outubro de 2026" com entradas e saídas do mês, inclusive datas futuras do mês — CA-02.3; valores com SignedAmount — CA-02.1), a seção "Novo lançamento" com o TransactionForm rápido (Saída/Entrada, valor, data, tag, descrição e "Lançar" — CA-01.1; atalho de criar tag sem perder o digitado — CA-01.7; Toast "Lançamento salvo" — D-38(b)) e RecentTransactions (recebe today; os 5 mais recentes com data até hoje, por data e criação — D-40/D-39, TransactionRow com link para /lancamentos/:id, ou EmptyState; link "Ver todos" para /lancamentos). Tudo por useLiveQuery: um lançamento novo atualiza saldos e lista sem recarregar (CA-02.4). Pendências recorrentes (item 4 do RF-02) entram na Fase 9. Fase 6: BackupReminder no topo (antes do BalanceSummary) — Notice subtle "Último backup: há N dias. Faça um backup para não perder seus dados." + link "Fazer backup" para /ajustes/backup, só com pelo menos um lançamento e sem backup ou com 7 dias ou mais (D-11, D-48(c)); lê useLastBackupAt (settingsRepository) e useTransactionCount, sem levar a criptografia para o pacote principal (D-41/D-47(e)). Tabelas: transactions (leitura e escrita), tags (leitura; escrita pelo atalho de criar tag) e settings (leitura de lastBackupAt).',
+      'Fase 4. Única tela fora do React.lazy (vai no pacote principal — RNF-02; ver o achado do bundle de 596 kB, decidido pela D-41). HomePage (useToday) compõe, de cima para baixo: BalanceSummary (saldo geral com todos os lançamentos, inclusive os futuros — D-42, em destaque; "Saldo de outubro de 2026" com entradas e saídas do mês, inclusive datas futuras do mês — CA-02.3; valores com SignedAmount — CA-02.1), a seção "Novo lançamento" com o TransactionForm rápido (Saída/Entrada, valor, data, tag, descrição e "Lançar" — CA-01.1; atalho de criar tag sem perder o digitado — CA-01.7; Toast "Lançamento salvo" — D-38(b)) e RecentTransactions (recebe today; os 5 mais recentes com data até hoje, por data e criação — D-40/D-39, TransactionRow com link para /lancamentos/:id, ou EmptyState; link "Ver todos" para /lancamentos). Tudo por useLiveQuery: um lançamento novo atualiza saldos e lista sem recarregar (CA-02.4). Pendências recorrentes (item 4 do RF-02) entram na Fase 9. Fase 6: BackupReminder no topo (antes do BalanceSummary) — "Último backup" sempre, num só lugar (RF-10, D-48(c) opção (a), spec 1.26): com aviso (pelo menos um lançamento e sem backup ou com 7 dias ou mais — D-11), Notice subtle "Último backup: há N dias. Faça um backup para não perder seus dados." + link "Fazer backup"; sem aviso, LastBackupLine (linha discreta "Último backup: há 3 dias / hoje / nunca", link para /ajustes/backup com alvo de 44 px); nada enquanto carrega. Lê useLastBackupAt (settingsRepository) e useTransactionCount, sem levar a criptografia para o pacote principal (D-41/D-47(e)). Tabelas: transactions (leitura e escrita), tags (leitura; escrita pelo atalho de criar tag) e settings (leitura de lastBackupAt).',
     contentPhase: 4,
   },
   {
@@ -802,7 +802,11 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'BackupReminder',
-    note: 'Fase 6 (RF-10 "Lembrete", D-11, D-48(c)): recebe today do HomePage; useLastBackupAt + useTransactionCount; nada enquanto carrega; com shouldShowBackupReminder, Notice subtle com a mensagem e o Link "Fazer backup" (44 px) para /ajustes/backup. Fica no topo do Início, antes do BalanceSummary.',
+    note: 'Fase 6 (RF-10 "Lembrete", D-11, D-48(c)): recebe today do HomePage; useLastBackupAt + useTransactionCount; nada enquanto carrega. Monta a frase uma vez (describeLastBackup) e escolhe o filho: com shouldShowBackupReminder, Notice subtle com a frase + "Faça um backup…" e o Link "Fazer backup" (44 px); senão, LastBackupLine com a frase como children (spec 1.26, opção (a) do dono). Os dois ocupam o mesmo lugar, no topo do Início, antes do BalanceSummary: a frase nunca aparece duas vezes.',
+  },
+  {
+    component: 'LastBackupLine',
+    note: 'Fase 6 (RF-10, D-48(c) opção (a), spec 1.26): folha sem estado nem dados — recebe a frase pronta como children (string) e a mostra num Link do react-router para /ajustes/backup, texto pequeno slate-600/slate-400 (contraste AA nos dois temas) e min-h-11 (alvo de 44 px, RNF-06). Usado só pelo BackupReminder, quando não há aviso.',
   },
 ]
 
@@ -838,7 +842,7 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '/',
     stateAndData:
-      'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary e ao RecentTransactions. Dados por useLiveQuery: useOverallBalance() (sem today — D-42) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(today, 5) (D-40) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4). Fase 6: BackupReminder (topo) lê useLastBackupAt e useTransactionCount (useLiveQuery) e decide por shouldShowBackupReminder com o mesmo today; o 1º lançamento já faz o aviso aparecer se nunca houve backup.',
+      'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary e ao RecentTransactions. Dados por useLiveQuery: useOverallBalance() (sem today — D-42) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(today, 5) (D-40) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4). Fase 6: BackupReminder (topo) lê useLastBackupAt e useTransactionCount (useLiveQuery) e decide por shouldShowBackupReminder com o mesmo today entre Notice (aviso) e LastBackupLine (linha discreta, sem estado — spec 1.26); o 1º lançamento troca a linha "Último backup: nunca" pelo aviso se nunca houve backup, e um backup novo troca o aviso pela linha "Último backup: hoje".',
   },
   {
     route: '/lancamentos',
@@ -4125,9 +4129,36 @@ export const FLOWS: readonly Flow[] = [
         to: 'section',
         label: 'toca "Salvar backup" (se bloqueado)',
         detail:
-          'savePendingFile → deliverBackupFile com o mesmo arquivo, agora com toque recente; a chave não é derivada de novo.',
+          'savePendingFile → deliver(pendingFile, shareOrDownloadOnRetry) → deliverBackupFile(file, shareOrDownloadOnRetry) com o mesmo arquivo, agora com toque recente; a chave não é derivada de novo. shareOrDownloadOnRetry = shareOrDownloadFile(file, { downloadIfBlocked: true }) (ShareOrDownloadOptions).',
         refs: ['D-48'],
         kind: 'event',
+      },
+      {
+        from: 'share',
+        to: 'browser',
+        label: 'recusou de novo (NotAllowedError) → <a download>',
+        detail:
+          'Correção do teste manual no PC (spec 1.25): o navegador do Windows recusa o .json na folha do sistema mesmo com toque recente; antes o resultado voltava a blocked e o botão ficava em loop sem fazer nada. Com downloadIfBlocked a recusa vira download e o retorno é downloaded. Na 1ª tentativa a recusa continua virando "Salvar backup" (o erro é o mesmo para "sem toque recente" e "arquivo não aceito").',
+        refs: ['RF-10', 'D-48'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'settings',
+        label: "downloaded → setSetting('lastBackupAt')",
+        detail:
+          'O download conta como backup feito (como sem Web Share API — §6.8 passo 7): todo toque em "Salvar backup" termina em compartilhado, baixado, cancelado ou erro com mensagem.',
+        refs: ['RF-10', 'D-48'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'section',
+        label: '"Backup exportado." + foco na mensagem',
+        detail:
+          'pendingFile sai do estado, o formulário é limpo e o botão volta a "Exportar backup".',
+        refs: ['D-48', 'RNF-06'],
+        kind: 'return',
       },
     ],
     tests: [
@@ -4334,11 +4365,12 @@ export const FLOWS: readonly Flow[] = [
     id: 'backup-reminder',
     title: 'Lembrete de backup no Início',
     summary:
-      'O Início mostra uma faixa discreta "Último backup: há N dias. Faça um backup para não perder seus dados." com o link "Fazer backup" quando há pelo menos um lançamento e nunca houve backup ou já se passaram 7 dias ou mais. Lê só a data e a contagem: a criptografia fica na tela de backup, lazy.',
+      'O Início mostra "Último backup" sempre, num só lugar (spec 1.26, D-48(c) opção (a)): a faixa discreta "Último backup: há N dias. Faça um backup para não perder seus dados." com o link "Fazer backup" quando há pelo menos um lançamento e nunca houve backup ou já se passaram 7 dias ou mais; nos outros casos, uma linha discreta (LastBackupLine) que também leva a Ajustes → Backup. Lê só a data e a contagem: a criptografia fica na tela de backup, lazy.',
     requirements: ['RF-10', 'D-11', 'D-41', 'D-48'],
     participants: [
       { id: 'home', label: 'HomePage', module: 'src/features/home/HomePage.tsx' },
       { id: 'reminder', label: 'BackupReminder', module: 'src/features/home/BackupReminder.tsx' },
+      { id: 'line', label: 'LastBackupLine', module: 'src/features/home/LastBackupLine.tsx' },
       {
         id: 'settings',
         label: 'settingsRepository',
@@ -4393,7 +4425,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'domain',
         label: 'shouldShowBackupReminder({ lastBackupAt, today, transactionCount })',
         detail:
-          'Pelo menos um lançamento e (nunca houve backup ou daysSinceLastBackup ≥ 7). Enquanto qualquer consulta carrega, nada aparece (sem piscar).',
+          'Pelo menos um lançamento e (nunca houve backup ou daysSinceLastBackup ≥ 7). Enquanto qualquer consulta carrega, nada aparece (nem aviso nem linha — sem "nunca" falso).',
         refs: ['D-11'],
         kind: 'call',
       },
@@ -4409,17 +4441,26 @@ export const FLOWS: readonly Flow[] = [
       {
         from: 'reminder',
         to: 'home',
-        label: 'Notice subtle + Link "Fazer backup" (ou null)',
+        label: 'com aviso: Notice subtle + Link "Fazer backup"',
         detail:
-          'O Início só mostra "Último backup" dentro do aviso (D-48(c), aguardando confirmação — ver a pendência D-48(c) × RF-10 em Saúde).',
-        refs: ['D-48'],
+          'A frase vai dentro do aviso, seguida de "Faça um backup para não perder seus dados." — e só ali (nunca duas vezes).',
+        refs: ['RF-10', 'D-11', 'D-48'],
+        kind: 'return',
+      },
+      {
+        from: 'reminder',
+        to: 'line',
+        label: 'sem aviso: <LastBackupLine>{frase}</LastBackupLine>',
+        detail:
+          'Linha discreta em texto pequeno ("Último backup: há 3 dias", "hoje" ou "nunca" quando ainda não há lançamentos), link para /ajustes/backup com alvo de 44 px. Spec 1.26 (opção (a) do dono) — resolve a divergência D-48(c) × RF-10.',
+        refs: ['RF-10', 'D-48'],
         kind: 'return',
       },
       {
         from: 'user',
         to: 'reminder',
-        label: 'toca "Fazer backup"',
-        detail: 'Link do react-router com alvo de 44 px (nada depende de hover).',
+        label: 'toca "Fazer backup" ou a linha',
+        detail: 'Os dois são Link do react-router com alvo de 44 px (nada depende de hover).',
         refs: ['RF-10'],
         kind: 'event',
       },
@@ -4435,8 +4476,9 @@ export const FLOWS: readonly Flow[] = [
       {
         from: 'settings',
         to: 'reminder',
-        label: 'lastBackupAt novo → o aviso some',
-        detail: 'Depois de recordBackupDone, o useLiveQuery re-emite e o aviso deixa de aparecer.',
+        label: 'lastBackupAt novo → o aviso vira a linha',
+        detail:
+          'Depois de recordBackupDone, o useLiveQuery re-emite: o aviso some e, no mesmo lugar, aparece a linha "Último backup: hoje".',
         refs: ['D-11'],
         kind: 'return',
       },
@@ -5088,6 +5130,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
     impacts: [
       'src/domain/backupReminder.ts',
       'src/features/home/BackupReminder.tsx',
+      'src/features/home/LastBackupLine.tsx',
       'src/domain/backupReminder.test.ts',
       'src/features/home/BackupReminder.test.tsx',
     ],
@@ -5446,7 +5489,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
     id: 'D-46',
     title:
       'Testes em dois projetos do Vitest: unit (node, setup.unit.ts, todo *.test.ts fora de DOM_TEST_FILES) e dom (jsdom, setup.ts, todo *.test.tsx + DOM_TEST_FILES); pool forks mantido por causa do process.env.TZ',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'vite.config.ts',
       'package.json',
@@ -5460,7 +5503,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
     id: 'D-47',
     title:
       'Backup: envelope e cripto em lib/crypto (sal/IV novos, chave não extraível, senha NFC, base64 em blocos), backupFormat sem Dexie (migrações em cadeia, zod com invariantes, integridade, tetos de 10M iterações e 50 MB), settings só theme, repositório com transação r e rw única; useLastBackupAt no settingsRepository',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'src/lib/crypto.ts',
       'src/lib/backupFormat.ts',
@@ -5475,8 +5518,8 @@ export const DECISIONS: readonly DecisionInfo[] = [
   {
     id: 'D-48',
     title:
-      'Tela de backup e lembrete: textos e estados de exportar/importar, "Salvar backup" quando a folha é bloqueada, modal "Importar backup?", "Último backup" no Início só dentro do aviso, PasswordInput/FileInput, Button com ref e foco no resultado',
-    status: 'pending',
+      'Tela de backup e lembrete: textos e estados de exportar/importar, "Salvar backup" quando a folha é bloqueada (e download se ela for recusada de novo — spec 1.25), modal "Importar backup?", "Último backup" sempre no Início (aviso ou linha discreta — opção (a), spec 1.26), PasswordInput/FileInput, Button com ref e foco no resultado',
+    status: 'confirmed',
     impacts: [
       'src/features/backup/BackupPage.tsx',
       'src/features/backup/ExportBackupSection.tsx',
@@ -5487,6 +5530,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/features/backup/LastBackupStatus.tsx',
       'src/features/backup/backupTexts.ts',
       'src/features/home/BackupReminder.tsx',
+      'src/features/home/LastBackupLine.tsx',
       'src/components/ui/PasswordInput.tsx',
       'src/components/ui/FileInput.tsx',
       'src/components/ui/Button.tsx',
@@ -5541,7 +5585,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'D-47 e D-48 aguardando confirmação do dono',
     severity: 'warn',
     detail:
-      'Registradas na §8.1 em 22/10/2026 (spec 1.23, ajustadas na 1.24 pela revisão). D-47: formato, criptografia e repositório do backup — envelope da §6.8 com a Web Crypto nativa (sal de 16 e IV de 12 bytes novos, chave AES-GCM 256 não extraível, PBKDF2-SHA-256 600.000, senha em NFC, base64 em blocos de 32 KiB, BackupDecryptionError); backupFormat sem Dexie (SCHEMA_VERSION por parâmetro, BACKUP_MIGRATIONS em cadeia, zod com as invariantes da §6.3, ordem de amounts, nameKey coerente, integridade com parcela ≤ count, tetos de 10.000.000 iterações e 50 MB); settings só com theme; leitura numa transação r e importação numa única rw; useLastBackupAt no settingsRepository. D-48: textos e estados da tela de backup, "Salvar backup" quando a folha é bloqueada, modal "Importar backup?", "Último backup" no Início só dentro do aviso, PasswordInput/FileInput, Button com ref e foco no resultado. Junto com a D-46 (projetos do Vitest), são três decisões aguardando confirmação. Mover para os resolvidos quando o dono confirmar.',
+      'Registradas na §8.1 em 22/10/2026 (spec 1.23, ajustadas na 1.24 pela revisão). D-47: formato, criptografia e repositório do backup — envelope da §6.8 com a Web Crypto nativa (sal de 16 e IV de 12 bytes novos, chave AES-GCM 256 não extraível, PBKDF2-SHA-256 600.000, senha em NFC, base64 em blocos de 32 KiB, BackupDecryptionError); backupFormat sem Dexie (SCHEMA_VERSION por parâmetro, BACKUP_MIGRATIONS em cadeia, zod com as invariantes da §6.3, ordem de amounts, nameKey coerente, integridade com parcela ≤ count, tetos de 10.000.000 iterações e 50 MB); settings só com theme; leitura numa transação r e importação numa única rw; useLastBackupAt no settingsRepository. D-48: textos e estados da tela de backup, "Salvar backup" quando a folha é bloqueada e download se ela for recusada de novo (spec 1.25, teste manual no PC), modal "Importar backup?", "Último backup" sempre no Início — aviso ou linha discreta (opção (a) do dono, spec 1.26) —, PasswordInput/FileInput, Button com ref e foco no resultado. Junto com a D-46 (projetos do Vitest), são três decisões aguardando confirmação. Mover para os resolvidos quando o dono confirmar.',
     modules: [
       'docs/SPEC.md',
       'src/lib/crypto.ts',
@@ -5550,19 +5594,23 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/features/backup/BackupPage.tsx',
       'src/features/home/BackupReminder.tsx',
     ],
+    resolved: 'Confirmadas pelo dono em 23/10/2026 (spec 1.28).',
   },
   {
     title: 'Spec: "Último backup" no Início (RF-10) × só dentro do aviso (D-48(c))',
     severity: 'warn',
     detail:
-      'O RF-10 ("Lembrete") diz: "Em Ajustes e na tela inicial aparece \'Último backup: há N dias\'". A D-48(c) decidiu que, no Início, o texto só aparece dentro do aviso dos 7 dias (com pelo menos um lançamento e sem backup ou com 7 dias ou mais); em Ajustes → Backup ele aparece sempre (LastBackupStatus). Hoje o código segue a D-48(c): com backup recente, o Início não mostra "Último backup". Depende do dono: confirmar a D-48 (e ajustar o texto do RF-10) ou pedir a linha sempre visível no Início.',
+      'O RF-10 ("Lembrete") diz: "Em Ajustes e na tela inicial aparece \'Último backup: há N dias\'". A D-48(c) decidiu que, no Início, o texto só aparece dentro do aviso dos 7 dias (com pelo menos um lançamento e sem backup ou com 7 dias ou mais); em Ajustes → Backup ele aparece sempre (LastBackupStatus). O código seguia a D-48(c): com backup recente, o Início não mostrava "Último backup".',
     modules: [
       'docs/SPEC.md',
       'src/features/home/BackupReminder.tsx',
+      'src/features/home/LastBackupLine.tsx',
       'src/features/home/HomePage.tsx',
       'src/features/backup/LastBackupStatus.tsx',
       'src/domain/backupReminder.ts',
     ],
+    resolved:
+      'Resolvido em 23/10/2026 pela opção (a) do dono (spec 1.26, D-48(c) reescrita): "Último backup" sempre no topo do Início, num só lugar — com aviso, só o aviso (que já traz a frase); sem aviso, a linha discreta LastBackupLine com link para /ajustes/backup (alvo de 44 px); nada enquanto carrega. BackupReminder.test.tsx cobre os três casos.',
   },
   {
     title: 'Pendente (dono): teste manual da Fase 6 no iPhone',
@@ -5575,6 +5623,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/lib/crypto.ts',
       'src/repositories/backupRepository.ts',
     ],
+    resolved:
+      'Validado pelo dono em 23/10/2026 no PC e no iPhone: roteiro da Fase 6 (exportar → "Salvar em Arquivos", arquivo ilegível, senha errada sem mudar nada, reinstalar e importar com todos os dados de volta, "Último backup: hoje"). No PC o teste achou o "Salvar backup" em loop no Windows, corrigido pela spec 1.25 (download quando a folha é recusada de novo). Fase 6 concluída: o app pode receber dados reais.',
   },
   {
     title: 'PBKDF2 com 600.000 iterações: ~345 ms no PC, iPhone ainda não medido',
@@ -5625,6 +5675,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'CLAUDE.md',
       '.claude/agents/domain-test-writer.md',
     ],
+    resolved: 'Confirmada pelo dono em 23/10/2026 (spec 1.28).',
   },
   {
     title: 'D-44 e D-45 aguardavam confirmação do dono',
@@ -5676,7 +5727,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'Visto na Fase 5 (1.724 testes): o tempo vai para criar o ambiente jsdom em cada arquivo de teste (84 vezes na medição do orquestrador, 85 nesta atualização — metade do tempo medido pelo Vitest, inclusive nos de src/domain e src/lib, que não usam DOM), e não para os testes de propriedade. Opção: test.projects no vite.config.ts com environment: "node" para src/domain e src/lib (e o jsdom só para componentes, hooks e repositórios). Não aplicado na época: mexe na configuração do Vitest e é decisão do dono.',
     modules: ['vite.config.ts', 'src/test/setup.ts', 'src/test/setup.unit.ts', 'package.json'],
     resolved:
-      'Resolvido pela D-46 (spec 1.21, 22/10/2026 — aguardando confirmação do dono): dois projetos do Vitest. unit em node com setup.unit.ts (48 arquivos, 1.450 testes, ~15 s) e dom em jsdom com setup.ts (37 arquivos, 275 testes, ~44 s); só os *.test.tsx e os 12 *.test.ts de DOM_TEST_FILES pagam o jsdom. Tempo total da suíte de ~72–85 s para ~50–55 s. Pool forks mantido (threads quebra os testes de fuso).',
+      'Resolvido pela D-46 (spec 1.21, 22/10/2026; confirmada pelo dono em 23/10/2026): dois projetos do Vitest. unit em node com setup.unit.ts (48 arquivos, 1.450 testes, ~15 s) e dom em jsdom com setup.ts (37 arquivos, 275 testes, ~44 s); só os *.test.tsx e os 12 *.test.ts de DOM_TEST_FILES pagam o jsdom. Tempo total da suíte de ~72–85 s para ~50–55 s. Pool forks mantido (threads quebra os testes de fuso).',
   },
   {
     title: 'Pacote principal com 596 kB (188,9 kB gzip): o build avisa chunk acima de 500 kB',
@@ -6360,7 +6411,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/transactions/transactionTexts.ts':
     'Fase 4: textos pt-BR do formulário de lançamento ("Lançamento salvo", falhas, lançamento/tag inexistente, aviso sem tags).',
   'src/features/home/HomePage.tsx':
-    'Fase 4 (RF-02): Page com BalanceSummary (today de useToday), seção "Novo lançamento" com TransactionForm e RecentTransactions (today — D-40). Única tela fora do React.lazy (bundle decidido pela D-41). Fase 6: BackupReminder (today) no topo, antes do BalanceSummary (RF-10, D-11, D-48(c)).',
+    'Fase 4 (RF-02): Page com BalanceSummary (today de useToday), seção "Novo lançamento" com TransactionForm e RecentTransactions (today — D-40). Única tela fora do React.lazy (bundle decidido pela D-41). Fase 6: BackupReminder (today) no topo, antes do BalanceSummary (RF-10, D-11, D-48(c)) — aviso ou, desde a spec 1.26, a linha LastBackupLine.',
   'src/features/home/BalanceSummary.tsx':
     'Fase 4 (RF-02 itens 1–2, D-42, CA-02.3): useOverallBalance() (sem today) e useMonthTotals(periodOf(today)); "—" enquanto carrega; título com formatMonthLabel. Fase 5: entradas e saídas do mês pelo IncomeExpenseTotals.',
   'src/features/home/RecentTransactions.tsx':
@@ -6425,7 +6476,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/backupFormat.ts':
     'Fase 6 (§6.8, CA-10.3 a CA-10.5, D-47(b)–(d)): sem Dexie (SCHEMA_VERSION chega por parâmetro). parseBackupEnvelope: zod do envelope (base64 do sal com 16 e do IV com 12 bytes, ciphertext com pelo menos a tag do GCM, iterações ≤ MAX_PBKDF2_ITERATIONS = 10.000.000). parseBackupContent: cabeçalho app/schemaVersion → NewerBackupVersionError se mais nova → migrateBackupContent em cadeia (BACKUP_MIGRATIONS vazio; migração faltando = InvalidBackupFileError) → zod dos registros (cents z.int().positive(), datas que existem, YYYY-MM, #RRGGBB, ISO 8601, pares recurringId/recurringPeriod e installmentGroupId/installmentNumber, 2 a 48 parcelas, .refine da ordem de amounts e do nameKey = toTagNameKey(name)) → hasReferentialIntegrity (IDs únicos por tabela, nameKey único, tagId/recurringId/installmentGroupId existentes, parcela ≤ count). Exportação: selectBackupSettings (só theme válido; senão []), buildBackupContent, backupFileName (data local). summarizeBackup para o modal. MAX_BACKUP_FILE_BYTES = 50 MB.',
   'src/lib/share.ts':
-    'Fase 6 (RF-10, §6.8 passos 6–7): shareOrDownloadFile(file) → "shared" | "downloaded" | "cancelled" | "blocked". navigator.canShare({ files }) → navigator.share; AbortError = cancelled, NotAllowedError = blocked (sem toque recente — D-48(a)), outras falhas relançadas. Sem suporte: <a download> escondido e URL liberada depois de OBJECT_URL_REVOKE_DELAY_MS (10 s). Nada vai para a rede (princípio 5). Teste no projeto dom (DOM_TEST_FILES).',
+    'Fase 6 (RF-10, §6.8 passos 6–7): shareOrDownloadFile(file) → "shared" | "downloaded" | "cancelled" | "blocked". navigator.canShare({ files }) → navigator.share; AbortError = cancelled, NotAllowedError = blocked (sem toque recente — D-48(a)), outras falhas relançadas. Spec 1.25 (teste manual no PC): segundo parâmetro ShareOrDownloadOptions (tipo exportado) — com { downloadIfBlocked: true } o NotAllowedError vira download e o retorno é "downloaded" (usado só na nova tentativa do "Salvar backup"). Sem suporte: <a download> escondido e URL liberada depois de OBJECT_URL_REVOKE_DELAY_MS (10 s). Nada vai para a rede (princípio 5). Teste no projeto dom (DOM_TEST_FILES).',
   'src/domain/backupReminder.ts':
     'Fase 6 (RF-10, D-11, D-48(c)): BACKUP_REMINDER_DAYS = 7; daysSinceLastBackup(lastBackupAt ISO, today) em dias de calendário locais (parseISO + differenceInCalendarDays; relógio atrasado → 0; data inválida → null); describeLastBackup → "Último backup: nunca / hoje / há 1 dia / há N dias"; shouldShowBackupReminder exige pelo menos um lançamento e (nunca ou ≥ 7 dias).',
   'src/domain/backupPasswordSchema.ts':
@@ -6443,7 +6494,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/features/backup/ExportBackupSection.tsx':
     'Fase 6 (RF-10, D-48(a)): formulário de senha + confirmação com Controller → PasswordInput, ErrorAlert, status role="status" e um único botão: "Exportar backup"/"Gerando backup…" ou "Salvar backup" (ref saveButtonRef). statusRef e saveButtonRef saem do objeto do hook antes de ler o resto (regra react/refs).',
   'src/features/backup/useExportBackup.ts':
-    'Fase 6 (RF-10, princípio 16, D-48(a)/(e)): useForm com LIVE_VALIDATION + zodResolver(exportPasswordSchema); form.subscribe na senha reconfere a confirmação já mexida. submit: createBackupFile → deliver (deliverBackupFile) → applyOutcome: blocked guarda pendingFile ("Salvar backup"), cancelled só a mensagem, shared/downloaded reset do formulário (a senha sai da memória) + "Backup exportado.". Falha → "Não foi possível gerar o backup. Tente novamente." em state.error (fora do setError — D-36). Foco por useEffect: botão "Salvar backup" ou a mensagem. Devolve statusRef e saveButtonRef; canSubmit = canSubmitForm && !isBusy.',
+    'Fase 6 (RF-10, princípio 16, D-48(a)/(e)): useForm com LIVE_VALIDATION + zodResolver(exportPasswordSchema); form.subscribe na senha reconfere a confirmação já mexida. submit: createBackupFile → deliver(file) (deliverBackupFile com o share padrão) → applyOutcome: blocked guarda pendingFile ("Salvar backup"), cancelled só a mensagem, shared/downloaded reset do formulário (a senha sai da memória) + "Backup exportado.". savePendingFile: deliver(pendingFile, shareOrDownloadOnRetry) — deliverBackupFile(file, shareOrDownloadOnRetry), que é shareOrDownloadFile(file, { downloadIfBlocked: true }): se a folha for recusada de novo, o arquivo é baixado, lastBackupAt é gravado e aparece "Backup exportado." (spec 1.25 — antes ficava em blocked em loop no Windows). Falha → "Não foi possível gerar o backup. Tente novamente." em state.error (fora do setError — D-36). Foco por useEffect: botão "Salvar backup" ou a mensagem. Devolve statusRef e saveButtonRef; canSubmit = canSubmitForm && !isBusy.',
   'src/features/backup/ImportBackupSection.tsx':
     'Fase 6 (RF-10, D-48(b)): <form key={formKey}> com Controller → FileInput (accept application/json,.json) e PasswordInput (current-password), ErrorAlert do openError e "Importar backup"/"Verificando backup…"; status fora do <form> (sobrevive à recriação e recebe o foco); ConfirmImportDialog como irmão.',
   'src/features/backup/useImportBackup.ts':
@@ -6453,7 +6504,9 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/features/backup/backupTexts.ts':
     'Fase 6: rótulos e mensagens da tela de backup (as dos CA-10.2, CA-10.3 e CA-10.5 exatamente como na spec); describeOpenError mapeia BackupDecryptionError, InvalidBackupFileError e NewerBackupVersionError; formatCount (Intl pt-BR) e formatBackupDate ("17/10/2026 às 15:05", parseISO + format).',
   'src/features/home/BackupReminder.tsx':
-    'Fase 6 (RF-10 "Lembrete", D-11, D-48(c)): recebe today; useLastBackupAt + useTransactionCount; null enquanto carrega ou sem motivo; Notice subtle com describeLastBackup + "Faça um backup para não perder seus dados." e Link "Fazer backup" para /ajustes/backup. Não importa o backupRepository (D-41).',
+    'Fase 6 (RF-10 "Lembrete", D-11, D-48(c)): recebe today; useLastBackupAt + useTransactionCount; null só enquanto carrega. Monta a frase com describeLastBackup(daysSinceLastBackup(...)) e escolhe: com shouldShowBackupReminder, Notice subtle com a frase + "Faça um backup para não perder seus dados." e Link "Fazer backup" para /ajustes/backup; senão, LastBackupLine com a frase (spec 1.26, opção (a) do dono — "Último backup" sempre no Início, nunca duas vezes). Não importa o backupRepository (D-41).',
+  'src/features/home/LastBackupLine.tsx':
+    'Fase 6 (RF-10, D-48(c) opção (a), spec 1.26): linha discreta "Último backup: …" do Início quando não há aviso. Folha sem estado: children (string pronta de describeLastBackup) dentro de um Link do react-router para /ajustes/backup, text-sm slate-600/slate-400 (AA nos dois temas), min-h-11 (alvo de 44 px — RNF-06), self-start. Sem teste próprio: coberto por BackupReminder.test.tsx.',
   'src/test/backupDataset.ts':
     'Fase 6 (testes reforçados, CA-10.1): generateBackupDataset(seed, { maxTransactions }) gera, com semente (createTestRandom, sem bibliotecas extras), as 5 tabelas da §6.3 — tags com nameKey, lançamentos avulsos, de recorrente e de parcelamento, recorrentes com histórico de valores e meses pulados, parcelamentos de 2 a 48 parcelas e as 3 chaves de settings — com textos difíceis (acentos, emoji, aspas, quebras de linha, escrita não latina) e IDs UUID reprodutíveis (princípio 9). Usado nos testes de ida e volta e de auditoria do backup.',
 }
