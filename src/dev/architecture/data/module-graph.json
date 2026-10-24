@@ -1,13 +1,13 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-23T16:41:49.659Z",
+  "generatedAt": "2026-10-24T12:03:51.682Z",
   "totals": {
-    "modules": 314,
-    "loc": 32279,
-    "components": 119,
-    "hooks": 34,
-    "tests": 98,
-    "edges": 927,
+    "modules": 330,
+    "loc": 34090,
+    "components": 128,
+    "hooks": 36,
+    "tests": 102,
+    "edges": 999,
     "configFiles": 11
   },
   "layerSummary": {
@@ -41,24 +41,24 @@
     },
     "dev": {
       "modules": 66,
-      "loc": 14632,
+      "loc": 15147,
       "components": 37,
       "hooks": 2,
       "tests": 5
     },
     "domain": {
-      "modules": 38,
-      "loc": 3924,
+      "modules": 41,
+      "loc": 4450,
       "components": 0,
       "hooks": 0,
-      "tests": 25
+      "tests": 27
     },
     "features": {
-      "modules": 66,
-      "loc": 4152,
-      "components": 37,
-      "hooks": 7,
-      "tests": 16
+      "modules": 78,
+      "loc": 4819,
+      "components": 46,
+      "hooks": 8,
+      "tests": 17
     },
     "lib": {
       "modules": 25,
@@ -76,17 +76,17 @@
     },
     "repositories": {
       "modules": 26,
-      "loc": 3287,
+      "loc": 3302,
       "components": 0,
-      "hooks": 12,
+      "hooks": 13,
       "tests": 16
     },
     "stores": {
-      "modules": 3,
-      "loc": 171,
+      "modules": 4,
+      "loc": 259,
       "components": 0,
       "hooks": 1,
-      "tests": 2
+      "tests": 3
     },
     "other": {
       "modules": 1,
@@ -103,7 +103,7 @@
       "tests": 0
     }
   },
-  "specVersion": "1.26 — 23/10/2026 (Fase 6: \"Último backup\" sempre na tela inicial — linha discreta sem aviso, só o aviso quando ele aparece; D-48 (c), opção (a) do dono, aguardando confirmação) · 1.25 — 23/10/2026 (Fase 6: teste manual — \"Salvar backup\" baixa o arquivo quando a folha é recusada de novo; D-48 aguardando confirmação) · 1.24 — 22/10/2026 (Fase 6: ajustes da revisão — validação do backup, senha em NFC e foco; D-47 e D-48 aguardando confirmação) · 1.23 — 22/10/2026 (Fase 6: backup — D-47 e D-48 aguardando confirmação) · 1.22 — 22/10/2026 (Fase 5 concluída — roteiro validado pelo dono) · 1.21 — 22/10/2026 (testes em dois projetos do Vitest, `unit` em node e `dom` em jsdom — D-46 aguardando confirmação) · 1.20 — 22/10/2026 (D-44 e D-45 confirmadas) · 1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.29 — 24/10/2026 (Fase 7: visões por período; D-49 aguardando confirmação) · 1.28 — 23/10/2026 (D-46, D-47 e D-48 confirmadas) · 1.27 — 23/10/2026 (Fase 6 concluída — roteiro validado pelo dono no PC e no iPhone; app liberado para dados reais) · 1.26 — 23/10/2026 (Fase 6: \"Último backup\" sempre na tela inicial — linha discreta sem aviso, só o aviso quando ele aparece; D-48 (c), opção (a) do dono, aguardando confirmação) · 1.25 — 23/10/2026 (Fase 6: teste manual — \"Salvar backup\" baixa o arquivo quando a folha é recusada de novo; D-48 aguardando confirmação) · 1.24 — 22/10/2026 (Fase 6: ajustes da revisão — validação do backup, senha em NFC e foco; D-47 e D-48 aguardando confirmação) · 1.23 — 22/10/2026 (Fase 6: backup — D-47 e D-48 aguardando confirmação) · 1.22 — 22/10/2026 (Fase 5 concluída — roteiro validado pelo dono) · 1.21 — 22/10/2026 (testes em dois projetos do Vitest, `unit` em node e `dom` em jsdom — D-46 aguardando confirmação) · 1.20 — 22/10/2026 (D-44 e D-45 confirmadas) · 1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
@@ -382,27 +382,27 @@
       "requirements": "RF-05 (sem a parte de recorrentes, que entra na Fase 9)",
       "tasks": [
         {
-          "done": false,
+          "done": true,
           "text": "Seletor Dia/Semana/Mês/Ano, setas e \"Hoje\" (Zustand).",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Cartão de resumo e detalhamento de cada granularidade.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Navegação de detalhamento (Ano → Mês → Dia; Semana → Dia).",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Testes de `weekRange` e de virada de mês/ano.",
           "human": false
         }
       ],
-      "done": 0,
+      "done": 4,
       "total": 4
     },
     {
@@ -3426,7 +3426,8 @@
       ],
       "importedBy": [
         "src/features/home/RecentTransactions.tsx",
-        "src/features/transactions/list/DaySection.tsx"
+        "src/features/transactions/list/DaySection.tsx",
+        "src/features/views/DayDetail.tsx"
       ],
       "imports": [
         "src/components/ui/SignedAmount.tsx",
@@ -3775,7 +3776,8 @@
         "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
         "src/features/transactions/TransactionDetailPage.tsx",
         "src/features/transactions/filters/ClearFiltersButton.tsx",
-        "src/features/transactions/filters/FilterToggle.tsx"
+        "src/features/transactions/filters/FilterToggle.tsx",
+        "src/features/views/ViewsPage.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -3913,7 +3915,8 @@
         "src/components/transactions/TransactionForm.tsx",
         "src/components/ui/createRadioGroup.test.tsx",
         "src/features/settings/ThemeSection.tsx",
-        "src/features/transactions/filters/TypeFilter.tsx"
+        "src/features/transactions/filters/TypeFilter.tsx",
+        "src/features/views/GranularityPicker.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -4102,7 +4105,9 @@
         "src/features/home/RecentTransactions.tsx",
         "src/features/tags/TagsPage.tsx",
         "src/features/transactions/TransactionDetailPage.tsx",
-        "src/features/transactions/TransactionsPage.tsx"
+        "src/features/transactions/TransactionsPage.tsx",
+        "src/features/views/DayDetail.tsx",
+        "src/features/views/MonthDetail.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -5105,7 +5110,9 @@
       "importedBy": [
         "src/components/transactions/TransactionRow.tsx",
         "src/features/home/BalanceSummary.tsx",
-        "src/features/transactions/list/FilterSummary.tsx"
+        "src/features/transactions/list/FilterSummary.tsx",
+        "src/features/views/PeriodRows.tsx",
+        "src/features/views/PeriodSummaryCard.tsx"
       ],
       "imports": [
         "src/domain/money.ts",
@@ -8820,7 +8827,7 @@
         "database",
         "data"
       ],
-      "loc": 6476,
+      "loc": 6878,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
@@ -8906,7 +8913,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 2206,
+      "loc": 2319,
       "exports": [
         "TIMELINE"
       ],
@@ -10803,10 +10810,14 @@
         "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
         "src/domain/dates.timezone.test.ts",
+        "src/domain/periodViews.ts",
         "src/domain/transactionFilters.audit.test.ts",
         "src/domain/transactionFilters.properties.test.ts",
         "src/domain/transactionFilters.ts",
         "src/features/transactions/list/FilterSummary.tsx",
+        "src/features/views/PeriodRows.tsx",
+        "src/features/views/PeriodSummaryCard.tsx",
+        "src/features/views/usePeriodView.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.ts"
       ],
@@ -11197,13 +11208,18 @@
       "kinds": [
         "module"
       ],
-      "loc": 166,
+      "loc": 237,
       "exports": [
         "DateRange",
+        "addDays",
         "addMonthsClamped",
+        "datesBetween",
+        "formatDateRangeLabel",
         "formatLongDate",
         "formatMonthLabel",
+        "formatMonthName",
         "formatShortDate",
+        "formatWeekdayDate",
         "isValidDate",
         "monthRange",
         "periodOf",
@@ -11242,6 +11258,14 @@
           "signature": "addMonthsClamped(date: DateString, months: number): DateString"
         },
         {
+          "name": "addDays",
+          "signature": "addDays(date: DateString, days: number): DateString"
+        },
+        {
+          "name": "datesBetween",
+          "signature": "datesBetween(start: DateString, end: DateString): DateString[]"
+        },
+        {
           "name": "periodsBetween",
           "signature": "periodsBetween(start: PeriodString, end: PeriodString): PeriodString[]"
         },
@@ -11260,6 +11284,18 @@
         {
           "name": "formatLongDate",
           "signature": "formatLongDate(date: DateString): string"
+        },
+        {
+          "name": "formatWeekdayDate",
+          "signature": "formatWeekdayDate(date: DateString): string"
+        },
+        {
+          "name": "formatMonthName",
+          "signature": "formatMonthName(period: PeriodString): string"
+        },
+        {
+          "name": "formatDateRangeLabel",
+          "signature": "formatDateRangeLabel({ start, end }: DateRange): string"
         }
       ],
       "components": [],
@@ -11279,6 +11315,7 @@
       "requirementRefs": [
         "CA-04.1",
         "CA-05.3",
+        "RF-05",
         "RF-08",
         "RNF-02"
       ],
@@ -11288,6 +11325,7 @@
           "specifier": "date-fns",
           "kind": "static",
           "names": [
+            "addDays as addCalendarDays",
             "addMonths",
             "endOfWeek",
             "format",
@@ -11326,16 +11364,24 @@
         "src/domain/dates.longDate.test.ts",
         "src/domain/dates.test.ts",
         "src/domain/dates.timezone.test.ts",
+        "src/domain/dates.views.test.ts",
+        "src/domain/periodViews.ts",
         "src/domain/transactionSchema.ts",
         "src/features/home/BalanceSummary.tsx",
         "src/features/home/HomePage.test.tsx",
         "src/features/transactions/TransactionsPage.pagination.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
         "src/features/transactions/list/DaySection.tsx",
+        "src/features/views/MonthDetail.tsx",
+        "src/features/views/PeriodDetail.tsx",
+        "src/features/views/WeekDetail.tsx",
+        "src/features/views/YearDetail.tsx",
+        "src/features/views/usePeriodView.ts",
         "src/lib/backupFormat.ts",
         "src/repositories/backupRepository.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
-        "src/repositories/transactionsRepository.ts"
+        "src/repositories/transactionsRepository.ts",
+        "src/stores/uiStore.ts"
       ],
       "imports": [
         "src/domain/types.ts"
@@ -11353,11 +11399,62 @@
         "src/domain/dates.longDate.test.ts",
         "src/domain/dates.test.ts",
         "src/domain/dates.timezone.test.ts",
+        "src/domain/dates.views.test.ts",
         "src/features/home/HomePage.test.tsx",
         "src/features/transactions/TransactionsPage.pagination.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
         "src/repositories/transactionsRepository.balances.test.ts"
       ]
+    },
+    {
+      "id": "src/domain/dates.views.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 127,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-05.3",
+        "RF-05"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/dates.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/money.test.ts",
@@ -11493,6 +11590,9 @@
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/transactions/TransactionsPage.filters.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
+        "src/features/views/PeriodRows.tsx",
+        "src/features/views/PeriodSummaryCard.tsx",
+        "src/features/views/ViewsPage.test.tsx",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.crud.test.ts"
       ],
@@ -11514,8 +11614,164 @@
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/transactions/TransactionsPage.filters.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
+        "src/features/views/ViewsPage.test.tsx",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.crud.test.ts"
+      ]
+    },
+    {
+      "id": "src/domain/periodViews.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 200,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-05.1",
+        "CA-05.3",
+        "RF-05"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/periodViews.ts",
+        "src/test/factories.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/domain/periodViews.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "module"
+      ],
+      "loc": 128,
+      "exports": [
+        "DaySummary",
+        "MonthSummary",
+        "ViewGranularity",
+        "formatViewTitle",
+        "shiftAnchorDate",
+        "summarizeActiveDays",
+        "summarizeDays",
+        "summarizeMonths",
+        "viewRange",
+        "yearOf"
+      ],
+      "typeExports": [
+        "DaySummary",
+        "MonthSummary",
+        "ViewGranularity"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "yearOf",
+          "signature": "yearOf(date: DateString): number"
+        },
+        {
+          "name": "viewRange",
+          "signature": "viewRange(granularity: ViewGranularity, anchor: DateString): DateRange"
+        },
+        {
+          "name": "shiftAnchorDate",
+          "signature": "shiftAnchorDate(granularity: ViewGranularity, anchor: DateString, steps: number): DateString"
+        },
+        {
+          "name": "formatViewTitle",
+          "signature": "formatViewTitle(granularity: ViewGranularity, anchor: DateString): string"
+        },
+        {
+          "name": "summarizeDays",
+          "signature": "summarizeDays(transactions: readonly Transaction[], range: DateRange): DaySummary[]"
+        },
+        {
+          "name": "summarizeActiveDays",
+          "signature": "summarizeActiveDays(transactions: readonly Transaction[], range: DateRange): DaySummary[]"
+        },
+        {
+          "name": "summarizeMonths",
+          "signature": "summarizeMonths(transactions: readonly Transaction[], year: number): MonthSummary[]"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-04.1",
+        "CA-05.1",
+        "CA-05.3",
+        "RF-05"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/domain/periodViews.test.ts",
+        "src/features/views/GranularityPicker.tsx",
+        "src/features/views/MonthDetail.tsx",
+        "src/features/views/PeriodDetail.tsx",
+        "src/features/views/PeriodNavigator.tsx",
+        "src/features/views/ViewsPage.test.tsx",
+        "src/features/views/ViewsPage.tsx",
+        "src/features/views/WeekDetail.tsx",
+        "src/features/views/YearDetail.tsx",
+        "src/features/views/usePeriodView.ts",
+        "src/features/views/viewTexts.ts",
+        "src/stores/uiStore.ts"
+      ],
+      "imports": [
+        "src/domain/balances.ts",
+        "src/domain/dates.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/domain/periodViews.test.ts",
+        "src/features/views/ViewsPage.test.tsx"
       ]
     },
     {
@@ -12743,6 +12999,7 @@
         "src/domain/balances.ts",
         "src/domain/dates.ts",
         "src/domain/money.ts",
+        "src/domain/periodViews.ts",
         "src/domain/tags.ts",
         "src/domain/transactionFilters.audit.test.ts",
         "src/domain/transactionFilters.performance.test.ts",
@@ -12765,6 +13022,13 @@
         "src/features/transactions/list/TransactionDayList.tsx",
         "src/features/transactions/useTransactionList.test.ts",
         "src/features/transactions/useTransactionList.ts",
+        "src/features/views/DayDetail.tsx",
+        "src/features/views/MonthDetail.tsx",
+        "src/features/views/PeriodDetail.tsx",
+        "src/features/views/ViewsPage.tsx",
+        "src/features/views/WeekDetail.tsx",
+        "src/features/views/YearDetail.tsx",
+        "src/features/views/usePeriodView.ts",
         "src/lib/backupFormat.ts",
         "src/repositories/backupRepository.test.ts",
         "src/repositories/settingsRepository.ts",
@@ -12772,6 +13036,7 @@
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.list.properties.test.ts",
         "src/repositories/transactionsRepository.ts",
+        "src/stores/uiStore.ts",
         "src/test/backupDataset.ts",
         "src/test/factories.ts",
         "src/test/seedDatabase.ts",
@@ -17213,6 +17478,596 @@
       ]
     },
     {
+      "id": "src/features/views/DayDetail.tsx",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "component"
+      ],
+      "loc": 33,
+      "exports": [
+        "DayDetail"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "DayDetail",
+          "signature": "DayDetail({ transactions }: DayDetailProps)"
+        }
+      ],
+      "components": [
+        "DayDetail"
+      ],
+      "props": {
+        "DayDetailProps": 1
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useTags"
+      ],
+      "jsxUsed": [
+        "EmptyState",
+        "TransactionRow"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-01.5",
+        "RF-05"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/views/PeriodDetail.tsx"
+      ],
+      "imports": [
+        "src/components/transactions/TransactionRow.tsx",
+        "src/components/ui/EmptyState.tsx",
+        "src/domain/types.ts",
+        "src/features/views/viewTexts.ts",
+        "src/repositories/tagsRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/views/GranularityPicker.tsx",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "component"
+      ],
+      "loc": 25,
+      "exports": [
+        "GranularityPicker"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "GranularityPicker",
+          "signature": "GranularityPicker()"
+        }
+      ],
+      "components": [
+        "GranularityPicker"
+      ],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useUiStore"
+      ],
+      "jsxUsed": [
+        "GranularityRadio.Option",
+        "GranularityRadio.Root"
+      ],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "setGranularity",
+        "viewGranularity"
+      ],
+      "requirementRefs": [
+        "RF-05"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/views/ViewsPage.tsx"
+      ],
+      "imports": [
+        "src/components/ui/createRadioGroup.tsx",
+        "src/domain/periodViews.ts",
+        "src/features/views/viewTexts.ts",
+        "src/stores/uiStore.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/views/MonthDetail.tsx",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "component"
+      ],
+      "loc": 31,
+      "exports": [
+        "MonthDetail"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "MonthDetail",
+          "signature": "MonthDetail({ transactions, range, onSelectDay }: MonthDetailProps)"
+        }
+      ],
+      "components": [
+        "MonthDetail"
+      ],
+      "props": {
+        "MonthDetailProps": 3
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "EmptyState",
+        "PeriodRows",
+        "PeriodRows.Item"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-05",
+        "RF-07"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/views/PeriodDetail.tsx"
+      ],
+      "imports": [
+        "src/components/ui/EmptyState.tsx",
+        "src/domain/dates.ts",
+        "src/domain/periodViews.ts",
+        "src/domain/types.ts",
+        "src/features/views/PeriodRows.tsx",
+        "src/features/views/viewTexts.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/views/PeriodDetail.tsx",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "component"
+      ],
+      "loc": 40,
+      "exports": [
+        "PeriodDetail"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "PeriodDetail",
+          "signature": "PeriodDetail({ granularity, range, transactions, onOpenPeriod, }: PeriodDetailProps)"
+        }
+      ],
+      "components": [
+        "PeriodDetail"
+      ],
+      "props": {
+        "PeriodDetailProps": 4
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "DayDetail",
+        "MonthDetail",
+        "WeekDetail",
+        "YearDetail"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-05"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/views/ViewsPage.tsx"
+      ],
+      "imports": [
+        "src/domain/dates.ts",
+        "src/domain/periodViews.ts",
+        "src/domain/types.ts",
+        "src/features/views/DayDetail.tsx",
+        "src/features/views/MonthDetail.tsx",
+        "src/features/views/WeekDetail.tsx",
+        "src/features/views/YearDetail.tsx"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/views/PeriodNavigator.tsx",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "component"
+      ],
+      "loc": 46,
+      "exports": [
+        "PeriodNavigator"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "PeriodNavigator",
+          "signature": "PeriodNavigator({ granularity, title, titleRef }: PeriodNavigatorProps)"
+        }
+      ],
+      "components": [
+        "PeriodNavigator"
+      ],
+      "props": {
+        "PeriodNavigatorProps": 3
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useUiStore"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "goNext",
+        "goPrev"
+      ],
+      "requirementRefs": [
+        "CA-05.3",
+        "RF-05",
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "type",
+          "names": [
+            "Ref"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/views/ViewsPage.tsx"
+      ],
+      "imports": [
+        "src/domain/periodViews.ts",
+        "src/features/views/viewTexts.ts",
+        "src/stores/uiStore.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/views/PeriodRows.tsx",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "component"
+      ],
+      "loc": 51,
+      "exports": [
+        "PeriodRows"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "PeriodRows",
+          "signature": "PeriodRows({ label, children }: PeriodRowsProps)"
+        }
+      ],
+      "components": [
+        "PeriodRows"
+      ],
+      "props": {
+        "PeriodRowsProps": 2,
+        "PeriodRowsItemProps": 3
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "SignedAmount"
+      ],
+      "compoundParts": {
+        "Item": "PeriodRowsItem"
+      },
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-05",
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "type",
+          "names": [
+            "ReactNode"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/views/MonthDetail.tsx",
+        "src/features/views/WeekDetail.tsx",
+        "src/features/views/YearDetail.tsx"
+      ],
+      "imports": [
+        "src/components/ui/SignedAmount.tsx",
+        "src/domain/balances.ts",
+        "src/domain/money.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/views/PeriodSummaryCard.tsx",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "component"
+      ],
+      "loc": 33,
+      "exports": [
+        "PeriodSummaryCard"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "PeriodSummaryCard",
+          "signature": "PeriodSummaryCard({ totals }: PeriodSummaryCardProps)"
+        }
+      ],
+      "components": [
+        "PeriodSummaryCard"
+      ],
+      "props": {
+        "PeriodSummaryCardProps": 1
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "SignedAmount"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-05"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/views/ViewsPage.tsx"
+      ],
+      "imports": [
+        "src/components/ui/SignedAmount.tsx",
+        "src/domain/balances.ts",
+        "src/domain/money.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/views/usePeriodView.ts",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 33,
+      "exports": [
+        "PeriodViewState",
+        "usePeriodView"
+      ],
+      "typeExports": [
+        "PeriodViewState"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "usePeriodView",
+          "signature": "usePeriodView(): PeriodViewState"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "usePeriodView"
+      ],
+      "hooksUsed": [
+        "useTransactionsInRange",
+        "useUiStore"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "viewAnchorDate",
+        "viewGranularity"
+      ],
+      "requirementRefs": [
+        "CA-05.1",
+        "CA-05.4",
+        "RF-05"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/views/ViewsPage.tsx"
+      ],
+      "imports": [
+        "src/domain/balances.ts",
+        "src/domain/dates.ts",
+        "src/domain/periodViews.ts",
+        "src/domain/types.ts",
+        "src/repositories/transactionsRepository.ts",
+        "src/stores/uiStore.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/views/ViewsPage.test.tsx",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "test"
+      ],
+      "loc": 257,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFakeTimers",
+        "useRealTimers"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "viewAnchorDate",
+        "viewGranularity"
+      ],
+      "requirementRefs": [
+        "CA-01.5",
+        "CA-05.1",
+        "CA-05.3",
+        "CA-05.4",
+        "RF-05"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "act",
+            "fireEvent",
+            "screen",
+            "waitFor",
+            "within"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/money.ts",
+        "src/domain/periodViews.ts",
+        "src/features/views/viewTexts.ts",
+        "src/stores/uiStore.ts",
+        "src/test/renderApp.tsx",
+        "src/test/transactionList.ts"
+      ],
+      "assets": [],
+      "testProject": "dom"
+    },
+    {
       "id": "src/features/views/ViewsPage.tsx",
       "layer": "features",
       "feature": "views",
@@ -17221,7 +18076,7 @@
         "component",
         "page"
       ],
-      "loc": 8,
+      "loc": 52,
       "exports": [
         "ViewsPage"
       ],
@@ -17238,10 +18093,153 @@
       ],
       "props": {},
       "hooksDefined": [],
+      "hooksUsed": [
+        "usePeriodView",
+        "useUiStore"
+      ],
+      "jsxUsed": [
+        "Button",
+        "GranularityPicker",
+        "Page",
+        "Page.Header",
+        "PeriodDetail",
+        "PeriodNavigator",
+        "PeriodSummaryCard"
+      ],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "goToday",
+        "openPeriod"
+      ],
+      "requirementRefs": [
+        "CA-05.4",
+        "RF-05"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useRef"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/app/lazyPages.tsx"
+      ],
+      "imports": [
+        "src/components/ui/Button.tsx",
+        "src/components/ui/Page.tsx",
+        "src/domain/periodViews.ts",
+        "src/domain/types.ts",
+        "src/features/views/GranularityPicker.tsx",
+        "src/features/views/PeriodDetail.tsx",
+        "src/features/views/PeriodNavigator.tsx",
+        "src/features/views/PeriodSummaryCard.tsx",
+        "src/features/views/usePeriodView.ts",
+        "src/features/views/viewTexts.ts",
+        "src/stores/uiStore.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/features/views/ViewsPage.test.tsx"
+      ]
+    },
+    {
+      "id": "src/features/views/viewTexts.ts",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "module"
+      ],
+      "loc": 23,
+      "exports": [
+        "GRANULARITY_LABELS",
+        "NEXT_PERIOD_LABELS",
+        "NO_DAY_TRANSACTIONS_MESSAGE",
+        "NO_MONTH_TRANSACTIONS_MESSAGE",
+        "PREVIOUS_PERIOD_LABELS",
+        "TODAY_LABEL"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-05"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/views/DayDetail.tsx",
+        "src/features/views/GranularityPicker.tsx",
+        "src/features/views/MonthDetail.tsx",
+        "src/features/views/PeriodNavigator.tsx",
+        "src/features/views/ViewsPage.test.tsx",
+        "src/features/views/ViewsPage.tsx"
+      ],
+      "imports": [
+        "src/domain/periodViews.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/features/views/ViewsPage.test.tsx"
+      ]
+    },
+    {
+      "id": "src/features/views/WeekDetail.tsx",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "component"
+      ],
+      "loc": 24,
+      "exports": [
+        "WeekDetail"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "WeekDetail",
+          "signature": "WeekDetail({ transactions, range, onSelectDay }: WeekDetailProps)"
+        }
+      ],
+      "components": [
+        "WeekDetail"
+      ],
+      "props": {
+        "WeekDetailProps": 3
+      },
+      "hooksDefined": [],
       "hooksUsed": [],
       "jsxUsed": [
-        "Page",
-        "Page.Header"
+        "PeriodRows",
+        "PeriodRows.Item"
       ],
       "storesUsed": [],
       "dexieTables": {},
@@ -17252,13 +18250,77 @@
       "lazyComponents": {},
       "routes": [],
       "storeMembersUsed": [],
-      "requirementRefs": [],
+      "requirementRefs": [
+        "CA-05.3",
+        "RF-05"
+      ],
       "external": [],
       "importedBy": [
-        "src/app/lazyPages.tsx"
+        "src/features/views/PeriodDetail.tsx"
       ],
       "imports": [
-        "src/components/ui/Page.tsx"
+        "src/domain/dates.ts",
+        "src/domain/periodViews.ts",
+        "src/domain/types.ts",
+        "src/features/views/PeriodRows.tsx"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/views/YearDetail.tsx",
+      "layer": "features",
+      "feature": "views",
+      "group": "features/views",
+      "kinds": [
+        "component"
+      ],
+      "loc": 27,
+      "exports": [
+        "YearDetail"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "YearDetail",
+          "signature": "YearDetail({ transactions, year, onSelectMonth }: YearDetailProps)"
+        }
+      ],
+      "components": [
+        "YearDetail"
+      ],
+      "props": {
+        "YearDetailProps": 3
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "PeriodRows",
+        "PeriodRows.Item"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-05",
+        "RF-07"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/views/PeriodDetail.tsx"
+      ],
+      "imports": [
+        "src/domain/dates.ts",
+        "src/domain/periodViews.ts",
+        "src/domain/types.ts",
+        "src/features/views/PeriodRows.tsx"
       ],
       "assets": [],
       "testedBy": []
@@ -20078,6 +21140,7 @@
         "src/features/tags/useTagsScreen.ts",
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/transactions/useTransactionList.ts",
+        "src/features/views/DayDetail.tsx",
         "src/repositories/tagsRepository.listTags.test.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/transactionsRepository.crud.test.ts",
@@ -20770,7 +21833,7 @@
       "kinds": [
         "hook"
       ],
-      "loc": 161,
+      "loc": 176,
       "exports": [
         "TransactionNotFoundError",
         "TransactionTagNotFoundError",
@@ -20788,7 +21851,8 @@
         "useRecentTransactions",
         "useTransaction",
         "useTransactionCount",
-        "useTransactionsInPeriod"
+        "useTransactionsInPeriod",
+        "useTransactionsInRange"
       ],
       "typeExports": [],
       "defaultExport": null,
@@ -20846,6 +21910,10 @@
           "signature": "useTransactionsInPeriod(from: DateString | null, to: DateString | null): Transaction[] | undefined"
         },
         {
+          "name": "useTransactionsInRange",
+          "signature": "useTransactionsInRange(from: DateString, to: DateString): Transaction[] | undefined"
+        },
+        {
           "name": "useTransactionCount",
           "signature": "useTransactionCount(): number | undefined"
         },
@@ -20862,7 +21930,8 @@
         "useRecentTransactions",
         "useTransaction",
         "useTransactionCount",
-        "useTransactionsInPeriod"
+        "useTransactionsInPeriod",
+        "useTransactionsInRange"
       ],
       "hooksUsed": [
         "useLiveQuery"
@@ -20905,6 +21974,7 @@
         "CA-02.3",
         "CA-02.4",
         "CA-04.1",
+        "CA-05.1",
         "D-01",
         "D-02",
         "D-40",
@@ -20912,6 +21982,7 @@
         "RF-01",
         "RF-02",
         "RF-04",
+        "RF-05",
         "RF-07",
         "RF-08",
         "RNF-02"
@@ -20938,6 +22009,7 @@
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/transactions/useTransactionDetail.ts",
         "src/features/transactions/useTransactionList.ts",
+        "src/features/views/usePeriodView.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.crud.test.ts",
         "src/repositories/transactionsRepository.list.properties.test.ts",
@@ -21240,7 +22312,7 @@
         "hook",
         "store"
       ],
-      "loc": 28,
+      "loc": 56,
       "exports": [
         "INITIAL_UI_STATE",
         "UiStore",
@@ -21271,19 +22343,28 @@
       "store": {
         "state": [
           "transactionFilters",
-          "updateAvailable"
+          "updateAvailable",
+          "viewAnchorDate",
+          "viewGranularity"
         ],
         "actions": [
           "clearFilters",
+          "goNext",
+          "goPrev",
+          "goToday",
+          "openPeriod",
           "setFilters",
+          "setGranularity",
           "setUpdateAvailable"
         ]
       },
       "storeMembersUsed": [],
       "requirementRefs": [
         "CA-04.4",
+        "CA-05.4",
         "CA-11.3",
-        "RF-04"
+        "RF-04",
+        "RF-05"
       ],
       "external": [
         {
@@ -21310,12 +22391,21 @@
         "src/features/transactions/filters/TypeFilter.tsx",
         "src/features/transactions/useTransactionList.test.ts",
         "src/features/transactions/useTransactionList.ts",
+        "src/features/views/GranularityPicker.tsx",
+        "src/features/views/PeriodNavigator.tsx",
+        "src/features/views/ViewsPage.test.tsx",
+        "src/features/views/ViewsPage.tsx",
+        "src/features/views/usePeriodView.ts",
         "src/stores/uiStore.filters.test.ts",
         "src/stores/uiStore.test.ts",
+        "src/stores/uiStore.views.test.ts",
         "src/test/setup.ts"
       ],
       "imports": [
-        "src/domain/transactionFilters.ts"
+        "src/domain/dates.ts",
+        "src/domain/periodViews.ts",
+        "src/domain/transactionFilters.ts",
+        "src/domain/types.ts"
       ],
       "assets": [],
       "testedBy": [
@@ -21324,9 +22414,79 @@
         "src/app/pwa/UpdateNotice.test.tsx",
         "src/features/transactions/TransactionsPage.filters.test.tsx",
         "src/features/transactions/useTransactionList.test.ts",
+        "src/features/views/ViewsPage.test.tsx",
         "src/stores/uiStore.filters.test.ts",
-        "src/stores/uiStore.test.ts"
+        "src/stores/uiStore.test.ts",
+        "src/stores/uiStore.views.test.ts"
       ]
+    },
+    {
+      "id": "src/stores/uiStore.views.test.ts",
+      "layer": "stores",
+      "feature": null,
+      "group": "stores",
+      "kinds": [
+        "test"
+      ],
+      "loc": 60,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useFakeTimers",
+        "useRealTimers"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "goNext",
+        "goPrev",
+        "goToday",
+        "openPeriod",
+        "setFilters",
+        "setGranularity",
+        "transactionFilters",
+        "viewAnchorDate",
+        "viewGranularity"
+      ],
+      "requirementRefs": [
+        "CA-05.4",
+        "RF-05"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/stores/uiStore.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/styles/tailwindEntry.test.ts",
@@ -21558,6 +22718,7 @@
         "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
         "src/domain/dates.timezone.test.ts",
+        "src/domain/periodViews.test.ts",
         "src/domain/tags.test.ts",
         "src/domain/text.properties.test.ts",
         "src/domain/transactionFilters.audit.test.ts",
@@ -21591,6 +22752,7 @@
         "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
         "src/domain/dates.timezone.test.ts",
+        "src/domain/periodViews.test.ts",
         "src/domain/tags.test.ts",
         "src/domain/text.properties.test.ts",
         "src/domain/transactionFilters.audit.test.ts",
@@ -21861,6 +23023,7 @@
         "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/features/views/ViewsPage.test.tsx",
         "src/test/transactionList.ts"
       ],
       "imports": [
@@ -21884,7 +23047,8 @@
         "src/features/tags/TagsPage.test.tsx",
         "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
-        "src/features/transactions/TransactionDetailPage.test.tsx"
+        "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/features/views/ViewsPage.test.tsx"
       ]
     },
     {
@@ -22389,7 +23553,8 @@
       "importedBy": [
         "src/features/transactions/TransactionsPage.filters.test.tsx",
         "src/features/transactions/TransactionsPage.pagination.test.tsx",
-        "src/features/transactions/TransactionsPage.test.tsx"
+        "src/features/transactions/TransactionsPage.test.tsx",
+        "src/features/views/ViewsPage.test.tsx"
       ],
       "imports": [
         "src/domain/types.ts",
@@ -22402,7 +23567,8 @@
       "testedBy": [
         "src/features/transactions/TransactionsPage.filters.test.tsx",
         "src/features/transactions/TransactionsPage.pagination.test.tsx",
-        "src/features/transactions/TransactionsPage.test.tsx"
+        "src/features/transactions/TransactionsPage.test.tsx",
+        "src/features/views/ViewsPage.test.tsx"
       ]
     },
     {
@@ -26471,6 +27637,19 @@
       ]
     },
     {
+      "from": "src/domain/dates.views.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "addDays",
+        "datesBetween",
+        "formatDateRangeLabel",
+        "formatMonthName",
+        "formatWeekdayDate",
+        "weekRange"
+      ]
+    },
+    {
       "from": "src/domain/money.test.ts",
       "to": "src/domain/money.ts",
       "kind": "static",
@@ -26497,6 +27676,68 @@
       "kind": "type",
       "names": [
         "Cents"
+      ]
+    },
+    {
+      "from": "src/domain/periodViews.test.ts",
+      "to": "src/domain/periodViews.ts",
+      "kind": "static",
+      "names": [
+        "formatViewTitle",
+        "shiftAnchorDate",
+        "summarizeActiveDays",
+        "summarizeDays",
+        "summarizeMonths",
+        "viewRange",
+        "ViewGranularity"
+      ]
+    },
+    {
+      "from": "src/domain/periodViews.test.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "expense",
+        "income"
+      ]
+    },
+    {
+      "from": "src/domain/periodViews.ts",
+      "to": "src/domain/balances.ts",
+      "kind": "static",
+      "names": [
+        "groupByDay",
+        "groupByMonth",
+        "Totals"
+      ]
+    },
+    {
+      "from": "src/domain/periodViews.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "addDays",
+        "addMonthsClamped",
+        "datesBetween",
+        "formatDateRangeLabel",
+        "formatLongDate",
+        "formatMonthLabel",
+        "monthRange",
+        "periodOf",
+        "periodsBetween",
+        "weekRange",
+        "yearRange",
+        "DateRange"
+      ]
+    },
+    {
+      "from": "src/domain/periodViews.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString",
+        "PeriodString",
+        "Transaction"
       ]
     },
     {
@@ -29200,11 +30441,522 @@
       ]
     },
     {
+      "from": "src/features/views/DayDetail.tsx",
+      "to": "src/components/transactions/TransactionRow.tsx",
+      "kind": "static",
+      "names": [
+        "TransactionRow"
+      ]
+    },
+    {
+      "from": "src/features/views/DayDetail.tsx",
+      "to": "src/components/ui/EmptyState.tsx",
+      "kind": "static",
+      "names": [
+        "EmptyState"
+      ]
+    },
+    {
+      "from": "src/features/views/DayDetail.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/features/views/DayDetail.tsx",
+      "to": "src/features/views/viewTexts.ts",
+      "kind": "static",
+      "names": [
+        "NO_DAY_TRANSACTIONS_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/features/views/DayDetail.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "useTags"
+      ]
+    },
+    {
+      "from": "src/features/views/GranularityPicker.tsx",
+      "to": "src/components/ui/createRadioGroup.tsx",
+      "kind": "static",
+      "names": [
+        "createRadioGroup"
+      ]
+    },
+    {
+      "from": "src/features/views/GranularityPicker.tsx",
+      "to": "src/domain/periodViews.ts",
+      "kind": "type",
+      "names": [
+        "ViewGranularity"
+      ]
+    },
+    {
+      "from": "src/features/views/GranularityPicker.tsx",
+      "to": "src/features/views/viewTexts.ts",
+      "kind": "static",
+      "names": [
+        "GRANULARITY_LABELS"
+      ]
+    },
+    {
+      "from": "src/features/views/GranularityPicker.tsx",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "useUiStore"
+      ]
+    },
+    {
+      "from": "src/features/views/MonthDetail.tsx",
+      "to": "src/components/ui/EmptyState.tsx",
+      "kind": "static",
+      "names": [
+        "EmptyState"
+      ]
+    },
+    {
+      "from": "src/features/views/MonthDetail.tsx",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "formatWeekdayDate",
+        "DateRange"
+      ]
+    },
+    {
+      "from": "src/features/views/MonthDetail.tsx",
+      "to": "src/domain/periodViews.ts",
+      "kind": "static",
+      "names": [
+        "summarizeActiveDays"
+      ]
+    },
+    {
+      "from": "src/features/views/MonthDetail.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/features/views/MonthDetail.tsx",
+      "to": "src/features/views/PeriodRows.tsx",
+      "kind": "static",
+      "names": [
+        "PeriodRows"
+      ]
+    },
+    {
+      "from": "src/features/views/MonthDetail.tsx",
+      "to": "src/features/views/viewTexts.ts",
+      "kind": "static",
+      "names": [
+        "NO_MONTH_TRANSACTIONS_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodDetail.tsx",
+      "to": "src/domain/dates.ts",
+      "kind": "type",
+      "names": [
+        "DateRange"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodDetail.tsx",
+      "to": "src/domain/periodViews.ts",
+      "kind": "static",
+      "names": [
+        "yearOf",
+        "ViewGranularity"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodDetail.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodDetail.tsx",
+      "to": "src/features/views/DayDetail.tsx",
+      "kind": "static",
+      "names": [
+        "DayDetail"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodDetail.tsx",
+      "to": "src/features/views/MonthDetail.tsx",
+      "kind": "static",
+      "names": [
+        "MonthDetail"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodDetail.tsx",
+      "to": "src/features/views/WeekDetail.tsx",
+      "kind": "static",
+      "names": [
+        "WeekDetail"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodDetail.tsx",
+      "to": "src/features/views/YearDetail.tsx",
+      "kind": "static",
+      "names": [
+        "YearDetail"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodNavigator.tsx",
+      "to": "src/domain/periodViews.ts",
+      "kind": "type",
+      "names": [
+        "ViewGranularity"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodNavigator.tsx",
+      "to": "src/features/views/viewTexts.ts",
+      "kind": "static",
+      "names": [
+        "NEXT_PERIOD_LABELS",
+        "PREVIOUS_PERIOD_LABELS"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodNavigator.tsx",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "useUiStore"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodRows.tsx",
+      "to": "src/components/ui/SignedAmount.tsx",
+      "kind": "static",
+      "names": [
+        "SignedAmount"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodRows.tsx",
+      "to": "src/domain/balances.ts",
+      "kind": "type",
+      "names": [
+        "Totals"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodRows.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "formatBRL"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodSummaryCard.tsx",
+      "to": "src/components/ui/SignedAmount.tsx",
+      "kind": "static",
+      "names": [
+        "SignedAmount"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodSummaryCard.tsx",
+      "to": "src/domain/balances.ts",
+      "kind": "type",
+      "names": [
+        "Totals"
+      ]
+    },
+    {
+      "from": "src/features/views/PeriodSummaryCard.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "formatBRL"
+      ]
+    },
+    {
+      "from": "src/features/views/usePeriodView.ts",
+      "to": "src/domain/balances.ts",
+      "kind": "static",
+      "names": [
+        "totals",
+        "Totals"
+      ]
+    },
+    {
+      "from": "src/features/views/usePeriodView.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "type",
+      "names": [
+        "DateRange"
+      ]
+    },
+    {
+      "from": "src/features/views/usePeriodView.ts",
+      "to": "src/domain/periodViews.ts",
+      "kind": "static",
+      "names": [
+        "formatViewTitle",
+        "viewRange",
+        "ViewGranularity"
+      ]
+    },
+    {
+      "from": "src/features/views/usePeriodView.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/features/views/usePeriodView.ts",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "useTransactionsInRange"
+      ]
+    },
+    {
+      "from": "src/features/views/usePeriodView.ts",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "useUiStore"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.test.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "formatBRL",
+        "formatSignedBRL"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.test.tsx",
+      "to": "src/domain/periodViews.ts",
+      "kind": "type",
+      "names": [
+        "ViewGranularity"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.test.tsx",
+      "to": "src/features/views/viewTexts.ts",
+      "kind": "static",
+      "names": [
+        "NO_DAY_TRANSACTIONS_MESSAGE",
+        "NO_MONTH_TRANSACTIONS_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.test.tsx",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "useUiStore"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.test.tsx",
+      "to": "src/test/transactionList.ts",
+      "kind": "static",
+      "names": [
+        "seedTags",
+        "seedTransactions",
+        "text"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
       "from": "src/features/views/ViewsPage.tsx",
       "to": "src/components/ui/Page.tsx",
       "kind": "static",
       "names": [
         "Page"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.tsx",
+      "to": "src/domain/periodViews.ts",
+      "kind": "type",
+      "names": [
+        "ViewGranularity"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.tsx",
+      "to": "src/features/views/GranularityPicker.tsx",
+      "kind": "static",
+      "names": [
+        "GranularityPicker"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.tsx",
+      "to": "src/features/views/PeriodDetail.tsx",
+      "kind": "static",
+      "names": [
+        "PeriodDetail"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.tsx",
+      "to": "src/features/views/PeriodNavigator.tsx",
+      "kind": "static",
+      "names": [
+        "PeriodNavigator"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.tsx",
+      "to": "src/features/views/PeriodSummaryCard.tsx",
+      "kind": "static",
+      "names": [
+        "PeriodSummaryCard"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.tsx",
+      "to": "src/features/views/usePeriodView.ts",
+      "kind": "static",
+      "names": [
+        "usePeriodView"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.tsx",
+      "to": "src/features/views/viewTexts.ts",
+      "kind": "static",
+      "names": [
+        "TODAY_LABEL"
+      ]
+    },
+    {
+      "from": "src/features/views/ViewsPage.tsx",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "useUiStore"
+      ]
+    },
+    {
+      "from": "src/features/views/viewTexts.ts",
+      "to": "src/domain/periodViews.ts",
+      "kind": "type",
+      "names": [
+        "ViewGranularity"
+      ]
+    },
+    {
+      "from": "src/features/views/WeekDetail.tsx",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "formatWeekdayDate",
+        "DateRange"
+      ]
+    },
+    {
+      "from": "src/features/views/WeekDetail.tsx",
+      "to": "src/domain/periodViews.ts",
+      "kind": "static",
+      "names": [
+        "summarizeDays"
+      ]
+    },
+    {
+      "from": "src/features/views/WeekDetail.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/features/views/WeekDetail.tsx",
+      "to": "src/features/views/PeriodRows.tsx",
+      "kind": "static",
+      "names": [
+        "PeriodRows"
+      ]
+    },
+    {
+      "from": "src/features/views/YearDetail.tsx",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "formatMonthName"
+      ]
+    },
+    {
+      "from": "src/features/views/YearDetail.tsx",
+      "to": "src/domain/periodViews.ts",
+      "kind": "static",
+      "names": [
+        "summarizeMonths"
+      ]
+    },
+    {
+      "from": "src/features/views/YearDetail.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "PeriodString",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/features/views/YearDetail.tsx",
+      "to": "src/features/views/PeriodRows.tsx",
+      "kind": "static",
+      "names": [
+        "PeriodRows"
       ]
     },
     {
@@ -30462,11 +32214,45 @@
     },
     {
       "from": "src/stores/uiStore.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "today"
+      ]
+    },
+    {
+      "from": "src/stores/uiStore.ts",
+      "to": "src/domain/periodViews.ts",
+      "kind": "static",
+      "names": [
+        "shiftAnchorDate",
+        "ViewGranularity"
+      ]
+    },
+    {
+      "from": "src/stores/uiStore.ts",
       "to": "src/domain/transactionFilters.ts",
       "kind": "static",
       "names": [
         "EMPTY_TRANSACTION_FILTERS",
         "TransactionFilters"
+      ]
+    },
+    {
+      "from": "src/stores/uiStore.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "DateString"
+      ]
+    },
+    {
+      "from": "src/stores/uiStore.views.test.ts",
+      "to": "src/stores/uiStore.ts",
+      "kind": "static",
+      "names": [
+        "INITIAL_UI_STATE",
+        "useUiStore"
       ]
     },
     {
@@ -30887,6 +32673,9 @@
         "src/features/transactions/list/TransactionDayList.tsx",
         "src/features/transactions/useTransactionDetail.ts",
         "src/features/transactions/useTransactionList.ts",
+        "src/features/views/PeriodNavigator.tsx",
+        "src/features/views/PeriodRows.tsx",
+        "src/features/views/ViewsPage.tsx",
         "src/main.tsx",
         "src/repositories/ThemeContext.ts",
         "src/repositories/themePreference.test.ts",
@@ -31034,6 +32823,7 @@
         "src/features/transactions/TransactionsPage.pagination.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
         "src/features/transactions/useTransactionList.test.ts",
+        "src/features/views/ViewsPage.test.tsx",
         "src/repositories/settingsRepository.test.ts",
         "src/repositories/tagsRepository.listTags.test.ts",
         "src/repositories/themePreference.test.ts",
@@ -31220,7 +33010,9 @@
         "src/domain/dates.longDate.test.ts",
         "src/domain/dates.test.ts",
         "src/domain/dates.timezone.test.ts",
+        "src/domain/dates.views.test.ts",
         "src/domain/money.test.ts",
+        "src/domain/periodViews.test.ts",
         "src/domain/tagColor.test.ts",
         "src/domain/tagSchema.test.ts",
         "src/domain/tags.test.ts",
@@ -31248,6 +33040,7 @@
         "src/features/transactions/TransactionsPage.pagination.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
         "src/features/transactions/useTransactionList.test.ts",
+        "src/features/views/ViewsPage.test.tsx",
         "src/lib/appVersion.test.ts",
         "src/lib/backupFormat.audit.test.ts",
         "src/lib/backupFormat.test.ts",
@@ -31280,6 +33073,7 @@
         "src/repositories/transactionsRepository.test.ts",
         "src/stores/uiStore.filters.test.ts",
         "src/stores/uiStore.test.ts",
+        "src/stores/uiStore.views.test.ts",
         "src/styles/tailwindEntry.test.ts",
         "src/test/seedDatabase.ts",
         "src/test/setup.ts",
@@ -31900,7 +33694,7 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "67d72be",
+    "head": "6f8b0e6",
     "workingTree": [
       {
         "status": "M",
@@ -31916,23 +33710,128 @@
       },
       {
         "status": "M",
-        "path": "src/features/home/BackupReminder.test.tsx"
+        "path": "src/domain/dates.ts"
       },
       {
         "status": "M",
-        "path": "src/features/home/BackupReminder.tsx"
+        "path": "src/features/views/ViewsPage.tsx"
       },
       {
         "status": "M",
-        "path": "src/features/home/HomePage.tsx"
+        "path": "src/repositories/transactionsRepository.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/stores/uiStore.ts"
       },
       {
         "status": "??",
-        "path": "src/features/home/LastBackupLine.tsx"
+        "path": "src/domain/dates.views.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/periodViews.test.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/domain/periodViews.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/DayDetail.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/GranularityPicker.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/MonthDetail.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/PeriodDetail.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/PeriodNavigator.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/PeriodRows.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/PeriodSummaryCard.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/ViewsPage.test.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/WeekDetail.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/YearDetail.tsx"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/usePeriodView.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/features/views/viewTexts.ts"
+      },
+      {
+        "status": "??",
+        "path": "src/stores/uiStore.views.test.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "6f8b0e6",
+      "date": "2026-10-23T19:34:57-03:00",
+      "author": "Fernando",
+      "subject": "refactor/backup adjustments",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/features/home/BackupReminder.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/home/BackupReminder.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/home/HomePage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/home/LastBackupLine.tsx"
+        }
+      ]
+    },
     {
       "hash": "67d72be",
       "date": "2026-10-23T13:03:55-03:00",
@@ -34720,8 +36619,11 @@
     "src/domain/dates.test.ts",
     "src/domain/dates.timezone.test.ts",
     "src/domain/dates.ts",
+    "src/domain/dates.views.test.ts",
     "src/domain/money.test.ts",
     "src/domain/money.ts",
+    "src/domain/periodViews.test.ts",
+    "src/domain/periodViews.ts",
     "src/domain/tagColor.test.ts",
     "src/domain/tagColor.ts",
     "src/domain/tagSchema.test.ts",
@@ -34806,7 +36708,19 @@
     "src/features/transactions/useTransactionDetail.ts",
     "src/features/transactions/useTransactionList.test.ts",
     "src/features/transactions/useTransactionList.ts",
+    "src/features/views/DayDetail.tsx",
+    "src/features/views/GranularityPicker.tsx",
+    "src/features/views/MonthDetail.tsx",
+    "src/features/views/PeriodDetail.tsx",
+    "src/features/views/PeriodNavigator.tsx",
+    "src/features/views/PeriodRows.tsx",
+    "src/features/views/PeriodSummaryCard.tsx",
+    "src/features/views/ViewsPage.test.tsx",
     "src/features/views/ViewsPage.tsx",
+    "src/features/views/WeekDetail.tsx",
+    "src/features/views/YearDetail.tsx",
+    "src/features/views/usePeriodView.ts",
+    "src/features/views/viewTexts.ts",
     "src/globals.d.ts",
     "src/index.css",
     "src/lib/appVersion.test.ts",
@@ -34864,6 +36778,7 @@
     "src/stores/uiStore.filters.test.ts",
     "src/stores/uiStore.test.ts",
     "src/stores/uiStore.ts",
+    "src/stores/uiStore.views.test.ts",
     "src/styles/tailwind-sources.build.css",
     "src/styles/tailwind-sources.serve.css",
     "src/styles/tailwindEntry.test.ts",

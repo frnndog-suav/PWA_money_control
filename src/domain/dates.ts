@@ -1,4 +1,5 @@
 import {
+  addDays as addCalendarDays,
   addMonths,
   endOfWeek,
   format,
@@ -99,6 +100,23 @@ export function addMonthsClamped(date: DateString, months: number): DateString {
   return toDateString(addMonths(parseDate(date), months))
 }
 
+/** `days` dias depois de `date` (negativo = antes), atravessando meses e anos (RF-05). */
+export function addDays(date: DateString, days: number): DateString {
+  if (!Number.isInteger(days)) throw new RangeError(`Quantidade de dias inválida: ${days}`)
+  return toDateString(addCalendarDays(parseDate(date), days))
+}
+
+/** Lista inclusiva de datas entre `start` e `end`; vazia se `start` vier depois de `end`. */
+export function datesBetween(start: DateString, end: DateString): DateString[] {
+  parseDate(end)
+  const dates: DateString[] = []
+  for (let day = parseDate(start), date = start; date <= end; date = toDateString(day)) {
+    dates.push(date)
+    day = addCalendarDays(day, 1)
+  }
+  return dates
+}
+
 /** Lista inclusiva de meses entre `start` e `end`; vazia se `start` vier depois de `end`. */
 export function periodsBetween(start: PeriodString, end: PeriodString): PeriodString[] {
   const from = parsePeriod(start)
@@ -181,11 +199,76 @@ export function formatMonthLabel(period: PeriodString): string {
   return monthLabelFormatter.format(toUtcDate(year, month, 1))
 }
 
+const weekdayFormatter = new Intl.DateTimeFormat('pt-BR', { weekday: 'long', timeZone: 'UTC' })
+
+const monthNameFormatter = new Intl.DateTimeFormat('pt-BR', { month: 'long', timeZone: 'UTC' })
+
+// Abreviações fixas do pt-BR: o `month: 'short'` do Intl varia entre motores (ponto, "mai").
+const SHORT_MONTH_NAMES = [
+  'jan.',
+  'fev.',
+  'mar.',
+  'abr.',
+  'mai.',
+  'jun.',
+  'jul.',
+  'ago.',
+  'set.',
+  'out.',
+  'nov.',
+  'dez.',
+] as const
+
+interface DateParts {
+  year: number
+  month: number
+  day: number
+}
+
+function splitDate(date: DateString): DateParts {
+  if (!isCalendarDateString(date)) throw new RangeError(`Data inválida: ${date}`)
+  return {
+    year: Number(date.slice(0, 4)),
+    month: Number(date.slice(5, 7)),
+    day: Number(date.slice(8, 10)),
+  }
+}
+
+function toUtcDateOf({ year, month, day }: DateParts): Date {
+  return toUtcDate(year, month, day)
+}
+
 /** CA-04.1 — `'2026-10-20'` → `'terça-feira, 20 de outubro de 2026'` (pt-BR). */
 export function formatLongDate(date: DateString): string {
-  if (!isCalendarDateString(date)) throw new RangeError(`Data inválida: ${date}`)
-  const year = Number(date.slice(0, 4))
-  const month = Number(date.slice(5, 7))
-  const day = Number(date.slice(8, 10))
-  return longDateFormatter.format(toUtcDate(year, month, day))
+  return longDateFormatter.format(toUtcDateOf(splitDate(date)))
+}
+
+/** RF-05 — `'2026-10-19'` → `'segunda-feira, 19/10'` (linhas das visões Semana e Mês). */
+export function formatWeekdayDate(date: DateString): string {
+  const weekday = weekdayFormatter.format(toUtcDateOf(splitDate(date)))
+  return `${weekday}, ${date.slice(8, 10)}/${date.slice(5, 7)}`
+}
+
+/** RF-05 — `'2026-10'` → `'outubro'` (linhas da visão Ano). */
+export function formatMonthName(period: PeriodString): string {
+  const { year, month } = parsePeriod(period)
+  return monthNameFormatter.format(toUtcDate(year, month, 1))
+}
+
+function formatDayMonth({ month, day }: DateParts): string {
+  return `${day} de ${SHORT_MONTH_NAMES[month - 1]}`
+}
+
+/**
+ * CA-05.3 — título da semana: `'12 a 18 de out. de 2026'`; o mês e o ano só se repetem quando
+ * mudam no meio da semana (`'28 de set. a 4 de out. de 2026'`,
+ * `'28 de dez. de 2026 a 3 de jan. de 2027'`).
+ */
+export function formatDateRangeLabel({ start, end }: DateRange): string {
+  const from = splitDate(start)
+  const to = splitDate(end)
+  const last = `${formatDayMonth(to)} de ${to.year}`
+  if (from.year !== to.year) return `${formatDayMonth(from)} de ${from.year} a ${last}`
+  if (from.month !== to.month) return `${formatDayMonth(from)} a ${last}`
+  return `${from.day} a ${last}`
 }

@@ -174,6 +174,22 @@ export function useTransactionsInPeriod(
   return useLiveQuery(() => listTransactionsInPeriod(from, to), [from, to])
 }
 
+/**
+ * RF-05 / CA-05.1 — como `useTransactionsInPeriod`, mas volta a `undefined` enquanto um período
+ * novo carrega: o `useLiveQuery` manteria o resultado do período anterior até a nova leitura
+ * terminar, e a tela mostraria por um instante os totais de outro período com o título novo.
+ */
+export function useTransactionsInRange(
+  from: DateString,
+  to: DateString,
+): Transaction[] | undefined {
+  const result = useLiveQuery(
+    async () => ({ from, to, transactions: await listTransactionsInPeriod(from, to) }),
+    [from, to],
+  )
+  return result?.from === from && result.to === to ? result.transactions : undefined
+}
+
 export function useTransactionCount(): number | undefined {
   return useLiveQuery(countTransactions, [])
 }

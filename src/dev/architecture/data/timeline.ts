@@ -18,7 +18,10 @@
 // no bb2cc34 (22/10/2026). A Fase 6 inteira (backup criptografado, specs 1.23 e 1.24 com D-47 e D-48,
 // testes reforçados, correções da revisão e a página atualizada) e a correção do "Salvar backup" no PC
 // (spec 1.25) entraram no 67d72be (23/10/2026). A spec 1.26 ("Último backup" sempre no Início), o
-// teste manual da Fase 6 validado e o fechamento da Fase 6 nesta página ainda não foram commitados.
+// teste manual da Fase 6 validado (spec 1.27), a confirmação de D-46 a D-48 (spec 1.28) e o
+// fechamento da Fase 6 nesta página entraram no 6f8b0e6 (23/10/2026). A Fase 7 (visões por
+// período, spec 1.29 com a D-49), a confirmação da D-49 com o roteiro validado no PC (spec 1.30) e
+// esta página atualizada ainda não foram commitadas.
 
 import type { TimelineEntry } from '@/dev/architecture/types'
 
@@ -2145,8 +2148,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: '"Último backup" sempre no Início (D-48(c), opção (a) do dono)',
     summary:
       'Spec 1.26. O RF-10 pede "Último backup" também na tela inicial; a D-48(c) só o mostrava dentro do aviso dos 7 dias. Pela opção (a) do dono, o BackupReminder monta a frase com describeLastBackup e decide o que fica no topo do Início: o aviso (Notice, quando a regra da D-11 vale — já contém a frase), a linha discreta LastBackupLine (componente novo: Link para /ajustes/backup com alvo de 44 px) nos outros casos, ou nada enquanto os dados carregam. Composição: HomePage → BackupReminder → Notice | LastBackupLine. BackupReminder.test.tsx cobre aviso, linha ("nunca" sem lançamentos, "hoje", "há 3 dias"), link e carregamento. Resolve o achado D-48(c) × RF-10.',
-    commits: [],
-    committed: false,
+    commits: ['6f8b0e6'],
+    committed: true,
     requirements: ['RF-10', 'RF-02', 'RNF-06'],
     decisions: ['D-11', 'D-41', 'D-48'],
     files: {
@@ -2173,11 +2176,11 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Teste manual da Fase 6 validado (PC e iPhone) — Fase 6 concluída',
     summary:
       'O dono rodou o roteiro da §7 no PC e no iPhone: exportar com senha → folha de compartilhamento → "Salvar em Arquivos"; arquivo ilegível no app Arquivos; importar com senha errada sem mudar nada; remover e adicionar o app de novo (vazio) e importar com todos os dados de volta; "Último backup: hoje". A única falha (o "Salvar backup" em loop no Windows) foi corrigida pela spec 1.25. A partir daqui o app pode receber dados reais. D-46, D-47 e D-48 continuam aguardando confirmação.',
-    commits: [],
-    committed: false,
+    commits: ['6f8b0e6'],
+    committed: true,
     requirements: ['RF-10', 'RNF-05', 'CA-10.1', 'CA-10.2', 'CA-10.6'],
     decisions: ['D-48'],
-    files: { created: [], modified: [], removed: [] },
+    files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
     impact: [
       'Fase 6 concluída',
       'pendência do teste manual resolvida',
@@ -2192,8 +2195,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Página de arquitetura: fechamento da Fase 6',
     summary:
       'Fluxo "Exportar backup" com o download na 2ª recusa do "Salvar backup" (deliver(file, share?), shareOrDownloadOnRetry, ShareOrDownloadOptions). Fluxo do lembrete com os dois desfechos (aviso ou LastBackupLine) e o novo participante. Notas da rota /, da composição do Início (BackupReminder → Notice | LastBackupLine), de share.ts, useExportBackup, BackupReminder, HomePage e do novo LastBackupLine; D-11 e D-48 com o módulo novo nos impactos e o título da D-48 atualizado. Saúde: D-48(c) × RF-10 e o teste manual da Fase 6 movidos para os resolvidos; D-46, D-47 e D-48 continuam aguardando confirmação. Entradas da Fase 6 e da spec 1.25 marcadas com o commit 67d72be. Grafo regenerado.',
-    commits: [],
-    committed: false,
+    commits: ['6f8b0e6'],
+    committed: true,
     requirements: ['RF-10'],
     decisions: ['D-48'],
     files: {
@@ -2206,5 +2209,139 @@ export const TIMELINE: readonly TimelineEntry[] = [
       removed: [],
     },
     impact: ['2 achados resolvidos', 'fluxos de exportação e lembrete atualizados'],
+  },
+  {
+    id: 'spec-1-28-decisions-confirmed',
+    date: '2026-10-23',
+    phase: 6,
+    type: 'decision',
+    title: 'D-46, D-47 e D-48 confirmadas pelo dono (spec 1.28)',
+    summary:
+      'O dono confirmou os projetos do Vitest (D-46), o formato, a criptografia e o repositório do backup (D-47) e a tela de backup e o lembrete (D-48, com a opção (a) do "Último backup" no Início). Na §8.1 as três deixaram de estar "aguardando confirmação"; nesta página os achados correspondentes foram para os resolvidos.',
+    commits: ['6f8b0e6'],
+    committed: true,
+    requirements: ['RF-10', 'RNF-05'],
+    decisions: ['D-46', 'D-47', 'D-48'],
+    files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
+    impact: ['nenhuma decisão pendente antes da Fase 7'],
+  },
+  {
+    id: 'phase-7-period-views',
+    date: '2026-10-24',
+    phase: 7,
+    type: 'feature',
+    title: 'Fase 7: visões por período (Dia, Semana, Mês e Ano — RF-05, sem recorrentes)',
+    summary:
+      'domain: periodViews.ts novo (ViewGranularity, viewRange, shiftAnchorDate, formatViewTitle, yearOf, summarizeDays, summarizeActiveDays, summarizeMonths) e, em dates.ts, addDays, datesBetween, formatWeekdayDate, formatMonthName e formatDateRangeLabel (título da semana "12 a 18 de out. de 2026" com abreviações fixas — CA-05.3). Zustand: viewGranularity (padrão Mês) e viewAnchorDate (hoje ao abrir) com setGranularity, goPrev, goNext, goToday e openPeriod (detalhamento — D-49(a)). Repositório: useTransactionsInRange(from, to). Tela /visoes em src/features/views: ViewsPage ("Hoje" no cabeçalho) → GranularityPicker (createRadioGroup segmented), PeriodNavigator (setas + título com aria-live), PeriodSummaryCard (Entradas, Saídas, Resultado), PeriodDetail → DayDetail (TransactionRow) | WeekDetail | MonthDetail | YearDetail sobre o compound PeriodRows/PeriodRows.Item; hook usePeriodView; textos em viewTexts. Detalhamento Ano → Mês → Dia e Semana → Dia só no Zustand, sem entrada no histórico, com foco no título. Testes: periodViews.test.ts, dates.views.test.ts e uiStore.views.test.ts (unit) e ViewsPage.test.tsx (dom). Spec 1.29 com a Fase 7 marcada e a D-49 aguardando confirmação. Nenhum pacote novo. Lint e typecheck ok; 102 arquivos / 2.309 testes; cobertura de domain + lib em 100% das linhas.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-05', 'CA-05.1', 'CA-05.3', 'CA-05.4', 'CA-01.5', 'RNF-06'],
+    decisions: ['D-49', 'D-44'],
+    files: {
+      created: [
+        'src/domain/periodViews.ts',
+        'src/domain/periodViews.test.ts',
+        'src/domain/dates.views.test.ts',
+        'src/stores/uiStore.views.test.ts',
+        'src/features/views/usePeriodView.ts',
+        'src/features/views/GranularityPicker.tsx',
+        'src/features/views/PeriodNavigator.tsx',
+        'src/features/views/PeriodSummaryCard.tsx',
+        'src/features/views/PeriodDetail.tsx',
+        'src/features/views/PeriodRows.tsx',
+        'src/features/views/DayDetail.tsx',
+        'src/features/views/WeekDetail.tsx',
+        'src/features/views/MonthDetail.tsx',
+        'src/features/views/YearDetail.tsx',
+        'src/features/views/viewTexts.ts',
+        'src/features/views/ViewsPage.test.tsx',
+      ],
+      modified: [
+        'src/features/views/ViewsPage.tsx',
+        'src/domain/dates.ts',
+        'src/stores/uiStore.ts',
+        'src/repositories/transactionsRepository.ts',
+        'docs/SPEC.md',
+      ],
+      removed: [],
+    },
+    impact: [
+      'rota /visoes ganha conteúdo (lazy)',
+      'campos viewGranularity/viewAnchorDate + 5 ações no Zustand',
+      'novo módulo de domínio (periodViews)',
+      'novo hook de repositório (useTransactionsInRange)',
+      '2 fluxos novos (navegar e detalhar)',
+      'groupByDay/groupByMonth com uso em produção',
+    ],
+  },
+  {
+    id: 'phase-7-review-fix-stale-period',
+    date: '2026-10-24',
+    phase: 7,
+    type: 'fix',
+    title: 'Fase 7: revisão — sem totais do período anterior ao trocar de período',
+    summary:
+      'Revisão do spec-reviewer: aprovado com ressalvas, sem bloqueantes. Item importante corrigido: ao tocar numa seta ou detalhar, o useLiveQuery mantinha o resultado do período anterior até a nova leitura terminar, e a tela mostrava por um instante os totais e as linhas de outro período com o título novo. useTransactionsInRange devolve { from, to, transactions } dentro do useLiveQuery e só repassa a lista quando o intervalo é o pedido agora; senão undefined ("—" no cartão, detalhamento não montado). Teste de regressão em ViewsPage.test.tsx. Registrado na D-49(g).',
+    commits: [],
+    committed: false,
+    requirements: ['RF-05', 'CA-05.1'],
+    decisions: ['D-49'],
+    files: {
+      created: [],
+      modified: [
+        'src/repositories/transactionsRepository.ts',
+        'src/features/views/usePeriodView.ts',
+        'src/features/views/ViewsPage.test.tsx',
+        'docs/SPEC.md',
+      ],
+      removed: [],
+    },
+    impact: ['contrato do hook: undefined enquanto um intervalo novo carrega'],
+  },
+  {
+    id: 'architecture-page-phase-7',
+    date: '2026-10-24',
+    phase: 7,
+    type: 'docs',
+    title: 'Página de arquitetura: Fase 7 (visões por período)',
+    summary:
+      'Rota /visoes descrita com conteúdo real e a composição da tela (GranularityPicker, PeriodNavigator, PeriodSummaryCard, PeriodDetail → Day/Week/Month/YearDetail, compound PeriodRows); 2 fluxos novos ("Navegar nas visões" e "Detalhar um período") e "Navegar nas visões" retirado dos previstos; campos da §6.7 com openPeriod; notas dos módulos novos e de uiStore, dates, balances, transactionsRepository, createRadioGroup, TransactionRow e EmptyState; camadas (domain, stores, repositories, components) e regra stores → domain; princípios 2, 3, 6 e 15; D-49 nova, aguardando confirmação. Saúde: D-49 pendente, teste manual da Fase 7, §6.7 sem openPeriod, âncora fixada ao abrir o app e useTransactionsInRange sem teste próprio. Timeline: entradas do fechamento da Fase 6 marcadas com o 6f8b0e6 e entrada da spec 1.28. Grafo regenerado (0 violações, 0 ciclos).',
+    commits: [],
+    committed: false,
+    requirements: ['RF-05'],
+    decisions: ['D-49'],
+    files: {
+      created: [],
+      modified: [
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+        'src/dev/architecture/data/module-graph.json',
+      ],
+      removed: [],
+    },
+    impact: ['2 fluxos novos', '5 achados novos', 'rota /visoes documentada'],
+  },
+  {
+    id: 'spec-1-30-phase-7-closed',
+    date: '2026-10-24',
+    phase: 7,
+    type: 'decision',
+    title: 'D-49 confirmada e Fase 7 concluída (spec 1.30)',
+    summary:
+      'O dono confirmou todos os itens da D-49 (Mês como padrão, detalhamento sem histórico, openPeriod, totais do Dia só no cartão, âncora fixada ao abrir o app) e validou no PC o roteiro de teste da Fase 7. Na spec, a D-49 deixou de estar "aguardando confirmação" e a §6.7 passou a citar openPeriod; nesta página os achados da D-49, do teste manual, da §6.7 e da âncora foram para os resolvidos.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-05', 'CA-05.4'],
+    decisions: ['D-49'],
+    files: {
+      created: [],
+      modified: [
+        'docs/SPEC.md',
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+      ],
+      removed: [],
+    },
+    impact: ['nenhuma decisão pendente antes da Fase 8'],
   },
 ]
