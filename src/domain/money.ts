@@ -18,6 +18,14 @@ const MINUS_SIGN = '\u2212'
 // O pt-BR separa "R$" do número com espaço não separável (U+00A0), que impede a quebra de linha.
 const brlFormatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
 
+const compactBrlFormatter = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+  notation: 'compact',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 1,
+})
+
 function assertCents(cents: number): void {
   if (!Number.isSafeInteger(cents)) {
     throw new RangeError(`Valor em centavos inválido: ${cents}`)
@@ -36,6 +44,13 @@ function centsToDecimalString(cents: Cents): `${number}` {
 export function formatBRL(cents: Cents): string {
   assertCents(cents)
   return brlFormatter.format(centsToDecimalString(cents))
+}
+
+/** RF-06 — eixo dos gráficos, sem centavos: `123456` → `"R$ 1,2 mil"`, `5000` → `"R$ 50"`. */
+export function formatCompactBRL(cents: Cents): string {
+  assertCents(cents)
+  const text = compactBrlFormatter.format(centsToDecimalString(Math.abs(cents)))
+  return cents < 0 ? `${MINUS_SIGN}${text}` : text
 }
 
 /** CA-02.1 — `+R$ 10,00` / `−R$ 10,00` / `R$ 0,00`. */

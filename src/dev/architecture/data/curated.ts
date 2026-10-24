@@ -64,7 +64,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Componentes',
     folder: 'src/components',
     description:
-      'Duas partes (§6.2, D-37 — confirmada em 21/10/2026). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup; Fase 5: LoadMore, useDebouncedValue e o slot trailing do Page.Header; Fase 6: PasswordInput, FileInput e Button com ref — D-48(d); Fase 7: nenhum primitivo novo — a tela de visões reutiliza Page (trailing com "Hoje"), Button, EmptyState, SignedAmount e o createRadioGroup segmented). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts) e transactions/ (TransactionForm, useTransactionForm, TransactionRow — com showDate desde a Fase 5 —, NoTagsNotice, transactionTexts; Fase 5: IncomeExpenseTotals). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
+      'Duas partes (§6.2, D-37 — confirmada em 21/10/2026). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup; Fase 5: LoadMore, useDebouncedValue e o slot trailing do Page.Header; Fase 6: PasswordInput, FileInput e Button com ref — D-48(d); Fase 7: nenhum primitivo novo — a tela de visões reutiliza Page (trailing com "Hoje"), Button, EmptyState, SignedAmount e o createRadioGroup segmented; Fase 8: useOutsidePointerDown — toque fora limpa a seleção dos gráficos). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts), transactions/ (TransactionForm, useTransactionForm, TransactionRow — com showDate desde a Fase 5 —, NoTagsNotice, transactionTexts; Fase 5: IncomeExpenseTotals) e, desde a Fase 8, periods/ (GranularityPicker, PeriodNavigator e usePeriodView movidos de features/views; TodayButton e periodTexts novos — controles de período compartilhados por Visões e Gráficos, D-50(a)); periods/ é a única pasta de src/components que lê e grava o Zustand (viewGranularity/viewAnchorDate), direção não prevista pela D-37 (ver Saúde). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
     position: { x: 130, y: 330 },
   },
   {
@@ -72,7 +72,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Repositórios',
     folder: 'src/repositories',
     description:
-      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError). Fase 4: transactionsRepository (createTransaction/updateTransaction em transação rw [tags, transactions] com assertTagExists, deleteTransaction, saldo geral, totais do mês, últimos 5 e lançamento por id, todos com hook useLiveQuery; TransactionNotFoundError/TransactionTagNotFoundError — D-39) e listTags/useTags no tagsRepository. Fase 5: listTransactionsInPeriod (índice date crescente, invertido em memória — D-44) e countTransactions, com useTransactionsInPeriod/useTransactionCount. Fase 6: backupRepository (readBackupTables numa transação r das 5 tabelas, createBackupFile, deliverBackupFile, recordBackupDone, openBackupFile sem tocar no banco e restoreBackup numa única transação rw — D-07/D-47(e)) e useLastBackupAt no settingsRepository (fora do backupRepository, para o Início não levar cripto e zod — D-41). Fase 7: useTransactionsInRange(from, to) no transactionsRepository — o mesmo listTransactionsInPeriod pelo índice date, mas devolve undefined enquanto um período novo carrega (o useLiveQuery manteria o resultado do período anterior — D-49(g)).',
+      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError). Fase 4: transactionsRepository (createTransaction/updateTransaction em transação rw [tags, transactions] com assertTagExists, deleteTransaction, saldo geral, totais do mês, últimos 5 e lançamento por id, todos com hook useLiveQuery; TransactionNotFoundError/TransactionTagNotFoundError — D-39) e listTags/useTags no tagsRepository. Fase 5: listTransactionsInPeriod (índice date crescente, invertido em memória — D-44) e countTransactions, com useTransactionsInPeriod/useTransactionCount. Fase 6: backupRepository (readBackupTables numa transação r das 5 tabelas, createBackupFile, deliverBackupFile, recordBackupDone, openBackupFile sem tocar no banco e restoreBackup numa única transação rw — D-07/D-47(e)) e useLastBackupAt no settingsRepository (fora do backupRepository, para o Início não levar cripto e zod — D-41). Fase 7: useTransactionsInRange(from, to) no transactionsRepository — o mesmo listTransactionsInPeriod pelo índice date, mas devolve undefined enquanto um período novo carrega (o useLiveQuery manteria o resultado do período anterior — D-49(g)). Fase 8: useTransactionsInRange(from: DateString | null, to) — from null lê tudo até to (evolução do saldo dos gráficos — D-50(f)).',
     position: { x: 390, y: 330 },
   },
   {
@@ -80,7 +80,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Stores',
     folder: 'src/stores',
     description:
-      'Zustand só para estado de interface (§6.7). uiStore desde a Fase 1 (updateAvailable); desde a Fase 5, transactionFilters com setFilters/clearFilters, sem persist (D-45(f)); desde a Fase 7, viewGranularity (padrão month) e viewAnchorDate (hoje ao abrir) com setGranularity, goPrev, goNext, goToday e openPeriod (detalhamento — D-49), também sem persist e compartilhados com os gráficos da Fase 8 (CA-05.4). A store importa só do domínio (shiftAnchorDate, today, EMPTY_TRANSACTION_FILTERS).',
+      'Zustand só para estado de interface (§6.7). uiStore desde a Fase 1 (updateAvailable); desde a Fase 5, transactionFilters com setFilters/clearFilters, sem persist (D-45(f)); desde a Fase 7, viewGranularity (padrão month) e viewAnchorDate (hoje ao abrir) com setGranularity, goPrev, goNext, goToday e openPeriod (detalhamento — D-49), também sem persist e, desde a Fase 8, compartilhados com os gráficos: os mesmos controles de components/periods leem e gravam esses campos nas duas telas (CA-05.4, CA-06.1, D-50(a)). A store importa só do domínio (shiftAnchorDate, today, EMPTY_TRANSACTION_FILTERS).',
     position: { x: 650, y: 330 },
   },
   {
@@ -104,7 +104,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Domínio',
     folder: 'src/domain',
     description:
-      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. Fase 3: tags (toTagNameKey, paleta D-32, sortByTagName, isTagInUse, TAG_NAME_MAX_LENGTH — D-35) e tagSchema (zod, único módulo do domínio com pacote externo; separado para quem só precisa das funções puras não levar o zod). Fase 4: transactionSchema (zod, RF-01: valor 1..MAX_AMOUNT_CENTS, data existente, tag, descrição 1–100 em UTF-16 — D-38(h)), transactions (compareByRecency e takeMostRecent — D-39), isValidDate/formatShortDate/formatMonthLabel em dates e signedAmount exportado em balances. Fase 5: text (foldText, também usado por toTagNameKey), transactionFilters (filtros, resumo por dia e paginação por dias inteiros — D-44), sortByRecency em transactions e formatLongDate em dates. Fase 7: periodViews (ViewGranularity, viewRange, shiftAnchorDate, formatViewTitle, yearOf, summarizeDays, summarizeActiveDays, summarizeMonths — D-49) e, em dates, addDays, datesBetween, formatWeekdayDate, formatMonthName e formatDateRangeLabel (abreviações fixas do pt-BR — CA-05.3); groupByDay/groupByMonth de balances passam a ter uso em produção. recurring (Fase 9) e installments (Fase 10) ainda não existem.',
+      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. Fase 3: tags (toTagNameKey, paleta D-32, sortByTagName, isTagInUse, TAG_NAME_MAX_LENGTH — D-35) e tagSchema (zod, único módulo do domínio com pacote externo; separado para quem só precisa das funções puras não levar o zod). Fase 4: transactionSchema (zod, RF-01: valor 1..MAX_AMOUNT_CENTS, data existente, tag, descrição 1–100 em UTF-16 — D-38(h)), transactions (compareByRecency e takeMostRecent — D-39), isValidDate/formatShortDate/formatMonthLabel em dates e signedAmount exportado em balances. Fase 5: text (foldText, também usado por toTagNameKey), transactionFilters (filtros, resumo por dia e paginação por dias inteiros — D-44), sortByRecency em transactions e formatLongDate em dates. Fase 7: periodViews (ViewGranularity, viewRange, shiftAnchorDate, formatViewTitle, yearOf, summarizeDays, summarizeActiveDays, summarizeMonths — D-49) e, em dates, addDays, datesBetween, formatWeekdayDate, formatMonthName e formatDateRangeLabel (abreviações fixas do pt-BR — CA-05.3); groupByDay/groupByMonth de balances passam a ter uso em produção. Fase 8: charts (ChartGranularity, BalanceGranularity, isChartGranularity, isBalanceGranularity, chartBuckets, incomeExpenseSeries, balanceSeries sobre runningBalance, distributeTenths — maior resto com BigInt, soma sempre 100,0% —, tagSlices e formatTenthsPercent — D-50(c)); em dates, formatShortDayMonth, formatShortWeekdayDay e formatShortMonthName (rótulos dos eixos); em money, formatCompactBRL ("R$ 1,2 mil" do eixo Y). recurring (Fase 9) e installments (Fase 10) ainda não existem.',
     position: { x: 650, y: 450 },
   },
   {
@@ -112,7 +112,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Apoio a testes',
     folder: 'src/test',
     description:
-      'Dois setups do Vitest (D-46): setup.unit.ts do projeto unit (node; só fake-indexeddb e limpeza do Dexie) e setup.ts do projeto dom (jsdom; Testing Library, fake-indexeddb, limpa as tabelas do Dexie entre testes, findBy com 3 s — D-34). Regra: *.test.tsx roda em dom; *.test.ts roda em unit, salvo os listados em DOM_TEST_FILES no vite.config.ts — um *.test.ts novo que precise de DOM (document, window, localStorage, matchMedia, renderHook) tem de entrar nessa lista. Também: dublês de matchMedia e de <dialog> (dialog.ts — D-33), seedDatabase (prepara tabelas ainda sem repositório — D-34), renderApp, fábricas de lançamentos, ações do formulário de lançamento (transactionForm.ts — Fase 4), gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código).',
+      'Dois setups do Vitest (D-46): setup.unit.ts do projeto unit (node; só fake-indexeddb e limpeza do Dexie) e setup.ts do projeto dom (jsdom; Testing Library, fake-indexeddb, limpa as tabelas do Dexie entre testes, findBy com 3 s — D-34). Regra: *.test.tsx roda em dom; *.test.ts roda em unit, salvo os listados em DOM_TEST_FILES no vite.config.ts — um *.test.ts novo que precise de DOM (document, window, localStorage, matchMedia, renderHook) tem de entrar nessa lista. Também: dublês de matchMedia e de <dialog> (dialog.ts — D-33), seedDatabase (prepara tabelas ainda sem repositório — D-34), renderApp, fábricas de lançamentos, ações do formulário de lançamento (transactionForm.ts — Fase 4), gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código). Fase 8: chartStubs.tsx (Doughnut, Bar e Line de mentira — o jsdom não tem canvas) + chartMock.ts (guarda as props de cada gráfico, clickChart chama o onClick das opções e a escala X falsa de 10 px por índice), usados com vi.mock("react-chartjs-2") — D-50(j).',
     position: { x: 740, y: 112 },
   },
   {
@@ -197,15 +197,21 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'repositories',
     status: 'allowed',
     reason:
-      'Dados persistidos só por repositórios (§2.7). Fase 2: ThemeSection usa useTheme (D-22) e AboutPage lê SCHEMA_VERSION por databaseInfo. Fase 3: a tela de tags usa tagsRepository (hook da lista, create/update/delete, getTagUsage e as classes de erro). Fase 4: BalanceSummary (useOverallBalance, useMonthTotals), RecentTransactions (useRecentTransactions, useTags) e useTransactionDetail (useTransaction, deleteTransaction). Fase 6: useExportBackup (createBackupFile, deliverBackupFile), useImportBackup (openBackupFile, restoreBackup, useTheme().setPreference), LastBackupStatus e BackupReminder (useLastBackupAt; BackupReminder também useTransactionCount).',
+      'Dados persistidos só por repositórios (§2.7). Fase 2: ThemeSection usa useTheme (D-22) e AboutPage lê SCHEMA_VERSION por databaseInfo. Fase 3: a tela de tags usa tagsRepository (hook da lista, create/update/delete, getTagUsage e as classes de erro). Fase 4: BalanceSummary (useOverallBalance, useMonthTotals), RecentTransactions (useRecentTransactions, useTags) e useTransactionDetail (useTransaction, deleteTransaction). Fase 6: useExportBackup (createBackupFile, deliverBackupFile), useImportBackup (openBackupFile, restoreBackup, useTheme().setPreference), LastBackupStatus e BackupReminder (useLastBackupAt; BackupReminder também useTransactionCount). Fase 8: ChartList (useTags), BalanceLineCard (useTransactionsInRange(null, fim) — D-50(f)) e useChartColors (useTheme().resolvedTheme — CA-06.9).',
   },
-  { from: 'features', to: 'stores', status: 'allowed', reason: 'Filtros e visões (§6.7).' },
+  {
+    from: 'features',
+    to: 'stores',
+    status: 'allowed',
+    reason:
+      'Filtros e visões (§6.7). Desde a Fase 8 o ViewsPage só usa openPeriod (detalhamento); os outros campos das visões são lidos/gravados pelos controles de components/periods.',
+  },
   {
     from: 'features',
     to: 'domain',
     status: 'allowed',
     reason:
-      'Regras puras e tipos. Fase 3: useTagsScreen usa isTagInUse (useTagForm e TagColorPicker foram para components/tags na Fase 4 — D-37). Fase 4: BalanceSummary usa periodOf/formatMonthLabel e formatBRL. Fase 6: LastBackupStatus e BackupReminder usam backupReminder (daysSinceLastBackup, describeLastBackup, shouldShowBackupReminder — D-11); useExportBackup/useImportBackup usam backupPasswordSchema.',
+      'Regras puras e tipos. Fase 3: useTagsScreen usa isTagInUse (useTagForm e TagColorPicker foram para components/tags na Fase 4 — D-37). Fase 4: BalanceSummary usa periodOf/formatMonthLabel e formatBRL. Fase 6: LastBackupStatus e BackupReminder usam backupReminder (daysSinceLastBackup, describeLastBackup, shouldShowBackupReminder — D-11); useExportBackup/useImportBackup usam backupPasswordSchema. Fase 8: features/charts usa charts (séries, fatias, percentuais), balances (totals), money (formatBRL, formatSignedBRL, formatCompactBRL, addCents) e o tipo ViewGranularity.',
   },
   {
     from: 'features',
@@ -227,7 +233,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'domain',
     status: 'allowed',
     reason:
-      'Formatação pura (§6.5): MoneyInput usa digitsToCents/formatBRL, SignedAmount usa formatSignedBRL, useToday usa today, TagChip e TagPicker usam readableTextColor, TransactionRow usa signedAmount e formatShortDate; useTagForm/useTransactionForm usam os schemas zod (tagSchema, transactionSchema).',
+      'Formatação pura (§6.5): MoneyInput usa digitsToCents/formatBRL, SignedAmount usa formatSignedBRL, useToday usa today, TagChip e TagPicker usam readableTextColor, TransactionRow usa signedAmount e formatShortDate; useTagForm/useTransactionForm usam os schemas zod (tagSchema, transactionSchema). Fase 8: components/periods usa periodViews (ViewGranularity, viewRange, formatViewTitle) e balances (totals) no usePeriodView.',
   },
   {
     from: 'components',
@@ -240,8 +246,20 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'repositories',
     status: 'exception',
     reason:
-      'D-37 (confirmada em 21/10/2026): só os componentes de domínio de src/components/<entidade>/ usam repositórios — useTagForm (createTag/updateTag), TransactionForm (useTags) e useTransactionForm (createTransaction/updateTransaction). src/components/ui/ nunca importa repositories (proibição por caminho, também no scanner). Uma pasta de entidade nova precisa entrar em onlySources.',
-    onlySources: ['src/components/tags/', 'src/components/transactions/'],
+      'D-37 (confirmada em 21/10/2026): só os componentes de domínio de src/components/<entidade>/ usam repositórios — useTagForm (createTag/updateTag), TransactionForm (useTags) e useTransactionForm (createTransaction/updateTransaction). src/components/ui/ nunca importa repositories (proibição por caminho, também no scanner). Uma pasta de entidade nova precisa entrar em onlySources. Fase 8 (D-50(a), aguardando confirmação): components/periods/usePeriodView usa useTransactionsInRange.',
+    onlySources: [
+      'src/components/tags/',
+      'src/components/transactions/',
+      'src/components/periods/',
+    ],
+  },
+  {
+    from: 'components',
+    to: 'stores',
+    status: 'exception',
+    reason:
+      'Fase 8 (D-50(a), aguardando confirmação): só os controles de período de src/components/periods/ — GranularityPicker (viewGranularity, setGranularity), PeriodNavigator (goPrev, goNext), TodayButton (goToday) e usePeriodView (viewGranularity, viewAnchorDate) — porque Visões e Gráficos compartilham o mesmo estado (CA-06.1). A D-37 lista o que components/<entidade> pode importar (domain, lib, repositories, components/ui) e não cita stores: divergência reportada na Saúde.',
+    onlySources: ['src/components/periods/'],
   },
   {
     from: 'repositories',
@@ -297,7 +315,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'domain',
     status: 'allowed',
     reason:
-      'balances usa money (addCents) e dates; tagSchema usa TAG_NAME_MAX_LENGTH de tags; transactionSchema usa isValidDate (dates) e formatBRL/MAX_AMOUNT_CENTS (money); todos usam types.',
+      'balances usa money (addCents) e dates; tagSchema usa TAG_NAME_MAX_LENGTH de tags; transactionSchema usa isValidDate (dates) e formatBRL/MAX_AMOUNT_CENTS (money); todos usam types. Fase 8: charts usa balances (runningBalance, totals), dates (intervalos e rótulos curtos), money (addCents) e periodViews (ViewGranularity, summarizeDays/summarizeMonths).',
   },
   {
     from: 'dev',
@@ -326,7 +344,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'components',
     status: 'allowed',
     reason:
-      'Primitivos compostos entre si e, desde a Fase 4, componentes de domínio (components/<entidade>) compostos de primitivos (TransactionForm usa Field, MoneyInput, DateInput, TextInput, Toast, TagPicker, CreateTagDialog). Hoje em sentido único: nenhum primitivo de components/ui importa components/<entidade>.',
+      'Primitivos compostos entre si e, desde a Fase 4, componentes de domínio (components/<entidade>) compostos de primitivos (TransactionForm usa Field, MoneyInput, DateInput, TextInput, Toast, TagPicker, CreateTagDialog). Hoje em sentido único: nenhum primitivo de components/ui importa components/<entidade>. Fase 8: components/periods usa createRadioGroup (GranularityPicker) e Button (TodayButton).',
   },
   { from: 'dev', to: 'dev', status: 'allowed', reason: 'Organização interna da página.' },
 ]
@@ -472,8 +490,27 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
   {
     route: '/graficos',
     screen: 'Gráficos',
-    requirements: ['RF-06'],
-    description: 'Placeholder. Chart.js com painel de detalhes (D-16) na Fase 8.',
+    requirements: [
+      'RF-06',
+      'CA-06.1',
+      'CA-06.2',
+      'CA-06.3',
+      'CA-06.4',
+      'CA-06.5',
+      'CA-06.6',
+      'CA-06.7',
+      'CA-06.8',
+      'CA-06.9',
+      'CA-06.10',
+      'CA-06.11',
+      'RNF-02',
+      'RNF-06',
+      'D-12',
+      'D-16',
+      'D-50',
+    ],
+    description:
+      'Fase 8 (lazy — o Chart.js, ~175 kB / 62,5 kB gzip, fica só no pacote desta tela; o principal não mudou). ChartsPage importa chart/chartSetup (registro mínimo: Arc/Bar/Line/Point elements, Category/Linear scales e o plugin selectionHighlight; sem Tooltip nem Legend; animações desligadas — D-50(b)) e compõe os mesmos controles das Visões, de components/periods (Page.Header com TodayButton no slot trailing, GranularityPicker, PeriodNavigator), ligados ao mesmo estado no Zustand (CA-06.1). Com Dia: Notice subtle "Os gráficos estão disponíveis para Semana, Mês e Ano."; período sem lançamentos: EmptyState "Nenhum lançamento neste período." (CA-06.10); senão ChartList com key = granularidade:início do período (recriada a cada troca — as seleções zeram, CA-06.8): TagDoughnutCard × 2 (saídas e entradas por tag: Doughnut com as cores das tags, fatia selecionada desloca 12 px e as outras esmaecem, ChartDetailPanel com "Total de saídas: R$ X" ou a tag, e TagLegendList — um botão por tag com aria-pressed, do maior para o menor, percentuais que somam 100,0% — CA-06.3/06.6/06.7), IncomeExpenseBarCard (Bar agrupado por dia/mês, mode index + intersect false, faixa de destaque da largura de uma categoria, eixo Y compacto — CA-06.4) e, no Mês e no Ano, BalanceLineCard (Line com events: [] e ponteiro próprio — toque/arraste com touch-action pan-y, marcador vertical — CA-06.5). Painel fixo com aria-live em vez de tooltip (CA-06.2, D-16, princípio 15); barras e linha também por teclado (setas, Home, End, Esc — D-50(g)); cores por tema (useChartColors — CA-06.9). Só lançamentos realizados (CA-06.11). Dados: usePeriodView (useTransactionsInRange(início, fim)), useTags e, na linha, useTransactionsInRange(null, fim) — todos os lançamentos até o fim do período formam o saldo. Tabelas: transactions e tags (só leitura).',
     contentPhase: 8,
   },
   {
@@ -611,7 +648,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   { component: 'Outlet', note: 'Ponto onde o React Router injeta a tela da rota filha.' },
   {
     component: 'Notice',
-    note: 'Compound component (Fase 1): Notice.Message (texto, flex-1) e Notice.Action (botão ≥ 44 px, foco branco para aparecer sobre o azul). Variantes accent (com ação) e subtle (só texto). Não decide região viva nem posição: quem usa decide. Fase 6: o BackupReminder usa a variante subtle com um Link "Fazer backup" ao lado do Notice.Message.',
+    note: 'Compound component (Fase 1): Notice.Message (texto, flex-1) e Notice.Action (botão ≥ 44 px, foco branco para aparecer sobre o azul). Variantes accent (com ação) e subtle (só texto). Não decide região viva nem posição: quem usa decide. Fase 6: o BackupReminder usa a variante subtle com um Link "Fazer backup" ao lado do Notice.Message. Fase 8: o ChartsPage usa a variante subtle, só com Notice.Message, para o aviso da granularidade Dia (D-50(a)).',
   },
   {
     component: 'UpdateNotice',
@@ -804,7 +841,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'GranularityPicker',
-    note: 'Fase 7 (RF-05, D-49(a)): instância local GranularityRadio = createRadioGroup<ViewGranularity>() com variant="segmented" e legenda "Período" (Dia | Semana | Mês | Ano, rótulos de GRANULARITY_LABELS). Lê viewGranularity e chama setGranularity no Zustand (a data de referência não muda). Sem props.',
+    note: 'Fase 7 (RF-05, D-49(a)); em src/components/periods desde a Fase 8 (D-50(a)), usado por ViewsPage e ChartsPage: instância local GranularityRadio = createRadioGroup<ViewGranularity>() com variant="segmented" e legenda "Período" (Dia | Semana | Mês | Ano, rótulos de GRANULARITY_LABELS em periodTexts). Lê viewGranularity e chama setGranularity no Zustand (a data de referência não muda); trocar numa tela troca na outra. Sem props.',
   },
   {
     component: 'GranularityRadio',
@@ -812,7 +849,51 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'PeriodNavigator',
-    note: 'Fase 7 (CA-05.3, D-49(b)): setas ‹ › (size-11, 44 px; aria-label por granularidade de PREVIOUS_PERIOD_LABELS/NEXT_PERIOD_LABELS) que chamam goPrev/goNext no Zustand, em volta do <h2> do título (aria-live="polite" anuncia o novo período; tabIndex −1 e titleRef para receber o foco depois do detalhamento — RNF-06; 1ª letra maiúscula pelo CSS). Recebe granularity e title prontos do usePeriodView.',
+    note: 'Fase 7 (CA-05.3, D-49(b)): setas ‹ › (size-11, 44 px; aria-label por granularidade de PREVIOUS_PERIOD_LABELS/NEXT_PERIOD_LABELS) que chamam goPrev/goNext no Zustand, em volta do <h2> do título (aria-live="polite" anuncia o novo período; tabIndex −1 e titleRef para receber o foco depois do detalhamento — RNF-06; 1ª letra maiúscula pelo CSS). Recebe granularity e title prontos do usePeriodView. Fase 8: em src/components/periods (D-50(a)) e titleRef opcional — o ViewsPage passa (detalhamento), o ChartsPage não.',
+  },
+  {
+    component: 'TodayButton',
+    note: 'Fase 8, src/components/periods (D-50(a)): Button secondary "Hoje" (TODAY_LABEL) que chama goToday no Zustand; vai no slot trailing do Page.Header do ViewsPage e do ChartsPage. Sem props nem estado.',
+  },
+  {
+    component: 'ChartList',
+    note: 'Fase 8 (RF-06): recebe granularity, range e as transactions do período (só realizados — CA-06.11) e monta os cartões: TagDoughnutCard × 2 (só depois de useTags responder, para as fatias nascerem com nome e cor), IncomeExpenseBarCard (incomeExpenseSeries + totals) e, se isBalanceGranularity (Mês/Ano), BalanceLineCard. Os dados são calculados no render por funções puras de domain/charts (o React Compiler memoiza). O ChartsPage dá a ela key = granularidade:início — trocar de período recria tudo e zera as seleções (CA-06.8). Sem estado.',
+  },
+  {
+    component: 'ChartCard',
+    note: 'Fase 8: <section aria-labelledby> com h2 (useId), borda e gap; aceita ref (prop do React 19) — o cartão é a área "dentro" do gráfico para useOutsidePointerDown. Children: gráfico, painel e lista. Sem estado.',
+  },
+  {
+    component: 'ChartDetailPanel',
+    note: 'Fase 8 (CA-06.2 / CA-06.7, D-16): <p aria-live="polite" aria-atomic> fixo abaixo do gráfico, min-h-11, tabular-nums — no lugar do tooltip flutuante, que o dedo cobriria (princípio 15). Só recebe o texto pronto (children). Usado pelos 4 cartões.',
+  },
+  {
+    component: 'TagDoughnutCard',
+    note: 'Fase 8 (CA-06.3): estado selectedTagId (useState) — vale só enquanto a tag ainda existe nas fatias (achado da revisão); useOutsidePointerDown(cardRef) limpa ao tocar fora do cartão. Doughnut (react-chartjs-2) com events: ["click"], onClick → toggle ou limpar (toque fora das fatias), offset 12 px na selecionada e fadeColor (~35%) nas outras; tooltip/legend desligados. Compõe ChartCard > [canvas aria-hidden, ChartDetailPanel, TagLegendList]; sem fatias, ChartCard > EmptyState ("Nenhuma saída/entrada neste período.").',
+  },
+  {
+    component: 'TagLegendList',
+    note: 'Fase 8 (CA-06.3/06.6/06.7): <ul aria-label> com um <button aria-pressed> min-h-11 por tag ("● Mercado — R$ 1.230,50 · 41,2%"); o selecionado em negrito, com borda e fundo (não só pela cor). Controlada (selectedTagId/onToggle) pelo TagDoughnutCard: fatia e item ficam sincronizados. Sem estado.',
+  },
+  {
+    component: 'IncomeExpenseBarCard',
+    note: 'Fase 8 (CA-06.4): seleção pelo useSeriesSelection (index, select, cardRef, handleKeyDown). Contêiner role="group" tabIndex 0 com a dica SERIES_CHART_HINT no aria-label (teclado — D-50(g)); Bar com 2 datasets (Entradas/Saídas), interaction mode index + intersect false (qualquer ponto da coluna seleciona), plugin selectionHighlight style "band" e moneyAxis (formatMoneyTick, precision 0). Legenda escrita "Entradas"/"Saídas" abaixo do gráfico (RNF-06) e ChartDetailPanel com o subperíodo ou "Período inteiro: …".',
+  },
+  {
+    component: 'BalanceLineCard',
+    note: 'Fase 8 (CA-06.5): lê ele mesmo useTransactionsInRange(null, end) (saldo acumulado desde o 1º lançamento) e calcula balanceSeries; Line com events: [] — o Chart.js não trata eventos: onPointerDown/Move/Up/Cancel/Leave no contêiner (touch-pan-y, select-none, setPointerCapture) convertem o x do dedo em índice por chart.scales.x.getValueForPixel (chartRef); isDraggingRef guarda o arraste. Mesmo useSeriesSelection das barras (teclado e toque fora); plugin selectionHighlight style "line" e ponto selecionado maior. Painel: "15 de out.: saldo +R$ 850,00" ou "Saldo ao fim do período: …".',
+  },
+  {
+    component: 'Doughnut',
+    note: 'Do react-chartjs-2 (D-12): registra o DoughnutController; os elementos e escalas vêm do chartSetup. Nos testes de tela é trocado pelo stub de src/test/chartStubs.tsx (jsdom sem canvas — D-50(j)).',
+  },
+  {
+    component: 'Bar',
+    note: 'Do react-chartjs-2 (D-12): registra o BarController. Stub nos testes (src/test/chartStubs.tsx).',
+  },
+  {
+    component: 'Line',
+    note: 'Do react-chartjs-2 (D-12): registra o LineController; o ref dá a instância do Chart (canvas e scales.x) para o ponteiro próprio do BalanceLineCard. Stub nos testes com uma escala X falsa (src/test/chartMock.ts).',
   },
   {
     component: 'PeriodSummaryCard',
@@ -904,7 +985,12 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '/visoes',
     stateAndData:
-      'Árvore (D-49): Page.Header (trailing: Button "Hoje") → GranularityPicker (GranularityRadio segmented) → PeriodNavigator (2 setas + h2 aria-live) → PeriodSummaryCard (dl + SignedAmount) → PeriodDetail → DayDetail { TransactionRow × N | EmptyState } | WeekDetail { PeriodRows { PeriodRows.Item × 7 } } | MonthDetail { PeriodRows { PeriodRows.Item × dias com movimento } | EmptyState } | YearDetail { PeriodRows { PeriodRows.Item × 12 } }. Estado: viewGranularity e viewAnchorDate no Zustand (src/stores/uiStore.ts, sem persist — CA-05.4); GranularityPicker, PeriodNavigator e o "Hoje" do ViewsPage leem/gravam cada um com o seu seletor; o único estado local é o titleRef do ViewsPage (foco no título depois do detalhamento). Dados: usePeriodView (src/features/views/usePeriodView.ts) lê os 2 campos, calcula range (viewRange) e title (formatViewTitle), consulta useTransactionsInRange(range.start, range.end) (useLiveQuery no índice date, do mais recente ao mais antigo; undefined enquanto um período novo carrega — D-49(g)) e soma totals; os detalhes resumem no render com summarizeDays / summarizeActiveDays / summarizeMonths (o React Compiler memoiza). DayDetail lê useTags. Um lançamento gravado em outra tela atualiza a visão sozinho (useLiveQuery).',
+      'Árvore (D-49): Page.Header (trailing: TodayButton — components/periods desde a Fase 8) → GranularityPicker (GranularityRadio segmented) → PeriodNavigator (2 setas + h2 aria-live) → PeriodSummaryCard (dl + SignedAmount) → PeriodDetail → DayDetail { TransactionRow × N | EmptyState } | WeekDetail { PeriodRows { PeriodRows.Item × 7 } } | MonthDetail { PeriodRows { PeriodRows.Item × dias com movimento } | EmptyState } | YearDetail { PeriodRows { PeriodRows.Item × 12 } }. Estado: viewGranularity e viewAnchorDate no Zustand (src/stores/uiStore.ts, sem persist — CA-05.4); GranularityPicker, PeriodNavigator e TodayButton (os três em src/components/periods, compartilhados com /graficos — D-50(a)) leem/gravam cada um com o seu seletor, e o ViewsPage só usa openPeriod; o único estado local é o titleRef do ViewsPage (foco no título depois do detalhamento). Dados: usePeriodView (src/components/periods/usePeriodView.ts) lê os 2 campos, calcula range (viewRange) e title (formatViewTitle), consulta useTransactionsInRange(range.start, range.end) (useLiveQuery no índice date, do mais recente ao mais antigo; undefined enquanto um período novo carrega — D-49(g)) e soma totals; os detalhes resumem no render com summarizeDays / summarizeActiveDays / summarizeMonths (o React Compiler memoiza). DayDetail lê useTags. Um lançamento gravado em outra tela atualiza a visão sozinho (useLiveQuery).',
+  },
+  {
+    route: '/graficos',
+    stateAndData:
+      'Árvore (D-50): Page.Header (trailing: TodayButton) → GranularityPicker (GranularityRadio segmented) → PeriodNavigator (sem titleRef) → Notice subtle (Dia) | EmptyState (período vazio) | ChartList { TagDoughnutCard "Saídas por tag" { ChartCard { Doughnut, ChartDetailPanel, TagLegendList } | EmptyState }, TagDoughnutCard "Entradas por tag" { … }, IncomeExpenseBarCard { ChartCard { Bar, legenda escrita, ChartDetailPanel } }, BalanceLineCard (Mês/Ano) { ChartCard { Line, ChartDetailPanel } } }. Estado global: viewGranularity e viewAnchorDate no Zustand, os mesmos das Visões (CA-06.1) — os controles de src/components/periods leem/gravam cada um com o seu seletor; o ChartsPage não tem estado próprio. Estado local de seleção, um por gráfico: selectedTagId (useState) em cada TagDoughnutCard e index (useState) do useSeriesSelection nas barras e na linha, mais isDraggingRef/chartRef na linha; todos limpos ao tocar fora do cartão (useOutsidePointerDown) e zerados pela troca de key da ChartList a cada período ou granularidade (CA-06.8). Dados: usePeriodView → useTransactionsInRange(início, fim) (undefined enquanto carrega: nada na tela); ChartList lê useTags e calcula no render tagSlices, incomeExpenseSeries e totals (domain/charts, domain/balances); BalanceLineCard lê useTransactionsInRange(null, fim) e calcula balanceSeries (runningBalance). Cores por useChartColors (useTheme().resolvedTheme). Um lançamento gravado em outra tela atualiza os gráficos sozinho (useLiveQuery).',
   },
   {
     route: '/lancamentos/novo',
@@ -4546,19 +4632,23 @@ export const FLOWS: readonly Flow[] = [
     id: 'views-navigate',
     title: 'Navegar nas visões (granularidade, setas e "Hoje")',
     summary:
-      'Granularidade e data de referência ficam no Zustand (CA-05.4). Cada toque muda só a store; o usePeriodView recalcula intervalo e título, e o useTransactionsInRange lê o novo intervalo pelo índice date — devolvendo undefined até a leitura do período novo chegar, para nunca mostrar totais do período anterior com o título novo (D-49(g), achado da revisão).',
+      'Granularidade e data de referência ficam no Zustand (CA-05.4). Desde a Fase 8 os controles ficam em src/components/periods e o mesmo fluxo vale para a tela de gráficos (CA-06.1, D-50(a)): mudar o período numa tela muda na outra. Cada toque muda só a store; o usePeriodView recalcula intervalo e título, e o useTransactionsInRange lê o novo intervalo pelo índice date — devolvendo undefined até a leitura do período novo chegar, para nunca mostrar totais do período anterior com o título novo (D-49(g), achado da revisão).',
     requirements: ['RF-05', 'CA-05.1', 'CA-05.3', 'CA-05.4', 'D-49'],
     participants: [
       { id: 'user', label: 'Usuário' },
       {
         id: 'picker',
         label: 'GranularityPicker',
-        module: 'src/features/views/GranularityPicker.tsx',
+        module: 'src/components/periods/GranularityPicker.tsx',
       },
-      { id: 'nav', label: 'PeriodNavigator', module: 'src/features/views/PeriodNavigator.tsx' },
-      { id: 'page', label: 'ViewsPage ("Hoje")', module: 'src/features/views/ViewsPage.tsx' },
+      { id: 'nav', label: 'PeriodNavigator', module: 'src/components/periods/PeriodNavigator.tsx' },
+      {
+        id: 'page',
+        label: 'TodayButton ("Hoje")',
+        module: 'src/components/periods/TodayButton.tsx',
+      },
       { id: 'store', label: 'uiStore (Zustand)', module: 'src/stores/uiStore.ts' },
-      { id: 'hook', label: 'usePeriodView', module: 'src/features/views/usePeriodView.ts' },
+      { id: 'hook', label: 'usePeriodView', module: 'src/components/periods/usePeriodView.ts' },
       { id: 'domain', label: 'periodViews', module: 'src/domain/periodViews.ts' },
       {
         id: 'repo',
@@ -4610,7 +4700,8 @@ export const FLOWS: readonly Flow[] = [
         from: 'user',
         to: 'page',
         label: 'toca "Hoje"',
-        detail: 'Botão no slot trailing do Page.Header.',
+        detail:
+          'TodayButton no slot trailing do Page.Header (o mesmo nas Visões e nos Gráficos desde a Fase 8 — D-50(a)).',
         refs: ['RF-05'],
         kind: 'event',
       },
@@ -4710,7 +4801,7 @@ export const FLOWS: readonly Flow[] = [
       {
         id: 'nav',
         label: 'PeriodNavigator (título)',
-        module: 'src/features/views/PeriodNavigator.tsx',
+        module: 'src/components/periods/PeriodNavigator.tsx',
       },
       { id: 'day', label: 'DayDetail', module: 'src/features/views/DayDetail.tsx' },
       {
@@ -4798,16 +4889,314 @@ export const FLOWS: readonly Flow[] = [
     ],
     tests: ['src/features/views/ViewsPage.test.tsx', 'src/stores/uiStore.views.test.ts'],
   },
+  {
+    id: 'charts-build',
+    title: 'Abrir os gráficos de um período (dados → séries)',
+    summary:
+      'A tela de gráficos usa o mesmo período das Visões (Zustand). O usePeriodView lê o intervalo; a ChartList (recriada com outra key a cada período/granularidade) calcula fatias, séries e totais por funções puras; a linha do saldo lê sozinha tudo até o fim do período. O Chart.js só desenha: tooltip e legenda nem são registrados.',
+    requirements: ['RF-06', 'CA-06.1', 'CA-06.8', 'CA-06.9', 'CA-06.10', 'CA-06.11', 'D-50'],
+    participants: [
+      { id: 'page', label: 'ChartsPage', module: 'src/features/charts/ChartsPage.tsx' },
+      { id: 'setup', label: 'chartSetup', module: 'src/features/charts/chart/chartSetup.ts' },
+      { id: 'hook', label: 'usePeriodView', module: 'src/components/periods/usePeriodView.ts' },
+      {
+        id: 'repo',
+        label: 'transactionsRepository',
+        module: 'src/repositories/transactionsRepository.ts',
+      },
+      { id: 'list', label: 'ChartList', module: 'src/features/charts/ChartList.tsx' },
+      { id: 'domain', label: 'domain/charts', module: 'src/domain/charts.ts' },
+      { id: 'line', label: 'BalanceLineCard', module: 'src/features/charts/BalanceLineCard.tsx' },
+      {
+        id: 'colors',
+        label: 'useChartColors',
+        module: 'src/features/charts/chart/useChartColors.ts',
+      },
+    ],
+    steps: [
+      {
+        from: 'page',
+        to: 'setup',
+        label: 'import "chart/chartSetup" (efeito colateral)',
+        detail:
+          'Chart.register(Arc, Bar, Line, Point, Category, Linear, selectionHighlight); sem Tooltip/Legend; animation = false. Vai só para o chunk lazy da tela (D-50(b), RNF-02).',
+        refs: ['RF-06', 'CA-06.2', 'D-50'],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'hook',
+        label: 'usePeriodView()',
+        detail: 'viewGranularity + viewAnchorDate do Zustand — os mesmos das Visões (CA-06.1).',
+        refs: ['CA-06.1', 'D-50'],
+        kind: 'call',
+      },
+      {
+        from: 'hook',
+        to: 'repo',
+        label: 'useTransactionsInRange(início, fim)',
+        detail: 'Índice date; undefined enquanto um período novo carrega (D-49(g)).',
+        refs: ['RF-06', 'D-49'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'page',
+        label: 'Transaction[] | undefined',
+        detail:
+          'Dia → aviso "Os gráficos estão disponíveis para Semana, Mês e Ano."; [] → "Nenhum lançamento neste período." (CA-06.10); carregando → nada.',
+        refs: ['CA-06.10', 'D-50'],
+        kind: 'return',
+      },
+      {
+        from: 'page',
+        to: 'list',
+        label: '<ChartList key="granularidade:início">',
+        detail:
+          'Outra key a cada período ou granularidade: todos os gráficos e seleções recomeçam (CA-06.8).',
+        refs: ['CA-06.8', 'D-50'],
+        kind: 'call',
+      },
+      {
+        from: 'list',
+        to: 'domain',
+        label: 'tagSlices × 2, incomeExpenseSeries, totals',
+        detail:
+          'Fatias por tag em ordem decrescente com distributeTenths (maior resto, BigInt — soma 100,0%); chartBuckets: 7 dias, dias do mês ou 12 meses. Só lançamentos realizados (CA-06.11).',
+        refs: ['RF-06', 'CA-06.3', 'CA-06.11', 'D-50'],
+        kind: 'call',
+      },
+      {
+        from: 'line',
+        to: 'repo',
+        label: 'useTransactionsInRange(null, fim)',
+        detail:
+          'Só no Mês e no Ano: todos os lançamentos até o fim do período formam o saldo inicial (D-50(f)).',
+        refs: ['RF-06', 'D-50'],
+        kind: 'call',
+      },
+      {
+        from: 'line',
+        to: 'domain',
+        label: 'balanceSeries(transactions, g, início)',
+        detail: 'runningBalance sobre os buckets: saldo ao fim de cada dia (Mês) ou mês (Ano).',
+        refs: ['RF-06', 'CA-06.5'],
+        kind: 'call',
+      },
+      {
+        from: 'colors',
+        to: 'list',
+        label: 'paleta LIGHT | DARK',
+        detail:
+          'useTheme().resolvedTheme; canvas não lê classes CSS, então as cores vêm do Tailwind em hex (CA-06.9).',
+        refs: ['CA-06.9', 'D-50'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/charts/ChartsPage.test.tsx',
+      'src/domain/charts.test.ts',
+      'src/features/charts/chart/chartSetup.test.ts',
+    ],
+  },
+  {
+    id: 'charts-select-slice',
+    title: 'Selecionar uma tag na pizza (fatia ↔ lista)',
+    summary:
+      'Tocar numa fatia ou no item da lista seleciona a tag: a fatia sai do círculo, as outras esmaecem, o item fica em negrito com aria-pressed e o painel fixo mostra nome, valor e percentual. Tocar de novo, fora das fatias ou fora do cartão limpa. Cada pizza tem a própria seleção.',
+    requirements: ['RF-06', 'CA-06.2', 'CA-06.3', 'CA-06.6', 'CA-06.7', 'D-16', 'D-50'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'chart',
+        label: 'Doughnut (Chart.js)',
+        module: 'src/features/charts/TagDoughnutCard.tsx',
+      },
+      { id: 'legend', label: 'TagLegendList', module: 'src/features/charts/TagLegendList.tsx' },
+      { id: 'card', label: 'TagDoughnutCard', module: 'src/features/charts/TagDoughnutCard.tsx' },
+      {
+        id: 'outside',
+        label: 'useOutsidePointerDown',
+        module: 'src/components/ui/useOutsidePointerDown.ts',
+      },
+      {
+        id: 'panel',
+        label: 'ChartDetailPanel',
+        module: 'src/features/charts/ChartDetailPanel.tsx',
+      },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'chart',
+        label: 'toca numa fatia',
+        detail: 'events: ["click"]; onClick recebe o elemento tocado (ou nenhum, fora das fatias).',
+        refs: ['CA-06.3'],
+        kind: 'event',
+      },
+      {
+        from: 'chart',
+        to: 'card',
+        label: 'toggle(tagId) | limpar',
+        detail: 'Mesma tag → limpa; fora das fatias → limpa.',
+        refs: ['CA-06.3', 'D-50'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'legend',
+        label: 'toca no item "● Mercado — R$ 1.230,50 · 41,2%"',
+        detail: 'Botão min-h-11 — alvo de 44 px mesmo para fatias finas (CA-06.6).',
+        refs: ['CA-06.6', 'CA-06.7'],
+        kind: 'event',
+      },
+      {
+        from: 'legend',
+        to: 'card',
+        label: 'onToggle(tagId)',
+        detail: 'Lista controlada: fatia e item ficam sempre sincronizados.',
+        refs: ['CA-06.3'],
+        kind: 'call',
+      },
+      {
+        from: 'card',
+        to: 'chart',
+        label: 'offset 12 px + fadeColor nas outras',
+        detail:
+          'Seleção vale só enquanto a tag existe nas fatias (dados ao vivo — achado da revisão).',
+        refs: ['CA-06.3', 'D-50'],
+        kind: 'return',
+      },
+      {
+        from: 'card',
+        to: 'panel',
+        label: '"Mercado — R$ 1.230,50 · 41,2%" | "Total de saídas: R$ X"',
+        detail: 'aria-live="polite" anuncia; nada de tooltip (D-16, princípio 15).',
+        refs: ['CA-06.2', 'CA-06.7', 'D-16'],
+        kind: 'return',
+      },
+      {
+        from: 'user',
+        to: 'outside',
+        label: 'toca fora do cartão',
+        detail: 'pointerdown no document, só enquanto há seleção.',
+        refs: ['CA-06.3'],
+        kind: 'event',
+      },
+      {
+        from: 'outside',
+        to: 'card',
+        label: 'setSelectedTagId(null)',
+        detail: 'Volta o total no painel.',
+        refs: ['CA-06.3'],
+        kind: 'call',
+      },
+    ],
+    tests: ['src/features/charts/ChartsPage.test.tsx'],
+  },
+  {
+    id: 'charts-select-series',
+    title: 'Selecionar um subperíodo nas barras e arrastar o marcador na linha',
+    summary:
+      'Barras: tocar em qualquer ponto da coluna (mode index, intersect false) seleciona o dia/mês — faixa de destaque atrás e as outras esmaecem; tocar de novo não desmarca. Linha: o Chart.js não recebe eventos; o contêiner converte o x do dedo em índice a cada pointermove e o marcador acompanha o arraste. Ambos aceitam teclado e limpam ao tocar fora.',
+    requirements: ['RF-06', 'CA-06.4', 'CA-06.5', 'CA-06.6', 'CA-06.7', 'RNF-06', 'D-50'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'bar',
+        label: 'IncomeExpenseBarCard',
+        module: 'src/features/charts/IncomeExpenseBarCard.tsx',
+      },
+      { id: 'line', label: 'BalanceLineCard', module: 'src/features/charts/BalanceLineCard.tsx' },
+      {
+        id: 'sel',
+        label: 'useSeriesSelection',
+        module: 'src/features/charts/useSeriesSelection.ts',
+      },
+      {
+        id: 'plugin',
+        label: 'selectionHighlight',
+        module: 'src/features/charts/chart/selectionHighlightPlugin.ts',
+      },
+      {
+        id: 'panel',
+        label: 'ChartDetailPanel',
+        module: 'src/features/charts/ChartDetailPanel.tsx',
+      },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'bar',
+        label: 'toca na coluna',
+        detail:
+          'Bar com events: ["click"] e interaction { mode: "index", intersect: false }: a coluna inteira é o alvo (CA-06.6).',
+        refs: ['CA-06.4', 'CA-06.6'],
+        kind: 'event',
+      },
+      {
+        from: 'bar',
+        to: 'sel',
+        label: 'select(elements[0].index)',
+        detail: 'Índice limitado a 0..count−1.',
+        refs: ['CA-06.4'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'line',
+        label: 'toca e arrasta o dedo',
+        detail:
+          'onPointerDown (setPointerCapture) / onPointerMove com isDraggingRef; touch-action pan-y deixa a página rolar na vertical.',
+        refs: ['CA-06.5'],
+        kind: 'event',
+      },
+      {
+        from: 'line',
+        to: 'sel',
+        label: 'select(scales.x.getValueForPixel(x))',
+        detail:
+          'Ponto mais próximo; soltar mantém a seleção; onPointerUp/Cancel/Leave encerram o arraste.',
+        refs: ['CA-06.5', 'D-50'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'sel',
+        label: '← → Home End Esc (foco no gráfico)',
+        detail: 'Contêiner role="group" tabIndex 0 com a dica no aria-label (D-50(g), RNF-06).',
+        refs: ['RNF-06', 'D-50'],
+        kind: 'event',
+      },
+      {
+        from: 'sel',
+        to: 'plugin',
+        label: 'options.plugins.selectionHighlight.index',
+        detail:
+          'Barras: faixa "band" da largura de uma categoria, antes dos datasets (achado da revisão: não usar x.ticks, que pula rótulos); linha: marcador "line" de 2 px depois dos datasets.',
+        refs: ['CA-06.4', 'CA-06.5', 'D-50'],
+        kind: 'return',
+      },
+      {
+        from: 'sel',
+        to: 'panel',
+        label: '"15 de out.: Entradas … · Saídas … · Resultado …" | "15 de out.: saldo +R$ 850,00"',
+        detail:
+          'Sem seleção: "Período inteiro: …" (barras) ou "Saldo ao fim do período: …" (linha); aria-live.',
+        refs: ['CA-06.4', 'CA-06.5', 'CA-06.7'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/charts/ChartsPage.test.tsx',
+      'src/features/charts/chart/chartSetup.test.ts',
+      'src/features/charts/chart/moneyAxis.test.ts',
+    ],
+  },
 ]
 
 /** Fluxos exigidos pela §6.12 que ainda não existem no código. */
 export const PLANNED_FLOWS: readonly PlannedFlow[] = [
-  {
-    title: 'Seleção nos gráficos',
-    phase: 8,
-    requirements: ['RF-06', 'D-16'],
-    summary: 'Toque na coluna/fatia → painel fixo de detalhes (sem tooltip).',
-  },
   {
     title: 'Confirmar/pular recorrente e alterar valor',
     phase: 9,
@@ -4973,7 +5362,7 @@ export const TABLE_NOTES: readonly TableNote[] = [
     backupDetail:
       'todos os registros; na importação, nameKey precisa ser igual a toTagNameKey(name) e único (D-47(c)); ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 3,
-    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). Fase 4: listTags/useTags (ordenadas por nome) alimentam o TagPicker e as linhas dos últimos lançamentos; transactionsRepository lê tags só em assertTagExists, dentro da transação rw do lançamento (D-39); o atalho do CA-01.7 grava pelo mesmo TagForm → createTag. Fase 5: useTags também alimenta o filtro de tag da lista (TagFilter) e a detecção de tag do filtro excluída (useTransactionList). Fase 7: useTags no DayDetail da visão Dia (chips das linhas). &nameKey (toTagNameKey = foldText + trim desde a Fase 5: NFD, sem marcas \\p{M}, minúsculas) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags). Fase 6: backupRepository lê tudo na exportação (transação r) e, na importação, limpa e regrava com bulkAdd na transação rw (D-07).',
+    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). Fase 4: listTags/useTags (ordenadas por nome) alimentam o TagPicker e as linhas dos últimos lançamentos; transactionsRepository lê tags só em assertTagExists, dentro da transação rw do lançamento (D-39); o atalho do CA-01.7 grava pelo mesmo TagForm → createTag. Fase 5: useTags também alimenta o filtro de tag da lista (TagFilter) e a detecção de tag do filtro excluída (useTransactionList). Fase 7: useTags no DayDetail da visão Dia (chips das linhas). Fase 8: useTags na ChartList (nome e cor de cada fatia das pizzas — CA-06.3). &nameKey (toTagNameKey = foldText + trim desde a Fase 5: NFD, sem marcas \\p{M}, minúsculas) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags). Fase 6: backupRepository lê tudo na exportação (transação r) e, na importação, limpa e regrava com bulkAdd na transação rw (D-07).',
   },
   {
     name: 'transactions',
@@ -4982,7 +5371,7 @@ export const TABLE_NOTES: readonly TableNote[] = [
     backupDetail:
       'todos os registros; na importação, tagId/recurringId/installmentGroupId precisam existir e installmentNumber ≤ count do parcelamento (hasReferentialIntegrity — D-47(c)); ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 4,
-    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (toArray() da tabela inteira + overallBalance — D-42), getMonthTotals (between + totals), listRecentTransactions (where("date").belowOrEqual(hoje).reverse().limit(5) acha a data de corte; releitura between(corte, hoje) numa transação r; ordem por takeMostRecent — D-39/D-40) e getTransaction; cada uma com hook useLiveQuery. Fase 5 (D-44(a)): listTransactionsInPeriod(from, to) lê o índice date sempre em ordem crescente — between (período fechado), aboveOrEqual/belowOrEqual (uma ponta) ou orderBy("date") (sem período) — com toArray() (um getAll() nativo; .reverse() do Dexie abriria um cursor com uma volta por registro no Safari) e inverte em memória antes de sortByRecency; countTransactions() usa count() sem ler registros. Hooks useTransactionsInPeriod e useTransactionCount. Os índices type/tagId não são usados pela lista: tipo, tag e texto são filtrados no domínio. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9). Fase 6: backupRepository lê e regrava a tabela inteira (exportar/importar); o BackupReminder do Início usa useTransactionCount (count()). Fase 7: a tela de visões lê só o intervalo do período (dia, semana, mês ou ano) pelo índice date com useTransactionsInRange (mesmo listTransactionsInPeriod; undefined enquanto um intervalo novo carrega — D-49(g)); os totais e as linhas são calculados no domínio (periodViews). Nenhuma escrita nova.',
+    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (toArray() da tabela inteira + overallBalance — D-42), getMonthTotals (between + totals), listRecentTransactions (where("date").belowOrEqual(hoje).reverse().limit(5) acha a data de corte; releitura between(corte, hoje) numa transação r; ordem por takeMostRecent — D-39/D-40) e getTransaction; cada uma com hook useLiveQuery. Fase 5 (D-44(a)): listTransactionsInPeriod(from, to) lê o índice date sempre em ordem crescente — between (período fechado), aboveOrEqual/belowOrEqual (uma ponta) ou orderBy("date") (sem período) — com toArray() (um getAll() nativo; .reverse() do Dexie abriria um cursor com uma volta por registro no Safari) e inverte em memória antes de sortByRecency; countTransactions() usa count() sem ler registros. Hooks useTransactionsInPeriod e useTransactionCount. Os índices type/tagId não são usados pela lista: tipo, tag e texto são filtrados no domínio. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9). Fase 6: backupRepository lê e regrava a tabela inteira (exportar/importar); o BackupReminder do Início usa useTransactionCount (count()). Fase 7: a tela de visões lê só o intervalo do período (dia, semana, mês ou ano) pelo índice date com useTransactionsInRange (mesmo listTransactionsInPeriod; undefined enquanto um intervalo novo carrega — D-49(g)); os totais e as linhas são calculados no domínio (periodViews). Nenhuma escrita nova. Fase 8: os gráficos leem o mesmo intervalo do período (usePeriodView) e, na linha do saldo, useTransactionsInRange(null, fim) — belowOrEqual(fim) no índice date, ou seja, todos os lançamentos até o fim do período a cada troca de período (D-50(f)); séries e fatias calculadas em domain/charts. Nenhuma escrita.',
   },
   {
     name: 'recurrings',
@@ -5139,20 +5528,26 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
   {
     number: 1,
     title: 'Dinheiro é inteiro (centavos)',
-    enforcement: 'check-consistency (parseFloat/toFixed); testes de money e balances.',
+    enforcement:
+      'check-consistency (parseFloat/toFixed); testes de money e balances. Fase 8: percentuais das pizzas em décimos inteiros (distributeTenths com BigInt, soma sempre 1000); o Chart.js recebe centavos e o eixo Y arredonda marcas fracionárias para o centavo antes do formatCompactBRL (formatMoneyTick — bloqueante da revisão).',
     modules: [
       'src/domain/money.ts',
       'src/domain/types.ts',
       'src/components/ui/MoneyInput.tsx',
       'src/domain/transactionSchema.ts',
+      'src/domain/charts.ts',
+      'src/features/charts/chart/moneyAxis.ts',
     ],
     tests: [
       'src/domain/money.test.ts',
       'src/domain/balances.properties.test.ts',
       'src/components/ui/MoneyInput.test.tsx',
       'src/domain/transactionSchema.test.ts',
+      'src/domain/money.compact.test.ts',
+      'src/domain/charts.test.ts',
+      'src/features/charts/chart/moneyAxis.test.ts',
     ],
-    decisions: ['D-29', 'D-31'],
+    decisions: ['D-29', 'D-31', 'D-50'],
   },
   {
     number: 2,
@@ -5164,6 +5559,7 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/components/ui/DateInput.tsx',
       'src/components/ui/useToday.ts',
       'src/domain/periodViews.ts',
+      'src/domain/charts.ts',
     ],
     tests: [
       'src/domain/dates.test.ts',
@@ -5174,21 +5570,23 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/components/ui/DateInput.test.tsx',
       'src/domain/dates.views.test.ts',
       'src/domain/periodViews.test.ts',
+      'src/domain/charts.test.ts',
     ],
-    decisions: ['D-38', 'D-45', 'D-49'],
+    decisions: ['D-38', 'D-45', 'D-49', 'D-50'],
   },
   {
     number: 3,
     title: 'Semana começa na segunda-feira',
     enforcement: 'check-consistency (weekStartsOn diferente de 1).',
-    modules: ['src/domain/dates.ts', 'src/domain/periodViews.ts'],
+    modules: ['src/domain/dates.ts', 'src/domain/periodViews.ts', 'src/domain/charts.ts'],
     tests: [
       'src/domain/dates.test.ts',
       'src/domain/dates.calendar.test.ts',
       'src/domain/periodViews.test.ts',
       'src/features/views/ViewsPage.test.tsx',
+      'src/domain/charts.test.ts',
     ],
-    decisions: ['D-49'],
+    decisions: ['D-49', 'D-50'],
   },
   {
     number: 4,
@@ -5220,13 +5618,14 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
     number: 6,
     title: 'Lógica de negócio pura e testada',
     enforcement:
-      'Regras de camada (domain/lib sem React e sem Dexie); cobertura RNF-07. Fase 6: criptografia, formato/migrações/integridade do backup e a regra do lembrete são funções puras; backupFormat recebe SCHEMA_VERSION por parâmetro para não importar o Dexie (D-47(b)). Fase 7: intervalo, navegação, título e resumos das visões são funções puras em domain/periodViews; a tela só lê o intervalo no banco.',
+      'Regras de camada (domain/lib sem React e sem Dexie); cobertura RNF-07. Fase 6: criptografia, formato/migrações/integridade do backup e a regra do lembrete são funções puras; backupFormat recebe SCHEMA_VERSION por parâmetro para não importar o Dexie (D-47(b)). Fase 7: intervalo, navegação, título e resumos das visões são funções puras em domain/periodViews; a tela só lê o intervalo no banco. Fase 8: subperíodos, séries de entradas × saídas e de saldo, fatias por tag e percentuais (maior resto) em domain/charts; os componentes só passam os números ao Chart.js.',
     modules: [
       'src/lib/crypto.ts',
       'src/lib/backupFormat.ts',
       'src/domain/backupReminder.ts',
       'src/domain/backupPasswordSchema.ts',
       'src/domain/periodViews.ts',
+      'src/domain/charts.ts',
     ],
     tests: [
       'src/lib/crypto.test.ts',
@@ -5236,8 +5635,9 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/backupReminder.test.ts',
       'src/domain/backupPasswordSchema.test.ts',
       'src/domain/periodViews.test.ts',
+      'src/domain/charts.test.ts',
     ],
-    decisions: ['D-47', 'D-49'],
+    decisions: ['D-47', 'D-49', 'D-50'],
   },
   {
     number: 7,
@@ -5324,27 +5724,33 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
   {
     number: 14,
     title: 'Escopo fechado',
-    enforcement: 'Política de dependências (D-18) e revisão contra a spec.',
+    enforcement:
+      'Política de dependências (D-18) e revisão contra a spec. Fase 8: chart.js 4.5.1 e react-chartjs-2 5.3.1 vieram da §6.1 (D-12), com versões fixas (D-20); preferida a 4.5.1 à 4.6.1, publicada havia 2 dias (D-50(b)).',
     modules: ['package.json'],
     tests: [],
-    decisions: ['D-18'],
+    decisions: ['D-18', 'D-12', 'D-20', 'D-50'],
   },
   {
     number: 15,
     title: 'Nada depende de passar o mouse',
     enforcement:
-      'check-consistency (tooltip do Chart.js); revisão. Fase 5: o painel de filtros abre por toque no botão "Filtros" e a paginação tem o botão "Carregar mais" além do IntersectionObserver. Fase 7: o detalhamento das visões é por toque nas linhas (PeriodRows.Item são botões), sem dica flutuante.',
+      'check-consistency (tooltip do Chart.js); revisão. Fase 5: o painel de filtros abre por toque no botão "Filtros" e a paginação tem o botão "Carregar mais" além do IntersectionObserver. Fase 7: o detalhamento das visões é por toque nas linhas (PeriodRows.Item são botões), sem dica flutuante. Fase 8: Tooltip e Legend do Chart.js nem são registrados (chartSetup.test.ts confere) e as opções ainda os desligam; os detalhes vão para o ChartDetailPanel fixo (aria-live) e a legenda das pizzas é uma lista de botões (D-16, CA-06.2/06.3).',
     modules: [
       'src/features/transactions/filters/FilterBar.tsx',
       'src/features/transactions/filters/FilterToggle.tsx',
       'src/components/ui/LoadMore.tsx',
       'src/features/views/PeriodRows.tsx',
+      'src/features/charts/chart/chartSetup.ts',
+      'src/features/charts/ChartDetailPanel.tsx',
+      'src/features/charts/TagLegendList.tsx',
     ],
     tests: [
       'src/features/transactions/TransactionsPage.pagination.test.tsx',
       'src/features/views/ViewsPage.test.tsx',
+      'src/features/charts/chart/chartSetup.test.ts',
+      'src/features/charts/ChartsPage.test.tsx',
     ],
-    decisions: ['D-44', 'D-45', 'D-49'],
+    decisions: ['D-44', 'D-45', 'D-49', 'D-16', 'D-50'],
   },
   {
     number: 16,
@@ -5451,7 +5857,18 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/features/home/BackupReminder.test.tsx',
     ],
   },
-  { id: 'D-12', title: 'Gráficos com Chart.js', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-12',
+    title: 'Gráficos com Chart.js',
+    status: 'confirmed',
+    impacts: [
+      'package.json',
+      'src/features/charts/chart/chartSetup.ts',
+      'src/features/charts/TagDoughnutCard.tsx',
+      'src/features/charts/IncomeExpenseBarCard.tsx',
+      'src/features/charts/BalanceLineCard.tsx',
+    ],
+  },
   {
     id: 'D-13',
     title: 'Cloudflare Pages + Access (o Access ficou opcional — D-26)',
@@ -5460,7 +5877,17 @@ export const DECISIONS: readonly DecisionInfo[] = [
   },
   { id: 'D-14', title: 'Data padrão ao confirmar recorrente', status: 'confirmed', impacts: [] },
   { id: 'D-15', title: 'Recorrente com histórico é encerrado', status: 'confirmed', impacts: [] },
-  { id: 'D-16', title: 'Gráficos sem tooltip flutuante', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-16',
+    title: 'Gráficos sem tooltip flutuante',
+    status: 'confirmed',
+    impacts: [
+      'src/features/charts/ChartDetailPanel.tsx',
+      'src/features/charts/TagLegendList.tsx',
+      'src/features/charts/chart/chartSetup.ts',
+      'src/features/charts/chart/chartSetup.test.ts',
+    ],
+  },
   {
     id: 'D-17',
     title: 'Página de arquitetura e timeline só em DEV',
@@ -5672,6 +6099,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/components/transactions/transactionTexts.ts',
       'src/features/tags/TagFormDialog.tsx',
       '.claude/skills/atualizar-arquitetura/scan-architecture.mjs',
+      'src/components/periods/usePeriodView.ts',
     ],
   },
   {
@@ -5864,9 +6292,9 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/domain/dates.ts',
       'src/repositories/transactionsRepository.ts',
       'src/features/views/ViewsPage.tsx',
-      'src/features/views/usePeriodView.ts',
-      'src/features/views/GranularityPicker.tsx',
-      'src/features/views/PeriodNavigator.tsx',
+      'src/components/periods/usePeriodView.ts',
+      'src/components/periods/GranularityPicker.tsx',
+      'src/components/periods/PeriodNavigator.tsx',
       'src/features/views/PeriodSummaryCard.tsx',
       'src/features/views/PeriodDetail.tsx',
       'src/features/views/PeriodRows.tsx',
@@ -5876,6 +6304,40 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/features/views/YearDetail.tsx',
       'src/features/views/viewTexts.ts',
       'src/features/views/ViewsPage.test.tsx',
+    ],
+  },
+  {
+    id: 'D-50',
+    title:
+      'Tela de gráficos: mesmos controles e estado das Visões (components/periods), aviso no Dia, chart.js 4.5.1 + react-chartjs-2 5.3.1 com registro mínimo, percentuais pelo maior resto, seleção por toque/arraste/teclado com painel fixo, key por período, cores por tema, stub do react-chartjs-2 nos testes',
+    status: 'pending',
+    impacts: [
+      'package.json',
+      'src/components/periods/GranularityPicker.tsx',
+      'src/components/periods/PeriodNavigator.tsx',
+      'src/components/periods/TodayButton.tsx',
+      'src/components/periods/usePeriodView.ts',
+      'src/components/periods/periodTexts.ts',
+      'src/components/ui/useOutsidePointerDown.ts',
+      'src/domain/charts.ts',
+      'src/domain/money.ts',
+      'src/domain/dates.ts',
+      'src/repositories/transactionsRepository.ts',
+      'src/features/charts/ChartsPage.tsx',
+      'src/features/charts/ChartList.tsx',
+      'src/features/charts/TagDoughnutCard.tsx',
+      'src/features/charts/TagLegendList.tsx',
+      'src/features/charts/IncomeExpenseBarCard.tsx',
+      'src/features/charts/BalanceLineCard.tsx',
+      'src/features/charts/ChartDetailPanel.tsx',
+      'src/features/charts/useSeriesSelection.ts',
+      'src/features/charts/chart/chartSetup.ts',
+      'src/features/charts/chart/selectionHighlightPlugin.ts',
+      'src/features/charts/chart/useChartColors.ts',
+      'src/features/charts/chart/moneyAxis.ts',
+      'src/features/views/ViewsPage.tsx',
+      'src/test/chartStubs.tsx',
+      'src/test/chartMock.ts',
     ],
   },
 ]
@@ -5923,6 +6385,85 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
   {
+    title: 'D-50 aguardando confirmação do dono',
+    severity: 'warn',
+    detail:
+      'Registrada na §8.1 em 24/10/2026 (spec 1.31). Tela de gráficos: mesmos controles e estado das Visões (GranularityPicker, PeriodNavigator, TodayButton e usePeriodView movidos para components/periods); aviso na granularidade Dia; chart.js 4.5.1 (não a 4.6.1, publicada havia 2 dias) e react-chartjs-2 5.3.1 fixos, com registro mínimo, sem Tooltip/Legend e sem animações; percentuais em décimos pelo maior resto (BigInt); fatia desloca 12 px e as outras esmaecem; lista de botões com aria-pressed; barras com faixa de destaque e eixo compacto (formatMoneyTick, precision 0); linha com ponteiro próprio (events: [], touch-pan-y) lendo tudo até o fim do período; teclado nas barras e na linha; key por período (CA-06.8); cores por tema; stub do react-chartjs-2 nos testes. Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'docs/SPEC.md',
+      'src/features/charts/ChartsPage.tsx',
+      'src/domain/charts.ts',
+      'src/components/periods/usePeriodView.ts',
+      'src/features/charts/chart/chartSetup.ts',
+    ],
+  },
+  {
+    title: 'Pendente (dono): teste manual da Fase 8 no iPhone',
+    severity: 'warn',
+    detail:
+      'Roteiro da §7 ainda não rodado: (1) mês com dados — pizza de saídas nas cores das tags, lista do maior para o menor com valor e percentual batendo com a visão Mês; (2) tocar numa fatia grande destaca fatia e item; tocar no item de uma tag pequena destaca a fatia fininha; (3) tocar de novo no item limpa; (4) barras do mês — tocar no espaço vazio acima de uma barra baixa seleciona o dia e o painel mostra entradas, saídas e resultado; (5) linha — arrastar o dedo na horizontal move o marcador, o painel atualiza e a página não rola; (6) trocar de mês limpa a seleção; (7) trocar o tema deixa gráficos e painéis legíveis; (8) período sem dados mostra o estado vazio. Mover para os resolvidos quando o dono validar.',
+    modules: [
+      'src/features/charts/ChartsPage.tsx',
+      'src/features/charts/BalanceLineCard.tsx',
+      'src/features/charts/ChartsPage.test.tsx',
+    ],
+  },
+  {
+    title: 'Desenho real do Chart.js só é conferido no teste manual',
+    severity: 'info',
+    detail:
+      'O jsdom não tem canvas: ChartsPage.test.tsx troca o react-chartjs-2 pelos stubs de src/test/chartStubs.tsx (+ chartMock.ts) e confere os dados passados (labels, cores, offset, índice do destaque) e simula toques chamando options.onClick; a escala X da linha é falsa (10 px por índice). O registro do Chart.js (chartSetup.test.ts), o plugin de destaque e o eixo Y (moneyAxis.test.ts) têm testes unitários, mas desenho, hit-test do Chart.js (mode index/intersect false), getValueForPixel real, touch-action pan-y e o arraste no Safari só aparecem no roteiro manual (D-50(j)). Por isso o bloqueante da revisão (marcas fracionárias do eixo derrubando o gráfico) não aparecia nos testes de tela: o stub nunca chama o callback das marcas; hoje moneyAxis.test.ts cobre o formatMoneyTick.',
+    modules: [
+      'src/test/chartStubs.tsx',
+      'src/test/chartMock.ts',
+      'src/features/charts/ChartsPage.test.tsx',
+      'src/features/charts/chart/chartSetup.test.ts',
+      'src/features/charts/chart/moneyAxis.test.ts',
+    ],
+    decided: 'Aceito na D-50(j): conferir no roteiro manual da Fase 8.',
+  },
+  {
+    title: 'components/periods lê e grava o Zustand: direção não prevista na D-37 nem na §6.2',
+    severity: 'warn',
+    detail:
+      'Com a D-50(a), GranularityPicker (viewGranularity, setGranularity), PeriodNavigator (goPrev, goNext), TodayButton (goToday) e usePeriodView (viewGranularity, viewAnchorDate) foram para src/components/periods. A D-37 diz que components/<entidade> pode importar domain, lib, repositories e components/ui — stores não está na lista — e a árvore da §6.2 só cita components/ui e components/<entidade> com exemplos de tags/transactions. Também é a primeira pasta de components/ que não é uma entidade da §6.3 (é um controle de interface). Nesta página a direção components → stores foi declarada como exceção restrita a src/components/periods/ (e periods/ entrou no onlySources de components → repositories), para não aparecer como "não declarada". Sugestão: ao confirmar a D-50, citar na D-37/§6.2 que components/periods pode usar stores (ou registrar a exceção na própria D-50).',
+    modules: [
+      'docs/SPEC.md',
+      'src/components/periods/GranularityPicker.tsx',
+      'src/components/periods/PeriodNavigator.tsx',
+      'src/components/periods/TodayButton.tsx',
+      'src/components/periods/usePeriodView.ts',
+      'src/stores/uiStore.ts',
+    ],
+  },
+  {
+    title: 'Linha do saldo relê todos os lançamentos até o fim do período a cada troca',
+    severity: 'info',
+    detail:
+      'BalanceLineCard chama useTransactionsInRange(null, fim): belowOrEqual(fim) no índice date + toArray(), ou seja, a tabela inteira até o fim do período (e de novo a cada período, granularidade ou gravação, pelo useLiveQuery). Com o volume esperado é barato (getAll nativo; as ferramentas DEV geram 5.000 lançamentos), e o saldo inicial precisa mesmo de tudo o que veio antes (D-50(f)). Se ficar lento no iPhone, dá para ler o saldo anterior ao período com uma soma (como getOverallBalance) e só o intervalo do período. Nada a mudar agora.',
+    modules: [
+      'src/features/charts/BalanceLineCard.tsx',
+      'src/repositories/transactionsRepository.ts',
+      'src/domain/charts.ts',
+    ],
+    decided: 'Medir na Fase 11 (RNF-02, D-41), junto com a abertura do app.',
+  },
+  {
+    title: 'Fase 8: Chart.js só no chunk da tela de gráficos',
+    severity: 'info',
+    detail:
+      'Build da Fase 8: ChartsPage 175 kB (62,5 kB gzip), carregada por React.lazy; o pacote principal ficou em 112,5 kB gzip, sem Chart.js (RNF-02). Registro mínimo em chart/chartSetup.ts (sem Tooltip, Legend, Filler, Title nem escalas de tempo). O tamanho total é medido na Fase 11 (D-41).',
+    modules: ['src/features/charts/ChartsPage.tsx', 'src/features/charts/chart/chartSetup.ts'],
+    decided: 'Acompanhar na Fase 11 (D-41).',
+  },
+  {
+    title: 'groupByTag (domain/balances) continua sem uso em produção',
+    severity: 'info',
+    detail:
+      'A §6.5 lista groupByTag entre as funções de domínio (a candidata natural para as pizzas), mas tagSlices (domain/charts) soma por tag sozinho, filtrando o tipo (saídas ou entradas) e já com nome, cor e percentual. Depois da Fase 8, groupByTag só é usado pelos testes de balances. Não é erro (a função é pura e testada); fica registrado para decidir se tagSlices deveria usá-la ou se ela pode sair.',
+    modules: ['src/domain/balances.ts', 'src/domain/charts.ts'],
+  },
+  {
     title: 'D-49 aguardando confirmação do dono',
     severity: 'warn',
     detail:
@@ -5968,10 +6509,11 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'useTransactionsInRange sem teste próprio no repositório',
     severity: 'info',
     detail:
-      'O hook novo (que descarta o resultado de um intervalo antigo) só é coberto pela tela: o teste de regressão "não mostra, nem por um instante, os lançamentos e totais do período anterior" em ViewsPage.test.tsx. listTransactionsInPeriod, que ele usa, tem testes próprios. Um teste de hook com renderHook trocando from/to deixaria a regra protegida mesmo se a tela mudar.',
+      'O hook novo (que descarta o resultado de um intervalo antigo) só é coberto pela tela: o teste de regressão "não mostra, nem por um instante, os lançamentos e totais do período anterior" em ViewsPage.test.tsx. listTransactionsInPeriod, que ele usa, tem testes próprios. Um teste de hook com renderHook trocando from/to deixaria a regra protegida mesmo se a tela mudar. Fase 8: o caso from = null (linha do saldo) também só é coberto pela tela, em ChartsPage.test.tsx ("saldo acumulado com o saldo anterior ao período").',
     modules: [
       'src/repositories/transactionsRepository.ts',
       'src/features/views/ViewsPage.test.tsx',
+      'src/features/charts/ChartsPage.test.tsx',
     ],
   },
   {
@@ -6591,7 +7133,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'index.html':
     'Script inline (único) que aplica tema e theme-color antes do bundle (CA-09.3). Duplica regras de src/lib/theme.ts; a sincronia é garantida por indexHtmlThemeScript.test.ts. Fase 1: favicon.png, apple-touch-icon e metatags do iOS (capable, status-bar-style, title "Gastos" — D-25); o <link rel="manifest" crossorigin="use-credentials"> NÃO fica aqui: é injetado no build pelo plugin (indexHtmlPwaTags.test.ts impede a duplicata).',
   'vite.config.ts':
-    'Plugins: React + React Compiler (via Babel) + Tailwind + VitePWA(PWA_OPTIONS) (importado de src/app/pwa/pwaOptions.ts por caminho relativo). Alias @/ → src/. Desde a D-43 é defineConfig(({ command }) => ...) e o alias @tailwind-sources aponta para src/styles/tailwind-sources.build.css quando command === "build" e para tailwind-sources.serve.css nos outros casos. Vitest no mesmo arquivo, desde a D-46 em dois projetos (test.projects, ambos com extends: true, herdando plugins, os aliases @/ e @tailwind-sources e o define): unit (environment node, setup src/test/setup.unit.ts, include src/**/*.test.ts menos DOM_TEST_FILES — 48 arquivos, 1.450 testes, ~15 s) e dom (jsdom, setup src/test/setup.ts, todo *.test.tsx + os 12 *.test.ts de DOM_TEST_FILES — 37 arquivos, 275 testes, ~44 s). Um *.test.ts novo que use DOM (document, window, localStorage, matchMedia, renderHook) falha em node com "document is not defined" e tem de entrar em DOM_TEST_FILES. Pool forks mantido: com threads os testes de fuso quebram (process.env.TZ é do processo, compartilhado entre as threads). Cobertura ≥ 90% em domain/lib somando os dois projetos (RNF-07). O scanner lê DOM_TEST_FILES e marca o projeto de cada teste (testProject, mostrado no inspetor). Fase 2: define { __APP_VERSION__ } com o version do package.json (D-27), que vale também nos testes. Fase 6: DOM_TEST_FILES ganhou src/lib/share.test.ts (navigator.share, document e URL.createObjectURL) e src/repositories/backupRepository.theme.test.ts (espelho do tema no localStorage) — agora 14 *.test.ts no dom; no total 98 arquivos de teste: 57 no unit e 41 no dom. Fase 7: DOM_TEST_FILES sem mudança — periodViews.test.ts, dates.views.test.ts e uiStore.views.test.ts rodam no unit e ViewsPage.test.tsx no dom; 102 arquivos e 2.309 testes no total.',
+    'Plugins: React + React Compiler (via Babel) + Tailwind + VitePWA(PWA_OPTIONS) (importado de src/app/pwa/pwaOptions.ts por caminho relativo). Alias @/ → src/. Desde a D-43 é defineConfig(({ command }) => ...) e o alias @tailwind-sources aponta para src/styles/tailwind-sources.build.css quando command === "build" e para tailwind-sources.serve.css nos outros casos. Vitest no mesmo arquivo, desde a D-46 em dois projetos (test.projects, ambos com extends: true, herdando plugins, os aliases @/ e @tailwind-sources e o define): unit (environment node, setup src/test/setup.unit.ts, include src/**/*.test.ts menos DOM_TEST_FILES — 48 arquivos, 1.450 testes, ~15 s) e dom (jsdom, setup src/test/setup.ts, todo *.test.tsx + os 12 *.test.ts de DOM_TEST_FILES — 37 arquivos, 275 testes, ~44 s). Um *.test.ts novo que use DOM (document, window, localStorage, matchMedia, renderHook) falha em node com "document is not defined" e tem de entrar em DOM_TEST_FILES. Pool forks mantido: com threads os testes de fuso quebram (process.env.TZ é do processo, compartilhado entre as threads). Cobertura ≥ 90% em domain/lib somando os dois projetos (RNF-07). O scanner lê DOM_TEST_FILES e marca o projeto de cada teste (testProject, mostrado no inspetor). Fase 2: define { __APP_VERSION__ } com o version do package.json (D-27), que vale também nos testes. Fase 6: DOM_TEST_FILES ganhou src/lib/share.test.ts (navigator.share, document e URL.createObjectURL) e src/repositories/backupRepository.theme.test.ts (espelho do tema no localStorage) — agora 14 *.test.ts no dom; no total 98 arquivos de teste: 57 no unit e 41 no dom. Fase 7: DOM_TEST_FILES sem mudança — periodViews.test.ts, dates.views.test.ts e uiStore.views.test.ts rodam no unit e ViewsPage.test.tsx no dom; 102 arquivos e 2.309 testes no total. Fase 8: DOM_TEST_FILES sem mudança — charts.test.ts, money.compact.test.ts, chartSetup.test.ts e moneyAxis.test.ts rodam no unit (o Chart.js importa em node sem canvas) e ChartsPage.test.tsx no dom, com o react-chartjs-2 trocado pelo stub; 107 arquivos (64 unit, 43 dom) e 2.368 testes no total.',
   'tsconfig.node.json':
     'Inclui vite.config.ts e src/app/pwa/pwaOptions.ts (Fase 1) e, desde a D-43, src/styles/tailwindEntry.test.ts (lê o disco com node:fs), com allowImportingTsExtensions para o import relativo com .ts.',
   'tsconfig.app.json':
@@ -6615,7 +7157,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/app/pwa/InstallHint.tsx':
     'Texto exato do CA-11.6; posição definida pela D-23 (confirmada pelo dono).',
   'src/stores/uiStore.ts':
-    'Store Zustand única (§6.7), só em memória (sem persist): updateAvailable/setUpdateAvailable (Fase 1) e, desde a Fase 5, transactionFilters { text, type, tagId, from, to } com setFilters (parcial: só os campos informados mudam) e clearFilters (volta a EMPTY_TRANSACTION_FILTERS, de domain/transactionFilters). Os filtros duram enquanto o app está aberto e zeram ao fechar (D-45(f)). INITIAL_UI_STATE é exportado para src/test/setup.ts resetar o estado entre testes. Fase 7 (RF-05, CA-05.4, D-49(a)): viewGranularity (padrão "month") e viewAnchorDate (today() calculado ao carregar o módulo) com setGranularity (mantém a âncora), goPrev/goNext (um helper interno shiftView(±1) que chama shiftAnchorDate de domain/periodViews), goToday (âncora = hoje, mantém a granularidade) e openPeriod(granularity, anchorDate) para o detalhamento. Também sem persist; os gráficos da Fase 8 vão ler os mesmos campos. Testes das ações das visões em uiStore.views.test.ts (projeto unit).',
+    'Store Zustand única (§6.7), só em memória (sem persist): updateAvailable/setUpdateAvailable (Fase 1) e, desde a Fase 5, transactionFilters { text, type, tagId, from, to } com setFilters (parcial: só os campos informados mudam) e clearFilters (volta a EMPTY_TRANSACTION_FILTERS, de domain/transactionFilters). Os filtros duram enquanto o app está aberto e zeram ao fechar (D-45(f)). INITIAL_UI_STATE é exportado para src/test/setup.ts resetar o estado entre testes. Fase 7 (RF-05, CA-05.4, D-49(a)): viewGranularity (padrão "month") e viewAnchorDate (today() calculado ao carregar o módulo) com setGranularity (mantém a âncora), goPrev/goNext (um helper interno shiftView(±1) que chama shiftAnchorDate de domain/periodViews), goToday (âncora = hoje, mantém a granularidade) e openPeriod(granularity, anchorDate) para o detalhamento. Também sem persist. Fase 8 (CA-06.1, D-50(a)): os gráficos usam os mesmos campos — quem lê/grava são os controles de src/components/periods (GranularityPicker, PeriodNavigator, TodayButton, usePeriodView), nas duas telas; o ViewsPage só chama openPeriod. A store não mudou. Testes das ações das visões em uiStore.views.test.ts (projeto unit).',
   'src/components/ui/Notice.tsx':
     'Primitivo genérico (sem conhecimento de PWA). Sem teste próprio: coberto pelos testes de UpdateNotice e InstallHint.',
   'src/lib/updateCheck.ts':
@@ -6644,7 +7186,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/themeStorage.ts':
     'Fase 2: só o espelho (readThemeMirror/writeThemeMirror) de localStorage[theme], lido pelo script do index.html. A fonte da verdade é a tabela settings (themeRepository). Engole exceções do armazenamento indisponível.',
   'src/components/ui/createRadioGroup.tsx':
-    'Fábrica tipada: cada chamada cria um contexto próprio, então Option só aceita valores do tipo T (verificado por @ts-expect-error no teste). Fase 4: prop variant = list (padrão, ThemeRadio) | segmented (TypeRadio do TransactionForm: alternador lado a lado, rádio sr-only, opção marcada preenchida e em negrito, foco no contorno do grupo); classes por variante em VARIANT_CLASSES. Fase 5: TypeFilter da lista. Fase 7: GranularityRadio do GranularityPicker (Dia | Semana | Mês | Ano, segmented).',
+    'Fábrica tipada: cada chamada cria um contexto próprio, então Option só aceita valores do tipo T (verificado por @ts-expect-error no teste). Fase 4: prop variant = list (padrão, ThemeRadio) | segmented (TypeRadio do TransactionForm: alternador lado a lado, rádio sr-only, opção marcada preenchida e em negrito, foco no contorno do grupo); classes por variante em VARIANT_CLASSES. Fase 5: TypeFilter da lista. Fase 7: GranularityRadio do GranularityPicker (Dia | Semana | Mês | Ano, segmented), em components/periods desde a Fase 8 (D-50(a)).',
   'src/components/ui/useGoBack.ts':
     "Usa location.key === 'default' para saber se a página foi aberta direto pela URL.",
   'src/features/settings/ThemeSection.tsx':
@@ -6662,11 +7204,11 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/domain/types.ts':
     'Tipos da §6.3 (Cents, DateString, PeriodString, Tag, Transaction, Recurring, InstallmentGroup, Setting).',
   'src/domain/money.ts':
-    'Centavos inteiros (princípio 1): formatBRL/formatSignedBRL (U+00A0 e U+2212 — D-29), digitsToCents (até MAX_AMOUNT_DIGITS = 10 — D-31, os mesmos dígitos de MAX_AMOUNT_CENTS, o teto do RF-01), addCents com Number.isSafeInteger.',
+    'Centavos inteiros (princípio 1): formatBRL/formatSignedBRL (U+00A0 e U+2212 — D-29), digitsToCents (até MAX_AMOUNT_DIGITS = 10 — D-31, os mesmos dígitos de MAX_AMOUNT_CENTS, o teto do RF-01), addCents com Number.isSafeInteger. Fase 8 (RF-06): formatCompactBRL ("R$ 1,2 mil", "R$ 2,5 mi", "R$ 50" — notation compact do Intl sobre a string decimal, sem float; sinal de menos tipográfico — sugestão da revisão) para o eixo Y dos gráficos; testes em money.compact.test.ts.',
   'src/domain/dates.ts':
-    'Datas sem fuso (princípio 2) com parseISO do date-fns; semana de segunda (weekStartsOn: 1). Testes de calendário (bissextos, virada de ano) e de fuso (dates.timezone.test.ts). Fase 4: isValidDate (usada pelo transactionSchema); formatShortDate ("19/10/2026" só rearranjando o texto, sem date-fns, com checagem aritmética do calendário — rápida em listas, D-38(f)); formatMonthLabel ("outubro de 2026" com um Intl.DateTimeFormat em UTC criado no nível do módulo e Date.UTC, independente do fuso do aparelho). Testes em dates.format.test.ts e dates.format.timezone.test.ts (melhorias da revisão). Fase 5: formatLongDate ("terça-feira, 20 de outubro de 2026" com um Intl.DateTimeFormat em UTC no nível do módulo — CA-04.1, D-45(c)); toUtcDate usa setUTCFullYear porque Date.UTC trata os anos 0 a 99 como 1900 a 1999. Testes em dates.longDate.test.ts e dates.longDate.properties.test.ts. Fase 7 (RF-05, D-49(b)): addDays (inteiro, atravessa meses e anos), datesBetween (lista inclusiva de datas), formatWeekdayDate ("segunda-feira, 19/10"), formatMonthName ("outubro") e formatDateRangeLabel (título da semana "12 a 18 de out. de 2026", repetindo mês e ano só quando mudam — CA-05.3; abreviações fixas em SHORT_MONTH_NAMES porque o month: "short" do Intl varia entre motores); splitDate/toUtcDateOf internos reaproveitados pelo formatLongDate. Testes em dates.views.test.ts.',
+    'Datas sem fuso (princípio 2) com parseISO do date-fns; semana de segunda (weekStartsOn: 1). Testes de calendário (bissextos, virada de ano) e de fuso (dates.timezone.test.ts). Fase 4: isValidDate (usada pelo transactionSchema); formatShortDate ("19/10/2026" só rearranjando o texto, sem date-fns, com checagem aritmética do calendário — rápida em listas, D-38(f)); formatMonthLabel ("outubro de 2026" com um Intl.DateTimeFormat em UTC criado no nível do módulo e Date.UTC, independente do fuso do aparelho). Testes em dates.format.test.ts e dates.format.timezone.test.ts (melhorias da revisão). Fase 5: formatLongDate ("terça-feira, 20 de outubro de 2026" com um Intl.DateTimeFormat em UTC no nível do módulo — CA-04.1, D-45(c)); toUtcDate usa setUTCFullYear porque Date.UTC trata os anos 0 a 99 como 1900 a 1999. Testes em dates.longDate.test.ts e dates.longDate.properties.test.ts. Fase 7 (RF-05, D-49(b)): addDays (inteiro, atravessa meses e anos), datesBetween (lista inclusiva de datas), formatWeekdayDate ("segunda-feira, 19/10"), formatMonthName ("outubro") e formatDateRangeLabel (título da semana "12 a 18 de out. de 2026", repetindo mês e ano só quando mudam — CA-05.3; abreviações fixas em SHORT_MONTH_NAMES porque o month: "short" do Intl varia entre motores); splitDate/toUtcDateOf internos reaproveitados pelo formatLongDate. Testes em dates.views.test.ts. Fase 8 (RF-06): formatShortDayMonth ("15 de out." — painel das barras e da linha), formatShortWeekdayDay ("seg. 19", com SHORT_WEEKDAY_NAMES fixos na ordem do getISODay — princípio 3) e formatShortMonthName ("out." — eixo na visão Ano), todos com as abreviações fixas do pt-BR; testes acrescentados em dates.views.test.ts.',
   'src/domain/balances.ts':
-    'totals, overallBalance (todos os lançamentos, inclusive os futuros, sem today — D-42), groupByDay/Month/Tag (Map — D-29) e runningBalance. Fase 4: signedAmount exportado (CA-02.1, usado pelo TransactionRow; teste em balances.signedAmount.test.ts); overallBalance e totals usados pelo transactionsRepository. Fase 7: totals também pelo usePeriodView (cartão de resumo) e groupByDay/groupByMonth pelos resumos de domain/periodViews; groupByTag/runningBalance esperam a Fase 8. Teste de propriedade em balances.properties.test.ts.',
+    'totals, overallBalance (todos os lançamentos, inclusive os futuros, sem today — D-42), groupByDay/Month/Tag (Map — D-29) e runningBalance. Fase 4: signedAmount exportado (CA-02.1, usado pelo TransactionRow; teste em balances.signedAmount.test.ts); overallBalance e totals usados pelo transactionsRepository. Fase 7: totals também pelo usePeriodView (cartão de resumo) e groupByDay/groupByMonth pelos resumos de domain/periodViews. Fase 8: runningBalance pelo balanceSeries (domain/charts) e totals pela ChartList; groupByTag continua sem uso em produção (tagSlices soma por tag sozinho, filtrando o tipo). Teste de propriedade em balances.properties.test.ts.',
   'src/domain/tagColor.ts':
     'readableTextColor pela luminância relativa (WCAG). Desde a Fase 3 usado pelo TagChip (CA-03.6) e pela paleta do TagColorPicker; tags.test.ts confere o contraste AA das 12 cores da D-32.',
   'src/repositories/settingsRepository.ts':
@@ -6742,19 +7284,69 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/domain/periodViews.ts':
     'Fase 7 (RF-05, D-49), funções puras (princípio 6): tipo ViewGranularity (§6.7); viewRange(g, anchor) → DateRange (Dia = a data validada, Semana = weekRange segunda a domingo, Mês = monthRange, Ano = yearRange); shiftAnchorDate(g, anchor, steps) (addDays ±1/±7 ou addMonthsClamped ±1/±12 — 31/01 → 28/02); formatViewTitle(g, anchor) (formatLongDate, formatDateRangeLabel, formatMonthLabel ou o ano); yearOf; summarizeDays (Semana: uma linha por dia do intervalo, inclusive sem movimento), summarizeActiveDays (Mês: só dias com movimento dentro do intervalo, ordem cronológica) e summarizeMonths (Ano: 12 meses) sobre groupByDay/groupByMonth de balances — lançamentos fora do intervalo são ignorados (CA-05.1). Testes em periodViews.test.ts (inclusive viradas de mês/ano e semana que cruza o ano).',
   'src/features/views/ViewsPage.tsx':
-    'Fase 7 (lazy, RF-05): compõe GranularityPicker, PeriodNavigator, PeriodSummaryCard e PeriodDetail (este só com os dados carregados). Botão "Hoje" no slot trailing do Page.Header (goToday). handleOpenPeriod chama openPeriod e foca o título (titleRef) — a linha tocada some (RNF-06). Lê os dados por usePeriodView; nada de Dexie direto.',
-  'src/features/views/usePeriodView.ts':
-    'Fase 7: { granularity, range, title, transactions, totals } a partir de viewGranularity/viewAnchorDate (Zustand) → viewRange/formatViewTitle (domain) → useTransactionsInRange (repositório) → totals (balances). transactions e totals ficam undefined enquanto carrega, inclusive ao trocar de período (D-49(g)).',
-  'src/features/views/GranularityPicker.tsx':
-    'Fase 7: GranularityRadio = createRadioGroup<ViewGranularity>() segmented, legenda "Período"; lê viewGranularity e grava setGranularity.',
-  'src/features/views/PeriodNavigator.tsx':
-    'Fase 7 (CA-05.3): setas de 44 px (goPrev/goNext) com nome por granularidade e o h2 do título (aria-live="polite", tabIndex −1, titleRef recebido do ViewsPage).',
+    'Fase 7 (lazy, RF-05): compõe GranularityPicker, PeriodNavigator, PeriodSummaryCard e PeriodDetail (este só com os dados carregados). TodayButton no slot trailing do Page.Header (desde a Fase 8 os três controles e o usePeriodView vêm de src/components/periods — D-50(a)). handleOpenPeriod chama openPeriod e foca o título (titleRef) — a linha tocada some (RNF-06). Lê os dados por usePeriodView; nada de Dexie direto.',
+  'src/components/periods/usePeriodView.ts':
+    'Fase 7 (em features/views); movido para components/periods na Fase 8 (D-50(a)), usado por ViewsPage e ChartsPage: { granularity, range, title, transactions, totals } a partir de viewGranularity/viewAnchorDate (Zustand) → viewRange/formatViewTitle (domain) → useTransactionsInRange (repositório) → totals (balances). transactions e totals ficam undefined enquanto carrega, inclusive ao trocar de período (D-49(g)). Único módulo de components/ que lê o Zustand e um repositório ao mesmo tempo (ver Saúde).',
+  'src/components/periods/GranularityPicker.tsx':
+    'Fase 7; em components/periods desde a Fase 8 (D-50(a)): GranularityRadio = createRadioGroup<ViewGranularity>() segmented, legenda "Período", rótulos de periodTexts; lê viewGranularity e grava setGranularity — a mesma escolha vale nas Visões e nos Gráficos (CA-06.1).',
+  'src/components/periods/PeriodNavigator.tsx':
+    'Fase 7 (CA-05.3); em components/periods desde a Fase 8 (D-50(a)): setas de 44 px (goPrev/goNext) com nome por granularidade (periodTexts) e o h2 do título (aria-live="polite", tabIndex −1). titleRef opcional desde a Fase 8: o ViewsPage passa (foco depois do detalhamento), o ChartsPage não.',
+  'src/components/periods/TodayButton.tsx':
+    'Fase 8 (D-50(a)): Button secondary "Hoje" → goToday (Zustand). Extraído do Page.Header do ViewsPage para servir também ao ChartsPage.',
+  'src/components/periods/periodTexts.ts':
+    'Fase 8 (D-50(a)): GRANULARITY_LABELS, PREVIOUS_PERIOD_LABELS, NEXT_PERIOD_LABELS e TODAY_LABEL, que saíram de features/views/viewTexts (textos dos controles de período, usados nas Visões e nos Gráficos).',
+  'src/components/ui/useOutsidePointerDown.ts':
+    'Fase 8: hook genérico — pointerdown no document fora de ref chama onOutside, só enquanto enabled (sem ouvinte quando não há seleção). Usado pelo TagDoughnutCard e pelo useSeriesSelection para limpar a seleção ao tocar fora do cartão (CA-06.3/06.5). Sem teste próprio: coberto por ChartsPage.test.tsx.',
+  'src/domain/charts.ts':
+    'Fase 8 (RF-06, D-50), funções puras (princípio 6): ChartGranularity (Semana | Mês | Ano) e BalanceGranularity (Mês | Ano) com os guardas isChartGranularity/isBalanceGranularity; chartBuckets (Semana: 7 dias "seg. 19"; Mês: todos os dias "1".."31"; Ano: 12 meses "jan.", com rótulos do painel "15 de out." / "outubro de 2026"); incomeExpenseSeries (summarizeDays/summarizeMonths por bucket); balanceSeries (runningBalance de balances: saldo ao fim de cada bucket, com o saldo anterior ao período); distributeTenths (maior resto em BigInt — soma exatamente 1000, empate para quem vem antes; tudo zero se o total for zero); tagSlices (soma por tag de um tipo, ordem decrescente e empate por nome com Intl.Collator pt-BR sem acento; tag fora do mapa vira "—" cinza) e formatTenthsPercent ("41,2%"). Testes em charts.test.ts (cobertura 100%).',
+  'src/domain/charts.test.ts':
+    'Fase 8 (projeto unit): guardas de granularidade; buckets das 3 granularidades (mês em ano bissexto, 12 meses); séries de entradas/saídas (zero nos dias sem movimento, nada de fora do período, semana atravessando o ano) e de saldo (partindo do saldo anterior ao período); distributeTenths (sobra para o maior resto e, no empate, para a primeira; exemplo 41,2% do CA-06.3; fatias de 0,0%; soma 1000 inclusive no teto do RF-01 e em muitas combinações); tagSlices (ordem, desempate sem acento, tag ainda não carregada) e formatTenthsPercent.',
+  'src/domain/money.compact.test.ts':
+    'Fase 8 (projeto unit): formatCompactBRL — "R$ 0", "R$ 0,5", "R$ 50", "R$ 1 mil", "R$ 1,2 mil", "R$ 2,5 mi", "−R$ 2,5 mi" (sinal de menos tipográfico, como no CA-02.1) e RangeError para valores que não são centavos inteiros.',
+  'src/features/charts/ChartsPage.tsx':
+    'Fase 8 (lazy, RF-06): importa chart/chartSetup (efeito colateral, fica no chunk da tela) e compõe TodayButton, GranularityPicker e PeriodNavigator de components/periods; Dia → Notice "Os gráficos estão disponíveis para Semana, Mês e Ano."; [] → EmptyState (CA-06.10); senão ChartList com key = granularidade:início do período (CA-06.8). Dados por usePeriodView; nada de Dexie direto.',
+  'src/features/charts/ChartList.tsx':
+    'Fase 8: monta os 4 cartões (2 pizzas só depois de useTags; barras; linha só no Mês/Ano) com tagSlices, incomeExpenseSeries e totals calculados no render. A âncora de todos os cálculos é range.start.',
+  'src/features/charts/ChartCard.tsx':
+    'Fase 8: <section aria-labelledby> com h2 e ref opcional (área "dentro" do gráfico para o toque fora).',
+  'src/features/charts/ChartDetailPanel.tsx':
+    'Fase 8 (CA-06.2/06.7, D-16): <p aria-live="polite" aria-atomic="true"> min-h-11 — o painel fixo que substitui o tooltip.',
+  'src/features/charts/TagDoughnutCard.tsx':
+    'Fase 8 (CA-06.3): Doughnut com as cores das tags, seleção em useState (vale só enquanto a tag existe nas fatias), offset 12 px e fadeColor, onClick do Chart.js (events: ["click"]), useOutsidePointerDown; painel e TagLegendList; estado vazio próprio por tipo.',
+  'src/features/charts/TagLegendList.tsx':
+    'Fase 8 (CA-06.3/06.6/06.7): lista de botões aria-pressed (44 px) com bolinha da cor, nome truncado, valor e percentual; controlada pelo TagDoughnutCard.',
+  'src/features/charts/IncomeExpenseBarCard.tsx':
+    'Fase 8 (CA-06.4): Bar de Entradas/Saídas, interaction index + intersect false, fadeColor fora da seleção, selectionHighlight "band", moneyAxis com beginAtZero; legenda escrita; painel com describeTotals.',
+  'src/features/charts/BalanceLineCard.tsx':
+    'Fase 8 (CA-06.5): lê useTransactionsInRange(null, end) e balanceSeries; Line com events: [] e eventos de ponteiro próprios no contêiner (setPointerCapture, onPointerLeave encerra o arraste — sugestão da revisão), touch-pan-y; getValueForPixel pela ref do Chart; selectionHighlight "line" e ponto maior; moneyAxis sem beginAtZero.',
+  'src/features/charts/useSeriesSelection.ts':
+    'Fase 8 (CA-06.4/06.5, D-50(g)): { index, select, cardRef, handleKeyDown } — select arredonda e limita a 0..count−1; ←/→ (sem seleção começa na ponta), Home, End e Esc; toque fora do cartão limpa (useOutsidePointerDown). Compartilhado por barras e linha.',
+  'src/features/charts/chartTexts.ts':
+    'Fase 8: títulos dos 4 gráficos, aviso do Dia, estados vazios (período, saídas, entradas), rótulos do painel sem seleção e a dica de toque/teclado (SERIES_CHART_HINT).',
+  'src/features/charts/ChartsPage.test.tsx':
+    'Fase 8 (projeto dom, com vi.mock("react-chartjs-2") → src/test/chartStubs): período compartilhado com as Visões, aviso do Dia, estado vazio, linha só no Mês/Ano; pizzas (ordem, valores, percentuais, cores, item ↔ fatia, toque fora, estado vazio por tipo); barras (painel do período inteiro e do dia, teclado e Esc); linha (saldo com o anterior ao período e arraste); seleção limpa ao trocar de período ou granularidade; cores do tema escuro.',
+  'src/features/charts/chart/chartSetup.ts':
+    'Fase 8 (D-50(b)): Chart.register só de ArcElement, BarElement, LineElement, PointElement, CategoryScale, LinearScale e selectionHighlightPlugin (os controladores vêm do react-chartjs-2); sem Tooltip e Legend (CA-06.2/06.3); fonte do sistema 12 px e animation = false (a seleção acompanha o dedo).',
+  'src/features/charts/chart/chartSetup.test.ts':
+    'Fase 8 (projeto unit): confere o registro mínimo (só os elementos e escalas usados; sem Tooltip, Legend nem escalas de tempo; animações desligadas) e o selectionHighlight — faixa da largura da coluna atrás das barras, marcador de 2 px por cima da linha e nada sem seleção.',
+  'src/features/charts/chart/selectionHighlightPlugin.ts':
+    'Fase 8 (CA-06.4/06.5): plugin próprio do Chart.js (id selectionHighlight, opções tipadas por module augmentation de PluginOptionsByType): style "band" desenha antes dos datasets uma faixa de x.width / (max − min + 1) — por categoria, não por x.ticks; style "line" desenha depois dos datasets um traço de 2 px.',
+  'src/features/charts/chart/useChartColors.ts':
+    'Fase 8 (CA-06.9): paletas LIGHT/DARK em hex da paleta Tailwind (texto, grade, fundo, entradas, saídas, saldo, destaque, marcador) escolhidas por useTheme().resolvedTheme; fadeColor acrescenta alfa 59 (~35%).',
+  'src/features/charts/chart/moneyAxis.ts':
+    'Fase 8: moneyAxis(colors, { beginAtZero }) — eixo Y em centavos com grade do tema, sem borda, precision 0 e callback formatMoneyTick, que arredonda para o centavo antes do formatCompactBRL (bloqueante da revisão: marcas fracionárias como −0,8 com saldo constante em zero faziam o formatCompactBRL recusar o valor e derrubavam o gráfico).',
+  'src/features/charts/chart/moneyAxis.test.ts':
+    'Fase 8 (projeto unit): formatMoneyTick com marcas fracionárias (−0,8 → "−R$ 0": arredonda para −1 centavo e o formato compacto mostra o sinal), valor em texto ("123456" → "R$ 1,2 mil") e moneyAxis com precision 0 e as cores do tema.',
+  'src/test/chartMock.ts':
+    'Fase 8 (D-50(j)): WeakMap canvas → props do gráfico, chartProps(canvas), clickChart(canvas, índice | null) chamando options.onClick e PIXELS_PER_INDEX = 10 da escala X falsa.',
+  'src/test/chartStubs.tsx':
+    'Fase 8 (D-50(j)): Doughnut, Bar e Line de mentira — um <canvas data-chart> que registra as props em chartMock e expõe por useImperativeHandle o mínimo da instância do Chart (canvas e scales.x.getValueForPixel). Usado com vi.mock("react-chartjs-2", () => import("@/test/chartStubs")).',
   'src/features/views/PeriodSummaryCard.tsx':
     'Fase 7 (D-49(c)): Entradas, Saídas (formatBRL) e Resultado (SignedAmount); "—" enquanto carrega. "Realizado"/"Previsto" (CA-05.2) na Fase 9.',
   'src/features/views/PeriodDetail.tsx':
     'Fase 7: escolhe o detalhe pela granularidade e converte os toques em onOpenPeriod("day", data) ou onOpenPeriod("month", "AAAA-MM-01").',
   'src/features/views/PeriodRows.tsx':
-    'Fase 7: compound component local (PeriodRows + PeriodRows.Item). Cada item é um <button> min-h-11 com rótulo, Entradas/Saídas escritas e SignedAmount do resultado. Fica em features/views porque só as visões usam; se os gráficos (Fase 8) precisarem, é candidato a components/.',
+    'Fase 7: compound component local (PeriodRows + PeriodRows.Item). Cada item é um <button> min-h-11 com rótulo, Entradas/Saídas escritas e SignedAmount do resultado. Fica em features/views porque só as visões usam (os gráficos da Fase 8 não precisaram).',
   'src/features/views/DayDetail.tsx':
     'Fase 7 (visão Dia): TransactionRow showDate={false} para cada lançamento (mais recente primeiro) ou EmptyState; useTags para as cores das tags.',
   'src/features/views/WeekDetail.tsx':
@@ -6764,7 +7356,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/features/views/YearDetail.tsx':
     'Fase 7 (visão Ano): 12 linhas por summarizeMonths com formatMonthName; toque → visão Mês. "Previsto" na Fase 9.',
   'src/features/views/viewTexts.ts':
-    'Fase 7: rótulos da granularidade, nomes acessíveis das setas por granularidade, "Hoje" e as mensagens de estado vazio.',
+    'Fase 7: mensagens de estado vazio ("Nenhum lançamento neste dia." / "neste mês."). Até a Fase 7 também tinha os rótulos da granularidade, os nomes das setas e "Hoje", que foram para src/components/periods/periodTexts.ts na Fase 8 (D-50(a)).',
   'src/features/views/ViewsPage.test.tsx':
     'Fase 7 (projeto dom): visões Dia, Semana (7 linhas, título, toque → Dia com foco no título), Mês (só dias com movimento, estado vazio, atualização ao vivo), Ano (12 meses, toque → Mês), setas na virada do ano, nomes das setas por granularidade, "Hoje" e período mantido ao trocar de aba; teste de regressão de que o período anterior nunca aparece com o título novo (D-49(g)).',
   'src/components/ui/ErrorAlert.tsx':
@@ -6792,7 +7384,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/formSubmit.ts':
     'Princípio 16 / D-36 (spec 1.13): padrão de todos os formulários com React Hook Form. LIVE_VALIDATION = { mode: "onChange" } (erro do campo aparece enquanto digita) e canSubmitForm({ isValid, isSubmitting }) = isValid && !isSubmitting (botão de envio só ativo com o formulário válido e fora do envio). Só tipos do react-hook-form (import type): nenhum código do pacote entra pelo lib. Opção startsValid: formulário de edição que abre com dados válidos já começa com o botão ativo (o RHF só calcula isValid depois da 1ª renderização). Usado por useTagForm e, desde a Fase 4, por useTransactionForm; obrigatório nos formulários das fases seguintes.',
   'src/repositories/transactionsRepository.ts':
-    'Fase 4 (RF-01/RF-02, D-39). Escrita: createTransaction e updateTransaction validam com transactionInputSchema.parse e gravam numa transação rw [tags, transactions] com assertTagExists (a tag não some entre a checagem e a gravação; deleteTag conta na mesma tabela — D-01/D-02); deleteTransaction simples. Leitura pelo índice date: getOverallBalance() (toArray() da tabela inteira + overallBalance — um getAll() nativo, mais rápido que each() — D-42, RNF-02), getMonthTotals (between + totals), listRecentTransactions(today, count) (data de corte por where("date").belowOrEqual(today).reverse().limit(n) + releitura between(corte, today) numa transação r; ordem por takeMostRecent — D-40) e getTransaction. Hooks useOverallBalance, useMonthTotals, useRecentTransactions e useTransaction (useLiveQuery, null para inexistente). Erros: TransactionNotFoundError e TransactionTagNotFoundError. Fase 5 (RF-04, D-44(a)): listTransactionsInPeriod(from, to) pelo índice date em ordem crescente (between / aboveOrEqual / belowOrEqual / orderBy) + toArray() (getAll nativo) e inversão em memória antes de sortByRecency — sem .reverse() do Dexie, que no Safari abriria um cursor com uma volta por registro; countTransactions() com count(). Hooks useTransactionsInPeriod(from, to) e useTransactionCount(). Testes em transactionsRepository.list.test.ts e .list.properties.test.ts. Fase 7 (RF-05, D-49(g)): useTransactionsInRange(from, to) — o useLiveQuery devolve { from, to, transactions } e o hook só repassa a lista se o intervalo for o pedido agora; senão undefined (o useLiveQuery mantém o último resultado até a leitura nova terminar, e a tela mostraria por um instante totais do período anterior com o título novo — achado da revisão, coberto pelo teste de regressão do ViewsPage).',
+    'Fase 4 (RF-01/RF-02, D-39). Escrita: createTransaction e updateTransaction validam com transactionInputSchema.parse e gravam numa transação rw [tags, transactions] com assertTagExists (a tag não some entre a checagem e a gravação; deleteTag conta na mesma tabela — D-01/D-02); deleteTransaction simples. Leitura pelo índice date: getOverallBalance() (toArray() da tabela inteira + overallBalance — um getAll() nativo, mais rápido que each() — D-42, RNF-02), getMonthTotals (between + totals), listRecentTransactions(today, count) (data de corte por where("date").belowOrEqual(today).reverse().limit(n) + releitura between(corte, today) numa transação r; ordem por takeMostRecent — D-40) e getTransaction. Hooks useOverallBalance, useMonthTotals, useRecentTransactions e useTransaction (useLiveQuery, null para inexistente). Erros: TransactionNotFoundError e TransactionTagNotFoundError. Fase 5 (RF-04, D-44(a)): listTransactionsInPeriod(from, to) pelo índice date em ordem crescente (between / aboveOrEqual / belowOrEqual / orderBy) + toArray() (getAll nativo) e inversão em memória antes de sortByRecency — sem .reverse() do Dexie, que no Safari abriria um cursor com uma volta por registro; countTransactions() com count(). Hooks useTransactionsInPeriod(from, to) e useTransactionCount(). Testes em transactionsRepository.list.test.ts e .list.properties.test.ts. Fase 7 (RF-05, D-49(g)): useTransactionsInRange(from, to) — o useLiveQuery devolve { from, to, transactions } e o hook só repassa a lista se o intervalo for o pedido agora; senão undefined (o useLiveQuery mantém o último resultado até a leitura nova terminar, e a tela mostraria por um instante totais do período anterior com o título novo — achado da revisão, coberto pelo teste de regressão do ViewsPage). Fase 8 (RF-06, D-50(f)): from passa a aceitar null — useTransactionsInRange(null, fim) lê tudo até fim (listTransactionsInPeriod com belowOrEqual), usado pela linha de evolução do saldo.',
   'src/domain/transactionSchema.ts':
     'Fase 4 (RF-01): transactionInputSchema (zod) — tipo income|expense, amountCents inteiro de 1 a MAX_AMOUNT_CENTS, data YYYY-MM-DD existente (isValidDate), tagId não vazio, descrição com trim e 1 a DESCRIPTION_MAX_LENGTH = 100 unidades UTF-16 (D-10, D-38(h)); mensagens em pt-BR. TransactionInput (z.input) e TransactionValues (z.output). Separado das funções puras como o tagSchema; usado pelo formulário e pelo repositório.',
   'src/domain/transactions.ts':

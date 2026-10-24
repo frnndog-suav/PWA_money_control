@@ -1,14 +1,13 @@
 import { useRef } from 'react'
-import { Button } from '@/components/ui/Button'
+import { GranularityPicker } from '@/components/periods/GranularityPicker'
+import { PeriodNavigator } from '@/components/periods/PeriodNavigator'
+import { TodayButton } from '@/components/periods/TodayButton'
+import { usePeriodView } from '@/components/periods/usePeriodView'
 import { Page } from '@/components/ui/Page'
 import type { ViewGranularity } from '@/domain/periodViews'
 import type { DateString } from '@/domain/types'
-import { GranularityPicker } from '@/features/views/GranularityPicker'
 import { PeriodDetail } from '@/features/views/PeriodDetail'
-import { PeriodNavigator } from '@/features/views/PeriodNavigator'
 import { PeriodSummaryCard } from '@/features/views/PeriodSummaryCard'
-import { usePeriodView } from '@/features/views/usePeriodView'
-import { TODAY_LABEL } from '@/features/views/viewTexts'
 import { useUiStore } from '@/stores/uiStore'
 
 /**
@@ -17,7 +16,6 @@ import { useUiStore } from '@/stores/uiStore'
  */
 export function ViewsPage() {
   const view = usePeriodView()
-  const goToday = useUiStore((state) => state.goToday)
   const openPeriod = useUiStore((state) => state.openPeriod)
   const titleRef = useRef<HTMLHeadingElement>(null)
 
@@ -29,15 +27,7 @@ export function ViewsPage() {
 
   return (
     <Page>
-      <Page.Header
-        trailing={
-          <Button variant="secondary" onClick={goToday}>
-            {TODAY_LABEL}
-          </Button>
-        }
-      >
-        Visões
-      </Page.Header>
+      <Page.Header trailing={<TodayButton />}>Visões</Page.Header>
       <GranularityPicker />
       <PeriodNavigator granularity={view.granularity} title={view.title} titleRef={titleRef} />
       <PeriodSummaryCard totals={view.totals} />

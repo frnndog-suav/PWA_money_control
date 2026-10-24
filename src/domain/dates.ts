@@ -3,6 +3,7 @@ import {
   addMonths,
   endOfWeek,
   format,
+  getISODay,
   isValid,
   lastDayOfMonth,
   parseISO,
@@ -257,6 +258,25 @@ export function formatMonthName(period: PeriodString): string {
 
 function formatDayMonth({ month, day }: DateParts): string {
   return `${day} de ${SHORT_MONTH_NAMES[month - 1]}`
+}
+
+// Segunda a domingo, na ordem do getISODay (1 = segunda — princípio 3).
+const SHORT_WEEKDAY_NAMES = ['seg.', 'ter.', 'qua.', 'qui.', 'sex.', 'sáb.', 'dom.'] as const
+
+/** CA-06.4 — `'2026-10-15'` → `'15 de out.'` (painel das barras). */
+export function formatShortDayMonth(date: DateString): string {
+  return formatDayMonth(splitDate(date))
+}
+
+/** RF-06 — `'2026-10-19'` → `'seg. 19'` (eixo das barras na visão Semana). */
+export function formatShortWeekdayDay(date: DateString): string {
+  const { day } = splitDate(date)
+  return `${SHORT_WEEKDAY_NAMES[getISODay(parseDate(date)) - 1]} ${day}`
+}
+
+/** RF-06 — `'2026-10'` → `'out.'` (eixo dos gráficos na visão Ano). */
+export function formatShortMonthName(period: PeriodString): string {
+  return SHORT_MONTH_NAMES[parsePeriod(period).month - 1]
 }
 
 /**

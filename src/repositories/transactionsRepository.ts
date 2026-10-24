@@ -178,9 +178,10 @@ export function useTransactionsInPeriod(
  * RF-05 / CA-05.1 — como `useTransactionsInPeriod`, mas volta a `undefined` enquanto um período
  * novo carrega: o `useLiveQuery` manteria o resultado do período anterior até a nova leitura
  * terminar, e a tela mostraria por um instante os totais de outro período com o título novo.
+ * `from = null` lê tudo até `to` (evolução do saldo — RF-06).
  */
 export function useTransactionsInRange(
-  from: DateString,
+  from: DateString | null,
   to: DateString,
 ): Transaction[] | undefined {
   const result = useLiveQuery(

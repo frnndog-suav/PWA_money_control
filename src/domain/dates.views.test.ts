@@ -4,6 +4,9 @@ import {
   datesBetween,
   formatDateRangeLabel,
   formatMonthName,
+  formatShortDayMonth,
+  formatShortMonthName,
+  formatShortWeekdayDay,
   formatWeekdayDate,
   weekRange,
 } from '@/domain/dates'
@@ -139,5 +142,31 @@ describe('formatWeekdayDate e formatMonthName (RF-05)', () => {
   it('recusa valores inválidos', () => {
     expect(() => formatWeekdayDate('2026-02-30')).toThrow(RangeError)
     expect(() => formatMonthName('2026-13')).toThrow(RangeError)
+  })
+})
+
+describe('rótulos curtos dos gráficos (RF-06 / CA-06.4)', () => {
+  it('formatShortDayMonth: "15 de out."', () => {
+    expect(formatShortDayMonth('2026-10-15')).toBe('15 de out.')
+    expect(formatShortDayMonth('2027-01-01')).toBe('1 de jan.')
+  })
+
+  it('formatShortWeekdayDay: segunda a domingo', () => {
+    expect(
+      ['19', '20', '21', '22', '23', '24', '25'].map((day) =>
+        formatShortWeekdayDay(`2026-10-${day}`),
+      ),
+    ).toEqual(['seg. 19', 'ter. 20', 'qua. 21', 'qui. 22', 'sex. 23', 'sáb. 24', 'dom. 25'])
+  })
+
+  it('formatShortMonthName', () => {
+    expect(formatShortMonthName('2026-05')).toBe('mai.')
+    expect(formatShortMonthName('2026-12')).toBe('dez.')
+  })
+
+  it('recusa valores inválidos', () => {
+    expect(() => formatShortDayMonth('2026-02-30')).toThrow(RangeError)
+    expect(() => formatShortWeekdayDay('2026-02-30')).toThrow(RangeError)
+    expect(() => formatShortMonthName('2026-00')).toThrow(RangeError)
   })
 })

@@ -19,10 +19,12 @@
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.2",
+    "chart.js": "4.5.1",
     "date-fns": "4.4.0",
     "dexie": "4.4.6",
     "dexie-react-hooks": "4.4.0",
     "react": "19.3.1",
+    "react-chartjs-2": "5.3.1",
     "react-dom": "19.3.1",
     "react-hook-form": "7.90.0",
     "react-router": "7.18.4",

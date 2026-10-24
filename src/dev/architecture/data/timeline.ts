@@ -21,7 +21,8 @@
 // teste manual da Fase 6 validado (spec 1.27), a confirmação de D-46 a D-48 (spec 1.28) e o
 // fechamento da Fase 6 nesta página entraram no 6f8b0e6 (23/10/2026). A Fase 7 (visões por
 // período, spec 1.29 com a D-49), a confirmação da D-49 com o roteiro validado no PC (spec 1.30) e
-// esta página atualizada ainda não foram commitadas.
+// esta página atualizada entraram no 4b7a6f8 (24/10/2026). A Fase 8 (gráficos, spec 1.31 com a
+// D-50) ainda não foi commitada.
 
 import type { TimelineEntry } from '@/dev/architecture/types'
 
@@ -2233,8 +2234,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 7: visões por período (Dia, Semana, Mês e Ano — RF-05, sem recorrentes)',
     summary:
       'domain: periodViews.ts novo (ViewGranularity, viewRange, shiftAnchorDate, formatViewTitle, yearOf, summarizeDays, summarizeActiveDays, summarizeMonths) e, em dates.ts, addDays, datesBetween, formatWeekdayDate, formatMonthName e formatDateRangeLabel (título da semana "12 a 18 de out. de 2026" com abreviações fixas — CA-05.3). Zustand: viewGranularity (padrão Mês) e viewAnchorDate (hoje ao abrir) com setGranularity, goPrev, goNext, goToday e openPeriod (detalhamento — D-49(a)). Repositório: useTransactionsInRange(from, to). Tela /visoes em src/features/views: ViewsPage ("Hoje" no cabeçalho) → GranularityPicker (createRadioGroup segmented), PeriodNavigator (setas + título com aria-live), PeriodSummaryCard (Entradas, Saídas, Resultado), PeriodDetail → DayDetail (TransactionRow) | WeekDetail | MonthDetail | YearDetail sobre o compound PeriodRows/PeriodRows.Item; hook usePeriodView; textos em viewTexts. Detalhamento Ano → Mês → Dia e Semana → Dia só no Zustand, sem entrada no histórico, com foco no título. Testes: periodViews.test.ts, dates.views.test.ts e uiStore.views.test.ts (unit) e ViewsPage.test.tsx (dom). Spec 1.29 com a Fase 7 marcada e a D-49 aguardando confirmação. Nenhum pacote novo. Lint e typecheck ok; 102 arquivos / 2.309 testes; cobertura de domain + lib em 100% das linhas.',
-    commits: [],
-    committed: false,
+    commits: ['4b7a6f8'],
+    committed: true,
     requirements: ['RF-05', 'CA-05.1', 'CA-05.3', 'CA-05.4', 'CA-01.5', 'RNF-06'],
     decisions: ['D-49', 'D-44'],
     files: {
@@ -2282,8 +2283,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 7: revisão — sem totais do período anterior ao trocar de período',
     summary:
       'Revisão do spec-reviewer: aprovado com ressalvas, sem bloqueantes. Item importante corrigido: ao tocar numa seta ou detalhar, o useLiveQuery mantinha o resultado do período anterior até a nova leitura terminar, e a tela mostrava por um instante os totais e as linhas de outro período com o título novo. useTransactionsInRange devolve { from, to, transactions } dentro do useLiveQuery e só repassa a lista quando o intervalo é o pedido agora; senão undefined ("—" no cartão, detalhamento não montado). Teste de regressão em ViewsPage.test.tsx. Registrado na D-49(g).',
-    commits: [],
-    committed: false,
+    commits: ['4b7a6f8'],
+    committed: true,
     requirements: ['RF-05', 'CA-05.1'],
     decisions: ['D-49'],
     files: {
@@ -2306,8 +2307,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Página de arquitetura: Fase 7 (visões por período)',
     summary:
       'Rota /visoes descrita com conteúdo real e a composição da tela (GranularityPicker, PeriodNavigator, PeriodSummaryCard, PeriodDetail → Day/Week/Month/YearDetail, compound PeriodRows); 2 fluxos novos ("Navegar nas visões" e "Detalhar um período") e "Navegar nas visões" retirado dos previstos; campos da §6.7 com openPeriod; notas dos módulos novos e de uiStore, dates, balances, transactionsRepository, createRadioGroup, TransactionRow e EmptyState; camadas (domain, stores, repositories, components) e regra stores → domain; princípios 2, 3, 6 e 15; D-49 nova, aguardando confirmação. Saúde: D-49 pendente, teste manual da Fase 7, §6.7 sem openPeriod, âncora fixada ao abrir o app e useTransactionsInRange sem teste próprio. Timeline: entradas do fechamento da Fase 6 marcadas com o 6f8b0e6 e entrada da spec 1.28. Grafo regenerado (0 violações, 0 ciclos).',
-    commits: [],
-    committed: false,
+    commits: ['4b7a6f8'],
+    committed: true,
     requirements: ['RF-05'],
     decisions: ['D-49'],
     files: {
@@ -2329,8 +2330,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'D-49 confirmada e Fase 7 concluída (spec 1.30)',
     summary:
       'O dono confirmou todos os itens da D-49 (Mês como padrão, detalhamento sem histórico, openPeriod, totais do Dia só no cartão, âncora fixada ao abrir o app) e validou no PC o roteiro de teste da Fase 7. Na spec, a D-49 deixou de estar "aguardando confirmação" e a §6.7 passou a citar openPeriod; nesta página os achados da D-49, do teste manual, da §6.7 e da âncora foram para os resolvidos.',
-    commits: [],
-    committed: false,
+    commits: ['4b7a6f8'],
+    committed: true,
     requirements: ['RF-05', 'CA-05.4'],
     decisions: ['D-49'],
     files: {
@@ -2343,5 +2344,172 @@ export const TIMELINE: readonly TimelineEntry[] = [
       removed: [],
     },
     impact: ['nenhuma decisão pendente antes da Fase 8'],
+  },
+  {
+    id: 'phase-8-periods-refactor',
+    date: '2026-10-24',
+    phase: 8,
+    type: 'refactor',
+    title: 'Fase 8: controles de período movidos para src/components/periods (D-50(a))',
+    summary:
+      'Para a tela de gráficos usar os mesmos controles e o mesmo estado das Visões (CA-06.1 — escolha do dono), GranularityPicker, PeriodNavigator e usePeriodView saíram de src/features/views para src/components/periods (uma feature não importa internos de outra); o botão "Hoje" virou o componente TodayButton e os textos dos controles foram para periodTexts (viewTexts ficou só com os estados vazios). PeriodNavigator ganhou titleRef opcional (o ChartsPage não detalha). O ViewsPage passou a importar de components/periods e a usar só openPeriod no Zustand; comportamento das Visões inalterado (ViewsPage.test.tsx continua passando). Primeira pasta de components/ que lê e grava o Zustand — direção não prevista na D-37 (ver Saúde).',
+    commits: [],
+    committed: false,
+    requirements: ['RF-05', 'RF-06', 'CA-06.1', 'CA-05.4'],
+    decisions: ['D-50', 'D-37', 'D-49'],
+    files: {
+      created: [
+        'src/components/periods/GranularityPicker.tsx',
+        'src/components/periods/PeriodNavigator.tsx',
+        'src/components/periods/usePeriodView.ts',
+        'src/components/periods/TodayButton.tsx',
+        'src/components/periods/periodTexts.ts',
+      ],
+      modified: ['src/features/views/ViewsPage.tsx', 'src/features/views/viewTexts.ts'],
+      removed: [
+        'src/features/views/GranularityPicker.tsx',
+        'src/features/views/PeriodNavigator.tsx',
+        'src/features/views/usePeriodView.ts',
+      ],
+    },
+    impact: [
+      'nova pasta components/periods',
+      'nova direção components → stores (exceção restrita)',
+      'components → repositories passa a incluir components/periods',
+    ],
+  },
+  {
+    id: 'phase-8-charts',
+    date: '2026-10-24',
+    phase: 8,
+    type: 'feature',
+    title: 'Fase 8: gráficos (pizzas por tag, entradas × saídas e evolução do saldo — RF-06)',
+    summary:
+      'Pacotes da §6.1: chart.js 4.5.1 (preferida à 4.6.1, publicada havia 2 dias) e react-chartjs-2 5.3.1, versões fixas. Domínio: charts.ts novo (ChartGranularity, BalanceGranularity, isChartGranularity, isBalanceGranularity, chartBuckets, incomeExpenseSeries, balanceSeries, distributeTenths — maior resto com BigInt, soma sempre 100,0% —, tagSlices e formatTenthsPercent); dates.ts ganhou formatShortDayMonth, formatShortWeekdayDay e formatShortMonthName; money.ts ganhou formatCompactBRL. Repositório: useTransactionsInRange(from: DateString | null, to) — null lê tudo até to (linha de saldo). components/ui: useOutsidePointerDown. Tela /graficos (lazy) em src/features/charts: ChartsPage (controles compartilhados de components/periods; aviso na granularidade Dia; estado vazio; ChartList com key por período/granularidade — CA-06.8) → ChartList → TagDoughnutCard × 2 (Doughnut + ChartDetailPanel + TagLegendList com aria-pressed), IncomeExpenseBarCard (Bar, mode index / intersect false, faixa de destaque) e BalanceLineCard (Line com events: [], ponteiro próprio, touch-pan-y, lê useTransactionsInRange(null, fim)); ChartCard, ChartDetailPanel (aria-live), useSeriesSelection (seleção, teclado, toque fora), chartTexts; chart/chartSetup.ts (registro mínimo: Arc/Bar/Line/Point elements, Category/Linear scales e o plugin selectionHighlight; sem Tooltip nem Legend; animações desligadas), chart/selectionHighlightPlugin.ts (faixa "band" / marcador "line"), chart/useChartColors.ts (paleta por tema) e chart/moneyAxis.ts. Testes: charts.test.ts, money.compact.test.ts, chartSetup.test.ts e moneyAxis.test.ts (unit), ChartsPage.test.tsx (dom) com o react-chartjs-2 trocado pelos stubs de src/test/chartStubs.tsx + chartMock.ts (jsdom sem canvas). Spec 1.31 com a Fase 8 marcada e a D-50 aguardando confirmação. Lint e typecheck ok; 107 arquivos / 2.368 testes; cobertura de domain + lib em 100% das linhas; build ok (ChartsPage 175 kB / 62,5 kB gzip, lazy; pacote principal 112,5 kB gzip, sem Chart.js).',
+    commits: [],
+    committed: false,
+    requirements: [
+      'RF-06',
+      'CA-06.1',
+      'CA-06.2',
+      'CA-06.3',
+      'CA-06.4',
+      'CA-06.5',
+      'CA-06.6',
+      'CA-06.7',
+      'CA-06.8',
+      'CA-06.9',
+      'CA-06.10',
+      'CA-06.11',
+      'RNF-02',
+      'RNF-06',
+    ],
+    decisions: ['D-50', 'D-12', 'D-16', 'D-20'],
+    files: {
+      created: [
+        'src/domain/charts.ts',
+        'src/domain/charts.test.ts',
+        'src/domain/money.compact.test.ts',
+        'src/components/ui/useOutsidePointerDown.ts',
+        'src/features/charts/ChartList.tsx',
+        'src/features/charts/ChartCard.tsx',
+        'src/features/charts/ChartDetailPanel.tsx',
+        'src/features/charts/TagDoughnutCard.tsx',
+        'src/features/charts/TagLegendList.tsx',
+        'src/features/charts/IncomeExpenseBarCard.tsx',
+        'src/features/charts/BalanceLineCard.tsx',
+        'src/features/charts/useSeriesSelection.ts',
+        'src/features/charts/chartTexts.ts',
+        'src/features/charts/ChartsPage.test.tsx',
+        'src/features/charts/chart/chartSetup.ts',
+        'src/features/charts/chart/chartSetup.test.ts',
+        'src/features/charts/chart/selectionHighlightPlugin.ts',
+        'src/features/charts/chart/useChartColors.ts',
+        'src/features/charts/chart/moneyAxis.ts',
+        'src/features/charts/chart/moneyAxis.test.ts',
+        'src/test/chartMock.ts',
+        'src/test/chartStubs.tsx',
+      ],
+      modified: [
+        'src/features/charts/ChartsPage.tsx',
+        'src/domain/dates.ts',
+        'src/domain/dates.views.test.ts',
+        'src/domain/money.ts',
+        'src/repositories/transactionsRepository.ts',
+        'package.json',
+        'package-lock.json',
+        'docs/SPEC.md',
+      ],
+      removed: [],
+    },
+    impact: [
+      'rota /graficos ganha conteúdo (lazy, com o Chart.js só no chunk dela)',
+      '2 pacotes novos (chart.js, react-chartjs-2)',
+      'novo módulo de domínio (charts)',
+      'useTransactionsInRange aceita from = null',
+      '3 fluxos novos (montar os gráficos, selecionar na pizza, selecionar/arrastar nas barras e na linha)',
+      'runningBalance com uso em produção',
+      'stub do react-chartjs-2 nos testes de tela',
+    ],
+  },
+  {
+    id: 'phase-8-review-fixes',
+    date: '2026-10-24',
+    phase: 8,
+    type: 'fix',
+    title: 'Fase 8: revisão — eixo Y com marcas fracionárias e faixa de destaque por categoria',
+    summary:
+      'Revisão do spec-reviewer. Bloqueante corrigido: com faixas pequenas (ex.: saldo constante em zero) o Chart.js gerava marcas fracionárias no eixo Y (−0,8, −0,6…) e o formatCompactBRL recusava o valor, derrubando o gráfico — moneyAxis.ts novo com formatMoneyTick (arredonda para o centavo antes de formatar) e precision: 0, com moneyAxis.test.ts. Importante corrigido: a faixa de destaque das barras usava a distância entre marcas visíveis e ficava larga demais quando o Chart.js pulava rótulos (31 dias no iPhone) — agora a largura é x.width / número de categorias. Sugestões aplicadas: sinal de menos tipográfico no eixo (formatCompactBRL), onPointerLeave encerra o arraste na linha e a seleção da pizza vale só enquanto a tag existe nas fatias (dados ao vivo). Registrado na D-50(e).',
+    commits: [],
+    committed: false,
+    requirements: ['RF-06', 'CA-06.3', 'CA-06.4', 'CA-06.5'],
+    decisions: ['D-50'],
+    files: {
+      created: [],
+      modified: [
+        'src/features/charts/chart/moneyAxis.ts',
+        'src/features/charts/chart/moneyAxis.test.ts',
+        'src/features/charts/chart/selectionHighlightPlugin.ts',
+        'src/features/charts/chart/chartSetup.test.ts',
+        'src/features/charts/BalanceLineCard.tsx',
+        'src/features/charts/TagDoughnutCard.tsx',
+        'src/domain/money.ts',
+        'src/domain/money.compact.test.ts',
+        'docs/SPEC.md',
+      ],
+      removed: [],
+    },
+    impact: [
+      'eixo Y dos gráficos não quebra com faixas pequenas',
+      'destaque das barras com a largura certa',
+    ],
+  },
+  {
+    id: 'architecture-page-phase-8',
+    date: '2026-10-24',
+    phase: 8,
+    type: 'docs',
+    title: 'Página de arquitetura: Fase 8 (gráficos)',
+    summary:
+      'Rota /graficos descrita com conteúdo real e a composição da tela (ChartList, TagDoughnutCard, TagLegendList, IncomeExpenseBarCard, BalanceLineCard, ChartCard, ChartDetailPanel e os componentes do react-chartjs-2); 3 fluxos novos ("Abrir os gráficos de um período", "Selecionar uma tag na pizza" e "Selecionar um subperíodo nas barras e arrastar o marcador na linha") e "Seleção nos gráficos" retirado dos previstos; fluxos das Visões apontando para src/components/periods; camadas (components, repositories, stores, domain, test) e regras novas — components → stores como exceção restrita a src/components/periods/ e periods/ no onlySources de components → repositories; princípios 1, 2, 3, 6, 14 e 15; D-12 e D-16 com impactos no código e D-50 nova, aguardando confirmação; notas dos módulos novos e movidos. Saúde: D-50 pendente, teste manual da Fase 8, desenho do Chart.js só no roteiro manual (stubs), components/periods → stores fora da D-37/§6.2, linha do saldo relendo tudo até o fim do período, Chart.js só no chunk da tela e groupByTag sem uso. Grafo regenerado (0 violações, 0 ciclos).',
+    commits: [],
+    committed: false,
+    requirements: ['RF-06'],
+    decisions: ['D-50'],
+    files: {
+      created: [],
+      modified: [
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+        'src/dev/architecture/data/module-graph.json',
+      ],
+      removed: [],
+    },
+    impact: [
+      '3 fluxos novos',
+      '7 achados novos',
+      'rota /graficos documentada',
+      '1 regra de camada nova',
+    ],
   },
 ]
