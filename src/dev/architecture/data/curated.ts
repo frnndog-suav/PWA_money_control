@@ -6310,7 +6310,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
     id: 'D-50',
     title:
       'Tela de gráficos: mesmos controles e estado das Visões (components/periods), aviso no Dia, chart.js 4.5.1 + react-chartjs-2 5.3.1 com registro mínimo, percentuais pelo maior resto, seleção por toque/arraste/teclado com painel fixo, key por período, cores por tema, stub do react-chartjs-2 nos testes',
-    status: 'pending',
+    status: 'confirmed',
     impacts: [
       'package.json',
       'src/components/periods/GranularityPicker.tsx',
@@ -6396,6 +6396,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/components/periods/usePeriodView.ts',
       'src/features/charts/chart/chartSetup.ts',
     ],
+    resolved:
+      'Confirmada pelo dono em 25/10/2026 (spec 1.32), com todos os itens e o acréscimo (k): components/periods pode importar stores.',
   },
   {
     title: 'Pendente (dono): teste manual da Fase 8 no iPhone',
@@ -6407,6 +6409,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/features/charts/BalanceLineCard.tsx',
       'src/features/charts/ChartsPage.test.tsx',
     ],
+    resolved:
+      'Validado pelo dono em 25/10/2026 no PC e no iPhone: os 8 itens do roteiro da Fase 8. Fase 8 concluída (spec 1.32).',
   },
   {
     title: 'Desenho real do Chart.js só é conferido no teste manual',
@@ -6435,6 +6439,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/components/periods/usePeriodView.ts',
       'src/stores/uiStore.ts',
     ],
+    resolved:
+      'Resolvido em 25/10/2026 (spec 1.32): o dono aprovou a exceção, registrada na D-50(k), e a §6.2 passou a listar components/periods.',
   },
   {
     title: 'Linha do saldo relê todos os lançamentos até o fim do período a cada troca',

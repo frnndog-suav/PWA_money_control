@@ -22,7 +22,8 @@
 // fechamento da Fase 6 nesta página entraram no 6f8b0e6 (23/10/2026). A Fase 7 (visões por
 // período, spec 1.29 com a D-49), a confirmação da D-49 com o roteiro validado no PC (spec 1.30) e
 // esta página atualizada entraram no 4b7a6f8 (24/10/2026). A Fase 8 (gráficos, spec 1.31 com a
-// D-50) ainda não foi commitada.
+// D-50) e o fechamento dela (spec 1.32: D-50 confirmada, roteiro validado no PC e no iPhone)
+// ainda não foram commitados.
 
 import type { TimelineEntry } from '@/dev/architecture/types'
 
@@ -2511,5 +2512,28 @@ export const TIMELINE: readonly TimelineEntry[] = [
       'rota /graficos documentada',
       '1 regra de camada nova',
     ],
+  },
+  {
+    id: 'spec-1-32-phase-8-closed',
+    date: '2026-10-25',
+    phase: 8,
+    type: 'decision',
+    title: 'D-50 confirmada e Fase 8 concluída (spec 1.32)',
+    summary:
+      'O dono confirmou todos os itens da D-50 e aprovou a pasta components/periods com acesso ao Zustand (exceção à D-37, registrada como D-50(k); a §6.2 passou a listar a pasta). O roteiro de teste da Fase 8 foi validado no PC e no iPhone. Nesta página os achados da D-50, do teste manual e de components/periods → stores foram para os resolvidos.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-06', 'CA-05.4'],
+    decisions: ['D-50', 'D-37'],
+    files: {
+      created: [],
+      modified: [
+        'docs/SPEC.md',
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+      ],
+      removed: [],
+    },
+    impact: ['nenhuma decisão pendente antes da Fase 9'],
   },
 ]
