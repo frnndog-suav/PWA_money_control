@@ -62,6 +62,9 @@ export default defineConfig(({ command }) => ({
     },
   },
   test: {
+    // D-52 — no Windows de desenvolvimento, com o paralelismo padrão, workers do Node às vezes
+    // caem ao iniciar (0xC0000005) e um arquivo qualquer falha; com 4 a suíte fica estável.
+    maxWorkers: 4,
     // Os projetos herdam (extends: true) os plugins, os aliases `@/` e `@tailwind-sources` e o define.
     projects: [
       {

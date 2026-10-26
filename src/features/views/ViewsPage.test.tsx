@@ -19,8 +19,13 @@ async function openViews(granularity: ViewGranularity, anchorDate: string) {
   return router
 }
 
+/** Título do período, entre as setas (o único `h2` com `aria-live`). */
 function periodTitle(): HTMLElement {
-  return screen.getByRole('heading', { level: 2 })
+  const title = screen
+    .getAllByRole('heading', { level: 2 })
+    .find((heading) => heading.getAttribute('aria-live') === 'polite')
+  if (!title) throw new Error('Título do período não encontrado')
+  return title
 }
 
 async function expectTitle(title: string): Promise<void> {

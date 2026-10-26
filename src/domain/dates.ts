@@ -132,6 +132,16 @@ export function periodsBetween(start: PeriodString, end: PeriodString): PeriodSt
   return periods
 }
 
+/** `true` se `value` é um mês `YYYY-MM` válido (RF-07). */
+export function isValidPeriod(value: string): boolean {
+  return PERIOD_PATTERN.test(value)
+}
+
+/** CA-07.8 — `true` se `date` é uma data válida dentro do mês `period`. */
+export function isDateInPeriod(date: string, period: PeriodString): boolean {
+  return isValidDate(date) && date.slice(0, 7) === period
+}
+
 /** `true` se `value` é uma data `YYYY-MM-DD` que existe no calendário (ex.: 2026-02-30 não). */
 export function isValidDate(value: string): boolean {
   try {

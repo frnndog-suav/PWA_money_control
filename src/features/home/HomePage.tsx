@@ -4,12 +4,11 @@ import { Page } from '@/components/ui/Page'
 import { useToday } from '@/components/ui/useToday'
 import { BackupReminder } from '@/features/home/BackupReminder'
 import { BalanceSummary } from '@/features/home/BalanceSummary'
+import { PendingRecurrings } from '@/features/home/PendingRecurrings'
 import { RecentTransactions } from '@/features/home/RecentTransactions'
 
 // RF-02 — Início, de cima para baixo: "Último backup" (RF-10 — aviso quando vale, senão linha
-// discreta; D-48 c), saldos,
-// lançamento rápido e últimos lançamentos.
-// (Recorrentes pendentes — item 4 — chegam na Fase 9.)
+// discreta; D-48 c), saldos, lançamento rápido, recorrentes pendentes do mês e últimos lançamentos.
 export function HomePage() {
   const todayDate = useToday()
   const formTitleId = useId()
@@ -26,6 +25,7 @@ export function HomePage() {
           </h2>
           <TransactionForm />
         </section>
+        <PendingRecurrings today={todayDate} />
         <RecentTransactions today={todayDate} />
       </Page.Body>
     </Page>

@@ -77,7 +77,9 @@ describe('transactionsRepository — editar e excluir (CA-01.5 / CA-01.6)', () =
   it('altera os campos, mantém id/createdAt/vínculos e atualiza updatedAt', async () => {
     const tag = await makeStoredTag()
     const other = await makeStoredTag('Salário')
+    // Já é entrada: o lançamento de um recorrente não troca de tipo (D-51 l).
     const stored = makeTransaction({
+      type: 'income',
       tagId: tag.id,
       recurringId: 'recurring-1',
       recurringPeriod: '2026-10',

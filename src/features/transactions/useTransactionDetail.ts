@@ -1,5 +1,9 @@
 import { useState } from 'react'
 import { useGoBack } from '@/components/ui/useGoBack'
+import {
+  deleteConfirmedTransaction,
+  type AfterConfirmedDelete,
+} from '@/repositories/recurringsRepository'
 import { deleteTransaction, useTransaction } from '@/repositories/transactionsRepository'
 
 export const DELETE_TRANSACTION_FAILED_MESSAGE =
@@ -8,7 +12,10 @@ export const DELETE_TRANSACTION_FAILED_MESSAGE =
 // Tela pai quando o lançamento foi aberto direto pela URL (CA-13.2).
 const FALLBACK_PATH = '/lancamentos'
 
-/** CA-01.5 / CA-01.6 — editar e excluir; ao terminar, volta para a tela anterior. */
+/**
+ * CA-01.5 / CA-01.6 — editar e excluir; ao terminar, volta para a tela anterior. O lançamento
+ * confirmado de um recorrente é excluído com a escolha do que fazer com o mês (RF-07).
+ */
 export function useTransactionDetail(id: string) {
   const transaction = useTransaction(id)
   const goBack = useGoBack(FALLBACK_PATH)
@@ -31,11 +38,12 @@ export function useTransactionDetail(id: string) {
 
   const cancelDelete = () => setIsConfirmingDelete(false)
 
-  const confirmDelete = async () => {
+  const confirmDelete = async (afterwards?: AfterConfirmedDelete) => {
     setDeleteError(null)
     setIsDeleting(true)
     try {
-      await deleteTransaction(id)
+      if (afterwards) await deleteConfirmedTransaction(id, afterwards)
+      else await deleteTransaction(id)
       setIsConfirmingDelete(false)
       finish()
     } catch {

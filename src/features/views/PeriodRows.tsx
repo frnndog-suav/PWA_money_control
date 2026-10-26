@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react'
 import { SignedAmount } from '@/components/ui/SignedAmount'
 import type { Totals } from '@/domain/balances'
-import { formatBRL } from '@/domain/money'
+import { formatBRL, formatSignedBRL } from '@/domain/money'
+import type { Cents } from '@/domain/types'
 
 interface PeriodRowsProps {
   /** Nome acessível da lista, ex.: "Dias da semana". */
@@ -12,6 +13,8 @@ interface PeriodRowsProps {
 interface PeriodRowsItemProps {
   label: string
   totals: Totals
+  /** Visão Ano — resultado previsto do mês (RF-05 / CA-05.2). */
+  projectedResultCents?: Cents
   /** Abre o período da linha (Semana/Mês → Dia; Ano → Mês). */
   onSelect: () => void
 }
@@ -20,7 +23,7 @@ interface PeriodRowsItemProps {
  * RF-05 — uma linha tocável por subperíodo, com entradas, saídas e resultado escritos (a cor
  * nunca é a única informação — RNF-06).
  */
-function PeriodRowsItem({ label, totals, onSelect }: PeriodRowsItemProps) {
+function PeriodRowsItem({ label, totals, projectedResultCents, onSelect }: PeriodRowsItemProps) {
   return (
     <li>
       <button
@@ -33,6 +36,9 @@ function PeriodRowsItem({ label, totals, onSelect }: PeriodRowsItemProps) {
           <span className="flex flex-wrap gap-x-4 text-sm text-slate-600 dark:text-slate-300">
             <span className="tabular-nums">Entradas {formatBRL(totals.incomeCents)}</span>
             <span className="tabular-nums">Saídas {formatBRL(totals.expenseCents)}</span>
+            {projectedResultCents !== undefined && (
+              <span className="tabular-nums">Previsto {formatSignedBRL(projectedResultCents)}</span>
+            )}
           </span>
         </span>
         <span className="sr-only">Resultado</span>

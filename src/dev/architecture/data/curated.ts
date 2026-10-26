@@ -64,7 +64,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Componentes',
     folder: 'src/components',
     description:
-      'Duas partes (§6.2, D-37 — confirmada em 21/10/2026). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup; Fase 5: LoadMore, useDebouncedValue e o slot trailing do Page.Header; Fase 6: PasswordInput, FileInput e Button com ref — D-48(d); Fase 7: nenhum primitivo novo — a tela de visões reutiliza Page (trailing com "Hoje"), Button, EmptyState, SignedAmount e o createRadioGroup segmented; Fase 8: useOutsidePointerDown — toque fora limpa a seleção dos gráficos). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts), transactions/ (TransactionForm, useTransactionForm, TransactionRow — com showDate desde a Fase 5 —, NoTagsNotice, transactionTexts; Fase 5: IncomeExpenseTotals) e, desde a Fase 8, periods/ (GranularityPicker, PeriodNavigator e usePeriodView movidos de features/views; TodayButton e periodTexts novos — controles de período compartilhados por Visões e Gráficos, D-50(a)); periods/ é a única pasta de src/components que lê e grava o Zustand (viewGranularity/viewAnchorDate), direção não prevista pela D-37 (ver Saúde). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
+      'Duas partes (§6.2, D-37 — confirmada em 21/10/2026). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup; Fase 5: LoadMore, useDebouncedValue e o slot trailing do Page.Header; Fase 6: PasswordInput, FileInput e Button com ref — D-48(d); Fase 7: nenhum primitivo novo — a tela de visões reutiliza Page (trailing com "Hoje"), Button, EmptyState, SignedAmount e o createRadioGroup segmented; Fase 8: useOutsidePointerDown — toque fora limpa a seleção dos gráficos; Fase 9: InfoPopover — "ⓘ" que abre e fecha por toque, fecha ao tocar fora ou com Esc —, MonthInput — <input type="month"> —, Field.Hint — linha de ajuda ligada ao controle pelo aria-describedby —, useToast com duração e hide() e createRadioGroup com disabled no fieldset). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts), transactions/ (TransactionForm, useTransactionForm, TransactionRow — com showDate desde a Fase 5 —, NoTagsNotice, transactionTexts; Fase 5: IncomeExpenseTotals) e, desde a Fase 8, periods/ (GranularityPicker, PeriodNavigator e usePeriodView movidos de features/views; TodayButton e periodTexts novos — controles de período compartilhados por Visões e Gráficos, D-50(a)); periods/ é a única pasta de src/components que lê e grava o Zustand (viewGranularity/viewAnchorDate), exceção aprovada pelo dono na D-50(k) (spec 1.32). Fase 9: recurrings/ (ConfirmOccurrenceDialog + useConfirmOccurrenceForm, PendingOccurrencesSection, PendingOccurrenceItem, skipErrorMessage e recurringTexts — usados pelo Início, pela visão Mês e pelos detalhes do recorrente, D-51(g)); transactions/ ganhou a data presa ao mês da ocorrência e o tipo travado no lançamento confirmado (D-51(b)/(l)). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
     position: { x: 130, y: 330 },
   },
   {
@@ -72,7 +72,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Repositórios',
     folder: 'src/repositories',
     description:
-      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError). Fase 4: transactionsRepository (createTransaction/updateTransaction em transação rw [tags, transactions] com assertTagExists, deleteTransaction, saldo geral, totais do mês, últimos 5 e lançamento por id, todos com hook useLiveQuery; TransactionNotFoundError/TransactionTagNotFoundError — D-39) e listTags/useTags no tagsRepository. Fase 5: listTransactionsInPeriod (índice date crescente, invertido em memória — D-44) e countTransactions, com useTransactionsInPeriod/useTransactionCount. Fase 6: backupRepository (readBackupTables numa transação r das 5 tabelas, createBackupFile, deliverBackupFile, recordBackupDone, openBackupFile sem tocar no banco e restoreBackup numa única transação rw — D-07/D-47(e)) e useLastBackupAt no settingsRepository (fora do backupRepository, para o Início não levar cripto e zod — D-41). Fase 7: useTransactionsInRange(from, to) no transactionsRepository — o mesmo listTransactionsInPeriod pelo índice date, mas devolve undefined enquanto um período novo carrega (o useLiveQuery manteria o resultado do período anterior — D-49(g)). Fase 8: useTransactionsInRange(from: DateString | null, to) — from null lê tudo até to (evolução do saldo dos gráficos — D-50(f)).',
+      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError). Fase 4: transactionsRepository (createTransaction/updateTransaction em transação rw [tags, transactions] com assertTagExists, deleteTransaction, saldo geral, totais do mês, últimos 5 e lançamento por id, todos com hook useLiveQuery; TransactionNotFoundError/TransactionTagNotFoundError — D-39) e listTags/useTags no tagsRepository. Fase 5: listTransactionsInPeriod (índice date crescente, invertido em memória — D-44) e countTransactions, com useTransactionsInPeriod/useTransactionCount. Fase 6: backupRepository (readBackupTables numa transação r das 5 tabelas, createBackupFile, deliverBackupFile, recordBackupDone, openBackupFile sem tocar no banco e restoreBackup numa única transação rw — D-07/D-47(e)) e useLastBackupAt no settingsRepository (fora do backupRepository, para o Início não levar cripto e zod — D-41). Fase 7: useTransactionsInRange(from, to) no transactionsRepository — o mesmo listTransactionsInPeriod pelo índice date, mas devolve undefined enquanto um período novo carrega (o useLiveQuery manteria o resultado do período anterior — D-49(g)). Fase 8: useTransactionsInRange(from: DateString | null, to) — from null lê tudo até to (evolução do saldo dos gráficos — D-50(f)). Fase 9: recurringsRepository (createRecurring, updateRecurringDetails, changeRecurringAmount, endRecurringAt, deleteRecurring, skipOccurrence, unskipOccurrence, confirmOccurrence e deleteConfirmedTransaction, todas com leitura e gravação numa transação; leituras listRecurrings, listRecurringConfirmations, listPendingOccurrences — anyOf no índice [recurringId+recurringPeriod] — e getConfirmedKeysIn; hooks useRecurrings, useRecurring, useRecurringConfirmations, useConfirmedKeysIn e usePendingOccurrences, que volta a undefined enquanto meses novos carregam — D-51(f)); updateTransaction recusa data fora do mês da ocorrência (OccurrenceDateOutsidePeriodError) e troca de tipo (OccurrenceTypeChangeError) — D-51(b)/(l).',
     position: { x: 390, y: 330 },
   },
   {
@@ -104,7 +104,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Domínio',
     folder: 'src/domain',
     description:
-      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. Fase 3: tags (toTagNameKey, paleta D-32, sortByTagName, isTagInUse, TAG_NAME_MAX_LENGTH — D-35) e tagSchema (zod, único módulo do domínio com pacote externo; separado para quem só precisa das funções puras não levar o zod). Fase 4: transactionSchema (zod, RF-01: valor 1..MAX_AMOUNT_CENTS, data existente, tag, descrição 1–100 em UTF-16 — D-38(h)), transactions (compareByRecency e takeMostRecent — D-39), isValidDate/formatShortDate/formatMonthLabel em dates e signedAmount exportado em balances. Fase 5: text (foldText, também usado por toTagNameKey), transactionFilters (filtros, resumo por dia e paginação por dias inteiros — D-44), sortByRecency em transactions e formatLongDate em dates. Fase 7: periodViews (ViewGranularity, viewRange, shiftAnchorDate, formatViewTitle, yearOf, summarizeDays, summarizeActiveDays, summarizeMonths — D-49) e, em dates, addDays, datesBetween, formatWeekdayDate, formatMonthName e formatDateRangeLabel (abreviações fixas do pt-BR — CA-05.3); groupByDay/groupByMonth de balances passam a ter uso em produção. Fase 8: charts (ChartGranularity, BalanceGranularity, isChartGranularity, isBalanceGranularity, chartBuckets, incomeExpenseSeries, balanceSeries sobre runningBalance, distributeTenths — maior resto com BigInt, soma sempre 100,0% —, tagSlices e formatTenthsPercent — D-50(c)); em dates, formatShortDayMonth, formatShortWeekdayDay e formatShortMonthName (rótulos dos eixos); em money, formatCompactBRL ("R$ 1,2 mil" do eixo Y). recurring (Fase 9) e installments (Fase 10) ainda não existem.',
+      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. Fase 3: tags (toTagNameKey, paleta D-32, sortByTagName, isTagInUse, TAG_NAME_MAX_LENGTH — D-35) e tagSchema (zod, único módulo do domínio com pacote externo; separado para quem só precisa das funções puras não levar o zod). Fase 4: transactionSchema (zod, RF-01: valor 1..MAX_AMOUNT_CENTS, data existente, tag, descrição 1–100 em UTF-16 — D-38(h)), transactions (compareByRecency e takeMostRecent — D-39), isValidDate/formatShortDate/formatMonthLabel em dates e signedAmount exportado em balances. Fase 5: text (foldText, também usado por toTagNameKey), transactionFilters (filtros, resumo por dia e paginação por dias inteiros — D-44), sortByRecency em transactions e formatLongDate em dates. Fase 7: periodViews (ViewGranularity, viewRange, shiftAnchorDate, formatViewTitle, yearOf, summarizeDays, summarizeActiveDays, summarizeMonths — D-49) e, em dates, addDays, datesBetween, formatWeekdayDate, formatMonthName e formatDateRangeLabel (abreviações fixas do pt-BR — CA-05.3); groupByDay/groupByMonth de balances passam a ter uso em produção. Fase 8: charts (ChartGranularity, BalanceGranularity, isChartGranularity, isBalanceGranularity, chartBuckets, incomeExpenseSeries, balanceSeries sobre runningBalance, distributeTenths — maior resto com BigInt, soma sempre 100,0% —, tagSlices e formatTenthsPercent — D-50(c)); em dates, formatShortDayMonth, formatShortWeekdayDay e formatShortMonthName (rótulos dos eixos); em money, formatCompactBRL ("R$ 1,2 mil" do eixo Y). Fase 9: recurring (§6.5: isActiveIn, amountFor, pendingOccurrences — ordem alfabética da descrição —, setAmountFrom, projected; e isSkipped, confirmedOccurrenceKeys, occurrenceStatus, skipPeriod/unskipPeriod, endRecurring, lastConfirmedPeriod, recurringListStatus, displayAmount, com os erros AmountBeforeStartError, AmountAfterEndError, EndBeforeStartError e EndBeforeConfirmedError — D-51(e)) e recurringSchema (recurringInputSchema, recurringDetailsSchema, amountChangeSchema, endRecurringSchema, confirmOccurrenceSchema(period) e dateOutsidePeriodMessage); transactionSchema exporta os campos comuns (transactionTypeSchema, amountCentsSchema, tagIdSchema, descriptionSchema); dates ganhou isValidPeriod e isDateInPeriod (CA-07.8). installments (Fase 10) ainda não existe.',
     position: { x: 650, y: 450 },
   },
   {
@@ -112,7 +112,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Apoio a testes',
     folder: 'src/test',
     description:
-      'Dois setups do Vitest (D-46): setup.unit.ts do projeto unit (node; só fake-indexeddb e limpeza do Dexie) e setup.ts do projeto dom (jsdom; Testing Library, fake-indexeddb, limpa as tabelas do Dexie entre testes, findBy com 3 s — D-34). Regra: *.test.tsx roda em dom; *.test.ts roda em unit, salvo os listados em DOM_TEST_FILES no vite.config.ts — um *.test.ts novo que precise de DOM (document, window, localStorage, matchMedia, renderHook) tem de entrar nessa lista. Também: dublês de matchMedia e de <dialog> (dialog.ts — D-33), seedDatabase (prepara tabelas ainda sem repositório — D-34), renderApp, fábricas de lançamentos, ações do formulário de lançamento (transactionForm.ts — Fase 4), gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código). Fase 8: chartStubs.tsx (Doughnut, Bar e Line de mentira — o jsdom não tem canvas) + chartMock.ts (guarda as props de cada gráfico, clickChart chama o onClick das opções e a escala X falsa de 10 px por índice), usados com vi.mock("react-chartjs-2") — D-50(j).',
+      'Dois setups do Vitest (D-46): setup.unit.ts do projeto unit (node; só fake-indexeddb e limpeza do Dexie) e setup.ts do projeto dom (jsdom; Testing Library, fake-indexeddb, limpa as tabelas do Dexie entre testes, findBy com 3 s — D-34). Regra: *.test.tsx roda em dom; *.test.ts roda em unit, salvo os listados em DOM_TEST_FILES no vite.config.ts — um *.test.ts novo que precise de DOM (document, window, localStorage, matchMedia, renderHook) tem de entrar nessa lista. Também: dublês de matchMedia e de <dialog> (dialog.ts — D-33), seedDatabase (prepara tabelas ainda sem repositório — D-34), renderApp, fábricas de lançamentos, ações do formulário de lançamento (transactionForm.ts — Fase 4), gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código). Fase 8: chartStubs.tsx (Doughnut, Bar e Line de mentira — o jsdom não tem canvas) + chartMock.ts (guarda as props de cada gráfico, clickChart chama o onClick das opções e a escala X falsa de 10 px por índice), usados com vi.mock("react-chartjs-2") — D-50(j). Fase 9: recurrings.ts (TODAY fixo em 24/10/2026 e freezeToday, seedLightBill — cria a tag e o recorrente "Conta de luz" pelos repositórios —, openDialog, pendingSection e pendingItems), usado pelos testes de tela de recorrentes, Início, Visões e edição do lançamento.',
     position: { x: 740, y: 112 },
   },
   {
@@ -197,7 +197,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'repositories',
     status: 'allowed',
     reason:
-      'Dados persistidos só por repositórios (§2.7). Fase 2: ThemeSection usa useTheme (D-22) e AboutPage lê SCHEMA_VERSION por databaseInfo. Fase 3: a tela de tags usa tagsRepository (hook da lista, create/update/delete, getTagUsage e as classes de erro). Fase 4: BalanceSummary (useOverallBalance, useMonthTotals), RecentTransactions (useRecentTransactions, useTags) e useTransactionDetail (useTransaction, deleteTransaction). Fase 6: useExportBackup (createBackupFile, deliverBackupFile), useImportBackup (openBackupFile, restoreBackup, useTheme().setPreference), LastBackupStatus e BackupReminder (useLastBackupAt; BackupReminder também useTransactionCount). Fase 8: ChartList (useTags), BalanceLineCard (useTransactionsInRange(null, fim) — D-50(f)) e useChartColors (useTheme().resolvedTheme — CA-06.9).',
+      'Dados persistidos só por repositórios (§2.7). Fase 2: ThemeSection usa useTheme (D-22) e AboutPage lê SCHEMA_VERSION por databaseInfo. Fase 3: a tela de tags usa tagsRepository (hook da lista, create/update/delete, getTagUsage e as classes de erro). Fase 4: BalanceSummary (useOverallBalance, useMonthTotals), RecentTransactions (useRecentTransactions, useTags) e useTransactionDetail (useTransaction, deleteTransaction). Fase 6: useExportBackup (createBackupFile, deliverBackupFile), useImportBackup (openBackupFile, restoreBackup, useTheme().setPreference), LastBackupStatus e BackupReminder (useLastBackupAt; BackupReminder também useTransactionCount). Fase 8: ChartList (useTags), BalanceLineCard (useTransactionsInRange(null, fim) — D-50(f)) e useChartColors (useTheme().resolvedTheme — CA-06.9). Fase 9: features/recurrings usa recurringsRepository (RecurringsPage: useRecurrings e useConfirmedKeysIn; useRecurringDetail: useRecurring, useRecurringConfirmations, deleteRecurring, skipOccurrence, unskipOccurrence; os modais: createRecurring, updateRecurringDetails, changeRecurringAmount, endRecurringAt) e useTags; PendingRecurrings (Início) e usePeriodPending (Visões) usam usePendingOccurrences; useTransactionDetail usa deleteConfirmedTransaction e DeleteConfirmedOccurrenceDialog o tipo AfterConfirmedDelete.',
   },
   {
     from: 'features',
@@ -211,7 +211,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'domain',
     status: 'allowed',
     reason:
-      'Regras puras e tipos. Fase 3: useTagsScreen usa isTagInUse (useTagForm e TagColorPicker foram para components/tags na Fase 4 — D-37). Fase 4: BalanceSummary usa periodOf/formatMonthLabel e formatBRL. Fase 6: LastBackupStatus e BackupReminder usam backupReminder (daysSinceLastBackup, describeLastBackup, shouldShowBackupReminder — D-11); useExportBackup/useImportBackup usam backupPasswordSchema. Fase 8: features/charts usa charts (séries, fatias, percentuais), balances (totals), money (formatBRL, formatSignedBRL, formatCompactBRL, addCents) e o tipo ViewGranularity.',
+      'Regras puras e tipos. Fase 3: useTagsScreen usa isTagInUse (useTagForm e TagColorPicker foram para components/tags na Fase 4 — D-37). Fase 4: BalanceSummary usa periodOf/formatMonthLabel e formatBRL. Fase 6: LastBackupStatus e BackupReminder usam backupReminder (daysSinceLastBackup, describeLastBackup, shouldShowBackupReminder — D-11); useExportBackup/useImportBackup usam backupPasswordSchema. Fase 8: features/charts usa charts (séries, fatias, percentuais), balances (totals), money (formatBRL, formatSignedBRL, formatCompactBRL, addCents) e o tipo ViewGranularity. Fase 9: features/recurrings usa recurring (displayAmount, recurringListStatus, amountFor, confirmedOccurrenceKeys, lastConfirmedPeriod e os erros de domínio nos modais) e recurringSchema; ViewsPage e YearDetail usam projected (Previsto = Realizado + pendentes — D-05); usePeriodPending usa periodsBetween.',
   },
   {
     from: 'features',
@@ -233,24 +233,26 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'domain',
     status: 'allowed',
     reason:
-      'Formatação pura (§6.5): MoneyInput usa digitsToCents/formatBRL, SignedAmount usa formatSignedBRL, useToday usa today, TagChip e TagPicker usam readableTextColor, TransactionRow usa signedAmount e formatShortDate; useTagForm/useTransactionForm usam os schemas zod (tagSchema, transactionSchema). Fase 8: components/periods usa periodViews (ViewGranularity, viewRange, formatViewTitle) e balances (totals) no usePeriodView.',
+      'Formatação pura (§6.5): MoneyInput usa digitsToCents/formatBRL, SignedAmount usa formatSignedBRL, useToday usa today, TagChip e TagPicker usam readableTextColor, TransactionRow usa signedAmount e formatShortDate; useTagForm/useTransactionForm usam os schemas zod (tagSchema, transactionSchema). Fase 8: components/periods usa periodViews (ViewGranularity, viewRange, formatViewTitle) e balances (totals) no usePeriodView. Fase 9: components/recurrings usa recurringSchema (confirmOccurrenceSchema), dates (periodOf, formatMonthLabel) e o tipo PendingOccurrence; useTransactionForm usa isDateInPeriod e dateOutsidePeriodMessage (data presa ao mês da ocorrência — D-51(b)).',
   },
   {
     from: 'components',
     to: 'lib',
     status: 'allowed',
-    reason: 'Utilitários puros: useTagForm e useTransactionForm usam formSubmit (princípio 16).',
+    reason:
+      'Utilitários puros: useTagForm e useTransactionForm usam formSubmit (princípio 16); desde a Fase 9 também useConfirmOccurrenceForm.',
   },
   {
     from: 'components',
     to: 'repositories',
     status: 'exception',
     reason:
-      'D-37 (confirmada em 21/10/2026): só os componentes de domínio de src/components/<entidade>/ usam repositórios — useTagForm (createTag/updateTag), TransactionForm (useTags) e useTransactionForm (createTransaction/updateTransaction). src/components/ui/ nunca importa repositories (proibição por caminho, também no scanner). Uma pasta de entidade nova precisa entrar em onlySources. Fase 8 (D-50(a), aguardando confirmação): components/periods/usePeriodView usa useTransactionsInRange.',
+      'D-37 (confirmada em 21/10/2026): só os componentes de domínio de src/components/<entidade>/ usam repositórios — useTagForm (createTag/updateTag), TransactionForm (useTags) e useTransactionForm (createTransaction/updateTransaction). src/components/ui/ nunca importa repositories (proibição por caminho, também no scanner). Uma pasta de entidade nova precisa entrar em onlySources. Fase 8 (D-50(a), confirmada em 25/10/2026): components/periods/usePeriodView usa useTransactionsInRange. Fase 9 (D-51(g)): components/recurrings — useConfirmOccurrenceForm (confirmOccurrence e as classes de erro), ConfirmOccurrenceDialog e PendingOccurrencesSection (useTags, skipOccurrence, unskipOccurrence) e skipErrorMessage (classes de erro); useTransactionForm passou a tratar OccurrenceDateOutsidePeriodError e OccurrenceTypeChangeError.',
     onlySources: [
       'src/components/tags/',
       'src/components/transactions/',
       'src/components/periods/',
+      'src/components/recurrings/',
     ],
   },
   {
@@ -258,7 +260,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'stores',
     status: 'exception',
     reason:
-      'Fase 8 (D-50(a), aguardando confirmação): só os controles de período de src/components/periods/ — GranularityPicker (viewGranularity, setGranularity), PeriodNavigator (goPrev, goNext), TodayButton (goToday) e usePeriodView (viewGranularity, viewAnchorDate) — porque Visões e Gráficos compartilham o mesmo estado (CA-06.1). A D-37 lista o que components/<entidade> pode importar (domain, lib, repositories, components/ui) e não cita stores: divergência reportada na Saúde.',
+      'Fase 8 (D-50(a), confirmada com o acréscimo (k) em 25/10/2026): só os controles de período de src/components/periods/ — GranularityPicker (viewGranularity, setGranularity), PeriodNavigator (goPrev, goNext), TodayButton (goToday) e usePeriodView (viewGranularity, viewAnchorDate) — porque Visões e Gráficos compartilham o mesmo estado (CA-06.1). A D-37 lista o que components/<entidade> pode importar (domain, lib, repositories, components/ui) e não cita stores: a exceção foi aprovada pelo dono e registrada na D-50(k) (spec 1.32). components/recurrings (Fase 9) não usa o Zustand.',
     onlySources: ['src/components/periods/'],
   },
   {
@@ -344,7 +346,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'components',
     status: 'allowed',
     reason:
-      'Primitivos compostos entre si e, desde a Fase 4, componentes de domínio (components/<entidade>) compostos de primitivos (TransactionForm usa Field, MoneyInput, DateInput, TextInput, Toast, TagPicker, CreateTagDialog). Hoje em sentido único: nenhum primitivo de components/ui importa components/<entidade>. Fase 8: components/periods usa createRadioGroup (GranularityPicker) e Button (TodayButton).',
+      'Primitivos compostos entre si e, desde a Fase 4, componentes de domínio (components/<entidade>) compostos de primitivos (TransactionForm usa Field, MoneyInput, DateInput, TextInput, Toast, TagPicker, CreateTagDialog). Hoje em sentido único: nenhum primitivo de components/ui importa components/<entidade>. Fase 8: components/periods usa createRadioGroup (GranularityPicker) e Button (TodayButton). Fase 9: components/recurrings usa Modal, Field (com Field.Hint), InfoPopover, MoneyInput, DateInput, TextInput, Notice, Toast/useToast, SignedAmount e TagChip e, entre entidades, TagPicker (components/tags).',
   },
   { from: 'dev', to: 'dev', status: 'allowed', reason: 'Organização interna da página.' },
 ]
@@ -439,9 +441,15 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
       'RF-10',
       'D-11',
       'D-48',
+      'RF-07',
+      'CA-07.1',
+      'CA-07.2',
+      'CA-07.8',
+      'D-14',
+      'D-51',
     ],
     description:
-      'Fase 4. Única tela fora do React.lazy (vai no pacote principal — RNF-02; ver o achado do bundle de 596 kB, decidido pela D-41). HomePage (useToday) compõe, de cima para baixo: BalanceSummary (saldo geral com todos os lançamentos, inclusive os futuros — D-42, em destaque; "Saldo de outubro de 2026" com entradas e saídas do mês, inclusive datas futuras do mês — CA-02.3; valores com SignedAmount — CA-02.1), a seção "Novo lançamento" com o TransactionForm rápido (Saída/Entrada, valor, data, tag, descrição e "Lançar" — CA-01.1; atalho de criar tag sem perder o digitado — CA-01.7; Toast "Lançamento salvo" — D-38(b)) e RecentTransactions (recebe today; os 5 mais recentes com data até hoje, por data e criação — D-40/D-39, TransactionRow com link para /lancamentos/:id, ou EmptyState; link "Ver todos" para /lancamentos). Tudo por useLiveQuery: um lançamento novo atualiza saldos e lista sem recarregar (CA-02.4). Pendências recorrentes (item 4 do RF-02) entram na Fase 9. Fase 6: BackupReminder no topo (antes do BalanceSummary) — "Último backup" sempre, num só lugar (RF-10, D-48(c) opção (a), spec 1.26): com aviso (pelo menos um lançamento e sem backup ou com 7 dias ou mais — D-11), Notice subtle "Último backup: há N dias. Faça um backup para não perder seus dados." + link "Fazer backup"; sem aviso, LastBackupLine (linha discreta "Último backup: há 3 dias / hoje / nunca", link para /ajustes/backup com alvo de 44 px); nada enquanto carrega. Lê useLastBackupAt (settingsRepository) e useTransactionCount, sem levar a criptografia para o pacote principal (D-41/D-47(e)). Tabelas: transactions (leitura e escrita), tags (leitura; escrita pelo atalho de criar tag) e settings (leitura de lastBackupAt).',
+      'Fase 4. Única tela fora do React.lazy (vai no pacote principal — RNF-02; ver o achado do bundle de 596 kB, decidido pela D-41). HomePage (useToday) compõe, de cima para baixo: BalanceSummary (saldo geral com todos os lançamentos, inclusive os futuros — D-42, em destaque; "Saldo de outubro de 2026" com entradas e saídas do mês, inclusive datas futuras do mês — CA-02.3; valores com SignedAmount — CA-02.1), a seção "Novo lançamento" com o TransactionForm rápido (Saída/Entrada, valor, data, tag, descrição e "Lançar" — CA-01.1; atalho de criar tag sem perder o digitado — CA-01.7; Toast "Lançamento salvo" — D-38(b)) e RecentTransactions (recebe today; os 5 mais recentes com data até hoje, por data e criação — D-40/D-39, TransactionRow com link para /lancamentos/:id, ou EmptyState; link "Ver todos" para /lancamentos). Tudo por useLiveQuery: um lançamento novo atualiza saldos e lista sem recarregar (CA-02.4). Fase 9 (RF-02 item 4, CA-07.1): PendingRecurrings entre o formulário e os últimos lançamentos — usePendingOccurrences([mês de hoje]) e PendingOccurrencesSection com canSkip={false} (no Início só "Confirmar" — D-51(c)); a seção some sem pendências; "Confirmar" abre o ConfirmOccurrenceDialog e grava pelo confirmOccurrence (Toast "Ocorrência confirmada"). Fase 6: BackupReminder no topo (antes do BalanceSummary) — "Último backup" sempre, num só lugar (RF-10, D-48(c) opção (a), spec 1.26): com aviso (pelo menos um lançamento e sem backup ou com 7 dias ou mais — D-11), Notice subtle "Último backup: há N dias. Faça um backup para não perder seus dados." + link "Fazer backup"; sem aviso, LastBackupLine (linha discreta "Último backup: há 3 dias / hoje / nunca", link para /ajustes/backup com alvo de 44 px); nada enquanto carrega. Lê useLastBackupAt (settingsRepository) e useTransactionCount, sem levar a criptografia para o pacote principal (D-41/D-47(e)). Tabelas: transactions (leitura e escrita — também pela confirmação de recorrente), tags (leitura; escrita pelo atalho de criar tag), recurrings (leitura) e settings (leitura de lastBackupAt).',
     contentPhase: 4,
   },
   {
@@ -474,17 +482,31 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
   {
     route: '/lancamentos/:id',
     screen: 'Lançamento (editar/excluir)',
-    requirements: ['RF-01', 'RF-07', 'RF-08', 'CA-01.5', 'CA-01.6', 'D-38'],
+    requirements: ['RF-01', 'RF-07', 'RF-08', 'CA-01.5', 'CA-01.6', 'CA-07.8', 'D-38', 'D-51'],
     description:
-      'Fase 4: TransactionDetailPage lê o lançamento por useTransactionDetail (useTransaction, useLiveQuery: undefined carregando, null inexistente). Com o lançamento: TransactionForm em modo edição ("Salvar" já ativo — startsValid, princípio 16) com extraAction "Excluir" e o modal ConfirmDeleteTransactionDialog ("Excluir lançamento?"). Salvar (updateTransaction) e Excluir (deleteTransaction) voltam para a tela anterior com useGoBack (tela pai /lancamentos — D-38(c)); isDone evita piscar "Lançamento não encontrado" durante a saída. Id inexistente: EmptyState "Lançamento não encontrado". Regras de recorrentes e parcelas (RF-07/RF-08) nas Fases 9 e 10. Tabelas: transactions (leitura e escrita) e tags (leitura).',
+      'Fase 4: TransactionDetailPage lê o lançamento por useTransactionDetail (useTransaction, useLiveQuery: undefined carregando, null inexistente). Com o lançamento: TransactionForm em modo edição ("Salvar" já ativo — startsValid, princípio 16) com extraAction "Excluir" e o modal ConfirmDeleteTransactionDialog ("Excluir lançamento?"). Salvar (updateTransaction) e Excluir (deleteTransaction) voltam para a tela anterior com useGoBack (tela pai /lancamentos — D-38(c)); isDone evita piscar "Lançamento não encontrado" durante a saída. Id inexistente: EmptyState "Lançamento não encontrado". Fase 9 (RF-07, D-51(b)/(j)/(l)): lançamento confirmado de recorrente (recurringPeriod ≠ null) — o useTransactionForm troca o schema por um que prende a data ao mês da ocorrência (Field.Hint "Escolha um dia de <mês/ano>." e erro "A data precisa estar em <mês/ano>."), o seletor Saída/Entrada fica desabilitado (<fieldset disabled>) com TYPE_LOCKED_MESSAGE e o updateTransaction recusa as duas coisas (OccurrenceDateOutsidePeriodError, OccurrenceTypeChangeError); "Excluir" abre o DeleteConfirmedOccurrenceDialog ("Excluir e voltar a pendente" | "Excluir e pular este mês") no lugar do ConfirmDeleteTransactionDialog, e confirmDelete(afterwards) chama deleteConfirmedTransaction (transação rw [recurrings, transactions]). Parcelas (RF-08) na Fase 10. Tabelas: transactions (leitura e escrita), tags (leitura) e recurrings (escrita só ao pular o mês na exclusão).',
     contentPhase: 4,
   },
   {
     route: '/visoes',
     screen: 'Visões por período',
-    requirements: ['RF-05', 'CA-05.1', 'CA-05.3', 'CA-05.4', 'CA-01.5', 'RNF-06', 'D-49'],
+    requirements: [
+      'RF-05',
+      'CA-05.1',
+      'CA-05.2',
+      'CA-05.3',
+      'CA-05.4',
+      'CA-01.5',
+      'RNF-06',
+      'D-49',
+      'RF-07',
+      'CA-07.4',
+      'CA-07.7',
+      'D-05',
+      'D-51',
+    ],
     description:
-      'Fase 7 (lazy), sem a parte de recorrentes (Fase 9). ViewsPage compõe: Page.Header "Visões" com o botão "Hoje" no slot trailing (goToday — mantém a granularidade); GranularityPicker (createRadioGroup<ViewGranularity>() segmented: Dia | Semana | Mês | Ano, legenda "Período"; padrão Mês — D-49(a)); PeriodNavigator (setas de 44 px com nome por granularidade — "Mês anterior"/"Próximo mês", "Semana anterior"… — em volta do título h2 com aria-live e tabIndex −1: "sábado, 24 de outubro de 2026", "19 a 25 de out. de 2026", "outubro de 2026" ou "2026" — CA-05.3, D-49(b)); PeriodSummaryCard (Entradas, Saídas e Resultado com sinal; "—" enquanto carrega — D-49(c)); PeriodDetail, só depois de os dados chegarem, que escolhe DayDetail (TransactionRow showDate={false} ou "Nenhum lançamento neste dia."; tocar abre /lancamentos/:id — CA-01.5), WeekDetail (7 linhas segunda a domingo), MonthDetail (só dias com movimento ou "Nenhum lançamento neste mês.") ou YearDetail (12 meses), os três últimos com o compound PeriodRows/PeriodRows.Item (botões ≥ 44 px com "Entradas R$ X", "Saídas R$ Y" e o resultado). Detalhamento (Ano → Mês pelo dia 1º → Dia; Semana → Dia) por openPeriod no Zustand, sem nova entrada no histórico, com o foco indo para o título do novo período (RNF-06, D-49(a)/(d)). Dados por usePeriodView: granularidade e âncora do Zustand (CA-05.4) → viewRange → useTransactionsInRange (índice date; undefined enquanto um período novo carrega — D-49(g)) → totals e os resumos puros de domain/periodViews (CA-05.1). Estado mantido ao trocar de aba (store em memória). Tabelas: transactions e tags (só leitura).',
+      'Fase 7 (lazy); recorrentes desde a Fase 9. ViewsPage compõe: Page.Header "Visões" com o botão "Hoje" no slot trailing (goToday — mantém a granularidade); GranularityPicker (createRadioGroup<ViewGranularity>() segmented: Dia | Semana | Mês | Ano, legenda "Período"; padrão Mês — D-49(a)); PeriodNavigator (setas de 44 px com nome por granularidade — "Mês anterior"/"Próximo mês", "Semana anterior"… — em volta do título h2 com aria-live e tabIndex −1: "sábado, 24 de outubro de 2026", "19 a 25 de out. de 2026", "outubro de 2026" ou "2026" — CA-05.3, D-49(b)); PeriodSummaryCard (Entradas, Saídas e Resultado com sinal; "—" enquanto carrega — D-49(c)); PeriodDetail, só depois de os dados chegarem, que escolhe DayDetail (TransactionRow showDate={false} ou "Nenhum lançamento neste dia."; tocar abre /lancamentos/:id — CA-01.5), WeekDetail (7 linhas segunda a domingo), MonthDetail (só dias com movimento ou "Nenhum lançamento neste mês.") ou YearDetail (12 meses), os três últimos com o compound PeriodRows/PeriodRows.Item (botões ≥ 44 px com "Entradas R$ X", "Saídas R$ Y" e o resultado). Detalhamento (Ano → Mês pelo dia 1º → Dia; Semana → Dia) por openPeriod no Zustand, sem nova entrada no histórico, com o foco indo para o título do novo período (RNF-06, D-49(a)/(d)). Dados por usePeriodView: granularidade e âncora do Zustand (CA-05.4) → viewRange → useTransactionsInRange (índice date; undefined enquanto um período novo carrega — D-49(g)) → totals e os resumos puros de domain/periodViews (CA-05.1). Estado mantido ao trocar de aba (store em memória). Fase 9 (CA-05.2, D-05, D-51(c)/(i)): usePeriodPending(granularidade, intervalo) pede ao usePendingOccurrences os meses do período (Mês: 1; Ano: os 12; Dia e Semana: nenhum) e o detalhamento só aparece com transações e pendências carregadas. Na visão Mês o PeriodSummaryCard mostra "Realizado" e a linha "Previsto" (projected(totals, pendentes).resultCents; "—" enquanto carrega) e o MonthDetail acrescenta "Recorrentes pendentes" (PendingOccurrencesSection com canSkip: "Confirmar" e "Pular", aviso "Mês pulado." com "Desfazer" por 8 s; "Não confirmada" escrito nos meses passados — CA-07.7). Na visão Ano cada linha do PeriodRows mostra "Previsto ±R$ X" (projectedResultCents). Tabelas: transactions e tags (leitura), recurrings (leitura) e, pelas ações dos pendentes, transactions (confirmar) e recurrings (pular/desfazer).',
     contentPhase: 7,
   },
   {
@@ -543,16 +565,28 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
   {
     route: '/ajustes/recorrentes',
     screen: 'Recorrentes',
-    requirements: ['RF-07'],
-    description: 'Placeholder com Voltar. Lista de recorrentes na Fase 9.',
+    requirements: ['RF-07', 'CA-07.6', 'CA-01.7', 'D-04', 'D-51'],
+    description:
+      'Fase 9 (lazy). RecurringsPage: Page.Header com BackLink (fallback /ajustes) e "Recorrentes"; Button primary "Novo recorrente"; EmptyState "Nenhum recorrente ainda…" só depois da consulta; RecurringList (CA-07.6 — todos, ativos e encerrados, pela descrição com Intl.Collator pt-BR): cada linha é um Link de 44 px para /ajustes/recorrentes/:id com descrição, tipo, TagChip, status do mês atual (recurringListStatus → "Pendente neste mês", "Confirmado neste mês", "Pulado neste mês", "Encerrado", "Começa em <mês/ano>") e o valor com sinal (displayAmount: o vigente; antes do início o 1º; depois do término o último). NewRecurringDialog (Modal): TypeRadio segmented (Saída | Entrada), Descrição, TagPicker (sem tags, NoTagsNotice com "Criar tag" → CreateTagDialog, sem perder o digitado — CA-01.7), Valor (MoneyInput), "Mês de início" (MonthInput, padrão o mês atual) e "Mês de término (opcional)"; useRecurringForm (RHF + zod, princípio 16) → createRecurring; ao criar, navega para os detalhes (D-51(h)). Dados: useRecurrings, useConfirmedKeysIn(mês atual) e useTags. Tabelas: recurrings (leitura e escrita), transactions (leitura pelo índice [recurringId+recurringPeriod]) e tags (leitura; escrita pelo atalho).',
     contentPhase: 9,
   },
   {
     route: '/ajustes/recorrentes/:id',
     screen: 'Recorrente (detalhes)',
-    requirements: ['RF-07'],
+    requirements: [
+      'RF-07',
+      'CA-07.2',
+      'CA-07.3',
+      'CA-07.4',
+      'CA-07.5',
+      'CA-07.6',
+      'CA-07.8',
+      'D-14',
+      'D-15',
+      'D-51',
+    ],
     description:
-      'Placeholder com Voltar. Alterar valor, encerrar, excluir, meses pulados na Fase 9.',
+      'Fase 9 (lazy). RecurringDetailPage (useParams id → useRecurringDetail): Page.Header com BackLink (fallback /ajustes/recorrentes) e a descrição; null → EmptyState "Recorrente não encontrado" (exceto saindo depois de excluir — isDeleted). Page.Body: RecurringSummary (tipo, tag, valor vigente, início e término), CurrentOccurrence (status do mês atual; pendente → "Pular" e "Confirmar"; pulado → "Desfazer"; botões de pular desabilitados durante a ação — D-51(m)), ErrorAlert de ação, grade com "Editar" (EditRecurringDialog — só descrição e tag, D-51(a)), "Alterar valor" (ChangeAmountDialog — novo valor a partir de um mês; padrão o mês atual ou o início; erro no campo antes do início ou depois do término — CA-07.3), "Encerrar" (EndRecurringDialog — último mês, nunca antes do início nem do último mês confirmado — D-51(d)) e "Excluir" (DeleteRecurringDialog: sem confirmadas "Excluir recorrente?"; com confirmadas "Não é possível excluir" + botão "Encerrar" — D-15); AmountHistory ("Histórico de valores"), SkippedMonths ("Meses pulados", cada um com "Desfazer") e ConfirmedTransactions ("Lançamentos confirmados", TransactionRow para /lancamentos/:id). "Confirmar" abre o ConfirmOccurrenceDialog compartilhado (components/recurrings) com o valor vigente (amountFor). Sucesso → Toast; excluir → useGoBack("/ajustes/recorrentes"). Tabelas: recurrings (leitura e escrita), transactions (leitura dos confirmados; escrita ao confirmar) e tags (leitura).',
     contentPhase: 9,
   },
   {
@@ -627,7 +661,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'TypeRadio',
-    note: 'Fase 4: instância local de createRadioGroup<TransactionType>() no TransactionForm, com variant="segmented" (alternador Saída | Entrada lado a lado, rádio sr-only; a marcada fica preenchida e em negrito, não só pela cor — RNF-06; foco do teclado no contorno do grupo). Ligada ao RHF por Controller. Fase 5: outra instância com o mesmo nome local no TypeFilter da lista, createRadioGroup<TransactionTypeFilter>() com Todos | Entradas | Saídas, ligada ao Zustand (setFilters({ type })).',
+    note: 'Fase 4: instância local de createRadioGroup<TransactionType>() no TransactionForm, com variant="segmented" (alternador Saída | Entrada lado a lado, rádio sr-only; a marcada fica preenchida e em negrito, não só pela cor — RNF-06; foco do teclado no contorno do grupo). Ligada ao RHF por Controller. Fase 5: outra instância com o mesmo nome local no TypeFilter da lista, createRadioGroup<TransactionTypeFilter>() com Todos | Entradas | Saídas, ligada ao Zustand (setFilters({ type })). Fase 9: terceira instância com o mesmo nome local no NewRecurringDialog, createRadioGroup<TransactionType>() segmented (Saída | Entrada), ligada ao RHF por Controller; o createRadioGroup ganhou disabled (fieldset), usado pelo TransactionForm no tipo travado.',
   },
   {
     component: 'ThemeProvider',
@@ -648,7 +682,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   { component: 'Outlet', note: 'Ponto onde o React Router injeta a tela da rota filha.' },
   {
     component: 'Notice',
-    note: 'Compound component (Fase 1): Notice.Message (texto, flex-1) e Notice.Action (botão ≥ 44 px, foco branco para aparecer sobre o azul). Variantes accent (com ação) e subtle (só texto). Não decide região viva nem posição: quem usa decide. Fase 6: o BackupReminder usa a variante subtle com um Link "Fazer backup" ao lado do Notice.Message. Fase 8: o ChartsPage usa a variante subtle, só com Notice.Message, para o aviso da granularidade Dia (D-50(a)).',
+    note: 'Compound component (Fase 1): Notice.Message (texto, flex-1) e Notice.Action (botão ≥ 44 px, foco branco para aparecer sobre o azul). Variantes accent (com ação) e subtle (só texto). Não decide região viva nem posição: quem usa decide. Fase 6: o BackupReminder usa a variante subtle com um Link "Fazer backup" ao lado do Notice.Message. Fase 8: o ChartsPage usa a variante subtle, só com Notice.Message, para o aviso da granularidade Dia (D-50(a)). Fase 9: o PendingOccurrencesSection usa a variante accent com Notice.Action "Desfazer" dentro de um role="status" para o aviso "Mês pulado." (8 s — D-51(c)).',
   },
   {
     component: 'UpdateNotice',
@@ -660,7 +694,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'Modal',
-    note: 'Compound component (Fase 3, D-33): <dialog> nativo aberto com showModal() por um useEffect que segue a prop open; title obrigatória (h2 + aria-labelledby sempre renderizado); Esc (onCancel) chama onClose e quem usa decide fechar. Slots Modal.Body (coluna com gap) e Modal.Actions (botões em largura total no celular, ação principal em cima — flex-col-reverse). Os children só existem enquanto aberto: cada abertura começa do zero. Altura limitada por max-h-dialog (safe areas).',
+    note: 'Compound component (Fase 3, D-33): <dialog> nativo aberto com showModal() por um useEffect que segue a prop open; title obrigatória (h2 + aria-labelledby sempre renderizado); Esc (onCancel) chama onClose e quem usa decide fechar. Slots Modal.Body (coluna com gap) e Modal.Actions (botões em largura total no celular, ação principal em cima — flex-col-reverse). Os children só existem enquanto aberto: cada abertura começa do zero. Altura limitada por max-h-dialog (safe areas). Fase 9: base de 7 modais novos — ConfirmOccurrenceDialog (components/recurrings), NewRecurringDialog, EditRecurringDialog, ChangeAmountDialog, EndRecurringDialog, DeleteRecurringDialog e DeleteConfirmedOccurrenceDialog; os de formulário montam um componente de formulário local como filho, que nasce de novo a cada abertura (valores padrão recalculados).',
   },
   {
     component: 'Button',
@@ -708,11 +742,11 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'TransactionForm',
-    note: 'Fase 4, src/components/transactions (D-37): o mesmo formulário no Início, em /lancamentos/novo e na edição. <form noValidate> com TypeRadio segmented, Field + MoneyInput (Valor), Field + DateInput (Data), TagPicker (nada enquanto as tags carregam; sem tags, emptyState = NoTagsNotice), Field + TextInput (Descrição), ErrorAlert do saveError e a linha de ações (extraAction | "Lançar"/"Salvar" com disabled={!canSubmit} — princípio 16). CreateTagDialog e Toast ficam como irmãos do <form> (formulário aninhado não é válido e o envio de um dispararia o outro). Estado: useTransactionForm (RHF) + isCreatingTag (useState); tags por useTags (repositório, permitido para components/<entidade>).',
+    note: 'Fase 4, src/components/transactions (D-37): o mesmo formulário no Início, em /lancamentos/novo e na edição. <form noValidate> com TypeRadio segmented, Field + MoneyInput (Valor), Field + DateInput (Data), TagPicker (nada enquanto as tags carregam; sem tags, emptyState = NoTagsNotice), Field + TextInput (Descrição), ErrorAlert do saveError e a linha de ações (extraAction | "Lançar"/"Salvar" com disabled={!canSubmit} — princípio 16). CreateTagDialog e Toast ficam como irmãos do <form> (formulário aninhado não é válido e o envio de um dispararia o outro). Estado: useTransactionForm (RHF) + isCreatingTag (useState); tags por useTags (repositório, permitido para components/<entidade>). Fase 9 (D-51(b)/(l)): na edição do lançamento confirmado de um recorrente, o TypeRadio.Root recebe disabled (isTypeLocked; <fieldset disabled>) e a frase TYPE_LOCKED_MESSAGE "O tipo segue o do recorrente e não pode ser trocado."; o Field da Data recebe hint ("Escolha um dia de <mês/ano>.") e o schema do useTransactionForm (schemaFor(occurrencePeriod)) prende a data ao mês da ocorrência.',
   },
   {
     component: 'Field',
-    note: 'Fase 4, compound component: <Field error> fornece controlId/errorId/error por contexto (useFieldControl.ts); Field.Label (<label htmlFor>) e Field.Error (<p> abaixo do campo — CA-01.2). O controle (TextInput, MoneyInput, DateInput) pega id, aria-invalid e aria-describedby com useFieldControl(). Sem estado.',
+    note: 'Fase 4, compound component: <Field error> fornece controlId/errorId/error por contexto (useFieldControl.ts); Field.Label (<label htmlFor>) e Field.Error (<p> abaixo do campo — CA-01.2). O controle (TextInput, MoneyInput, DateInput) pega id, aria-invalid e aria-describedby com useFieldControl(). Sem estado. Fase 9 (CA-07.8, D-51(g)): prop hint e a parte Field.Hint (<p id={hintId}> sempre visível abaixo do controle); o useFieldControl junta hintId e errorId no aria-describedby, então o leitor de tela anuncia a ajuda e o erro. Usado no campo Data da confirmação de recorrente e da edição do lançamento confirmado.',
   },
   {
     component: 'MoneyInput',
@@ -728,7 +762,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'TagPicker',
-    note: 'Fase 4, src/components/tags (D-38(a)): <fieldset> "Tag" com chips-rádio nativos (sr-only) na cor da tag; a marcada tem contorno e "✓" (RNF-06); alvo de 44 px por chip (ajustado na revisão). Sem tags, renderiza o slot emptyState. Erro ligado por aria-describedby (aria-invalid não vale em fieldset). ref no 1º rádio para o foco de erro. Fase 5: cada chip é a parte interna TagOption (sem cor = chip neutro); com allOptionLabel (ex.: "Todas" no TagFilter da lista — CA-04.2, D-45(a)) a 1ª opção vale "" e recebe o ref.',
+    note: 'Fase 4, src/components/tags (D-38(a)): <fieldset> "Tag" com chips-rádio nativos (sr-only) na cor da tag; a marcada tem contorno e "✓" (RNF-06); alvo de 44 px por chip (ajustado na revisão). Sem tags, renderiza o slot emptyState. Erro ligado por aria-describedby (aria-invalid não vale em fieldset). ref no 1º rádio para o foco de erro. Fase 5: cada chip é a parte interna TagOption (sem cor = chip neutro); com allOptionLabel (ex.: "Todas" no TagFilter da lista — CA-04.2, D-45(a)) a 1ª opção vale "" e recebe o ref. Fase 9: usado no ConfirmOccurrenceDialog (emptyState={null}: recorrente sempre tem tag — D-02), no NewRecurringDialog (com NoTagsNotice) e no EditRecurringDialog.',
   },
   {
     component: 'NoTagsNotice',
@@ -740,7 +774,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'Toast',
-    note: 'Fase 4 (D-38(b)): região viva role="status" sempre montada, fixa no topo (pt-safe), sem receber toques; mostra a mensagem enquanto useToast a mantém (3 s). Não cobre a barra inferior, o aviso de versão nem o teclado.',
+    note: 'Fase 4 (D-38(b)): região viva role="status" sempre montada, fixa no topo (pt-safe), sem receber toques; mostra a mensagem enquanto useToast a mantém (3 s). Não cobre a barra inferior, o aviso de versão nem o teclado. Fase 9: useToast(durationMs) aceita outra duração e devolve hide(); o aviso "Mês pulado." com "Desfazer" usa 8 s (UNDO_NOTICE_MS — D-51(c)) num Notice accent, não no Toast, e some com hide() ao desfazer.',
   },
   {
     component: 'SignedAmount',
@@ -808,7 +842,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'TransactionRow',
-    note: 'Fase 4, src/components/transactions: <li> com Link para /lancamentos/:id (CA-01.5 / CA-04.5); descrição truncada, TagChip (truncate), data DD/MM/AAAA (formatShortDate — D-38(f)) e SignedAmount(signedAmount). Sem estado. Fase 5: prop showDate (padrão true); a DaySection da lista passa showDate={false}, porque a data já está no cabeçalho do dia (D-45(c)). Usado em RecentTransactions (com data) e DaySection (sem data).',
+    note: 'Fase 4, src/components/transactions: <li> com Link para /lancamentos/:id (CA-01.5 / CA-04.5); descrição truncada, TagChip (truncate), data DD/MM/AAAA (formatShortDate — D-38(f)) e SignedAmount(signedAmount). Sem estado. Fase 5: prop showDate (padrão true); a DaySection da lista passa showDate={false}, porque a data já está no cabeçalho do dia (D-45(c)). Usado em RecentTransactions (com data) e DaySection (sem data). Fase 9: também usado no ConfirmedTransactions (detalhes do recorrente, com data), abrindo a edição do lançamento confirmado.',
   },
   {
     component: 'ConfirmDeleteTransactionDialog',
@@ -897,11 +931,11 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'PeriodSummaryCard',
-    note: 'Fase 7 (RF-05, D-49(c)): <section aria-label="Resumo do período"> com <dl> Entradas (formatBRL), Saídas (formatBRL) e Resultado (SignedAmount, com sinal). Igual nas 4 granularidades; totals undefined → "—" (sem R$ 0,00 falso). Sem o rótulo "Realizado" e sem "Previsto" até a Fase 9 (CA-05.2 — D-49(f)). Sem estado.',
+    note: 'Fase 7 (RF-05, D-49(c)): <section aria-label="Resumo do período"> com <dl> Entradas (formatBRL), Saídas (formatBRL) e Resultado (SignedAmount, com sinal). Igual nas 4 granularidades; totals undefined → "—" (sem R$ 0,00 falso). Sem o rótulo "Realizado" e sem "Previsto" até a Fase 9 (CA-05.2 — D-49(f)). Sem estado. Fase 9 (CA-05.2, D-05, D-51(i)): prop projectedResultCents (Cents | null | ausente). Presente só na visão Mês: o cartão ganha o h2 "Realizado" acima de Entradas/Saídas/Resultado e, separada por uma borda, a linha "Previsto" com SignedAmount (null → "—" enquanto as pendências carregam). Nas outras granularidades nada muda.',
   },
   {
     component: 'PeriodDetail',
-    note: 'Fase 7: switch pela granularidade que escolhe DayDetail | WeekDetail | MonthDetail | YearDetail; traduz os toques em onOpenPeriod("day", data) ou onOpenPeriod("month", "AAAA-MM-01") (o mês abre pelo dia 1º). Só é montado pelo ViewsPage depois de os lançamentos chegarem (não pisca estado vazio). Sem estado.',
+    note: 'Fase 7: switch pela granularidade que escolhe DayDetail | WeekDetail | MonthDetail | YearDetail; traduz os toques em onOpenPeriod("day", data) ou onOpenPeriod("month", "AAAA-MM-01") (o mês abre pelo dia 1º). Só é montado pelo ViewsPage depois de os lançamentos chegarem (não pisca estado vazio). Sem estado. Fase 9: recebe pending (Map mês → ocorrências do usePeriodPending) e repassa ao MonthDetail (as do mês) e ao YearDetail (o Map inteiro).',
   },
   {
     component: 'DayDetail',
@@ -913,15 +947,15 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'MonthDetail',
-    note: 'Fase 7 (RF-05 visão Mês): PeriodRows "Dias do mês" só com os dias com movimento (summarizeActiveDays, ordem cronológica) ou EmptyState "Nenhum lançamento neste mês."; tocar abre a visão Dia. "Recorrentes pendentes" e "Previsto" na Fase 9.',
+    note: 'Fase 7 (RF-05 visão Mês): PeriodRows "Dias do mês" só com os dias com movimento (summarizeActiveDays, ordem cronológica) ou EmptyState "Nenhum lançamento neste mês."; tocar abre a visão Dia. "Recorrentes pendentes" e "Previsto" na Fase 9. Fase 9 (RF-07, D-51(c)/(i)): recebe pending (as ocorrências do mês) e, abaixo dos dias (ou do EmptyState), monta PendingOccurrencesSection com canSkip e currentPeriod = mês de hoje (useToday), para "Não confirmada" nos meses passados (CA-07.7).',
   },
   {
     component: 'YearDetail',
-    note: 'Fase 7 (RF-05 visão Ano): PeriodRows "Meses do ano" com 12 PeriodRows.Item (summarizeMonths, inclusive meses sem movimento), rótulo "outubro" (formatMonthName); tocar abre a visão Mês. Coluna "Previsto" na Fase 9.',
+    note: 'Fase 7 (RF-05 visão Ano): PeriodRows "Meses do ano" com 12 PeriodRows.Item (summarizeMonths, inclusive meses sem movimento), rótulo "outubro" (formatMonthName); tocar abre a visão Mês. Coluna "Previsto" na Fase 9. Fase 9 (CA-05.2): recebe pending (Map mês → ocorrências) e passa a cada PeriodRows.Item projectedResultCents = projected(totais do mês, pendentes do mês).resultCents.',
   },
   {
     component: 'PeriodRows',
-    note: 'Fase 7, compound component local de features/views: <ul aria-label> com divisórias; PeriodRows.Item é um <button> min-h-11 com rótulo (1ª letra maiúscula pelo CSS), "Entradas R$ X" e "Saídas R$ Y" escritos e o resultado com SignedAmount (+ "Resultado" sr-only) — a cor nunca é a única informação (RNF-06). Usado por WeekDetail, MonthDetail e YearDetail. Sem estado.',
+    note: 'Fase 7, compound component local de features/views: <ul aria-label> com divisórias; PeriodRows.Item é um <button> min-h-11 com rótulo (1ª letra maiúscula pelo CSS), "Entradas R$ X" e "Saídas R$ Y" escritos e o resultado com SignedAmount (+ "Resultado" sr-only) — a cor nunca é a única informação (RNF-06). Usado por WeekDetail, MonthDetail e YearDetail. Sem estado. Fase 9: PeriodRows.Item aceita projectedResultCents; a visão Ano passa o resultado previsto de cada mês e a linha mostra "Previsto ±R$ X" (formatSignedBRL, em texto) abaixo das entradas e saídas.',
   },
   {
     component: 'PeriodRows.Item',
@@ -935,6 +969,98 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
     component: 'LastBackupLine',
     note: 'Fase 6 (RF-10, D-48(c) opção (a), spec 1.26): folha sem estado nem dados — recebe a frase pronta como children (string) e a mostra num Link do react-router para /ajustes/backup, texto pequeno slate-600/slate-400 (contraste AA nos dois temas) e min-h-11 (alvo de 44 px, RNF-06). Usado só pelo BackupReminder, quando não há aviso.',
   },
+  {
+    component: 'InfoPopover',
+    note: 'Primitivo (Fase 9, components/ui — CA-07.8, D-51(g)): botão "ⓘ" (44 px, aria-label, aria-expanded, aria-controls) que abre e fecha o balão por toque; fecha ao tocar fora (useOutsidePointerDown) ou com Esc. O texto do balão vem como children. Estado local isOpen. Nada depende de hover (princípio 15).',
+  },
+  {
+    component: 'MonthInput',
+    note: 'Primitivo (Fase 9, components/ui): <input type="month"> nativo (roda de mês/ano no iPhone) com o valor YYYY-MM passado direto, sem Date (princípio 2); props value/onChange(string)/onBlur/name/ref para o Controller; id e aria-* pelo useFieldControl; mesmo ajuste de alinhamento do DateInput no Safari. Usado em NewRecurringDialog (início e término), ChangeAmountDialog ("A partir de") e EndRecurringDialog ("Último mês").',
+  },
+  {
+    component: 'PendingRecurrings',
+    note: 'Fase 9 (RF-02 item 4, CA-07.1): recebe today do HomePage; usePendingOccurrences([mês de hoje]) e, com o resultado, PendingOccurrencesSection com canSkip={false} (no Início só "Confirmar" — D-51(c)). null enquanto carrega; a seção some sem pendências.',
+  },
+  {
+    component: 'PendingOccurrencesSection',
+    note: 'Fase 9, components/recurrings (D-51(c)/(g)/(m)): compartilhado pelo Início e pela visão Mês. Estado local: confirming (ocorrência no modal), lastSkipped, actionError, isBusy (um toque de cada vez — "Pular" desabilitado durante a ação), confirmedToast (useToast) e undoNotice (useToast(8000)). Renderiza: Notice accent "Mês pulado." + Notice.Action "Desfazer" (role="status", fica visível mesmo quando a lista some); ErrorAlert (skipErrorMessage: "Esta ocorrência não está mais pendente." quando outra aba já mudou); <section> "Recorrentes pendentes" com <ul> de PendingOccurrenceItem, cada um com o slot actions = "Pular" (só com canSkip) e "Confirmar" (aria-label com a descrição); ConfirmOccurrenceDialog e Toast "Ocorrência confirmada" como irmãos. Tags por useTags (Map por id).',
+  },
+  {
+    component: 'PendingOccurrenceItem',
+    note: 'Fase 9, components/recurrings: <li> sem estado com descrição, TagChip, o selo "Não confirmada" escrito (isOverdue, mês anterior ao atual — CA-07.7; borda âmbar + texto, não só cor — RNF-06), o valor vigente com sinal (SignedAmount) e o slot actions (botões passados por quem usa — composição).',
+  },
+  {
+    component: 'ConfirmOccurrenceDialog',
+    note: 'Fase 9, components/recurrings (RF-07 "Confirmar", CA-07.2, CA-07.8, D-14, D-51(g)): Modal com título "Confirmar “<descrição>”", aberto quando occurrence ≠ null; o filho ConfirmOccurrenceForm (local, key = recorrente|mês, recriado a cada ocorrência) usa useConfirmOccurrenceForm e mostra "Saída/Entrada · <mês>" escrito, Valor (MoneyInput, o vigente), Data (DateInput com Field.Hint "Escolha um dia de <mês/ano>." e InfoPopover "Por que esta data?"; padrão hoje no mês atual, senão dia 1), TagPicker (emptyState null) e Descrição, ErrorAlert do saveError e Modal.Actions Cancelar | Confirmar (disabled={!canSubmit} — princípio 16). Usado pelo PendingOccurrencesSection (Início e visão Mês) e pelo RecurringDetailPage.',
+  },
+  {
+    component: 'ConfirmOccurrenceForm',
+    note: 'Local do ConfirmOccurrenceDialog (não exportado): o formulário vive só enquanto o modal está aberto, para os valores padrão (data de hoje/dia 1, valor vigente) serem recalculados a cada ocorrência.',
+  },
+  {
+    component: 'RecurringList',
+    note: 'Fase 9 (CA-07.6): <ul> sem estado; cada recorrente é um Link de 44 px para /ajustes/recorrentes/:id com descrição, tipo escrito, TagChip, statusLabel(recurringListStatus(...)) e SignedAmount(displayAmount) + "›". Recebe recurrings, tagsById, currentPeriod e confirmedKeys do RecurringsPage.',
+  },
+  {
+    component: 'NewRecurringDialog',
+    note: 'Fase 9 (RF-07, D-51(h)): Modal "Novo recorrente" com o NewRecurringForm local (TypeRadio segmented; Field + TextInput Descrição; TagPicker com NoTagsNotice; Field + MoneyInput Valor; Field + MonthInput "Mês de início" e "Mês de término (opcional)"; ErrorAlert; Cancelar | Criar) por useRecurringForm(recurringInputSchema) → createRecurring; CreateTagDialog fica fora do <form> (CA-01.7). onCreated(recurring) → o RecurringsPage navega para os detalhes.',
+  },
+  {
+    component: 'NewRecurringForm',
+    note: 'Local do NewRecurringDialog: padrões Saída, mês atual como início e sem término; estado isCreatingTag (useState) para o atalho de criar tag.',
+  },
+  {
+    component: 'RecurringSummary',
+    note: 'Fase 9: <dl> sem estado com Tipo, Tag (TagChip), Valor vigente (SignedAmount de displayAmount), Início e Término ("Sem término").',
+  },
+  {
+    component: 'CurrentOccurrence',
+    note: 'Fase 9 (CA-07.6): <section> com o mês atual (h2) e statusLabel; pendente → "Pular" (desabilitado com isBusy) e "Confirmar"; pulado → "Desfazer". Sem estado: as ações vêm do useRecurringDetail por props (7 props — ver Saúde).',
+  },
+  {
+    component: 'EditRecurringDialog',
+    note: 'Fase 9 (D-51(a)): Modal "Editar recorrente" com o EditRecurringForm local — só Descrição e Tag (recurringDetailsSchema) por useRecurringForm → updateRecurringDetails; tipo, início, valor e término não aparecem aqui.',
+  },
+  {
+    component: 'EditRecurringForm',
+    note: 'Local do EditRecurringDialog: valores padrão = descrição e tag atuais; "Salvar" já ativo (startsValid).',
+  },
+  {
+    component: 'ChangeAmountDialog',
+    note: 'Fase 9 (CA-07.3): Modal "Alterar valor" com o ChangeAmountForm local — texto explicando que confirmadas não mudam, Field + MoneyInput "Novo valor" e Field + MonthInput "A partir de" (padrão o mês atual ou o início). Schema amountChangeSchema + refine por recorrente (não antes do início, não depois do término — erro no campo); erros de corrida AmountBeforeStartError/AmountAfterEndError viram a mesma mensagem.',
+  },
+  {
+    component: 'ChangeAmountForm',
+    note: 'Local do ChangeAmountDialog (useRecurringForm → changeRecurringAmount).',
+  },
+  {
+    component: 'EndRecurringDialog',
+    note: 'Fase 9 (RF-07 "Encerrar", D-15, D-51(d)): Modal "Encerrar recorrente" com o EndRecurringForm local — Field + MonthInput "Último mês"; padrão = o maior entre término atual (ou mês atual), início e último mês confirmado; refine com o erro "O término não pode ser antes de <mês/ano>, que já foi confirmado."; botão danger "Encerrar".',
+  },
+  {
+    component: 'EndRecurringForm',
+    note: 'Local do EndRecurringDialog (useRecurringForm → endRecurringAt; EndBeforeConfirmedError/EndBeforeStartError de outra aba viram a mensagem da regra — D-51(m)).',
+  },
+  {
+    component: 'DeleteRecurringDialog',
+    note: 'Fase 9 (D-15): Modal controlado por step (null | confirm | blocked). confirm: "Excluir recorrente?" + Cancelar | Excluir (danger, desabilitado durante a exclusão); blocked: "Não é possível excluir" com DELETE_BLOCKED_MESSAGE + Fechar | Encerrar (abre o EndRecurringDialog). ErrorAlert de falha. Sem estado próprio.',
+  },
+  {
+    component: 'AmountHistory',
+    note: 'Fase 9 (CA-07.3): <section> "Histórico de valores" — amounts do mais recente ao mais antigo, cada um com formatBRL e "desde <mês/ano>".',
+  },
+  {
+    component: 'SkippedMonths',
+    note: 'Fase 9 (CA-07.4, D-51(c)): <section> "Meses pulados" (oculta sem pulos) com um "Desfazer" por mês (aria-label com o mês; desabilitado com isBusy).',
+  },
+  {
+    component: 'ConfirmedTransactions',
+    note: 'Fase 9: <section> "Lançamentos confirmados" (oculta sem nenhum) com TransactionRow por lançamento, do mês mais recente ao mais antigo; a tag é a do próprio lançamento (pode ter sido trocada só nele).',
+  },
+  {
+    component: 'DeleteConfirmedOccurrenceDialog',
+    note: 'Fase 9 (RF-07, D-51(j)): Modal "Excluir lançamento?" explicando o mês da ocorrência, com Cancelar | "Excluir e pular este mês" (danger-outline) | "Excluir e voltar a pendente" (danger); onConfirm(afterwards: AfterConfirmedDelete). Montado pelo TransactionDetailPage só quando recurringPeriod ≠ null, no lugar do ConfirmDeleteTransactionDialog.',
+  },
 ]
 
 /** Componentes locais (não importados) e o módulo de onde vêm. */
@@ -942,6 +1068,12 @@ export const LOCAL_COMPONENT_ORIGINS: Readonly<Record<string, string>> = {
   ThemeRadio: 'src/components/ui/createRadioGroup.tsx',
   TypeRadio: 'src/components/ui/createRadioGroup.tsx',
   GranularityRadio: 'src/components/ui/createRadioGroup.tsx',
+  // Formulários locais dos modais (Fase 9): nascem de novo a cada abertura do modal.
+  ConfirmOccurrenceForm: 'src/components/recurrings/ConfirmOccurrenceDialog.tsx',
+  NewRecurringForm: 'src/features/recurrings/NewRecurringDialog.tsx',
+  EditRecurringForm: 'src/features/recurrings/EditRecurringDialog.tsx',
+  ChangeAmountForm: 'src/features/recurrings/ChangeAmountDialog.tsx',
+  EndRecurringForm: 'src/features/recurrings/EndRecurringDialog.tsx',
   // const SampleDataTools = loadSampleDataTools(): lazy() só em DEV, dentro de uma função (D-30).
   SampleDataTools: 'src/dev/sampleData/SampleDataTools.tsx',
 }
@@ -970,7 +1102,7 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '/',
     stateAndData:
-      'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary e ao RecentTransactions. Dados por useLiveQuery: useOverallBalance() (sem today — D-42) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(today, 5) (D-40) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4). Fase 6: BackupReminder (topo) lê useLastBackupAt e useTransactionCount (useLiveQuery) e decide por shouldShowBackupReminder com o mesmo today entre Notice (aviso) e LastBackupLine (linha discreta, sem estado — spec 1.26); o 1º lançamento troca a linha "Último backup: nunca" pelo aviso se nunca houve backup, e um backup novo troca o aviso pela linha "Último backup: hoje".',
+      'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary e ao RecentTransactions. Dados por useLiveQuery: useOverallBalance() (sem today — D-42) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(today, 5) (D-40) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4). Fase 6: BackupReminder (topo) lê useLastBackupAt e useTransactionCount (useLiveQuery) e decide por shouldShowBackupReminder com o mesmo today entre Notice (aviso) e LastBackupLine (linha discreta, sem estado — spec 1.26); o 1º lançamento troca a linha "Último backup: nunca" pelo aviso se nunca houve backup, e um backup novo troca o aviso pela linha "Último backup: hoje". Fase 9: PendingRecurrings (entre o formulário e os últimos lançamentos) recebe o mesmo today e lê usePendingOccurrences([periodOf(today)]) (useLiveQuery sobre recurrings + transactions pelo índice [recurringId+recurringPeriod]); PendingOccurrencesSection guarda localmente a ocorrência em confirmação, o erro e os dois avisos (useToast). Confirmar grava pelo confirmOccurrence e a pendência some sozinha (o lançamento novo também atualiza os saldos e a lista — CA-02.4).',
   },
   {
     route: '/lancamentos',
@@ -985,12 +1117,22 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '/visoes',
     stateAndData:
-      'Árvore (D-49): Page.Header (trailing: TodayButton — components/periods desde a Fase 8) → GranularityPicker (GranularityRadio segmented) → PeriodNavigator (2 setas + h2 aria-live) → PeriodSummaryCard (dl + SignedAmount) → PeriodDetail → DayDetail { TransactionRow × N | EmptyState } | WeekDetail { PeriodRows { PeriodRows.Item × 7 } } | MonthDetail { PeriodRows { PeriodRows.Item × dias com movimento } | EmptyState } | YearDetail { PeriodRows { PeriodRows.Item × 12 } }. Estado: viewGranularity e viewAnchorDate no Zustand (src/stores/uiStore.ts, sem persist — CA-05.4); GranularityPicker, PeriodNavigator e TodayButton (os três em src/components/periods, compartilhados com /graficos — D-50(a)) leem/gravam cada um com o seu seletor, e o ViewsPage só usa openPeriod; o único estado local é o titleRef do ViewsPage (foco no título depois do detalhamento). Dados: usePeriodView (src/components/periods/usePeriodView.ts) lê os 2 campos, calcula range (viewRange) e title (formatViewTitle), consulta useTransactionsInRange(range.start, range.end) (useLiveQuery no índice date, do mais recente ao mais antigo; undefined enquanto um período novo carrega — D-49(g)) e soma totals; os detalhes resumem no render com summarizeDays / summarizeActiveDays / summarizeMonths (o React Compiler memoiza). DayDetail lê useTags. Um lançamento gravado em outra tela atualiza a visão sozinho (useLiveQuery).',
+      'Árvore (D-49): Page.Header (trailing: TodayButton — components/periods desde a Fase 8) → GranularityPicker (GranularityRadio segmented) → PeriodNavigator (2 setas + h2 aria-live) → PeriodSummaryCard (dl + SignedAmount) → PeriodDetail → DayDetail { TransactionRow × N | EmptyState } | WeekDetail { PeriodRows { PeriodRows.Item × 7 } } | MonthDetail { PeriodRows { PeriodRows.Item × dias com movimento } | EmptyState } | YearDetail { PeriodRows { PeriodRows.Item × 12 } }. Estado: viewGranularity e viewAnchorDate no Zustand (src/stores/uiStore.ts, sem persist — CA-05.4); GranularityPicker, PeriodNavigator e TodayButton (os três em src/components/periods, compartilhados com /graficos — D-50(a)) leem/gravam cada um com o seu seletor, e o ViewsPage só usa openPeriod; o único estado local é o titleRef do ViewsPage (foco no título depois do detalhamento). Dados: usePeriodView (src/components/periods/usePeriodView.ts) lê os 2 campos, calcula range (viewRange) e title (formatViewTitle), consulta useTransactionsInRange(range.start, range.end) (useLiveQuery no índice date, do mais recente ao mais antigo; undefined enquanto um período novo carrega — D-49(g)) e soma totals; os detalhes resumem no render com summarizeDays / summarizeActiveDays / summarizeMonths (o React Compiler memoiza). DayDetail lê useTags. Um lançamento gravado em outra tela atualiza a visão sozinho (useLiveQuery). Fase 9: usePeriodPending(granularity, range) → usePendingOccurrences(meses do período) — Mês: [mês]; Ano: os 12 meses (periodsBetween); Dia/Semana: [] — devolve Map mês → ocorrências, undefined enquanto meses novos carregam (como o useTransactionsInRange). O ViewsPage calcula o Previsto da visão Mês com projected(totals, pendentes) e só monta o PeriodDetail com transações e pendências carregadas; MonthDetail recebe as do mês e monta PendingOccurrencesSection { Notice "Mês pulado." | ErrorAlert | PendingOccurrenceItem × N { Pular, Confirmar } | ConfirmOccurrenceDialog | Toast }; YearDetail passa projectedResultCents a cada PeriodRows.Item. Confirmar/pular gravam pelo recurringsRepository e as duas consultas ao vivo (lançamentos e pendências) se atualizam sozinhas.',
   },
   {
     route: '/graficos',
     stateAndData:
       'Árvore (D-50): Page.Header (trailing: TodayButton) → GranularityPicker (GranularityRadio segmented) → PeriodNavigator (sem titleRef) → Notice subtle (Dia) | EmptyState (período vazio) | ChartList { TagDoughnutCard "Saídas por tag" { ChartCard { Doughnut, ChartDetailPanel, TagLegendList } | EmptyState }, TagDoughnutCard "Entradas por tag" { … }, IncomeExpenseBarCard { ChartCard { Bar, legenda escrita, ChartDetailPanel } }, BalanceLineCard (Mês/Ano) { ChartCard { Line, ChartDetailPanel } } }. Estado global: viewGranularity e viewAnchorDate no Zustand, os mesmos das Visões (CA-06.1) — os controles de src/components/periods leem/gravam cada um com o seu seletor; o ChartsPage não tem estado próprio. Estado local de seleção, um por gráfico: selectedTagId (useState) em cada TagDoughnutCard e index (useState) do useSeriesSelection nas barras e na linha, mais isDraggingRef/chartRef na linha; todos limpos ao tocar fora do cartão (useOutsidePointerDown) e zerados pela troca de key da ChartList a cada período ou granularidade (CA-06.8). Dados: usePeriodView → useTransactionsInRange(início, fim) (undefined enquanto carrega: nada na tela); ChartList lê useTags e calcula no render tagSlices, incomeExpenseSeries e totals (domain/charts, domain/balances); BalanceLineCard lê useTransactionsInRange(null, fim) e calcula balanceSeries (runningBalance). Cores por useChartColors (useTheme().resolvedTheme). Um lançamento gravado em outra tela atualiza os gráficos sozinho (useLiveQuery).',
+  },
+  {
+    route: '/ajustes/recorrentes',
+    stateAndData:
+      'Árvore: Page > Page.Header (leading: BackLink) > Page.Body > [ Button "Novo recorrente", EmptyState | RecurringList { Link × N { TagChip, SignedAmount } } ] + NewRecurringDialog { Modal { NewRecurringForm { TypeRadio segmented, Field + TextInput, TagPicker | NoTagsNotice, Field + MoneyInput, Field + MonthInput × 2, ErrorAlert, Modal.Actions } , CreateTagDialog } }. Estado local: isCreating (useState) no RecurringsPage; o formulário (useRecurringForm: RHF + zodResolver(recurringInputSchema), saveError, canSubmit) e isCreatingTag no NewRecurringForm. Dados por useLiveQuery: useRecurrings (todos, pela descrição), useConfirmedKeysIn(mês atual) — chaves recorrente|mês dos confirmados, para o status — e useTags (Map por id). A lista só aparece com recorrentes e chaves carregados (o estado vazio não pisca). Criar → createRecurring → navigate para /ajustes/recorrentes/:id.',
+  },
+  {
+    route: '/ajustes/recorrentes/:id',
+    stateAndData:
+      'Árvore: Page > Page.Header (leading: BackLink, título = descrição) > EmptyState | Page.Body > [ RecurringSummary (dl + TagChip + SignedAmount), CurrentOccurrence (Button Pular/Confirmar/Desfazer), ErrorAlert, grade de 4 Button, AmountHistory, SkippedMonths, ConfirmedTransactions { TransactionRow × N }, EditRecurringDialog, ChangeAmountDialog, EndRecurringDialog, DeleteRecurringDialog, ConfirmOccurrenceDialog ] + Toast. Estado concentrado em useRecurringDetail(id): recurring (useRecurring — null inexistente), confirmations (useRecurringConfirmations, do mês mais recente ao mais antigo), currentPeriod (useToday), status (recurringListStatus com confirmedOccurrenceKeys), lastConfirmedPeriod, dialog (edit | amount | end | null), deleteStep (confirm | blocked | null), isDeleting, isDeleted, actionError, isBusy, confirming e o Toast (useToast). Cada modal de formulário usa useRecurringForm (RHF + zod, princípio 16) com o seu schema e chama o repositório; ao gravar, o useLiveQuery reemite e a tela se atualiza. Tags por useTags.',
   },
   {
     route: '/lancamentos/novo',
@@ -1000,7 +1142,7 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '/lancamentos/:id',
     stateAndData:
-      'useTransactionDetail(id): transaction por useTransaction (useLiveQuery: undefined carregando, null inexistente), isConfirmingDelete, isDeleting, isDone (tela saindo — não mostrar "não encontrado") e deleteError; goBack de useGoBack("/lancamentos"). O TransactionForm recebe key = id e transaction (defaultValues do lançamento, startsValid = true) e chama onUpdated (finish → goBack) depois de updateTransaction.',
+      'useTransactionDetail(id): transaction por useTransaction (useLiveQuery: undefined carregando, null inexistente), isConfirmingDelete, isDeleting, isDone (tela saindo — não mostrar "não encontrado") e deleteError; goBack de useGoBack("/lancamentos"). O TransactionForm recebe key = id e transaction (defaultValues do lançamento, startsValid = true) e chama onUpdated (finish → goBack) depois de updateTransaction. Fase 9 (D-51(b)/(j)/(l)): com transaction.recurringPeriod ≠ null, useTransactionForm troca o resolver por schemaFor(occurrencePeriod) (data presa ao mês) e expõe occurrencePeriod e isTypeLocked (TypeRadio disabled + TYPE_LOCKED_MESSAGE); "Excluir" abre o DeleteConfirmedOccurrenceDialog em vez do ConfirmDeleteTransactionDialog e confirmDelete(afterwards) chama deleteConfirmedTransaction(id, \'pending\' | \'skip\'); sem afterwards, deleteTransaction como antes.',
   },
 ]
 
@@ -3252,7 +3394,7 @@ export const FLOWS: readonly Flow[] = [
     id: 'transaction-delete',
     title: 'Excluir lançamento (com confirmação)',
     summary:
-      '"Excluir" na edição abre o modal "Excluir lançamento?" (ConfirmDeleteTransactionDialog, <dialog> nativo — D-33). Confirmar chama deleteTransaction e volta para a tela anterior (D-38(c)); falha mostra ErrorAlert no modal e mantém a tela. Os saldos e a lista do Início se atualizam pelo useLiveQuery (CA-01.6). As regras de recorrentes e parcelas chegam nas Fases 9 e 10.',
+      '"Excluir" na edição abre o modal "Excluir lançamento?" (ConfirmDeleteTransactionDialog, <dialog> nativo — D-33). Confirmar chama deleteTransaction e volta para a tela anterior (D-38(c)); falha mostra ErrorAlert no modal e mantém a tela. Os saldos e a lista do Início se atualizam pelo useLiveQuery (CA-01.6). Desde a Fase 9, o lançamento confirmado de um recorrente segue o fluxo "Excluir lançamento confirmado" (DeleteConfirmedOccurrenceDialog); as regras de parcelas chegam na Fase 10.',
     requirements: ['RF-01', 'CA-01.6', 'D-33', 'D-38'],
     participants: [
       { id: 'user', label: 'Usuário' },
@@ -5193,16 +5335,895 @@ export const FLOWS: readonly Flow[] = [
       'src/features/charts/chart/moneyAxis.test.ts',
     ],
   },
+  {
+    id: 'recurring-create',
+    title: 'Criar recorrente',
+    summary:
+      'Ajustes → Recorrentes → "Novo recorrente" abre um modal com tipo, descrição, tag (com o atalho de criar tag), valor, mês de início (padrão o atual) e término opcional. O botão "Criar" só fica ativo com o formulário válido (princípio 16); createRecurring grava o 1º valor desde o mês de início numa transação rw [tags, recurrings] e a tela abre os detalhes do recorrente novo (D-51(h)).',
+    requirements: ['RF-07', 'CA-07.6', 'CA-01.7', 'D-04', 'D-36', 'D-51'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'page',
+        label: 'RecurringsPage',
+        module: 'src/features/recurrings/RecurringsPage.tsx',
+      },
+      {
+        id: 'dialog',
+        label: 'NewRecurringDialog',
+        module: 'src/features/recurrings/NewRecurringDialog.tsx',
+      },
+      {
+        id: 'form',
+        label: 'useRecurringForm',
+        module: 'src/features/recurrings/useRecurringForm.ts',
+      },
+      { id: 'schema', label: 'recurringInputSchema', module: 'src/domain/recurringSchema.ts' },
+      {
+        id: 'repo',
+        label: 'recurringsRepository',
+        module: 'src/repositories/recurringsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: tags + recurrings', module: 'src/db/database.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'page',
+        label: 'toca "Novo recorrente"',
+        detail:
+          'isCreating = true abre o Modal; o NewRecurringForm nasce com Saída, mês atual e sem término.',
+        refs: ['RF-07'],
+        kind: 'event',
+      },
+      {
+        from: 'dialog',
+        to: 'form',
+        label: 'useRecurringForm({ schema, defaultValues, save, toErrorMessage })',
+        detail:
+          'RHF + zodResolver com LIVE_VALIDATION: erro no campo enquanto digita e canSubmitForm controla "Criar" (D-36).',
+        refs: ['D-36'],
+        kind: 'call',
+      },
+      {
+        from: 'form',
+        to: 'schema',
+        label: 'valida a cada alteração',
+        detail:
+          'Campos comuns do lançamento (transactionTypeSchema, amountCentsSchema, tagIdSchema, descriptionSchema) + início YYYY-MM válido (isValidPeriod) + término vazio ou ≥ início.',
+        refs: ['RF-07', 'D-04'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'dialog',
+        label: 'preenche e toca "Criar"',
+        detail: 'Sem tags, o NoTagsNotice abre o CreateTagDialog sem perder o digitado (CA-01.7).',
+        refs: ['CA-01.7'],
+        kind: 'event',
+      },
+      {
+        from: 'form',
+        to: 'repo',
+        label: 'createRecurring(values)',
+        detail:
+          'Revalida com recurringInputSchema.parse; id = crypto.randomUUID(); amounts = [{ fromPeriod: início, amountCents }], skippedPeriods = [], endPeriod "" → null.',
+        refs: ['RF-07'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [tags, recurrings]): assertTagExists → add",
+        detail:
+          'Tag apagada em outra aba → RecurringTagNotFoundError ("A tag escolhida não existe mais. Escolha outra.").',
+        refs: ['D-01', 'D-02'],
+        kind: 'call',
+      },
+      {
+        from: 'dialog',
+        to: 'page',
+        label: 'onCreated(recurring)',
+        detail:
+          'Fecha o modal e navega para /ajustes/recorrentes/:id (D-51(h)); a lista ao vivo já inclui o novo.',
+        refs: ['D-51', 'CA-07.6'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/recurrings/RecurringsPage.test.tsx',
+      'src/repositories/recurringsRepository.test.ts',
+      'src/domain/recurringSchema.test.ts',
+    ],
+  },
+  {
+    id: 'recurring-confirm',
+    title: 'Confirmar ocorrência de recorrente (Início, visão Mês ou detalhes)',
+    summary:
+      'A ocorrência pendente aparece no Início (mês atual, só "Confirmar"), na visão Mês ("Confirmar" e "Pular") e no status do mês atual dos detalhes. "Confirmar" abre o ConfirmOccurrenceDialog compartilhado com valor vigente, data padrão (hoje no mês atual; senão dia 1 — D-14), "ⓘ" e linha de ajuda (CA-07.8), tag e descrição, todos editáveis só para esta ocorrência. confirmOccurrence checa o índice [recurringId+recurringPeriod] e grava o lançamento vinculado na mesma transação: duas confirmações simultâneas gravam um lançamento só (CA-07.5).',
+    requirements: [
+      'RF-07',
+      'RF-02',
+      'RF-05',
+      'CA-07.1',
+      'CA-07.2',
+      'CA-07.5',
+      'CA-07.8',
+      'D-14',
+      'D-51',
+    ],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'section',
+        label: 'PendingOccurrencesSection',
+        module: 'src/components/recurrings/PendingOccurrencesSection.tsx',
+      },
+      {
+        id: 'dialog',
+        label: 'ConfirmOccurrenceDialog',
+        module: 'src/components/recurrings/ConfirmOccurrenceDialog.tsx',
+      },
+      {
+        id: 'form',
+        label: 'useConfirmOccurrenceForm',
+        module: 'src/components/recurrings/useConfirmOccurrenceForm.ts',
+      },
+      { id: 'info', label: 'InfoPopover', module: 'src/components/ui/InfoPopover.tsx' },
+      { id: 'schema', label: 'confirmOccurrenceSchema', module: 'src/domain/recurringSchema.ts' },
+      {
+        id: 'repo',
+        label: 'recurringsRepository',
+        module: 'src/repositories/recurringsRepository.ts',
+      },
+      { id: 'domain', label: 'domain/recurring', module: 'src/domain/recurring.ts' },
+      {
+        id: 'dexie',
+        label: 'Dexie: tags + recurrings + transactions',
+        module: 'src/db/database.ts',
+      },
+    ],
+    steps: [
+      {
+        from: 'section',
+        to: 'repo',
+        label: 'usePendingOccurrences([meses])',
+        detail:
+          'listPendingOccurrences numa transação r: todos os recorrentes + os confirmados dos meses por anyOf no índice [recurringId+recurringPeriod]; pendingOccurrences por mês (ordem alfabética). O Início pede o mês de hoje (PendingRecurrings); a visão Mês, o mês exibido (usePeriodPending). Nos detalhes, o RecurringDetailPage monta a ocorrência do mês atual com amountFor.',
+        refs: ['CA-07.1', 'RF-02', 'RF-05'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'section',
+        label: 'toca "Confirmar"',
+        detail:
+          'setConfirming(occurrence) abre o modal; mês passado aparece com o selo "Não confirmada" (CA-07.7).',
+        refs: ['CA-07.2'],
+        kind: 'event',
+      },
+      {
+        from: 'dialog',
+        to: 'form',
+        label: 'useConfirmOccurrenceForm(occurrence, today, onConfirmed)',
+        detail:
+          'defaultValues: valor vigente, defaultOccurrenceDate (hoje no mês atual; senão AAAA-MM-01 — D-14), tag e descrição do recorrente; abre válido, então "Confirmar" já começa ativo (princípio 16).',
+        refs: ['D-14', 'D-36'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'info',
+        label: 'toca "ⓘ" (opcional)',
+        detail:
+          'Balão explica a data sugerida (dateInfoText); fecha com outro toque, tocando fora ou com Esc (sem fechar o modal). A linha "Escolha um dia de <mês/ano>." fica sempre visível (Field.Hint + aria-describedby).',
+        refs: ['CA-07.8'],
+        kind: 'event',
+      },
+      {
+        from: 'form',
+        to: 'schema',
+        label: 'confirmOccurrenceSchema(period)',
+        detail:
+          'Data fora do mês → "A data precisa estar em <mês/ano>." (dateOutsidePeriodMessage, isDateInPeriod) e o botão fica desabilitado.',
+        refs: ['CA-07.8'],
+        kind: 'call',
+      },
+      {
+        from: 'form',
+        to: 'repo',
+        label: 'confirmOccurrence(id, period, values)',
+        detail: 'Revalida com confirmOccurrenceSchema(period).parse.',
+        refs: ['CA-07.2'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [tags, recurrings, transactions])",
+        detail:
+          'getExisting → assertPending (contagem no índice [recurringId+recurringPeriod] → OccurrenceAlreadyConfirmedError; occurrenceStatus ≠ pending → OccurrenceNotPendingError) → assertTagExists → add do lançamento com o tipo do recorrente, recurringId e recurringPeriod. Checagem e gravação na mesma transação (CA-07.5).',
+        refs: ['CA-07.5', 'D-51'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'domain',
+        label: 'occurrenceStatus(recurring, period)',
+        detail: 'Mês pulado, antes do início ou depois do término não é pendente.',
+        refs: ['CA-07.4'],
+        kind: 'call',
+      },
+      {
+        from: 'form',
+        to: 'section',
+        label: 'onConfirmed(transaction)',
+        detail:
+          'Fecha o modal e mostra o Toast "Ocorrência confirmada"; o useLiveQuery tira a pendência da lista e atualiza saldos e visões. Erros de corrida viram "Esta ocorrência já foi confirmada." / "…não está mais pendente." no ErrorAlert do modal.',
+        refs: ['CA-07.2', 'CA-07.5'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/repositories/recurringsRepository.test.ts',
+      'src/domain/recurring.test.ts',
+      'src/domain/recurringSchema.test.ts',
+      'src/features/home/HomePage.recurrings.test.tsx',
+      'src/features/views/ViewsPage.recurrings.test.tsx',
+      'src/features/recurrings/RecurringDetailPage.test.tsx',
+      'src/components/ui/InfoPopover.test.tsx',
+    ],
+  },
+  {
+    id: 'recurring-skip',
+    title: 'Pular e desfazer ocorrência',
+    summary:
+      'Na visão Mês cada pendente tem "Pular"; depois aparece "Mês pulado." com "Desfazer" por 8 s. Nos detalhes, o status do mês atual tem "Pular"/"Desfazer" e a lista "Meses pulados" tem um "Desfazer" por mês (D-51(c)). No Início não há "Pular". Os botões ficam desabilitados enquanto a ação roda, e o que outra aba mudou no meio aparece com a mensagem da regra (D-51(m)). O mês pulado sai das pendências e do Previsto (CA-07.4).',
+    requirements: ['RF-07', 'CA-07.4', 'CA-05.2', 'D-51'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'section',
+        label: 'PendingOccurrencesSection / useRecurringDetail',
+        module: 'src/components/recurrings/PendingOccurrencesSection.tsx',
+      },
+      {
+        id: 'detail',
+        label: 'useRecurringDetail',
+        module: 'src/features/recurrings/useRecurringDetail.ts',
+      },
+      {
+        id: 'errors',
+        label: 'skipErrorMessage',
+        module: 'src/components/recurrings/skipErrorMessage.ts',
+      },
+      {
+        id: 'repo',
+        label: 'recurringsRepository',
+        module: 'src/repositories/recurringsRepository.ts',
+      },
+      { id: 'domain', label: 'domain/recurring', module: 'src/domain/recurring.ts' },
+      { id: 'dexie', label: 'Dexie: recurrings + transactions', module: 'src/db/database.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'section',
+        label: 'toca "Pular" (visão Mês)',
+        detail:
+          'isBusy = true desabilita os "Pular" (o toque duplo não mostra erro falso). Nos detalhes, o mesmo papel é do useRecurringDetail.skip(currentPeriod) via runAction.',
+        refs: ['CA-07.4', 'D-51'],
+        kind: 'event',
+      },
+      {
+        from: 'section',
+        to: 'repo',
+        label: 'skipOccurrence(id, period)',
+        detail: 'updateRecurring: leitura, regra e gravação numa só transação rw.',
+        refs: ['CA-07.4'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [tags, recurrings, transactions])",
+        detail:
+          'getExisting → assertPending (já confirmada → OccurrenceAlreadyConfirmedError; não pendente → OccurrenceNotPendingError) → put com updatedAt novo.',
+        refs: ['CA-07.5'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'domain',
+        label: 'skipPeriod(recurring, period)',
+        detail: 'Acrescenta o mês a skippedPeriods em ordem (idempotente; função pura).',
+        refs: ['CA-07.4'],
+        kind: 'call',
+      },
+      {
+        from: 'section',
+        to: 'user',
+        label: '"Mês pulado." + "Desfazer" (8 s)',
+        detail:
+          'undoNotice = useToast(8000) num Notice accent dentro de role="status"; continua visível mesmo se a lista ficar vazia. A pendência some e o Previsto diminui (useLiveQuery).',
+        refs: ['D-51', 'CA-05.2'],
+        kind: 'return',
+      },
+      {
+        from: 'user',
+        to: 'section',
+        label: 'toca "Desfazer"',
+        detail:
+          'Nos detalhes: "Desfazer" no status do mês ou em "Meses pulados" (useRecurringDetail.undoSkip).',
+        refs: ['CA-07.4'],
+        kind: 'event',
+      },
+      {
+        from: 'section',
+        to: 'repo',
+        label: 'unskipOccurrence(id, period)',
+        detail:
+          'unskipPeriod tira o mês de skippedPeriods; a ocorrência volta a pendente; undoNotice.hide().',
+        refs: ['CA-07.4'],
+        kind: 'call',
+      },
+      {
+        from: 'detail',
+        to: 'errors',
+        label: 'skipErrorMessage(error, fallback)',
+        detail:
+          'OccurrenceNotPendingError/OccurrenceAlreadyConfirmedError → "Esta ocorrência não está mais pendente."; outra falha → "Não foi possível pular o mês…" / "…desfazer…".',
+        refs: ['D-51'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/views/ViewsPage.recurrings.test.tsx',
+      'src/features/recurrings/RecurringDetailPage.test.tsx',
+      'src/repositories/recurringsRepository.test.ts',
+      'src/domain/recurring.test.ts',
+    ],
+  },
+  {
+    id: 'recurring-change-amount',
+    title: 'Alterar valor do recorrente para o futuro',
+    summary:
+      '"Alterar valor" nos detalhes abre um modal com o novo valor e o mês a partir do qual vale (padrão: o mês atual, ou o início se ainda não começou). Mês antes do início ou depois do término dá erro no campo. setAmountFrom troca os valores daquele mês em diante pelo novo; ocorrências anteriores e lançamentos já confirmados não mudam (CA-07.3).',
+    requirements: ['RF-07', 'CA-07.3', 'D-36', 'D-51'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'page',
+        label: 'RecurringDetailPage',
+        module: 'src/features/recurrings/RecurringDetailPage.tsx',
+      },
+      {
+        id: 'dialog',
+        label: 'ChangeAmountDialog',
+        module: 'src/features/recurrings/ChangeAmountDialog.tsx',
+      },
+      {
+        id: 'form',
+        label: 'useRecurringForm',
+        module: 'src/features/recurrings/useRecurringForm.ts',
+      },
+      {
+        id: 'repo',
+        label: 'recurringsRepository',
+        module: 'src/repositories/recurringsRepository.ts',
+      },
+      { id: 'domain', label: 'setAmountFrom', module: 'src/domain/recurring.ts' },
+      { id: 'dexie', label: 'Dexie: recurrings', module: 'src/db/database.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'page',
+        label: 'toca "Alterar valor"',
+        detail: 'openDialog("amount").',
+        refs: ['CA-07.3'],
+        kind: 'event',
+      },
+      {
+        from: 'dialog',
+        to: 'form',
+        label: 'useRecurringForm(amountChangeSchemaFor(recurring))',
+        detail:
+          'amountChangeSchema + refine: "O novo valor não pode valer antes do início (<mês>)." / "…depois do término (<mês>)." no campo "A partir de"; "Alterar valor" desabilitado enquanto inválido.',
+        refs: ['CA-07.3', 'D-36'],
+        kind: 'call',
+      },
+      {
+        from: 'form',
+        to: 'repo',
+        label: 'changeRecurringAmount(id, { fromPeriod, amountCents })',
+        detail: 'Revalida com amountChangeSchema.parse.',
+        refs: ['CA-07.3'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'domain',
+        label: 'setAmountFrom(recurring, fromPeriod, amountCents)',
+        detail:
+          'Remove os valores com fromPeriod ≥ o mês escolhido e acrescenta o novo no fim (amounts continua em ordem crescente); AmountBeforeStartError / AmountAfterEndError se outra aba mudou o recorrente (viram a mesma mensagem do campo).',
+        refs: ['CA-07.3', 'D-51'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [tags, recurrings, transactions]): get → put",
+        detail: 'updateRecurring; lançamentos confirmados não são tocados.',
+        refs: ['CA-07.3'],
+        kind: 'call',
+      },
+      {
+        from: 'form',
+        to: 'page',
+        label: 'onSaved → Toast "Valor alterado"',
+        detail: 'O "Histórico de valores" e o valor vigente se atualizam pelo useLiveQuery.',
+        refs: ['CA-07.3'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/recurrings/RecurringDetailPage.test.tsx',
+      'src/repositories/recurringsRepository.test.ts',
+      'src/domain/recurring.test.ts',
+    ],
+  },
+  {
+    id: 'recurring-end',
+    title: 'Encerrar recorrente',
+    summary:
+      '"Encerrar" define o último mês (inclusive). Não pode ser antes do início nem antes do último mês confirmado: o erro aparece no campo e o padrão já respeita esse limite. endRecurring descarta os meses pulados e os valores que ficariam depois do término; os lançamentos confirmados continuam (D-15, D-51(d)).',
+    requirements: ['RF-07', 'D-15', 'D-51'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'detail',
+        label: 'useRecurringDetail',
+        module: 'src/features/recurrings/useRecurringDetail.ts',
+      },
+      {
+        id: 'dialog',
+        label: 'EndRecurringDialog',
+        module: 'src/features/recurrings/EndRecurringDialog.tsx',
+      },
+      {
+        id: 'repo',
+        label: 'recurringsRepository',
+        module: 'src/repositories/recurringsRepository.ts',
+      },
+      { id: 'domain', label: 'domain/recurring', module: 'src/domain/recurring.ts' },
+      { id: 'dexie', label: 'Dexie: recurrings + transactions', module: 'src/db/database.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'detail',
+        label: 'toca "Encerrar" (ou "Encerrar" no bloqueio da exclusão)',
+        detail: 'openDialog("end") ou endInsteadOfDelete().',
+        refs: ['D-15'],
+        kind: 'event',
+      },
+      {
+        from: 'detail',
+        to: 'domain',
+        label: 'lastConfirmedPeriod(confirmations)',
+        detail:
+          'Maior recurringPeriod entre os lançamentos confirmados (useRecurringConfirmations).',
+        refs: ['D-51'],
+        kind: 'call',
+      },
+      {
+        from: 'detail',
+        to: 'dialog',
+        label: 'lastConfirmedPeriod, currentPeriod',
+        detail:
+          'defaultEndPeriod = o maior entre término atual (ou mês atual), início e último confirmado; refine no campo "Último mês": "O término não pode ser antes de <mês/ano>, que já foi confirmado."',
+        refs: ['D-51'],
+        kind: 'call',
+      },
+      {
+        from: 'dialog',
+        to: 'repo',
+        label: 'endRecurringAt(id, { endPeriod })',
+        detail: 'Revalida com endRecurringSchema.parse.',
+        refs: ['RF-07'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [tags, recurrings, transactions])",
+        detail:
+          'Lê os confirmados pelo índice recurringId na mesma transação (lastConfirmedPeriod) — uma confirmação em outra aba não escapa — e grava com put.',
+        refs: ['D-51'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'domain',
+        label: 'endRecurring(recurring, endPeriod, lastConfirmed)',
+        detail:
+          'EndBeforeStartError / EndBeforeConfirmedError; descarta skippedPeriods e amounts depois do término.',
+        refs: ['D-51'],
+        kind: 'call',
+      },
+      {
+        from: 'detail',
+        to: 'user',
+        label: 'Toast "Recorrente encerrado"',
+        detail:
+          'Status vira "Encerrado" depois do término; meses seguintes deixam de ter ocorrência.',
+        refs: ['CA-07.6'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/recurrings/RecurringDetailPage.test.tsx',
+      'src/repositories/recurringsRepository.test.ts',
+      'src/domain/recurring.test.ts',
+      'src/domain/recurringSchema.test.ts',
+    ],
+  },
+  {
+    id: 'recurring-delete',
+    title: 'Excluir recorrente (com bloqueio)',
+    summary:
+      '"Excluir" nos detalhes: sem ocorrência confirmada, "Excluir recorrente?" e a tela volta para a lista; com alguma confirmada, "Não é possível excluir" sugere "Encerrar" (D-15). A contagem e a exclusão ficam na mesma transação; se outra aba confirmar no meio, o modal vira o bloqueio.',
+    requirements: ['RF-07', 'D-15', 'D-33'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'detail',
+        label: 'useRecurringDetail',
+        module: 'src/features/recurrings/useRecurringDetail.ts',
+      },
+      {
+        id: 'dialog',
+        label: 'DeleteRecurringDialog',
+        module: 'src/features/recurrings/DeleteRecurringDialog.tsx',
+      },
+      {
+        id: 'repo',
+        label: 'recurringsRepository',
+        module: 'src/repositories/recurringsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: recurrings + transactions', module: 'src/db/database.ts' },
+      { id: 'back', label: 'useGoBack', module: 'src/components/ui/useGoBack.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'detail',
+        label: 'toca "Excluir"',
+        detail: 'requestDelete(): deleteStep = confirmations.length > 0 ? "blocked" : "confirm".',
+        refs: ['D-15'],
+        kind: 'event',
+      },
+      {
+        from: 'detail',
+        to: 'dialog',
+        label: 'step',
+        detail:
+          'confirm → "Excluir recorrente?" (Cancelar | Excluir); blocked → "Não é possível excluir" (Fechar | Encerrar → abre o EndRecurringDialog).',
+        refs: ['D-15', 'D-33'],
+        kind: 'call',
+      },
+      {
+        from: 'detail',
+        to: 'repo',
+        label: 'deleteRecurring(id)',
+        detail: 'isDeleting desabilita o botão.',
+        refs: ['RF-07'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [recurrings, transactions]): count → delete",
+        detail:
+          'Conta os confirmados pelo índice recurringId; > 0 → RecurringHasConfirmationsError (o modal passa a "blocked").',
+        refs: ['D-15'],
+        kind: 'call',
+      },
+      {
+        from: 'detail',
+        to: 'back',
+        label: 'isDeleted = true → goBack("/ajustes/recorrentes")',
+        detail: 'isDeleted evita piscar "Recorrente não encontrado" durante a saída.',
+        refs: ['CA-13.2'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/recurrings/RecurringDetailPage.test.tsx',
+      'src/repositories/recurringsRepository.test.ts',
+    ],
+  },
+  {
+    id: 'recurring-confirmed-edit',
+    title: 'Editar lançamento confirmado de recorrente',
+    summary:
+      'O lançamento que confirmou uma ocorrência continua no mês dela e com o tipo do recorrente (D-51(b)/(l)): na edição, a data mostra a linha "Escolha um dia de <mês/ano>." e dá erro fora do mês; o seletor Saída/Entrada fica desabilitado com a razão escrita. O updateTransaction repete as duas regras dentro da transação.',
+    requirements: ['RF-01', 'RF-07', 'CA-01.5', 'CA-07.8', 'D-51'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'page',
+        label: 'TransactionDetailPage',
+        module: 'src/features/transactions/TransactionDetailPage.tsx',
+      },
+      {
+        id: 'form',
+        label: 'TransactionForm',
+        module: 'src/components/transactions/TransactionForm.tsx',
+      },
+      {
+        id: 'formHook',
+        label: 'useTransactionForm',
+        module: 'src/components/transactions/useTransactionForm.ts',
+      },
+      { id: 'dates', label: 'isDateInPeriod', module: 'src/domain/dates.ts' },
+      {
+        id: 'repo',
+        label: 'transactionsRepository',
+        module: 'src/repositories/transactionsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: tags + transactions', module: 'src/db/database.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'page',
+        label: 'abre um lançamento confirmado',
+        detail:
+          'Pelo Início, lista, visões ou "Lançamentos confirmados" dos detalhes do recorrente.',
+        refs: ['CA-01.5'],
+        kind: 'event',
+      },
+      {
+        from: 'form',
+        to: 'formHook',
+        label: 'useTransactionForm({ transaction })',
+        detail:
+          'occurrencePeriod = transaction.recurringPeriod; schemaFor(occurrencePeriod) = transactionInputSchema + refine(isDateInPeriod); isTypeLocked = recurringId ≠ null.',
+        refs: ['D-51'],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'dates',
+        label: 'isDateInPeriod(date, period)',
+        detail:
+          'Data válida e com o mesmo YYYY-MM; fora → "A data precisa estar em <mês/ano>." e "Salvar" desabilitado.',
+        refs: ['CA-07.8'],
+        kind: 'call',
+      },
+      {
+        from: 'form',
+        to: 'user',
+        label: 'TypeRadio disabled + TYPE_LOCKED_MESSAGE; Field.Hint na data',
+        detail: '<fieldset disabled>; a razão aparece escrita (princípio 15).',
+        refs: ['D-51'],
+        kind: 'return',
+      },
+      {
+        from: 'formHook',
+        to: 'repo',
+        label: 'updateTransaction(id, values)',
+        detail: 'Mesmo caminho do fluxo "Editar lançamento".',
+        refs: ['CA-01.5'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [tags, transactions]): get → regras → put",
+        detail:
+          'Tipo diferente → OccurrenceTypeChangeError; data fora do mês → OccurrenceDateOutsidePeriodError (mensagens do formulário em saveError); vínculos mantidos.',
+        refs: ['D-51'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/transactions/TransactionDetailPage.recurrings.test.tsx',
+      'src/repositories/recurringsRepository.test.ts',
+      'src/repositories/transactionsRepository.test.ts',
+    ],
+  },
+  {
+    id: 'recurring-confirmed-delete',
+    title: 'Excluir lançamento confirmado (voltar a pendente ou pular o mês)',
+    summary:
+      'Excluir o lançamento que confirmou uma ocorrência pergunta o que fazer com o mês: "Excluir e voltar a pendente" ou "Excluir e pular este mês" (D-51(j)). deleteConfirmedTransaction apaga o lançamento e, no segundo caso, pula o mês na mesma transação: nunca fica um sem o outro.',
+    requirements: ['RF-07', 'RF-01', 'CA-01.6', 'CA-07.4', 'D-51'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'page',
+        label: 'TransactionDetailPage',
+        module: 'src/features/transactions/TransactionDetailPage.tsx',
+      },
+      {
+        id: 'dialog',
+        label: 'DeleteConfirmedOccurrenceDialog',
+        module: 'src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx',
+      },
+      {
+        id: 'detail',
+        label: 'useTransactionDetail',
+        module: 'src/features/transactions/useTransactionDetail.ts',
+      },
+      {
+        id: 'repo',
+        label: 'recurringsRepository',
+        module: 'src/repositories/recurringsRepository.ts',
+      },
+      { id: 'domain', label: 'skipPeriod', module: 'src/domain/recurring.ts' },
+      { id: 'dexie', label: 'Dexie: recurrings + transactions', module: 'src/db/database.ts' },
+      { id: 'back', label: 'useGoBack', module: 'src/components/ui/useGoBack.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'page',
+        label: 'toca "Excluir"',
+        detail:
+          'Com recurringPeriod ≠ null, o TransactionDetailPage monta o DeleteConfirmedOccurrenceDialog (o ConfirmDeleteTransactionDialog fica fechado).',
+        refs: ['CA-01.6'],
+        kind: 'event',
+      },
+      {
+        from: 'user',
+        to: 'dialog',
+        label: 'escolhe "voltar a pendente" ou "pular este mês"',
+        detail: 'onConfirm("pending" | "skip"); botões desabilitados durante a exclusão.',
+        refs: ['D-51'],
+        kind: 'event',
+      },
+      {
+        from: 'detail',
+        to: 'repo',
+        label: 'confirmDelete(afterwards) → deleteConfirmedTransaction(id, afterwards)',
+        detail: 'Sem afterwards (lançamento avulso), deleteTransaction como antes.',
+        refs: ['RF-07'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [recurrings, transactions]): get → delete",
+        detail: 'Lançamento já inexistente: nada acontece.',
+        refs: ['CA-01.6'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'domain',
+        label: 'skipPeriod(recurring, recurringPeriod) (só "skip")',
+        detail:
+          'put do recorrente na mesma transação; com "pending" a ocorrência simplesmente volta às pendências.',
+        refs: ['CA-07.4'],
+        kind: 'call',
+      },
+      {
+        from: 'detail',
+        to: 'back',
+        label: 'finish() → goBack',
+        detail: 'Volta para a tela anterior (tela pai /lancamentos — D-38(c)).',
+        refs: ['D-38'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/transactions/TransactionDetailPage.recurrings.test.tsx',
+      'src/repositories/recurringsRepository.test.ts',
+    ],
+  },
+  {
+    id: 'views-projected',
+    title: 'Previsto e recorrentes pendentes nas visões',
+    summary:
+      'Na visão Mês o cartão separa "Realizado" (Entradas, Saídas, Resultado) e "Previsto" (Realizado + pendentes do mês — D-05), e abaixo dos dias vem "Recorrentes pendentes" com "Confirmar" e "Pular"; na visão Ano cada mês mostra "Previsto ±R$ X". Dia e Semana não têm Previsto (D-51(i)). As pendências de todos os meses do período vêm de uma só leitura pelo índice composto.',
+    requirements: ['RF-05', 'RF-07', 'CA-05.2', 'CA-07.1', 'CA-07.7', 'D-05', 'D-51'],
+    participants: [
+      { id: 'page', label: 'ViewsPage', module: 'src/features/views/ViewsPage.tsx' },
+      {
+        id: 'pending',
+        label: 'usePeriodPending',
+        module: 'src/features/views/usePeriodPending.ts',
+      },
+      {
+        id: 'repo',
+        label: 'recurringsRepository',
+        module: 'src/repositories/recurringsRepository.ts',
+      },
+      { id: 'domain', label: 'domain/recurring', module: 'src/domain/recurring.ts' },
+      {
+        id: 'card',
+        label: 'PeriodSummaryCard',
+        module: 'src/features/views/PeriodSummaryCard.tsx',
+      },
+      { id: 'month', label: 'MonthDetail', module: 'src/features/views/MonthDetail.tsx' },
+      { id: 'year', label: 'YearDetail', module: 'src/features/views/YearDetail.tsx' },
+    ],
+    steps: [
+      {
+        from: 'page',
+        to: 'pending',
+        label: 'usePeriodPending(granularity, range)',
+        detail: 'Mês → [mês]; Ano → os 12 meses (periodsBetween); Dia/Semana → [].',
+        refs: ['CA-05.2'],
+        kind: 'call',
+      },
+      {
+        from: 'pending',
+        to: 'repo',
+        label: 'usePendingOccurrences(periods)',
+        detail:
+          'listPendingOccurrences numa transação r (anyOf no índice [recurringId+recurringPeriod]); devolve undefined enquanto a chave dos meses muda (não mostra pendências de outro período com o título novo).',
+        refs: ['CA-07.1', 'D-51'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'domain',
+        label: 'pendingOccurrences(recurrings, confirmed, period)',
+        detail:
+          'Ativos no mês (isActiveIn), não pulados e não confirmados, com amountFor; meses passados continuam (CA-07.7).',
+        refs: ['CA-07.1', 'CA-07.7'],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'domain',
+        label: 'projected(totals, pendentes).resultCents',
+        detail:
+          'Só na visão Mês; null enquanto carrega ("—"). Pendências nunca entram no Realizado (D-05).',
+        refs: ['CA-05.2', 'D-05'],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'card',
+        label: 'totals, projectedResultCents',
+        detail: '"Realizado" + linha "Previsto" com SignedAmount.',
+        refs: ['CA-05.2'],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'month',
+        label: 'pending do mês',
+        detail:
+          'PendingOccurrencesSection canSkip: "Confirmar" (fluxo de confirmação) e "Pular" (fluxo de pular); "Não confirmada" nos meses passados.',
+        refs: ['CA-07.4', 'CA-07.7'],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'year',
+        label: 'pending (Map mês → ocorrências)',
+        detail:
+          'Cada PeriodRows.Item recebe projected(mês, pendentes).resultCents → "Previsto ±R$ X".',
+        refs: ['CA-05.2'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/views/ViewsPage.recurrings.test.tsx',
+      'src/domain/recurring.test.ts',
+      'src/repositories/recurringsRepository.test.ts',
+    ],
+  },
 ]
 
 /** Fluxos exigidos pela §6.12 que ainda não existem no código. */
 export const PLANNED_FLOWS: readonly PlannedFlow[] = [
-  {
-    title: 'Confirmar/pular recorrente e alterar valor',
-    phase: 9,
-    requirements: ['RF-07', 'D-14', 'D-15'],
-    summary: 'pendingOccurrences → modal de confirmação → lançamento vinculado.',
-  },
   {
     title: 'Criar/excluir parcelamento',
     phase: 10,
@@ -5362,7 +6383,7 @@ export const TABLE_NOTES: readonly TableNote[] = [
     backupDetail:
       'todos os registros; na importação, nameKey precisa ser igual a toTagNameKey(name) e único (D-47(c)); ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 3,
-    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). Fase 4: listTags/useTags (ordenadas por nome) alimentam o TagPicker e as linhas dos últimos lançamentos; transactionsRepository lê tags só em assertTagExists, dentro da transação rw do lançamento (D-39); o atalho do CA-01.7 grava pelo mesmo TagForm → createTag. Fase 5: useTags também alimenta o filtro de tag da lista (TagFilter) e a detecção de tag do filtro excluída (useTransactionList). Fase 7: useTags no DayDetail da visão Dia (chips das linhas). Fase 8: useTags na ChartList (nome e cor de cada fatia das pizzas — CA-06.3). &nameKey (toTagNameKey = foldText + trim desde a Fase 5: NFD, sem marcas \\p{M}, minúsculas) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags). Fase 6: backupRepository lê tudo na exportação (transação r) e, na importação, limpa e regrava com bulkAdd na transação rw (D-07).',
+    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). Fase 4: listTags/useTags (ordenadas por nome) alimentam o TagPicker e as linhas dos últimos lançamentos; transactionsRepository lê tags só em assertTagExists, dentro da transação rw do lançamento (D-39); o atalho do CA-01.7 grava pelo mesmo TagForm → createTag. Fase 5: useTags também alimenta o filtro de tag da lista (TagFilter) e a detecção de tag do filtro excluída (useTransactionList). Fase 7: useTags no DayDetail da visão Dia (chips das linhas). Fase 8: useTags na ChartList (nome e cor de cada fatia das pizzas — CA-06.3). &nameKey (toTagNameKey = foldText + trim desde a Fase 5: NFD, sem marcas \\p{M}, minúsculas) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags). Fase 6: backupRepository lê tudo na exportação (transação r) e, na importação, limpa e regrava com bulkAdd na transação rw (D-07). Fase 9: recurringsRepository lê tags só em assertTagExists (criar, editar descrição/tag e confirmar ocorrência), dentro da transação rw de cada operação; useTags alimenta o TagPicker dos modais de recorrente e as linhas das listas de recorrentes e pendências.',
   },
   {
     name: 'transactions',
@@ -5371,7 +6392,7 @@ export const TABLE_NOTES: readonly TableNote[] = [
     backupDetail:
       'todos os registros; na importação, tagId/recurringId/installmentGroupId precisam existir e installmentNumber ≤ count do parcelamento (hasReferentialIntegrity — D-47(c)); ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 4,
-    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (toArray() da tabela inteira + overallBalance — D-42), getMonthTotals (between + totals), listRecentTransactions (where("date").belowOrEqual(hoje).reverse().limit(5) acha a data de corte; releitura between(corte, hoje) numa transação r; ordem por takeMostRecent — D-39/D-40) e getTransaction; cada uma com hook useLiveQuery. Fase 5 (D-44(a)): listTransactionsInPeriod(from, to) lê o índice date sempre em ordem crescente — between (período fechado), aboveOrEqual/belowOrEqual (uma ponta) ou orderBy("date") (sem período) — com toArray() (um getAll() nativo; .reverse() do Dexie abriria um cursor com uma volta por registro no Safari) e inverte em memória antes de sortByRecency; countTransactions() usa count() sem ler registros. Hooks useTransactionsInPeriod e useTransactionCount. Os índices type/tagId não são usados pela lista: tipo, tag e texto são filtrados no domínio. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9). Fase 6: backupRepository lê e regrava a tabela inteira (exportar/importar); o BackupReminder do Início usa useTransactionCount (count()). Fase 7: a tela de visões lê só o intervalo do período (dia, semana, mês ou ano) pelo índice date com useTransactionsInRange (mesmo listTransactionsInPeriod; undefined enquanto um intervalo novo carrega — D-49(g)); os totais e as linhas são calculados no domínio (periodViews). Nenhuma escrita nova. Fase 8: os gráficos leem o mesmo intervalo do período (usePeriodView) e, na linha do saldo, useTransactionsInRange(null, fim) — belowOrEqual(fim) no índice date, ou seja, todos os lançamentos até o fim do período a cada troca de período (D-50(f)); séries e fatias calculadas em domain/charts. Nenhuma escrita.',
+    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (toArray() da tabela inteira + overallBalance — D-42), getMonthTotals (between + totals), listRecentTransactions (where("date").belowOrEqual(hoje).reverse().limit(5) acha a data de corte; releitura between(corte, hoje) numa transação r; ordem por takeMostRecent — D-39/D-40) e getTransaction; cada uma com hook useLiveQuery. Fase 5 (D-44(a)): listTransactionsInPeriod(from, to) lê o índice date sempre em ordem crescente — between (período fechado), aboveOrEqual/belowOrEqual (uma ponta) ou orderBy("date") (sem período) — com toArray() (um getAll() nativo; .reverse() do Dexie abriria um cursor com uma volta por registro no Safari) e inverte em memória antes de sortByRecency; countTransactions() usa count() sem ler registros. Hooks useTransactionsInPeriod e useTransactionCount. Os índices type/tagId não são usados pela lista: tipo, tag e texto são filtrados no domínio. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9). Fase 6: backupRepository lê e regrava a tabela inteira (exportar/importar); o BackupReminder do Início usa useTransactionCount (count()). Fase 7: a tela de visões lê só o intervalo do período (dia, semana, mês ou ano) pelo índice date com useTransactionsInRange (mesmo listTransactionsInPeriod; undefined enquanto um intervalo novo carrega — D-49(g)); os totais e as linhas são calculados no domínio (periodViews). Nenhuma escrita nova. Fase 8: os gráficos leem o mesmo intervalo do período (usePeriodView) e, na linha do saldo, useTransactionsInRange(null, fim) — belowOrEqual(fim) no índice date, ou seja, todos os lançamentos até o fim do período a cada troca de período (D-50(f)); séries e fatias calculadas em domain/charts. Nenhuma escrita. Fase 9: o índice composto [recurringId+recurringPeriod] (§6.4, já na v1) passa a ser usado — count na confirmação (CA-07.5) e anyOf(chaves) em listPendingOccurrences/getConfirmedKeysIn; o índice recurringId lista e conta os confirmados de um recorrente (listRecurringConfirmations, deleteRecurring, endRecurringAt). Escritas novas pelo recurringsRepository: confirmOccurrence (add numa transação rw [tags, recurrings, transactions]) e deleteConfirmedTransaction (delete numa rw [recurrings, transactions]); updateTransaction passou a recusar troca de tipo e data fora do mês no lançamento confirmado (OccurrenceTypeChangeError, OccurrenceDateOutsidePeriodError — D-51(b)/(l)).',
   },
   {
     name: 'recurrings',
@@ -5380,7 +6401,7 @@ export const TABLE_NOTES: readonly TableNote[] = [
     backupDetail:
       'todos os registros, com amounts (ordem estritamente crescente de fromPeriod, 1º igual ao startPeriod) e skippedPeriods; ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 9,
-    note: 'Sem repositório de escrita até a Fase 9. Desde a Fase 3 o tagsRepository conta os recorrentes de uma tag com filter().count() (sem índice tagId na v1 — §6.4; tabela pequena) para o bloqueio de exclusão (D-02). Hoje só as ferramentas DEV gravam (4 recorrentes — D-30) e src/test/seedDatabase.ts nos testes. Fase 6: backupRepository lê e regrava (exportar/importar).',
+    note: 'Sem repositório de escrita até a Fase 9. Desde a Fase 3 o tagsRepository conta os recorrentes de uma tag com filter().count() (sem índice tagId na v1 — §6.4; tabela pequena) para o bloqueio de exclusão (D-02). Até a Fase 8 só as ferramentas DEV gravavam (4 recorrentes — D-30) e src/test/seedDatabase.ts nos testes. Fase 6: backupRepository lê e regrava (exportar/importar). Fase 9: src/repositories/recurringsRepository.ts lê e grava. Escrita: createRecurring (add numa transação rw [tags, recurrings] com assertTagExists); updateRecurringDetails, changeRecurringAmount, endRecurringAt, skipOccurrence e unskipOccurrence pelo updateRecurring (get → regra pura de domain/recurring → put com updatedAt, numa transação rw [tags, recurrings, transactions]); deleteRecurring (rw [recurrings, transactions]: conta os confirmados pelo índice recurringId e só então delete — D-15); deleteConfirmedTransaction com "pular" grava skipPeriod na mesma transação do delete do lançamento. Leitura: listRecurrings (toArray + Intl.Collator), useRecurring (get), e a tabela inteira dentro de listPendingOccurrences/getConfirmedKeysIn (transação r com transactions). Sem esquema novo: amounts e skippedPeriods ficam dentro do registro. Teste novo de ida e volta do backup com dados criados pelo repositório (valor alterado, mês pulado, ocorrência confirmada — D-51(k)).',
   },
   {
     name: 'installmentGroups',
@@ -5485,11 +6506,6 @@ export const UI_FIELD_ACCESS: readonly UiFieldAccess[] = [
 
 export const PLANNED_DOMAIN: readonly PlannedDomainFunction[] = [
   {
-    module: 'domain/recurring.ts',
-    names: ['amountFor', 'isActiveIn', 'pendingOccurrences', 'setAmountFrom', 'projected'],
-    phase: 9,
-  },
-  {
     module: 'domain/installments.ts',
     names: ['splitInstallments', 'buildInstallmentTransactions'],
     phase: 10,
@@ -5529,7 +6545,7 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
     number: 1,
     title: 'Dinheiro é inteiro (centavos)',
     enforcement:
-      'check-consistency (parseFloat/toFixed); testes de money e balances. Fase 8: percentuais das pizzas em décimos inteiros (distributeTenths com BigInt, soma sempre 1000); o Chart.js recebe centavos e o eixo Y arredonda marcas fracionárias para o centavo antes do formatCompactBRL (formatMoneyTick — bloqueante da revisão).',
+      'check-consistency (parseFloat/toFixed); testes de money e balances. Fase 8: percentuais das pizzas em décimos inteiros (distributeTenths com BigInt, soma sempre 1000); o Chart.js recebe centavos e o eixo Y arredonda marcas fracionárias para o centavo antes do formatCompactBRL (formatMoneyTick — bloqueante da revisão). Fase 9: valores do recorrente (amounts) em centavos inteiros; projected soma com addCents.',
     modules: [
       'src/domain/money.ts',
       'src/domain/types.ts',
@@ -5537,6 +6553,7 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/transactionSchema.ts',
       'src/domain/charts.ts',
       'src/features/charts/chart/moneyAxis.ts',
+      'src/domain/recurring.ts',
     ],
     tests: [
       'src/domain/money.test.ts',
@@ -5546,13 +6563,15 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/money.compact.test.ts',
       'src/domain/charts.test.ts',
       'src/features/charts/chart/moneyAxis.test.ts',
+      'src/domain/recurring.test.ts',
     ],
     decisions: ['D-29', 'D-31', 'D-50'],
   },
   {
     number: 2,
     title: 'Datas sem fuso (YYYY-MM-DD / YYYY-MM)',
-    enforcement: 'check-consistency (new Date com string de data); testes de fuso.',
+    enforcement:
+      'check-consistency (new Date com string de data); testes de fuso. Fase 9: meses YYYY-MM comparados como texto (isValidPeriod, isDateInPeriod); MonthInput passa o valor do <input type="month"> direto, sem Date.',
     modules: [
       'src/domain/dates.ts',
       'src/domain/types.ts',
@@ -5560,6 +6579,8 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/components/ui/useToday.ts',
       'src/domain/periodViews.ts',
       'src/domain/charts.ts',
+      'src/components/ui/MonthInput.tsx',
+      'src/domain/recurring.ts',
     ],
     tests: [
       'src/domain/dates.test.ts',
@@ -5571,8 +6592,10 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/dates.views.test.ts',
       'src/domain/periodViews.test.ts',
       'src/domain/charts.test.ts',
+      'src/domain/recurring.test.ts',
+      'src/domain/recurringSchema.test.ts',
     ],
-    decisions: ['D-38', 'D-45', 'D-49', 'D-50'],
+    decisions: ['D-38', 'D-45', 'D-49', 'D-50', 'D-51'],
   },
   {
     number: 3,
@@ -5618,7 +6641,7 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
     number: 6,
     title: 'Lógica de negócio pura e testada',
     enforcement:
-      'Regras de camada (domain/lib sem React e sem Dexie); cobertura RNF-07. Fase 6: criptografia, formato/migrações/integridade do backup e a regra do lembrete são funções puras; backupFormat recebe SCHEMA_VERSION por parâmetro para não importar o Dexie (D-47(b)). Fase 7: intervalo, navegação, título e resumos das visões são funções puras em domain/periodViews; a tela só lê o intervalo no banco. Fase 8: subperíodos, séries de entradas × saídas e de saldo, fatias por tag e percentuais (maior resto) em domain/charts; os componentes só passam os números ao Chart.js.',
+      'Regras de camada (domain/lib sem React e sem Dexie); cobertura RNF-07. Fase 6: criptografia, formato/migrações/integridade do backup e a regra do lembrete são funções puras; backupFormat recebe SCHEMA_VERSION por parâmetro para não importar o Dexie (D-47(b)). Fase 7: intervalo, navegação, título e resumos das visões são funções puras em domain/periodViews; a tela só lê o intervalo no banco. Fase 8: subperíodos, séries de entradas × saídas e de saldo, fatias por tag e percentuais (maior resto) em domain/charts; os componentes só passam os números ao Chart.js. Fase 9: regras dos recorrentes (vigência, valor por mês, pendências, Previsto, pular, encerrar, status) em domain/recurring, puras e com 100% de linhas; o repositório só lê, aplica a regra e grava.',
     modules: [
       'src/lib/crypto.ts',
       'src/lib/backupFormat.ts',
@@ -5626,6 +6649,8 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/backupPasswordSchema.ts',
       'src/domain/periodViews.ts',
       'src/domain/charts.ts',
+      'src/domain/recurring.ts',
+      'src/domain/recurringSchema.ts',
     ],
     tests: [
       'src/lib/crypto.test.ts',
@@ -5636,8 +6661,10 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/backupPasswordSchema.test.ts',
       'src/domain/periodViews.test.ts',
       'src/domain/charts.test.ts',
+      'src/domain/recurring.test.ts',
+      'src/domain/recurringSchema.test.ts',
     ],
-    decisions: ['D-47', 'D-49', 'D-50'],
+    decisions: ['D-47', 'D-49', 'D-50', 'D-51'],
   },
   {
     number: 7,
@@ -5650,6 +6677,7 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/repositories/settingsRepository.ts',
       'src/repositories/databaseInfo.ts',
       'src/repositories/backupRepository.ts',
+      'src/repositories/recurringsRepository.ts',
     ],
     tests: [],
     decisions: ['D-30', 'D-34', 'D-37'],
@@ -5657,28 +6685,36 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
   {
     number: 8,
     title: 'Escritas atômicas (transação do Dexie)',
-    enforcement: 'Revisão; testes de repositório.',
+    enforcement:
+      'Revisão; testes de repositório. Fase 9: toda operação de recorrente que lê e grava roda numa transação (updateRecurring); confirmar checa o índice e grava na mesma transação (CA-07.5, com teste de duas confirmações simultâneas); excluir o lançamento confirmado e pular o mês acontecem juntos.',
     modules: [
       'src/repositories/tagsRepository.ts',
       'src/repositories/transactionsRepository.ts',
       'src/repositories/backupRepository.ts',
+      'src/repositories/recurringsRepository.ts',
     ],
     tests: [
       'src/repositories/tagsRepository.test.ts',
       'src/repositories/transactionsRepository.crud.test.ts',
       'src/repositories/backupRepository.test.ts',
       'src/repositories/backupRepository.audit.test.ts',
+      'src/repositories/recurringsRepository.test.ts',
     ],
-    decisions: ['D-02', 'D-39', 'D-07', 'D-47'],
+    decisions: ['D-02', 'D-39', 'D-07', 'D-47', 'D-51'],
   },
   {
     number: 9,
     title: 'IDs são UUID (crypto.randomUUID)',
     enforcement: 'check-consistency (Math.random).',
-    modules: ['src/repositories/tagsRepository.ts', 'src/repositories/transactionsRepository.ts'],
+    modules: [
+      'src/repositories/tagsRepository.ts',
+      'src/repositories/transactionsRepository.ts',
+      'src/repositories/recurringsRepository.ts',
+    ],
     tests: [
       'src/repositories/tagsRepository.test.ts',
       'src/repositories/transactionsRepository.crud.test.ts',
+      'src/repositories/recurringsRepository.test.ts',
     ],
     decisions: ['D-30'],
   },
@@ -5734,7 +6770,7 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
     number: 15,
     title: 'Nada depende de passar o mouse',
     enforcement:
-      'check-consistency (tooltip do Chart.js); revisão. Fase 5: o painel de filtros abre por toque no botão "Filtros" e a paginação tem o botão "Carregar mais" além do IntersectionObserver. Fase 7: o detalhamento das visões é por toque nas linhas (PeriodRows.Item são botões), sem dica flutuante. Fase 8: Tooltip e Legend do Chart.js nem são registrados (chartSetup.test.ts confere) e as opções ainda os desligam; os detalhes vão para o ChartDetailPanel fixo (aria-live) e a legenda das pizzas é uma lista de botões (D-16, CA-06.2/06.3).',
+      'check-consistency (tooltip do Chart.js); revisão. Fase 5: o painel de filtros abre por toque no botão "Filtros" e a paginação tem o botão "Carregar mais" além do IntersectionObserver. Fase 7: o detalhamento das visões é por toque nas linhas (PeriodRows.Item são botões), sem dica flutuante. Fase 8: Tooltip e Legend do Chart.js nem são registrados (chartSetup.test.ts confere) e as opções ainda os desligam; os detalhes vão para o ChartDetailPanel fixo (aria-live) e a legenda das pizzas é uma lista de botões (D-16, CA-06.2/06.3). Fase 9: o "ⓘ" da data (InfoPopover) abre e fecha por toque, fecha tocando fora ou com Esc; a linha de ajuda fica sempre visível (Field.Hint); "Não confirmada" e o tipo travado aparecem escritos.',
     modules: [
       'src/features/transactions/filters/FilterBar.tsx',
       'src/features/transactions/filters/FilterToggle.tsx',
@@ -5743,20 +6779,22 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/features/charts/chart/chartSetup.ts',
       'src/features/charts/ChartDetailPanel.tsx',
       'src/features/charts/TagLegendList.tsx',
+      'src/components/ui/InfoPopover.tsx',
     ],
     tests: [
       'src/features/transactions/TransactionsPage.pagination.test.tsx',
       'src/features/views/ViewsPage.test.tsx',
       'src/features/charts/chart/chartSetup.test.ts',
       'src/features/charts/ChartsPage.test.tsx',
+      'src/components/ui/InfoPopover.test.tsx',
     ],
-    decisions: ['D-44', 'D-45', 'D-49', 'D-16', 'D-50'],
+    decisions: ['D-44', 'D-45', 'D-49', 'D-16', 'D-50', 'D-51'],
   },
   {
     number: 16,
     title: 'Botão de envio só ativo com o formulário válido (spec 1.13)',
     enforcement:
-      'Padrão em src/lib/formSubmit.ts (LIVE_VALIDATION + canSubmitForm com startsValid), obrigatório em todos os formulários; testes de tela conferem o botão desabilitado. Aplicado ao formulário de tags (Fase 3), ao de lançamento (Fase 4: "Lançar" e "Salvar") e aos de backup (Fase 6: "Exportar backup" também fica desabilitado durante a geração/entrega; "Importar backup" só com arquivo e senha; falhas de gravação ou de abertura ficam fora do setError — D-36).',
+      'Padrão em src/lib/formSubmit.ts (LIVE_VALIDATION + canSubmitForm com startsValid), obrigatório em todos os formulários; testes de tela conferem o botão desabilitado. Aplicado ao formulário de tags (Fase 3), ao de lançamento (Fase 4: "Lançar" e "Salvar") e aos de backup (Fase 6: "Exportar backup" também fica desabilitado durante a geração/entrega; "Importar backup" só com arquivo e senha; falhas de gravação ou de abertura ficam fora do setError — D-36). Fase 9: os 5 formulários de recorrente seguem o padrão — os 4 de features/recurrings pelo hook genérico useRecurringForm, a confirmação pelo useConfirmOccurrenceForm (components não importa features).',
     modules: [
       'src/lib/formSubmit.ts',
       'src/components/tags/useTagForm.ts',
@@ -5766,6 +6804,8 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/components/ui/Button.tsx',
       'src/features/backup/useExportBackup.ts',
       'src/features/backup/useImportBackup.ts',
+      'src/features/recurrings/useRecurringForm.ts',
+      'src/components/recurrings/useConfirmOccurrenceForm.ts',
     ],
     tests: [
       'src/lib/formSubmit.test.ts',
@@ -5774,8 +6814,12 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/features/tags/TagsPage.test.tsx',
       'src/features/home/HomePage.form.test.tsx',
       'src/features/transactions/TransactionDetailPage.test.tsx',
+      'src/features/recurrings/RecurringsPage.test.tsx',
+      'src/features/recurrings/RecurringDetailPage.test.tsx',
+      'src/features/views/ViewsPage.recurrings.test.tsx',
+      'src/features/transactions/TransactionDetailPage.recurrings.test.tsx',
     ],
-    decisions: ['D-36'],
+    decisions: ['D-36', 'D-51'],
   },
 ]
 
@@ -5788,6 +6832,7 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/components/tags/TagPicker.tsx',
       'src/domain/transactionSchema.ts',
       'src/repositories/transactionsRepository.ts',
+      'src/repositories/recurringsRepository.ts',
     ],
   },
   {
@@ -5808,8 +6853,27 @@ export const DECISIONS: readonly DecisionInfo[] = [
     supersededBy: 'D-42',
     impacts: [],
   },
-  { id: 'D-04', title: 'Recorrentes mensais, sem dia fixo', status: 'confirmed', impacts: [] },
-  { id: 'D-05', title: 'Pendências só no Previsto', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-04',
+    title: 'Recorrentes mensais, sem dia fixo',
+    status: 'confirmed',
+    impacts: [
+      'src/domain/recurring.ts',
+      'src/domain/recurringSchema.ts',
+      'src/components/ui/MonthInput.tsx',
+    ],
+  },
+  {
+    id: 'D-05',
+    title: 'Pendências só no Previsto',
+    status: 'confirmed',
+    impacts: [
+      'src/domain/recurring.ts',
+      'src/features/views/ViewsPage.tsx',
+      'src/features/views/PeriodSummaryCard.tsx',
+      'src/features/views/YearDetail.tsx',
+    ],
+  },
   { id: 'D-06', title: 'Parcelamento só para saídas', status: 'confirmed', impacts: [] },
   {
     id: 'D-07',
@@ -5875,8 +6939,28 @@ export const DECISIONS: readonly DecisionInfo[] = [
     status: 'confirmed',
     impacts: ['README.md', 'src/app/pwa/pwaOptions.ts', 'src/app/pwa/registerPwa.ts'],
   },
-  { id: 'D-14', title: 'Data padrão ao confirmar recorrente', status: 'confirmed', impacts: [] },
-  { id: 'D-15', title: 'Recorrente com histórico é encerrado', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-14',
+    title: 'Data padrão ao confirmar recorrente',
+    status: 'confirmed',
+    impacts: [
+      'src/components/recurrings/useConfirmOccurrenceForm.ts',
+      'src/components/recurrings/ConfirmOccurrenceDialog.tsx',
+      'src/components/recurrings/recurringTexts.ts',
+      'src/components/ui/InfoPopover.tsx',
+    ],
+  },
+  {
+    id: 'D-15',
+    title: 'Recorrente com histórico é encerrado',
+    status: 'confirmed',
+    impacts: [
+      'src/repositories/recurringsRepository.ts',
+      'src/features/recurrings/DeleteRecurringDialog.tsx',
+      'src/features/recurrings/useRecurringDetail.ts',
+      'src/features/recurrings/EndRecurringDialog.tsx',
+    ],
+  },
   {
     id: 'D-16',
     title: 'Gráficos sem tooltip flutuante',
@@ -6340,6 +7424,61 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/test/chartMock.ts',
     ],
   },
+  {
+    id: 'D-51',
+    title:
+      'Recorrentes: editar só descrição e tag; lançamento confirmado preso ao mês e ao tipo do recorrente; pular na visão Mês e nos detalhes (no Início só confirmar); encerrar não antes do último mês confirmado; domínio e repositório com transação em toda leitura-e-gravação; modal de confirmação compartilhado com "ⓘ" e linha de ajuda; Previsto na visão Mês e no Ano; excluir confirmado volta a pendente ou pula o mês',
+    status: 'confirmed',
+    impacts: [
+      'src/domain/recurring.ts',
+      'src/domain/recurringSchema.ts',
+      'src/domain/transactionSchema.ts',
+      'src/domain/dates.ts',
+      'src/repositories/recurringsRepository.ts',
+      'src/repositories/transactionsRepository.ts',
+      'src/components/ui/InfoPopover.tsx',
+      'src/components/ui/MonthInput.tsx',
+      'src/components/ui/Field.tsx',
+      'src/components/ui/useFieldControl.ts',
+      'src/components/ui/useToast.ts',
+      'src/components/ui/createRadioGroup.tsx',
+      'src/components/recurrings/ConfirmOccurrenceDialog.tsx',
+      'src/components/recurrings/useConfirmOccurrenceForm.ts',
+      'src/components/recurrings/PendingOccurrencesSection.tsx',
+      'src/components/recurrings/PendingOccurrenceItem.tsx',
+      'src/components/recurrings/skipErrorMessage.ts',
+      'src/components/recurrings/recurringTexts.ts',
+      'src/components/transactions/useTransactionForm.ts',
+      'src/components/transactions/TransactionForm.tsx',
+      'src/components/transactions/transactionTexts.ts',
+      'src/features/recurrings/RecurringsPage.tsx',
+      'src/features/recurrings/RecurringDetailPage.tsx',
+      'src/features/recurrings/useRecurringDetail.ts',
+      'src/features/recurrings/useRecurringForm.ts',
+      'src/features/recurrings/NewRecurringDialog.tsx',
+      'src/features/recurrings/EditRecurringDialog.tsx',
+      'src/features/recurrings/ChangeAmountDialog.tsx',
+      'src/features/recurrings/EndRecurringDialog.tsx',
+      'src/features/recurrings/DeleteRecurringDialog.tsx',
+      'src/features/home/PendingRecurrings.tsx',
+      'src/features/views/ViewsPage.tsx',
+      'src/features/views/usePeriodPending.ts',
+      'src/features/views/PeriodSummaryCard.tsx',
+      'src/features/views/MonthDetail.tsx',
+      'src/features/views/YearDetail.tsx',
+      'src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx',
+      'src/features/transactions/useTransactionDetail.ts',
+      'src/features/transactions/TransactionDetailPage.tsx',
+      'src/repositories/recurringsRepository.test.ts',
+    ],
+  },
+  {
+    id: 'D-52',
+    title:
+      'Vitest com no máximo 4 workers (test.maxWorkers no vite.config.ts): com o paralelismo padrão, workers do Node caíam ao iniciar no Windows de desenvolvimento',
+    status: 'confirmed',
+    impacts: ['vite.config.ts', 'CLAUDE.md'],
+  },
 ]
 
 // ---------- dependências externas ----------
@@ -6384,6 +7523,79 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 // ---------- achados de arquitetura (reportados, não corrigidos) ----------
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
+  {
+    title: 'D-51 aguardando confirmação do dono',
+    severity: 'warn',
+    detail:
+      'Registrada na §8.1 em 25/10/2026 (spec 1.33). Cinco escolhas do dono (a: editar muda só descrição e tag; b: lançamento confirmado preso ao mês da ocorrência também na edição; c: pular na visão Mês e nos detalhes, no Início só confirmar; d: encerrar não antes do último mês confirmado; l: tipo travado no lançamento confirmado) e as escolhas de implementação (e–k, m): domain/recurring + recurringSchema, recurringsRepository com transação em toda leitura-e-gravação e confirmação pelo índice composto, ConfirmOccurrenceDialog compartilhado com InfoPopover e Field.Hint, telas de recorrentes, Previsto nas visões Mês e Ano, exclusão do confirmado com "voltar a pendente"/"pular este mês" e mensagens de corrida entre abas.',
+    modules: [
+      'docs/SPEC.md',
+      'src/domain/recurring.ts',
+      'src/repositories/recurringsRepository.ts',
+      'src/components/recurrings/ConfirmOccurrenceDialog.tsx',
+      'src/features/recurrings/RecurringDetailPage.tsx',
+    ],
+    resolved:
+      'Confirmada pelo dono em 26/10/2026 (spec 1.34), com as cinco escolhas dele e todas as escolhas de interface (textos de status, aviso de 8 s com "Desfazer", abrir os detalhes depois de criar, Realizado/Previsto, padrões que respeitam os limites).',
+  },
+  {
+    title: 'Pendente (dono): teste manual da Fase 9',
+    severity: 'warn',
+    detail:
+      'Roteiro da §7 ainda não rodado: (1) "Conta de luz", saída, R$ 180,00, início no mês atual → pendente no Início e na visão Mês, Previsto com R$ 180,00; (2) dois meses à frente continua pendente com R$ 180,00; (3) confirmar no mês atual com R$ 187,40 (o "ⓘ" explica a data de hoje) → vira lançamento, sai das pendências e os saldos mudam; (3b) mês futuro → data sugerida dia 1, "ⓘ" explica, data fora do mês dá erro; (4) R$ 200,00 a partir do próximo mês → o confirmado continua R$ 187,40; (5) pular o mês seguinte e desfazer; (6) excluir bloqueado → encerrar; (7) backup ida e volta preserva recorrentes, valores e meses pulados. Vale conferir no iPhone a roda do <input type="month"> e o balão do "ⓘ" dentro do modal.',
+    modules: [
+      'src/features/recurrings/RecurringsPage.tsx',
+      'src/features/recurrings/RecurringDetailPage.tsx',
+      'src/features/home/PendingRecurrings.tsx',
+      'src/features/views/ViewsPage.tsx',
+    ],
+    resolved:
+      'Validado pelo dono em 26/10/2026: o roteiro de teste da Fase 9 funcionou. Fase 9 concluída (spec 1.34).',
+  },
+  {
+    title: 'Vitest no Windows: workers caem com o paralelismo padrão',
+    severity: 'warn',
+    detail:
+      'Na Fase 9 (116 arquivos, 2.482 testes), com o número padrão de workers, processos do Node às vezes morrem na inicialização (exit 0xC0000005) ou dão falhas aleatórias em arquivos que não foram tocados. Com --maxWorkers=4 a suíte passa estável. Parece limite do ambiente (memória/antivírus do Windows com muitos workers jsdom), não do código. Nenhuma configuração foi mudada; uma opção seria fixar maxWorkers no vite.config.ts (decisão do dono).',
+    modules: ['vite.config.ts', 'package.json'],
+    resolved:
+      'Resolvido em 26/10/2026 pela D-52 (aprovada pelo dono): test.maxWorkers = 4 no vite.config.ts; npm test passou limpo (116 arquivos, 2.482 testes), em ~2 min 45 s.',
+  },
+  {
+    title: 'Pendências releem todos os recorrentes a cada gravação',
+    severity: 'info',
+    detail:
+      'listPendingOccurrences e getConfirmedKeysIn fazem recurrings.toArray() e um anyOf no índice [recurringId+recurringPeriod] com recorrentes × meses chaves (visão Ano: até 12 × N). Como são useLiveQuery, a consulta roda de novo a cada gravação em recurrings ou nos lançamentos dessas chaves. Com dezenas de recorrentes é barato; fica registrado para a medição de desempenho.',
+    modules: ['src/repositories/recurringsRepository.ts', 'src/features/views/usePeriodPending.ts'],
+    decided: 'Medir na Fase 11 (RNF-02, D-41).',
+  },
+  {
+    title: 'Padrão de formulário (RHF + zod + princípio 16) repetido em quatro hooks',
+    severity: 'info',
+    detail:
+      'useRecurringForm (features/recurrings) é genérico — schema, defaultValues, save, toErrorMessage — e atende os 4 modais da tela de recorrentes. useConfirmOccurrenceForm (components/recurrings) repete o mesmo esqueleto porque components não pode importar features; useTagForm e useTransactionForm têm a mesma forma com regras próprias. Não é erro; se o padrão crescer na Fase 10, mover o hook genérico para src/lib (ao lado de formSubmit) ou components/ui evitaria a cópia. Só reportado, não alterado.',
+    modules: [
+      'src/features/recurrings/useRecurringForm.ts',
+      'src/components/recurrings/useConfirmOccurrenceForm.ts',
+      'src/components/tags/useTagForm.ts',
+      'src/components/transactions/useTransactionForm.ts',
+      'src/lib/formSubmit.ts',
+    ],
+  },
+  {
+    title: '<input type="month"> não existe em todos os navegadores de PC',
+    severity: 'info',
+    detail:
+      'O MonthInput usa o seletor nativo, que existe no Safari do iOS e no Chrome/Edge, mas não no Firefox nem no Safari do macOS: lá o campo vira texto livre. A validação (isValidPeriod) recusa o que não for AAAA-MM, então nada inválido é gravado; só a digitação fica menos amigável. O alvo do app é o iPhone (RNF-01).',
+    modules: ['src/components/ui/MonthInput.tsx', 'src/domain/recurringSchema.ts'],
+  },
+  {
+    title: 'PeriodDetail tira o mês com slice(0, 7) em vez de periodOf',
+    severity: 'info',
+    detail:
+      'O ViewsPage acha as pendências do mês com periodOf(view.range.start); o PeriodDetail faz o mesmo com range.start.slice(0, 7). O resultado é igual (datas YYYY-MM-DD), mas são dois jeitos de dizer a mesma regra (princípio 2 recomenda os utilitários de dates). Só reportado.',
+    modules: ['src/features/views/PeriodDetail.tsx', 'src/features/views/ViewsPage.tsx'],
+  },
   {
     title: 'D-50 aguardando confirmação do dono',
     severity: 'warn',
@@ -6992,8 +8204,12 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'src/test/seedDatabase.ts acessa o db diretamente (só testes — D-34)',
     severity: 'info',
     detail:
-      'Os testes de tela não podem importar o Dexie (princípio 7), mas precisam de lançamentos, recorrentes e parcelamentos para testar o bloqueio por uso, e essas tabelas ainda não têm repositório. seedRecords grava numa transação e readAllTags confere o resultado. Deve encolher conforme os repositórios surgirem: transactions ganhou repositório na Fase 4, mas o helper ainda grava lançamentos nos testes de tela; recurrings e installmentGroups esperam as Fases 9 e 10.',
-    modules: ['src/test/seedDatabase.ts', 'src/features/tags/TagsPage.test.tsx'],
+      'Os testes de tela não podem importar o Dexie (princípio 7), mas precisam de lançamentos, recorrentes e parcelamentos para testar o bloqueio por uso, e essas tabelas ainda não têm repositório. seedRecords grava numa transação e readAllTags confere o resultado. Deve encolher conforme os repositórios surgirem: transactions ganhou repositório na Fase 4, mas o helper ainda grava lançamentos nos testes de tela; recurrings e installmentGroups esperam as Fases 9 e 10. Fase 9: os testes de tela novos de recorrentes já criam os dados pelo repositório (src/test/recurrings.ts → createTag/createRecurring); o seedRecords continua nos testes antigos de tags.',
+    modules: [
+      'src/test/seedDatabase.ts',
+      'src/features/tags/TagsPage.test.tsx',
+      'src/test/recurrings.ts',
+    ],
   },
   {
     title: 'usePersistentStorageRequest sem teste próprio',
@@ -7192,7 +8408,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/themeStorage.ts':
     'Fase 2: só o espelho (readThemeMirror/writeThemeMirror) de localStorage[theme], lido pelo script do index.html. A fonte da verdade é a tabela settings (themeRepository). Engole exceções do armazenamento indisponível.',
   'src/components/ui/createRadioGroup.tsx':
-    'Fábrica tipada: cada chamada cria um contexto próprio, então Option só aceita valores do tipo T (verificado por @ts-expect-error no teste). Fase 4: prop variant = list (padrão, ThemeRadio) | segmented (TypeRadio do TransactionForm: alternador lado a lado, rádio sr-only, opção marcada preenchida e em negrito, foco no contorno do grupo); classes por variante em VARIANT_CLASSES. Fase 5: TypeFilter da lista. Fase 7: GranularityRadio do GranularityPicker (Dia | Semana | Mês | Ano, segmented), em components/periods desde a Fase 8 (D-50(a)).',
+    'Fábrica tipada: cada chamada cria um contexto próprio, então Option só aceita valores do tipo T (verificado por @ts-expect-error no teste). Fase 4: prop variant = list (padrão, ThemeRadio) | segmented (TypeRadio do TransactionForm: alternador lado a lado, rádio sr-only, opção marcada preenchida e em negrito, foco no contorno do grupo); classes por variante em VARIANT_CLASSES. Fase 5: TypeFilter da lista. Fase 7: GranularityRadio do GranularityPicker (Dia | Semana | Mês | Ano, segmented), em components/periods desde a Fase 8 (D-50(a)). Fase 9 (D-51(l)): prop disabled no Root (<fieldset disabled>, opacidade reduzida), usada pelo TransactionForm no tipo travado do lançamento confirmado.',
   'src/components/ui/useGoBack.ts':
     "Usa location.key === 'default' para saber se a página foi aberta direto pela URL.",
   'src/features/settings/ThemeSection.tsx':
@@ -7212,7 +8428,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/domain/money.ts':
     'Centavos inteiros (princípio 1): formatBRL/formatSignedBRL (U+00A0 e U+2212 — D-29), digitsToCents (até MAX_AMOUNT_DIGITS = 10 — D-31, os mesmos dígitos de MAX_AMOUNT_CENTS, o teto do RF-01), addCents com Number.isSafeInteger. Fase 8 (RF-06): formatCompactBRL ("R$ 1,2 mil", "R$ 2,5 mi", "R$ 50" — notation compact do Intl sobre a string decimal, sem float; sinal de menos tipográfico — sugestão da revisão) para o eixo Y dos gráficos; testes em money.compact.test.ts.',
   'src/domain/dates.ts':
-    'Datas sem fuso (princípio 2) com parseISO do date-fns; semana de segunda (weekStartsOn: 1). Testes de calendário (bissextos, virada de ano) e de fuso (dates.timezone.test.ts). Fase 4: isValidDate (usada pelo transactionSchema); formatShortDate ("19/10/2026" só rearranjando o texto, sem date-fns, com checagem aritmética do calendário — rápida em listas, D-38(f)); formatMonthLabel ("outubro de 2026" com um Intl.DateTimeFormat em UTC criado no nível do módulo e Date.UTC, independente do fuso do aparelho). Testes em dates.format.test.ts e dates.format.timezone.test.ts (melhorias da revisão). Fase 5: formatLongDate ("terça-feira, 20 de outubro de 2026" com um Intl.DateTimeFormat em UTC no nível do módulo — CA-04.1, D-45(c)); toUtcDate usa setUTCFullYear porque Date.UTC trata os anos 0 a 99 como 1900 a 1999. Testes em dates.longDate.test.ts e dates.longDate.properties.test.ts. Fase 7 (RF-05, D-49(b)): addDays (inteiro, atravessa meses e anos), datesBetween (lista inclusiva de datas), formatWeekdayDate ("segunda-feira, 19/10"), formatMonthName ("outubro") e formatDateRangeLabel (título da semana "12 a 18 de out. de 2026", repetindo mês e ano só quando mudam — CA-05.3; abreviações fixas em SHORT_MONTH_NAMES porque o month: "short" do Intl varia entre motores); splitDate/toUtcDateOf internos reaproveitados pelo formatLongDate. Testes em dates.views.test.ts. Fase 8 (RF-06): formatShortDayMonth ("15 de out." — painel das barras e da linha), formatShortWeekdayDay ("seg. 19", com SHORT_WEEKDAY_NAMES fixos na ordem do getISODay — princípio 3) e formatShortMonthName ("out." — eixo na visão Ano), todos com as abreviações fixas do pt-BR; testes acrescentados em dates.views.test.ts.',
+    'Datas sem fuso (princípio 2) com parseISO do date-fns; semana de segunda (weekStartsOn: 1). Testes de calendário (bissextos, virada de ano) e de fuso (dates.timezone.test.ts). Fase 4: isValidDate (usada pelo transactionSchema); formatShortDate ("19/10/2026" só rearranjando o texto, sem date-fns, com checagem aritmética do calendário — rápida em listas, D-38(f)); formatMonthLabel ("outubro de 2026" com um Intl.DateTimeFormat em UTC criado no nível do módulo e Date.UTC, independente do fuso do aparelho). Testes em dates.format.test.ts e dates.format.timezone.test.ts (melhorias da revisão). Fase 5: formatLongDate ("terça-feira, 20 de outubro de 2026" com um Intl.DateTimeFormat em UTC no nível do módulo — CA-04.1, D-45(c)); toUtcDate usa setUTCFullYear porque Date.UTC trata os anos 0 a 99 como 1900 a 1999. Testes em dates.longDate.test.ts e dates.longDate.properties.test.ts. Fase 7 (RF-05, D-49(b)): addDays (inteiro, atravessa meses e anos), datesBetween (lista inclusiva de datas), formatWeekdayDate ("segunda-feira, 19/10"), formatMonthName ("outubro") e formatDateRangeLabel (título da semana "12 a 18 de out. de 2026", repetindo mês e ano só quando mudam — CA-05.3; abreviações fixas em SHORT_MONTH_NAMES porque o month: "short" do Intl varia entre motores); splitDate/toUtcDateOf internos reaproveitados pelo formatLongDate. Testes em dates.views.test.ts. Fase 8 (RF-06): formatShortDayMonth ("15 de out." — painel das barras e da linha), formatShortWeekdayDay ("seg. 19", com SHORT_WEEKDAY_NAMES fixos na ordem do getISODay — princípio 3) e formatShortMonthName ("out." — eixo na visão Ano), todos com as abreviações fixas do pt-BR; testes acrescentados em dates.views.test.ts. Fase 9: isValidPeriod (AAAA-MM com mês 01–12) e isDateInPeriod(date, period) — data válida dentro do mês (CA-07.8), usadas pelos schemas de recorrente, pelo useTransactionForm e pelo updateTransaction.',
   'src/domain/balances.ts':
     'totals, overallBalance (todos os lançamentos, inclusive os futuros, sem today — D-42), groupByDay/Month/Tag (Map — D-29) e runningBalance. Fase 4: signedAmount exportado (CA-02.1, usado pelo TransactionRow; teste em balances.signedAmount.test.ts); overallBalance e totals usados pelo transactionsRepository. Fase 7: totals também pelo usePeriodView (cartão de resumo) e groupByDay/groupByMonth pelos resumos de domain/periodViews. Fase 8: runningBalance pelo balanceSeries (domain/charts) e totals pela ChartList; groupByTag continua sem uso em produção (tagSlices soma por tag sozinho, filtrando o tipo). Teste de propriedade em balances.properties.test.ts.',
   'src/domain/tagColor.ts':
@@ -7290,7 +8506,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/domain/periodViews.ts':
     'Fase 7 (RF-05, D-49), funções puras (princípio 6): tipo ViewGranularity (§6.7); viewRange(g, anchor) → DateRange (Dia = a data validada, Semana = weekRange segunda a domingo, Mês = monthRange, Ano = yearRange); shiftAnchorDate(g, anchor, steps) (addDays ±1/±7 ou addMonthsClamped ±1/±12 — 31/01 → 28/02); formatViewTitle(g, anchor) (formatLongDate, formatDateRangeLabel, formatMonthLabel ou o ano); yearOf; summarizeDays (Semana: uma linha por dia do intervalo, inclusive sem movimento), summarizeActiveDays (Mês: só dias com movimento dentro do intervalo, ordem cronológica) e summarizeMonths (Ano: 12 meses) sobre groupByDay/groupByMonth de balances — lançamentos fora do intervalo são ignorados (CA-05.1). Testes em periodViews.test.ts (inclusive viradas de mês/ano e semana que cruza o ano).',
   'src/features/views/ViewsPage.tsx':
-    'Fase 7 (lazy, RF-05): compõe GranularityPicker, PeriodNavigator, PeriodSummaryCard e PeriodDetail (este só com os dados carregados). TodayButton no slot trailing do Page.Header (desde a Fase 8 os três controles e o usePeriodView vêm de src/components/periods — D-50(a)). handleOpenPeriod chama openPeriod e foca o título (titleRef) — a linha tocada some (RNF-06). Lê os dados por usePeriodView; nada de Dexie direto.',
+    'Fase 7 (lazy, RF-05): compõe GranularityPicker, PeriodNavigator, PeriodSummaryCard e PeriodDetail (este só com os dados carregados). TodayButton no slot trailing do Page.Header (desde a Fase 8 os três controles e o usePeriodView vêm de src/components/periods — D-50(a)). handleOpenPeriod chama openPeriod e foca o título (titleRef) — a linha tocada some (RNF-06). Lê os dados por usePeriodView; nada de Dexie direto. Fase 9 (CA-05.2, D-51(i)): usePeriodPending(granularity, range); na visão Mês calcula projectedResultCents = projected(totals, pendentes do mês).resultCents (null enquanto carrega; undefined nas outras visões) e passa ao PeriodSummaryCard; o PeriodDetail só monta com transações e pendências carregadas e recebe o Map de pendências.',
   'src/components/periods/usePeriodView.ts':
     'Fase 7 (em features/views); movido para components/periods na Fase 8 (D-50(a)), usado por ViewsPage e ChartsPage: { granularity, range, title, transactions, totals } a partir de viewGranularity/viewAnchorDate (Zustand) → viewRange/formatViewTitle (domain) → useTransactionsInRange (repositório) → totals (balances). transactions e totals ficam undefined enquanto carrega, inclusive ao trocar de período (D-49(g)). Único módulo de components/ que lê o Zustand e um repositório ao mesmo tempo (ver Saúde).',
   'src/components/periods/GranularityPicker.tsx':
@@ -7348,23 +8564,23 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/test/chartStubs.tsx':
     'Fase 8 (D-50(j)): Doughnut, Bar e Line de mentira — um <canvas data-chart> que registra as props em chartMock e expõe por useImperativeHandle o mínimo da instância do Chart (canvas e scales.x.getValueForPixel). Usado com vi.mock("react-chartjs-2", () => import("@/test/chartStubs")).',
   'src/features/views/PeriodSummaryCard.tsx':
-    'Fase 7 (D-49(c)): Entradas, Saídas (formatBRL) e Resultado (SignedAmount); "—" enquanto carrega. "Realizado"/"Previsto" (CA-05.2) na Fase 9.',
+    'Fase 7 (D-49(c)): Entradas, Saídas (formatBRL) e Resultado (SignedAmount); "—" enquanto carrega. "Realizado"/"Previsto" (CA-05.2) na Fase 9. Fase 9: prop projectedResultCents — com ela (só Mês), h2 "Realizado" e a linha "Previsto" (SignedAmount ou "—").',
   'src/features/views/PeriodDetail.tsx':
-    'Fase 7: escolhe o detalhe pela granularidade e converte os toques em onOpenPeriod("day", data) ou onOpenPeriod("month", "AAAA-MM-01").',
+    'Fase 7: escolhe o detalhe pela granularidade e converte os toques em onOpenPeriod("day", data) ou onOpenPeriod("month", "AAAA-MM-01"). Fase 9: prop pending (Map mês → ocorrências), repassada ao MonthDetail (as do mês, por range.start.slice(0, 7)) e ao YearDetail.',
   'src/features/views/PeriodRows.tsx':
-    'Fase 7: compound component local (PeriodRows + PeriodRows.Item). Cada item é um <button> min-h-11 com rótulo, Entradas/Saídas escritas e SignedAmount do resultado. Fica em features/views porque só as visões usam (os gráficos da Fase 8 não precisaram).',
+    'Fase 7: compound component local (PeriodRows + PeriodRows.Item). Cada item é um <button> min-h-11 com rótulo, Entradas/Saídas escritas e SignedAmount do resultado. Fica em features/views porque só as visões usam (os gráficos da Fase 8 não precisaram). Fase 9: PeriodRows.Item com projectedResultCents opcional → "Previsto ±R$ X" (formatSignedBRL).',
   'src/features/views/DayDetail.tsx':
     'Fase 7 (visão Dia): TransactionRow showDate={false} para cada lançamento (mais recente primeiro) ou EmptyState; useTags para as cores das tags.',
   'src/features/views/WeekDetail.tsx':
     'Fase 7 (visão Semana, CA-05.3): 7 linhas por summarizeDays com formatWeekdayDate; toque → visão Dia.',
   'src/features/views/MonthDetail.tsx':
-    'Fase 7 (visão Mês): dias com movimento por summarizeActiveDays, ou EmptyState; toque → visão Dia. "Recorrentes pendentes" na Fase 9.',
+    'Fase 7 (visão Mês): dias com movimento por summarizeActiveDays, ou EmptyState; toque → visão Dia. "Recorrentes pendentes" na Fase 9. Fase 9: prop pending; PendingOccurrencesSection (canSkip, currentPeriod pelo useToday) abaixo dos dias, inclusive quando o mês não tem lançamentos.',
   'src/features/views/YearDetail.tsx':
-    'Fase 7 (visão Ano): 12 linhas por summarizeMonths com formatMonthName; toque → visão Mês. "Previsto" na Fase 9.',
+    'Fase 7 (visão Ano): 12 linhas por summarizeMonths com formatMonthName; toque → visão Mês. "Previsto" na Fase 9. Fase 9: prop pending; cada mês recebe o Previsto (projected(mês, pendentes).resultCents).',
   'src/features/views/viewTexts.ts':
     'Fase 7: mensagens de estado vazio ("Nenhum lançamento neste dia." / "neste mês."). Até a Fase 7 também tinha os rótulos da granularidade, os nomes das setas e "Hoje", que foram para src/components/periods/periodTexts.ts na Fase 8 (D-50(a)).',
   'src/features/views/ViewsPage.test.tsx':
-    'Fase 7 (projeto dom): visões Dia, Semana (7 linhas, título, toque → Dia com foco no título), Mês (só dias com movimento, estado vazio, atualização ao vivo), Ano (12 meses, toque → Mês), setas na virada do ano, nomes das setas por granularidade, "Hoje" e período mantido ao trocar de aba; teste de regressão de que o período anterior nunca aparece com o título novo (D-49(g)).',
+    'Fase 7 (projeto dom): visões Dia, Semana (7 linhas, título, toque → Dia com foco no título), Mês (só dias com movimento, estado vazio, atualização ao vivo), Ano (12 meses, toque → Mês), setas na virada do ano, nomes das setas por granularidade, "Hoje" e período mantido ao trocar de aba; teste de regressão de que o período anterior nunca aparece com o título novo (D-49(g)). Fase 9: o helper do título passou a achar o h2 com aria-live (a visão Mês ganhou outros h2: "Realizado" e "Recorrentes pendentes").',
   'src/components/ui/ErrorAlert.tsx':
     'Fase 3: <p role="alert"> em vermelho, anunciado assim que aparece. Sem teste próprio.',
   'src/features/tags/TagsPage.tsx':
@@ -7390,9 +8606,9 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/formSubmit.ts':
     'Princípio 16 / D-36 (spec 1.13): padrão de todos os formulários com React Hook Form. LIVE_VALIDATION = { mode: "onChange" } (erro do campo aparece enquanto digita) e canSubmitForm({ isValid, isSubmitting }) = isValid && !isSubmitting (botão de envio só ativo com o formulário válido e fora do envio). Só tipos do react-hook-form (import type): nenhum código do pacote entra pelo lib. Opção startsValid: formulário de edição que abre com dados válidos já começa com o botão ativo (o RHF só calcula isValid depois da 1ª renderização). Usado por useTagForm e, desde a Fase 4, por useTransactionForm; obrigatório nos formulários das fases seguintes.',
   'src/repositories/transactionsRepository.ts':
-    'Fase 4 (RF-01/RF-02, D-39). Escrita: createTransaction e updateTransaction validam com transactionInputSchema.parse e gravam numa transação rw [tags, transactions] com assertTagExists (a tag não some entre a checagem e a gravação; deleteTag conta na mesma tabela — D-01/D-02); deleteTransaction simples. Leitura pelo índice date: getOverallBalance() (toArray() da tabela inteira + overallBalance — um getAll() nativo, mais rápido que each() — D-42, RNF-02), getMonthTotals (between + totals), listRecentTransactions(today, count) (data de corte por where("date").belowOrEqual(today).reverse().limit(n) + releitura between(corte, today) numa transação r; ordem por takeMostRecent — D-40) e getTransaction. Hooks useOverallBalance, useMonthTotals, useRecentTransactions e useTransaction (useLiveQuery, null para inexistente). Erros: TransactionNotFoundError e TransactionTagNotFoundError. Fase 5 (RF-04, D-44(a)): listTransactionsInPeriod(from, to) pelo índice date em ordem crescente (between / aboveOrEqual / belowOrEqual / orderBy) + toArray() (getAll nativo) e inversão em memória antes de sortByRecency — sem .reverse() do Dexie, que no Safari abriria um cursor com uma volta por registro; countTransactions() com count(). Hooks useTransactionsInPeriod(from, to) e useTransactionCount(). Testes em transactionsRepository.list.test.ts e .list.properties.test.ts. Fase 7 (RF-05, D-49(g)): useTransactionsInRange(from, to) — o useLiveQuery devolve { from, to, transactions } e o hook só repassa a lista se o intervalo for o pedido agora; senão undefined (o useLiveQuery mantém o último resultado até a leitura nova terminar, e a tela mostraria por um instante totais do período anterior com o título novo — achado da revisão, coberto pelo teste de regressão do ViewsPage). Fase 8 (RF-06, D-50(f)): from passa a aceitar null — useTransactionsInRange(null, fim) lê tudo até fim (listTransactionsInPeriod com belowOrEqual), usado pela linha de evolução do saldo.',
+    'Fase 4 (RF-01/RF-02, D-39). Escrita: createTransaction e updateTransaction validam com transactionInputSchema.parse e gravam numa transação rw [tags, transactions] com assertTagExists (a tag não some entre a checagem e a gravação; deleteTag conta na mesma tabela — D-01/D-02); deleteTransaction simples. Leitura pelo índice date: getOverallBalance() (toArray() da tabela inteira + overallBalance — um getAll() nativo, mais rápido que each() — D-42, RNF-02), getMonthTotals (between + totals), listRecentTransactions(today, count) (data de corte por where("date").belowOrEqual(today).reverse().limit(n) + releitura between(corte, today) numa transação r; ordem por takeMostRecent — D-40) e getTransaction. Hooks useOverallBalance, useMonthTotals, useRecentTransactions e useTransaction (useLiveQuery, null para inexistente). Erros: TransactionNotFoundError e TransactionTagNotFoundError. Fase 5 (RF-04, D-44(a)): listTransactionsInPeriod(from, to) pelo índice date em ordem crescente (between / aboveOrEqual / belowOrEqual / orderBy) + toArray() (getAll nativo) e inversão em memória antes de sortByRecency — sem .reverse() do Dexie, que no Safari abriria um cursor com uma volta por registro; countTransactions() com count(). Hooks useTransactionsInPeriod(from, to) e useTransactionCount(). Testes em transactionsRepository.list.test.ts e .list.properties.test.ts. Fase 7 (RF-05, D-49(g)): useTransactionsInRange(from, to) — o useLiveQuery devolve { from, to, transactions } e o hook só repassa a lista se o intervalo for o pedido agora; senão undefined (o useLiveQuery mantém o último resultado até a leitura nova terminar, e a tela mostraria por um instante totais do período anterior com o título novo — achado da revisão, coberto pelo teste de regressão do ViewsPage). Fase 8 (RF-06, D-50(f)): from passa a aceitar null — useTransactionsInRange(null, fim) lê tudo até fim (listTransactionsInPeriod com belowOrEqual), usado pela linha de evolução do saldo. Fase 9 (D-51(b)/(l)): updateTransaction recusa, no lançamento confirmado de recorrente, troca de tipo (OccurrenceTypeChangeError) e data fora do mês da ocorrência (OccurrenceDateOutsidePeriodError, com o period para a mensagem); deleteTransaction continua simples — o confirmado é excluído pelo deleteConfirmedTransaction do recurringsRepository.',
   'src/domain/transactionSchema.ts':
-    'Fase 4 (RF-01): transactionInputSchema (zod) — tipo income|expense, amountCents inteiro de 1 a MAX_AMOUNT_CENTS, data YYYY-MM-DD existente (isValidDate), tagId não vazio, descrição com trim e 1 a DESCRIPTION_MAX_LENGTH = 100 unidades UTF-16 (D-10, D-38(h)); mensagens em pt-BR. TransactionInput (z.input) e TransactionValues (z.output). Separado das funções puras como o tagSchema; usado pelo formulário e pelo repositório.',
+    'Fase 4 (RF-01): transactionInputSchema (zod) — tipo income|expense, amountCents inteiro de 1 a MAX_AMOUNT_CENTS, data YYYY-MM-DD existente (isValidDate), tagId não vazio, descrição com trim e 1 a DESCRIPTION_MAX_LENGTH = 100 unidades UTF-16 (D-10, D-38(h)); mensagens em pt-BR. TransactionInput (z.input) e TransactionValues (z.output). Separado das funções puras como o tagSchema; usado pelo formulário e pelo repositório. Fase 9: campos comuns exportados (transactionTypeSchema, amountCentsSchema, tagIdSchema, descriptionSchema), reutilizados por recurringSchema — mesmas mensagens nos dois formulários.',
   'src/domain/transactions.ts':
     'Fase 4 (RF-02 item 5, D-39): compareByRecency (data, createdAt e id, comparados como texto) e takeMostRecent (sortByRecency + slice). Fase 5: sortByRecency (toSorted, sem alterar a original), usada também por listTransactionsInPeriod na lista (RF-04 / CA-04.1). O corte por data até hoje (D-40) fica na consulta do repositório, pelo índice date.',
   'src/components/ui/MoneyInput.tsx':
@@ -7400,9 +8616,9 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/ui/DateInput.tsx':
     'Fase 4: <input type="date"> nativo com valor YYYY-MM-DD passado direto (princípio 2) e ajustes para o Safari do iOS. Testado em DateInput.test.tsx.',
   'src/components/ui/Field.tsx':
-    'Fase 4: compound component Field + Field.Label + Field.Error; o contexto e o hook useFieldControl ficam em useFieldControl.ts, usado pelos controles (TextInput, MoneyInput, DateInput).',
+    'Fase 4: compound component Field + Field.Label + Field.Error; o contexto e o hook useFieldControl ficam em useFieldControl.ts, usado pelos controles (TextInput, MoneyInput, DateInput). Fase 9 (CA-07.8): prop hint e Field.Hint (linha de ajuda sempre visível, id ligado ao controle).',
   'src/components/ui/useFieldControl.ts':
-    'FieldContext, useFieldContext (erro claro fora do <Field>) e useFieldControl: id, aria-invalid e aria-describedby do controle (RNF-06; aria-invalid conferido nos testes — melhoria da revisão).',
+    'FieldContext, useFieldContext (erro claro fora do <Field>) e useFieldControl: id, aria-invalid e aria-describedby do controle (RNF-06; aria-invalid conferido nos testes — melhoria da revisão). Fase 9: aria-describedby junta hintId (com hint) e errorId (com erro).',
   'src/components/ui/TextInput.tsx':
     'Fase 4: input text com as props do useFieldControl e as classes comuns de inputClasses.ts.',
   'src/components/ui/inputClasses.ts':
@@ -7412,7 +8628,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/ui/Toast.tsx':
     'Fase 4 (D-38(b)): região viva role="status" sempre montada, fixa no topo abaixo da safe area, pointer-events-none.',
   'src/components/ui/useToast.ts':
-    'Estado do Toast: show(message) exibe por TOAST_DURATION_MS (3 s); a chave muda a cada show, então a mesma mensagem repetida reinicia o tempo.',
+    'Estado do Toast: show(message) exibe por TOAST_DURATION_MS (3 s); a chave muda a cada show, então a mesma mensagem repetida reinicia o tempo. Fase 9: useToast(durationMs = TOAST_DURATION_MS) e hide(); o aviso "Mês pulado." usa 8 s.',
   'src/components/ui/useToday.ts':
     'Fase 4 (CA-02.2, D-38(g)): useSyncExternalStore assinando visibilitychange (document), focus e pageshow (window); snapshot = today() (string, sem render à toa). Sem timer: com o app em primeiro plano à meia-noite só atualiza no próximo foco/visibilidade (ver saúde).',
   'src/components/tags/TagPicker.tsx':
@@ -7422,16 +8638,16 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/tags/tagFormTexts.ts':
     'Fase 4: textos do formulário de tag (nome repetido — CA-03.4, falha ao salvar, tag inexistente), separados de features/tags/tagTexts.ts para components/ não importar de features (D-37).',
   'src/components/transactions/TransactionForm.tsx':
-    'Fase 4 (RF-01, D-37): formulário único de lançamento (Início, novo, edição). Todos os campos por Controller (D-39); TagPicker com NoTagsNotice; CreateTagDialog e Toast fora do <form>; "Lançar"/"Salvar" com disabled={!canSubmit} (princípio 16); extraAction para o "Excluir" da edição. Lê useTags (repositório — permitido para components/<entidade>). Coberto pelos testes do Início e da edição.',
+    'Fase 4 (RF-01, D-37): formulário único de lançamento (Início, novo, edição). Todos os campos por Controller (D-39); TagPicker com NoTagsNotice; CreateTagDialog e Toast fora do <form>; "Lançar"/"Salvar" com disabled={!canSubmit} (princípio 16); extraAction para o "Excluir" da edição. Lê useTags (repositório — permitido para components/<entidade>). Coberto pelos testes do Início e da edição. Fase 9 (D-51(b)/(l)): TypeRadio.Root disabled com TYPE_LOCKED_MESSAGE quando isTypeLocked; Field da data com hint = dateHintText(occurrencePeriod) e Field.Hint.',
   'src/components/transactions/useTransactionForm.ts':
-    'Fase 4: useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje ou os do lançamento; startsValid na edição; submit → createTransaction (reset mantendo tipo e data + Toast "Lançamento salvo") ou updateTransaction (onUpdated); erros de gravação em saveError (D-36); virada do dia troca a data só se ela ainda for a automática (ref autoFilledDate — D-38(g)).',
+    'Fase 4: useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje ou os do lançamento; startsValid na edição; submit → createTransaction (reset mantendo tipo e data + Toast "Lançamento salvo") ou updateTransaction (onUpdated); erros de gravação em saveError (D-36); virada do dia troca a data só se ela ainda for a automática (ref autoFilledDate — D-38(g)). Fase 9 (D-51(b)/(l)): schemaFor(occurrencePeriod) prende a data ao mês da ocorrência (isDateInPeriod + dateOutsidePeriodMessage); devolve occurrencePeriod e isTypeLocked; OccurrenceTypeChangeError/OccurrenceDateOutsidePeriodError viram TYPE_LOCKED_MESSAGE e a mensagem do mês.',
   'src/components/transactions/TransactionRow.tsx':
     'Fase 4: linha com Link para /lancamentos/:id (CA-01.5 / CA-04.5), descrição, TagChip, formatShortDate e SignedAmount(signedAmount). Fase 5: prop showDate (padrão true); a DaySection da lista passa showDate={false}, porque a data está no cabeçalho do dia (D-45(c)). Fase 7: também no DayDetail da visão Dia, com showDate={false} (a data está no título).',
   'src/components/transactions/NoTagsNotice.tsx': 'Fase 4 (CA-01.7): aviso sem tags + "Criar tag".',
   'src/components/transactions/transactionTexts.ts':
-    'Fase 4: textos pt-BR do formulário de lançamento ("Lançamento salvo", falhas, lançamento/tag inexistente, aviso sem tags).',
+    'Fase 4: textos pt-BR do formulário de lançamento ("Lançamento salvo", falhas, lançamento/tag inexistente, aviso sem tags). Fase 9: TYPE_LOCKED_MESSAGE (D-51(l)).',
   'src/features/home/HomePage.tsx':
-    'Fase 4 (RF-02): Page com BalanceSummary (today de useToday), seção "Novo lançamento" com TransactionForm e RecentTransactions (today — D-40). Única tela fora do React.lazy (bundle decidido pela D-41). Fase 6: BackupReminder (today) no topo, antes do BalanceSummary (RF-10, D-11, D-48(c)) — aviso ou, desde a spec 1.26, a linha LastBackupLine.',
+    'Fase 4 (RF-02): Page com BalanceSummary (today de useToday), seção "Novo lançamento" com TransactionForm e RecentTransactions (today — D-40). Única tela fora do React.lazy (bundle decidido pela D-41). Fase 6: BackupReminder (today) no topo, antes do BalanceSummary (RF-10, D-11, D-48(c)) — aviso ou, desde a spec 1.26, a linha LastBackupLine. Fase 9: PendingRecurrings today={todayDate} entre o formulário e os últimos lançamentos (RF-02 item 4).',
   'src/features/home/BalanceSummary.tsx':
     'Fase 4 (RF-02 itens 1–2, D-42, CA-02.3): useOverallBalance() (sem today) e useMonthTotals(periodOf(today)); "—" enquanto carrega; título com formatMonthLabel. Fase 5: entradas e saídas do mês pelo IncomeExpenseTotals.',
   'src/features/home/RecentTransactions.tsx':
@@ -7440,9 +8656,9 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/features/transactions/NewTransactionPage.tsx':
     'Fase 4: Page + BackLink (fallback /lancamentos) + TransactionForm. Parcelado na Fase 10.',
   'src/features/transactions/TransactionDetailPage.tsx':
-    'Fase 4 (CA-01.5/01.6): TransactionForm em edição com "Excluir" e o modal de confirmação; "Lançamento não encontrado" para id inexistente (exceto durante a saída — isDone).',
+    'Fase 4 (CA-01.5/01.6): TransactionForm em edição com "Excluir" e o modal de confirmação; "Lançamento não encontrado" para id inexistente (exceto durante a saída — isDone). Fase 9 (D-51(j)): com recurringPeriod ≠ null monta o DeleteConfirmedOccurrenceDialog e mantém o ConfirmDeleteTransactionDialog fechado.',
   'src/features/transactions/useTransactionDetail.ts':
-    'Fase 4: useTransaction(id), estado da exclusão (isConfirmingDelete, isDeleting, deleteError), isDone e finish → useGoBack("/lancamentos") depois de salvar ou excluir (D-38(c)).',
+    'Fase 4: useTransaction(id), estado da exclusão (isConfirmingDelete, isDeleting, deleteError), isDone e finish → useGoBack("/lancamentos") depois de salvar ou excluir (D-38(c)). Fase 9: confirmDelete(afterwards?) — com afterwards chama deleteConfirmedTransaction(id, afterwards), senão deleteTransaction.',
   'src/features/transactions/ConfirmDeleteTransactionDialog.tsx':
     'Fase 4 (CA-01.6): Modal "Excluir lançamento?" com ErrorAlert e "Excluir" desabilitado durante a exclusão.',
   'src/domain/text.ts':
@@ -7529,4 +8745,66 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     'Fase 6 (RF-10, D-48(c) opção (a), spec 1.26): linha discreta "Último backup: …" do Início quando não há aviso. Folha sem estado: children (string pronta de describeLastBackup) dentro de um Link do react-router para /ajustes/backup, text-sm slate-600/slate-400 (AA nos dois temas), min-h-11 (alvo de 44 px — RNF-06), self-start. Sem teste próprio: coberto por BackupReminder.test.tsx.',
   'src/test/backupDataset.ts':
     'Fase 6 (testes reforçados, CA-10.1): generateBackupDataset(seed, { maxTransactions }) gera, com semente (createTestRandom, sem bibliotecas extras), as 5 tabelas da §6.3 — tags com nameKey, lançamentos avulsos, de recorrente e de parcelamento, recorrentes com histórico de valores e meses pulados, parcelamentos de 2 a 48 parcelas e as 3 chaves de settings — com textos difíceis (acentos, emoji, aspas, quebras de linha, escrita não latina) e IDs UUID reprodutíveis (princípio 9). Usado nos testes de ida e volta e de auditoria do backup.',
+  'src/domain/recurring.ts':
+    'Fase 9 (RF-07, §6.5, D-51(e)): funções puras dos recorrentes. isActiveIn (início ≤ mês ≤ término), amountFor (último amounts com fromPeriod ≤ mês), isSkipped, confirmedOccurrenceKeys (chave recorrente|mês dos lançamentos), occurrenceStatus (confirmed > inactive > skipped > pending), pendingOccurrences (ordem alfabética, Intl.Collator pt-BR), setAmountFrom (troca os valores do mês em diante; AmountBeforeStartError/AmountAfterEndError), skipPeriod/unskipPeriod (idempotentes), endRecurring (EndBeforeStartError/EndBeforeConfirmedError; descarta pulos e valores depois do término), lastConfirmedPeriod, projected (Previsto = Realizado + pendentes, com addCents — D-05), recurringListStatus (pending/confirmed/skipped/ended/upcoming) e displayAmount (vigente; antes do início o 1º; depois do término o último). Sem React, sem Dexie, sem zod.',
+  'src/domain/recurringSchema.ts':
+    'Fase 9: zod dos formulários e do repositório de recorrentes, separado do recurring.ts para quem só usa as funções puras não levar o zod. recurringInputSchema (término vazio ou ≥ início), recurringDetailsSchema (só descrição e tag — D-51(a)), amountChangeSchema, endRecurringSchema, confirmOccurrenceSchema(period) (data no mês — CA-07.8) e dateOutsidePeriodMessage. Reaproveita os campos comuns do transactionSchema.',
+  'src/repositories/recurringsRepository.ts':
+    'Fase 9 (RF-07, D-51(f)): único acesso de produção à tabela recurrings (e aos confirmados em transactions). Erros: RecurringNotFoundError, RecurringTagNotFoundError, OccurrenceAlreadyConfirmedError, OccurrenceNotPendingError, RecurringHasConfirmationsError. updateRecurring(id, change) = get → regra pura → put numa transação rw [tags, recurrings, transactions]. confirmOccurrence: assertPending pelo índice [recurringId+recurringPeriod] e add na mesma transação (CA-07.5). deleteConfirmedTransaction(id, "pending" | "skip"). Leituras com Intl.Collator e anyOf no índice composto; hooks useLiveQuery — usePendingOccurrences compara a chave dos meses e devolve undefined enquanto meses novos carregam.',
+  'src/components/ui/InfoPopover.tsx':
+    'Fase 9 (CA-07.8, D-51(g)): "ⓘ" acessível — button size-11 com aria-label, aria-expanded e aria-controls; balão <span hidden> posicionado abaixo; fecha com outro toque, tocando fora (useOutsidePointerDown) ou com Esc (stopPropagation: não fecha o modal em volta).',
+  'src/components/ui/MonthInput.tsx':
+    'Fase 9: <input type="month"> controlado (value YYYY-MM ou vazio), com useFieldControl e as classes do DateInput. Ver Saúde: no Firefox e no Safari de macOS vira texto.',
+  'src/components/recurrings/ConfirmOccurrenceDialog.tsx':
+    'Fase 9 (RF-07, CA-07.2, CA-07.8, D-14): modal de confirmação compartilhado (Início, visão Mês e detalhes). Formulário local ConfirmOccurrenceForm com key por ocorrência; tipo e mês escritos; Valor, Data (Field.Hint + InfoPopover), TagPicker e Descrição; Cancelar | Confirmar.',
+  'src/components/recurrings/useConfirmOccurrenceForm.ts':
+    'Fase 9 (D-14): defaultOccurrenceDate (hoje no mês atual; senão dia 1); RHF + zodResolver(confirmOccurrenceSchema(period)) com LIVE_VALIDATION; startsValid; confirmOccurrence e as mensagens dos erros de corrida (já confirmada, não pendente, tag inexistente).',
+  'src/components/recurrings/PendingOccurrencesSection.tsx':
+    'Fase 9 (RF-02 item 4, RF-05, D-51(c)/(m)): seção "Recorrentes pendentes" com Confirmar (e Pular quando canSkip), aviso "Mês pulado." + Desfazer por 8 s, isBusy contra toque duplo, ErrorAlert e Toast "Ocorrência confirmada".',
+  'src/components/recurrings/PendingOccurrenceItem.tsx':
+    'Fase 9 (CA-07.7): linha de uma ocorrência pendente com o selo "Não confirmada" escrito e o slot actions.',
+  'src/components/recurrings/skipErrorMessage.ts':
+    'Fase 9 (D-51(m)): traduz OccurrenceNotPendingError/OccurrenceAlreadyConfirmedError em "Esta ocorrência não está mais pendente."; o resto vira a mensagem genérica da ação. Usado pela seção de pendentes e pelo useRecurringDetail.',
+  'src/components/recurrings/recurringTexts.ts':
+    'Fase 9: textos de recorrentes usados por mais de uma tela (Confirmar, Pular, Desfazer, Não confirmada, mensagens de sucesso e de erro) e os textos da data (dateInfoText do balão, dateHintText da linha de ajuda — CA-07.8). Também importado pelo TransactionForm (dateHintText).',
+  'src/features/recurrings/RecurringsPage.tsx':
+    'Fase 9 (RF-07, CA-07.6): lista de recorrentes + "Novo recorrente"; ao criar, navega para os detalhes.',
+  'src/features/recurrings/RecurringList.tsx':
+    'Fase 9 (CA-07.6): lista sem estado com status do mês atual e valor exibido (displayAmount).',
+  'src/features/recurrings/NewRecurringDialog.tsx':
+    'Fase 9 (RF-07, D-51(h)): modal de criação (tipo, descrição, tag com atalho, valor, mês de início e término opcional).',
+  'src/features/recurrings/RecurringDetailPage.tsx':
+    'Fase 9 (RF-07, CA-07.6): detalhes — resumo, status do mês atual, Editar/Alterar valor/Encerrar/Excluir, histórico de valores, meses pulados, lançamentos confirmados e os 5 modais.',
+  'src/features/recurrings/useRecurringDetail.ts':
+    'Fase 9: estado e ações da tela de detalhes (modal aberto, passo da exclusão, ocorrência em confirmação, isBusy, Toast) sobre useRecurring e useRecurringConfirmations; runAction serializa pular/desfazer e traduz os erros com skipErrorMessage.',
+  'src/features/recurrings/useRecurringForm.ts':
+    'Fase 9 (princípio 16, D-36): hook genérico RHF + zod (schema, defaultValues, save, toErrorMessage) dos 4 formulários de features/recurrings; saveError fora do setError para o botão voltar a ficar ativo depois de uma falha.',
+  'src/features/recurrings/RecurringSummary.tsx':
+    'Fase 9: campos do recorrente (tipo, tag, valor vigente, início, término).',
+  'src/features/recurrings/CurrentOccurrence.tsx':
+    'Fase 9 (CA-07.6): status do mês atual com Pular/Confirmar ou Desfazer.',
+  'src/features/recurrings/EditRecurringDialog.tsx': 'Fase 9 (D-51(a)): edita só descrição e tag.',
+  'src/features/recurrings/ChangeAmountDialog.tsx':
+    'Fase 9 (CA-07.3): novo valor a partir de um mês, com o limite do início e do término no próprio campo.',
+  'src/features/recurrings/EndRecurringDialog.tsx':
+    'Fase 9 (D-15, D-51(d)): último mês, não antes do início nem do último mês confirmado.',
+  'src/features/recurrings/DeleteRecurringDialog.tsx':
+    'Fase 9 (D-15): confirmação ou bloqueio com a sugestão "Encerrar".',
+  'src/features/recurrings/AmountHistory.tsx':
+    'Fase 9 (CA-07.3): histórico de valores, do mais recente ao mais antigo.',
+  'src/features/recurrings/SkippedMonths.tsx': 'Fase 9 (CA-07.4): meses pulados com "Desfazer".',
+  'src/features/recurrings/ConfirmedTransactions.tsx':
+    'Fase 9: lançamentos confirmados do recorrente (TransactionRow).',
+  'src/features/recurrings/recurringsTexts.ts':
+    'Fase 9: textos das telas de recorrentes (título, estado vazio, statusLabel, mensagens dos limites de mês, DELETE_BLOCKED_MESSAGE).',
+  'src/features/home/PendingRecurrings.tsx':
+    'Fase 9 (RF-02 item 4): pendências do mês de hoje no Início, só com "Confirmar".',
+  'src/features/views/usePeriodPending.ts':
+    'Fase 9 (CA-05.2): meses cujas pendências a visão precisa (Mês: 1; Ano: 12; Dia/Semana: nenhum) → usePendingOccurrences.',
+  'src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx':
+    'Fase 9 (D-51(j)): "Excluir lançamento?" com "Excluir e voltar a pendente" e "Excluir e pular este mês".',
+  'src/test/recurrings.ts':
+    'Fase 9: apoio aos testes de tela de recorrentes — TODAY (24/10/2026) e freezeToday (só o Date falso), seedLightBill (tag + "Conta de luz" pelos repositórios), openDialog, pendingSection e pendingItems.',
+  'src/repositories/recurringsRepository.test.ts':
+    'Fase 9 (projeto unit, fake-indexeddb): criar/editar, confirmar (CA-07.1/07.2/07.5, inclusive duas confirmações simultâneas), data no mês (CA-07.8), tipo travado, pendências por mês (CA-07.7), alterar valor, pular/desfazer, encerrar, excluir com regra, excluir confirmado e backup ida e volta com recorrentes (RF-10).',
 }

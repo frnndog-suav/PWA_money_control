@@ -1,8 +1,10 @@
 import { useState, type ReactNode } from 'react'
 import { Controller } from 'react-hook-form'
+import { dateHintText } from '@/components/recurrings/recurringTexts'
 import { CreateTagDialog } from '@/components/tags/CreateTagDialog'
 import { TagPicker } from '@/components/tags/TagPicker'
 import { NoTagsNotice } from '@/components/transactions/NoTagsNotice'
+import { TYPE_LOCKED_MESSAGE } from '@/components/transactions/transactionTexts'
 import { useTransactionForm } from '@/components/transactions/useTransactionForm'
 import { Button } from '@/components/ui/Button'
 import { createRadioGroup } from '@/components/ui/createRadioGroup'
@@ -30,7 +32,16 @@ interface TransactionFormProps {
  * edição. Princípio 16: o botão principal só fica ativo com tudo válido e fora do envio.
  */
 export function TransactionForm({ transaction, onUpdated, extraAction }: TransactionFormProps) {
-  const { form, submit, saveError, savedMessage, isEditing, canSubmit } = useTransactionForm({
+  const {
+    form,
+    submit,
+    saveError,
+    savedMessage,
+    isEditing,
+    occurrencePeriod,
+    isTypeLocked,
+    canSubmit,
+  } = useTransactionForm({
     transaction,
     onUpdated,
   })
@@ -56,12 +67,16 @@ export function TransactionForm({ transaction, onUpdated, extraAction }: Transac
               legend="Tipo"
               value={field.value}
               onValueChange={field.onChange}
+              disabled={isTypeLocked}
             >
               <TypeRadio.Option value="expense">Saída</TypeRadio.Option>
               <TypeRadio.Option value="income">Entrada</TypeRadio.Option>
             </TypeRadio.Root>
           )}
         />
+        {isTypeLocked && (
+          <p className="-mt-2 text-sm text-slate-600 dark:text-slate-300">{TYPE_LOCKED_MESSAGE}</p>
+        )}
 
         <Controller
           control={control}
@@ -79,9 +94,13 @@ export function TransactionForm({ transaction, onUpdated, extraAction }: Transac
           control={control}
           name="date"
           render={({ field, fieldState }) => (
-            <Field error={fieldState.error?.message}>
+            <Field
+              error={fieldState.error?.message}
+              hint={occurrencePeriod ? dateHintText(occurrencePeriod) : undefined}
+            >
               <Field.Label>Data</Field.Label>
               <DateInput {...field} />
+              <Field.Hint />
               <Field.Error />
             </Field>
           )}

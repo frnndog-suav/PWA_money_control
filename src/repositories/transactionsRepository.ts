@@ -1,7 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/db/database'
 import { overallBalance, totals, type Totals } from '@/domain/balances'
-import { monthRange } from '@/domain/dates'
+import { isDateInPeriod, monthRange } from '@/domain/dates'
 import { sortByRecency, takeMostRecent } from '@/domain/transactions'
 import { transactionInputSchema, type TransactionInput } from '@/domain/transactionSchema'
 import type { Cents, DateString, PeriodString, Transaction } from '@/domain/types'
@@ -22,6 +22,25 @@ export class TransactionTagNotFoundError extends Error {
   constructor(tagId: string) {
     super(`Tag não encontrada: ${tagId}`)
     this.name = 'TransactionTagNotFoundError'
+  }
+}
+
+/** D-51 — lançamento confirmado de recorrente com a data fora do mês da ocorrência. */
+export class OccurrenceDateOutsidePeriodError extends Error {
+  readonly period: PeriodString
+
+  constructor(period: PeriodString) {
+    super(`A data precisa estar em ${period}.`)
+    this.name = 'OccurrenceDateOutsidePeriodError'
+    this.period = period
+  }
+}
+
+/** D-51 — o lançamento confirmado de um recorrente mantém o tipo do recorrente. */
+export class OccurrenceTypeChangeError extends Error {
+  constructor() {
+    super('O tipo do lançamento de um recorrente não pode ser trocado.')
+    this.name = 'OccurrenceTypeChangeError'
   }
 }
 
@@ -61,12 +80,20 @@ export async function createTransaction(input: TransactionInput): Promise<Transa
   return transaction
 }
 
-/** CA-01.5 — altera os campos editáveis; os vínculos (RF-07/RF-08) são mantidos. */
+/**
+ * CA-01.5 — altera os campos editáveis; os vínculos (RF-07/RF-08) são mantidos. O lançamento
+ * confirmado de um recorrente continua no mês da ocorrência e com o tipo do recorrente (D-51).
+ */
 export async function updateTransaction(id: string, input: TransactionInput): Promise<Transaction> {
   const fields = toEditableFields(input)
   return db.transaction('rw', [db.tags, db.transactions], async () => {
     const current = await db.transactions.get(id)
     if (!current) throw new TransactionNotFoundError(id)
+    const { recurringId, recurringPeriod } = current
+    if (recurringId !== null && fields.type !== current.type) throw new OccurrenceTypeChangeError()
+    if (recurringPeriod !== null && !isDateInPeriod(fields.date, recurringPeriod)) {
+      throw new OccurrenceDateOutsidePeriodError(recurringPeriod)
+    }
     await assertTagExists(fields.tagId)
     const updated: Transaction = { ...current, ...fields, updatedAt: new Date().toISOString() }
     await db.transactions.put(updated)
@@ -74,7 +101,10 @@ export async function updateTransaction(id: string, input: TransactionInput): Pr
   })
 }
 
-/** CA-01.6 — exclusão simples (as regras de recorrentes e parcelas chegam nas Fases 9 e 10). */
+/**
+ * CA-01.6 — exclusão simples. O lançamento confirmado de um recorrente é excluído pelo
+ * `deleteConfirmedTransaction` (RF-07); as regras de parcelas chegam na Fase 10.
+ */
 export async function deleteTransaction(id: string): Promise<void> {
   await db.transactions.delete(id)
 }

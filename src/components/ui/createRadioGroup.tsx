@@ -15,6 +15,8 @@ export interface RadioGroupRootProps<T extends string> {
   value: T
   onValueChange: (value: T) => void
   variant?: RadioGroupVariant
+  /** Grupo só para leitura (ex.: tipo do lançamento vindo de um recorrente — D-51). */
+  disabled?: boolean
   children: ReactNode
 }
 
@@ -63,12 +65,13 @@ export function createRadioGroup<T extends string>() {
     value,
     onValueChange,
     variant = 'list',
+    disabled = false,
     children,
   }: RadioGroupRootProps<T>) {
     const name = useId()
     const classes = VARIANT_CLASSES[variant]
     return (
-      <fieldset className={classes.fieldset}>
+      <fieldset disabled={disabled} className={`${classes.fieldset} disabled:opacity-60`}>
         <legend className={classes.legend}>{legend}</legend>
         <div className={classes.options}>
           <RadioGroupContext value={{ name, value, onValueChange, variant }}>
