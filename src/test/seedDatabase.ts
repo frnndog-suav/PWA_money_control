@@ -23,6 +23,18 @@ export function readAllTags(): Promise<Tag[]> {
   return db.tags.toArray()
 }
 
+export function readAllTransactions(): Promise<Transaction[]> {
+  return db.transactions.toArray()
+}
+
+export function readTransaction(id: string): Promise<Transaction | undefined> {
+  return db.transactions.get(id)
+}
+
+export function countInstallmentGroups(): Promise<number> {
+  return db.installmentGroups.count()
+}
+
 /**
  * Faz a próxima gravação em lote de lançamentos falhar (como um disco cheio), para os testes
  * de tela conferirem que a importação não altera nada (D-07) sem importar o Dexie.

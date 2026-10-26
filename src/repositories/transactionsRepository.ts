@@ -36,11 +36,14 @@ export class OccurrenceDateOutsidePeriodError extends Error {
   }
 }
 
-/** D-51 — o lançamento confirmado de um recorrente mantém o tipo do recorrente. */
-export class OccurrenceTypeChangeError extends Error {
+/**
+ * D-51 / D-53 — o tipo não muda no lançamento confirmado de um recorrente (fica o do recorrente)
+ * nem na parcela de um parcelamento (sempre Saída — D-06).
+ */
+export class LockedTypeChangeError extends Error {
   constructor() {
-    super('O tipo do lançamento de um recorrente não pode ser trocado.')
-    this.name = 'OccurrenceTypeChangeError'
+    super('O tipo deste lançamento não pode ser trocado.')
+    this.name = 'LockedTypeChangeError'
   }
 }
 
@@ -82,7 +85,8 @@ export async function createTransaction(input: TransactionInput): Promise<Transa
 
 /**
  * CA-01.5 — altera os campos editáveis; os vínculos (RF-07/RF-08) são mantidos. O lançamento
- * confirmado de um recorrente continua no mês da ocorrência e com o tipo do recorrente (D-51).
+ * confirmado de um recorrente continua no mês da ocorrência e com o tipo do recorrente (D-51); a
+ * parcela continua Saída (D-53).
  */
 export async function updateTransaction(id: string, input: TransactionInput): Promise<Transaction> {
   const fields = toEditableFields(input)
@@ -90,7 +94,8 @@ export async function updateTransaction(id: string, input: TransactionInput): Pr
     const current = await db.transactions.get(id)
     if (!current) throw new TransactionNotFoundError(id)
     const { recurringId, recurringPeriod } = current
-    if (recurringId !== null && fields.type !== current.type) throw new OccurrenceTypeChangeError()
+    const isLinked = recurringId !== null || current.installmentGroupId !== null
+    if (isLinked && fields.type !== current.type) throw new LockedTypeChangeError()
     if (recurringPeriod !== null && !isDateInPeriod(fields.date, recurringPeriod)) {
       throw new OccurrenceDateOutsidePeriodError(recurringPeriod)
     }

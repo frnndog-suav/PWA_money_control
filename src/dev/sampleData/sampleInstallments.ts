@@ -1,4 +1,5 @@
 import { addMonthsClamped } from '@/domain/dates'
+import { splitInstallments } from '@/domain/installments'
 import type { Cents, DateString, InstallmentGroup, Transaction } from '@/domain/types'
 import { tagIdOf, timestampOf, type SampleContext } from '@/dev/sampleData/sampleContext'
 
@@ -39,13 +40,6 @@ const INSTALLMENT_SPECS: readonly InstallmentSpec[] = [
   },
 ]
 
-/** Divisão inteira com o resto somado à 1ª parcela (D-06); a soma é igual ao total. */
-function splitTotal(totalCents: Cents, count: number): Cents[] {
-  const base = Math.floor(totalCents / count)
-  const remainder = totalCents - base * count
-  return Array.from({ length: count }, (_, index) => (index === 0 ? base + remainder : base))
-}
-
 export function buildSampleInstallments(context: SampleContext): {
   groups: InstallmentGroup[]
   transactions: Transaction[]
@@ -66,7 +60,7 @@ export function buildSampleInstallments(context: SampleContext): {
     }
     groups.push(group)
 
-    splitTotal(spec.totalCents, spec.count).forEach((amountCents, index) => {
+    splitInstallments(spec.totalCents, spec.count).forEach((amountCents, index) => {
       const date = addMonthsClamped(firstDate, index)
       transactions.push({
         id: context.random.uuid(),

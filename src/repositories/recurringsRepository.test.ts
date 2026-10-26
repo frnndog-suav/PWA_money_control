@@ -26,7 +26,7 @@ import {
 import { createTag } from '@/repositories/tagsRepository'
 import {
   OccurrenceDateOutsidePeriodError,
-  OccurrenceTypeChangeError,
+  LockedTypeChangeError,
   updateTransaction,
 } from '@/repositories/transactionsRepository'
 
@@ -197,7 +197,7 @@ describe('D-51 — tipo do lançamento confirmado', () => {
     const transaction = await confirmOccurrence(light.id, '2026-11', confirmInput(tag))
     const edit = { ...confirmInput(tag), date: '2026-11-20' }
     await expect(updateTransaction(transaction.id, { ...edit, type: 'income' })).rejects.toThrow(
-      OccurrenceTypeChangeError,
+      LockedTypeChangeError,
     )
     expect((await db.transactions.get(transaction.id))?.type).toBe('expense')
     await expect(

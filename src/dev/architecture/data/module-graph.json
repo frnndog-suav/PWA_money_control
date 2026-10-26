@@ -1,19 +1,19 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-26T13:33:20.340Z",
+  "generatedAt": "2026-10-26T19:12:02.983Z",
   "totals": {
-    "modules": 392,
-    "loc": 40472,
-    "components": 157,
-    "hooks": 48,
-    "tests": 116,
-    "edges": 1339,
+    "modules": 403,
+    "loc": 43947,
+    "components": 162,
+    "hooks": 50,
+    "tests": 119,
+    "edges": 1397,
     "configFiles": 11
   },
   "layerSummary": {
     "config": {
       "modules": 11,
-      "loc": 403,
+      "loc": 406,
       "components": 0,
       "hooks": 0,
       "tests": 0
@@ -26,9 +26,9 @@
       "tests": 9
     },
     "components": {
-      "modules": 62,
-      "loc": 2889,
-      "components": 36,
+      "modules": 65,
+      "loc": 3120,
+      "components": 39,
       "hooks": 11,
       "tests": 9
     },
@@ -41,28 +41,28 @@
     },
     "dev": {
       "modules": 66,
-      "loc": 15983,
+      "loc": 18202,
       "components": 37,
       "hooks": 2,
       "tests": 5
     },
     "domain": {
-      "modules": 48,
-      "loc": 5580,
+      "modules": 51,
+      "loc": 5920,
       "components": 0,
       "hooks": 0,
-      "tests": 31
+      "tests": 32
     },
     "features": {
-      "modules": 113,
-      "loc": 7626,
-      "components": 64,
+      "modules": 116,
+      "loc": 7981,
+      "components": 66,
       "hooks": 12,
-      "tests": 25
+      "tests": 26
     },
     "lib": {
       "modules": 25,
-      "loc": 2368,
+      "loc": 2366,
       "components": 0,
       "hooks": 0,
       "tests": 14
@@ -75,11 +75,11 @@
       "tests": 0
     },
     "repositories": {
-      "modules": 28,
-      "loc": 3964,
+      "modules": 30,
+      "loc": 4287,
       "components": 0,
-      "hooks": 18,
-      "tests": 17
+      "hooks": 20,
+      "tests": 18
     },
     "stores": {
       "modules": 4,
@@ -97,13 +97,13 @@
     },
     "test": {
       "modules": 15,
-      "loc": 658,
+      "loc": 667,
       "components": 3,
       "hooks": 0,
       "tests": 0
     }
   },
-  "specVersion": "1.33 — 25/10/2026 (Fase 9: recorrentes; D-51 aguardando confirmação) · 1.32 — 25/10/2026 (D-50 confirmada, com a exceção de `components/periods`; Fase 8 concluída — roteiro validado pelo dono no PC e no iPhone) · 1.31 — 24/10/2026 (Fase 8: gráficos; D-50 aguardando confirmação) · 1.30 — 24/10/2026 (D-49 confirmada; Fase 7 concluída — roteiro validado pelo dono no PC; §6.7 cita `openPeriod`) · 1.29 — 24/10/2026 (Fase 7: visões por período; D-49 aguardando confirmação) · 1.28 — 23/10/2026 (D-46, D-47 e D-48 confirmadas) · 1.27 — 23/10/2026 (Fase 6 concluída — roteiro validado pelo dono no PC e no iPhone; app liberado para dados reais) · 1.26 — 23/10/2026 (Fase 6: \"Último backup\" sempre na tela inicial — linha discreta sem aviso, só o aviso quando ele aparece; D-48 (c), opção (a) do dono, aguardando confirmação) · 1.25 — 23/10/2026 (Fase 6: teste manual — \"Salvar backup\" baixa o arquivo quando a folha é recusada de novo; D-48 aguardando confirmação) · 1.24 — 22/10/2026 (Fase 6: ajustes da revisão — validação do backup, senha em NFC e foco; D-47 e D-48 aguardando confirmação) · 1.23 — 22/10/2026 (Fase 6: backup — D-47 e D-48 aguardando confirmação) · 1.22 — 22/10/2026 (Fase 5 concluída — roteiro validado pelo dono) · 1.21 — 22/10/2026 (testes em dois projetos do Vitest, `unit` em node e `dom` em jsdom — D-46 aguardando confirmação) · 1.20 — 22/10/2026 (D-44 e D-45 confirmadas) · 1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.35 — 26/10/2026 (Fase 10: parcelamento; D-53 aguardando confirmação) · 1.34 — 26/10/2026 (D-51 confirmada; D-52 — Vitest com 4 workers; Fase 9 concluída — roteiro validado pelo dono) · 1.33 — 25/10/2026 (Fase 9: recorrentes; D-51 aguardando confirmação) · 1.32 — 25/10/2026 (D-50 confirmada, com a exceção de `components/periods`; Fase 8 concluída — roteiro validado pelo dono no PC e no iPhone) · 1.31 — 24/10/2026 (Fase 8: gráficos; D-50 aguardando confirmação) · 1.30 — 24/10/2026 (D-49 confirmada; Fase 7 concluída — roteiro validado pelo dono no PC; §6.7 cita `openPeriod`) · 1.29 — 24/10/2026 (Fase 7: visões por período; D-49 aguardando confirmação) · 1.28 — 23/10/2026 (D-46, D-47 e D-48 confirmadas) · 1.27 — 23/10/2026 (Fase 6 concluída — roteiro validado pelo dono no PC e no iPhone; app liberado para dados reais) · 1.26 — 23/10/2026 (Fase 6: \"Último backup\" sempre na tela inicial — linha discreta sem aviso, só o aviso quando ele aparece; D-48 (c), opção (a) do dono, aguardando confirmação) · 1.25 — 23/10/2026 (Fase 6: teste manual — \"Salvar backup\" baixa o arquivo quando a folha é recusada de novo; D-48 aguardando confirmação) · 1.24 — 22/10/2026 (Fase 6: ajustes da revisão — validação do backup, senha em NFC e foco; D-47 e D-48 aguardando confirmação) · 1.23 — 22/10/2026 (Fase 6: backup — D-47 e D-48 aguardando confirmação) · 1.22 — 22/10/2026 (Fase 5 concluída — roteiro validado pelo dono) · 1.21 — 22/10/2026 (testes em dois projetos do Vitest, `unit` em node e `dom` em jsdom — D-46 aguardando confirmação) · 1.20 — 22/10/2026 (D-44 e D-45 confirmadas) · 1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
@@ -507,37 +507,37 @@
       "requirements": "RF-08; integra com RF-10",
       "tasks": [
         {
-          "done": false,
+          "done": true,
           "text": "`domain/installments.ts` com testes (divisão, resto, datas com fim de mês, bissexto).",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Opção \"Parcelado\" no formulário (somente Saída), número de parcelas 2–48, valor total.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Criação atômica do grupo e das parcelas.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Exibição \"Descrição (k/n)\" e detalhes do parcelamento.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Exclusão com as três opções.",
           "human": false
         },
         {
-          "done": false,
+          "done": true,
           "text": "Atualizar backup e teste de ida e volta.",
           "human": false
         }
       ],
-      "done": 0,
+      "done": 6,
       "total": 6
     },
     {
@@ -4001,6 +4001,85 @@
       "testedBy": []
     },
     {
+      "id": "src/components/transactions/InstallmentFields.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/transactions",
+      "kinds": [
+        "component"
+      ],
+      "loc": 90,
+      "exports": [
+        "InstallmentFields"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "InstallmentFields",
+          "signature": "InstallmentFields({ control, onInstallmentChange }: InstallmentFieldsProps)"
+        }
+      ],
+      "components": [
+        "InstallmentFields"
+      ],
+      "props": {
+        "InstallmentFieldsProps": 2
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useWatch"
+      ],
+      "jsxUsed": [
+        "Checkbox",
+        "Controller",
+        "Field",
+        "Field.Error",
+        "Field.Hint",
+        "Field.Label",
+        "TextInput"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-53",
+        "RF-08"
+      ],
+      "external": [
+        {
+          "package": "react-hook-form",
+          "specifier": "react-hook-form",
+          "kind": "static",
+          "names": [
+            "Controller",
+            "useWatch",
+            "Control"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/transactions/TransactionForm.tsx"
+      ],
+      "imports": [
+        "src/components/transactions/transactionTexts.ts",
+        "src/components/ui/Checkbox.tsx",
+        "src/components/ui/Field.tsx",
+        "src/components/ui/TextInput.tsx",
+        "src/domain/installmentSchema.ts",
+        "src/domain/installments.ts",
+        "src/domain/money.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/components/transactions/NoTagsNotice.tsx",
       "layer": "components",
       "feature": null,
@@ -4056,6 +4135,64 @@
       "testedBy": []
     },
     {
+      "id": "src/components/transactions/TransactionDescription.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/transactions",
+      "kinds": [
+        "component"
+      ],
+      "loc": 22,
+      "exports": [
+        "TransactionDescription"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "TransactionDescription",
+          "signature": "TransactionDescription({ transaction }: TransactionDescriptionProps)"
+        }
+      ],
+      "components": [
+        "TransactionDescription"
+      ],
+      "props": {
+        "TransactionDescriptionProps": 1
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useInstallmentCount"
+      ],
+      "jsxUsed": [
+        "InstallmentDescription"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-08"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/components/transactions/TransactionRow.tsx",
+        "src/features/transactions/DeleteInstallmentDialog.tsx"
+      ],
+      "imports": [
+        "src/domain/installments.ts",
+        "src/domain/types.ts",
+        "src/repositories/installmentsRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/components/transactions/TransactionForm.tsx",
       "layer": "components",
       "feature": null,
@@ -4063,7 +4200,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 145,
+      "loc": 173,
       "exports": [
         "TransactionForm"
       ],
@@ -4072,20 +4209,21 @@
       "functions": [
         {
           "name": "TransactionForm",
-          "signature": "TransactionForm({ transaction, onUpdated, extraAction }: TransactionFormProps)"
+          "signature": "TransactionForm({ transaction, onUpdated, extraAction, allowInstallments = false, }: TransactionFormProps)"
         }
       ],
       "components": [
         "TransactionForm"
       ],
       "props": {
-        "TransactionFormProps": 3
+        "TransactionFormProps": 4
       },
       "hooksDefined": [],
       "hooksUsed": [
         "useState",
         "useTags",
-        "useTransactionForm"
+        "useTransactionForm",
+        "useWatch"
       ],
       "jsxUsed": [
         "Button",
@@ -4097,6 +4235,7 @@
         "Field.Error",
         "Field.Hint",
         "Field.Label",
+        "InstallmentFields",
         "MoneyInput",
         "NoTagsNotice",
         "TagPicker",
@@ -4116,7 +4255,10 @@
       "storeMembersUsed": [],
       "requirementRefs": [
         "CA-01.7",
-        "RF-01"
+        "D-06",
+        "D-53",
+        "RF-01",
+        "RF-08"
       ],
       "external": [
         {
@@ -4133,7 +4275,8 @@
           "specifier": "react-hook-form",
           "kind": "static",
           "names": [
-            "Controller"
+            "Controller",
+            "useWatch"
           ]
         }
       ],
@@ -4146,6 +4289,7 @@
         "src/components/recurrings/recurringTexts.ts",
         "src/components/tags/CreateTagDialog.tsx",
         "src/components/tags/TagPicker.tsx",
+        "src/components/transactions/InstallmentFields.tsx",
         "src/components/transactions/NoTagsNotice.tsx",
         "src/components/transactions/transactionTexts.ts",
         "src/components/transactions/useTransactionForm.ts",
@@ -4171,7 +4315,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 36,
+      "loc": 39,
       "exports": [
         "TransactionRow"
       ],
@@ -4194,7 +4338,8 @@
       "jsxUsed": [
         "Link",
         "SignedAmount",
-        "TagChip"
+        "TagChip",
+        "TransactionDescription"
       ],
       "storesUsed": [],
       "dexieTables": {},
@@ -4211,7 +4356,8 @@
         "CA-04.5",
         "D-01",
         "RF-02",
-        "RF-04"
+        "RF-04",
+        "RF-08"
       ],
       "external": [
         {
@@ -4230,6 +4376,7 @@
         "src/features/views/DayDetail.tsx"
       ],
       "imports": [
+        "src/components/transactions/TransactionDescription.tsx",
         "src/components/ui/SignedAmount.tsx",
         "src/components/ui/TagChip.tsx",
         "src/domain/balances.ts",
@@ -4247,8 +4394,14 @@
       "kinds": [
         "module"
       ],
-      "loc": 10,
+      "loc": 19,
       "exports": [
+        "INSTALLMENTS_SAVED_MESSAGE",
+        "INSTALLMENT_COUNT_LABEL",
+        "INSTALLMENT_FIRST_DATE_LABEL",
+        "INSTALLMENT_OPTION_LABEL",
+        "INSTALLMENT_TOTAL_LABEL",
+        "INSTALLMENT_TYPE_LOCKED_MESSAGE",
         "NO_TAGS_MESSAGE",
         "SAVE_TRANSACTION_FAILED_MESSAGE",
         "TRANSACTION_NOT_FOUND_MESSAGE",
@@ -4276,11 +4429,15 @@
       "requirementRefs": [
         "CA-01.1",
         "CA-01.7",
+        "D-06",
         "D-51",
-        "RF-01"
+        "D-53",
+        "RF-01",
+        "RF-08"
       ],
       "external": [],
       "importedBy": [
+        "src/components/transactions/InstallmentFields.tsx",
         "src/components/transactions/NoTagsNotice.tsx",
         "src/components/transactions/TransactionForm.tsx",
         "src/components/transactions/useTransactionForm.ts"
@@ -4297,7 +4454,7 @@
       "kinds": [
         "hook"
       ],
-      "loc": 118,
+      "loc": 168,
       "exports": [
         "useTransactionForm"
       ],
@@ -4334,9 +4491,12 @@
         "CA-01.1",
         "CA-02.2",
         "CA-07.8",
+        "CA-08.2",
         "D-36",
         "D-51",
-        "RF-01"
+        "D-53",
+        "RF-01",
+        "RF-08"
       ],
       "external": [
         {
@@ -4374,10 +4534,12 @@
         "src/components/ui/useToast.ts",
         "src/components/ui/useToday.ts",
         "src/domain/dates.ts",
+        "src/domain/installmentSchema.ts",
+        "src/domain/installments.ts",
         "src/domain/recurringSchema.ts",
-        "src/domain/transactionSchema.ts",
         "src/domain/types.ts",
         "src/lib/formSubmit.ts",
+        "src/repositories/installmentsRepository.ts",
         "src/repositories/transactionsRepository.ts"
       ],
       "assets": [],
@@ -4594,9 +4756,69 @@
         "src/features/tags/TagsPage.tsx",
         "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
         "src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx",
+        "src/features/transactions/DeleteInstallmentDialog.tsx",
         "src/features/transactions/TransactionDetailPage.tsx",
         "src/features/transactions/filters/ClearFiltersButton.tsx",
         "src/features/transactions/filters/FilterToggle.tsx"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/ui/Checkbox.tsx",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "component"
+      ],
+      "loc": 29,
+      "exports": [
+        "Checkbox"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "Checkbox",
+          "signature": "Checkbox({ checked, onChange, onBlur, name, ref, children }: CheckboxProps)"
+        }
+      ],
+      "components": [
+        "Checkbox"
+      ],
+      "props": {
+        "CheckboxProps": 6
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RNF-06"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "type",
+          "names": [
+            "ReactNode",
+            "Ref"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/transactions/InstallmentFields.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -5005,7 +5227,8 @@
         "src/features/tags/ConfirmDeleteTagDialog.tsx",
         "src/features/tags/TagFormDialog.tsx",
         "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
-        "src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx"
+        "src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx",
+        "src/features/transactions/DeleteInstallmentDialog.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -5077,6 +5300,7 @@
       "importedBy": [
         "src/components/recurrings/ConfirmOccurrenceDialog.tsx",
         "src/components/tags/TagForm.tsx",
+        "src/components/transactions/InstallmentFields.tsx",
         "src/components/transactions/TransactionForm.tsx",
         "src/components/ui/DateInput.test.tsx",
         "src/components/ui/InfoPopover.test.tsx",
@@ -5612,7 +5836,8 @@
         "src/features/tags/DeleteTagBlockedDialog.tsx",
         "src/features/tags/TagFormDialog.tsx",
         "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
-        "src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx"
+        "src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx",
+        "src/features/transactions/DeleteInstallmentDialog.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -6432,6 +6657,7 @@
       "importedBy": [
         "src/components/recurrings/ConfirmOccurrenceDialog.tsx",
         "src/components/tags/TagForm.tsx",
+        "src/components/transactions/InstallmentFields.tsx",
         "src/components/transactions/TransactionForm.tsx",
         "src/components/ui/InfoPopover.test.tsx",
         "src/features/recurrings/EditRecurringDialog.tsx",
@@ -6949,6 +7175,7 @@
         "src/features/recurrings/NewRecurringDialog.tsx",
         "src/features/recurrings/RecurringsPage.tsx",
         "src/features/recurrings/useRecurringDetail.ts",
+        "src/features/transactions/InstallmentInfo.tsx",
         "src/features/views/MonthDetail.tsx"
       ],
       "imports": [
@@ -7134,6 +7361,8 @@
         "src/repositories/backupRepository.theme.test.ts",
         "src/repositories/backupRepository.ts",
         "src/repositories/databaseInfo.ts",
+        "src/repositories/installmentsRepository.test.ts",
+        "src/repositories/installmentsRepository.ts",
         "src/repositories/persistentStorageRepository.ts",
         "src/repositories/recurringsRepository.test.ts",
         "src/repositories/recurringsRepository.ts",
@@ -7164,6 +7393,7 @@
         "src/repositories/backupRepository.audit.test.ts",
         "src/repositories/backupRepository.test.ts",
         "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/installmentsRepository.test.ts",
         "src/repositories/recurringsRepository.test.ts",
         "src/repositories/settingsRepository.crud.test.ts",
         "src/repositories/tagsRepository.test.ts",
@@ -7855,7 +8085,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 71,
+      "loc": 76,
       "exports": [
         "DomainSection"
       ],
@@ -8043,7 +8273,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 86,
+      "loc": 91,
       "exports": [
         "FlowsSection"
       ],
@@ -9972,7 +10202,7 @@
         "database",
         "data"
       ],
-      "loc": 7498,
+      "loc": 9366,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
@@ -10061,7 +10291,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 2535,
+      "loc": 2881,
       "exports": [
         "TIMELINE"
       ],
@@ -11205,7 +11435,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 82,
+      "loc": 77,
       "exports": [
         "buildSampleInstallments"
       ],
@@ -11242,6 +11472,7 @@
       "imports": [
         "src/dev/sampleData/sampleContext.ts",
         "src/domain/dates.ts",
+        "src/domain/installments.ts",
         "src/domain/types.ts"
       ],
       "assets": [],
@@ -12722,6 +12953,8 @@
         "src/domain/dates.test.ts",
         "src/domain/dates.timezone.test.ts",
         "src/domain/dates.views.test.ts",
+        "src/domain/installmentSchema.ts",
+        "src/domain/installments.ts",
         "src/domain/periodViews.ts",
         "src/domain/recurringSchema.test.ts",
         "src/domain/recurringSchema.ts",
@@ -12828,6 +13061,227 @@
       ],
       "assets": [],
       "testProject": "unit"
+    },
+    {
+      "id": "src/domain/installments.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 189,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-08.1",
+        "CA-08.4",
+        "CA-08.5",
+        "D-06",
+        "D-53",
+        "RF-08"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/installmentSchema.ts",
+        "src/domain/installments.ts",
+        "src/domain/money.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/domain/installments.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "module"
+      ],
+      "loc": 89,
+      "exports": [
+        "InstallmentDeleteScope",
+        "InstallmentDraft",
+        "MAX_INSTALLMENTS",
+        "MIN_INSTALLMENTS",
+        "buildInstallmentTransactions",
+        "countPassedInstallments",
+        "displayDescription",
+        "installmentsToDelete",
+        "splitInstallments"
+      ],
+      "typeExports": [
+        "InstallmentDeleteScope",
+        "InstallmentDraft"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "splitInstallments",
+          "signature": "splitInstallments(totalCents: Cents, count: number): Cents[]"
+        },
+        {
+          "name": "buildInstallmentTransactions",
+          "signature": "buildInstallmentTransactions(group: Pick< InstallmentGroup, 'id' | 'description' | 'tagId' | 'totalCents' | 'count' | 'firstDate' >): InstallmentDraft[]"
+        },
+        {
+          "name": "displayDescription",
+          "signature": "displayDescription(transaction: Pick<Transaction, 'description' | 'installmentNumber'>, installmentCount: number | undefined): string"
+        },
+        {
+          "name": "countPassedInstallments",
+          "signature": "countPassedInstallments(group: Pick<InstallmentGroup, 'count' | 'firstDate'>, today: DateString): number"
+        },
+        {
+          "name": "installmentsToDelete",
+          "signature": "installmentsToDelete<T extends Pick<Transaction, 'id' | 'installmentNumber'>>(installments: readonly T[], from: T, scope: InstallmentDeleteScope): T[]"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-08.1",
+        "CA-08.2",
+        "CA-08.4",
+        "CA-08.5",
+        "D-06",
+        "D-40",
+        "D-53",
+        "RF-08"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/components/transactions/InstallmentFields.tsx",
+        "src/components/transactions/TransactionDescription.tsx",
+        "src/components/transactions/useTransactionForm.ts",
+        "src/dev/sampleData/sampleInstallments.ts",
+        "src/domain/installmentSchema.ts",
+        "src/domain/installments.test.ts",
+        "src/features/transactions/DeleteInstallmentDialog.tsx",
+        "src/features/transactions/InstallmentInfo.tsx",
+        "src/features/transactions/useTransactionDetail.ts",
+        "src/lib/backupFormat.ts",
+        "src/repositories/installmentsRepository.ts"
+      ],
+      "imports": [
+        "src/domain/dates.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/domain/installments.test.ts"
+      ]
+    },
+    {
+      "id": "src/domain/installmentSchema.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "module"
+      ],
+      "loc": 62,
+      "exports": [
+        "INSTALLMENT_COUNT_MESSAGE",
+        "INSTALLMENT_EXPENSE_ONLY_MESSAGE",
+        "InstallmentInput",
+        "TOTAL_TOO_SMALL_MESSAGE",
+        "TransactionFormInput",
+        "TransactionFormValues",
+        "installmentInputSchema",
+        "transactionFormSchema"
+      ],
+      "typeExports": [
+        "InstallmentInput",
+        "TransactionFormInput",
+        "TransactionFormValues"
+      ],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-06",
+        "D-53",
+        "RF-08"
+      ],
+      "external": [
+        {
+          "package": "zod",
+          "specifier": "zod",
+          "kind": "static",
+          "names": [
+            "z"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/transactions/InstallmentFields.tsx",
+        "src/components/transactions/useTransactionForm.ts",
+        "src/domain/installments.test.ts",
+        "src/repositories/installmentsRepository.ts"
+      ],
+      "imports": [
+        "src/domain/dates.ts",
+        "src/domain/installments.ts",
+        "src/domain/transactionSchema.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/domain/installments.test.ts"
+      ]
     },
     {
       "id": "src/domain/money.compact.test.ts",
@@ -13001,6 +13455,7 @@
       "external": [],
       "importedBy": [
         "src/components/transactions/IncomeExpenseTotals.tsx",
+        "src/components/transactions/InstallmentFields.tsx",
         "src/components/ui/MoneyInput.test.tsx",
         "src/components/ui/MoneyInput.tsx",
         "src/components/ui/SignedAmount.tsx",
@@ -13011,6 +13466,7 @@
         "src/domain/balances.ts",
         "src/domain/charts.test.ts",
         "src/domain/charts.ts",
+        "src/domain/installments.test.ts",
         "src/domain/money.compact.test.ts",
         "src/domain/money.test.ts",
         "src/domain/recurring.ts",
@@ -13026,6 +13482,7 @@
         "src/features/home/HomePage.form.test.tsx",
         "src/features/home/HomePage.test.tsx",
         "src/features/recurrings/AmountHistory.tsx",
+        "src/features/transactions/InstallmentInfo.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/transactions/TransactionsPage.filters.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
@@ -13046,6 +13503,7 @@
         "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
         "src/domain/charts.test.ts",
+        "src/domain/installments.test.ts",
         "src/domain/money.compact.test.ts",
         "src/domain/money.test.ts",
         "src/domain/transactionFilters.audit.test.ts",
@@ -14717,7 +15175,7 @@
         }
       ],
       "importedBy": [
-        "src/components/transactions/useTransactionForm.ts",
+        "src/domain/installmentSchema.ts",
         "src/domain/recurringSchema.ts",
         "src/domain/transactionSchema.test.ts",
         "src/repositories/transactionsRepository.crud.test.ts",
@@ -14801,6 +15259,7 @@
         "src/components/tags/TagPicker.tsx",
         "src/components/tags/useTagForm.ts",
         "src/components/transactions/IncomeExpenseTotals.tsx",
+        "src/components/transactions/TransactionDescription.tsx",
         "src/components/transactions/TransactionForm.tsx",
         "src/components/transactions/TransactionRow.tsx",
         "src/components/transactions/useTransactionForm.ts",
@@ -14818,6 +15277,7 @@
         "src/domain/balances.ts",
         "src/domain/charts.ts",
         "src/domain/dates.ts",
+        "src/domain/installments.ts",
         "src/domain/money.ts",
         "src/domain/periodViews.ts",
         "src/domain/recurring.ts",
@@ -14855,8 +15315,12 @@
         "src/features/tags/TagList.tsx",
         "src/features/tags/useTagsScreen.ts",
         "src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx",
+        "src/features/transactions/DeleteInstallmentDialog.tsx",
+        "src/features/transactions/InstallmentInfo.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/features/transactions/TransactionDetailPage.tsx",
         "src/features/transactions/filters/TagFilter.tsx",
         "src/features/transactions/list/DaySection.tsx",
         "src/features/transactions/list/TransactionDayList.tsx",
@@ -14873,6 +15337,7 @@
         "src/features/views/usePeriodPending.ts",
         "src/lib/backupFormat.ts",
         "src/repositories/backupRepository.test.ts",
+        "src/repositories/installmentsRepository.ts",
         "src/repositories/recurringsRepository.test.ts",
         "src/repositories/recurringsRepository.ts",
         "src/repositories/settingsRepository.ts",
@@ -14897,6 +15362,7 @@
         "src/domain/transactionFilters.test.ts",
         "src/domain/transactions.test.ts",
         "src/features/recurrings/RecurringDetailPage.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/transactions/useTransactionList.test.ts",
@@ -20413,6 +20879,68 @@
       "testedBy": []
     },
     {
+      "id": "src/features/transactions/DeleteInstallmentDialog.tsx",
+      "layer": "features",
+      "feature": "transactions",
+      "group": "features/transactions",
+      "kinds": [
+        "component"
+      ],
+      "loc": 49,
+      "exports": [
+        "DeleteInstallmentDialog"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "DeleteInstallmentDialog",
+          "signature": "DeleteInstallmentDialog({ open, transaction, onConfirm, onCancel, isDeleting, errorMessage, }: DeleteInstallmentDialogProps)"
+        }
+      ],
+      "components": [
+        "DeleteInstallmentDialog"
+      ],
+      "props": {
+        "DeleteInstallmentDialogProps": 6
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "Button",
+        "ErrorAlert",
+        "Modal",
+        "Modal.Body",
+        "TransactionDescription"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-08.4"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/features/transactions/TransactionDetailPage.tsx"
+      ],
+      "imports": [
+        "src/components/transactions/TransactionDescription.tsx",
+        "src/components/ui/Button.tsx",
+        "src/components/ui/ErrorAlert.tsx",
+        "src/components/ui/Modal.tsx",
+        "src/domain/installments.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/features/transactions/filters/ClearFiltersButton.tsx",
       "layer": "features",
       "feature": "transactions",
@@ -20950,6 +21478,163 @@
       "testedBy": []
     },
     {
+      "id": "src/features/transactions/InstallmentInfo.tsx",
+      "layer": "features",
+      "feature": "transactions",
+      "group": "features/transactions",
+      "kinds": [
+        "component"
+      ],
+      "loc": 41,
+      "exports": [
+        "InstallmentInfo"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "InstallmentInfo",
+          "signature": "InstallmentInfo({ transaction, groupId }: InstallmentInfoProps)"
+        }
+      ],
+      "components": [
+        "InstallmentInfo"
+      ],
+      "props": {
+        "InstallmentInfoProps": 2
+      },
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useId",
+        "useInstallmentGroupDetails",
+        "useToday"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-08.5",
+        "D-53"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "useId"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/features/transactions/TransactionDetailPage.tsx"
+      ],
+      "imports": [
+        "src/components/ui/useToday.ts",
+        "src/domain/installments.ts",
+        "src/domain/money.ts",
+        "src/domain/types.ts",
+        "src/repositories/installmentsRepository.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/features/transactions/InstallmentPurchase.test.tsx",
+      "layer": "features",
+      "feature": "transactions",
+      "group": "features/transactions",
+      "kinds": [
+        "test"
+      ],
+      "loc": 225,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [
+        "useRealTimers"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [
+        "useUiStore"
+      ],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [
+        "src/stores/uiStore.ts"
+      ],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [
+        "viewAnchorDate",
+        "viewGranularity"
+      ],
+      "requirementRefs": [
+        "CA-01.3",
+        "CA-08.1",
+        "CA-08.3",
+        "CA-08.4",
+        "CA-08.5",
+        "D-36",
+        "D-40",
+        "D-53",
+        "RF-08"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "screen",
+            "waitFor",
+            "within"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/types.ts",
+        "src/repositories/installmentsRepository.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/stores/uiStore.ts",
+        "src/test/recurrings.ts",
+        "src/test/renderApp.tsx",
+        "src/test/seedDatabase.ts",
+        "src/test/transactionForm.ts",
+        "src/test/transactionList.ts"
+      ],
+      "assets": [],
+      "testProject": "dom"
+    },
+    {
       "id": "src/features/transactions/list/DaySection.tsx",
       "layer": "features",
       "feature": "transactions",
@@ -21188,6 +21873,7 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
+        "D-53",
         "RF-01",
         "RF-08"
       ],
@@ -21355,7 +22041,7 @@
         "component",
         "page"
       ],
-      "loc": 57,
+      "loc": 91,
       "exports": [
         "TransactionDetailPage"
       ],
@@ -21370,7 +22056,9 @@
       "components": [
         "TransactionDetailPage"
       ],
-      "props": {},
+      "props": {
+        "DeleteDialogProps": 2
+      },
       "hooksDefined": [],
       "hooksUsed": [
         "useParams",
@@ -21381,7 +22069,10 @@
         "Button",
         "ConfirmDeleteTransactionDialog",
         "DeleteConfirmedOccurrenceDialog",
+        "DeleteDialog",
+        "DeleteInstallmentDialog",
         "EmptyState",
+        "InstallmentInfo",
         "Page",
         "Page.Header",
         "TransactionForm"
@@ -21396,10 +22087,13 @@
       "routes": [],
       "storeMembersUsed": [],
       "requirementRefs": [
+        "CA-01.6",
+        "CA-08.3",
+        "CA-08.4",
+        "CA-08.5",
         "D-51",
         "RF-01",
-        "RF-07",
-        "RF-08"
+        "RF-07"
       ],
       "external": [
         {
@@ -21420,8 +22114,11 @@
         "src/components/ui/Button.tsx",
         "src/components/ui/EmptyState.tsx",
         "src/components/ui/Page.tsx",
+        "src/domain/types.ts",
         "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
         "src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx",
+        "src/features/transactions/DeleteInstallmentDialog.tsx",
+        "src/features/transactions/InstallmentInfo.tsx",
         "src/features/transactions/useTransactionDetail.ts"
       ],
       "assets": [],
@@ -21796,7 +22493,7 @@
       "kinds": [
         "hook"
       ],
-      "loc": 59,
+      "loc": 65,
       "exports": [
         "DELETE_TRANSACTION_FAILED_MESSAGE",
         "useTransactionDetail"
@@ -21832,6 +22529,7 @@
       "requirementRefs": [
         "CA-01.5",
         "CA-01.6",
+        "CA-08.4",
         "CA-13.2",
         "RF-07"
       ],
@@ -21850,6 +22548,8 @@
       ],
       "imports": [
         "src/components/ui/useGoBack.ts",
+        "src/domain/installments.ts",
+        "src/repositories/installmentsRepository.ts",
         "src/repositories/recurringsRepository.ts",
         "src/repositories/transactionsRepository.ts"
       ],
@@ -23035,7 +23735,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 354,
+      "loc": 352,
       "exports": [
         "BACKUP_APP_ID",
         "BACKUP_FILE_MIME_TYPE",
@@ -23121,7 +23821,6 @@
         "CA-10.4",
         "CA-10.5",
         "RF-03",
-        "RF-08",
         "RF-10"
       ],
       "external": [
@@ -23154,6 +23853,7 @@
       ],
       "imports": [
         "src/domain/dates.ts",
+        "src/domain/installments.ts",
         "src/domain/tags.ts",
         "src/domain/types.ts",
         "src/lib/crypto.ts",
@@ -24849,6 +25549,7 @@
         "src/repositories/backupRepository.audit.test.ts",
         "src/repositories/backupRepository.test.ts",
         "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/installmentsRepository.test.ts",
         "src/repositories/recurringsRepository.test.ts",
         "src/repositories/settingsRepository.test.ts"
       ],
@@ -24868,6 +25569,7 @@
         "src/repositories/backupRepository.audit.test.ts",
         "src/repositories/backupRepository.test.ts",
         "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/installmentsRepository.test.ts",
         "src/repositories/recurringsRepository.test.ts",
         "src/repositories/settingsRepository.test.ts"
       ]
@@ -24913,6 +25615,218 @@
       "assets": [],
       "testedBy": [
         "src/db/database.schema.test.ts"
+      ]
+    },
+    {
+      "id": "src/repositories/installmentsRepository.test.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "test"
+      ],
+      "loc": 206,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "transactions": {
+          "reads": [
+            "count",
+            "toArray"
+          ],
+          "writes": []
+        },
+        "installmentGroups": {
+          "reads": [
+            "count",
+            "get",
+            "toArray"
+          ],
+          "writes": []
+        }
+      },
+      "usesTransaction": true,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-08.1",
+        "CA-08.2",
+        "CA-08.3",
+        "CA-08.4",
+        "CA-08.5",
+        "D-02",
+        "D-40",
+        "D-42",
+        "D-53",
+        "RF-08",
+        "RF-10"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/db/database.ts",
+        "src/repositories/backupRepository.ts",
+        "src/repositories/installmentsRepository.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/repositories/transactionsRepository.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
+    },
+    {
+      "id": "src/repositories/installmentsRepository.ts",
+      "layer": "repositories",
+      "feature": null,
+      "group": "repositories",
+      "kinds": [
+        "hook"
+      ],
+      "loc": 112,
+      "exports": [
+        "InstallmentGroupDetails",
+        "InstallmentPurchase",
+        "InstallmentTagNotFoundError",
+        "createInstallmentPurchase",
+        "deleteInstallments",
+        "getInstallmentGroupDetails",
+        "useInstallmentCount",
+        "useInstallmentGroupDetails"
+      ],
+      "typeExports": [
+        "InstallmentGroupDetails",
+        "InstallmentPurchase"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "createInstallmentPurchase",
+          "signature": "createInstallmentPurchase(input: InstallmentInput): Promise<InstallmentPurchase>"
+        },
+        {
+          "name": "deleteInstallments",
+          "signature": "deleteInstallments(transactionId: string, scope: InstallmentDeleteScope): Promise<void>"
+        },
+        {
+          "name": "getInstallmentGroupDetails",
+          "signature": "getInstallmentGroupDetails(groupId: string): Promise<InstallmentGroupDetails | null>"
+        },
+        {
+          "name": "useInstallmentGroupDetails",
+          "signature": "useInstallmentGroupDetails(groupId: string): InstallmentGroupDetails | null | undefined"
+        },
+        {
+          "name": "useInstallmentCount",
+          "signature": "useInstallmentCount(groupId: string): number | undefined"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [
+        "useInstallmentCount",
+        "useInstallmentGroupDetails"
+      ],
+      "hooksUsed": [
+        "useLiveQuery"
+      ],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {
+        "transactions": {
+          "reads": [
+            "get",
+            "where"
+          ],
+          "writes": [
+            "bulkAdd",
+            "bulkDelete",
+            "delete"
+          ]
+        },
+        "tags": {
+          "reads": [
+            "where"
+          ],
+          "writes": []
+        },
+        "installmentGroups": {
+          "reads": [
+            "get"
+          ],
+          "writes": [
+            "add",
+            "delete"
+          ]
+        }
+      },
+      "usesTransaction": true,
+      "usesLiveQuery": true,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-08.1",
+        "CA-08.2",
+        "CA-08.4",
+        "CA-08.5",
+        "D-01",
+        "D-02",
+        "RF-08"
+      ],
+      "external": [
+        {
+          "package": "dexie-react-hooks",
+          "specifier": "dexie-react-hooks",
+          "kind": "static",
+          "names": [
+            "useLiveQuery"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/components/transactions/TransactionDescription.tsx",
+        "src/components/transactions/useTransactionForm.ts",
+        "src/features/transactions/InstallmentInfo.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
+        "src/features/transactions/useTransactionDetail.ts",
+        "src/repositories/installmentsRepository.test.ts"
+      ],
+      "imports": [
+        "src/db/database.ts",
+        "src/domain/installmentSchema.ts",
+        "src/domain/installments.ts",
+        "src/domain/types.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/features/transactions/InstallmentPurchase.test.tsx",
+        "src/repositories/installmentsRepository.test.ts"
       ]
     },
     {
@@ -25946,9 +26860,11 @@
         "src/features/tags/TagsPage.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
         "src/features/tags/useTagsScreen.ts",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/transactions/useTransactionList.ts",
         "src/features/views/DayDetail.tsx",
+        "src/repositories/installmentsRepository.test.ts",
         "src/repositories/recurringsRepository.test.ts",
         "src/repositories/tagsRepository.listTags.test.ts",
         "src/repositories/tagsRepository.test.ts",
@@ -25973,7 +26889,9 @@
         "src/features/tags/TagsPage.test.tsx",
         "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/repositories/installmentsRepository.test.ts",
         "src/repositories/recurringsRepository.test.ts",
         "src/repositories/tagsRepository.listTags.test.ts",
         "src/repositories/tagsRepository.test.ts",
@@ -26647,10 +27565,10 @@
       "kinds": [
         "hook"
       ],
-      "loc": 204,
+      "loc": 209,
       "exports": [
+        "LockedTypeChangeError",
         "OccurrenceDateOutsidePeriodError",
-        "OccurrenceTypeChangeError",
         "TransactionNotFoundError",
         "TransactionTagNotFoundError",
         "countTransactions",
@@ -26793,9 +27711,11 @@
         "CA-05.1",
         "D-01",
         "D-02",
+        "D-06",
         "D-40",
         "D-42",
         "D-51",
+        "D-53",
         "RF-01",
         "RF-02",
         "RF-04",
@@ -26830,6 +27750,7 @@
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/transactions/useTransactionDetail.ts",
         "src/features/transactions/useTransactionList.ts",
+        "src/repositories/installmentsRepository.test.ts",
         "src/repositories/recurringsRepository.test.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.crud.test.ts",
@@ -26853,6 +27774,7 @@
         "src/features/home/HomePage.test.tsx",
         "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
+        "src/repositories/installmentsRepository.test.ts",
         "src/repositories/recurringsRepository.test.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.crud.test.ts",
@@ -27211,6 +28133,7 @@
         "src/components/periods/TodayButton.tsx",
         "src/components/periods/usePeriodView.ts",
         "src/features/charts/ChartsPage.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionsPage.filters.test.tsx",
         "src/features/transactions/filters/ClearFiltersButton.tsx",
         "src/features/transactions/filters/FilterToggle.tsx",
@@ -27240,6 +28163,7 @@
         "src/app/pwa/registerPwa.test.ts",
         "src/app/pwa/UpdateNotice.test.tsx",
         "src/features/charts/ChartsPage.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionsPage.filters.test.tsx",
         "src/features/transactions/useTransactionList.test.ts",
         "src/features/views/ViewsPage.recurrings.test.tsx",
@@ -27999,6 +28923,7 @@
         "src/features/home/HomePage.recurrings.test.tsx",
         "src/features/recurrings/RecurringDetailPage.test.tsx",
         "src/features/recurrings/RecurringsPage.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
         "src/features/views/ViewsPage.recurrings.test.tsx"
       ],
@@ -28013,6 +28938,7 @@
         "src/features/home/HomePage.recurrings.test.tsx",
         "src/features/recurrings/RecurringDetailPage.test.tsx",
         "src/features/recurrings/RecurringsPage.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
         "src/features/views/ViewsPage.recurrings.test.tsx"
       ]
@@ -28099,6 +29025,7 @@
         "src/features/tags/TagsPage.test.tsx",
         "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/views/ViewsPage.recurrings.test.tsx",
@@ -28130,6 +29057,7 @@
         "src/features/tags/TagsPage.test.tsx",
         "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/views/ViewsPage.recurrings.test.tsx",
@@ -28144,10 +29072,13 @@
       "kinds": [
         "module"
       ],
-      "loc": 27,
+      "loc": 36,
       "exports": [
+        "countInstallmentGroups",
         "failNextTransactionsBulkAdd",
         "readAllTags",
+        "readAllTransactions",
+        "readTransaction",
         "seedRecords"
       ],
       "typeExports": [],
@@ -28162,6 +29093,18 @@
           "signature": "readAllTags(): Promise<Tag[]>"
         },
         {
+          "name": "readAllTransactions",
+          "signature": "readAllTransactions(): Promise<Transaction[]>"
+        },
+        {
+          "name": "readTransaction",
+          "signature": "readTransaction(id: string): Promise<Transaction | undefined>"
+        },
+        {
+          "name": "countInstallmentGroups",
+          "signature": "countInstallmentGroups(): Promise<number>"
+        },
+        {
           "name": "failNextTransactionsBulkAdd",
           "signature": "failNextTransactionsBulkAdd(): void"
         }
@@ -28174,7 +29117,10 @@
       "storesUsed": [],
       "dexieTables": {
         "transactions": {
-          "reads": [],
+          "reads": [
+            "get",
+            "toArray"
+          ],
           "writes": [
             "bulkAdd"
           ]
@@ -28186,7 +29132,9 @@
           ]
         },
         "installmentGroups": {
-          "reads": [],
+          "reads": [
+            "count"
+          ],
           "writes": [
             "bulkAdd"
           ]
@@ -28224,6 +29172,7 @@
         "src/features/tags/TagsPage.test.tsx",
         "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/test/transactionList.ts"
       ],
       "imports": [
@@ -28236,7 +29185,8 @@
         "src/features/home/HomePage.form.test.tsx",
         "src/features/tags/TagsPage.test.tsx",
         "src/features/tags/TagsPage.transactions.test.tsx",
-        "src/features/tags/TagsPage.validation.test.tsx"
+        "src/features/tags/TagsPage.validation.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx"
       ]
     },
     {
@@ -28527,6 +29477,7 @@
         "src/features/recurrings/RecurringDetailPage.test.tsx",
         "src/features/recurrings/RecurringsPage.test.tsx",
         "src/features/tags/TagsPage.transactions.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/views/ViewsPage.recurrings.test.tsx"
@@ -28539,6 +29490,7 @@
         "src/features/recurrings/RecurringDetailPage.test.tsx",
         "src/features/recurrings/RecurringsPage.test.tsx",
         "src/features/tags/TagsPage.transactions.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/views/ViewsPage.recurrings.test.tsx"
@@ -28648,6 +29600,7 @@
         "src/features/home/HomePage.recurrings.test.tsx",
         "src/features/recurrings/RecurringDetailPage.test.tsx",
         "src/features/recurrings/RecurringsPage.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionsPage.filters.test.tsx",
         "src/features/transactions/TransactionsPage.pagination.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
@@ -28667,6 +29620,7 @@
         "src/features/home/HomePage.recurrings.test.tsx",
         "src/features/recurrings/RecurringDetailPage.test.tsx",
         "src/features/recurrings/RecurringsPage.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionsPage.filters.test.tsx",
         "src/features/transactions/TransactionsPage.pagination.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
@@ -28815,7 +29769,7 @@
       "kinds": [
         "config"
       ],
-      "loc": 92,
+      "loc": 95,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -28838,6 +29792,7 @@
         "CA-11.5",
         "D-43",
         "D-46",
+        "D-52",
         "RF-11",
         "RNF-07"
       ],
@@ -30163,6 +31118,63 @@
       ]
     },
     {
+      "from": "src/components/transactions/InstallmentFields.tsx",
+      "to": "src/components/transactions/transactionTexts.ts",
+      "kind": "static",
+      "names": [
+        "INSTALLMENT_COUNT_LABEL",
+        "INSTALLMENT_OPTION_LABEL"
+      ]
+    },
+    {
+      "from": "src/components/transactions/InstallmentFields.tsx",
+      "to": "src/components/ui/Checkbox.tsx",
+      "kind": "static",
+      "names": [
+        "Checkbox"
+      ]
+    },
+    {
+      "from": "src/components/transactions/InstallmentFields.tsx",
+      "to": "src/components/ui/Field.tsx",
+      "kind": "static",
+      "names": [
+        "Field"
+      ]
+    },
+    {
+      "from": "src/components/transactions/InstallmentFields.tsx",
+      "to": "src/components/ui/TextInput.tsx",
+      "kind": "static",
+      "names": [
+        "TextInput"
+      ]
+    },
+    {
+      "from": "src/components/transactions/InstallmentFields.tsx",
+      "to": "src/domain/installments.ts",
+      "kind": "static",
+      "names": [
+        "splitInstallments"
+      ]
+    },
+    {
+      "from": "src/components/transactions/InstallmentFields.tsx",
+      "to": "src/domain/installmentSchema.ts",
+      "kind": "type",
+      "names": [
+        "TransactionFormInput"
+      ]
+    },
+    {
+      "from": "src/components/transactions/InstallmentFields.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "formatBRL"
+      ]
+    },
+    {
       "from": "src/components/transactions/NoTagsNotice.tsx",
       "to": "src/components/transactions/transactionTexts.ts",
       "kind": "static",
@@ -30176,6 +31188,30 @@
       "kind": "static",
       "names": [
         "Button"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionDescription.tsx",
+      "to": "src/domain/installments.ts",
+      "kind": "static",
+      "names": [
+        "displayDescription"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionDescription.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionDescription.tsx",
+      "to": "src/repositories/installmentsRepository.ts",
+      "kind": "static",
+      "names": [
+        "useInstallmentCount"
       ]
     },
     {
@@ -30204,6 +31240,14 @@
     },
     {
       "from": "src/components/transactions/TransactionForm.tsx",
+      "to": "src/components/transactions/InstallmentFields.tsx",
+      "kind": "static",
+      "names": [
+        "InstallmentFields"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionForm.tsx",
       "to": "src/components/transactions/NoTagsNotice.tsx",
       "kind": "static",
       "names": [
@@ -30215,7 +31259,8 @@
       "to": "src/components/transactions/transactionTexts.ts",
       "kind": "static",
       "names": [
-        "TYPE_LOCKED_MESSAGE"
+        "INSTALLMENT_FIRST_DATE_LABEL",
+        "INSTALLMENT_TOTAL_LABEL"
       ]
     },
     {
@@ -30309,6 +31354,14 @@
     },
     {
       "from": "src/components/transactions/TransactionRow.tsx",
+      "to": "src/components/transactions/TransactionDescription.tsx",
+      "kind": "static",
+      "names": [
+        "TransactionDescription"
+      ]
+    },
+    {
+      "from": "src/components/transactions/TransactionRow.tsx",
       "to": "src/components/ui/SignedAmount.tsx",
       "kind": "static",
       "names": [
@@ -30353,6 +31406,8 @@
       "to": "src/components/transactions/transactionTexts.ts",
       "kind": "static",
       "names": [
+        "INSTALLMENTS_SAVED_MESSAGE",
+        "INSTALLMENT_TYPE_LOCKED_MESSAGE",
         "SAVE_TRANSACTION_FAILED_MESSAGE",
         "TRANSACTION_NOT_FOUND_MESSAGE",
         "TRANSACTION_SAVED_MESSAGE",
@@ -30386,20 +31441,28 @@
     },
     {
       "from": "src/components/transactions/useTransactionForm.ts",
-      "to": "src/domain/recurringSchema.ts",
+      "to": "src/domain/installments.ts",
       "kind": "static",
       "names": [
-        "dateOutsidePeriodMessage"
+        "MIN_INSTALLMENTS"
       ]
     },
     {
       "from": "src/components/transactions/useTransactionForm.ts",
-      "to": "src/domain/transactionSchema.ts",
+      "to": "src/domain/installmentSchema.ts",
       "kind": "static",
       "names": [
-        "transactionInputSchema",
-        "TransactionInput",
-        "TransactionValues"
+        "transactionFormSchema",
+        "TransactionFormInput",
+        "TransactionFormValues"
+      ]
+    },
+    {
+      "from": "src/components/transactions/useTransactionForm.ts",
+      "to": "src/domain/recurringSchema.ts",
+      "kind": "static",
+      "names": [
+        "dateOutsidePeriodMessage"
       ]
     },
     {
@@ -30409,7 +31472,8 @@
       "names": [
         "DateString",
         "PeriodString",
-        "Transaction"
+        "Transaction",
+        "TransactionType"
       ]
     },
     {
@@ -30423,12 +31487,21 @@
     },
     {
       "from": "src/components/transactions/useTransactionForm.ts",
+      "to": "src/repositories/installmentsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createInstallmentPurchase",
+        "InstallmentTagNotFoundError"
+      ]
+    },
+    {
+      "from": "src/components/transactions/useTransactionForm.ts",
       "to": "src/repositories/transactionsRepository.ts",
       "kind": "static",
       "names": [
         "createTransaction",
+        "LockedTypeChangeError",
         "OccurrenceDateOutsidePeriodError",
-        "OccurrenceTypeChangeError",
         "TransactionNotFoundError",
         "TransactionTagNotFoundError",
         "updateTransaction"
@@ -32939,6 +34012,14 @@
     },
     {
       "from": "src/dev/sampleData/sampleInstallments.ts",
+      "to": "src/domain/installments.ts",
+      "kind": "static",
+      "names": [
+        "splitInstallments"
+      ]
+    },
+    {
+      "from": "src/dev/sampleData/sampleInstallments.ts",
       "to": "src/domain/types.ts",
       "kind": "type",
       "names": [
@@ -33455,6 +34536,85 @@
         "formatShortWeekdayDay",
         "formatWeekdayDate",
         "weekRange"
+      ]
+    },
+    {
+      "from": "src/domain/installments.test.ts",
+      "to": "src/domain/installments.ts",
+      "kind": "static",
+      "names": [
+        "buildInstallmentTransactions",
+        "countPassedInstallments",
+        "displayDescription",
+        "installmentsToDelete",
+        "splitInstallments"
+      ]
+    },
+    {
+      "from": "src/domain/installments.test.ts",
+      "to": "src/domain/installmentSchema.ts",
+      "kind": "static",
+      "names": [
+        "INSTALLMENT_COUNT_MESSAGE",
+        "INSTALLMENT_EXPENSE_ONLY_MESSAGE",
+        "installmentInputSchema",
+        "TOTAL_TOO_SMALL_MESSAGE",
+        "transactionFormSchema"
+      ]
+    },
+    {
+      "from": "src/domain/installments.test.ts",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "MAX_AMOUNT_CENTS"
+      ]
+    },
+    {
+      "from": "src/domain/installments.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "addMonthsClamped"
+      ]
+    },
+    {
+      "from": "src/domain/installments.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Cents",
+        "DateString",
+        "InstallmentGroup",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/domain/installmentSchema.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "isValidDate"
+      ]
+    },
+    {
+      "from": "src/domain/installmentSchema.ts",
+      "to": "src/domain/installments.ts",
+      "kind": "static",
+      "names": [
+        "MAX_INSTALLMENTS",
+        "MIN_INSTALLMENTS"
+      ]
+    },
+    {
+      "from": "src/domain/installmentSchema.ts",
+      "to": "src/domain/transactionSchema.ts",
+      "kind": "static",
+      "names": [
+        "amountCentsSchema",
+        "descriptionSchema",
+        "tagIdSchema",
+        "transactionInputSchema"
       ]
     },
     {
@@ -37391,6 +38551,54 @@
       ]
     },
     {
+      "from": "src/features/transactions/DeleteInstallmentDialog.tsx",
+      "to": "src/components/transactions/TransactionDescription.tsx",
+      "kind": "static",
+      "names": [
+        "TransactionDescription"
+      ]
+    },
+    {
+      "from": "src/features/transactions/DeleteInstallmentDialog.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
+      "from": "src/features/transactions/DeleteInstallmentDialog.tsx",
+      "to": "src/components/ui/ErrorAlert.tsx",
+      "kind": "static",
+      "names": [
+        "ErrorAlert"
+      ]
+    },
+    {
+      "from": "src/features/transactions/DeleteInstallmentDialog.tsx",
+      "to": "src/components/ui/Modal.tsx",
+      "kind": "static",
+      "names": [
+        "Modal"
+      ]
+    },
+    {
+      "from": "src/features/transactions/DeleteInstallmentDialog.tsx",
+      "to": "src/domain/installments.ts",
+      "kind": "type",
+      "names": [
+        "InstallmentDeleteScope"
+      ]
+    },
+    {
+      "from": "src/features/transactions/DeleteInstallmentDialog.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
       "from": "src/features/transactions/filters/ClearFiltersButton.tsx",
       "to": "src/components/ui/Button.tsx",
       "kind": "static",
@@ -37638,6 +38846,121 @@
       "kind": "static",
       "names": [
         "useUiStore"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentInfo.tsx",
+      "to": "src/components/ui/useToday.ts",
+      "kind": "static",
+      "names": [
+        "useToday"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentInfo.tsx",
+      "to": "src/domain/installments.ts",
+      "kind": "static",
+      "names": [
+        "countPassedInstallments"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentInfo.tsx",
+      "to": "src/domain/money.ts",
+      "kind": "static",
+      "names": [
+        "formatBRL"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentInfo.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentInfo.tsx",
+      "to": "src/repositories/installmentsRepository.ts",
+      "kind": "static",
+      "names": [
+        "useInstallmentGroupDetails"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentPurchase.test.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentPurchase.test.tsx",
+      "to": "src/repositories/installmentsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createInstallmentPurchase"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentPurchase.test.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentPurchase.test.tsx",
+      "to": "src/stores/uiStore.ts",
+      "kind": "dynamic",
+      "names": []
+    },
+    {
+      "from": "src/features/transactions/InstallmentPurchase.test.tsx",
+      "to": "src/test/recurrings.ts",
+      "kind": "static",
+      "names": [
+        "freezeToday",
+        "openDialog"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentPurchase.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentPurchase.test.tsx",
+      "to": "src/test/seedDatabase.ts",
+      "kind": "static",
+      "names": [
+        "countInstallmentGroups",
+        "readAllTransactions",
+        "readTransaction"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentPurchase.test.tsx",
+      "to": "src/test/transactionForm.ts",
+      "kind": "static",
+      "names": [
+        "chooseTag",
+        "typeAmount",
+        "typeDescription"
+      ]
+    },
+    {
+      "from": "src/features/transactions/InstallmentPurchase.test.tsx",
+      "to": "src/test/transactionList.ts",
+      "kind": "static",
+      "names": [
+        "text"
       ]
     },
     {
@@ -37933,6 +39256,14 @@
     },
     {
       "from": "src/features/transactions/TransactionDetailPage.tsx",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.tsx",
       "to": "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
       "kind": "static",
       "names": [
@@ -37945,6 +39276,22 @@
       "kind": "static",
       "names": [
         "DeleteConfirmedOccurrenceDialog"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.tsx",
+      "to": "src/features/transactions/DeleteInstallmentDialog.tsx",
+      "kind": "static",
+      "names": [
+        "DeleteInstallmentDialog"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.tsx",
+      "to": "src/features/transactions/InstallmentInfo.tsx",
+      "kind": "static",
+      "names": [
+        "InstallmentInfo"
       ]
     },
     {
@@ -38129,6 +39476,22 @@
       "kind": "static",
       "names": [
         "useGoBack"
+      ]
+    },
+    {
+      "from": "src/features/transactions/useTransactionDetail.ts",
+      "to": "src/domain/installments.ts",
+      "kind": "type",
+      "names": [
+        "InstallmentDeleteScope"
+      ]
+    },
+    {
+      "from": "src/features/transactions/useTransactionDetail.ts",
+      "to": "src/repositories/installmentsRepository.ts",
+      "kind": "static",
+      "names": [
+        "deleteInstallments"
       ]
     },
     {
@@ -38948,6 +40311,15 @@
     },
     {
       "from": "src/lib/backupFormat.ts",
+      "to": "src/domain/installments.ts",
+      "kind": "static",
+      "names": [
+        "MAX_INSTALLMENTS",
+        "MIN_INSTALLMENTS"
+      ]
+    },
+    {
+      "from": "src/lib/backupFormat.ts",
       "to": "src/domain/tags.ts",
       "kind": "static",
       "names": [
@@ -39399,6 +40771,91 @@
       ]
     },
     {
+      "from": "src/repositories/installmentsRepository.test.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/installmentsRepository.test.ts",
+      "to": "src/repositories/backupRepository.ts",
+      "kind": "static",
+      "names": [
+        "createBackupFile",
+        "openBackupFile",
+        "restoreBackup"
+      ]
+    },
+    {
+      "from": "src/repositories/installmentsRepository.test.ts",
+      "to": "src/repositories/installmentsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createInstallmentPurchase",
+        "deleteInstallments",
+        "getInstallmentGroupDetails",
+        "InstallmentTagNotFoundError"
+      ]
+    },
+    {
+      "from": "src/repositories/installmentsRepository.test.ts",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "createTag"
+      ]
+    },
+    {
+      "from": "src/repositories/installmentsRepository.test.ts",
+      "to": "src/repositories/transactionsRepository.ts",
+      "kind": "static",
+      "names": [
+        "getMonthTotals",
+        "getOverallBalance",
+        "listRecentTransactions",
+        "LockedTypeChangeError",
+        "updateTransaction"
+      ]
+    },
+    {
+      "from": "src/repositories/installmentsRepository.ts",
+      "to": "src/db/database.ts",
+      "kind": "static",
+      "names": [
+        "db"
+      ]
+    },
+    {
+      "from": "src/repositories/installmentsRepository.ts",
+      "to": "src/domain/installments.ts",
+      "kind": "static",
+      "names": [
+        "buildInstallmentTransactions",
+        "installmentsToDelete",
+        "InstallmentDeleteScope"
+      ]
+    },
+    {
+      "from": "src/repositories/installmentsRepository.ts",
+      "to": "src/domain/installmentSchema.ts",
+      "kind": "static",
+      "names": [
+        "installmentInputSchema",
+        "InstallmentInput"
+      ]
+    },
+    {
+      "from": "src/repositories/installmentsRepository.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "InstallmentGroup",
+        "Transaction"
+      ]
+    },
+    {
       "from": "src/repositories/persistentStorage.navigator.test.ts",
       "to": "src/repositories/persistentStorageRepository.ts",
       "kind": "static",
@@ -39521,7 +40978,7 @@
       "kind": "static",
       "names": [
         "OccurrenceDateOutsidePeriodError",
-        "OccurrenceTypeChangeError",
+        "LockedTypeChangeError",
         "updateTransaction"
       ]
     },
@@ -40656,6 +42113,7 @@
       "dev": false,
       "builtin": false,
       "importedBy": [
+        "src/repositories/installmentsRepository.ts",
         "src/repositories/recurringsRepository.ts",
         "src/repositories/settingsRepository.ts",
         "src/repositories/tagsRepository.ts",
@@ -40688,6 +42146,7 @@
         "src/components/transactions/TransactionForm.tsx",
         "src/components/transactions/useTransactionForm.ts",
         "src/components/ui/Button.tsx",
+        "src/components/ui/Checkbox.tsx",
         "src/components/ui/DateInput.tsx",
         "src/components/ui/EmptyState.tsx",
         "src/components/ui/ErrorAlert.tsx",
@@ -40752,6 +42211,7 @@
         "src/features/settings/AboutPage.tsx",
         "src/features/settings/useStorageStatus.ts",
         "src/features/tags/useTagsScreen.ts",
+        "src/features/transactions/InstallmentInfo.tsx",
         "src/features/transactions/filters/FilterBar.tsx",
         "src/features/transactions/filters/TextFilter.tsx",
         "src/features/transactions/filters/filterBarContext.ts",
@@ -40802,6 +42262,7 @@
         "src/components/recurrings/useConfirmOccurrenceForm.ts",
         "src/components/tags/TagForm.tsx",
         "src/components/tags/useTagForm.ts",
+        "src/components/transactions/InstallmentFields.tsx",
         "src/components/transactions/TransactionForm.tsx",
         "src/components/transactions/useTransactionForm.ts",
         "src/features/backup/ExportBackupSection.tsx",
@@ -40852,6 +42313,7 @@
       "builtin": false,
       "importedBy": [
         "src/domain/backupPasswordSchema.ts",
+        "src/domain/installmentSchema.ts",
         "src/domain/recurringSchema.ts",
         "src/domain/tagSchema.ts",
         "src/domain/transactionSchema.ts",
@@ -40933,6 +42395,7 @@
         "src/features/tags/TagsPage.test.tsx",
         "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/transactions/TransactionsPage.filters.test.tsx",
@@ -41131,6 +42594,7 @@
         "src/domain/dates.test.ts",
         "src/domain/dates.timezone.test.ts",
         "src/domain/dates.views.test.ts",
+        "src/domain/installments.test.ts",
         "src/domain/money.compact.test.ts",
         "src/domain/money.test.ts",
         "src/domain/periodViews.test.ts",
@@ -41164,6 +42628,7 @@
         "src/features/tags/TagsPage.transactions.test.tsx",
         "src/features/tags/TagsPage.validation.test.tsx",
         "src/features/tags/tagTexts.test.ts",
+        "src/features/transactions/InstallmentPurchase.test.tsx",
         "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
         "src/features/transactions/TransactionDetailPage.test.tsx",
         "src/features/transactions/TransactionsPage.filters.test.tsx",
@@ -41189,6 +42654,7 @@
         "src/repositories/backupRepository.audit.test.ts",
         "src/repositories/backupRepository.test.ts",
         "src/repositories/backupRepository.theme.test.ts",
+        "src/repositories/installmentsRepository.test.ts",
         "src/repositories/persistentStorage.navigator.test.ts",
         "src/repositories/persistentStorageRepository.test.ts",
         "src/repositories/recurringsRepository.test.ts",
@@ -41278,6 +42744,7 @@
         "src/repositories/backupRepository.audit.test.ts",
         "src/repositories/backupRepository.test.ts",
         "src/repositories/backupRepository.ts",
+        "src/repositories/installmentsRepository.ts",
         "src/repositories/recurringsRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/tagsRepository.ts",
@@ -41304,13 +42771,16 @@
         "src/repositories/backupRepository.audit.test.ts",
         "src/repositories/backupRepository.test.ts",
         "src/repositories/backupRepository.ts",
+        "src/repositories/installmentsRepository.test.ts",
+        "src/repositories/installmentsRepository.ts",
         "src/repositories/recurringsRepository.test.ts",
         "src/repositories/recurringsRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/tagsRepository.ts",
         "src/repositories/transactionsRepository.crud.test.ts",
         "src/repositories/transactionsRepository.test.ts",
-        "src/repositories/transactionsRepository.ts"
+        "src/repositories/transactionsRepository.ts",
+        "src/test/seedDatabase.ts"
       ],
       "writers": [
         "src/db/database.schema.test.ts",
@@ -41319,6 +42789,7 @@
         "src/repositories/backupRepository.test.ts",
         "src/repositories/backupRepository.theme.test.ts",
         "src/repositories/backupRepository.ts",
+        "src/repositories/installmentsRepository.ts",
         "src/repositories/recurringsRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
@@ -41356,8 +42827,11 @@
         "src/dev/sampleData/sampleDataStore.test.ts",
         "src/repositories/backupRepository.audit.test.ts",
         "src/repositories/backupRepository.ts",
+        "src/repositories/installmentsRepository.test.ts",
+        "src/repositories/installmentsRepository.ts",
         "src/repositories/tagsRepository.test.ts",
-        "src/repositories/tagsRepository.ts"
+        "src/repositories/tagsRepository.ts",
+        "src/test/seedDatabase.ts"
       ],
       "writers": [
         "src/dev/sampleData/sampleDataStore.ts",
@@ -41365,6 +42839,7 @@
         "src/repositories/backupRepository.test.ts",
         "src/repositories/backupRepository.theme.test.ts",
         "src/repositories/backupRepository.ts",
+        "src/repositories/installmentsRepository.ts",
         "src/repositories/tagsRepository.test.ts",
         "src/test/seedDatabase.ts"
       ]
@@ -41697,46 +43172,46 @@
     ]
   },
   "build": {
-    "builtAt": "2026-10-26T13:30:26.969Z",
+    "builtAt": "2026-10-26T19:02:26.101Z",
     "serviceWorker": "sw.js",
     "workboxRuntime": "workbox-2fbc6a65.js",
     "manifest": "manifest.webmanifest",
     "manifestLink": "<link rel=\"manifest\" href=\"/manifest.webmanifest\" crossorigin=\"use-credentials\">",
     "precache": [
       "apple-touch-icon.png",
-      "assets/AboutPage-C7luMXiu.js",
-      "assets/BackLink-JNf6-EnK.js",
-      "assets/BackupPage-C2HH4PKA.js",
-      "assets/ChartsPage-BGbd2ben.js",
-      "assets/DateInput-9S8IWjJg.js",
+      "assets/AboutPage-D0ysvg8q.js",
+      "assets/BackLink-D40XnzcN.js",
+      "assets/BackupPage-BBLu8Z7S.js",
+      "assets/ChartsPage-CS7TxjvV.js",
+      "assets/DateInput-C_mEEy_u.js",
       "assets/InfoList-C3J93wfy.js",
-      "assets/MoneyInput-CfutXc0i.js",
-      "assets/NewTransactionPage-9dyUxJW2.js",
+      "assets/MoneyInput-C5m5iP4z.js",
+      "assets/NewTransactionPage-DfxndKXr.js",
       "assets/Page-l_FoqQCp.js",
-      "assets/RecurringDetailPage-Cf-kjOGa.js",
-      "assets/RecurringsPage-DVReJn5D.js",
-      "assets/SettingsPage-DiXYNT1j.js",
-      "assets/TagForm-DLlH3aSg.js",
+      "assets/RecurringDetailPage-CduD-GRS.js",
+      "assets/RecurringsPage-_tZ0ai0h.js",
+      "assets/SettingsPage-DnfItwxM.js",
+      "assets/TagForm-fttXUsWL.js",
       "assets/TagPicker-BkufdUn2.js",
-      "assets/TagsPage-CwoZplXY.js",
+      "assets/TagsPage-D1Id-FCm.js",
       "assets/TextInput-CVdGROdz.js",
-      "assets/TransactionDetailPage-CCvEzDqn.js",
-      "assets/TransactionsPage-CsHk9Yk3.js",
-      "assets/ViewsPage-DZjs-cI_.js",
-      "assets/balances-BN8dD-QJ.js",
+      "assets/TransactionDetailPage-hYfoYV5s.js",
+      "assets/TransactionsPage-7H-oeQsH.js",
+      "assets/ViewsPage-BXoGhjdk.js",
       "assets/database-Bnj1r7Is.js",
       "assets/dates-B_gSbfCT.js",
-      "assets/dexie-react-hooks-CzZJGrgC.js",
+      "assets/dexie-react-hooks-C21-_aVv.js",
       "assets/formSubmit-CF9OztiO.js",
-      "assets/index-BqRmMBKk.js",
       "assets/index-EdiNygCh.css",
+      "assets/index-sg4EIPcB.js",
       "assets/inputClasses-BjbM2z3f.js",
-      "assets/recurringsRepository-BJdc4jid.js",
-      "assets/tagsRepository-nrVNsA_f.js",
-      "assets/transactionSchema-BE9qG5LF.js",
-      "assets/usePeriodView-CjJDlLE6.js",
+      "assets/installments-B-J5W-CX.js",
+      "assets/recurringsRepository-C81ORAyV.js",
+      "assets/tagsRepository-C9dXjatB.js",
+      "assets/transactionSchema-dv4AIf_Y.js",
+      "assets/usePeriodView-CJ3u0csu.js",
       "assets/useRecurringForm-BpjAZSS0.js",
-      "assets/useTheme-B97zyl87.js",
+      "assets/useTheme-uVIR8ryt.js",
       "assets/useToday-CnuH0h2n.js",
       "assets/workbox-window.prod.es5-Bd17z0YL.js",
       "favicon.png",
@@ -41755,20 +43230,20 @@
     ],
     "js": [
       {
-        "file": "assets/index-BqRmMBKk.js",
-        "bytes": 351653
+        "file": "assets/index-sg4EIPcB.js",
+        "bytes": 356516
       },
       {
-        "file": "assets/ChartsPage-BGbd2ben.js",
-        "bytes": 174868
+        "file": "assets/ChartsPage-CS7TxjvV.js",
+        "bytes": 174832
       },
       {
         "file": "assets/database-Bnj1r7Is.js",
         "bytes": 95343
       },
       {
-        "file": "assets/dexie-react-hooks-CzZJGrgC.js",
-        "bytes": 88424
+        "file": "assets/dexie-react-hooks-C21-_aVv.js",
+        "bytes": 88915
       },
       {
         "file": "assets/formSubmit-CF9OztiO.js",
@@ -41779,15 +43254,15 @@
         "bytes": 31746
       },
       {
-        "file": "assets/RecurringDetailPage-Cf-kjOGa.js",
+        "file": "assets/RecurringDetailPage-CduD-GRS.js",
         "bytes": 19476
       },
       {
-        "file": "assets/BackupPage-C2HH4PKA.js",
-        "bytes": 19368
+        "file": "assets/BackupPage-BBLu8Z7S.js",
+        "bytes": 19396
       },
       {
-        "file": "assets/TransactionsPage-CsHk9Yk3.js",
+        "file": "assets/TransactionsPage-7H-oeQsH.js",
         "bytes": 14121
       },
       {
@@ -41795,19 +43270,23 @@
         "bytes": 9634
       },
       {
-        "file": "assets/ViewsPage-DZjs-cI_.js",
+        "file": "assets/ViewsPage-BXoGhjdk.js",
         "bytes": 9351
       },
       {
-        "file": "assets/recurringsRepository-BJdc4jid.js",
+        "file": "assets/TransactionDetailPage-hYfoYV5s.js",
+        "bytes": 8895
+      },
+      {
+        "file": "assets/recurringsRepository-C81ORAyV.js",
         "bytes": 7574
       },
       {
-        "file": "assets/RecurringsPage-DVReJn5D.js",
-        "bytes": 7166
+        "file": "assets/RecurringsPage-_tZ0ai0h.js",
+        "bytes": 7161
       },
       {
-        "file": "assets/TagsPage-CwoZplXY.js",
+        "file": "assets/TagsPage-D1Id-FCm.js",
         "bytes": 6235
       },
       {
@@ -41815,39 +43294,39 @@
         "bytes": 5653
       },
       {
-        "file": "assets/TagForm-DLlH3aSg.js",
+        "file": "assets/TagForm-fttXUsWL.js",
         "bytes": 5632
       },
       {
-        "file": "assets/TransactionDetailPage-CCvEzDqn.js",
-        "bytes": 4403
+        "file": "assets/DateInput-C_mEEy_u.js",
+        "bytes": 3215
       },
       {
-        "file": "assets/MoneyInput-CfutXc0i.js",
+        "file": "assets/MoneyInput-C5m5iP4z.js",
         "bytes": 3093
-      },
-      {
-        "file": "assets/usePeriodView-CjJDlLE6.js",
-        "bytes": 2818
       },
       {
         "file": "assets/TagPicker-BkufdUn2.js",
         "bytes": 2817
       },
       {
+        "file": "assets/usePeriodView-CJ3u0csu.js",
+        "bytes": 2782
+      },
+      {
         "file": "assets/useRecurringForm-BpjAZSS0.js",
         "bytes": 2613
       },
       {
-        "file": "assets/AboutPage-C7luMXiu.js",
+        "file": "assets/AboutPage-D0ysvg8q.js",
         "bytes": 2444
       },
       {
-        "file": "assets/SettingsPage-DiXYNT1j.js",
+        "file": "assets/SettingsPage-DnfItwxM.js",
         "bytes": 2094
       },
       {
-        "file": "assets/tagsRepository-nrVNsA_f.js",
+        "file": "assets/tagsRepository-C9dXjatB.js",
         "bytes": 2003
       },
       {
@@ -41859,15 +43338,15 @@
         "bytes": 1561
       },
       {
-        "file": "assets/transactionSchema-BE9qG5LF.js",
-        "bytes": 1349
+        "file": "assets/transactionSchema-dv4AIf_Y.js",
+        "bytes": 1354
       },
       {
-        "file": "assets/balances-BN8dD-QJ.js",
-        "bytes": 1035
+        "file": "assets/installments-B-J5W-CX.js",
+        "bytes": 995
       },
       {
-        "file": "assets/BackLink-JNf6-EnK.js",
+        "file": "assets/BackLink-D40XnzcN.js",
         "bytes": 889
       },
       {
@@ -41875,23 +43354,19 @@
         "bytes": 779
       },
       {
-        "file": "assets/DateInput-9S8IWjJg.js",
-        "bytes": 569
-      },
-      {
-        "file": "assets/NewTransactionPage-9dyUxJW2.js",
-        "bytes": 432
+        "file": "assets/NewTransactionPage-DfxndKXr.js",
+        "bytes": 452
       },
       {
         "file": "assets/useToday-CnuH0h2n.js",
         "bytes": 431
       },
       {
-        "file": "assets/useTheme-B97zyl87.js",
+        "file": "assets/useTheme-uVIR8ryt.js",
         "bytes": 223
       }
     ],
-    "totalBytes": 977279,
+    "totalBytes": 989715,
     "devLeaks": []
   },
   "violations": [],
@@ -41899,7 +43374,7 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "b49e6f0",
+    "head": "6b6b45a",
     "workingTree": [
       {
         "status": "M",
@@ -41911,6 +43386,10 @@
       },
       {
         "status": "M",
+        "path": "src/components/transactions/TransactionRow.tsx"
+      },
+      {
+        "status": "M",
         "path": "src/components/transactions/transactionTexts.ts"
       },
       {
@@ -41919,39 +43398,27 @@
       },
       {
         "status": "M",
-        "path": "src/components/ui/Field.tsx"
+        "path": "src/dev/architecture/components/DomainSection.tsx"
       },
       {
         "status": "M",
-        "path": "src/components/ui/createRadioGroup.tsx"
+        "path": "src/dev/architecture/components/FlowsSection.tsx"
       },
       {
         "status": "M",
-        "path": "src/components/ui/useFieldControl.ts"
+        "path": "src/dev/architecture/data/curated.ts"
       },
       {
         "status": "M",
-        "path": "src/components/ui/useToast.ts"
+        "path": "src/dev/architecture/data/timeline.ts"
       },
       {
         "status": "M",
-        "path": "src/domain/dates.ts"
+        "path": "src/dev/sampleData/sampleInstallments.ts"
       },
       {
         "status": "M",
-        "path": "src/domain/transactionSchema.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/features/home/HomePage.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/recurrings/RecurringDetailPage.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/recurrings/RecurringsPage.tsx"
+        "path": "src/features/transactions/NewTransactionPage.tsx"
       },
       {
         "status": "M",
@@ -41963,195 +43430,344 @@
       },
       {
         "status": "M",
-        "path": "src/features/views/MonthDetail.tsx"
+        "path": "src/lib/backupFormat.ts"
       },
       {
         "status": "M",
-        "path": "src/features/views/PeriodDetail.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/views/PeriodRows.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/views/PeriodSummaryCard.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/views/ViewsPage.test.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/views/ViewsPage.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/features/views/YearDetail.tsx"
-      },
-      {
-        "status": "M",
-        "path": "src/repositories/transactionsRepository.test.ts"
+        "path": "src/repositories/recurringsRepository.test.ts"
       },
       {
         "status": "M",
         "path": "src/repositories/transactionsRepository.ts"
       },
       {
-        "status": "??",
-        "path": "src/components/recurrings/ConfirmOccurrenceDialog.tsx"
+        "status": "M",
+        "path": "src/test/seedDatabase.ts"
       },
       {
         "status": "??",
-        "path": "src/components/recurrings/PendingOccurrenceItem.tsx"
+        "path": "src/components/transactions/InstallmentFields.tsx"
       },
       {
         "status": "??",
-        "path": "src/components/recurrings/PendingOccurrencesSection.tsx"
+        "path": "src/components/transactions/TransactionDescription.tsx"
       },
       {
         "status": "??",
-        "path": "src/components/recurrings/recurringTexts.ts"
+        "path": "src/components/ui/Checkbox.tsx"
       },
       {
         "status": "??",
-        "path": "src/components/recurrings/skipErrorMessage.ts"
+        "path": "src/domain/installmentSchema.ts"
       },
       {
         "status": "??",
-        "path": "src/components/recurrings/useConfirmOccurrenceForm.ts"
+        "path": "src/domain/installments.test.ts"
       },
       {
         "status": "??",
-        "path": "src/components/ui/InfoPopover.test.tsx"
+        "path": "src/domain/installments.ts"
       },
       {
         "status": "??",
-        "path": "src/components/ui/InfoPopover.tsx"
+        "path": "src/features/transactions/DeleteInstallmentDialog.tsx"
       },
       {
         "status": "??",
-        "path": "src/components/ui/MonthInput.tsx"
+        "path": "src/features/transactions/InstallmentInfo.tsx"
       },
       {
         "status": "??",
-        "path": "src/domain/recurring.test.ts"
+        "path": "src/features/transactions/InstallmentPurchase.test.tsx"
       },
       {
         "status": "??",
-        "path": "src/domain/recurring.ts"
+        "path": "src/repositories/installmentsRepository.test.ts"
       },
       {
         "status": "??",
-        "path": "src/domain/recurringSchema.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/domain/recurringSchema.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/home/HomePage.recurrings.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/home/PendingRecurrings.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/AmountHistory.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/ChangeAmountDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/ConfirmedTransactions.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/CurrentOccurrence.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/DeleteRecurringDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/EditRecurringDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/EndRecurringDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/NewRecurringDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/RecurringDetailPage.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/RecurringList.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/RecurringSummary.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/RecurringsPage.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/SkippedMonths.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/recurringsTexts.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/useRecurringDetail.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/recurrings/useRecurringForm.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/TransactionDetailPage.recurrings.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/views/ViewsPage.recurrings.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/views/usePeriodPending.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/recurringsRepository.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/recurringsRepository.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/test/recurrings.ts"
+        "path": "src/repositories/installmentsRepository.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "6b6b45a",
+      "date": "2026-10-26T13:53:02-03:00",
+      "author": "Fernando",
+      "subject": "feat/finishing phase 9",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": "CLAUDE.md"
+        },
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "A",
+          "path": "src/components/recurrings/ConfirmOccurrenceDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/recurrings/PendingOccurrenceItem.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/recurrings/PendingOccurrencesSection.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/recurrings/recurringTexts.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/recurrings/skipErrorMessage.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/recurrings/useConfirmOccurrenceForm.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/components/transactions/TransactionForm.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/components/transactions/transactionTexts.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/components/transactions/useTransactionForm.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/components/ui/Field.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/InfoPopover.test.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/InfoPopover.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/MonthInput.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/components/ui/createRadioGroup.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/components/ui/useFieldControl.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/components/ui/useToast.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/domain/dates.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/recurring.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/recurring.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/recurringSchema.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/recurringSchema.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/domain/transactionSchema.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/home/HomePage.recurrings.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/home/HomePage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/home/PendingRecurrings.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/AmountHistory.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/ChangeAmountDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/ConfirmedTransactions.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/CurrentOccurrence.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/DeleteRecurringDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/EditRecurringDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/EndRecurringDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/NewRecurringDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/RecurringDetailPage.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/recurrings/RecurringDetailPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/RecurringList.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/RecurringSummary.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/RecurringsPage.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/recurrings/RecurringsPage.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/SkippedMonths.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/recurringsTexts.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/useRecurringDetail.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/recurrings/useRecurringForm.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/TransactionDetailPage.recurrings.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/transactions/TransactionDetailPage.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/transactions/useTransactionDetail.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/features/views/MonthDetail.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/views/PeriodDetail.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/views/PeriodRows.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/views/PeriodSummaryCard.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/views/ViewsPage.recurrings.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/views/ViewsPage.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/views/ViewsPage.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/views/YearDetail.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/views/usePeriodPending.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/recurringsRepository.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/recurringsRepository.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/repositories/transactionsRepository.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/repositories/transactionsRepository.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/test/recurrings.ts"
+        },
+        {
+          "status": "M",
+          "path": "vite.config.ts"
+        }
+      ]
+    },
     {
       "hash": "b49e6f0",
       "date": "2026-10-25T18:00:59-03:00",
@@ -45160,7 +46776,9 @@
     "src/components/tags/tagFormTexts.ts",
     "src/components/tags/useTagForm.ts",
     "src/components/transactions/IncomeExpenseTotals.tsx",
+    "src/components/transactions/InstallmentFields.tsx",
     "src/components/transactions/NoTagsNotice.tsx",
+    "src/components/transactions/TransactionDescription.tsx",
     "src/components/transactions/TransactionForm.tsx",
     "src/components/transactions/TransactionRow.tsx",
     "src/components/transactions/transactionTexts.ts",
@@ -45168,6 +46786,7 @@
     "src/components/ui/BackLink.test.tsx",
     "src/components/ui/BackLink.tsx",
     "src/components/ui/Button.tsx",
+    "src/components/ui/Checkbox.tsx",
     "src/components/ui/DateInput.test.tsx",
     "src/components/ui/DateInput.tsx",
     "src/components/ui/EmptyState.tsx",
@@ -45293,6 +46912,9 @@
     "src/domain/dates.timezone.test.ts",
     "src/domain/dates.ts",
     "src/domain/dates.views.test.ts",
+    "src/domain/installmentSchema.ts",
+    "src/domain/installments.test.ts",
+    "src/domain/installments.ts",
     "src/domain/money.compact.test.ts",
     "src/domain/money.test.ts",
     "src/domain/money.ts",
@@ -45399,6 +47021,9 @@
     "src/features/tags/useTagsScreen.ts",
     "src/features/transactions/ConfirmDeleteTransactionDialog.tsx",
     "src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx",
+    "src/features/transactions/DeleteInstallmentDialog.tsx",
+    "src/features/transactions/InstallmentInfo.tsx",
+    "src/features/transactions/InstallmentPurchase.test.tsx",
     "src/features/transactions/NewTransactionPage.tsx",
     "src/features/transactions/TransactionDetailPage.recurrings.test.tsx",
     "src/features/transactions/TransactionDetailPage.test.tsx",
@@ -45468,6 +47093,8 @@
     "src/repositories/backupRepository.theme.test.ts",
     "src/repositories/backupRepository.ts",
     "src/repositories/databaseInfo.ts",
+    "src/repositories/installmentsRepository.test.ts",
+    "src/repositories/installmentsRepository.ts",
     "src/repositories/persistentStorage.navigator.test.ts",
     "src/repositories/persistentStorageRepository.test.ts",
     "src/repositories/persistentStorageRepository.ts",

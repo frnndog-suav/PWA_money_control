@@ -64,7 +64,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Componentes',
     folder: 'src/components',
     description:
-      'Duas partes (§6.2, D-37 — confirmada em 21/10/2026). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup; Fase 5: LoadMore, useDebouncedValue e o slot trailing do Page.Header; Fase 6: PasswordInput, FileInput e Button com ref — D-48(d); Fase 7: nenhum primitivo novo — a tela de visões reutiliza Page (trailing com "Hoje"), Button, EmptyState, SignedAmount e o createRadioGroup segmented; Fase 8: useOutsidePointerDown — toque fora limpa a seleção dos gráficos; Fase 9: InfoPopover — "ⓘ" que abre e fecha por toque, fecha ao tocar fora ou com Esc —, MonthInput — <input type="month"> —, Field.Hint — linha de ajuda ligada ao controle pelo aria-describedby —, useToast com duração e hide() e createRadioGroup com disabled no fieldset). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts), transactions/ (TransactionForm, useTransactionForm, TransactionRow — com showDate desde a Fase 5 —, NoTagsNotice, transactionTexts; Fase 5: IncomeExpenseTotals) e, desde a Fase 8, periods/ (GranularityPicker, PeriodNavigator e usePeriodView movidos de features/views; TodayButton e periodTexts novos — controles de período compartilhados por Visões e Gráficos, D-50(a)); periods/ é a única pasta de src/components que lê e grava o Zustand (viewGranularity/viewAnchorDate), exceção aprovada pelo dono na D-50(k) (spec 1.32). Fase 9: recurrings/ (ConfirmOccurrenceDialog + useConfirmOccurrenceForm, PendingOccurrencesSection, PendingOccurrenceItem, skipErrorMessage e recurringTexts — usados pelo Início, pela visão Mês e pelos detalhes do recorrente, D-51(g)); transactions/ ganhou a data presa ao mês da ocorrência e o tipo travado no lançamento confirmado (D-51(b)/(l)). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
+      'Duas partes (§6.2, D-37 — confirmada em 21/10/2026). components/ui: primitivos genéricos sem conhecimento de feature nem de repositório (Page, TabBar, NavList, BackLink, Notice, InfoList; Fase 3: Modal sobre <dialog> — D-33, Button, EmptyState, ErrorAlert, TagChip; Fase 4: Field + useFieldControl, TextInput, MoneyInput, DateInput, inputClasses, SignedAmount, Toast + useToast, useToday e a variante segmented do createRadioGroup; Fase 5: LoadMore, useDebouncedValue e o slot trailing do Page.Header; Fase 6: PasswordInput, FileInput e Button com ref — D-48(d); Fase 7: nenhum primitivo novo — a tela de visões reutiliza Page (trailing com "Hoje"), Button, EmptyState, SignedAmount e o createRadioGroup segmented; Fase 8: useOutsidePointerDown — toque fora limpa a seleção dos gráficos; Fase 9: InfoPopover — "ⓘ" que abre e fecha por toque, fecha ao tocar fora ou com Esc —, MonthInput — <input type="month"> —, Field.Hint — linha de ajuda ligada ao controle pelo aria-describedby —, useToast com duração e hide() e createRadioGroup com disabled no fieldset). components/<entidade>: componentes de domínio usados por mais de uma feature, os únicos de src/components que podem usar repositories — tags/ (TagForm, TagColorPicker e useTagForm movidos de features/tags; TagPicker, CreateTagDialog, tagFormTexts), transactions/ (TransactionForm, useTransactionForm, TransactionRow — com showDate desde a Fase 5 —, NoTagsNotice, transactionTexts; Fase 5: IncomeExpenseTotals) e, desde a Fase 8, periods/ (GranularityPicker, PeriodNavigator e usePeriodView movidos de features/views; TodayButton e periodTexts novos — controles de período compartilhados por Visões e Gráficos, D-50(a)); periods/ é a única pasta de src/components que lê e grava o Zustand (viewGranularity/viewAnchorDate), exceção aprovada pelo dono na D-50(k) (spec 1.32). Fase 9: recurrings/ (ConfirmOccurrenceDialog + useConfirmOccurrenceForm, PendingOccurrencesSection, PendingOccurrenceItem, skipErrorMessage e recurringTexts — usados pelo Início, pela visão Mês e pelos detalhes do recorrente, D-51(g)); transactions/ ganhou a data presa ao mês da ocorrência e o tipo travado no lançamento confirmado (D-51(b)/(l)). Fase 10 (D-53): components/ui ganhou Checkbox (rótulo inteiro tocável, ≥ 44 px; marcado fica em negrito e com borda, não só pela cor) e transactions/ ganhou InstallmentFields (opção "Parcelado", "Número de parcelas" e a prévia da divisão no Field.Hint) e TransactionDescription ("Descrição (k/n)"; só as linhas de parcela leem o grupo pelo useInstallmentCount); TransactionForm com allowInstallments e a frase do tipo travado vinda do vínculo (typeLockReason: recorrente ou parcela). O scanner distingue as duas pelo caminho (grupo components/ui × components/tags… e a regra FORBIDDEN_PATHS).',
     position: { x: 130, y: 330 },
   },
   {
@@ -72,7 +72,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Repositórios',
     folder: 'src/repositories',
     description:
-      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError). Fase 4: transactionsRepository (createTransaction/updateTransaction em transação rw [tags, transactions] com assertTagExists, deleteTransaction, saldo geral, totais do mês, últimos 5 e lançamento por id, todos com hook useLiveQuery; TransactionNotFoundError/TransactionTagNotFoundError — D-39) e listTags/useTags no tagsRepository. Fase 5: listTransactionsInPeriod (índice date crescente, invertido em memória — D-44) e countTransactions, com useTransactionsInPeriod/useTransactionCount. Fase 6: backupRepository (readBackupTables numa transação r das 5 tabelas, createBackupFile, deliverBackupFile, recordBackupDone, openBackupFile sem tocar no banco e restoreBackup numa única transação rw — D-07/D-47(e)) e useLastBackupAt no settingsRepository (fora do backupRepository, para o Início não levar cripto e zod — D-41). Fase 7: useTransactionsInRange(from, to) no transactionsRepository — o mesmo listTransactionsInPeriod pelo índice date, mas devolve undefined enquanto um período novo carrega (o useLiveQuery manteria o resultado do período anterior — D-49(g)). Fase 8: useTransactionsInRange(from: DateString | null, to) — from null lê tudo até to (evolução do saldo dos gráficos — D-50(f)). Fase 9: recurringsRepository (createRecurring, updateRecurringDetails, changeRecurringAmount, endRecurringAt, deleteRecurring, skipOccurrence, unskipOccurrence, confirmOccurrence e deleteConfirmedTransaction, todas com leitura e gravação numa transação; leituras listRecurrings, listRecurringConfirmations, listPendingOccurrences — anyOf no índice [recurringId+recurringPeriod] — e getConfirmedKeysIn; hooks useRecurrings, useRecurring, useRecurringConfirmations, useConfirmedKeysIn e usePendingOccurrences, que volta a undefined enquanto meses novos carregam — D-51(f)); updateTransaction recusa data fora do mês da ocorrência (OccurrenceDateOutsidePeriodError) e troca de tipo (OccurrenceTypeChangeError) — D-51(b)/(l).',
+      'Único acesso ao Dexie em produção (§2.7): funções e hooks com useLiveQuery. Fase 2: settings (getSetting/setSetting/useSetting), tema (themeRepository, useThemePreference, ThemeContext, useTheme — D-22/D-28), pedido único de persist() e SCHEMA_VERSION reexportado para a tela Sobre. Fase 3: tagsRepository (createTag, updateTag e deleteTag com transação, getTagUsage, lista com contagem por useLiveQuery, DuplicateTagNameError/TagNotFoundError). Fase 4: transactionsRepository (createTransaction/updateTransaction em transação rw [tags, transactions] com assertTagExists, deleteTransaction, saldo geral, totais do mês, últimos 5 e lançamento por id, todos com hook useLiveQuery; TransactionNotFoundError/TransactionTagNotFoundError — D-39) e listTags/useTags no tagsRepository. Fase 5: listTransactionsInPeriod (índice date crescente, invertido em memória — D-44) e countTransactions, com useTransactionsInPeriod/useTransactionCount. Fase 6: backupRepository (readBackupTables numa transação r das 5 tabelas, createBackupFile, deliverBackupFile, recordBackupDone, openBackupFile sem tocar no banco e restoreBackup numa única transação rw — D-07/D-47(e)) e useLastBackupAt no settingsRepository (fora do backupRepository, para o Início não levar cripto e zod — D-41). Fase 7: useTransactionsInRange(from, to) no transactionsRepository — o mesmo listTransactionsInPeriod pelo índice date, mas devolve undefined enquanto um período novo carrega (o useLiveQuery manteria o resultado do período anterior — D-49(g)). Fase 8: useTransactionsInRange(from: DateString | null, to) — from null lê tudo até to (evolução do saldo dos gráficos — D-50(f)). Fase 9: recurringsRepository (createRecurring, updateRecurringDetails, changeRecurringAmount, endRecurringAt, deleteRecurring, skipOccurrence, unskipOccurrence, confirmOccurrence e deleteConfirmedTransaction, todas com leitura e gravação numa transação; leituras listRecurrings, listRecurringConfirmations, listPendingOccurrences — anyOf no índice [recurringId+recurringPeriod] — e getConfirmedKeysIn; hooks useRecurrings, useRecurring, useRecurringConfirmations, useConfirmedKeysIn e usePendingOccurrences, que volta a undefined enquanto meses novos carregam — D-51(f)); updateTransaction recusa data fora do mês da ocorrência (OccurrenceDateOutsidePeriodError) e troca de tipo (LockedTypeChangeError — o nome era OccurrenceTypeChangeError até a Fase 9) — D-51(b)/(l). Fase 10: installmentsRepository (createInstallmentPurchase — grupo e parcelas numa transação rw [tags, installmentGroups, transactions], InstallmentTagNotFoundError, CA-08.2; deleteInstallments(id, "one" | "following" | "all") numa rw [installmentGroups, transactions], que exclui o grupo junto com a última parcela; getInstallmentGroupDetails numa transação r; hooks useInstallmentGroupDetails e useInstallmentCount — D-53(e)); updateTransaction passou a recusar também a troca de tipo da parcela (LockedTypeChangeError — D-53(b)).',
     position: { x: 390, y: 330 },
   },
   {
@@ -88,7 +88,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Lib',
     folder: 'src/lib',
     description:
-      'Utilitários puros e adaptadores de APIs do navegador: tema e espelho em localStorage, modo instalado, storage (persist/persisted/estimate), formatBytes e APP_VERSION (Fase 2); padrão de formulário do princípio 16 (formSubmit: LIVE_VALIDATION e canSubmitForm com startsValid — D-36, spec 1.13; usado pelos formulários de tag e, desde a Fase 4, de lançamento e, desde a Fase 6, de backup). Fase 6: crypto (PBKDF2-SHA-256 600k + AES-GCM 256 pela Web Crypto, envelope da §6.8, BackupDecryptionError — RNF-05/D-47(a)), backupFormat (schemas zod do envelope e do conteúdo, versão e migrações, integridade, settings só com theme — D-47(b)–(d); sem Dexie: SCHEMA_VERSION chega por parâmetro) e share (Web Share API com arquivo ou download).',
+      'Utilitários puros e adaptadores de APIs do navegador: tema e espelho em localStorage, modo instalado, storage (persist/persisted/estimate), formatBytes e APP_VERSION (Fase 2); padrão de formulário do princípio 16 (formSubmit: LIVE_VALIDATION e canSubmitForm com startsValid — D-36, spec 1.13; usado pelos formulários de tag e, desde a Fase 4, de lançamento e, desde a Fase 6, de backup). Fase 6: crypto (PBKDF2-SHA-256 600k + AES-GCM 256 pela Web Crypto, envelope da §6.8, BackupDecryptionError — RNF-05/D-47(a)), backupFormat (schemas zod do envelope e do conteúdo, versão e migrações, integridade, settings só com theme — D-47(b)–(d); sem Dexie: SCHEMA_VERSION chega por parâmetro) e share (Web Share API com arquivo ou download). Fase 10: backupFormat passou a importar MIN_INSTALLMENTS/MAX_INSTALLMENTS de domain/installments (eram constantes locais).',
     position: { x: 130, y: 450 },
   },
   {
@@ -104,7 +104,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Domínio',
     folder: 'src/domain',
     description:
-      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. Fase 3: tags (toTagNameKey, paleta D-32, sortByTagName, isTagInUse, TAG_NAME_MAX_LENGTH — D-35) e tagSchema (zod, único módulo do domínio com pacote externo; separado para quem só precisa das funções puras não levar o zod). Fase 4: transactionSchema (zod, RF-01: valor 1..MAX_AMOUNT_CENTS, data existente, tag, descrição 1–100 em UTF-16 — D-38(h)), transactions (compareByRecency e takeMostRecent — D-39), isValidDate/formatShortDate/formatMonthLabel em dates e signedAmount exportado em balances. Fase 5: text (foldText, também usado por toTagNameKey), transactionFilters (filtros, resumo por dia e paginação por dias inteiros — D-44), sortByRecency em transactions e formatLongDate em dates. Fase 7: periodViews (ViewGranularity, viewRange, shiftAnchorDate, formatViewTitle, yearOf, summarizeDays, summarizeActiveDays, summarizeMonths — D-49) e, em dates, addDays, datesBetween, formatWeekdayDate, formatMonthName e formatDateRangeLabel (abreviações fixas do pt-BR — CA-05.3); groupByDay/groupByMonth de balances passam a ter uso em produção. Fase 8: charts (ChartGranularity, BalanceGranularity, isChartGranularity, isBalanceGranularity, chartBuckets, incomeExpenseSeries, balanceSeries sobre runningBalance, distributeTenths — maior resto com BigInt, soma sempre 100,0% —, tagSlices e formatTenthsPercent — D-50(c)); em dates, formatShortDayMonth, formatShortWeekdayDay e formatShortMonthName (rótulos dos eixos); em money, formatCompactBRL ("R$ 1,2 mil" do eixo Y). Fase 9: recurring (§6.5: isActiveIn, amountFor, pendingOccurrences — ordem alfabética da descrição —, setAmountFrom, projected; e isSkipped, confirmedOccurrenceKeys, occurrenceStatus, skipPeriod/unskipPeriod, endRecurring, lastConfirmedPeriod, recurringListStatus, displayAmount, com os erros AmountBeforeStartError, AmountAfterEndError, EndBeforeStartError e EndBeforeConfirmedError — D-51(e)) e recurringSchema (recurringInputSchema, recurringDetailsSchema, amountChangeSchema, endRecurringSchema, confirmOccurrenceSchema(period) e dateOutsidePeriodMessage); transactionSchema exporta os campos comuns (transactionTypeSchema, amountCentsSchema, tagIdSchema, descriptionSchema); dates ganhou isValidPeriod e isDateInPeriod (CA-07.8). installments (Fase 10) ainda não existe.',
+      'Funções puras e tipos, sem React e sem Dexie (§2.6). Fase 2: types (§6.3), money, dates, balances e tagColor (§6.5), com testes de exemplo, de propriedade e de fuso. Fase 3: tags (toTagNameKey, paleta D-32, sortByTagName, isTagInUse, TAG_NAME_MAX_LENGTH — D-35) e tagSchema (zod, único módulo do domínio com pacote externo; separado para quem só precisa das funções puras não levar o zod). Fase 4: transactionSchema (zod, RF-01: valor 1..MAX_AMOUNT_CENTS, data existente, tag, descrição 1–100 em UTF-16 — D-38(h)), transactions (compareByRecency e takeMostRecent — D-39), isValidDate/formatShortDate/formatMonthLabel em dates e signedAmount exportado em balances. Fase 5: text (foldText, também usado por toTagNameKey), transactionFilters (filtros, resumo por dia e paginação por dias inteiros — D-44), sortByRecency em transactions e formatLongDate em dates. Fase 7: periodViews (ViewGranularity, viewRange, shiftAnchorDate, formatViewTitle, yearOf, summarizeDays, summarizeActiveDays, summarizeMonths — D-49) e, em dates, addDays, datesBetween, formatWeekdayDate, formatMonthName e formatDateRangeLabel (abreviações fixas do pt-BR — CA-05.3); groupByDay/groupByMonth de balances passam a ter uso em produção. Fase 8: charts (ChartGranularity, BalanceGranularity, isChartGranularity, isBalanceGranularity, chartBuckets, incomeExpenseSeries, balanceSeries sobre runningBalance, distributeTenths — maior resto com BigInt, soma sempre 100,0% —, tagSlices e formatTenthsPercent — D-50(c)); em dates, formatShortDayMonth, formatShortWeekdayDay e formatShortMonthName (rótulos dos eixos); em money, formatCompactBRL ("R$ 1,2 mil" do eixo Y). Fase 9: recurring (§6.5: isActiveIn, amountFor, pendingOccurrences — ordem alfabética da descrição —, setAmountFrom, projected; e isSkipped, confirmedOccurrenceKeys, occurrenceStatus, skipPeriod/unskipPeriod, endRecurring, lastConfirmedPeriod, recurringListStatus, displayAmount, com os erros AmountBeforeStartError, AmountAfterEndError, EndBeforeStartError e EndBeforeConfirmedError — D-51(e)) e recurringSchema (recurringInputSchema, recurringDetailsSchema, amountChangeSchema, endRecurringSchema, confirmOccurrenceSchema(period) e dateOutsidePeriodMessage); transactionSchema exporta os campos comuns (transactionTypeSchema, amountCentsSchema, tagIdSchema, descriptionSchema); dates ganhou isValidPeriod e isDateInPeriod (CA-07.8). Fase 10: installments (§6.5: splitInstallments — floor(total/n) em cada parcela e o resto na 1ª — e buildInstallmentTransactions — addMonthsClamped a partir da 1ª data; e MIN_INSTALLMENTS/MAX_INSTALLMENTS (2 e 48), displayDescription ("Descrição (k/n)"), countPassedInstallments pelas datas do plano, installmentsToDelete e os tipos InstallmentDraft e InstallmentDeleteScope — D-53(d)) e installmentSchema (installmentInputSchema; transactionFormSchema = transactionInputSchema + isInstallment/installmentCount com superRefine — só Saída, 2 a 48, R$ 0,01 por parcela — e as mensagens).',
     position: { x: 650, y: 450 },
   },
   {
@@ -112,7 +112,7 @@ export const LAYERS: readonly LayerInfo[] = [
     label: 'Apoio a testes',
     folder: 'src/test',
     description:
-      'Dois setups do Vitest (D-46): setup.unit.ts do projeto unit (node; só fake-indexeddb e limpeza do Dexie) e setup.ts do projeto dom (jsdom; Testing Library, fake-indexeddb, limpa as tabelas do Dexie entre testes, findBy com 3 s — D-34). Regra: *.test.tsx roda em dom; *.test.ts roda em unit, salvo os listados em DOM_TEST_FILES no vite.config.ts — um *.test.ts novo que precise de DOM (document, window, localStorage, matchMedia, renderHook) tem de entrar nessa lista. Também: dublês de matchMedia e de <dialog> (dialog.ts — D-33), seedDatabase (prepara tabelas ainda sem repositório — D-34), renderApp, fábricas de lançamentos, ações do formulário de lançamento (transactionForm.ts — Fase 4), gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código). Fase 8: chartStubs.tsx (Doughnut, Bar e Line de mentira — o jsdom não tem canvas) + chartMock.ts (guarda as props de cada gráfico, clickChart chama o onClick das opções e a escala X falsa de 10 px por índice), usados com vi.mock("react-chartjs-2") — D-50(j). Fase 9: recurrings.ts (TODAY fixo em 24/10/2026 e freezeToday, seedLightBill — cria a tag e o recorrente "Conta de luz" pelos repositórios —, openDialog, pendingSection e pendingItems), usado pelos testes de tela de recorrentes, Início, Visões e edição do lançamento.',
+      'Dois setups do Vitest (D-46): setup.unit.ts do projeto unit (node; só fake-indexeddb e limpeza do Dexie) e setup.ts do projeto dom (jsdom; Testing Library, fake-indexeddb, limpa as tabelas do Dexie entre testes, findBy com 3 s — D-34). Regra: *.test.tsx roda em dom; *.test.ts roda em unit, salvo os listados em DOM_TEST_FILES no vite.config.ts — um *.test.ts novo que precise de DOM (document, window, localStorage, matchMedia, renderHook) tem de entrar nessa lista. Também: dublês de matchMedia e de <dialog> (dialog.ts — D-33), seedDatabase (prepara tabelas ainda sem repositório — D-34), renderApp, fábricas de lançamentos, ações do formulário de lançamento (transactionForm.ts — Fase 4), gerador com semente para testes de propriedade e a referência do script do tema (arquivos *.test.* ficam junto do código). Fase 8: chartStubs.tsx (Doughnut, Bar e Line de mentira — o jsdom não tem canvas) + chartMock.ts (guarda as props de cada gráfico, clickChart chama o onClick das opções e a escala X falsa de 10 px por índice), usados com vi.mock("react-chartjs-2") — D-50(j). Fase 9: recurrings.ts (TODAY fixo em 24/10/2026 e freezeToday, seedLightBill — cria a tag e o recorrente "Conta de luz" pelos repositórios —, openDialog, pendingSection e pendingItems), usado pelos testes de tela de recorrentes, Início, Visões e edição do lançamento. Fase 10: seedDatabase ganhou readAllTransactions, readTransaction e countInstallmentGroups — os testes de tela do parcelamento conferem o banco por eles, sem importar o db (princípio 7, D-53(j)).',
     position: { x: 740, y: 112 },
   },
   {
@@ -247,7 +247,7 @@ export const ALLOWED_DEPENDENCIES: readonly AllowedDependency[] = [
     to: 'repositories',
     status: 'exception',
     reason:
-      'D-37 (confirmada em 21/10/2026): só os componentes de domínio de src/components/<entidade>/ usam repositórios — useTagForm (createTag/updateTag), TransactionForm (useTags) e useTransactionForm (createTransaction/updateTransaction). src/components/ui/ nunca importa repositories (proibição por caminho, também no scanner). Uma pasta de entidade nova precisa entrar em onlySources. Fase 8 (D-50(a), confirmada em 25/10/2026): components/periods/usePeriodView usa useTransactionsInRange. Fase 9 (D-51(g)): components/recurrings — useConfirmOccurrenceForm (confirmOccurrence e as classes de erro), ConfirmOccurrenceDialog e PendingOccurrencesSection (useTags, skipOccurrence, unskipOccurrence) e skipErrorMessage (classes de erro); useTransactionForm passou a tratar OccurrenceDateOutsidePeriodError e OccurrenceTypeChangeError.',
+      'D-37 (confirmada em 21/10/2026): só os componentes de domínio de src/components/<entidade>/ usam repositórios — useTagForm (createTag/updateTag), TransactionForm (useTags) e useTransactionForm (createTransaction/updateTransaction). src/components/ui/ nunca importa repositories (proibição por caminho, também no scanner). Uma pasta de entidade nova precisa entrar em onlySources. Fase 8 (D-50(a), confirmada em 25/10/2026): components/periods/usePeriodView usa useTransactionsInRange. Fase 9 (D-51(g)): components/recurrings — useConfirmOccurrenceForm (confirmOccurrence e as classes de erro), ConfirmOccurrenceDialog e PendingOccurrencesSection (useTags, skipOccurrence, unskipOccurrence) e skipErrorMessage (classes de erro); useTransactionForm passou a tratar OccurrenceDateOutsidePeriodError e LockedTypeChangeError. Fase 10 (D-53): ainda em components/transactions — useTransactionForm chama createInstallmentPurchase (e trata InstallmentTagNotFoundError) e TransactionDescription lê useInstallmentCount; nenhuma pasta nova.',
     onlySources: [
       'src/components/tags/',
       'src/components/transactions/',
@@ -449,7 +449,7 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
       'D-51',
     ],
     description:
-      'Fase 4. Única tela fora do React.lazy (vai no pacote principal — RNF-02; ver o achado do bundle de 596 kB, decidido pela D-41). HomePage (useToday) compõe, de cima para baixo: BalanceSummary (saldo geral com todos os lançamentos, inclusive os futuros — D-42, em destaque; "Saldo de outubro de 2026" com entradas e saídas do mês, inclusive datas futuras do mês — CA-02.3; valores com SignedAmount — CA-02.1), a seção "Novo lançamento" com o TransactionForm rápido (Saída/Entrada, valor, data, tag, descrição e "Lançar" — CA-01.1; atalho de criar tag sem perder o digitado — CA-01.7; Toast "Lançamento salvo" — D-38(b)) e RecentTransactions (recebe today; os 5 mais recentes com data até hoje, por data e criação — D-40/D-39, TransactionRow com link para /lancamentos/:id, ou EmptyState; link "Ver todos" para /lancamentos). Tudo por useLiveQuery: um lançamento novo atualiza saldos e lista sem recarregar (CA-02.4). Fase 9 (RF-02 item 4, CA-07.1): PendingRecurrings entre o formulário e os últimos lançamentos — usePendingOccurrences([mês de hoje]) e PendingOccurrencesSection com canSkip={false} (no Início só "Confirmar" — D-51(c)); a seção some sem pendências; "Confirmar" abre o ConfirmOccurrenceDialog e grava pelo confirmOccurrence (Toast "Ocorrência confirmada"). Fase 6: BackupReminder no topo (antes do BalanceSummary) — "Último backup" sempre, num só lugar (RF-10, D-48(c) opção (a), spec 1.26): com aviso (pelo menos um lançamento e sem backup ou com 7 dias ou mais — D-11), Notice subtle "Último backup: há N dias. Faça um backup para não perder seus dados." + link "Fazer backup"; sem aviso, LastBackupLine (linha discreta "Último backup: há 3 dias / hoje / nunca", link para /ajustes/backup com alvo de 44 px); nada enquanto carrega. Lê useLastBackupAt (settingsRepository) e useTransactionCount, sem levar a criptografia para o pacote principal (D-41/D-47(e)). Tabelas: transactions (leitura e escrita — também pela confirmação de recorrente), tags (leitura; escrita pelo atalho de criar tag), recurrings (leitura) e settings (leitura de lastBackupAt).',
+      'Fase 4. Única tela fora do React.lazy (vai no pacote principal — RNF-02; ver o achado do bundle de 596 kB, decidido pela D-41). HomePage (useToday) compõe, de cima para baixo: BalanceSummary (saldo geral com todos os lançamentos, inclusive os futuros — D-42, em destaque; "Saldo de outubro de 2026" com entradas e saídas do mês, inclusive datas futuras do mês — CA-02.3; valores com SignedAmount — CA-02.1), a seção "Novo lançamento" com o TransactionForm rápido (Saída/Entrada, valor, data, tag, descrição e "Lançar" — CA-01.1; atalho de criar tag sem perder o digitado — CA-01.7; Toast "Lançamento salvo" — D-38(b)) e RecentTransactions (recebe today; os 5 mais recentes com data até hoje, por data e criação — D-40/D-39, TransactionRow com link para /lancamentos/:id, ou EmptyState; link "Ver todos" para /lancamentos). Tudo por useLiveQuery: um lançamento novo atualiza saldos e lista sem recarregar (CA-02.4). Fase 9 (RF-02 item 4, CA-07.1): PendingRecurrings entre o formulário e os últimos lançamentos — usePendingOccurrences([mês de hoje]) e PendingOccurrencesSection com canSkip={false} (no Início só "Confirmar" — D-51(c)); a seção some sem pendências; "Confirmar" abre o ConfirmOccurrenceDialog e grava pelo confirmOccurrence (Toast "Ocorrência confirmada"). Fase 6: BackupReminder no topo (antes do BalanceSummary) — "Último backup" sempre, num só lugar (RF-10, D-48(c) opção (a), spec 1.26): com aviso (pelo menos um lançamento e sem backup ou com 7 dias ou mais — D-11), Notice subtle "Último backup: há N dias. Faça um backup para não perder seus dados." + link "Fazer backup"; sem aviso, LastBackupLine (linha discreta "Último backup: há 3 dias / hoje / nunca", link para /ajustes/backup com alvo de 44 px); nada enquanto carrega. Lê useLastBackupAt (settingsRepository) e useTransactionCount, sem levar a criptografia para o pacote principal (D-41/D-47(e)). Tabelas: transactions (leitura e escrita — também pela confirmação de recorrente), tags (leitura; escrita pelo atalho de criar tag), recurrings (leitura) e settings (leitura de lastBackupAt). Fase 10 (D-53(a)/(g)): o formulário rápido não tem "Parcelado"; os últimos lançamentos mostram "Descrição (k/n)" nas parcelas (TransactionDescription) e as parcelas futuras ficam fora deles (D-40), mas entram no saldo geral desde a criação (D-42); installmentGroups é lida só pelo número de parcelas das linhas.',
     contentPhase: 4,
   },
   {
@@ -466,25 +466,52 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
       'RNF-02',
       'D-44',
       'D-45',
+      'RF-08',
+      'D-53',
     ],
     description:
-      'Fase 5 (lazy). TransactionsPage compõe: Page.Header "Lançamentos" com o atalho "+ Novo" no slot trailing (NewTransactionLink → /lancamentos/novo — D-45(e)); FilterBar (role="search") com "Buscar na descrição" sempre visível, botão "Filtros (N)" e "Limpar filtros", e o painel recolhível com Tipo (Todos/Entradas/Saídas), Tag (TagPicker com "Todas") e Período (Data inicial/final, aviso de período invertido no campo final — D-44(b)); FilterSummary ("N lançamentos encontrados", resultado, entradas e saídas do conjunto filtrado inteiro — CA-04.3) só com filtro aplicado; EmptyState "Nenhum lançamento ainda…" ou "Nenhum lançamento encontrado com esses filtros." (D-45(d)); TransactionDayList com DaySection por dia (data por extenso + totais do dia — CA-04.1; TransactionRow showDate={false}) e LoadMore (50 lançamentos por página em dias inteiros, IntersectionObserver a 600 px + "Carregar mais" — CA-04.6, D-44(d)). Dados por useTransactionList: filtros do Zustand (um seletor por campo), texto com espera de 250 ms, useTransactionsInPeriod pelo índice date (crescente, invertido em memória — D-44(a)), useTransactionCount e useTags; tipo/tag/texto aplicados no domínio (summarizeTransactionList). Tocar numa linha abre /lancamentos/:id (CA-04.5) e o Voltar mantém os filtros (Zustand, sem persist — D-45(f)). Continua sendo a tela pai (fallback do useGoBack) de /lancamentos/novo e /lancamentos/:id. Tabelas: transactions e tags (só leitura).',
+      'Fase 5 (lazy). TransactionsPage compõe: Page.Header "Lançamentos" com o atalho "+ Novo" no slot trailing (NewTransactionLink → /lancamentos/novo — D-45(e)); FilterBar (role="search") com "Buscar na descrição" sempre visível, botão "Filtros (N)" e "Limpar filtros", e o painel recolhível com Tipo (Todos/Entradas/Saídas), Tag (TagPicker com "Todas") e Período (Data inicial/final, aviso de período invertido no campo final — D-44(b)); FilterSummary ("N lançamentos encontrados", resultado, entradas e saídas do conjunto filtrado inteiro — CA-04.3) só com filtro aplicado; EmptyState "Nenhum lançamento ainda…" ou "Nenhum lançamento encontrado com esses filtros." (D-45(d)); TransactionDayList com DaySection por dia (data por extenso + totais do dia — CA-04.1; TransactionRow showDate={false}) e LoadMore (50 lançamentos por página em dias inteiros, IntersectionObserver a 600 px + "Carregar mais" — CA-04.6, D-44(d)). Dados por useTransactionList: filtros do Zustand (um seletor por campo), texto com espera de 250 ms, useTransactionsInPeriod pelo índice date (crescente, invertido em memória — D-44(a)), useTransactionCount e useTags; tipo/tag/texto aplicados no domínio (summarizeTransactionList). Tocar numa linha abre /lancamentos/:id (CA-04.5) e o Voltar mantém os filtros (Zustand, sem persist — D-45(f)). Continua sendo a tela pai (fallback do useGoBack) de /lancamentos/novo e /lancamentos/:id. Fase 10 (D-53(g)): as linhas de parcela mostram "Descrição (k/n)" (TransactionDescription dentro do TransactionRow, com uma leitura do grupo por linha de parcela — useInstallmentCount); a busca continua pela descrição armazenada. Tabelas: transactions e tags (só leitura) e installmentGroups (leitura do número de parcelas).',
     contentPhase: 5,
   },
   {
     route: '/lancamentos/novo',
     screen: 'Novo lançamento',
-    requirements: ['RF-01', 'RF-08', 'CA-01.1', 'CA-01.2', 'CA-01.3', 'CA-01.4', 'CA-01.7'],
+    requirements: [
+      'RF-01',
+      'RF-08',
+      'CA-01.1',
+      'CA-01.2',
+      'CA-01.3',
+      'CA-01.4',
+      'CA-01.7',
+      'CA-08.1',
+      'CA-08.2',
+      'D-06',
+      'D-53',
+    ],
     description:
-      'Fase 4: Page com BackLink (fallback /lancamentos) e o mesmo TransactionForm do Início, em modo criar ("Lançar", Toast e reset mantendo tipo e data). A opção Parcelado (RF-08) entra na Fase 10. Tabelas: transactions (escrita) e tags (leitura; escrita pelo atalho CA-01.7).',
+      'Fase 4: Page com BackLink (fallback /lancamentos) e o mesmo TransactionForm do Início, em modo criar ("Lançar", Toast e reset mantendo tipo e data). Fase 10 (RF-08, D-53(a)/(f)): <TransactionForm allowInstallments> — só aqui aparece a opção "Parcelado" (Checkbox), e só com Saída (D-06: escolher Entrada esconde e desliga a opção). Ligada, InstallmentFields mostra "Número de parcelas" (só dígitos, até 2; de 2 a 48) com a prévia da divisão no Field.Hint ("3 parcelas: a 1ª de R$ 33,34 e as outras de R$ 33,33"), "Valor" vira "Valor total" e "Data" vira "Data da primeira parcela"; o valor total é revalidado quando o número de parcelas, "Parcelado" ou o tipo mudam (mínimo de R$ 0,01 por parcela — princípio 16). "Lançar" chama createInstallmentPurchase (grupo e parcelas numa transação — CA-08.1/CA-08.2) e mostra "Parcelamento salvo"; o formulário volta como no CA-01.1, com "Parcelado" desligado. Tabelas: transactions (escrita), installmentGroups (escrita, ao parcelar) e tags (leitura; escrita pelo atalho CA-01.7).',
     contentPhase: 4,
   },
   {
     route: '/lancamentos/:id',
     screen: 'Lançamento (editar/excluir)',
-    requirements: ['RF-01', 'RF-07', 'RF-08', 'CA-01.5', 'CA-01.6', 'CA-07.8', 'D-38', 'D-51'],
+    requirements: [
+      'RF-01',
+      'RF-07',
+      'RF-08',
+      'CA-01.5',
+      'CA-01.6',
+      'CA-07.8',
+      'CA-08.3',
+      'CA-08.4',
+      'CA-08.5',
+      'D-38',
+      'D-51',
+      'D-53',
+    ],
     description:
-      'Fase 4: TransactionDetailPage lê o lançamento por useTransactionDetail (useTransaction, useLiveQuery: undefined carregando, null inexistente). Com o lançamento: TransactionForm em modo edição ("Salvar" já ativo — startsValid, princípio 16) com extraAction "Excluir" e o modal ConfirmDeleteTransactionDialog ("Excluir lançamento?"). Salvar (updateTransaction) e Excluir (deleteTransaction) voltam para a tela anterior com useGoBack (tela pai /lancamentos — D-38(c)); isDone evita piscar "Lançamento não encontrado" durante a saída. Id inexistente: EmptyState "Lançamento não encontrado". Fase 9 (RF-07, D-51(b)/(j)/(l)): lançamento confirmado de recorrente (recurringPeriod ≠ null) — o useTransactionForm troca o schema por um que prende a data ao mês da ocorrência (Field.Hint "Escolha um dia de <mês/ano>." e erro "A data precisa estar em <mês/ano>."), o seletor Saída/Entrada fica desabilitado (<fieldset disabled>) com TYPE_LOCKED_MESSAGE e o updateTransaction recusa as duas coisas (OccurrenceDateOutsidePeriodError, OccurrenceTypeChangeError); "Excluir" abre o DeleteConfirmedOccurrenceDialog ("Excluir e voltar a pendente" | "Excluir e pular este mês") no lugar do ConfirmDeleteTransactionDialog, e confirmDelete(afterwards) chama deleteConfirmedTransaction (transação rw [recurrings, transactions]). Parcelas (RF-08) na Fase 10. Tabelas: transactions (leitura e escrita), tags (leitura) e recurrings (escrita só ao pular o mês na exclusão).',
+      'Fase 4: TransactionDetailPage lê o lançamento por useTransactionDetail (useTransaction, useLiveQuery: undefined carregando, null inexistente). Com o lançamento: TransactionForm em modo edição ("Salvar" já ativo — startsValid, princípio 16) com extraAction "Excluir" e o modal ConfirmDeleteTransactionDialog ("Excluir lançamento?"). Salvar (updateTransaction) e Excluir (deleteTransaction) voltam para a tela anterior com useGoBack (tela pai /lancamentos — D-38(c)); isDone evita piscar "Lançamento não encontrado" durante a saída. Id inexistente: EmptyState "Lançamento não encontrado". Fase 9 (RF-07, D-51(b)/(j)/(l)): lançamento confirmado de recorrente (recurringPeriod ≠ null) — o useTransactionForm troca o schema por um que prende a data ao mês da ocorrência (Field.Hint "Escolha um dia de <mês/ano>." e erro "A data precisa estar em <mês/ano>."), o seletor Saída/Entrada fica desabilitado (<fieldset disabled>) com TYPE_LOCKED_MESSAGE e o updateTransaction recusa as duas coisas (OccurrenceDateOutsidePeriodError, LockedTypeChangeError); "Excluir" abre o DeleteConfirmedOccurrenceDialog ("Excluir e voltar a pendente" | "Excluir e pular este mês") no lugar do ConfirmDeleteTransactionDialog, e confirmOccurrenceDelete(afterwards) chama deleteConfirmedTransaction (transação rw [recurrings, transactions]). Fase 10 (RF-08, D-53(b)/(c)/(h)/(i)): parcela (installmentGroupId ≠ null) — InstallmentInfo acima do formulário ("Parcela k de n", "Valor total", "Parcelas" e "Já passaram: x de n", por countPassedInstallments com as datas do plano — CA-08.5), lido por useInstallmentGroupDetails; o tipo fica travado com "Parcelas são sempre saídas; o tipo não pode ser trocado." (typeLockReason) e o updateTransaction recusa a troca (LockedTypeChangeError); salvar muda só esta parcela, o grupo continua igual (CA-08.3); "Excluir" abre o DeleteInstallmentDialog ("Só esta" | "Esta e as seguintes" | "Todas as parcelas" — CA-08.4) e confirmInstallmentDelete(scope) chama deleteInstallments (transação rw [installmentGroups, transactions]; sem parcelas restantes, o grupo sai junto). O DeleteDialog local escolhe o modal pelo tipo do lançamento: parcela, confirmado de recorrente ou avulso. Tabelas: transactions (leitura e escrita), tags (leitura), recurrings (escrita só ao pular o mês na exclusão) e installmentGroups (leitura; exclusão junto com a última parcela).',
     contentPhase: 4,
   },
   {
@@ -742,7 +769,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'TransactionForm',
-    note: 'Fase 4, src/components/transactions (D-37): o mesmo formulário no Início, em /lancamentos/novo e na edição. <form noValidate> com TypeRadio segmented, Field + MoneyInput (Valor), Field + DateInput (Data), TagPicker (nada enquanto as tags carregam; sem tags, emptyState = NoTagsNotice), Field + TextInput (Descrição), ErrorAlert do saveError e a linha de ações (extraAction | "Lançar"/"Salvar" com disabled={!canSubmit} — princípio 16). CreateTagDialog e Toast ficam como irmãos do <form> (formulário aninhado não é válido e o envio de um dispararia o outro). Estado: useTransactionForm (RHF) + isCreatingTag (useState); tags por useTags (repositório, permitido para components/<entidade>). Fase 9 (D-51(b)/(l)): na edição do lançamento confirmado de um recorrente, o TypeRadio.Root recebe disabled (isTypeLocked; <fieldset disabled>) e a frase TYPE_LOCKED_MESSAGE "O tipo segue o do recorrente e não pode ser trocado."; o Field da Data recebe hint ("Escolha um dia de <mês/ano>.") e o schema do useTransactionForm (schemaFor(occurrencePeriod)) prende a data ao mês da ocorrência.',
+    note: 'Fase 4, src/components/transactions (D-37): o mesmo formulário no Início, em /lancamentos/novo e na edição. <form noValidate> com TypeRadio segmented, Field + MoneyInput (Valor), Field + DateInput (Data), TagPicker (nada enquanto as tags carregam; sem tags, emptyState = NoTagsNotice), Field + TextInput (Descrição), ErrorAlert do saveError e a linha de ações (extraAction | "Lançar"/"Salvar" com disabled={!canSubmit} — princípio 16). CreateTagDialog e Toast ficam como irmãos do <form> (formulário aninhado não é válido e o envio de um dispararia o outro). Estado: useTransactionForm (RHF) + isCreatingTag (useState); tags por useTags (repositório, permitido para components/<entidade>). Fase 9 (D-51(b)/(l)): na edição do lançamento confirmado de um recorrente, o TypeRadio.Root recebe disabled (<fieldset disabled>) e a frase TYPE_LOCKED_MESSAGE "O tipo segue o do recorrente e não pode ser trocado."; o Field da Data recebe hint ("Escolha um dia de <mês/ano>.") e o schema do useTransactionForm (schemaFor(occurrencePeriod)) prende a data ao mês da ocorrência. Fase 10 (D-53): prop allowInstallments (só /lancamentos/novo); com ela, sem edição e com Saída (canInstall), InstallmentFields entra logo abaixo do TypeRadio; useWatch de type e isInstallment troca os rótulos ("Valor total", "Data da primeira parcela"); escolher Entrada desliga "Parcelado" (setValue) e revalida o valor total (trigger). A frase do tipo travado vem de typeLockReason (recorrente: TYPE_LOCKED_MESSAGE; parcela: INSTALLMENT_TYPE_LOCKED_MESSAGE).',
   },
   {
     component: 'Field',
@@ -842,7 +869,7 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
   },
   {
     component: 'TransactionRow',
-    note: 'Fase 4, src/components/transactions: <li> com Link para /lancamentos/:id (CA-01.5 / CA-04.5); descrição truncada, TagChip (truncate), data DD/MM/AAAA (formatShortDate — D-38(f)) e SignedAmount(signedAmount). Sem estado. Fase 5: prop showDate (padrão true); a DaySection da lista passa showDate={false}, porque a data já está no cabeçalho do dia (D-45(c)). Usado em RecentTransactions (com data) e DaySection (sem data). Fase 9: também usado no ConfirmedTransactions (detalhes do recorrente, com data), abrindo a edição do lançamento confirmado.',
+    note: 'Fase 4, src/components/transactions: <li> com Link para /lancamentos/:id (CA-01.5 / CA-04.5); descrição truncada, TagChip (truncate), data DD/MM/AAAA (formatShortDate — D-38(f)) e SignedAmount(signedAmount). Sem estado. Fase 5: prop showDate (padrão true); a DaySection da lista passa showDate={false}, porque a data já está no cabeçalho do dia (D-45(c)). Usado em RecentTransactions (com data) e DaySection (sem data). Fase 9: também usado no ConfirmedTransactions (detalhes do recorrente, com data), abrindo a edição do lançamento confirmado. Fase 10 (D-53(g)): a descrição vem do TransactionDescription ("Descrição (k/n)" nas parcelas).',
   },
   {
     component: 'ConfirmDeleteTransactionDialog',
@@ -1061,6 +1088,34 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
     component: 'DeleteConfirmedOccurrenceDialog',
     note: 'Fase 9 (RF-07, D-51(j)): Modal "Excluir lançamento?" explicando o mês da ocorrência, com Cancelar | "Excluir e pular este mês" (danger-outline) | "Excluir e voltar a pendente" (danger); onConfirm(afterwards: AfterConfirmedDelete). Montado pelo TransactionDetailPage só quando recurringPeriod ≠ null, no lugar do ConfirmDeleteTransactionDialog.',
   },
+  {
+    component: 'Checkbox',
+    note: 'Primitivo (Fase 10, components/ui — D-53(f)): <label> com o rótulo inteiro tocável (min-h-11, alvo de 44 px — RNF-06) envolvendo <input type="checkbox"> e o texto (children); marcado, o rótulo fica em negrito e com borda azul (has-checked), não só pela cor. Props checked/onChange(boolean)/onBlur/name/ref para o Controller. Sem estado. Usado só pelo InstallmentFields ("Parcelado").',
+  },
+  {
+    component: 'InstallmentFields',
+    note: 'Fase 10, components/transactions (RF-08, D-53(f)/(k)): fragmento com dois Controller — Checkbox "Parcelado" e, ligado, Field + TextInput "Número de parcelas" (inputMode numeric, só dígitos, até 2) com Field.Hint = prévia da divisão (splitInstallments + formatBRL: "12 parcelas de R$ 100,00" ou "3 parcelas: a 1ª de R$ 33,34 e as outras de R$ 33,33"; nada enquanto o total ou o número forem inválidos) e Field.Error. Lê isInstallment e amountCents por useWatch; onInstallmentChange (do TransactionForm) revalida o valor total a cada mudança — o mínimo de R$ 0,01 por parcela depende do número. Sem estado próprio.',
+  },
+  {
+    component: 'TransactionDescription',
+    note: 'Fase 10, components/transactions (RF-08, D-53(g)): devolve só texto. Lançamento sem installmentGroupId → a descrição, sem consulta; parcela → o filho local InstallmentDescription, que chama useInstallmentCount(groupId) e displayDescription ("Notebook (2/12)"; sem o "(k/n)" enquanto a consulta não volta). Usado pelo TransactionRow e pelo DeleteInstallmentDialog — evita passar o número de parcelas por vários níveis.',
+  },
+  {
+    component: 'InstallmentDescription',
+    note: 'Local do TransactionDescription: existe para o hook useInstallmentCount só rodar nas linhas que são parcela (hooks não podem ser condicionais).',
+  },
+  {
+    component: 'InstallmentInfo',
+    note: 'Fase 10, features/transactions (CA-08.5, D-53(c)/(h)): <section> com h2 "Parcela k de n" e <dl> com "Valor total" (formatBRL), "Parcelas" e "Já passaram" (countPassedInstallments(grupo, today) — datas do plano, até hoje inclusive). Lê useInstallmentGroupDetails(groupId) e useToday; null enquanto carrega. Montado pelo TransactionDetailPage acima do TransactionForm quando o lançamento é parcela.',
+  },
+  {
+    component: 'DeleteInstallmentDialog',
+    note: 'Fase 10, features/transactions (CA-08.4, D-53(i)): Modal "Excluir parcela?" com o texto “<TransactionDescription>” faz parte de um parcelamento…, ErrorAlert de falha e quatro botões em coluna: "Só esta", "Esta e as seguintes", "Todas as parcelas" (danger, desabilitados durante a exclusão) e "Cancelar"; onConfirm(scope: InstallmentDeleteScope). Sem estado: vem do useTransactionDetail.',
+  },
+  {
+    component: 'DeleteDialog',
+    note: 'Local do TransactionDetailPage (Fase 10): recebe transaction e o objeto do useTransactionDetail e escolhe a confirmação pelo tipo — parcela → DeleteInstallmentDialog (confirmInstallmentDelete), confirmado de recorrente → DeleteConfirmedOccurrenceDialog (confirmOccurrenceDelete), avulso → ConfirmDeleteTransactionDialog (confirmDelete); as props comuns (open, onCancel, isDeleting, errorMessage) são montadas uma vez.',
+  },
 ]
 
 /** Componentes locais (não importados) e o módulo de onde vêm. */
@@ -1074,6 +1129,9 @@ export const LOCAL_COMPONENT_ORIGINS: Readonly<Record<string, string>> = {
   EditRecurringForm: 'src/features/recurrings/EditRecurringDialog.tsx',
   ChangeAmountForm: 'src/features/recurrings/ChangeAmountDialog.tsx',
   EndRecurringForm: 'src/features/recurrings/EndRecurringDialog.tsx',
+  // Fase 10: filhos locais que isolam um hook ou uma escolha de modal.
+  InstallmentDescription: 'src/components/transactions/TransactionDescription.tsx',
+  DeleteDialog: 'src/features/transactions/TransactionDetailPage.tsx',
   // const SampleDataTools = loadSampleDataTools(): lazy() só em DEV, dentro de uma função (D-30).
   SampleDataTools: 'src/dev/sampleData/SampleDataTools.tsx',
 }
@@ -1102,7 +1160,7 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '/',
     stateAndData:
-      'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary e ao RecentTransactions. Dados por useLiveQuery: useOverallBalance() (sem today — D-42) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(today, 5) (D-40) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4). Fase 6: BackupReminder (topo) lê useLastBackupAt e useTransactionCount (useLiveQuery) e decide por shouldShowBackupReminder com o mesmo today entre Notice (aviso) e LastBackupLine (linha discreta, sem estado — spec 1.26); o 1º lançamento troca a linha "Último backup: nunca" pelo aviso se nunca houve backup, e um backup novo troca o aviso pela linha "Último backup: hoje". Fase 9: PendingRecurrings (entre o formulário e os últimos lançamentos) recebe o mesmo today e lê usePendingOccurrences([periodOf(today)]) (useLiveQuery sobre recurrings + transactions pelo índice [recurringId+recurringPeriod]); PendingOccurrencesSection guarda localmente a ocorrência em confirmação, o erro e os dois avisos (useToast). Confirmar grava pelo confirmOccurrence e a pendência some sozinha (o lançamento novo também atualiza os saldos e a lista — CA-02.4).',
+      'HomePage guarda só o today de useToday (useSyncExternalStore; recalculado em visibilitychange, focus e pageshow — D-38(g)) e o passa ao BalanceSummary e ao RecentTransactions. Dados por useLiveQuery: useOverallBalance() (sem today — D-42) e useMonthTotals(período) (src/repositories/transactionsRepository.ts — D-39), useRecentTransactions(today, 5) (D-40) e useTags (tagsRepository); undefined enquanto carrega ("—" nos saldos, nada na lista). O formulário rápido tem estado próprio em useTransactionForm (useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema) — desde a Fase 10, transactionFormSchema, com "Parcelado" sempre desligado no Início (D-53(a)); defaultValues Saída + hoje; saveError em useState; Toast por useToast; ref autoFilledDate para trocar a data na virada do dia só se ela ainda for a automática) e isCreatingTag no TransactionForm. Lançar grava por createTransaction e as três consultas ao vivo se atualizam sozinhas (CA-02.4). Fase 6: BackupReminder (topo) lê useLastBackupAt e useTransactionCount (useLiveQuery) e decide por shouldShowBackupReminder com o mesmo today entre Notice (aviso) e LastBackupLine (linha discreta, sem estado — spec 1.26); o 1º lançamento troca a linha "Último backup: nunca" pelo aviso se nunca houve backup, e um backup novo troca o aviso pela linha "Último backup: hoje". Fase 9: PendingRecurrings (entre o formulário e os últimos lançamentos) recebe o mesmo today e lê usePendingOccurrences([periodOf(today)]) (useLiveQuery sobre recurrings + transactions pelo índice [recurringId+recurringPeriod]); PendingOccurrencesSection guarda localmente a ocorrência em confirmação, o erro e os dois avisos (useToast). Confirmar grava pelo confirmOccurrence e a pendência some sozinha (o lançamento novo também atualiza os saldos e a lista — CA-02.4).',
   },
   {
     route: '/lancamentos',
@@ -1137,12 +1195,12 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '/lancamentos/novo',
     stateAndData:
-      'Sem estado na página: todo o estado é do TransactionForm/useTransactionForm (o mesmo do Início). Tags por useTags.',
+      'Árvore: Page > Page.Header (leading: BackLink) > TransactionForm allowInstallments { TypeRadio segmented, InstallmentFields { Checkbox "Parcelado", Field + TextInput "Número de parcelas" + Field.Hint (prévia) } (só Saída), Field + MoneyInput ("Valor" | "Valor total"), Field + DateInput ("Data" | "Data da primeira parcela"), TagPicker | NoTagsNotice, Field + TextInput, ErrorAlert, "Lançar" } + CreateTagDialog + Toast. Sem estado na página: todo o estado é do TransactionForm/useTransactionForm (o mesmo do Início). Fase 10 (D-53): os valores do formulário ganharam isInstallment (padrão false) e installmentCount (padrão MIN_INSTALLMENTS = 2), validados pelo transactionFormSchema; o submit separa os dois campos e, com isInstallment, chama createInstallmentPurchase({ totalCents: amountCents, count, firstDate: date, tagId, description }) — senão createTransaction; o Toast diz "Parcelamento salvo" ou "Lançamento salvo". Tags por useTags.',
   },
   {
     route: '/lancamentos/:id',
     stateAndData:
-      'useTransactionDetail(id): transaction por useTransaction (useLiveQuery: undefined carregando, null inexistente), isConfirmingDelete, isDeleting, isDone (tela saindo — não mostrar "não encontrado") e deleteError; goBack de useGoBack("/lancamentos"). O TransactionForm recebe key = id e transaction (defaultValues do lançamento, startsValid = true) e chama onUpdated (finish → goBack) depois de updateTransaction. Fase 9 (D-51(b)/(j)/(l)): com transaction.recurringPeriod ≠ null, useTransactionForm troca o resolver por schemaFor(occurrencePeriod) (data presa ao mês) e expõe occurrencePeriod e isTypeLocked (TypeRadio disabled + TYPE_LOCKED_MESSAGE); "Excluir" abre o DeleteConfirmedOccurrenceDialog em vez do ConfirmDeleteTransactionDialog e confirmDelete(afterwards) chama deleteConfirmedTransaction(id, \'pending\' | \'skip\'); sem afterwards, deleteTransaction como antes.',
+      'useTransactionDetail(id): transaction por useTransaction (useLiveQuery: undefined carregando, null inexistente), isConfirmingDelete, isDeleting, isDone (tela saindo — não mostrar "não encontrado") e deleteError; goBack de useGoBack("/lancamentos"). O TransactionForm recebe key = id e transaction (defaultValues do lançamento, startsValid = true) e chama onUpdated (finish → goBack) depois de updateTransaction. Fase 9 (D-51(b)/(j)/(l)): com transaction.recurringPeriod ≠ null, useTransactionForm troca o resolver por schemaFor(occurrencePeriod) (data presa ao mês) e expõe occurrencePeriod e a razão do tipo travado (desde a Fase 10, typeLockReason — TypeRadio disabled + a frase); "Excluir" abre o DeleteConfirmedOccurrenceDialog em vez do ConfirmDeleteTransactionDialog e confirmOccurrenceDelete(afterwards) chama deleteConfirmedTransaction(id, \'pending\' | \'skip\'); o avulso usa confirmDelete → deleteTransaction. Fase 10 (D-53): árvore Page.Header > [ InstallmentInfo (só parcela) , TransactionForm, DeleteDialog ]. O DeleteDialog local escolhe o modal pelo tipo do lançamento (parcela → DeleteInstallmentDialog → confirmInstallmentDelete(scope) → deleteInstallments; confirmado → DeleteConfirmedOccurrenceDialog; avulso → ConfirmDeleteTransactionDialog); as três ações passam pelo mesmo runDelete (isDeleting, deleteError, finish). InstallmentInfo lê useInstallmentGroupDetails(groupId) (useLiveQuery numa transação r em installmentGroups + transactions) e useToday; nada enquanto carrega. Editar uma parcela só faz updateTransaction nela (o grupo não muda — CA-08.3).',
   },
 ]
 
@@ -3394,7 +3452,7 @@ export const FLOWS: readonly Flow[] = [
     id: 'transaction-delete',
     title: 'Excluir lançamento (com confirmação)',
     summary:
-      '"Excluir" na edição abre o modal "Excluir lançamento?" (ConfirmDeleteTransactionDialog, <dialog> nativo — D-33). Confirmar chama deleteTransaction e volta para a tela anterior (D-38(c)); falha mostra ErrorAlert no modal e mantém a tela. Os saldos e a lista do Início se atualizam pelo useLiveQuery (CA-01.6). Desde a Fase 9, o lançamento confirmado de um recorrente segue o fluxo "Excluir lançamento confirmado" (DeleteConfirmedOccurrenceDialog); as regras de parcelas chegam na Fase 10.',
+      '"Excluir" na edição abre o modal "Excluir lançamento?" (ConfirmDeleteTransactionDialog, <dialog> nativo — D-33). Confirmar chama deleteTransaction e volta para a tela anterior (D-38(c)); falha mostra ErrorAlert no modal e mantém a tela. Os saldos e a lista do Início se atualizam pelo useLiveQuery (CA-01.6). Desde a Fase 9, o lançamento confirmado de um recorrente segue o fluxo "Excluir lançamento confirmado" (DeleteConfirmedOccurrenceDialog) e, desde a Fase 10, a parcela segue "Excluir parcela (três opções)" (DeleteInstallmentDialog).',
     requirements: ['RF-01', 'CA-01.6', 'D-33', 'D-38'],
     participants: [
       { id: 'user', label: 'Usuário' },
@@ -5990,7 +6048,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'formHook',
         label: 'useTransactionForm({ transaction })',
         detail:
-          'occurrencePeriod = transaction.recurringPeriod; schemaFor(occurrencePeriod) = transactionInputSchema + refine(isDateInPeriod); isTypeLocked = recurringId ≠ null.',
+          'occurrencePeriod = transaction.recurringPeriod; schemaFor(occurrencePeriod) = transactionFormSchema (desde a Fase 10; antes transactionInputSchema) + refine(isDateInPeriod); typeLockReason = TYPE_LOCKED_MESSAGE com recurringId ≠ null (era isTypeLocked até a Fase 9).',
         refs: ['D-51'],
         kind: 'call',
       },
@@ -6024,7 +6082,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'dexie',
         label: "transaction('rw', [tags, transactions]): get → regras → put",
         detail:
-          'Tipo diferente → OccurrenceTypeChangeError; data fora do mês → OccurrenceDateOutsidePeriodError (mensagens do formulário em saveError); vínculos mantidos.',
+          'Tipo diferente → LockedTypeChangeError; data fora do mês → OccurrenceDateOutsidePeriodError (mensagens do formulário em saveError); vínculos mantidos.',
         refs: ['D-51'],
         kind: 'call',
       },
@@ -6088,8 +6146,9 @@ export const FLOWS: readonly Flow[] = [
       {
         from: 'detail',
         to: 'repo',
-        label: 'confirmDelete(afterwards) → deleteConfirmedTransaction(id, afterwards)',
-        detail: 'Sem afterwards (lançamento avulso), deleteTransaction como antes.',
+        label: 'confirmOccurrenceDelete(afterwards) → deleteConfirmedTransaction(id, afterwards)',
+        detail:
+          'Até a Fase 9 era confirmDelete(afterwards?); desde a Fase 10 cada tipo tem a sua ação (confirmDelete → deleteTransaction no avulso, confirmInstallmentDelete → deleteInstallments na parcela), todas por runDelete.',
         refs: ['RF-07'],
         kind: 'call',
       },
@@ -6220,17 +6279,427 @@ export const FLOWS: readonly Flow[] = [
       'src/repositories/recurringsRepository.test.ts',
     ],
   },
+  {
+    id: 'installment-create',
+    title: 'Criar compra parcelada',
+    summary:
+      'Em "Novo lançamento", com Saída, o usuário liga "Parcelado", informa o número de parcelas (2 a 48), o valor total e a data da 1ª parcela. O formulário mostra a divisão prevista e só libera "Lançar" com tudo válido; o repositório grava o grupo e todas as parcelas numa transação só — ou tudo, ou nada (CA-08.2).',
+    requirements: ['RF-08', 'CA-08.1', 'CA-08.2', 'D-06', 'D-53', 'D-36'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'form',
+        label: 'TransactionForm',
+        module: 'src/components/transactions/TransactionForm.tsx',
+      },
+      {
+        id: 'fields',
+        label: 'InstallmentFields',
+        module: 'src/components/transactions/InstallmentFields.tsx',
+      },
+      {
+        id: 'formHook',
+        label: 'useTransactionForm',
+        module: 'src/components/transactions/useTransactionForm.ts',
+      },
+      { id: 'schema', label: 'installmentSchema', module: 'src/domain/installmentSchema.ts' },
+      { id: 'domain', label: 'domain/installments', module: 'src/domain/installments.ts' },
+      {
+        id: 'repo',
+        label: 'installmentsRepository',
+        module: 'src/repositories/installmentsRepository.ts',
+      },
+      {
+        id: 'dexie',
+        label: 'Dexie: tags + installmentGroups + transactions',
+        module: 'src/db/database.ts',
+      },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'form',
+        label: 'abre /lancamentos/novo e marca "Parcelado"',
+        detail:
+          'Só o NewTransactionPage passa allowInstallments; a opção aparece só fora da edição e com Saída (canInstall). No Início e na edição ela não existe (D-53(a)).',
+        refs: ['RF-08', 'D-53', 'D-06'],
+        kind: 'event',
+      },
+      {
+        from: 'form',
+        to: 'fields',
+        label: 'InstallmentFields: Checkbox + "Número de parcelas"',
+        detail:
+          'Os rótulos viram "Valor total" e "Data da primeira parcela" (useWatch de isInstallment). Escolher Entrada desliga a opção (setValue) e ela some.',
+        refs: ['D-53'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'fields',
+        label: 'digita o número de parcelas',
+        detail:
+          'Só dígitos, até 2. onInstallmentChange → form.trigger("amountCents"): o erro do total aparece e some na hora (o RHF só revalidaria o campo alterado).',
+        refs: ['D-36', 'D-53'],
+        kind: 'event',
+      },
+      {
+        from: 'fields',
+        to: 'domain',
+        label: 'splitInstallments(total, n) → prévia no Field.Hint',
+        detail:
+          '"3 parcelas: a 1ª de R$ 33,34 e as outras de R$ 33,33" ou "12 parcelas de R$ 100,00"; total ou número inválido → sem prévia (o erro do campo explica).',
+        refs: ['CA-08.1'],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'schema',
+        label: 'zodResolver(transactionFormSchema)',
+        detail:
+          'superRefine com isInstallment: tipo Saída ("Parcelamento só para saídas"), 2 a 48 ("Informe de 2 a 48 parcelas") e total ≥ n ("O valor total precisa ter pelo menos R$ 0,01 por parcela"). "Lançar" só ativo com tudo válido (princípio 16).',
+        refs: ['D-06', 'D-36', 'D-53'],
+        kind: 'call',
+      },
+      {
+        from: 'user',
+        to: 'form',
+        label: 'toca "Lançar"',
+        detail: 'Desabilitado durante o envio.',
+        refs: ['D-36'],
+        kind: 'event',
+      },
+      {
+        from: 'formHook',
+        to: 'repo',
+        label: 'createInstallmentPurchase({ totalCents, count, firstDate, tagId, description })',
+        detail:
+          'O submit separa isInstallment/installmentCount dos campos do lançamento; installmentInputSchema.parse; grupo com crypto.randomUUID() e createdAt.',
+        refs: ['RF-08'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'domain',
+        label: 'buildInstallmentTransactions(group)',
+        detail:
+          'Parcela k em addMonthsClamped(firstDate, k−1) (último dia do mês quando o dia não existe), floor(total/n) e o resto na 1ª, descrição base, installmentGroupId e installmentNumber; recurringId/recurringPeriod null.',
+        refs: ['CA-08.1'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label:
+          "transaction('rw', [tags, installmentGroups, transactions]): tag existe? → add → bulkAdd",
+        detail:
+          'Tag inexistente → InstallmentTagNotFoundError ("A tag escolhida não existe mais. Escolha outra."); qualquer falha desfaz o grupo e as parcelas.',
+        refs: ['CA-08.2', 'D-01'],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'form',
+        label: 'reset + Toast "Parcelamento salvo"',
+        detail:
+          'Mantém tipo e data, "Parcelado" desligado (CA-01.1). Os useLiveQuery atualizam saldos e listas: todas as parcelas no saldo geral (D-42), no saldo do mês só a do mês, as futuras fora dos últimos lançamentos (D-40).',
+        refs: ['CA-01.1', 'D-42', 'D-40'],
+        kind: 'return',
+      },
+    ],
+    tests: [
+      'src/features/transactions/InstallmentPurchase.test.tsx',
+      'src/repositories/installmentsRepository.test.ts',
+      'src/domain/installments.test.ts',
+    ],
+  },
+  {
+    id: 'installment-edit',
+    title: 'Abrir e editar uma parcela',
+    summary:
+      'Os detalhes de uma parcela mostram o parcelamento ("Parcela k de n", valor total, número de parcelas e quantas já passaram) acima do formulário. Editar muda só aquela parcela; o tipo fica travado em Saída e o grupo guarda os dados da criação.',
+    requirements: ['RF-08', 'CA-08.3', 'CA-08.5', 'CA-01.5', 'D-53'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'page',
+        label: 'TransactionDetailPage',
+        module: 'src/features/transactions/TransactionDetailPage.tsx',
+      },
+      {
+        id: 'info',
+        label: 'InstallmentInfo',
+        module: 'src/features/transactions/InstallmentInfo.tsx',
+      },
+      {
+        id: 'instRepo',
+        label: 'installmentsRepository',
+        module: 'src/repositories/installmentsRepository.ts',
+      },
+      { id: 'domain', label: 'countPassedInstallments', module: 'src/domain/installments.ts' },
+      {
+        id: 'formHook',
+        label: 'useTransactionForm',
+        module: 'src/components/transactions/useTransactionForm.ts',
+      },
+      {
+        id: 'repo',
+        label: 'transactionsRepository',
+        module: 'src/repositories/transactionsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: transactions', module: 'src/db/database.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'page',
+        label: 'abre uma parcela',
+        detail: 'Pelo Início, pela lista ou pela visão Dia (linha "Descrição (k/n)").',
+        refs: ['CA-01.5'],
+        kind: 'event',
+      },
+      {
+        from: 'page',
+        to: 'info',
+        label: '<InstallmentInfo> (installmentGroupId ≠ null)',
+        detail: 'Acima do TransactionForm; nada enquanto carrega.',
+        refs: ['CA-08.5'],
+        kind: 'call',
+      },
+      {
+        from: 'info',
+        to: 'instRepo',
+        label: 'useInstallmentGroupDetails(groupId)',
+        detail:
+          "getInstallmentGroupDetails numa transaction('r', [installmentGroups, transactions]): o grupo e as parcelas que restam, por número.",
+        refs: ['CA-08.5'],
+        kind: 'call',
+      },
+      {
+        from: 'info',
+        to: 'domain',
+        label: 'countPassedInstallments(group, today)',
+        detail:
+          'Datas do plano (1ª data + k−1 meses) até hoje, inclusive: editar ou excluir uma parcela não muda o "Já passaram: x de n" (D-53(c)).',
+        refs: ['D-53', 'D-40'],
+        kind: 'call',
+      },
+      {
+        from: 'page',
+        to: 'formHook',
+        label: 'TransactionForm → useTransactionForm({ transaction })',
+        detail:
+          'typeLockReason = INSTALLMENT_TYPE_LOCKED_MESSAGE ("Parcelas são sempre saídas; o tipo não pode ser trocado."); TypeRadio disabled; sem "Parcelado" na edição.',
+        refs: ['D-53', 'D-06'],
+        kind: 'call',
+      },
+      {
+        from: 'formHook',
+        to: 'repo',
+        label: 'updateTransaction(id, values)',
+        detail:
+          'Mesmo caminho do fluxo "Editar lançamento"; onUpdated → volta para a tela anterior.',
+        refs: ['CA-08.3'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [tags, transactions]): get → regras → put",
+        detail:
+          'Tipo diferente numa parcela → LockedTypeChangeError; só este registro muda e installmentGroups não é tocada (o total do grupo continua o da criação).',
+        refs: ['CA-08.3', 'D-53'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/transactions/InstallmentPurchase.test.tsx',
+      'src/repositories/installmentsRepository.test.ts',
+      'src/domain/installments.test.ts',
+    ],
+  },
+  {
+    id: 'installment-delete',
+    title: 'Excluir parcela (três opções)',
+    summary:
+      '"Excluir" numa parcela abre "Excluir parcela?" com "Só esta", "Esta e as seguintes" e "Todas as parcelas". A exclusão roda numa transação e, quando não sobra parcela, o grupo sai junto (um grupo vazio prenderia a tag — D-02).',
+    requirements: ['RF-08', 'CA-08.4', 'CA-01.6', 'D-53', 'D-02'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      {
+        id: 'page',
+        label: 'TransactionDetailPage (DeleteDialog)',
+        module: 'src/features/transactions/TransactionDetailPage.tsx',
+      },
+      {
+        id: 'dialog',
+        label: 'DeleteInstallmentDialog',
+        module: 'src/features/transactions/DeleteInstallmentDialog.tsx',
+      },
+      {
+        id: 'detail',
+        label: 'useTransactionDetail',
+        module: 'src/features/transactions/useTransactionDetail.ts',
+      },
+      {
+        id: 'repo',
+        label: 'installmentsRepository',
+        module: 'src/repositories/installmentsRepository.ts',
+      },
+      { id: 'domain', label: 'installmentsToDelete', module: 'src/domain/installments.ts' },
+      {
+        id: 'dexie',
+        label: 'Dexie: installmentGroups + transactions',
+        module: 'src/db/database.ts',
+      },
+      { id: 'back', label: 'useGoBack', module: 'src/components/ui/useGoBack.ts' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'page',
+        label: 'toca "Excluir"',
+        detail:
+          'requestDelete(); o DeleteDialog local vê installmentGroupId ≠ null e monta o DeleteInstallmentDialog (os outros dois modais não são montados).',
+        refs: ['CA-08.4'],
+        kind: 'event',
+      },
+      {
+        from: 'user',
+        to: 'dialog',
+        label: 'escolhe "Só esta" | "Esta e as seguintes" | "Todas as parcelas"',
+        detail:
+          'onConfirm("one" | "following" | "all"); os botões ficam desabilitados durante a exclusão.',
+        refs: ['CA-08.4'],
+        kind: 'event',
+      },
+      {
+        from: 'detail',
+        to: 'repo',
+        label: 'confirmInstallmentDelete(scope) → deleteInstallments(id, scope)',
+        detail: 'Pelo runDelete compartilhado (isDeleting, deleteError, finish).',
+        refs: ['D-53'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: "transaction('rw', [installmentGroups, transactions]): get → parcelas do grupo",
+        detail:
+          'Pelo índice installmentGroupId. Lançamento que já sumiu: nada acontece; sem grupo: delete simples.',
+        refs: ['CA-08.4'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'domain',
+        label: 'installmentsToDelete(parcelas, from, scope)',
+        detail: 'one → só ela; following → número ≥ o desta; all → todas.',
+        refs: ['CA-08.4'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: 'bulkDelete(ids) e, sem parcelas restantes, installmentGroups.delete(groupId)',
+        detail: 'Na mesma transação: nunca fica grupo vazio prendendo a tag.',
+        refs: ['D-02', 'D-53'],
+        kind: 'call',
+      },
+      {
+        from: 'detail',
+        to: 'back',
+        label: 'finish() → goBack',
+        detail:
+          'Volta para a tela anterior (tela pai /lancamentos — D-38(c)); falha → ErrorAlert no modal.',
+        refs: ['D-38'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/transactions/InstallmentPurchase.test.tsx',
+      'src/repositories/installmentsRepository.test.ts',
+      'src/domain/installments.test.ts',
+    ],
+  },
+  {
+    id: 'installment-display',
+    title: 'Exibir "Descrição (k/n)" nas linhas',
+    summary:
+      'A descrição armazenada é a base ("Notebook"); o "(k/n)" é só exibição. Cada linha que é parcela lê o número de parcelas do seu grupo; as outras não fazem consulta nenhuma.',
+    requirements: ['RF-08', 'D-53'],
+    participants: [
+      {
+        id: 'row',
+        label: 'TransactionRow',
+        module: 'src/components/transactions/TransactionRow.tsx',
+      },
+      {
+        id: 'desc',
+        label: 'TransactionDescription',
+        module: 'src/components/transactions/TransactionDescription.tsx',
+      },
+      {
+        id: 'repo',
+        label: 'installmentsRepository',
+        module: 'src/repositories/installmentsRepository.ts',
+      },
+      { id: 'dexie', label: 'Dexie: installmentGroups', module: 'src/db/database.ts' },
+      { id: 'domain', label: 'displayDescription', module: 'src/domain/installments.ts' },
+    ],
+    steps: [
+      {
+        from: 'row',
+        to: 'desc',
+        label: '<TransactionDescription transaction>',
+        detail:
+          'Em todas as linhas de lançamento (Início, lista, visão Dia, confirmados do recorrente) e no modal "Excluir parcela?".',
+        refs: ['RF-08'],
+        kind: 'call',
+      },
+      {
+        from: 'desc',
+        to: 'row',
+        label: 'avulso ou de recorrente: a descrição, sem consulta',
+        detail: 'installmentGroupId === null.',
+        refs: ['D-53'],
+        kind: 'return',
+      },
+      {
+        from: 'desc',
+        to: 'repo',
+        label: 'parcela: InstallmentDescription → useInstallmentCount(groupId)',
+        detail: 'useLiveQuery; undefined enquanto carrega ou sem o grupo.',
+        refs: ['D-53'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'dexie',
+        label: 'installmentGroups.get(groupId)?.count',
+        detail: 'Uma consulta por linha de parcela (ver Saúde: medir na Fase 11).',
+        refs: ['D-53'],
+        kind: 'call',
+      },
+      {
+        from: 'desc',
+        to: 'domain',
+        label: 'displayDescription(transaction, count)',
+        detail:
+          '"Notebook (2/12)"; sem count, só a descrição — a linha aparece um instante sem o sufixo. A busca da lista continua pela descrição armazenada.',
+        refs: ['RF-08'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/features/transactions/InstallmentPurchase.test.tsx',
+      'src/domain/installments.test.ts',
+    ],
+  },
 ]
 
 /** Fluxos exigidos pela §6.12 que ainda não existem no código. */
-export const PLANNED_FLOWS: readonly PlannedFlow[] = [
-  {
-    title: 'Criar/excluir parcelamento',
-    phase: 10,
-    requirements: ['RF-08', 'D-06'],
-    summary: 'splitInstallments → lançamentos gerados numa transação Dexie.',
-  },
-]
+export const PLANNED_FLOWS: readonly PlannedFlow[] = []
 
 // ---------- pipeline de criptografia do backup (§6.8, RNF-05) ----------
 
@@ -6383,7 +6852,7 @@ export const TABLE_NOTES: readonly TableNote[] = [
     backupDetail:
       'todos os registros; na importação, nameKey precisa ser igual a toTagNameKey(name) e único (D-47(c)); ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 3,
-    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). Fase 4: listTags/useTags (ordenadas por nome) alimentam o TagPicker e as linhas dos últimos lançamentos; transactionsRepository lê tags só em assertTagExists, dentro da transação rw do lançamento (D-39); o atalho do CA-01.7 grava pelo mesmo TagForm → createTag. Fase 5: useTags também alimenta o filtro de tag da lista (TagFilter) e a detecção de tag do filtro excluída (useTransactionList). Fase 7: useTags no DayDetail da visão Dia (chips das linhas). Fase 8: useTags na ChartList (nome e cor de cada fatia das pizzas — CA-06.3). &nameKey (toTagNameKey = foldText + trim desde a Fase 5: NFD, sem marcas \\p{M}, minúsculas) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags). Fase 6: backupRepository lê tudo na exportação (transação r) e, na importação, limpa e regrava com bulkAdd na transação rw (D-07). Fase 9: recurringsRepository lê tags só em assertTagExists (criar, editar descrição/tag e confirmar ocorrência), dentro da transação rw de cada operação; useTags alimenta o TagPicker dos modais de recorrente e as linhas das listas de recorrentes e pendências.',
+    note: 'Fase 3: src/repositories/tagsRepository.ts lê e grava (createTag com add; updateTag numa transação rw get → put; deleteTag numa transação rw sobre as 4 tabelas de dados, que reconta o uso antes de excluir — D-02; listTagsWithTransactionCount com useLiveQuery). Fase 4: listTags/useTags (ordenadas por nome) alimentam o TagPicker e as linhas dos últimos lançamentos; transactionsRepository lê tags só em assertTagExists, dentro da transação rw do lançamento (D-39); o atalho do CA-01.7 grava pelo mesmo TagForm → createTag. Fase 5: useTags também alimenta o filtro de tag da lista (TagFilter) e a detecção de tag do filtro excluída (useTransactionList). Fase 7: useTags no DayDetail da visão Dia (chips das linhas). Fase 8: useTags na ChartList (nome e cor de cada fatia das pizzas — CA-06.3). &nameKey (toTagNameKey = foldText + trim desde a Fase 5: NFD, sem marcas \\p{M}, minúsculas) é a única checagem de nome repetido: a ConstraintError vira DuplicateTagNameError (CA-03.4). Em DEV, sampleDataStore também grava (D-30); nos testes de tela, src/test/seedDatabase.ts lê (readAllTags). Fase 6: backupRepository lê tudo na exportação (transação r) e, na importação, limpa e regrava com bulkAdd na transação rw (D-07). Fase 9: recurringsRepository lê tags só em assertTagExists (criar, editar descrição/tag e confirmar ocorrência), dentro da transação rw de cada operação; useTags alimenta o TagPicker dos modais de recorrente e as linhas das listas de recorrentes e pendências. Fase 10: installmentsRepository conta a tag (where("id").equals(tagId).count()) dentro da transação rw de createInstallmentPurchase; deleteInstallments exclui o grupo junto com a última parcela, para um parcelamento vazio não bloquear a exclusão da tag (D-02).',
   },
   {
     name: 'transactions',
@@ -6392,7 +6861,7 @@ export const TABLE_NOTES: readonly TableNote[] = [
     backupDetail:
       'todos os registros; na importação, tagId/recurringId/installmentGroupId precisam existir e installmentNumber ≤ count do parcelamento (hasReferentialIntegrity — D-47(c)); ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 4,
-    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (toArray() da tabela inteira + overallBalance — D-42), getMonthTotals (between + totals), listRecentTransactions (where("date").belowOrEqual(hoje).reverse().limit(5) acha a data de corte; releitura between(corte, hoje) numa transação r; ordem por takeMostRecent — D-39/D-40) e getTransaction; cada uma com hook useLiveQuery. Fase 5 (D-44(a)): listTransactionsInPeriod(from, to) lê o índice date sempre em ordem crescente — between (período fechado), aboveOrEqual/belowOrEqual (uma ponta) ou orderBy("date") (sem período) — com toArray() (um getAll() nativo; .reverse() do Dexie abriria um cursor com uma volta por registro no Safari) e inverte em memória antes de sortByRecency; countTransactions() usa count() sem ler registros. Hooks useTransactionsInPeriod e useTransactionCount. Os índices type/tagId não são usados pela lista: tipo, tag e texto são filtrados no domínio. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9). Fase 6: backupRepository lê e regrava a tabela inteira (exportar/importar); o BackupReminder do Início usa useTransactionCount (count()). Fase 7: a tela de visões lê só o intervalo do período (dia, semana, mês ou ano) pelo índice date com useTransactionsInRange (mesmo listTransactionsInPeriod; undefined enquanto um intervalo novo carrega — D-49(g)); os totais e as linhas são calculados no domínio (periodViews). Nenhuma escrita nova. Fase 8: os gráficos leem o mesmo intervalo do período (usePeriodView) e, na linha do saldo, useTransactionsInRange(null, fim) — belowOrEqual(fim) no índice date, ou seja, todos os lançamentos até o fim do período a cada troca de período (D-50(f)); séries e fatias calculadas em domain/charts. Nenhuma escrita. Fase 9: o índice composto [recurringId+recurringPeriod] (§6.4, já na v1) passa a ser usado — count na confirmação (CA-07.5) e anyOf(chaves) em listPendingOccurrences/getConfirmedKeysIn; o índice recurringId lista e conta os confirmados de um recorrente (listRecurringConfirmations, deleteRecurring, endRecurringAt). Escritas novas pelo recurringsRepository: confirmOccurrence (add numa transação rw [tags, recurrings, transactions]) e deleteConfirmedTransaction (delete numa rw [recurrings, transactions]); updateTransaction passou a recusar troca de tipo e data fora do mês no lançamento confirmado (OccurrenceTypeChangeError, OccurrenceDateOutsidePeriodError — D-51(b)/(l)).',
+    note: 'Fase 4: src/repositories/transactionsRepository.ts lê e grava. Escrita: createTransaction (add) e updateTransaction (get → put) numa transação rw [tags, transactions] com assertTagExists (D-01/D-02, D-39); deleteTransaction (delete simples). Leitura pelo índice date: getOverallBalance (toArray() da tabela inteira + overallBalance — D-42), getMonthTotals (between + totals), listRecentTransactions (where("date").belowOrEqual(hoje).reverse().limit(5) acha a data de corte; releitura between(corte, hoje) numa transação r; ordem por takeMostRecent — D-39/D-40) e getTransaction; cada uma com hook useLiveQuery. Fase 5 (D-44(a)): listTransactionsInPeriod(from, to) lê o índice date sempre em ordem crescente — between (período fechado), aboveOrEqual/belowOrEqual (uma ponta) ou orderBy("date") (sem período) — com toArray() (um getAll() nativo; .reverse() do Dexie abriria um cursor com uma volta por registro no Safari) e inverte em memória antes de sortByRecency; countTransactions() usa count() sem ler registros. Hooks useTransactionsInPeriod e useTransactionCount. Os índices type/tagId não são usados pela lista: tipo, tag e texto são filtrados no domínio. O tagsRepository continua contando por tag com o índice tagId (CA-03.5, D-02) — com a Fase 4 o bloqueio por uso ficou testável com lançamentos reais (CA-03.2). Em DEV as ferramentas de exemplo gravam 5.000 lançamentos (D-30); src/test/seedDatabase.ts ainda grava nos testes de tela (D-34). Índice composto [recurringId+recurringPeriod] para as pendências (Fase 9). Fase 6: backupRepository lê e regrava a tabela inteira (exportar/importar); o BackupReminder do Início usa useTransactionCount (count()). Fase 7: a tela de visões lê só o intervalo do período (dia, semana, mês ou ano) pelo índice date com useTransactionsInRange (mesmo listTransactionsInPeriod; undefined enquanto um intervalo novo carrega — D-49(g)); os totais e as linhas são calculados no domínio (periodViews). Nenhuma escrita nova. Fase 8: os gráficos leem o mesmo intervalo do período (usePeriodView) e, na linha do saldo, useTransactionsInRange(null, fim) — belowOrEqual(fim) no índice date, ou seja, todos os lançamentos até o fim do período a cada troca de período (D-50(f)); séries e fatias calculadas em domain/charts. Nenhuma escrita. Fase 9: o índice composto [recurringId+recurringPeriod] (§6.4, já na v1) passa a ser usado — count na confirmação (CA-07.5) e anyOf(chaves) em listPendingOccurrences/getConfirmedKeysIn; o índice recurringId lista e conta os confirmados de um recorrente (listRecurringConfirmations, deleteRecurring, endRecurringAt). Escritas novas pelo recurringsRepository: confirmOccurrence (add numa transação rw [tags, recurrings, transactions]) e deleteConfirmedTransaction (delete numa rw [recurrings, transactions]); updateTransaction passou a recusar troca de tipo e data fora do mês no lançamento confirmado (LockedTypeChangeError, OccurrenceDateOutsidePeriodError — D-51(b)/(l)). Fase 10 (D-53): o índice installmentGroupId (§6.4, já na v1) passa a ser usado — where("installmentGroupId").equals(id) lista as parcelas do grupo na exclusão e nos detalhes. Escritas novas pelo installmentsRepository: bulkAdd das parcelas (transação rw [tags, installmentGroups, transactions]) e bulkDelete por escopo (rw [installmentGroups, transactions]); updateTransaction recusa também a troca de tipo da parcela (LockedTypeChangeError). Parcelas futuras entram no saldo geral (D-42) e ficam fora dos últimos lançamentos (D-40) sem mudança nas consultas.',
   },
   {
     name: 'recurrings',
@@ -6410,7 +6879,7 @@ export const TABLE_NOTES: readonly TableNote[] = [
     backupDetail:
       'todos os registros (2 a 48 parcelas — D-47(c)); ida e volta em backupRepository.test.ts e backupRepository.audit.test.ts (CA-10.1).',
     usedFromPhase: 10,
-    note: 'Sem repositório de escrita até a Fase 10. Desde a Fase 3 o tagsRepository conta os parcelamentos de uma tag com filter().count() (sem índice tagId na v1 — §6.4) para o bloqueio de exclusão (D-02). Hoje só as ferramentas DEV gravam (3 parcelamentos — D-30) e src/test/seedDatabase.ts nos testes. Fase 6: backupRepository lê e regrava (exportar/importar).',
+    note: 'Sem repositório de escrita até a Fase 10. Desde a Fase 3 o tagsRepository conta os parcelamentos de uma tag com filter().count() (sem índice tagId na v1 — §6.4) para o bloqueio de exclusão (D-02). Até a Fase 9 só as ferramentas DEV gravavam (3 parcelamentos — D-30; desde a Fase 10 os valores saem de splitInstallments) e src/test/seedDatabase.ts nos testes. Fase 6: backupRepository lê e regrava (exportar/importar). Fase 10 (RF-08, D-53(e)): src/repositories/installmentsRepository.ts lê e grava. Escrita: createInstallmentPurchase — add do grupo e bulkAdd das parcelas numa transação rw [tags, installmentGroups, transactions], depois de conferir a tag (InstallmentTagNotFoundError; tudo ou nada — CA-08.2); deleteInstallments — numa rw [installmentGroups, transactions], delete do grupo quando a exclusão leva a última parcela (grupo vazio prenderia a tag — D-02). O grupo nunca é alterado: guarda total, número de parcelas, 1ª data, tag e descrição da criação (CA-08.3). Leitura: getInstallmentGroupDetails (get numa transação r com as parcelas) por useInstallmentGroupDetails (detalhes da parcela — CA-08.5) e get(groupId).count por useInstallmentCount (o "n" do "(k/n)", uma consulta por linha de parcela). Sem esquema novo. Teste novo de ida e volta do backup com dados criados pelo repositório (installmentsRepository.test.ts — D-53(j)).',
   },
   {
     name: 'settings',
@@ -6504,13 +6973,8 @@ export const UI_FIELD_ACCESS: readonly UiFieldAccess[] = [
   },
 ]
 
-export const PLANNED_DOMAIN: readonly PlannedDomainFunction[] = [
-  {
-    module: 'domain/installments.ts',
-    names: ['splitInstallments', 'buildInstallmentTransactions'],
-    phase: 10,
-  },
-]
+/** Funções da §6.5 ainda sem módulo (todas existem desde a Fase 10). */
+export const PLANNED_DOMAIN: readonly PlannedDomainFunction[] = []
 
 // ---------- rastreabilidade ----------
 
@@ -6554,6 +7018,8 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/charts.ts',
       'src/features/charts/chart/moneyAxis.ts',
       'src/domain/recurring.ts',
+      'src/domain/installments.ts',
+      'src/domain/installmentSchema.ts',
     ],
     tests: [
       'src/domain/money.test.ts',
@@ -6564,8 +7030,9 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/charts.test.ts',
       'src/features/charts/chart/moneyAxis.test.ts',
       'src/domain/recurring.test.ts',
+      'src/domain/installments.test.ts',
     ],
-    decisions: ['D-29', 'D-31', 'D-50'],
+    decisions: ['D-29', 'D-31', 'D-50', 'D-53'],
   },
   {
     number: 2,
@@ -6581,6 +7048,7 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/charts.ts',
       'src/components/ui/MonthInput.tsx',
       'src/domain/recurring.ts',
+      'src/domain/installments.ts',
     ],
     tests: [
       'src/domain/dates.test.ts',
@@ -6594,8 +7062,9 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/charts.test.ts',
       'src/domain/recurring.test.ts',
       'src/domain/recurringSchema.test.ts',
+      'src/domain/installments.test.ts',
     ],
-    decisions: ['D-38', 'D-45', 'D-49', 'D-50', 'D-51'],
+    decisions: ['D-38', 'D-45', 'D-49', 'D-50', 'D-51', 'D-53'],
   },
   {
     number: 3,
@@ -6651,6 +7120,8 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/charts.ts',
       'src/domain/recurring.ts',
       'src/domain/recurringSchema.ts',
+      'src/domain/installments.ts',
+      'src/domain/installmentSchema.ts',
     ],
     tests: [
       'src/lib/crypto.test.ts',
@@ -6663,8 +7134,9 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/domain/charts.test.ts',
       'src/domain/recurring.test.ts',
       'src/domain/recurringSchema.test.ts',
+      'src/domain/installments.test.ts',
     ],
-    decisions: ['D-47', 'D-49', 'D-50', 'D-51'],
+    decisions: ['D-47', 'D-49', 'D-50', 'D-51', 'D-53'],
   },
   {
     number: 7,
@@ -6678,9 +7150,11 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/repositories/databaseInfo.ts',
       'src/repositories/backupRepository.ts',
       'src/repositories/recurringsRepository.ts',
+      'src/repositories/installmentsRepository.ts',
+      'src/test/seedDatabase.ts',
     ],
     tests: [],
-    decisions: ['D-30', 'D-34', 'D-37'],
+    decisions: ['D-30', 'D-34', 'D-37', 'D-53'],
   },
   {
     number: 8,
@@ -6692,6 +7166,7 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/repositories/transactionsRepository.ts',
       'src/repositories/backupRepository.ts',
       'src/repositories/recurringsRepository.ts',
+      'src/repositories/installmentsRepository.ts',
     ],
     tests: [
       'src/repositories/tagsRepository.test.ts',
@@ -6699,8 +7174,9 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/repositories/backupRepository.test.ts',
       'src/repositories/backupRepository.audit.test.ts',
       'src/repositories/recurringsRepository.test.ts',
+      'src/repositories/installmentsRepository.test.ts',
     ],
-    decisions: ['D-02', 'D-39', 'D-07', 'D-47', 'D-51'],
+    decisions: ['D-02', 'D-39', 'D-07', 'D-47', 'D-51', 'D-53'],
   },
   {
     number: 9,
@@ -6710,11 +7186,13 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/repositories/tagsRepository.ts',
       'src/repositories/transactionsRepository.ts',
       'src/repositories/recurringsRepository.ts',
+      'src/repositories/installmentsRepository.ts',
     ],
     tests: [
       'src/repositories/tagsRepository.test.ts',
       'src/repositories/transactionsRepository.crud.test.ts',
       'src/repositories/recurringsRepository.test.ts',
+      'src/repositories/installmentsRepository.test.ts',
     ],
     decisions: ['D-30'],
   },
@@ -6728,9 +7206,10 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/components/ui/inputClasses.ts',
       'src/components/ui/Toast.tsx',
       'src/index.css',
+      'src/components/ui/Checkbox.tsx',
     ],
     tests: [],
-    decisions: ['D-38'],
+    decisions: ['D-38', 'D-53'],
   },
   {
     number: 11,
@@ -6806,6 +7285,7 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/features/backup/useImportBackup.ts',
       'src/features/recurrings/useRecurringForm.ts',
       'src/components/recurrings/useConfirmOccurrenceForm.ts',
+      'src/components/transactions/InstallmentFields.tsx',
     ],
     tests: [
       'src/lib/formSubmit.test.ts',
@@ -6818,8 +7298,9 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/features/recurrings/RecurringDetailPage.test.tsx',
       'src/features/views/ViewsPage.recurrings.test.tsx',
       'src/features/transactions/TransactionDetailPage.recurrings.test.tsx',
+      'src/features/transactions/InstallmentPurchase.test.tsx',
     ],
-    decisions: ['D-36', 'D-51'],
+    decisions: ['D-36', 'D-51', 'D-53'],
   },
 ]
 
@@ -6874,7 +7355,17 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/features/views/YearDetail.tsx',
     ],
   },
-  { id: 'D-06', title: 'Parcelamento só para saídas', status: 'confirmed', impacts: [] },
+  {
+    id: 'D-06',
+    title: 'Parcelamento só para saídas',
+    status: 'confirmed',
+    impacts: [
+      'src/domain/installments.ts',
+      'src/domain/installmentSchema.ts',
+      'src/components/transactions/TransactionForm.tsx',
+      'src/repositories/transactionsRepository.ts',
+    ],
+  },
   {
     id: 'D-07',
     title: 'Importação substitui tudo',
@@ -7479,6 +7970,35 @@ export const DECISIONS: readonly DecisionInfo[] = [
     status: 'confirmed',
     impacts: ['vite.config.ts', 'CLAUDE.md'],
   },
+  {
+    id: 'D-53',
+    title:
+      'Parcelamento: "Parcelado" só em Novo lançamento; parcela sempre Saída também na edição (LockedTypeChangeError); "já passaram" = datas do plano até hoje, inclusive; R$ 0,01 mínimo por parcela; criação e exclusão em transação, grupo excluído com a última parcela; Checkbox; prévia da divisão; "Descrição (k/n)" por TransactionDescription; quadro "Parcela k de n"; modal com três opções de exclusão',
+    status: 'confirmed',
+    impacts: [
+      'src/domain/installments.ts',
+      'src/domain/installmentSchema.ts',
+      'src/repositories/installmentsRepository.ts',
+      'src/repositories/transactionsRepository.ts',
+      'src/lib/backupFormat.ts',
+      'src/dev/sampleData/sampleInstallments.ts',
+      'src/components/ui/Checkbox.tsx',
+      'src/components/transactions/InstallmentFields.tsx',
+      'src/components/transactions/TransactionDescription.tsx',
+      'src/components/transactions/TransactionRow.tsx',
+      'src/components/transactions/TransactionForm.tsx',
+      'src/components/transactions/useTransactionForm.ts',
+      'src/components/transactions/transactionTexts.ts',
+      'src/features/transactions/NewTransactionPage.tsx',
+      'src/features/transactions/TransactionDetailPage.tsx',
+      'src/features/transactions/useTransactionDetail.ts',
+      'src/features/transactions/InstallmentInfo.tsx',
+      'src/features/transactions/DeleteInstallmentDialog.tsx',
+      'src/test/seedDatabase.ts',
+      'src/repositories/installmentsRepository.test.ts',
+      'src/features/transactions/InstallmentPurchase.test.tsx',
+    ],
+  },
 ]
 
 // ---------- dependências externas ----------
@@ -7523,6 +8043,60 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 // ---------- achados de arquitetura (reportados, não corrigidos) ----------
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
+  {
+    title: 'D-53 aguardando confirmação do dono',
+    severity: 'warn',
+    detail:
+      'Registrada na §8.1 em 26/10/2026 (spec 1.35). Três escolhas do dono (a: "Parcelado" só no formulário completo de Novo lançamento, nunca no Início nem na edição; b: parcela sempre Saída também na edição — seletor desabilitado com "Parcelas são sempre saídas; o tipo não pode ser trocado." e LockedTypeChangeError no updateTransaction; c: "já passaram" = parcelas do plano com data até hoje, inclusive) e as escolhas de implementação (d–k): domain/installments + installmentSchema (mínimo de R$ 0,01 por parcela), installmentsRepository com criação e exclusão em transação e o grupo excluído junto com a última parcela, Checkbox, prévia da divisão, TransactionDescription com "(k/n)", quadro "Parcela k de n", modal de exclusão com três opções e a revalidação do total. Mover para os resolvidos quando o dono confirmar.',
+    modules: [
+      'docs/SPEC.md',
+      'src/domain/installments.ts',
+      'src/repositories/installmentsRepository.ts',
+      'src/components/transactions/TransactionForm.tsx',
+      'src/features/transactions/TransactionDetailPage.tsx',
+    ],
+    resolved:
+      'Confirmada pelo dono em 26/10/2026 (spec 1.36), com as três escolhas dele e todas as escolhas de interface e os ajustes da revisão.',
+  },
+  {
+    title: 'Pendente (dono): teste manual da Fase 10',
+    severity: 'warn',
+    detail:
+      'Roteiro da §7 ainda não rodado: (1) parcelar R$ 100,00 em 3x a partir do dia 31 → R$ 33,34, R$ 33,33 e R$ 33,33 em 31, 30 (ou último dia) e 31; (2) todas as parcelas no saldo geral desde a criação (D-42), no saldo do mês só a do mês, as futuras nos meses seguintes e fora de "Últimos lançamentos" (D-40); (3) editar o valor da parcela 2 → só ela muda; (4) excluir "Esta e as seguintes" a partir da 2 → sobra só a 1; (5) backup → importar → parcelamento preservado. Vale conferir no iPhone o toque na caixa "Parcelado", o teclado numérico do número de parcelas e se o "(k/n)" piscando nas linhas incomoda.',
+    modules: [
+      'src/features/transactions/NewTransactionPage.tsx',
+      'src/features/transactions/TransactionDetailPage.tsx',
+      'src/components/transactions/InstallmentFields.tsx',
+      'src/features/transactions/InstallmentPurchase.test.tsx',
+    ],
+    resolved:
+      'Validado pelo dono em 26/10/2026: os 5 itens do roteiro da Fase 10 funcionaram. Fase 10 concluída (spec 1.36).',
+  },
+  {
+    title: 'Linha de parcela aparece sem "(k/n)" até a consulta do grupo voltar',
+    severity: 'info',
+    detail:
+      'TransactionDescription faz, em cada linha que é parcela, um useInstallmentCount (useLiveQuery com installmentGroups.get). Até a resposta chegar a linha mostra só a descrição e depois ganha o sufixo — um "pisca" curto — e uma lista com muitas parcelas faz uma consulta por linha (cada uma reexecutada a cada gravação em installmentGroups). Foi a escolha da D-53(g)/(k) para não passar o número de parcelas por vários níveis de componentes; alternativas seriam um Map grupo → count lido uma vez pela lista (como o Map de tags) ou reservar o espaço do sufixo. Só reportado.',
+    modules: [
+      'src/components/transactions/TransactionDescription.tsx',
+      'src/repositories/installmentsRepository.ts',
+      'src/components/transactions/TransactionRow.tsx',
+    ],
+    decided: 'Aceito por ora na D-53(k); medir na Fase 11 com listas grandes (RNF-02).',
+  },
+  {
+    title: 'Módulos novos da Fase 10 sem teste próprio',
+    severity: 'info',
+    detail:
+      'domain/installmentSchema.ts (transactionFormSchema e installmentInputSchema), components/ui/Checkbox.tsx, components/transactions/InstallmentFields.tsx e TransactionDescription.tsx não têm arquivo de teste próprio. Estão cobertos pelos testes de tela (InstallmentPurchase.test.tsx: só Saída, 2 a 48, revalidação do total, "(k/n)" na lista, no Início e na visão Dia) e do repositório (installmentsRepository.test.ts recusa dados inválidos); a cobertura de domain + lib segue em 100% de linhas. Testes unitários das mensagens e dos limites do transactionFormSchema deixariam a regra mais fácil de achar. Só reportado.',
+    modules: [
+      'src/domain/installmentSchema.ts',
+      'src/components/ui/Checkbox.tsx',
+      'src/components/transactions/InstallmentFields.tsx',
+      'src/components/transactions/TransactionDescription.tsx',
+      'src/features/transactions/InstallmentPurchase.test.tsx',
+    ],
+  },
   {
     title: 'D-51 aguardando confirmação do dono',
     severity: 'warn',
@@ -7573,7 +8147,7 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     title: 'Padrão de formulário (RHF + zod + princípio 16) repetido em quatro hooks',
     severity: 'info',
     detail:
-      'useRecurringForm (features/recurrings) é genérico — schema, defaultValues, save, toErrorMessage — e atende os 4 modais da tela de recorrentes. useConfirmOccurrenceForm (components/recurrings) repete o mesmo esqueleto porque components não pode importar features; useTagForm e useTransactionForm têm a mesma forma com regras próprias. Não é erro; se o padrão crescer na Fase 10, mover o hook genérico para src/lib (ao lado de formSubmit) ou components/ui evitaria a cópia. Só reportado, não alterado.',
+      'useRecurringForm (features/recurrings) é genérico — schema, defaultValues, save, toErrorMessage — e atende os 4 modais da tela de recorrentes. useConfirmOccurrenceForm (components/recurrings) repete o mesmo esqueleto porque components não pode importar features; useTagForm e useTransactionForm têm a mesma forma com regras próprias. Não é erro; se o padrão crescer na Fase 10, mover o hook genérico para src/lib (ao lado de formSubmit) ou components/ui evitaria a cópia. Fase 10: nenhum hook de formulário novo — o parcelamento entrou no useTransactionForm (transactionFormSchema, ramo createInstallmentPurchase e typeLockReason), que ficou maior. Só reportado, não alterado.',
     modules: [
       'src/features/recurrings/useRecurringForm.ts',
       'src/components/recurrings/useConfirmOccurrenceForm.ts',
@@ -8486,7 +9060,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/test/dialog.ts':
     'Fase 3 (D-33): installDialogPolyfill — o jsdom não tem showModal()/close(); o substituto só alterna o atributo open e dispara close. Foco preso e camada superior não são simulados.',
   'src/test/seedDatabase.ts':
-    'Fase 3 (D-34): seedRecords (transactions, recurrings, installmentGroups numa transação) e readAllTags, para testes de tela que não podem importar o Dexie enquanto essas tabelas não têm repositório (transactions ganhou o seu na Fase 4; recurrings e installmentGroups nas Fases 9 e 10). Fase 6: failNextTransactionsBulkAdd (vi.spyOn em db.transactions.bulkAdd) faz a próxima gravação em lote falhar, para o BackupPage.test.tsx conferir que a importação não altera nada (D-07) sem importar o Dexie.',
+    'Fase 3 (D-34): seedRecords (transactions, recurrings, installmentGroups numa transação) e readAllTags, para testes de tela que não podem importar o Dexie enquanto essas tabelas não têm repositório (transactions ganhou o seu na Fase 4; recurrings e installmentGroups nas Fases 9 e 10). Fase 6: failNextTransactionsBulkAdd (vi.spyOn em db.transactions.bulkAdd) faz a próxima gravação em lote falhar, para o BackupPage.test.tsx conferir que a importação não altera nada (D-07) sem importar o Dexie. Fase 10: readAllTransactions, readTransaction e countInstallmentGroups — os testes de tela do parcelamento conferem o banco sem importar o db (princípio 7, D-53(j)).',
   'src/test/propertyHelpers.ts':
     'Gerador com semente e utilitários de calendário para os testes de propriedade.',
   'src/domain/tags.ts':
@@ -8606,7 +9180,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/formSubmit.ts':
     'Princípio 16 / D-36 (spec 1.13): padrão de todos os formulários com React Hook Form. LIVE_VALIDATION = { mode: "onChange" } (erro do campo aparece enquanto digita) e canSubmitForm({ isValid, isSubmitting }) = isValid && !isSubmitting (botão de envio só ativo com o formulário válido e fora do envio). Só tipos do react-hook-form (import type): nenhum código do pacote entra pelo lib. Opção startsValid: formulário de edição que abre com dados válidos já começa com o botão ativo (o RHF só calcula isValid depois da 1ª renderização). Usado por useTagForm e, desde a Fase 4, por useTransactionForm; obrigatório nos formulários das fases seguintes.',
   'src/repositories/transactionsRepository.ts':
-    'Fase 4 (RF-01/RF-02, D-39). Escrita: createTransaction e updateTransaction validam com transactionInputSchema.parse e gravam numa transação rw [tags, transactions] com assertTagExists (a tag não some entre a checagem e a gravação; deleteTag conta na mesma tabela — D-01/D-02); deleteTransaction simples. Leitura pelo índice date: getOverallBalance() (toArray() da tabela inteira + overallBalance — um getAll() nativo, mais rápido que each() — D-42, RNF-02), getMonthTotals (between + totals), listRecentTransactions(today, count) (data de corte por where("date").belowOrEqual(today).reverse().limit(n) + releitura between(corte, today) numa transação r; ordem por takeMostRecent — D-40) e getTransaction. Hooks useOverallBalance, useMonthTotals, useRecentTransactions e useTransaction (useLiveQuery, null para inexistente). Erros: TransactionNotFoundError e TransactionTagNotFoundError. Fase 5 (RF-04, D-44(a)): listTransactionsInPeriod(from, to) pelo índice date em ordem crescente (between / aboveOrEqual / belowOrEqual / orderBy) + toArray() (getAll nativo) e inversão em memória antes de sortByRecency — sem .reverse() do Dexie, que no Safari abriria um cursor com uma volta por registro; countTransactions() com count(). Hooks useTransactionsInPeriod(from, to) e useTransactionCount(). Testes em transactionsRepository.list.test.ts e .list.properties.test.ts. Fase 7 (RF-05, D-49(g)): useTransactionsInRange(from, to) — o useLiveQuery devolve { from, to, transactions } e o hook só repassa a lista se o intervalo for o pedido agora; senão undefined (o useLiveQuery mantém o último resultado até a leitura nova terminar, e a tela mostraria por um instante totais do período anterior com o título novo — achado da revisão, coberto pelo teste de regressão do ViewsPage). Fase 8 (RF-06, D-50(f)): from passa a aceitar null — useTransactionsInRange(null, fim) lê tudo até fim (listTransactionsInPeriod com belowOrEqual), usado pela linha de evolução do saldo. Fase 9 (D-51(b)/(l)): updateTransaction recusa, no lançamento confirmado de recorrente, troca de tipo (OccurrenceTypeChangeError) e data fora do mês da ocorrência (OccurrenceDateOutsidePeriodError, com o period para a mensagem); deleteTransaction continua simples — o confirmado é excluído pelo deleteConfirmedTransaction do recurringsRepository.',
+    'Fase 4 (RF-01/RF-02, D-39). Escrita: createTransaction e updateTransaction validam com transactionInputSchema.parse e gravam numa transação rw [tags, transactions] com assertTagExists (a tag não some entre a checagem e a gravação; deleteTag conta na mesma tabela — D-01/D-02); deleteTransaction simples. Leitura pelo índice date: getOverallBalance() (toArray() da tabela inteira + overallBalance — um getAll() nativo, mais rápido que each() — D-42, RNF-02), getMonthTotals (between + totals), listRecentTransactions(today, count) (data de corte por where("date").belowOrEqual(today).reverse().limit(n) + releitura between(corte, today) numa transação r; ordem por takeMostRecent — D-40) e getTransaction. Hooks useOverallBalance, useMonthTotals, useRecentTransactions e useTransaction (useLiveQuery, null para inexistente). Erros: TransactionNotFoundError e TransactionTagNotFoundError. Fase 5 (RF-04, D-44(a)): listTransactionsInPeriod(from, to) pelo índice date em ordem crescente (between / aboveOrEqual / belowOrEqual / orderBy) + toArray() (getAll nativo) e inversão em memória antes de sortByRecency — sem .reverse() do Dexie, que no Safari abriria um cursor com uma volta por registro; countTransactions() com count(). Hooks useTransactionsInPeriod(from, to) e useTransactionCount(). Testes em transactionsRepository.list.test.ts e .list.properties.test.ts. Fase 7 (RF-05, D-49(g)): useTransactionsInRange(from, to) — o useLiveQuery devolve { from, to, transactions } e o hook só repassa a lista se o intervalo for o pedido agora; senão undefined (o useLiveQuery mantém o último resultado até a leitura nova terminar, e a tela mostraria por um instante totais do período anterior com o título novo — achado da revisão, coberto pelo teste de regressão do ViewsPage). Fase 8 (RF-06, D-50(f)): from passa a aceitar null — useTransactionsInRange(null, fim) lê tudo até fim (listTransactionsInPeriod com belowOrEqual), usado pela linha de evolução do saldo. Fase 9 (D-51(b)/(l)): updateTransaction recusa, no lançamento confirmado de recorrente, troca de tipo (LockedTypeChangeError) e data fora do mês da ocorrência (OccurrenceDateOutsidePeriodError, com o period para a mensagem); deleteTransaction continua simples — o confirmado é excluído pelo deleteConfirmedTransaction do recurringsRepository. Fase 10 (D-53(b)): OccurrenceTypeChangeError virou LockedTypeChangeError e vale para recorrente e parcela (isLinked = recurringId ou installmentGroupId); a parcela é excluída pelo deleteInstallments do installmentsRepository.',
   'src/domain/transactionSchema.ts':
     'Fase 4 (RF-01): transactionInputSchema (zod) — tipo income|expense, amountCents inteiro de 1 a MAX_AMOUNT_CENTS, data YYYY-MM-DD existente (isValidDate), tagId não vazio, descrição com trim e 1 a DESCRIPTION_MAX_LENGTH = 100 unidades UTF-16 (D-10, D-38(h)); mensagens em pt-BR. TransactionInput (z.input) e TransactionValues (z.output). Separado das funções puras como o tagSchema; usado pelo formulário e pelo repositório. Fase 9: campos comuns exportados (transactionTypeSchema, amountCentsSchema, tagIdSchema, descriptionSchema), reutilizados por recurringSchema — mesmas mensagens nos dois formulários.',
   'src/domain/transactions.ts':
@@ -8638,14 +9212,14 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/tags/tagFormTexts.ts':
     'Fase 4: textos do formulário de tag (nome repetido — CA-03.4, falha ao salvar, tag inexistente), separados de features/tags/tagTexts.ts para components/ não importar de features (D-37).',
   'src/components/transactions/TransactionForm.tsx':
-    'Fase 4 (RF-01, D-37): formulário único de lançamento (Início, novo, edição). Todos os campos por Controller (D-39); TagPicker com NoTagsNotice; CreateTagDialog e Toast fora do <form>; "Lançar"/"Salvar" com disabled={!canSubmit} (princípio 16); extraAction para o "Excluir" da edição. Lê useTags (repositório — permitido para components/<entidade>). Coberto pelos testes do Início e da edição. Fase 9 (D-51(b)/(l)): TypeRadio.Root disabled com TYPE_LOCKED_MESSAGE quando isTypeLocked; Field da data com hint = dateHintText(occurrencePeriod) e Field.Hint.',
+    'Fase 4 (RF-01, D-37): formulário único de lançamento (Início, novo, edição). Todos os campos por Controller (D-39); TagPicker com NoTagsNotice; CreateTagDialog e Toast fora do <form>; "Lançar"/"Salvar" com disabled={!canSubmit} (princípio 16); extraAction para o "Excluir" da edição. Lê useTags (repositório — permitido para components/<entidade>). Coberto pelos testes do Início e da edição. Fase 9 (D-51(b)/(l)): TypeRadio.Root disabled com TYPE_LOCKED_MESSAGE no lançamento de recorrente; Field da data com hint = dateHintText(occurrencePeriod) e Field.Hint. Fase 10 (RF-08, D-53(a)/(f)/(k)): prop allowInstallments; canInstall = allowInstallments && !isEditing && type === "expense" mostra InstallmentFields; rótulos "Valor total"/"Data da primeira parcela" com "Parcelado" ligado; trocar para Entrada desliga a opção e revalida o total; a frase do tipo travado vem de typeLockReason (recorrente ou parcela).',
   'src/components/transactions/useTransactionForm.ts':
-    'Fase 4: useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje ou os do lançamento; startsValid na edição; submit → createTransaction (reset mantendo tipo e data + Toast "Lançamento salvo") ou updateTransaction (onUpdated); erros de gravação em saveError (D-36); virada do dia troca a data só se ela ainda for a automática (ref autoFilledDate — D-38(g)). Fase 9 (D-51(b)/(l)): schemaFor(occurrencePeriod) prende a data ao mês da ocorrência (isDateInPeriod + dateOutsidePeriodMessage); devolve occurrencePeriod e isTypeLocked; OccurrenceTypeChangeError/OccurrenceDateOutsidePeriodError viram TYPE_LOCKED_MESSAGE e a mensagem do mês.',
+    'Fase 4: useForm com LIVE_VALIDATION + zodResolver(transactionInputSchema); defaultValues Saída + hoje ou os do lançamento; startsValid na edição; submit → createTransaction (reset mantendo tipo e data + Toast "Lançamento salvo") ou updateTransaction (onUpdated); erros de gravação em saveError (D-36); virada do dia troca a data só se ela ainda for a automática (ref autoFilledDate — D-38(g)). Fase 9 (D-51(b)/(l)): schemaFor(occurrencePeriod) prende a data ao mês da ocorrência (isDateInPeriod + dateOutsidePeriodMessage); devolve occurrencePeriod e (até a Fase 9) isTypeLocked; LockedTypeChangeError/OccurrenceDateOutsidePeriodError viram a frase do tipo travado e a mensagem do mês. Fase 10 (RF-08, D-53): zodResolver(transactionFormSchema) com isInstallment (false) e installmentCount (MIN_INSTALLMENTS) nos valores; o submit separa os dois e, com isInstallment, chama createInstallmentPurchase (Toast INSTALLMENTS_SAVED_MESSAGE), senão createTransaction; InstallmentTagNotFoundError vira a mensagem de tag inexistente; typeLockReason(transaction) substitui isTypeLocked (TYPE_LOCKED_MESSAGE para recorrente, INSTALLMENT_TYPE_LOCKED_MESSAGE para parcela, null para avulso).',
   'src/components/transactions/TransactionRow.tsx':
-    'Fase 4: linha com Link para /lancamentos/:id (CA-01.5 / CA-04.5), descrição, TagChip, formatShortDate e SignedAmount(signedAmount). Fase 5: prop showDate (padrão true); a DaySection da lista passa showDate={false}, porque a data está no cabeçalho do dia (D-45(c)). Fase 7: também no DayDetail da visão Dia, com showDate={false} (a data está no título).',
+    'Fase 4: linha com Link para /lancamentos/:id (CA-01.5 / CA-04.5), descrição, TagChip, formatShortDate e SignedAmount(signedAmount). Fase 5: prop showDate (padrão true); a DaySection da lista passa showDate={false}, porque a data está no cabeçalho do dia (D-45(c)). Fase 7: também no DayDetail da visão Dia, com showDate={false} (a data está no título). Fase 10 (D-53(g)): a descrição é renderizada por TransactionDescription ("Descrição (k/n)" nas parcelas).',
   'src/components/transactions/NoTagsNotice.tsx': 'Fase 4 (CA-01.7): aviso sem tags + "Criar tag".',
   'src/components/transactions/transactionTexts.ts':
-    'Fase 4: textos pt-BR do formulário de lançamento ("Lançamento salvo", falhas, lançamento/tag inexistente, aviso sem tags). Fase 9: TYPE_LOCKED_MESSAGE (D-51(l)).',
+    'Fase 4: textos pt-BR do formulário de lançamento ("Lançamento salvo", falhas, lançamento/tag inexistente, aviso sem tags). Fase 9: TYPE_LOCKED_MESSAGE (D-51(l)). Fase 10 (D-53): INSTALLMENTS_SAVED_MESSAGE ("Parcelamento salvo"), INSTALLMENT_TYPE_LOCKED_MESSAGE e os rótulos "Parcelado", "Número de parcelas", "Valor total" e "Data da primeira parcela".',
   'src/features/home/HomePage.tsx':
     'Fase 4 (RF-02): Page com BalanceSummary (today de useToday), seção "Novo lançamento" com TransactionForm e RecentTransactions (today — D-40). Única tela fora do React.lazy (bundle decidido pela D-41). Fase 6: BackupReminder (today) no topo, antes do BalanceSummary (RF-10, D-11, D-48(c)) — aviso ou, desde a spec 1.26, a linha LastBackupLine. Fase 9: PendingRecurrings today={todayDate} entre o formulário e os últimos lançamentos (RF-02 item 4).',
   'src/features/home/BalanceSummary.tsx':
@@ -8654,11 +9228,11 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     'Fase 4 (RF-02 item 5, D-40): prop today (do useToday do HomePage); useRecentTransactions(today, RECENT_TRANSACTIONS_COUNT) + useTags; TransactionRow ou EmptyState; link "Ver todos" para /lancamentos.',
   'src/features/home/homeTexts.ts': 'RECENT_TRANSACTIONS_COUNT = 5 e a mensagem da lista vazia.',
   'src/features/transactions/NewTransactionPage.tsx':
-    'Fase 4: Page + BackLink (fallback /lancamentos) + TransactionForm. Parcelado na Fase 10.',
+    'Fase 4: Page + BackLink (fallback /lancamentos) + TransactionForm. Fase 10 (RF-08, D-53(a)): <TransactionForm allowInstallments> — o único lugar com a opção "Parcelado".',
   'src/features/transactions/TransactionDetailPage.tsx':
-    'Fase 4 (CA-01.5/01.6): TransactionForm em edição com "Excluir" e o modal de confirmação; "Lançamento não encontrado" para id inexistente (exceto durante a saída — isDone). Fase 9 (D-51(j)): com recurringPeriod ≠ null monta o DeleteConfirmedOccurrenceDialog e mantém o ConfirmDeleteTransactionDialog fechado.',
+    'Fase 4 (CA-01.5/01.6): TransactionForm em edição com "Excluir" e o modal de confirmação; "Lançamento não encontrado" para id inexistente (exceto durante a saída — isDone). Fase 9 (D-51(j)): com recurringPeriod ≠ null monta o DeleteConfirmedOccurrenceDialog e mantém o ConfirmDeleteTransactionDialog fechado. Fase 10 (CA-08.4/08.5, D-53): componente local DeleteDialog escolhe o modal pelo tipo (parcela → DeleteInstallmentDialog; confirmado → DeleteConfirmedOccurrenceDialog; avulso → ConfirmDeleteTransactionDialog), com as props comuns montadas uma vez; com installmentGroupId ≠ null, InstallmentInfo acima do formulário.',
   'src/features/transactions/useTransactionDetail.ts':
-    'Fase 4: useTransaction(id), estado da exclusão (isConfirmingDelete, isDeleting, deleteError), isDone e finish → useGoBack("/lancamentos") depois de salvar ou excluir (D-38(c)). Fase 9: confirmDelete(afterwards?) — com afterwards chama deleteConfirmedTransaction(id, afterwards), senão deleteTransaction.',
+    'Fase 4: useTransaction(id), estado da exclusão (isConfirmingDelete, isDeleting, deleteError), isDone e finish → useGoBack("/lancamentos") depois de salvar ou excluir (D-38(c)). Fase 9: confirmDelete(afterwards?) — com afterwards chama deleteConfirmedTransaction(id, afterwards), senão deleteTransaction. Fase 10 (CA-08.4): uma ação por tipo sobre o mesmo runDelete(remove) — confirmDelete (deleteTransaction), confirmOccurrenceDelete(afterwards) (deleteConfirmedTransaction) e confirmInstallmentDelete(scope) (deleteInstallments).',
   'src/features/transactions/ConfirmDeleteTransactionDialog.tsx':
     'Fase 4 (CA-01.6): Modal "Excluir lançamento?" com ErrorAlert e "Excluir" desabilitado durante a exclusão.',
   'src/domain/text.ts':
@@ -8710,7 +9284,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/lib/crypto.ts':
     'Fase 6 (RF-10, RNF-05, §6.8, D-47(a)): Web Crypto nativa (crypto.subtle, só em contexto seguro — RNF-09). encryptBackupText: sal de 16 e IV de 12 bytes novos por chamada (getRandomValues), deriveKey = importKey(raw, senha.normalize("NFC")) + deriveKey(PBKDF2-SHA-256, PBKDF2_ITERATIONS = 600.000) → chave AES-GCM 256 não extraível (encrypt/decrypt), encrypt e o envelope { format: "app-gastos-backup", formatVersion: 1, createdAt, kdf, cipher, ciphertext }. decryptBackupText usa o sal, o IV e as iterações do envelope; OperationError (autenticação do GCM) vira BackupDecryptionError ("Senha incorreta ou arquivo corrompido" — CA-10.2). bytesToBase64 em blocos de 32 KiB (não estoura a pilha); base64ToBytes lança em texto inválido. iterations e now só são passados pelos testes. A senha e o texto em claro nunca vão para log nem mensagem de erro (princípio 13).',
   'src/lib/backupFormat.ts':
-    'Fase 6 (§6.8, CA-10.3 a CA-10.5, D-47(b)–(d)): sem Dexie (SCHEMA_VERSION chega por parâmetro). parseBackupEnvelope: zod do envelope (base64 do sal com 16 e do IV com 12 bytes, ciphertext com pelo menos a tag do GCM, iterações ≤ MAX_PBKDF2_ITERATIONS = 10.000.000). parseBackupContent: cabeçalho app/schemaVersion → NewerBackupVersionError se mais nova → migrateBackupContent em cadeia (BACKUP_MIGRATIONS vazio; migração faltando = InvalidBackupFileError) → zod dos registros (cents z.int().positive(), datas que existem, YYYY-MM, #RRGGBB, ISO 8601, pares recurringId/recurringPeriod e installmentGroupId/installmentNumber, 2 a 48 parcelas, .refine da ordem de amounts e do nameKey = toTagNameKey(name)) → hasReferentialIntegrity (IDs únicos por tabela, nameKey único, tagId/recurringId/installmentGroupId existentes, parcela ≤ count). Exportação: selectBackupSettings (só theme válido; senão []), buildBackupContent, backupFileName (data local). summarizeBackup para o modal. MAX_BACKUP_FILE_BYTES = 50 MB.',
+    'Fase 6 (§6.8, CA-10.3 a CA-10.5, D-47(b)–(d)): sem Dexie (SCHEMA_VERSION chega por parâmetro). parseBackupEnvelope: zod do envelope (base64 do sal com 16 e do IV com 12 bytes, ciphertext com pelo menos a tag do GCM, iterações ≤ MAX_PBKDF2_ITERATIONS = 10.000.000). parseBackupContent: cabeçalho app/schemaVersion → NewerBackupVersionError se mais nova → migrateBackupContent em cadeia (BACKUP_MIGRATIONS vazio; migração faltando = InvalidBackupFileError) → zod dos registros (cents z.int().positive(), datas que existem, YYYY-MM, #RRGGBB, ISO 8601, pares recurringId/recurringPeriod e installmentGroupId/installmentNumber, 2 a 48 parcelas, .refine da ordem de amounts e do nameKey = toTagNameKey(name)) → hasReferentialIntegrity (IDs únicos por tabela, nameKey único, tagId/recurringId/installmentGroupId existentes, parcela ≤ count). Exportação: selectBackupSettings (só theme válido; senão []), buildBackupContent, backupFileName (data local). summarizeBackup para o modal. MAX_BACKUP_FILE_BYTES = 50 MB. Fase 10: os limites de 2 a 48 parcelas vêm de domain/installments (MIN_INSTALLMENTS/MAX_INSTALLMENTS), não mais de constantes locais.',
   'src/lib/share.ts':
     'Fase 6 (RF-10, §6.8 passos 6–7): shareOrDownloadFile(file) → "shared" | "downloaded" | "cancelled" | "blocked". navigator.canShare({ files }) → navigator.share; AbortError = cancelled, NotAllowedError = blocked (sem toque recente — D-48(a)), outras falhas relançadas. Spec 1.25 (teste manual no PC): segundo parâmetro ShareOrDownloadOptions (tipo exportado) — com { downloadIfBlocked: true } o NotAllowedError vira download e o retorno é "downloaded" (usado só na nova tentativa do "Salvar backup"). Sem suporte: <a download> escondido e URL liberada depois de OBJECT_URL_REVOKE_DELAY_MS (10 s). Nada vai para a rede (princípio 5). Teste no projeto dom (DOM_TEST_FILES).',
   'src/domain/backupReminder.ts':
@@ -8807,4 +9381,28 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     'Fase 9: apoio aos testes de tela de recorrentes — TODAY (24/10/2026) e freezeToday (só o Date falso), seedLightBill (tag + "Conta de luz" pelos repositórios), openDialog, pendingSection e pendingItems.',
   'src/repositories/recurringsRepository.test.ts':
     'Fase 9 (projeto unit, fake-indexeddb): criar/editar, confirmar (CA-07.1/07.2/07.5, inclusive duas confirmações simultâneas), data no mês (CA-07.8), tipo travado, pendências por mês (CA-07.7), alterar valor, pular/desfazer, encerrar, excluir com regra, excluir confirmado e backup ida e volta com recorrentes (RF-10).',
+  'src/domain/installments.ts':
+    'Fase 10 (RF-08, §6.5, D-53(d)): funções puras do parcelamento, só saídas (D-06). MIN_INSTALLMENTS = 2 e MAX_INSTALLMENTS = 48 (também usados por backupFormat e pelos dados de exemplo); splitInstallments(total, n) — floor(total/n) em cada parcela e o resto na 1ª, soma sempre igual ao total, RangeError com n fora de 2..48 ou total < n; buildInstallmentTransactions(grupo) → InstallmentDraft[] (parcela k em addMonthsClamped(1ª data, k−1), descrição base, vínculo installmentGroupId/installmentNumber); displayDescription ("Notebook (2/12)"; sem número, a descrição); countPassedInstallments(grupo, hoje) pelas datas do plano, até hoje inclusive (D-53(c)); installmentsToDelete(parcelas, de, escopo) para "one" | "following" | "all" (InstallmentDeleteScope — CA-08.4). Sem React, sem Dexie, sem zod.',
+  'src/domain/installmentSchema.ts':
+    'Fase 10 (RF-08, D-53(d)): zod do parcelamento, separado das funções puras (como tagSchema e recurringSchema). installmentInputSchema (totalCents, count 2..48, firstDate, tagId, description; refine total ≥ count) — usado pelo repositório; transactionFormSchema = transactionInputSchema + isInstallment/installmentCount com superRefine (com "Parcelado": tipo Saída, número válido, R$ 0,01 por parcela) — usado pelo useTransactionForm. Mensagens INSTALLMENT_COUNT_MESSAGE, TOTAL_TOO_SMALL_MESSAGE e INSTALLMENT_EXPENSE_ONLY_MESSAGE; tipos InstallmentInput, TransactionFormInput e TransactionFormValues. Sem teste próprio (ver Saúde).',
+  'src/repositories/installmentsRepository.ts':
+    'Fase 10 (RF-08, D-53(e)): único acesso de produção à tabela installmentGroups (e às parcelas em transactions). createInstallmentPurchase(input): installmentInputSchema.parse, grupo e parcelas com UUID e o mesmo createdAt; transação rw [tags, installmentGroups, transactions] confere a tag (InstallmentTagNotFoundError) → add(grupo) → bulkAdd(parcelas) — tudo ou nada (CA-08.2). deleteInstallments(id, escopo): transação rw [installmentGroups, transactions]; parcelas pelo índice installmentGroupId, installmentsToDelete, bulkDelete e delete do grupo quando não sobra parcela (D-02); avulso = delete simples; inexistente = nada. getInstallmentGroupDetails numa transação r (grupo + parcelas por número). Hooks useInstallmentGroupDetails e useInstallmentCount (o "n" do "(k/n)").',
+  'src/repositories/installmentsRepository.test.ts':
+    'Fase 10 (projeto unit, fake-indexeddb): CA-08.1 (R$ 100,00 em 3 a partir de 31/10), atomicidade CA-08.2 (falha numa parcela não deixa grupo nem parcelas; tag inexistente não grava nada), dados inválidos, saldos (todas no saldo geral — D-42, só a do mês no mês, futuras fora dos últimos — D-40), edição CA-08.3 (só a parcela; D-53: não vira entrada), as três exclusões e o grupo excluído junto com a última parcela, getInstallmentGroupDetails e o backup ida e volta com dados criados pelo repositório.',
+  'src/domain/installments.test.ts':
+    'Fase 10: divisão e resto (soma igual ao total para vários totais e números), limites 2 e 48, datas com fim de mês e ano bissexto, displayDescription, countPassedInstallments (até hoje inclusive, pelo plano) e installmentsToDelete nos três escopos.',
+  'src/features/transactions/InstallmentPurchase.test.tsx':
+    'Fase 10 (projeto dom): opção "Parcelado" ausente no Início e só para Saída; CA-08.1 pela tela; 2 a 48 com "Lançar" desabilitado; "(k/n)" na lista, no Início (só a parcela até hoje — D-40) e na visão Dia; detalhes (parcela, total, número, já passaram e tipo travado); CA-08.3; CA-08.4 nos três escopos; revalidação do total ao mudar o número e ao desligar "Parcelado" (princípio 16). Lê o banco pelos helpers de src/test/seedDatabase.ts; mocks restaurados em afterEach.',
+  'src/components/ui/Checkbox.tsx':
+    'Fase 10 (D-53(f)): caixa de seleção com o rótulo inteiro tocável (min-h-11) e estado marcado em negrito + borda (has-checked), não só cor (RNF-06). Controlada (checked, onChange(boolean)), ref como prop (React 19). Sem teste próprio (coberto por InstallmentPurchase.test.tsx).',
+  'src/components/transactions/InstallmentFields.tsx':
+    'Fase 10 (RF-08, D-53(f)/(k)): Checkbox "Parcelado" e, ligado, "Número de parcelas" (só dígitos, até 2) com a prévia da divisão no Field.Hint (splitInstallments + formatBRL). onInstallmentChange revalida o valor total (o mínimo por parcela depende do número). useWatch de isInstallment e amountCents.',
+  'src/components/transactions/TransactionDescription.tsx':
+    'Fase 10 (RF-08, D-53(g)): "Descrição (k/n)" das parcelas; o filho local InstallmentDescription só existe nas linhas de parcela, para useInstallmentCount não rodar nas outras. Ver Saúde: a linha aparece um instante sem o sufixo.',
+  'src/features/transactions/InstallmentInfo.tsx':
+    'Fase 10 (CA-08.5, D-53(c)/(h)): quadro "Parcela k de n" com Valor total, Parcelas e "Já passaram: x de n" (countPassedInstallments + useToday); useInstallmentGroupDetails; null enquanto carrega.',
+  'src/features/transactions/DeleteInstallmentDialog.tsx':
+    'Fase 10 (CA-08.4, D-53(i)): Modal "Excluir parcela?" com "Só esta", "Esta e as seguintes", "Todas as parcelas" e "Cancelar"; descrição com o "(k/n)" (TransactionDescription); ErrorAlert de falha.',
+  'src/dev/sampleData/sampleInstallments.ts':
+    'Fase 2 (§6.11, D-30): 3 parcelamentos de exemplo (Notebook 12x a partir de 31/01, Geladeira 10x com resto, Passagens 6x), com parcelas passadas e futuras por addMonthsClamped. Fase 10: os valores das parcelas vêm de splitInstallments (domain/installments), a mesma regra do app.',
 }

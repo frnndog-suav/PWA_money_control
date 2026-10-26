@@ -1,6 +1,7 @@
 import { formatISO } from 'date-fns'
 import { z } from 'zod'
 import { isValidDate, today } from '@/domain/dates'
+import { MAX_INSTALLMENTS, MIN_INSTALLMENTS } from '@/domain/installments'
 import { toTagNameKey } from '@/domain/tags'
 import type {
   DateString,
@@ -37,9 +38,6 @@ export const MAX_BACKUP_FILE_BYTES = 50_000_000
 export const MAX_PBKDF2_ITERATIONS = 10_000_000
 // O AES-GCM acrescenta 16 bytes de autenticação; menos que isso não é texto cifrado.
 const GCM_TAG_BYTES = 16
-// §6.3 — limites do parcelamento (RF-08).
-const MIN_INSTALLMENTS = 2
-const MAX_INSTALLMENTS = 48
 
 /** CA-10.3 — não é um backup do app (ou a estrutura/integridade não confere). */
 export class InvalidBackupFileError extends Error {

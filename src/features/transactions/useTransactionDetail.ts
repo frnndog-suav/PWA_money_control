@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useGoBack } from '@/components/ui/useGoBack'
+import type { InstallmentDeleteScope } from '@/domain/installments'
+import { deleteInstallments } from '@/repositories/installmentsRepository'
 import {
   deleteConfirmedTransaction,
   type AfterConfirmedDelete,
@@ -13,8 +15,9 @@ export const DELETE_TRANSACTION_FAILED_MESSAGE =
 const FALLBACK_PATH = '/lancamentos'
 
 /**
- * CA-01.5 / CA-01.6 — editar e excluir; ao terminar, volta para a tela anterior. O lançamento
- * confirmado de um recorrente é excluído com a escolha do que fazer com o mês (RF-07).
+ * CA-01.5 / CA-01.6 — editar e excluir; ao terminar, volta para a tela anterior. O confirmado
+ * de um recorrente é excluído com a escolha do que fazer com o mês (RF-07); a parcela, com
+ * "Só esta", "Esta e as seguintes" ou "Todas as parcelas" (CA-08.4).
  */
 export function useTransactionDetail(id: string) {
   const transaction = useTransaction(id)
@@ -38,12 +41,11 @@ export function useTransactionDetail(id: string) {
 
   const cancelDelete = () => setIsConfirmingDelete(false)
 
-  const confirmDelete = async (afterwards?: AfterConfirmedDelete) => {
+  const runDelete = async (remove: () => Promise<void>) => {
     setDeleteError(null)
     setIsDeleting(true)
     try {
-      if (afterwards) await deleteConfirmedTransaction(id, afterwards)
-      else await deleteTransaction(id)
+      await remove()
       setIsConfirmingDelete(false)
       finish()
     } catch {
@@ -62,6 +64,10 @@ export function useTransactionDetail(id: string) {
     onUpdated: finish,
     requestDelete,
     cancelDelete,
-    confirmDelete,
+    confirmDelete: () => runDelete(() => deleteTransaction(id)),
+    confirmOccurrenceDelete: (afterwards: AfterConfirmedDelete) =>
+      runDelete(() => deleteConfirmedTransaction(id, afterwards)),
+    confirmInstallmentDelete: (scope: InstallmentDeleteScope) =>
+      runDelete(() => deleteInstallments(id, scope)),
   }
 }

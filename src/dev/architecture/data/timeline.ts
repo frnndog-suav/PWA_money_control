@@ -25,7 +25,9 @@
 // D-50, correções da revisão e a página atualizada) entrou no 9438b89 (24/10/2026); o fechamento
 // dela (spec 1.32: D-50 confirmada, roteiro validado no PC e no iPhone) e a página atualizada
 // entraram no b49e6f0 (25/10/2026). A Fase 9 (recorrentes, spec 1.33 com a D-51) e o fechamento
-// dela (spec 1.34: D-51 confirmada e D-52 — Vitest com 4 workers) ainda não foram commitados.
+// dela (spec 1.34: D-51 confirmada e D-52 — Vitest com 4 workers), com a página atualizada,
+// entraram no 6b6b45a (26/10/2026). A Fase 10 (parcelamento, spec 1.35 com a D-53), esta página
+// atualizada e o fechamento da fase (spec 1.36: D-53 confirmada) ainda não foram commitados.
 
 import type { TimelineEntry } from '@/dev/architecture/types'
 
@@ -2546,8 +2548,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 9: recorrentes (RF-07) no Início, nas Visões e em Ajustes',
     summary:
       'Domínio: recurring.ts (as funções da §6.5 — isActiveIn, amountFor, pendingOccurrences, setAmountFrom, projected — e occurrenceStatus, confirmedOccurrenceKeys, skipPeriod/unskipPeriod, endRecurring, lastConfirmedPeriod, recurringListStatus, displayAmount, com 4 classes de erro) e recurringSchema.ts (zod de criar, editar, alterar valor, encerrar e confirmar; campos comuns extraídos do transactionSchema); dates ganhou isValidPeriod e isDateInPeriod. Repositório: recurringsRepository novo, com toda leitura-e-gravação numa transação, confirmação checada pelo índice [recurringId+recurringPeriod] na mesma transação (CA-07.5), pendências de vários meses numa só leitura (anyOf) e hooks ao vivo; updateTransaction trava data e tipo do lançamento confirmado. Interface: InfoPopover e MonthInput em components/ui (+ Field.Hint, useToast com duração/hide, createRadioGroup com disabled); pasta nova components/recurrings (modal de confirmação compartilhado, seção de pendentes com Confirmar/Pular/Desfazer); telas /ajustes/recorrentes e /ajustes/recorrentes/:id (antes placeholders); pendentes no Início; Realizado/Previsto e "Recorrentes pendentes" na visão Mês e Previsto por mês na visão Ano; exclusão do lançamento confirmado com "voltar a pendente"/"pular este mês". Sem tabela nem pacote novos. Resultado: lint, typecheck e Prettier ok; 116 arquivos / 2.482 testes; domain + lib com 100% de linhas; build ok (index 111,5 kB gzip).',
-    commits: [],
-    committed: false,
+    commits: ['6b6b45a'],
+    committed: true,
     requirements: [
       'RF-07',
       'CA-07.1',
@@ -2654,8 +2656,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
       'Fase 9: revisão — tipo travado, pular sem toque duplo e mensagens de corrida entre abas',
     summary:
       'Revisão do spec-reviewer aprovada sem bloqueantes. Aplicados: (1) tipo travado no lançamento confirmado, escolha do dono (D-51(l)) — <fieldset disabled> no TypeRadio com "O tipo segue o do recorrente e não pode ser trocado." e OccurrenceTypeChangeError no updateTransaction; (2) "Pular"/"Desfazer" desabilitados enquanto a ação roda (isBusy), para o 2º toque não mostrar erro falso; (3) o que outra aba mudou no meio (mês já confirmado ou pulado, término que passou a valer) aparece com a mensagem da regra (skipErrorMessage, erros de domínio nos modais) em vez de "Não foi possível…" (D-51(m)).',
-    commits: [],
-    committed: false,
+    commits: ['6b6b45a'],
+    committed: true,
     requirements: ['RF-07', 'CA-07.4', 'CA-07.5'],
     decisions: ['D-51'],
     files: {
@@ -2688,8 +2690,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Spec 1.33: D-51 (recorrentes) aguardando confirmação; Fase 9 marcada na §7',
     summary:
       'A D-51 registra as cinco escolhas do dono (a: editar só descrição e tag; b: lançamento confirmado preso ao mês; c: onde pular; d: encerrar não antes do último mês confirmado; l: tipo travado) e as escolhas de implementação (e–k, m). Spec 1.33 (cabeçalho datado de 25/10/2026); as 8 tarefas da Fase 9 marcadas [x]. Falta o roteiro manual e a confirmação do dono.',
-    commits: [],
-    committed: false,
+    commits: ['6b6b45a'],
+    committed: true,
     requirements: ['RF-07'],
     decisions: ['D-51'],
     files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
@@ -2703,8 +2705,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Página de arquitetura: Fase 9 (recorrentes)',
     summary:
       'Rotas /ajustes/recorrentes e /ajustes/recorrentes/:id descritas com conteúdo real (e /, /visoes e /lancamentos/:id atualizadas) e a composição das duas telas novas; notas de composição dos componentes novos e dos formulários locais dos modais (LOCAL_COMPONENT_ORIGINS); 9 fluxos novos (criar, confirmar, pular/desfazer, alterar valor, encerrar, excluir recorrente, editar e excluir lançamento confirmado, Previsto nas visões) — saíram dos fluxos e funções de domínio planejados; tabelas recurrings e transactions com as operações novas; D-51 pendente e impactos de D-01, D-04, D-05, D-14 e D-15; princípios 1, 2, 6–9, 15 e 16 com os módulos novos; components/recurrings em onlySources de components → repositories; 7 achados novos. As entradas da Fase 8 passaram a apontar para os commits 9438b89 (implementação) e b49e6f0 (fechamento, spec 1.32).',
-    commits: [],
-    committed: false,
+    commits: ['6b6b45a'],
+    committed: true,
     requirements: ['RF-07'],
     decisions: ['D-51', 'D-17'],
     files: {
@@ -2731,8 +2733,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'D-51 confirmada, D-52 (Vitest com 4 workers) e Fase 9 concluída (spec 1.34)',
     summary:
       'O dono confirmou a D-51 inteira (as cinco escolhas dele e as escolhas de interface) e validou o roteiro de teste da Fase 9. Aprovou também a D-52: test.maxWorkers = 4 no vite.config.ts, porque com o paralelismo padrão workers do Node caíam ao iniciar no Windows de desenvolvimento; a suíte passou limpa, mais lenta (~2 min 45 s). O CLAUDE.md ganhou a nota. Nesta página, os achados da D-51, do teste manual e dos workers foram para os resolvidos.',
-    commits: [],
-    committed: false,
+    commits: ['6b6b45a'],
+    committed: true,
     requirements: ['RF-07', 'RNF-07'],
     decisions: ['D-51', 'D-52'],
     files: {
@@ -2747,5 +2749,164 @@ export const TIMELINE: readonly TimelineEntry[] = [
       removed: [],
     },
     impact: ['nenhuma decisão pendente antes da Fase 10', 'suíte de testes estável'],
+  },
+  {
+    id: 'phase-10-installments',
+    date: '2026-10-26',
+    phase: 10,
+    type: 'feature',
+    title: 'Fase 10: compras parceladas (RF-08), integradas ao backup (RF-10)',
+    summary:
+      'Domínio: installments.ts (MIN/MAX_INSTALLMENTS = 2/48, splitInstallments — resto na 1ª parcela —, buildInstallmentTransactions com addMonthsClamped, displayDescription "Descrição (k/n)", countPassedInstallments pelas datas do plano, installmentsToDelete e os tipos InstallmentDraft/InstallmentDeleteScope) e installmentSchema.ts (installmentInputSchema e transactionFormSchema com isInstallment/installmentCount). Repositório: installmentsRepository novo — createInstallmentPurchase numa transação rw [tags, installmentGroups, transactions] (CA-08.2), deleteInstallments por escopo que exclui o grupo junto com a última parcela, getInstallmentGroupDetails e os hooks useInstallmentGroupDetails/useInstallmentCount; no transactionsRepository, OccurrenceTypeChangeError virou LockedTypeChangeError e vale para recorrente e parcela. Interface: Checkbox em components/ui; InstallmentFields (Parcelado, número de parcelas e prévia da divisão) e TransactionDescription em components/transactions; TransactionForm com allowInstallments (só em /lancamentos/novo), "Valor total"/"Data da primeira parcela" e tipo travado pelo vínculo; detalhes da parcela com InstallmentInfo (CA-08.5) e exclusão com DeleteInstallmentDialog (CA-08.4), escolhidos pelo DeleteDialog local por tipo. backupFormat e os dados de exemplo usam os limites e a divisão do domínio; seedDatabase ganhou readAllTransactions, readTransaction e countInstallmentGroups. Sem tabela, índice nem pacote novos (o índice installmentGroupId da v1 passa a ser usado). Resultado: lint, typecheck, Prettier e check-consistency ok; 119 arquivos / 2.538 testes; domain + lib com 100% de linhas; build ok (index 113,0 kB gzip).',
+    commits: [],
+    committed: false,
+    requirements: [
+      'RF-08',
+      'CA-08.1',
+      'CA-08.2',
+      'CA-08.3',
+      'CA-08.4',
+      'CA-08.5',
+      'RF-10',
+      'CA-10.1',
+      'RF-01',
+      'RF-02',
+    ],
+    decisions: ['D-53', 'D-06', 'D-02', 'D-40', 'D-42', 'D-36', 'D-37'],
+    files: {
+      created: [
+        'src/domain/installments.ts',
+        'src/domain/installments.test.ts',
+        'src/domain/installmentSchema.ts',
+        'src/repositories/installmentsRepository.ts',
+        'src/repositories/installmentsRepository.test.ts',
+        'src/components/ui/Checkbox.tsx',
+        'src/components/transactions/InstallmentFields.tsx',
+        'src/components/transactions/TransactionDescription.tsx',
+        'src/features/transactions/InstallmentInfo.tsx',
+        'src/features/transactions/DeleteInstallmentDialog.tsx',
+        'src/features/transactions/InstallmentPurchase.test.tsx',
+      ],
+      modified: [
+        'src/repositories/transactionsRepository.ts',
+        'src/repositories/recurringsRepository.test.ts',
+        'src/lib/backupFormat.ts',
+        'src/dev/sampleData/sampleInstallments.ts',
+        'src/components/transactions/TransactionForm.tsx',
+        'src/components/transactions/useTransactionForm.ts',
+        'src/components/transactions/TransactionRow.tsx',
+        'src/components/transactions/transactionTexts.ts',
+        'src/features/transactions/NewTransactionPage.tsx',
+        'src/features/transactions/TransactionDetailPage.tsx',
+        'src/features/transactions/useTransactionDetail.ts',
+        'src/test/seedDatabase.ts',
+        'docs/SPEC.md',
+      ],
+      removed: [],
+    },
+    impact: [
+      'novo repositório (installmentsRepository) e 1ª escrita de produção em installmentGroups',
+      'índice installmentGroupId passa a ser usado',
+      '2 módulos de domínio novos (installments, installmentSchema)',
+      '1 primitivo novo (Checkbox)',
+      'LockedTypeChangeError substitui OccurrenceTypeChangeError',
+      '4 fluxos novos',
+      'nenhuma função nem fluxo previsto restante',
+    ],
+  },
+  {
+    id: 'phase-10-review-fixes',
+    date: '2026-10-26',
+    phase: 10,
+    type: 'fix',
+    title:
+      'Fase 10: revisão — revalidação do total, frase do tipo travado e "já passaram" pelo plano',
+    summary:
+      'Revisão do spec-reviewer aprovada com ressalvas, sem bloqueantes. Aplicados: (1) o valor total é revalidado quando o número de parcelas, "Parcelado" ou o tipo mudam (o React Hook Form só revalidava o campo alterado; princípio 16 — o erro "pelo menos R$ 0,01 por parcela" aparece e some na hora); (2) a frase do tipo travado vem do vínculo do lançamento (typeLockReason: recorrente ou parcela); (3) "já passaram" conta pelas datas do plano do grupo (antes, com as parcelas restantes, excluir uma parcela vencida mostrava "0 de 3"); (4) mais testes de tela (revalidação, "(k/n)" no Início e na visão Dia, "Só esta" e "Todas as parcelas"); (5) mocks restaurados em afterEach.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-08', 'CA-08.4', 'CA-08.5'],
+    decisions: ['D-53', 'D-36'],
+    files: {
+      created: [],
+      modified: [
+        'src/domain/installments.ts',
+        'src/domain/installments.test.ts',
+        'src/components/transactions/InstallmentFields.tsx',
+        'src/components/transactions/TransactionForm.tsx',
+        'src/components/transactions/useTransactionForm.ts',
+        'src/features/transactions/InstallmentInfo.tsx',
+        'src/features/transactions/InstallmentPurchase.test.tsx',
+        'docs/SPEC.md',
+      ],
+      removed: [],
+    },
+    impact: [
+      'erro do total sempre atual (princípio 16)',
+      '"Já passaram" estável ao excluir parcelas',
+    ],
+  },
+  {
+    id: 'spec-1-35-d-53',
+    date: '2026-10-26',
+    phase: 10,
+    type: 'decision',
+    title: 'Spec 1.35: D-53 (parcelamento) aguardando confirmação; Fase 10 marcada na §7',
+    summary:
+      'A D-53 registra as três escolhas do dono (a: "Parcelado" só em Novo lançamento; b: parcela sempre Saída também na edição; c: "já passaram" = datas do plano até hoje, inclusive) e as escolhas de implementação (d–k). Spec 1.35; as 6 tarefas da Fase 10 marcadas [x]. Falta o roteiro manual e a confirmação do dono.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-08'],
+    decisions: ['D-53'],
+    files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
+    impact: ['1 decisão pendente (D-53)'],
+  },
+  {
+    id: 'architecture-page-phase-10',
+    date: '2026-10-26',
+    phase: 10,
+    type: 'docs',
+    title: 'Página de arquitetura: Fase 10 (parcelamento)',
+    summary:
+      'Rotas /lancamentos/novo e /lancamentos/:id descritas com o parcelamento (e /, /lancamentos com o "(k/n)"); composição das duas telas e notas dos componentes novos (Checkbox, InstallmentFields, TransactionDescription, InstallmentInfo, DeleteInstallmentDialog) e dos locais InstallmentDescription e DeleteDialog; 4 fluxos novos (criar compra parcelada, abrir e editar uma parcela, excluir parcela com três opções, exibir "(k/n)") — a lista de fluxos e de funções de domínio previstos ficou vazia, e as seções mostram isso por escrito; tabelas installmentGroups, transactions e tags com as operações novas; camadas e a regra components → repositories com os módulos novos; D-53 pendente e impactos da D-06; princípios 1, 2, 6–10 e 16 com os módulos novos; 4 achados novos (D-53, teste manual, "(k/n)" piscando com uma consulta por linha, módulos novos sem teste próprio). Nomes atuais no código descritivo (LockedTypeChangeError, typeLockReason, confirmOccurrenceDelete); as entradas históricas da Fase 9 continuam com OccurrenceTypeChangeError. As entradas da Fase 9 passaram a apontar para o commit 6b6b45a.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-08'],
+    decisions: ['D-53', 'D-17'],
+    files: {
+      created: [],
+      modified: [
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+        'src/dev/architecture/data/module-graph.json',
+        'src/dev/architecture/components/DomainSection.tsx',
+        'src/dev/architecture/components/FlowsSection.tsx',
+      ],
+      removed: [],
+    },
+    impact: ['4 fluxos novos', '4 achados novos', '2 rotas documentadas com o parcelamento'],
+  },
+  {
+    id: 'spec-1-36-phase-10-closed',
+    date: '2026-10-26',
+    phase: 10,
+    type: 'decision',
+    title: 'D-53 confirmada e Fase 10 concluída (spec 1.36)',
+    summary:
+      'O dono confirmou a D-53 inteira (as três escolhas dele, as escolhas de interface e os ajustes da revisão) e validou o roteiro de teste da Fase 10. Na spec, a D-53 deixou de estar "aguardando confirmação"; nesta página, os achados da D-53 e do teste manual foram para os resolvidos.',
+    commits: [],
+    committed: false,
+    requirements: ['RF-08'],
+    decisions: ['D-53'],
+    files: {
+      created: [],
+      modified: [
+        'docs/SPEC.md',
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+      ],
+      removed: [],
+    },
+    impact: ['nenhuma decisão pendente antes da Fase 11'],
   },
 ]

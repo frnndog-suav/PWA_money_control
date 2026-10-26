@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { TransactionDescription } from '@/components/transactions/TransactionDescription'
 import { SignedAmount } from '@/components/ui/SignedAmount'
 import { TagChip } from '@/components/ui/TagChip'
 import { signedAmount } from '@/domain/balances'
@@ -14,8 +15,8 @@ interface TransactionRowProps {
 }
 
 /**
- * RF-02 item 5 / RF-04 — descrição, tag, data e valor com sinal; tocar abre a edição
- * (CA-01.5 / CA-04.5).
+ * RF-02 item 5 / RF-04 — descrição ("(k/n)" nas parcelas — RF-08), tag, data e valor com
+ * sinal; tocar abre a edição (CA-01.5 / CA-04.5).
  */
 export function TransactionRow({ transaction, tag, showDate = true }: TransactionRowProps) {
   return (
@@ -25,7 +26,9 @@ export function TransactionRow({ transaction, tag, showDate = true }: Transactio
         className="flex min-h-11 items-center gap-3 px-4 py-3"
       >
         <span className="flex min-w-0 flex-1 flex-col items-start gap-1">
-          <span className="w-full truncate font-medium">{transaction.description}</span>
+          <span className="w-full truncate font-medium">
+            <TransactionDescription transaction={transaction} />
+          </span>
           <span className="flex max-w-full flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
             {tag && <TagChip name={tag.name} color={tag.color} />}
             {showDate && <span className="tabular-nums">{formatShortDate(transaction.date)}</span>}

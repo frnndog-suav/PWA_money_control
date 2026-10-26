@@ -71,6 +71,11 @@ export function FlowsSection() {
       </Card>
       <Card>
         <Card.Title>Fluxos previstos (ainda não existem no código)</Card.Title>
+        {PLANNED_FLOWS.length === 0 && (
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Nenhum: todos os fluxos exigidos pela §6.12 já estão desenhados acima.
+          </p>
+        )}
         <ul className="flex flex-col gap-2 text-sm">
           {PLANNED_FLOWS.map((flow) => (
             <li key={flow.title} className="flex flex-col gap-0.5">

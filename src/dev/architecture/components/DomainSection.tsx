@@ -59,6 +59,11 @@ export function DomainSection() {
       </div>
       <Card>
         <Card.Title>Ainda previstas (§6.5 e §6.8)</Card.Title>
+        {PLANNED_DOMAIN.length === 0 && (
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Nenhuma: todas as funções previstas já existem no código.
+          </p>
+        )}
         <ul className="flex flex-col gap-1 text-sm">
           {PLANNED_DOMAIN.map((item) => (
             <li key={item.module} className="flex flex-wrap items-center gap-2">
