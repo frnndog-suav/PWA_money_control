@@ -1,6 +1,7 @@
 import { Navigate, type RouteObject } from 'react-router'
 import { getDevRoutes } from '@/app/devRoutes'
 import { AppLayout } from '@/app/layout/AppLayout'
+import { RouteErrorPage } from '@/app/layout/RouteErrorPage'
 import {
   TransactionsPage,
   NewTransactionPage,
@@ -19,19 +20,28 @@ import { HomePage } from '@/features/home/HomePage'
 export const routes: RouteObject[] = [
   {
     element: <AppLayout />,
+    // Fase 11 — erro no próprio layout: tela de erro sem a barra inferior.
+    errorElement: <RouteErrorPage placement="standalone" />,
     children: [
-      { index: true, element: <HomePage /> },
-      { path: 'lancamentos', element: <TransactionsPage /> },
-      { path: 'lancamentos/novo', element: <NewTransactionPage /> },
-      { path: 'lancamentos/:id', element: <TransactionDetailPage /> },
-      { path: 'visoes', element: <ViewsPage /> },
-      { path: 'graficos', element: <ChartsPage /> },
-      { path: 'ajustes', element: <SettingsPage /> },
-      { path: 'ajustes/tags', element: <TagsPage /> },
-      { path: 'ajustes/recorrentes', element: <RecurringsPage /> },
-      { path: 'ajustes/recorrentes/:id', element: <RecurringDetailPage /> },
-      { path: 'ajustes/backup', element: <BackupPage /> },
-      { path: 'ajustes/sobre', element: <AboutPage /> },
+      {
+        // Erro de uma tela (leitura do Dexie que falha, tela lazy que não carregou): a tela
+        // de erro aparece dentro do layout e a barra inferior continua funcionando.
+        errorElement: <RouteErrorPage placement="inLayout" />,
+        children: [
+          { index: true, element: <HomePage /> },
+          { path: 'lancamentos', element: <TransactionsPage /> },
+          { path: 'lancamentos/novo', element: <NewTransactionPage /> },
+          { path: 'lancamentos/:id', element: <TransactionDetailPage /> },
+          { path: 'visoes', element: <ViewsPage /> },
+          { path: 'graficos', element: <ChartsPage /> },
+          { path: 'ajustes', element: <SettingsPage /> },
+          { path: 'ajustes/tags', element: <TagsPage /> },
+          { path: 'ajustes/recorrentes', element: <RecurringsPage /> },
+          { path: 'ajustes/recorrentes/:id', element: <RecurringDetailPage /> },
+          { path: 'ajustes/backup', element: <BackupPage /> },
+          { path: 'ajustes/sobre', element: <AboutPage /> },
+        ],
+      },
     ],
   },
   ...getDevRoutes(),

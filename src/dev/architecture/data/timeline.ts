@@ -27,7 +27,9 @@
 // entraram no b49e6f0 (25/10/2026). A Fase 9 (recorrentes, spec 1.33 com a D-51) e o fechamento
 // dela (spec 1.34: D-51 confirmada e D-52 — Vitest com 4 workers), com a página atualizada,
 // entraram no 6b6b45a (26/10/2026). A Fase 10 (parcelamento, spec 1.35 com a D-53), esta página
-// atualizada e o fechamento da fase (spec 1.36: D-53 confirmada) ainda não foram commitados.
+// atualizada e o fechamento da fase (spec 1.36: D-53 confirmada) entraram no 9a9b68d (26/10/2026).
+// A Fase 11 (polimento e revisão final, spec 1.37 com a D-09 definitiva e as D-54 a D-57) e esta
+// página atualizada ainda não foram commitadas.
 
 import type { TimelineEntry } from '@/dev/architecture/types'
 
@@ -2758,8 +2760,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Fase 10: compras parceladas (RF-08), integradas ao backup (RF-10)',
     summary:
       'Domínio: installments.ts (MIN/MAX_INSTALLMENTS = 2/48, splitInstallments — resto na 1ª parcela —, buildInstallmentTransactions com addMonthsClamped, displayDescription "Descrição (k/n)", countPassedInstallments pelas datas do plano, installmentsToDelete e os tipos InstallmentDraft/InstallmentDeleteScope) e installmentSchema.ts (installmentInputSchema e transactionFormSchema com isInstallment/installmentCount). Repositório: installmentsRepository novo — createInstallmentPurchase numa transação rw [tags, installmentGroups, transactions] (CA-08.2), deleteInstallments por escopo que exclui o grupo junto com a última parcela, getInstallmentGroupDetails e os hooks useInstallmentGroupDetails/useInstallmentCount; no transactionsRepository, OccurrenceTypeChangeError virou LockedTypeChangeError e vale para recorrente e parcela. Interface: Checkbox em components/ui; InstallmentFields (Parcelado, número de parcelas e prévia da divisão) e TransactionDescription em components/transactions; TransactionForm com allowInstallments (só em /lancamentos/novo), "Valor total"/"Data da primeira parcela" e tipo travado pelo vínculo; detalhes da parcela com InstallmentInfo (CA-08.5) e exclusão com DeleteInstallmentDialog (CA-08.4), escolhidos pelo DeleteDialog local por tipo. backupFormat e os dados de exemplo usam os limites e a divisão do domínio; seedDatabase ganhou readAllTransactions, readTransaction e countInstallmentGroups. Sem tabela, índice nem pacote novos (o índice installmentGroupId da v1 passa a ser usado). Resultado: lint, typecheck, Prettier e check-consistency ok; 119 arquivos / 2.538 testes; domain + lib com 100% de linhas; build ok (index 113,0 kB gzip).',
-    commits: [],
-    committed: false,
+    commits: ['9a9b68d'],
+    committed: true,
     requirements: [
       'RF-08',
       'CA-08.1',
@@ -2823,8 +2825,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
       'Fase 10: revisão — revalidação do total, frase do tipo travado e "já passaram" pelo plano',
     summary:
       'Revisão do spec-reviewer aprovada com ressalvas, sem bloqueantes. Aplicados: (1) o valor total é revalidado quando o número de parcelas, "Parcelado" ou o tipo mudam (o React Hook Form só revalidava o campo alterado; princípio 16 — o erro "pelo menos R$ 0,01 por parcela" aparece e some na hora); (2) a frase do tipo travado vem do vínculo do lançamento (typeLockReason: recorrente ou parcela); (3) "já passaram" conta pelas datas do plano do grupo (antes, com as parcelas restantes, excluir uma parcela vencida mostrava "0 de 3"); (4) mais testes de tela (revalidação, "(k/n)" no Início e na visão Dia, "Só esta" e "Todas as parcelas"); (5) mocks restaurados em afterEach.',
-    commits: [],
-    committed: false,
+    commits: ['9a9b68d'],
+    committed: true,
     requirements: ['RF-08', 'CA-08.4', 'CA-08.5'],
     decisions: ['D-53', 'D-36'],
     files: {
@@ -2854,8 +2856,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Spec 1.35: D-53 (parcelamento) aguardando confirmação; Fase 10 marcada na §7',
     summary:
       'A D-53 registra as três escolhas do dono (a: "Parcelado" só em Novo lançamento; b: parcela sempre Saída também na edição; c: "já passaram" = datas do plano até hoje, inclusive) e as escolhas de implementação (d–k). Spec 1.35; as 6 tarefas da Fase 10 marcadas [x]. Falta o roteiro manual e a confirmação do dono.',
-    commits: [],
-    committed: false,
+    commits: ['9a9b68d'],
+    committed: true,
     requirements: ['RF-08'],
     decisions: ['D-53'],
     files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
@@ -2869,8 +2871,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'Página de arquitetura: Fase 10 (parcelamento)',
     summary:
       'Rotas /lancamentos/novo e /lancamentos/:id descritas com o parcelamento (e /, /lancamentos com o "(k/n)"); composição das duas telas e notas dos componentes novos (Checkbox, InstallmentFields, TransactionDescription, InstallmentInfo, DeleteInstallmentDialog) e dos locais InstallmentDescription e DeleteDialog; 4 fluxos novos (criar compra parcelada, abrir e editar uma parcela, excluir parcela com três opções, exibir "(k/n)") — a lista de fluxos e de funções de domínio previstos ficou vazia, e as seções mostram isso por escrito; tabelas installmentGroups, transactions e tags com as operações novas; camadas e a regra components → repositories com os módulos novos; D-53 pendente e impactos da D-06; princípios 1, 2, 6–10 e 16 com os módulos novos; 4 achados novos (D-53, teste manual, "(k/n)" piscando com uma consulta por linha, módulos novos sem teste próprio). Nomes atuais no código descritivo (LockedTypeChangeError, typeLockReason, confirmOccurrenceDelete); as entradas históricas da Fase 9 continuam com OccurrenceTypeChangeError. As entradas da Fase 9 passaram a apontar para o commit 6b6b45a.',
-    commits: [],
-    committed: false,
+    commits: ['9a9b68d'],
+    committed: true,
     requirements: ['RF-08'],
     decisions: ['D-53', 'D-17'],
     files: {
@@ -2894,8 +2896,8 @@ export const TIMELINE: readonly TimelineEntry[] = [
     title: 'D-53 confirmada e Fase 10 concluída (spec 1.36)',
     summary:
       'O dono confirmou a D-53 inteira (as três escolhas dele, as escolhas de interface e os ajustes da revisão) e validou o roteiro de teste da Fase 10. Na spec, a D-53 deixou de estar "aguardando confirmação"; nesta página, os achados da D-53 e do teste manual foram para os resolvidos.',
-    commits: [],
-    committed: false,
+    commits: ['9a9b68d'],
+    committed: true,
     requirements: ['RF-08'],
     decisions: ['D-53'],
     files: {
@@ -2908,5 +2910,106 @@ export const TIMELINE: readonly TimelineEntry[] = [
       removed: [],
     },
     impact: ['nenhuma decisão pendente antes da Fase 11'],
+  },
+  {
+    id: 'phase-11-polish',
+    date: '2026-10-26',
+    phase: 11,
+    type: 'feature',
+    title: 'Fase 11: polimento e revisão final — erros, acessibilidade, desempenho e privacidade',
+    summary:
+      'Estados vazios e erros (D-54): RouteErrorPage (textos em routeErrorTexts) substitui a tela padrão em inglês do React Router, com errorElement em dois níveis no routes.tsx — numa rota sem caminho em volta das 12 telas ("inLayout": o erro fica dentro do layout e a barra inferior continua funcionando) e no próprio AppLayout ("standalone", sem a barra); "Tentar de novo" recarrega e "Ir para o Início" recarrega já no Início. useThemePreference passou a consultar getStoredThemePreference().catch(() => null): o ThemeProvider fica acima do roteador, então uma falha do IndexedDB faz o app usar o espelho do localStorage em vez de ficar em branco. "Lançamento/Recorrente não encontrado. Ele pode ter sido excluído." (TRANSACTION_NOT_FOUND_MESSAGE novo em transactionListTexts). Auditoria dos estados vazios sem mudanças. Acessibilidade (D-55): borda dos campos slate-500/slate-400 (inputClasses e a cor livre do TagColorPicker; antes 1,48:1 e 2,36:1) e seta "›" slate-500 no claro (NavList, RecurringList, TagList; antes 2,63:1). Desempenho (D-56): src/test/largeDataset.ts (10.000 lançamentos, semente fixa) e screens.performance.test.ts — Início ~21 ms, Visões Ano ~15 ms, Gráficos Ano ~8 ms, 48 parcelas ~2 ms (meta < 300 ms), sem otimização; o "(k/n)" fica ausente ~40–56 ms e foi mantido; pacote principal 113,4 kB gzip. Privacidade (D-57): varredura do dist/ sem recursos externos. Nome "Meus Gastos"/"Gastos" e ícone tornados definitivos (D-09; Q-03 resolvida) — generate-icons.mjs e README sem "provisório", PNGs não regerados. Na revisão: teste da tela lazy que não carrega (RouteErrorPage.lazy.test.tsx) e buttonVariantClasses (components/ui/buttonClasses.ts) — a aparência do Button compartilhada com os Links com cara de botão (RouteErrorPage e NewTransactionLink). Nenhuma tabela, índice, rota com caminho, store ou pacote novo.',
+    commits: [],
+    committed: false,
+    requirements: ['RNF-02', 'RNF-04', 'RNF-06', 'RF-01', 'RF-07', 'RF-09', 'RF-13', 'CA-11.1'],
+    decisions: ['D-54', 'D-55', 'D-56', 'D-57', 'D-09', 'D-25', 'D-28', 'D-41', 'D-44', 'D-53'],
+    files: {
+      created: [
+        'src/app/layout/RouteErrorPage.tsx',
+        'src/app/layout/routeErrorTexts.ts',
+        'src/app/layout/RouteErrorPage.test.tsx',
+        'src/app/theme/ThemeProvider.errors.test.tsx',
+        'src/test/largeDataset.ts',
+        'src/domain/screens.performance.test.ts',
+        'src/app/layout/RouteErrorPage.lazy.test.tsx',
+        'src/components/ui/buttonClasses.ts',
+      ],
+      modified: [
+        'src/app/routes.tsx',
+        'src/components/ui/Button.tsx',
+        'src/features/transactions/TransactionsPage.tsx',
+        'src/repositories/useThemePreference.ts',
+        'src/features/transactions/transactionListTexts.ts',
+        'src/features/transactions/TransactionDetailPage.tsx',
+        'src/features/transactions/TransactionDetailPage.test.tsx',
+        'src/features/recurrings/recurringsTexts.ts',
+        'src/features/recurrings/RecurringDetailPage.test.tsx',
+        'src/components/ui/inputClasses.ts',
+        'src/components/tags/TagColorPicker.tsx',
+        'src/components/ui/NavList.tsx',
+        'src/features/recurrings/RecurringList.tsx',
+        'src/features/tags/TagList.tsx',
+        'scripts/generate-icons.mjs',
+        'README.md',
+      ],
+      removed: [],
+    },
+    impact: [
+      'errorElement em dois níveis (rota sem caminho em volta das telas + layout)',
+      '1 fluxo novo (erro ao abrir uma tela) e o fluxo do tema com a falha do Dexie',
+      '2 módulos de produção novos em app/layout e 1 em components/ui (buttonClasses)',
+      '1 teste de desempenho de telas com 10.000 lançamentos',
+      'nenhuma tabela, store, rota com caminho ou pacote novo',
+    ],
+  },
+  {
+    id: 'spec-1-37-phase-11',
+    date: '2026-10-26',
+    phase: 11,
+    type: 'decision',
+    title: 'Spec 1.37: D-09 definitiva (Q-03 resolvida) e D-54 a D-57 aguardando confirmação',
+    summary:
+      'O dono manteve o nome e o ícone em uso como definitivos (D-09; a D-25 deixa de chamá-los de provisórios) e a §8.2 ficou sem pontos em aberto. Registradas D-54 (estados vazios e erros), D-55 (contraste), D-56 (desempenho com 10.000 lançamentos, com os números medidos) e D-57 (nenhum recurso externo em produção). O roteiro da Fase 11 ganhou os itens 3–6 (desempenho no iPhone, aba Rede, bordas e foco, lançamento inexistente). As seis tarefas da §7 ainda não estão marcadas [x].',
+    commits: [],
+    committed: false,
+    requirements: ['RNF-02', 'RNF-04', 'RNF-06'],
+    decisions: ['D-09', 'D-25', 'D-54', 'D-55', 'D-56', 'D-57'],
+    files: { created: [], modified: ['docs/SPEC.md'], removed: [] },
+    impact: ['4 decisões pendentes (D-54 a D-57)', 'nenhum ponto em aberto na §8.2'],
+  },
+  {
+    id: 'architecture-page-phase-11',
+    date: '2026-10-26',
+    phase: 11,
+    type: 'docs',
+    title: 'Página de arquitetura: Fase 11 (polimento e revisão final)',
+    summary:
+      'Rota (layout) e composição com os dois errorElement; notas de RouteErrorPage e do local RouteErrorContent; fluxo novo "Erro ao abrir uma tela" e o passo "falha → null" no fluxo de abertura do tema (com ThemeProvider.errors.test.tsx); textos de "não encontrado" atualizados nas rotas e fluxos; D-09 e D-25 com o nome e o ícone definitivos e D-54 a D-57 pendentes; princípios 5 (D-57) e 10 (D-55); notas dos módulos novos e de routes, useThemePreference, inputClasses e generate-icons; os achados que esperavam "medir na Fase 11" passaram a citar as medições da D-56 (e o que ainda falta medir no iPhone); 3 achados novos (D-54 a D-57 pendentes, teste manual e tarefas da §7, bordas slate-300 fora dos campos). Scanner: a rota com filhos agora é reconhecida com qualquer ordem de chaves (o errorElement entre element e children escondia o (layout)) e a rota sem caminho que só agrupa as telas aparece como (limite de erro); cada rota ganhou errorBoundary, errorElement e errorModule no grafo, e as seções Rotas, Composição e Visão geral mostram a tela de erro (badge "limite de erro", campo "Tela de erro (errorElement)", árvore da RouteErrorPage). As entradas da Fase 10 passaram a apontar para o commit 9a9b68d.',
+    commits: [],
+    committed: false,
+    requirements: ['RNF-02', 'RNF-04', 'RNF-06'],
+    decisions: ['D-17', 'D-54', 'D-55', 'D-56', 'D-57'],
+    files: {
+      created: [],
+      modified: [
+        'src/dev/architecture/data/curated.ts',
+        'src/dev/architecture/data/timeline.ts',
+        'src/dev/architecture/data/module-graph.json',
+        'src/dev/architecture/types.ts',
+        'src/dev/architecture/composition.ts',
+        'src/dev/architecture/components/RoutesSection.tsx',
+        'src/dev/architecture/components/CompositionSection.tsx',
+        'src/dev/architecture/components/OverviewSection.tsx',
+        '.claude/skills/atualizar-arquitetura/scan-architecture.mjs',
+      ],
+      removed: [],
+    },
+    impact: [
+      'nova pseudorrota (limite de erro) no grafo',
+      'errorElement por rota no grafo',
+      '1 fluxo novo',
+      '3 achados novos',
+      '4 decisões pendentes na página',
+    ],
   },
 ]

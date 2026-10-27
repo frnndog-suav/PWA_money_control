@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { buttonVariantClasses } from '@/components/ui/buttonClasses'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { Page } from '@/components/ui/Page'
 import { FilterBar } from '@/features/transactions/filters/FilterBar'
@@ -16,7 +17,7 @@ function NewTransactionLink() {
     <Link
       to="/lancamentos/novo"
       aria-label="Novo lançamento"
-      className="flex min-h-11 items-center rounded-lg bg-blue-700 px-4 font-semibold text-white dark:bg-blue-600"
+      className={`flex items-center ${buttonVariantClasses('primary')}`}
     >
       <span aria-hidden="true">+&nbsp;</span>
       {NEW_TRANSACTION_LABEL}

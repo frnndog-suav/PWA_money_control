@@ -127,6 +127,8 @@ export interface RouteDetail {
   lazy: boolean
   devOnly: boolean
   layout: boolean
+  errorBoundary: boolean
+  errorModule: string | null
   closure: string[]
   hooks: string[]
   repositories: string[]
@@ -136,7 +138,9 @@ export interface RouteDetail {
 
 export const routeDetails: readonly RouteDetail[] = graph.routes.map((route) => {
   const note = ROUTE_NOTES.find((n) => n.route === route.path)
-  const closure = route.module ? importClosure(route.module) : []
+  // O limite de erro não tem element: o que ele carrega é a tela de erro.
+  const rootModule = route.module ?? route.errorModule
+  const closure = rootModule ? importClosure(rootModule) : []
   const closureModules = closure.flatMap((id) => moduleById.get(id) ?? [])
   return {
     path: route.path,
@@ -149,6 +153,8 @@ export const routeDetails: readonly RouteDetail[] = graph.routes.map((route) => 
     lazy: route.lazy,
     devOnly: route.devOnly,
     layout: route.layout,
+    errorBoundary: route.errorBoundary,
+    errorModule: route.errorModule,
     closure,
     hooks: [...new Set(closureModules.flatMap((m) => m.hooksDefined))].sort(),
     repositories: closure.filter((id) => moduleById.get(id)?.layer === 'repositories'),

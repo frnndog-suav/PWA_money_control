@@ -416,10 +416,18 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
   {
     route: '(layout)',
     screen: 'Layout com barra inferior',
-    requirements: ['RF-13', 'CA-13.1', 'CA-11.3', 'CA-11.6', 'D-23'],
+    requirements: ['RF-13', 'CA-13.1', 'CA-11.3', 'CA-11.6', 'D-23', 'D-54'],
     description:
-      'AppLayout: <main> com safe areas e espaço para a barra (pb-below-nav); InstallHint no topo do conteúdo quando o app está numa aba comum (CA-11.6, D-23); Suspense sem fallback para as telas lazy; UpdateNotice fixo logo acima da barra (bottom-above-nav) e, enquanto ele aparece, reserve-update-notice soma a altura do aviso ao fim do conteúdo (CA-11.3); BottomNav fixa no rodapé. Rotas fora do layout (como esta página DEV) não mostram nenhum dos dois avisos.',
+      'AppLayout: <main> com safe areas e espaço para a barra (pb-below-nav); InstallHint no topo do conteúdo quando o app está numa aba comum (CA-11.6, D-23); Suspense sem fallback para as telas lazy; UpdateNotice fixo logo acima da barra (bottom-above-nav) e, enquanto ele aparece, reserve-update-notice soma a altura do aviso ao fim do conteúdo (CA-11.3); BottomNav fixa no rodapé. Rotas fora do layout (como esta página DEV) não mostram nenhum dos dois avisos. Fase 11 (D-54(a)): dois errorElement no src/app/routes.tsx — no próprio layout, RouteErrorPage placement="standalone" (erro do layout: tela de erro sem a barra, com as safe areas) e, numa rota sem caminho que envolve todas as telas, RouteErrorPage placement="inLayout" (erro de uma tela — leitura do Dexie que falha, relançada pelo useLiveQuery na renderização, ou tela lazy que não carregou: a tela de erro aparece no <Outlet> e a barra inferior continua funcionando; navegar por ela sai do erro). Nenhuma tela em branco nem a tela padrão em inglês do React Router.',
     contentPhase: 0,
+  },
+  {
+    route: '(limite de erro)',
+    screen: 'Limite de erro das telas',
+    requirements: ['D-54', 'RF-13', 'RNF-06'],
+    description:
+      'Fase 11 (D-54(a)): rota sem caminho e sem element, filha do layout, que envolve as 12 telas só para dar a elas um errorElement próprio — <RouteErrorPage placement="inLayout" />. O erro de qualquer tela (leitura do Dexie que falha, relançada pelo useLiveQuery; pedaço lazy que não baixou) para aqui: a tela de erro aparece no <Outlet> do AppLayout e a barra inferior continua funcionando (tocar numa aba sai do erro). O erro do próprio layout passa direto e cai no errorElement "standalone" do (layout). As rotas DEV e o * ficam fora dele.',
+    contentPhase: 11,
   },
   {
     route: '/',
@@ -511,7 +519,7 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
       'D-53',
     ],
     description:
-      'Fase 4: TransactionDetailPage lê o lançamento por useTransactionDetail (useTransaction, useLiveQuery: undefined carregando, null inexistente). Com o lançamento: TransactionForm em modo edição ("Salvar" já ativo — startsValid, princípio 16) com extraAction "Excluir" e o modal ConfirmDeleteTransactionDialog ("Excluir lançamento?"). Salvar (updateTransaction) e Excluir (deleteTransaction) voltam para a tela anterior com useGoBack (tela pai /lancamentos — D-38(c)); isDone evita piscar "Lançamento não encontrado" durante a saída. Id inexistente: EmptyState "Lançamento não encontrado". Fase 9 (RF-07, D-51(b)/(j)/(l)): lançamento confirmado de recorrente (recurringPeriod ≠ null) — o useTransactionForm troca o schema por um que prende a data ao mês da ocorrência (Field.Hint "Escolha um dia de <mês/ano>." e erro "A data precisa estar em <mês/ano>."), o seletor Saída/Entrada fica desabilitado (<fieldset disabled>) com TYPE_LOCKED_MESSAGE e o updateTransaction recusa as duas coisas (OccurrenceDateOutsidePeriodError, LockedTypeChangeError); "Excluir" abre o DeleteConfirmedOccurrenceDialog ("Excluir e voltar a pendente" | "Excluir e pular este mês") no lugar do ConfirmDeleteTransactionDialog, e confirmOccurrenceDelete(afterwards) chama deleteConfirmedTransaction (transação rw [recurrings, transactions]). Fase 10 (RF-08, D-53(b)/(c)/(h)/(i)): parcela (installmentGroupId ≠ null) — InstallmentInfo acima do formulário ("Parcela k de n", "Valor total", "Parcelas" e "Já passaram: x de n", por countPassedInstallments com as datas do plano — CA-08.5), lido por useInstallmentGroupDetails; o tipo fica travado com "Parcelas são sempre saídas; o tipo não pode ser trocado." (typeLockReason) e o updateTransaction recusa a troca (LockedTypeChangeError); salvar muda só esta parcela, o grupo continua igual (CA-08.3); "Excluir" abre o DeleteInstallmentDialog ("Só esta" | "Esta e as seguintes" | "Todas as parcelas" — CA-08.4) e confirmInstallmentDelete(scope) chama deleteInstallments (transação rw [installmentGroups, transactions]; sem parcelas restantes, o grupo sai junto). O DeleteDialog local escolhe o modal pelo tipo do lançamento: parcela, confirmado de recorrente ou avulso. Tabelas: transactions (leitura e escrita), tags (leitura), recurrings (escrita só ao pular o mês na exclusão) e installmentGroups (leitura; exclusão junto com a última parcela).',
+      'Fase 4: TransactionDetailPage lê o lançamento por useTransactionDetail (useTransaction, useLiveQuery: undefined carregando, null inexistente). Com o lançamento: TransactionForm em modo edição ("Salvar" já ativo — startsValid, princípio 16) com extraAction "Excluir" e o modal ConfirmDeleteTransactionDialog ("Excluir lançamento?"). Salvar (updateTransaction) e Excluir (deleteTransaction) voltam para a tela anterior com useGoBack (tela pai /lancamentos — D-38(c)); isDone evita piscar "Lançamento não encontrado" durante a saída. Id inexistente: EmptyState com TRANSACTION_NOT_FOUND_MESSAGE "Lançamento não encontrado. Ele pode ter sido excluído." (Fase 11 — D-54(c); texto em transactionListTexts.ts). Fase 9 (RF-07, D-51(b)/(j)/(l)): lançamento confirmado de recorrente (recurringPeriod ≠ null) — o useTransactionForm troca o schema por um que prende a data ao mês da ocorrência (Field.Hint "Escolha um dia de <mês/ano>." e erro "A data precisa estar em <mês/ano>."), o seletor Saída/Entrada fica desabilitado (<fieldset disabled>) com TYPE_LOCKED_MESSAGE e o updateTransaction recusa as duas coisas (OccurrenceDateOutsidePeriodError, LockedTypeChangeError); "Excluir" abre o DeleteConfirmedOccurrenceDialog ("Excluir e voltar a pendente" | "Excluir e pular este mês") no lugar do ConfirmDeleteTransactionDialog, e confirmOccurrenceDelete(afterwards) chama deleteConfirmedTransaction (transação rw [recurrings, transactions]). Fase 10 (RF-08, D-53(b)/(c)/(h)/(i)): parcela (installmentGroupId ≠ null) — InstallmentInfo acima do formulário ("Parcela k de n", "Valor total", "Parcelas" e "Já passaram: x de n", por countPassedInstallments com as datas do plano — CA-08.5), lido por useInstallmentGroupDetails; o tipo fica travado com "Parcelas são sempre saídas; o tipo não pode ser trocado." (typeLockReason) e o updateTransaction recusa a troca (LockedTypeChangeError); salvar muda só esta parcela, o grupo continua igual (CA-08.3); "Excluir" abre o DeleteInstallmentDialog ("Só esta" | "Esta e as seguintes" | "Todas as parcelas" — CA-08.4) e confirmInstallmentDelete(scope) chama deleteInstallments (transação rw [installmentGroups, transactions]; sem parcelas restantes, o grupo sai junto). O DeleteDialog local escolhe o modal pelo tipo do lançamento: parcela, confirmado de recorrente ou avulso. Tabelas: transactions (leitura e escrita), tags (leitura), recurrings (escrita só ao pular o mês na exclusão) e installmentGroups (leitura; exclusão junto com a última parcela).',
     contentPhase: 4,
   },
   {
@@ -613,7 +621,7 @@ export const ROUTE_NOTES: readonly RouteNote[] = [
       'D-51',
     ],
     description:
-      'Fase 9 (lazy). RecurringDetailPage (useParams id → useRecurringDetail): Page.Header com BackLink (fallback /ajustes/recorrentes) e a descrição; null → EmptyState "Recorrente não encontrado" (exceto saindo depois de excluir — isDeleted). Page.Body: RecurringSummary (tipo, tag, valor vigente, início e término), CurrentOccurrence (status do mês atual; pendente → "Pular" e "Confirmar"; pulado → "Desfazer"; botões de pular desabilitados durante a ação — D-51(m)), ErrorAlert de ação, grade com "Editar" (EditRecurringDialog — só descrição e tag, D-51(a)), "Alterar valor" (ChangeAmountDialog — novo valor a partir de um mês; padrão o mês atual ou o início; erro no campo antes do início ou depois do término — CA-07.3), "Encerrar" (EndRecurringDialog — último mês, nunca antes do início nem do último mês confirmado — D-51(d)) e "Excluir" (DeleteRecurringDialog: sem confirmadas "Excluir recorrente?"; com confirmadas "Não é possível excluir" + botão "Encerrar" — D-15); AmountHistory ("Histórico de valores"), SkippedMonths ("Meses pulados", cada um com "Desfazer") e ConfirmedTransactions ("Lançamentos confirmados", TransactionRow para /lancamentos/:id). "Confirmar" abre o ConfirmOccurrenceDialog compartilhado (components/recurrings) com o valor vigente (amountFor). Sucesso → Toast; excluir → useGoBack("/ajustes/recorrentes"). Tabelas: recurrings (leitura e escrita), transactions (leitura dos confirmados; escrita ao confirmar) e tags (leitura).',
+      'Fase 9 (lazy). RecurringDetailPage (useParams id → useRecurringDetail): Page.Header com BackLink (fallback /ajustes/recorrentes) e a descrição; null → EmptyState "Recorrente não encontrado. Ele pode ter sido excluído." (RECURRING_NOT_FOUND_MESSAGE; a 2ª frase desde a Fase 11 — D-54(c)) (exceto saindo depois de excluir — isDeleted). Page.Body: RecurringSummary (tipo, tag, valor vigente, início e término), CurrentOccurrence (status do mês atual; pendente → "Pular" e "Confirmar"; pulado → "Desfazer"; botões de pular desabilitados durante a ação — D-51(m)), ErrorAlert de ação, grade com "Editar" (EditRecurringDialog — só descrição e tag, D-51(a)), "Alterar valor" (ChangeAmountDialog — novo valor a partir de um mês; padrão o mês atual ou o início; erro no campo antes do início ou depois do término — CA-07.3), "Encerrar" (EndRecurringDialog — último mês, nunca antes do início nem do último mês confirmado — D-51(d)) e "Excluir" (DeleteRecurringDialog: sem confirmadas "Excluir recorrente?"; com confirmadas "Não é possível excluir" + botão "Encerrar" — D-15); AmountHistory ("Histórico de valores"), SkippedMonths ("Meses pulados", cada um com "Desfazer") e ConfirmedTransactions ("Lançamentos confirmados", TransactionRow para /lancamentos/:id). "Confirmar" abre o ConfirmOccurrenceDialog compartilhado (components/recurrings) com o valor vigente (amountFor). Sucesso → Toast; excluir → useGoBack("/ajustes/recorrentes"). Tabelas: recurrings (leitura e escrita), transactions (leitura dos confirmados; escrita ao confirmar) e tags (leitura).',
     contentPhase: 9,
   },
   {
@@ -1116,6 +1124,14 @@ export const COMPOSITION_NOTES: readonly CompositionNote[] = [
     component: 'DeleteDialog',
     note: 'Local do TransactionDetailPage (Fase 10): recebe transaction e o objeto do useTransactionDetail e escolhe a confirmação pelo tipo — parcela → DeleteInstallmentDialog (confirmInstallmentDelete), confirmado de recorrente → DeleteConfirmedOccurrenceDialog (confirmOccurrenceDelete), avulso → ConfirmDeleteTransactionDialog (confirmDelete); as props comuns (open, onCancel, isDeleting, errorMessage) são montadas uma vez.',
   },
+  {
+    component: 'RouteErrorPage',
+    note: 'Fase 11, src/app/layout (D-54(a)): errorElement das rotas, em pt-BR. Prop placement: "inLayout" devolve só o RouteErrorContent (renderizado no <Outlet> do AppLayout, com a barra inferior); "standalone" o envolve num <main> com px-safe/pt-safe (sem a barra — erro do próprio layout). Sem estado, sem dados e sem useRouteError: a mensagem é sempre a mesma, sem detalhes técnicos. Textos em routeErrorTexts.ts.',
+  },
+  {
+    component: 'RouteErrorContent',
+    note: 'Local do RouteErrorPage: Page > Page.Header "Algo deu errado" + <p role="alert"> com a mensagem + Button primary "Tentar de novo" (window.location.reload — refaz a leitura do banco e baixa de novo um pedaço lazy) e Link "Ir para o Início" com reloadDocument (sai do estado de erro mesmo quando o erro foi no próprio Início), com a aparência do Button secondary por buttonVariantClasses. Alvos de 44 px (min-h-11).',
+  },
 ]
 
 /** Componentes locais (não importados) e o módulo de onde vêm. */
@@ -1132,6 +1148,8 @@ export const LOCAL_COMPONENT_ORIGINS: Readonly<Record<string, string>> = {
   // Fase 10: filhos locais que isolam um hook ou uma escolha de modal.
   InstallmentDescription: 'src/components/transactions/TransactionDescription.tsx',
   DeleteDialog: 'src/features/transactions/TransactionDetailPage.tsx',
+  // Fase 11: o conteúdo comum aos dois níveis da tela de erro das rotas (D-54).
+  RouteErrorContent: 'src/app/layout/RouteErrorPage.tsx',
   // const SampleDataTools = loadSampleDataTools(): lazy() só em DEV, dentro de uma função (D-30).
   SampleDataTools: 'src/dev/sampleData/SampleDataTools.tsx',
 }
@@ -1140,7 +1158,12 @@ export const SCREEN_COMPOSITION: readonly ScreenComposition[] = [
   {
     route: '(layout)',
     stateAndData:
-      'Sem estado próprio. O tema vem do ThemeProvider (acima do RouterProvider em App.tsx); a navegação, do React Router. updateAvailable vem do Zustand (src/stores/uiStore.ts) pelo hook usePwaUpdate, lido pelo AppLayout (classe reserve-update-notice) e pelo UpdateNotice (aviso + botão); o modo instalado vem de useIsStandalone, lido uma vez por sessão.',
+      'Sem estado próprio. O tema vem do ThemeProvider (acima do RouterProvider em App.tsx); a navegação, do React Router. updateAvailable vem do Zustand (src/stores/uiStore.ts) pelo hook usePwaUpdate, lido pelo AppLayout (classe reserve-update-notice) e pelo UpdateNotice (aviso + botão); o modo instalado vem de useIsStandalone, lido uma vez por sessão. Fase 11 (D-54): como o ThemeProvider fica acima do roteador (e, portanto, acima das telas de erro), uma leitura do tema no Dexie que falha não pode lançar — useThemePreference consulta readStoredPreferenceOrNull (getStoredThemePreference().catch(() => null)) e o tema cai no espelho do localStorage (D-28). Os erros das telas são pegos pelos dois errorElement (RouteErrorPage).',
+  },
+  {
+    route: '(limite de erro)',
+    stateAndData:
+      'Árvore da tela de erro (a mesma nos dois níveis): RouteErrorPage { placement="inLayout" → RouteErrorContent | placement="standalone" → <main> safe areas > RouteErrorContent } e RouteErrorContent = Page > Page.Header "Algo deu errado" + <p role="alert"> + Button "Tentar de novo" + Link "Ir para o Início" (reloadDocument). Sem estado e sem dados: não lê o erro (useRouteError), não usa repositórios nem store; os textos vêm de routeErrorTexts.ts. As duas ações recarregam o documento, o que refaz as leituras do Dexie e baixa de novo os pedaços lazy.',
   },
   {
     route: '/ajustes',
@@ -1215,8 +1238,8 @@ export const FLOWS: readonly Flow[] = [
     id: 'theme-boot',
     title: 'Abertura do app sem piscar o tema (Dexie + espelho)',
     summary:
-      'O script inline do index.html aplica o tema lido do espelho em localStorage antes do bundle. Depois o ThemeProvider chama useThemePreference: enquanto o IndexedDB carrega vale o mesmo espelho (sem troca visível); uma única vez, um tema que só exista no espelho (Fase 0) é copiado para o Dexie numa transação; quando o useLiveQuery entrega settings.theme, ele vira a fonte da verdade e o espelho é corrigido (D-28).',
-    requirements: ['CA-09.1', 'CA-09.2', 'CA-09.3', 'CA-09.4', 'D-28'],
+      'O script inline do index.html aplica o tema lido do espelho em localStorage antes do bundle. Depois o ThemeProvider chama useThemePreference: enquanto o IndexedDB carrega vale o mesmo espelho (sem troca visível); uma única vez, um tema que só exista no espelho (Fase 0) é copiado para o Dexie numa transação; quando o useLiveQuery entrega settings.theme, ele vira a fonte da verdade e o espelho é corrigido (D-28). Fase 11 (D-54(b)): se a leitura no Dexie falhar, ela vale null e o espelho continua valendo — o ThemeProvider fica acima do roteador e das telas de erro, então não pode lançar.',
+    requirements: ['CA-09.1', 'CA-09.2', 'CA-09.3', 'CA-09.4', 'D-28', 'D-54'],
     participants: [
       { id: 'browser', label: 'Navegador' },
       { id: 'html', label: 'index.html (script)', module: 'index.html' },
@@ -1313,9 +1336,10 @@ export const FLOWS: readonly Flow[] = [
       {
         from: 'prefHook',
         to: 'repo',
-        label: 'useLiveQuery(getStoredThemePreference)',
-        detail: 'undefined enquanto carrega; null se não houver valor válido no Dexie.',
-        refs: ['CA-09.2'],
+        label: 'useLiveQuery(readStoredPreferenceOrNull)',
+        detail:
+          'undefined enquanto carrega; null se não houver valor válido no Dexie. Desde a Fase 11 a consulta é getStoredThemePreference().catch(() => null): uma falha do IndexedDB também vira null (D-54(b)).',
+        refs: ['CA-09.2', 'D-54'],
         kind: 'call',
       },
       {
@@ -1333,6 +1357,15 @@ export const FLOWS: readonly Flow[] = [
         detail: 'Único ponto de leitura da tabela settings para o tema.',
         refs: ['CA-09.2'],
         kind: 'call',
+      },
+      {
+        from: 'dexie',
+        to: 'prefHook',
+        label: 'falha → null (Fase 11)',
+        detail:
+          'IndexedDB indisponível ou leitura rejeitada: o catch devolve null e vale chosen ?? mirrored ?? system — o app abre com o tema do espelho em vez de ficar em branco (o useLiveQuery relançaria o erro na renderização, acima de qualquer errorElement).',
+        refs: ['D-54', 'D-28'],
+        kind: 'return',
       },
       {
         from: 'prefHook',
@@ -1392,6 +1425,7 @@ export const FLOWS: readonly Flow[] = [
       'src/repositories/themeRepository.test.ts',
       'src/lib/themeStorage.test.ts',
       'src/lib/theme.test.ts',
+      'src/app/theme/ThemeProvider.errors.test.tsx',
     ],
   },
   {
@@ -1734,6 +1768,103 @@ export const FLOWS: readonly Flow[] = [
       },
     ],
     tests: ['src/app/routes.test.tsx'],
+  },
+  {
+    id: 'route-error',
+    title: 'Erro ao abrir uma tela (tela de erro das rotas)',
+    summary:
+      'Fase 11 (D-54(a)). Uma leitura do Dexie que falha (o useLiveQuery relança o erro na renderização) ou uma tela lazy cujo pedaço não baixou sobem até o errorElement mais próximo. Erro de uma tela → RouteErrorPage "inLayout" dentro do AppLayout (a barra inferior continua funcionando); erro do próprio layout → RouteErrorPage "standalone", sem a barra. "Tentar de novo" recarrega a página; "Ir para o Início" recarrega já no Início.',
+    requirements: ['D-54', 'RNF-06', 'RF-13'],
+    participants: [
+      { id: 'user', label: 'Usuário' },
+      { id: 'routes', label: 'routes.tsx', module: 'src/app/routes.tsx' },
+      { id: 'layout', label: 'AppLayout', module: 'src/app/layout/AppLayout.tsx' },
+      { id: 'screen', label: 'Tela (ex.: TagsPage)', module: 'src/features/tags/TagsPage.tsx' },
+      {
+        id: 'repo',
+        label: 'Hook do repositório',
+        module: 'src/repositories/tagsRepository.ts',
+      },
+      { id: 'error', label: 'RouteErrorPage', module: 'src/app/layout/RouteErrorPage.tsx' },
+      { id: 'texts', label: 'routeErrorTexts', module: 'src/app/layout/routeErrorTexts.ts' },
+      { id: 'browser', label: 'Navegador' },
+    ],
+    steps: [
+      {
+        from: 'user',
+        to: 'routes',
+        label: 'abre /ajustes/tags',
+        detail:
+          'A rota sem caminho que envolve as 12 telas tem errorElement = <RouteErrorPage placement="inLayout" />; o layout tem o "standalone".',
+        refs: ['D-54'],
+        kind: 'event',
+      },
+      {
+        from: 'screen',
+        to: 'repo',
+        label: 'useTagsWithTransactionCount()',
+        detail:
+          'useLiveQuery: se o IndexedDB rejeitar a leitura, o hook relança o erro durante a renderização (o mesmo vale para o import() de uma tela lazy que falha).',
+        refs: ['D-54'],
+        kind: 'call',
+      },
+      {
+        from: 'repo',
+        to: 'routes',
+        label: 'erro na renderização',
+        detail:
+          'O React Router pega o erro no limite mais próximo: o da rota sem caminho. O AppLayout continua montado.',
+        refs: ['D-54'],
+        kind: 'return',
+      },
+      {
+        from: 'routes',
+        to: 'error',
+        label: 'placement="inLayout"',
+        detail:
+          'Renderizado no <Outlet> do AppLayout: Page.Header "Algo deu errado" e <p role="alert"> com a mensagem; a BottomNav continua e tocar em outra aba sai do erro.',
+        refs: ['D-54', 'RNF-06'],
+        kind: 'call',
+      },
+      {
+        from: 'error',
+        to: 'texts',
+        label: 'ROUTE_ERROR_TITLE / MESSAGE',
+        detail: 'Textos em pt-BR, sem detalhes técnicos do erro (nada de useRouteError).',
+        refs: ['D-54'],
+        kind: 'call',
+      },
+      {
+        from: 'layout',
+        to: 'error',
+        label: 'erro no próprio layout',
+        detail:
+          'Ex.: usePwaUpdate lança. O limite do layout troca tudo por <RouteErrorPage placement="standalone" />: <main> com px-safe/pt-safe, sem a barra.',
+        refs: ['D-54', 'RF-13'],
+        kind: 'event',
+      },
+      {
+        from: 'user',
+        to: 'error',
+        label: '"Tentar de novo" | "Ir para o Início"',
+        detail:
+          'Button → window.location.reload() (refaz a leitura e baixa de novo o pedaço lazy); Link to="/" reloadDocument (sai do erro mesmo quando ele foi no Início). Alvos de 44 px.',
+        refs: ['D-54', 'RNF-06'],
+        kind: 'event',
+      },
+      {
+        from: 'error',
+        to: 'browser',
+        label: 'recarrega o documento',
+        detail: 'Abertura normal do app; o tema não pisca (espelho do localStorage — D-28).',
+        refs: ['D-54', 'D-28'],
+        kind: 'call',
+      },
+    ],
+    tests: [
+      'src/app/layout/RouteErrorPage.test.tsx',
+      'src/app/layout/RouteErrorPage.lazy.test.tsx',
+    ],
   },
   {
     id: 'dev-page',
@@ -3386,7 +3517,7 @@ export const FLOWS: readonly Flow[] = [
         to: 'detail',
         label: 'useTransactionDetail(id)',
         detail:
-          'useTransaction(id) (useLiveQuery): undefined carregando, null inexistente → EmptyState "Lançamento não encontrado" (D-38(c)).',
+          'useTransaction(id) (useLiveQuery): undefined carregando, null inexistente → EmptyState "Lançamento não encontrado. Ele pode ter sido excluído." (D-38(c); 2ª frase desde a Fase 11 — D-54(c)).',
         refs: ['D-38'],
         kind: 'call',
       },
@@ -7101,10 +7232,14 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
     number: 5,
     title: 'Local-first (nada sai do aparelho)',
     enforcement:
-      'check-consistency (chamadas de rede no código). Fase 6: o único caminho para fora é o arquivo de backup que o usuário entrega pela folha de compartilhamento ou pelo download (lib/share), sem rede.',
-    modules: ['src/lib/share.ts', 'src/repositories/backupRepository.ts'],
+      'check-consistency (chamadas de rede no código). Fase 6: o único caminho para fora é o arquivo de backup que o usuário entrega pela folha de compartilhamento ou pelo download (lib/share), sem rede. Fase 11 (D-57, RNF-04): varredura do dist/ depois do build — nenhum script, link, @import, url( ou fonte de outro domínio, nenhum analytics; os únicos fetch são o pré-carregamento do Vite e o precache do Workbox, para o próprio site. A aba Rede no uso real é conferida pelo dono.',
+    modules: [
+      'src/lib/share.ts',
+      'src/repositories/backupRepository.ts',
+      'src/app/pwa/pwaOptions.ts',
+    ],
     tests: ['src/lib/share.test.ts'],
-    decisions: ['D-08'],
+    decisions: ['D-08', 'D-57'],
   },
   {
     number: 6,
@@ -7207,9 +7342,10 @@ export const PRINCIPLES: readonly PrincipleInfo[] = [
       'src/components/ui/Toast.tsx',
       'src/index.css',
       'src/components/ui/Checkbox.tsx',
+      'src/app/layout/RouteErrorPage.tsx',
     ],
     tests: [],
-    decisions: ['D-38', 'D-53'],
+    decisions: ['D-38', 'D-53', 'D-55'],
   },
   {
     number: 11,
@@ -7390,9 +7526,16 @@ export const DECISIONS: readonly DecisionInfo[] = [
   },
   {
     id: 'D-09',
-    title: 'Nome provisório "Meus Gastos"',
+    title:
+      'Nome e ícone definitivos (Fase 11): "Meus Gastos" (name) / "Gastos" (short_name e apple-mobile-web-app-title); três barras brancas crescentes sobre o azul blue-600, gerados por scripts/generate-icons.mjs — os que já estavam em uso (resposta à Q-03)',
     status: 'confirmed',
-    impacts: ['index.html', 'src/app/pwa/pwaOptions.ts'],
+    impacts: [
+      'index.html',
+      'src/app/pwa/pwaOptions.ts',
+      'scripts/generate-icons.mjs',
+      'README.md',
+      'public/pwa-512x512.png',
+    ],
   },
   {
     id: 'D-10',
@@ -7520,7 +7663,8 @@ export const DECISIONS: readonly DecisionInfo[] = [
   },
   {
     id: 'D-25',
-    title: 'Ícones provisórios gerados com módulos nativos; favicon.svg removido',
+    title:
+      'Ícones gerados com módulos nativos (provisórios até a Fase 11; mantidos como definitivos pela D-09, sem regerar os PNGs); favicon.svg removido',
     status: 'confirmed',
     impacts: [
       'scripts/generate-icons.mjs',
@@ -7999,6 +8143,56 @@ export const DECISIONS: readonly DecisionInfo[] = [
       'src/features/transactions/InstallmentPurchase.test.tsx',
     ],
   },
+  {
+    id: 'D-54',
+    title:
+      'Estados vazios e erros: tela de erro das rotas em pt-BR em dois níveis (dentro do layout e no lugar dele); leitura do tema que falha vale null (espelho do localStorage); "não encontrado. Ele pode ter sido excluído." para lançamento e recorrente; auditoria dos estados vazios',
+    status: 'pending',
+    impacts: [
+      'src/app/routes.tsx',
+      'src/app/layout/RouteErrorPage.tsx',
+      'src/app/layout/routeErrorTexts.ts',
+      'src/repositories/useThemePreference.ts',
+      'src/features/transactions/transactionListTexts.ts',
+      'src/features/transactions/TransactionDetailPage.tsx',
+      'src/features/recurrings/recurringsTexts.ts',
+      'src/app/layout/RouteErrorPage.test.tsx',
+      'src/app/theme/ThemeProvider.errors.test.tsx',
+      'src/features/transactions/TransactionDetailPage.test.tsx',
+      'src/features/recurrings/RecurringDetailPage.test.tsx',
+    ],
+  },
+  {
+    id: 'D-55',
+    title:
+      'Acessibilidade (RNF-06): borda dos campos slate-500 no claro e slate-400 no escuro (antes 1,48:1 e 2,36:1; WCAG 1.4.11 ≥ 3:1) e seta "›" das listas navegáveis slate-500 no claro (antes 2,63:1); demais pares conferidos e mantidos',
+    status: 'pending',
+    impacts: [
+      'src/components/ui/inputClasses.ts',
+      'src/components/tags/TagColorPicker.tsx',
+      'src/components/ui/NavList.tsx',
+      'src/features/recurrings/RecurringList.tsx',
+      'src/features/tags/TagList.tsx',
+    ],
+  },
+  {
+    id: 'D-56',
+    title:
+      'Desempenho com 10.000 lançamentos (RNF-02): teste das telas (Início ~21 ms, Visões Ano ~15 ms, Gráficos Ano ~8 ms; meta < 300 ms) sem otimização; "(k/n)" ausente por ~40–56 ms mantido; pacote principal 113,4 kB gzip, tela inicial ~216 kB gzip',
+    status: 'pending',
+    impacts: [
+      'src/test/largeDataset.ts',
+      'src/domain/screens.performance.test.ts',
+      'src/components/transactions/TransactionDescription.tsx',
+    ],
+  },
+  {
+    id: 'D-57',
+    title:
+      'Nenhum recurso externo em produção (RNF-04): varredura do dist/ sem script, link, @import, url( nem fonte de outro domínio; só fetch do próprio site (pré-carregamento do Vite e precache do Workbox); conferência na aba Rede é do dono',
+    status: 'pending',
+    impacts: ['index.html', 'vite.config.ts', 'src/app/pwa/pwaOptions.ts'],
+  },
 ]
 
 // ---------- dependências externas ----------
@@ -8044,6 +8238,47 @@ export const PACKAGE_SOURCES: Readonly<Record<string, PackageSource>> = {
 
 export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
   {
+    title: 'D-54 a D-57 aguardando confirmação do dono',
+    severity: 'warn',
+    detail:
+      'Registradas na §8.1 em 26/10/2026 (spec 1.37). D-54: tela de erro das rotas em dois níveis (RouteErrorPage inLayout/standalone), leitura do tema que falha vale null, "não encontrado. Ele pode ter sido excluído.", auditoria dos estados vazios. D-55: contraste da borda dos campos e da seta "›" (RNF-06). D-56: desempenho com 10.000 lançamentos medido no PC, sem otimização (RNF-02). D-57: nenhum recurso externo no dist/ (RNF-04). A D-09 (nome e ícone definitivos) já é escolha do dono e resolveu a Q-03.',
+    modules: [
+      'docs/SPEC.md',
+      'src/app/routes.tsx',
+      'src/app/layout/RouteErrorPage.tsx',
+      'src/repositories/useThemePreference.ts',
+      'src/components/ui/inputClasses.ts',
+      'src/domain/screens.performance.test.ts',
+    ],
+  },
+  {
+    title: 'Pendente (dono): teste manual da Fase 11 e as tarefas da §7',
+    severity: 'warn',
+    detail:
+      'O trabalho das seis tarefas da Fase 11 está no código e na §8.1 (D-09, D-54 a D-57), mas nenhuma delas está marcada [x] na §7 (o scanner mostra 0/6). Roteiro ainda não rodado: (1) percorrer os roteiros anteriores com o app instalado; (2) usar uma semana com dados reais; (3) no iPhone, abrir pelo ícone em < 1,5 s e, com os 5.000 dados de exemplo importados (depois de exportar um backup dos dados reais), cada tela em < 300 ms e o "(k/n)" sem piscar de forma incômoda; (4) aba Rede do PC só com o próprio domínio; (5) borda dos campos visível nos dois temas e contorno de foco com Tab; (6) /lancamentos/id-que-nao-existe → "Lançamento não encontrado. Ele pode ter sido excluído."',
+    modules: [
+      'docs/SPEC.md',
+      'src/app/layout/RouteErrorPage.tsx',
+      'src/features/transactions/TransactionDetailPage.tsx',
+      'src/components/ui/inputClasses.ts',
+    ],
+  },
+  {
+    title:
+      'Bordas slate-300/slate-600 continuam fora dos campos (botões secundários, setas, segmentado)',
+    severity: 'info',
+    detail:
+      'A D-55 corrigiu a borda dos campos (inputClasses, TagColorPicker), que é o único sinal de onde o campo está. A mesma combinação de baixo contraste (slate-300 sobre branco 1,48:1; slate-600 sobre slate-900 2,36:1) continua no Button secondary, nas setas ‹ › do PeriodNavigator, no contorno do createRadioGroup segmentado, no botão do FileInput e no Link "Ir para o Início" da RouteErrorPage. Nesses casos o texto do botão (contraste ≥ 4,5:1) já identifica o controle, então a WCAG 1.4.11 não exige a borda — mas a D-55 não cita esses componentes; vale o dono confirmar que é intencional. Desde a revisão da Fase 11 a aparência vem de um lugar só (buttonVariantClasses em components/ui/buttonClasses.ts, usado pelo Button, pelo Link da RouteErrorPage e pelo NewTransactionLink), então uma mudança de borda passa a valer para todos de uma vez.',
+    modules: [
+      'src/components/ui/Button.tsx',
+      'src/components/ui/buttonClasses.ts',
+      'src/components/periods/PeriodNavigator.tsx',
+      'src/components/ui/createRadioGroup.tsx',
+      'src/components/ui/FileInput.tsx',
+      'src/app/layout/RouteErrorPage.tsx',
+    ],
+  },
+  {
     title: 'D-53 aguardando confirmação do dono',
     severity: 'warn',
     detail:
@@ -8082,7 +8317,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/repositories/installmentsRepository.ts',
       'src/components/transactions/TransactionRow.tsx',
     ],
-    decided: 'Aceito por ora na D-53(k); medir na Fase 11 com listas grandes (RNF-02).',
+    decided:
+      'Aceito na D-53(k) e medido na Fase 11 (D-56(b), aguardando confirmação): com 10.000 lançamentos (jsdom + fake-indexeddb) a linha fica sem o "(k/n)" por ~40–56 ms (2–3 quadros); mantido. Se o dono notar no iPhone, ler o número de parcelas dos grupos da página junto com a lista.',
   },
   {
     title: 'Módulos novos da Fase 10 sem teste próprio',
@@ -8141,7 +8377,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     detail:
       'listPendingOccurrences e getConfirmedKeysIn fazem recurrings.toArray() e um anyOf no índice [recurringId+recurringPeriod] com recorrentes × meses chaves (visão Ano: até 12 × N). Como são useLiveQuery, a consulta roda de novo a cada gravação em recurrings ou nos lançamentos dessas chaves. Com dezenas de recorrentes é barato; fica registrado para a medição de desempenho.',
     modules: ['src/repositories/recurringsRepository.ts', 'src/features/views/usePeriodPending.ts'],
-    decided: 'Medir na Fase 11 (RNF-02, D-41).',
+    decided:
+      'Medido na Fase 11 (D-56(a), aguardando confirmação): Início com as pendências de 20 recorrentes e 10.000 lançamentos ~21 ms no PC (meta < 300 ms); sem otimização. Falta a conferência do dono no iPhone (roteiro da Fase 11, item 3).',
   },
   {
     title: 'Padrão de formulário (RHF + zod + princípio 16) repetido em quatro hooks',
@@ -8238,7 +8475,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
       'src/repositories/transactionsRepository.ts',
       'src/domain/charts.ts',
     ],
-    decided: 'Medir na Fase 11 (RNF-02, D-41), junto com a abertura do app.',
+    decided:
+      'Medido na Fase 11 (D-56(a), aguardando confirmação): Gráficos Ano ~8 ms e Mês ~6 ms com 10.000 lançamentos no PC (roscas, barras, totais e saldo); sem otimização. Abertura no iPhone: roteiro da Fase 11, item 3.',
   },
   {
     title: 'Fase 8: Chart.js só no chunk da tela de gráficos',
@@ -8246,7 +8484,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     detail:
       'Build da Fase 8: ChartsPage 175 kB (62,5 kB gzip), carregada por React.lazy; o pacote principal ficou em 112,5 kB gzip, sem Chart.js (RNF-02). Registro mínimo em chart/chartSetup.ts (sem Tooltip, Legend, Filler, Title nem escalas de tempo). O tamanho total é medido na Fase 11 (D-41).',
     modules: ['src/features/charts/ChartsPage.tsx', 'src/features/charts/chart/chartSetup.ts'],
-    decided: 'Acompanhar na Fase 11 (D-41).',
+    decided:
+      'Conferido na Fase 11 (D-56(c), aguardando confirmação): o pacote principal continua sem Chart.js (113,4 kB gzip).',
   },
   {
     title: 'groupByTag (domain/balances) continua sem uso em produção',
@@ -8358,7 +8597,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     severity: 'info',
     detail:
       'D-47(f): derivar a chave leva ~345 ms no PC de desenvolvimento (Node 22) e validar um backup de 10.000 lançamentos (~3 MB) ~130 ms. No Safari do iPhone a derivação pode ser várias vezes mais lenta; o botão mostra "Gerando backup…"/"Verificando backup…" e, se a demora fizer o navegador recusar a folha de compartilhamento (NotAllowedError), aparece "Salvar backup". RNF-05 fixa as 600.000 iterações: nada a mudar agora.',
-    decided: 'Medir na Fase 11, junto com a abertura do app (D-41).',
+    decided:
+      'A Fase 11 mediu as telas no PC (D-56), não o PBKDF2 no iPhone: o tempo de exportar/importar no iPhone fica para o uso real do dono (roteiro da Fase 11, itens 1–2).',
     modules: ['src/lib/crypto.ts', 'src/features/backup/useExportBackup.ts', 'src/lib/share.ts'],
   },
   {
@@ -8366,7 +8606,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     severity: 'info',
     detail:
       'O Início ganhou o BackupReminder (domain/backupReminder + useLastBackupAt + useTransactionCount): ~1,6 kB gzip a mais no caminho de abertura. A criptografia, o backupFormat e o zod do backup ficam no chunk lazy BackupPage-*.js (~7,3 kB gzip). Com a tela de backup usando também o formulário, o Rolldown passou a separar o código compartilhado em formSubmit-*.js (~14,5 kB gzip: react-hook-form, resolvers e o padrão do princípio 16) e dexie-react-hooks-*.js: é o mesmo código que antes ficava no index-*.js, sem peso novo. Enquadra-se na D-41.',
-    decided: 'Sem otimização agora (D-41); medir na Fase 11.',
+    decided:
+      'Sem otimização (D-41). Fase 11 (D-56(c), aguardando confirmação): pacote principal 113,4 kB gzip; tudo o que a tela inicial carrega ~216 kB gzip, vindo do precache.',
     modules: [
       'src/features/home/HomePage.tsx',
       'src/features/home/BackupReminder.tsx',
@@ -8438,7 +8679,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     severity: 'info',
     detail:
       'useTransactionsInPeriod é um useLiveQuery: qualquer gravação em transactions refaz toArray() do período (sem filtro de período, a tabela inteira) e o sortByRecency/summarizeTransactionList em memória. No PC (Node/Vitest), 10.000 lançamentos levam ~6 ms para ordenar e 1–5 ms para filtrar + agrupar + totalizar (teste de desempenho < 300 ms — RNF-02), mas a leitura real do IndexedDB no Safari do iPhone não foi medida. A D-44(a) adia a medição para a Fase 11, como a D-41.',
-    decided: 'Medir na Fase 11 (D-44(a)).',
+    decided:
+      'Medido na Fase 11 no PC (D-56(a): a lista continua em 2–19 ms com 10.000 lançamentos); a leitura real no Safari do iPhone, refeita a cada gravação, fica para o roteiro da Fase 11 (item 3).',
     modules: [
       'src/repositories/transactionsRepository.ts',
       'src/features/transactions/useTransactionList.ts',
@@ -8461,7 +8703,8 @@ export const ARCHITECTURE_FINDINGS: readonly ArchitectureFinding[] = [
     severity: 'info',
     detail:
       'Na Fase 4 o index-*.js foi de 423 kB / 135 kB gzip para 596,3 kB / 188,9 kB gzip, porque o Início (única tela fora do React.lazy — RNF-02) passou a montar o TransactionForm. Medições do revisor: zod ~23,6 kB gzip (zod/mini ~6,2 kB), react-hook-form + @hookform/resolvers ~13,3 kB, date-fns format + ptBR ~6,6 kB. O zod também chega ao caminho de abertura pelos repositórios: BalanceSummary → transactionsRepository → transactionSchema e RecentTransactions → tagsRepository → tagSchema (os repositórios validam com os schemas). Efeito colateral: o chunk TagsPage-*.js caiu para 6 kB (zod e RHF agora estão no pacote principal). Decidido pela D-41 (21/10/2026): aguardar a Fase 11 — nenhuma otimização agora; a abertura (RNF-02) será medida no iPhone e só então se decide entre formulário lazy, separar leitura e escrita nos repositórios (as consultas de leitura não precisam do schema) ou nada.',
-    decided: 'Aguardar Fase 11 (D-41).',
+    decided:
+      'Fase 11 (D-56(c), aguardando confirmação): 113,4 kB gzip (357,9 kB sem compressão) no pacote principal e ~216 kB gzip na abertura; nenhuma otimização — falta medir a abertura no iPhone (< 1,5 s com cache, roteiro da Fase 11, item 3).',
     modules: [
       'src/features/home/HomePage.tsx',
       'src/components/transactions/TransactionForm.tsx',
@@ -8935,7 +9178,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'tsconfig.app.json':
     'types: vite/client e vite-plugin-pwa/vanillajs (tipos do módulo virtual:pwa-register — Fase 1). D-43: exclude de src/styles/tailwindEntry.test.ts (tipado pelo tsconfig.node.json).',
   'scripts/generate-icons.mjs':
-    'Gera os 5 PNGs provisórios de public/ montando o PNG à mão com zlib (só módulos nativos do Node — D-25). Símbolo de três barras sobre o azul blue-600; o maskable usa escala menor para caber na área segura de 80%. Rodar à mão: node scripts/generate-icons.mjs (não faz parte do build).',
+    'Gera os 5 PNGs de public/ (provisórios até a Fase 11; definitivos pela D-09, sem mudar o desenho) montando o PNG à mão com zlib (só módulos nativos do Node — D-25). Símbolo de três barras sobre o azul blue-600; o maskable usa escala menor para caber na área segura de 80%. Rodar à mão: node scripts/generate-icons.mjs (não faz parte do build).',
   'src/main.tsx':
     'Entrada do bundle: registerPwa(registerSW) (Fase 1) antes do createRoot, depois StrictMode + App + CSS global (src/index.css, que exclui src/dev da varredura do Tailwind).',
   'src/app/layout/AppLayout.tsx':
@@ -8967,7 +9210,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/app/App.tsx':
     'Cria o router uma vez no nível do módulo e põe o ThemeProvider por fora do RouterProvider (o tema vale também para rotas fora do layout, como esta página). Fase 2: chama usePersistentStorageRequest() no corpo, para o pedido de persist() valer em qualquer rota (CA-11.4).',
   'src/app/routes.tsx':
-    'Árvore de rotas exportada sem o router, para os testes usarem createMemoryRouter (src/test/renderApp.tsx).',
+    'Árvore de rotas exportada sem o router, para os testes usarem createMemoryRouter (src/test/renderApp.tsx). Fase 11 (D-54(a)): errorElement em dois níveis — RouteErrorPage "standalone" no AppLayout e "inLayout" numa rota sem caminho que envolve as 12 telas (o erro de uma tela fica dentro do layout, com a barra inferior).',
   'src/app/lazyPages.tsx':
     'Todas as telas, exceto o Início, com React.lazy (code splitting por rota — RNF-02).',
   'src/app/devRoutes.tsx':
@@ -9012,7 +9255,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/repositories/themeRepository.ts':
     'getStoredThemePreference, saveThemePreference (espelho primeiro, Dexie depois) e migrateThemePreferenceFromMirror (transação rw, uma vez — D-28).',
   'src/repositories/useThemePreference.ts':
-    'Estado do tema: chosen (sessão) ?? stored (useLiveQuery) ?? mirrored (localStorage) ?? system. Migra o espelho uma vez e o corrige quando o Dexie entrega o valor (D-28).',
+    'Estado do tema: chosen (sessão) ?? stored (useLiveQuery) ?? mirrored (localStorage) ?? system. Migra o espelho uma vez e o corrige quando o Dexie entrega o valor (D-28). Fase 11 (D-54(b)): a consulta é readStoredPreferenceOrNull — uma leitura que falha vale null e o espelho continua valendo, porque o ThemeProvider fica acima do roteador e das telas de erro.',
   'src/repositories/ThemeContext.ts':
     'Contexto do tema em repositories para as features não importarem de app/ (D-22).',
   'src/repositories/useTheme.ts': 'use(ThemeContext) com erro claro fora do ThemeProvider (D-22).',
@@ -9196,7 +9439,7 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
   'src/components/ui/TextInput.tsx':
     'Fase 4: input text com as props do useFieldControl e as classes comuns de inputClasses.ts.',
   'src/components/ui/inputClasses.ts':
-    'TEXT_INPUT_CLASSES: alvo ≥ 44 px, fonte de 16 px (sem zoom do Safari no iOS) e borda vermelha com aria-invalid.',
+    'TEXT_INPUT_CLASSES: alvo ≥ 44 px, fonte de 16 px (sem zoom do Safari no iOS) e borda vermelha com aria-invalid. Fase 11 (D-55, RNF-06): borda slate-500 no claro (4,77:1) e slate-400 no escuro (6,79:1 sobre slate-900, 5,58:1 sobre slate-800) — a borda é o que mostra onde o campo está (WCAG 1.4.11, ≥ 3:1); antes 1,48:1 e 2,36:1.',
   'src/components/ui/SignedAmount.tsx':
     'Fase 4 (CA-02.1): formatSignedBRL com verde/vermelho/neutro (contraste AA nos dois temas) e tamanhos sm | md | lg; o sinal está sempre no texto.',
   'src/components/ui/Toast.tsx':
@@ -9405,4 +9648,20 @@ export const MODULE_NOTES: Readonly<Record<string, string>> = {
     'Fase 10 (CA-08.4, D-53(i)): Modal "Excluir parcela?" com "Só esta", "Esta e as seguintes", "Todas as parcelas" e "Cancelar"; descrição com o "(k/n)" (TransactionDescription); ErrorAlert de falha.',
   'src/dev/sampleData/sampleInstallments.ts':
     'Fase 2 (§6.11, D-30): 3 parcelamentos de exemplo (Notebook 12x a partir de 31/01, Geladeira 10x com resto, Passagens 6x), com parcelas passadas e futuras por addMonthsClamped. Fase 10: os valores das parcelas vêm de splitInstallments (domain/installments), a mesma regra do app.',
+  'src/app/layout/RouteErrorPage.tsx':
+    'Fase 11 (D-54(a)): errorElement das rotas em pt-BR — "Algo deu errado", mensagem com role="alert", "Tentar de novo" (recarrega) e "Ir para o Início" (Link com reloadDocument). placement "inLayout" (no <Outlet>, com a barra) ou "standalone" (<main> com safe areas, sem a barra). Sem estado e sem useRouteError (nenhum detalhe técnico na tela).',
+  'src/app/layout/routeErrorTexts.ts':
+    'Fase 11 (D-54(a)): os quatro textos da tela de erro das rotas (título, mensagem, "Tentar de novo", "Ir para o Início").',
+  'src/app/layout/RouteErrorPage.test.tsx':
+    'Fase 11 (D-54(a), projeto dom): leitura do Dexie que falha numa tela (useTagsWithTransactionCount mockado para lançar) → mensagem dentro do layout com a barra inferior; tocar na barra sai do erro; erro no próprio layout (usePwaUpdate lança) → tela de erro sozinha, na região principal. console.error/warn silenciados e mocks restaurados.',
+  'src/app/layout/RouteErrorPage.lazy.test.tsx':
+    'Fase 11 (D-54(a), projeto dom): uma tela lazy cujo pedaço não carrega (import rejeitado, como um pacote antigo removido do servidor) mostra a tela de erro dentro do layout, com a barra inferior; "Tentar de novo" chama window.location.reload.',
+  'src/components/ui/buttonClasses.ts':
+    'Revisão da Fase 11: ButtonVariant e buttonVariantClasses(variant) — a aparência do Button (min-h-11, raio, variantes) sem os estados de desabilitado, para um Link com cara de botão usar as mesmas classes (Link "Ir para o Início" da RouteErrorPage, NewTransactionLink da lista). O Button reexporta o tipo.',
+  'src/app/theme/ThemeProvider.errors.test.tsx':
+    'Fase 11 (D-54(b), projeto dom): getStoredThemePreference rejeitado → o Início abre com o tema do espelho do localStorage (classe dark), sem tela branca.',
+  'src/test/largeDataset.ts':
+    'Fase 11 (RNF-02, D-56): buildLargeDataset({ year, month?, seed }) — 10.000 lançamentos com semente fixa (createTestRandom), 12 tags, ~30% de entradas, 20 recorrentes e confirmados de recorrentes (1 a cada 50), tudo dentro do período pedido (pior caso), e measure(run) → { result, ms } com performance.now(). Usado só por screens.performance.test.ts.',
+  'src/domain/screens.performance.test.ts':
+    'Fase 11 (RNF-02, D-56, projeto unit): com 10.000 lançamentos, os cálculos de cada tela em < 300 ms — Início (saldo geral, totais do mês, últimos lançamentos e pendências), Visões Ano/Mês/Semana, Gráficos Ano/Mês e gerar 48 parcelas. Medido no PC: ~21, 15, 6, 3, 8, 6 e 2 ms. Só funções puras (sem Dexie): mede o domínio, não o IndexedDB do iPhone.',
 }

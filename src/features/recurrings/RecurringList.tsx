@@ -43,7 +43,7 @@ export function RecurringList({
                 </span>
               </span>
               <SignedAmount cents={recurring.type === 'income' ? cents : -cents} />
-              <span aria-hidden="true" className="text-slate-400">
+              <span aria-hidden="true" className="text-slate-500 dark:text-slate-400">
                 ›
               </span>
             </Link>

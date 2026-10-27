@@ -1,17 +1,11 @@
 import type { ButtonHTMLAttributes, Ref } from 'react'
+import { buttonVariantClasses, type ButtonVariant } from '@/components/ui/buttonClasses'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'danger-outline'
+export type { ButtonVariant }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: ButtonVariant
   ref?: Ref<HTMLButtonElement>
-}
-
-const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary: 'bg-blue-700 text-white dark:bg-blue-600',
-  secondary: 'border border-slate-300 text-slate-900 dark:border-slate-600 dark:text-slate-100',
-  danger: 'bg-red-700 text-white dark:bg-red-600',
-  'danger-outline': 'border border-red-300 text-red-700 dark:border-red-800 dark:text-red-300',
 }
 
 // Princípio 16 — desabilitado vira cinza neutro em qualquer variante (contraste do texto
@@ -27,7 +21,7 @@ export function Button({ variant, type = 'button', className = '', ...props }: B
   return (
     <button
       type={type}
-      className={`min-h-11 rounded-lg px-4 font-semibold ${VARIANT_CLASSES[variant]} ${DISABLED_CLASSES} ${className}`}
+      className={`${buttonVariantClasses(variant)} ${DISABLED_CLASSES} ${className}`}
       {...props}
     />
   )

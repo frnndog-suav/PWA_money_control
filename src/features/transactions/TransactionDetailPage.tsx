@@ -9,6 +9,7 @@ import { ConfirmDeleteTransactionDialog } from '@/features/transactions/ConfirmD
 import { DeleteConfirmedOccurrenceDialog } from '@/features/transactions/DeleteConfirmedOccurrenceDialog'
 import { DeleteInstallmentDialog } from '@/features/transactions/DeleteInstallmentDialog'
 import { InstallmentInfo } from '@/features/transactions/InstallmentInfo'
+import { TRANSACTION_NOT_FOUND_MESSAGE } from '@/features/transactions/transactionListTexts'
 import { useTransactionDetail } from '@/features/transactions/useTransactionDetail'
 
 type Detail = ReturnType<typeof useTransactionDetail>
@@ -72,7 +73,9 @@ export function TransactionDetailPage() {
     <Page>
       <Page.Header leading={<BackLink fallbackTo="/lancamentos" />}>Lançamento</Page.Header>
       {/* Sem nada enquanto carrega ou saindo da tela, para nada piscar. */}
-      {transaction === null && !detail.isDone && <EmptyState>Lançamento não encontrado</EmptyState>}
+      {transaction === null && !detail.isDone && (
+        <EmptyState>{TRANSACTION_NOT_FOUND_MESSAGE}</EmptyState>
+      )}
       {transaction && (
         <>
           {transaction.installmentGroupId !== null && (

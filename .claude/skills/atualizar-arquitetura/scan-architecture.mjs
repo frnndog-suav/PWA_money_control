@@ -361,11 +361,51 @@ function extractRoutes(code) {
     const tags = matchAll(m[3], /<([A-Z][\w$]*)/g);
     defs.push({ path: m[1] ?? '(index)', index: Boolean(m[2]), elements: tags });
   }
-  // Rotas de layout: `{ element: <Layout />, children: [...] }`.
-  for (const m of code.matchAll(/\{\s*element\s*:\s*<([A-Z][\w$]*)[^>]*\/>\s*,\s*children\s*:/g)) {
-    defs.push({ path: '(layout)', index: false, elements: [m[1]] });
+  // Rotas com filhos e sem caminho, em qualquer ordem de chaves:
+  // `{ element: <Layout />, errorElement: <Erro />, children: [...] }` → '(layout)';
+  // `{ errorElement: <Erro />, children: [...] }` (só agrupa as telas) → '(limite de erro)'.
+  for (const m of code.matchAll(/\bchildren\s*:\s*\[/g)) {
+    const start = enclosingObjectStart(code, m.index);
+    if (start < 0) continue;
+    const ownKeys = topLevelText(code.slice(start + 1, m.index));
+    if (/\b(?:path|index)\s*:/.test(ownKeys)) continue;
+    const element = ownKeys.match(/(?:^|[,{\s])element\s*:\s*\(?\s*<([A-Z][\w$]*)/)?.[1] ?? null;
+    const errorElement = ownKeys.match(/\berrorElement\s*:\s*\(?\s*<([A-Z][\w$]*)/)?.[1] ?? null;
+    if (!element && !errorElement) continue;
+    defs.push({
+      path: element ? '(layout)' : '(limite de erro)',
+      index: false,
+      elements: element ? [element] : [],
+      errorElement,
+    });
   }
   return defs;
+}
+
+/** Índice do `{` do objeto que contém a posição `at` (-1 se não houver). */
+function enclosingObjectStart(code, at) {
+  let depth = 0;
+  for (let i = at - 1; i >= 0; i--) {
+    const ch = code[i];
+    if (ch === '}' || ch === ']' || ch === ')') depth++;
+    else if (ch === '{' || ch === '[' || ch === '(') {
+      if (depth === 0) return ch === '{' ? i : -1;
+      depth--;
+    }
+  }
+  return -1;
+}
+
+/** Só o texto no nível de cima de um trecho de objeto (sem o conteúdo de {}, [] e ()). */
+function topLevelText(text) {
+  let depth = 0;
+  let out = '';
+  for (const ch of text) {
+    if (ch === '{' || ch === '[' || ch === '(') depth++;
+    if (depth === 0) out += ch;
+    if ((ch === '}' || ch === ']' || ch === ')') && depth > 0) depth--;
+  }
+  return out;
 }
 
 // ---------- arquivos de configuração da raiz ----------
@@ -637,7 +677,9 @@ const routesIndex = modules
     m.routeDefs.map((r) => {
       const main = r.elements.find((e) => !ROUTE_WRAPPERS.has(e)) ?? r.elements[0] ?? null;
       const resolved = main ? resolveElement(main, m) : { module: null, lazy: false };
-      const fullPath = r.index ? '/' : r.path === '(layout)' || r.path === '*' || r.path.startsWith('/') ? r.path : '/' + r.path;
+      const isGroup = r.path === '(layout)' || r.path === '(limite de erro)';
+      const fullPath = r.index ? '/' : isGroup || r.path === '*' || r.path.startsWith('/') ? r.path : '/' + r.path;
+      const errorResolved = r.errorElement ? resolveElement(r.errorElement, m) : null;
       return {
         path: fullPath,
         definedIn: m.id,
@@ -648,6 +690,10 @@ const routesIndex = modules
         lazy: resolved.lazy,
         devOnly: m.devOnly,
         layout: r.path === '(layout)',
+        // Rota sem caminho que só agrupa as telas para dar a elas um errorElement próprio.
+        errorBoundary: r.path === '(limite de erro)',
+        errorElement: r.errorElement ?? null,
+        errorModule: errorResolved?.module ?? null,
       };
     }),
   )

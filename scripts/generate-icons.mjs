@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-// Gera os ícones PROVISÓRIOS do PWA (§6.9 / CA-11.1) em public/, sem dependências:
-// o PNG é montado à mão com zlib (módulo nativo do Node). Nome e ícone definitivos
-// ficam para a Fase 11 (Q-03 / D-09).
+// Gera os ícones definitivos do PWA (§6.9 / CA-11.1 / D-09) em public/, sem dependências:
+// o PNG é montado à mão com zlib (módulo nativo do Node — D-25).
 // Uso: node scripts/generate-icons.mjs
 
 import { writeFileSync } from 'node:fs'

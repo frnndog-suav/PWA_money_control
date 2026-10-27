@@ -1,4 +1,4 @@
-// RF-04 — textos (pt-BR) e constantes da lista de lançamentos.
+// RF-04 / RF-01 — textos (pt-BR) e constantes da lista e dos detalhes de lançamentos.
 
 export const CLEAR_FILTERS_LABEL = 'Limpar filtros' // CA-04.4
 export const LOAD_MORE_LABEL = 'Carregar mais' // CA-04.6
@@ -7,6 +7,9 @@ export const NEW_TRANSACTION_LABEL = 'Novo'
 export const NO_TRANSACTIONS_YET_MESSAGE =
   'Nenhum lançamento ainda. Toque em “Novo” para lançar o primeiro.'
 export const NO_FILTER_RESULTS_MESSAGE = 'Nenhum lançamento encontrado com esses filtros.'
+// Fase 11 — id aberto pela URL que não existe (ex.: lançamento já excluído).
+export const TRANSACTION_NOT_FOUND_MESSAGE =
+  'Lançamento não encontrado. Ele pode ter sido excluído.'
 export const INVERTED_PERIOD_MESSAGE =
   'A data inicial é depois da data final. O filtro de período não está sendo aplicado.'
 

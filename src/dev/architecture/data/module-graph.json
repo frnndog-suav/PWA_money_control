@@ -1,34 +1,34 @@
 {
   "$comment": "Gerado por .claude/skills/atualizar-arquitetura/scan-architecture.mjs — não edite à mão.",
-  "generatedAt": "2026-10-26T19:12:02.983Z",
+  "generatedAt": "2026-10-26T21:19:42.032Z",
   "totals": {
-    "modules": 403,
-    "loc": 43947,
-    "components": 162,
+    "modules": 411,
+    "loc": 44771,
+    "components": 164,
     "hooks": 50,
-    "tests": 119,
-    "edges": 1397,
+    "tests": 123,
+    "edges": 1425,
     "configFiles": 11
   },
   "layerSummary": {
     "config": {
       "modules": 11,
-      "loc": 406,
+      "loc": 405,
       "components": 0,
       "hooks": 0,
       "tests": 0
     },
     "app": {
-      "modules": 26,
-      "loc": 883,
-      "components": 17,
+      "modules": 31,
+      "loc": 1078,
+      "components": 18,
       "hooks": 4,
-      "tests": 9
+      "tests": 12
     },
     "components": {
-      "modules": 65,
-      "loc": 3120,
-      "components": 39,
+      "modules": 66,
+      "loc": 3128,
+      "components": 40,
       "hooks": 11,
       "tests": 9
     },
@@ -41,21 +41,21 @@
     },
     "dev": {
       "modules": 66,
-      "loc": 18202,
+      "loc": 18633,
       "components": 37,
       "hooks": 2,
       "tests": 5
     },
     "domain": {
-      "modules": 51,
-      "loc": 5920,
+      "modules": 52,
+      "loc": 6032,
       "components": 0,
       "hooks": 0,
-      "tests": 32
+      "tests": 33
     },
     "features": {
       "modules": 116,
-      "loc": 7981,
+      "loc": 7993,
       "components": 66,
       "hooks": 12,
       "tests": 26
@@ -76,7 +76,7 @@
     },
     "repositories": {
       "modules": 30,
-      "loc": 4287,
+      "loc": 4292,
       "components": 0,
       "hooks": 20,
       "tests": 18
@@ -96,14 +96,14 @@
       "tests": 1
     },
     "test": {
-      "modules": 15,
-      "loc": 667,
+      "modules": 16,
+      "loc": 728,
       "components": 3,
       "hooks": 0,
       "tests": 0
     }
   },
-  "specVersion": "1.35 — 26/10/2026 (Fase 10: parcelamento; D-53 aguardando confirmação) · 1.34 — 26/10/2026 (D-51 confirmada; D-52 — Vitest com 4 workers; Fase 9 concluída — roteiro validado pelo dono) · 1.33 — 25/10/2026 (Fase 9: recorrentes; D-51 aguardando confirmação) · 1.32 — 25/10/2026 (D-50 confirmada, com a exceção de `components/periods`; Fase 8 concluída — roteiro validado pelo dono no PC e no iPhone) · 1.31 — 24/10/2026 (Fase 8: gráficos; D-50 aguardando confirmação) · 1.30 — 24/10/2026 (D-49 confirmada; Fase 7 concluída — roteiro validado pelo dono no PC; §6.7 cita `openPeriod`) · 1.29 — 24/10/2026 (Fase 7: visões por período; D-49 aguardando confirmação) · 1.28 — 23/10/2026 (D-46, D-47 e D-48 confirmadas) · 1.27 — 23/10/2026 (Fase 6 concluída — roteiro validado pelo dono no PC e no iPhone; app liberado para dados reais) · 1.26 — 23/10/2026 (Fase 6: \"Último backup\" sempre na tela inicial — linha discreta sem aviso, só o aviso quando ele aparece; D-48 (c), opção (a) do dono, aguardando confirmação) · 1.25 — 23/10/2026 (Fase 6: teste manual — \"Salvar backup\" baixa o arquivo quando a folha é recusada de novo; D-48 aguardando confirmação) · 1.24 — 22/10/2026 (Fase 6: ajustes da revisão — validação do backup, senha em NFC e foco; D-47 e D-48 aguardando confirmação) · 1.23 — 22/10/2026 (Fase 6: backup — D-47 e D-48 aguardando confirmação) · 1.22 — 22/10/2026 (Fase 5 concluída — roteiro validado pelo dono) · 1.21 — 22/10/2026 (testes em dois projetos do Vitest, `unit` em node e `dom` em jsdom — D-46 aguardando confirmação) · 1.20 — 22/10/2026 (D-44 e D-45 confirmadas) · 1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
+  "specVersion": "1.37 — 26/10/2026 (Fase 11: polimento e revisão final — nome e ícone definitivos (Q-03 resolvida, D-09); D-54 a D-57 aguardando confirmação) · 1.36 — 26/10/2026 (D-53 confirmada; Fase 10 concluída — roteiro validado pelo dono) · 1.35 — 26/10/2026 (Fase 10: parcelamento; D-53 aguardando confirmação) · 1.34 — 26/10/2026 (D-51 confirmada; D-52 — Vitest com 4 workers; Fase 9 concluída — roteiro validado pelo dono) · 1.33 — 25/10/2026 (Fase 9: recorrentes; D-51 aguardando confirmação) · 1.32 — 25/10/2026 (D-50 confirmada, com a exceção de `components/periods`; Fase 8 concluída — roteiro validado pelo dono no PC e no iPhone) · 1.31 — 24/10/2026 (Fase 8: gráficos; D-50 aguardando confirmação) · 1.30 — 24/10/2026 (D-49 confirmada; Fase 7 concluída — roteiro validado pelo dono no PC; §6.7 cita `openPeriod`) · 1.29 — 24/10/2026 (Fase 7: visões por período; D-49 aguardando confirmação) · 1.28 — 23/10/2026 (D-46, D-47 e D-48 confirmadas) · 1.27 — 23/10/2026 (Fase 6 concluída — roteiro validado pelo dono no PC e no iPhone; app liberado para dados reais) · 1.26 — 23/10/2026 (Fase 6: \"Último backup\" sempre na tela inicial — linha discreta sem aviso, só o aviso quando ele aparece; D-48 (c), opção (a) do dono, aguardando confirmação) · 1.25 — 23/10/2026 (Fase 6: teste manual — \"Salvar backup\" baixa o arquivo quando a folha é recusada de novo; D-48 aguardando confirmação) · 1.24 — 22/10/2026 (Fase 6: ajustes da revisão — validação do backup, senha em NFC e foco; D-47 e D-48 aguardando confirmação) · 1.23 — 22/10/2026 (Fase 6: backup — D-47 e D-48 aguardando confirmação) · 1.22 — 22/10/2026 (Fase 5 concluída — roteiro validado pelo dono) · 1.21 — 22/10/2026 (testes em dois projetos do Vitest, `unit` em node e `dom` em jsdom — D-46 aguardando confirmação) · 1.20 — 22/10/2026 (D-44 e D-45 confirmadas) · 1.19 — 21/10/2026 (Fase 5: D-44 e D-45 aguardando confirmação) · 1.18 — 21/10/2026 (D-43 confirmada; Fase 4 concluída) · 1.17 — 21/10/2026 (folha Tailwind única em DEV — D-43 aguardando confirmação) · 1.16 — 21/10/2026 (saldo geral inclui lançamentos futuros — D-42 substitui a D-03; D-39 confirmada) · 1.15 — 21/10/2026 (D-37 e D-38 confirmadas; últimos lançamentos só até hoje — D-40; bundle medido na Fase 11 — D-41) · 1.14 — 20/10/2026 (Fase 4: D-37 a D-39 aguardando confirmação) · 1.13 — 20/10/2026 (princípio 16 — botão de envio só ativo com formulário válido, D-36; nota do Tab na D-33) · 1.12 — 20/10/2026 (D-32 a D-34 confirmadas; limite do nome da tag em UTF-16 — D-35) · 1.11 — 20/10/2026 (Fase 3: D-32 a D-34 aguardando confirmação) · 1.10 — 19/10/2026 (D-24 ampliada: procura de versão nova ao abrir, foco, online e a cada 30 min) · 1.9 — 19/10/2026 (exemplo do CA-05.3 corrigido; limite de 10 dígitos — D-31; D-27 a D-30 confirmadas) · 1.8 — 19/10/2026 (Fase 2: D-27 a D-30 aguardando confirmação) · 1.7 — 19/10/2026 (D-23 a D-25 confirmadas) · 1.6 — 19/10/2026 (acesso restrito vira a Fase 12, opcional — D-26) · 1.5 — 18/10/2026 (Fase 1: D-23 a D-25 aguardando confirmação) · 1.4 — 17/10/2026 (oxlint + Prettier — D-19; react-router e versões fixas — D-20; rota desconhecida → Início — D-21; tema sai de app/ na Fase 2 — D-22)",
   "phases": [
     {
       "number": 0,
@@ -925,7 +925,7 @@
       "kinds": [
         "config"
       ],
-      "loc": 116,
+      "loc": 115,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -947,7 +947,7 @@
       "requirementRefs": [
         "CA-11.1",
         "D-09",
-        "Q-03"
+        "D-25"
       ],
       "external": [
         {
@@ -1434,6 +1434,251 @@
       "testedBy": []
     },
     {
+      "id": "src/app/layout/RouteErrorPage.lazy.test.tsx",
+      "layer": "app",
+      "feature": null,
+      "group": "app/layout",
+      "kinds": [
+        "test"
+      ],
+      "loc": 38,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "D-54"
+      ],
+      "external": [
+        {
+          "package": "react",
+          "specifier": "react",
+          "kind": "static",
+          "names": [
+            "lazy"
+          ]
+        },
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "screen"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/app/lazyPages.tsx",
+        "src/test/renderApp.tsx"
+      ],
+      "assets": [],
+      "testProject": "dom"
+    },
+    {
+      "id": "src/app/layout/RouteErrorPage.test.tsx",
+      "layer": "app",
+      "feature": null,
+      "group": "app/layout",
+      "kinds": [
+        "test"
+      ],
+      "loc": 61,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "fireEvent",
+            "screen",
+            "within"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/app/pwa/usePwaUpdate.ts",
+        "src/repositories/tagsRepository.ts",
+        "src/test/renderApp.tsx"
+      ],
+      "assets": [],
+      "testProject": "dom"
+    },
+    {
+      "id": "src/app/layout/RouteErrorPage.tsx",
+      "layer": "app",
+      "feature": null,
+      "group": "app/layout",
+      "kinds": [
+        "component"
+      ],
+      "loc": 56,
+      "exports": [
+        "RouteErrorPage",
+        "RouteErrorPlacement"
+      ],
+      "typeExports": [
+        "RouteErrorPlacement"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "RouteErrorPage",
+          "signature": "RouteErrorPage({ placement }: RouteErrorPageProps)"
+        }
+      ],
+      "components": [
+        "RouteErrorPage"
+      ],
+      "props": {
+        "RouteErrorPageProps": 1
+      },
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [
+        "Button",
+        "Link",
+        "Page",
+        "Page.Header",
+        "RouteErrorContent"
+      ],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [
+        {
+          "package": "react-router",
+          "specifier": "react-router",
+          "kind": "static",
+          "names": [
+            "Link"
+          ]
+        }
+      ],
+      "importedBy": [
+        "src/app/routes.tsx"
+      ],
+      "imports": [
+        "src/app/layout/routeErrorTexts.ts",
+        "src/components/ui/Button.tsx",
+        "src/components/ui/Page.tsx",
+        "src/components/ui/buttonClasses.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/app/layout/RouteErrorPage.test.tsx"
+      ]
+    },
+    {
+      "id": "src/app/layout/routeErrorTexts.ts",
+      "layer": "app",
+      "feature": null,
+      "group": "app/layout",
+      "kinds": [
+        "module"
+      ],
+      "loc": 6,
+      "exports": [
+        "GO_HOME_LABEL",
+        "RETRY_LABEL",
+        "ROUTE_ERROR_MESSAGE",
+        "ROUTE_ERROR_TITLE"
+      ],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [],
+      "importedBy": [
+        "src/app/layout/RouteErrorPage.tsx"
+      ],
+      "imports": [],
+      "assets": [],
+      "testedBy": []
+    },
+    {
       "id": "src/app/lazyPages.tsx",
       "layer": "app",
       "feature": null,
@@ -1523,6 +1768,7 @@
         }
       ],
       "importedBy": [
+        "src/app/layout/RouteErrorPage.lazy.test.tsx",
         "src/app/routes.tsx"
       ],
       "imports": [
@@ -1539,7 +1785,9 @@
         "src/features/views/ViewsPage.tsx"
       ],
       "assets": [],
-      "testedBy": []
+      "testedBy": [
+        "src/app/layout/RouteErrorPage.lazy.test.tsx"
+      ]
     },
     {
       "id": "src/app/pwa/indexHtmlPwaTags.test.ts",
@@ -2204,6 +2452,7 @@
       "external": [],
       "importedBy": [
         "src/app/layout/AppLayout.tsx",
+        "src/app/layout/RouteErrorPage.test.tsx",
         "src/app/pwa/UpdateNotice.tsx"
       ],
       "imports": [
@@ -2211,7 +2460,9 @@
         "src/stores/uiStore.ts"
       ],
       "assets": [],
-      "testedBy": []
+      "testedBy": [
+        "src/app/layout/RouteErrorPage.test.tsx"
+      ]
     },
     {
       "id": "src/app/routes.test.tsx",
@@ -2283,7 +2534,7 @@
       "kinds": [
         "routing"
       ],
-      "loc": 40,
+      "loc": 50,
       "exports": [
         "routes"
       ],
@@ -2304,6 +2555,7 @@
         "NewTransactionPage",
         "RecurringDetailPage",
         "RecurringsPage",
+        "RouteErrorPage",
         "SettingsPage",
         "TagsPage",
         "TransactionDetailPage",
@@ -2320,6 +2572,7 @@
       "routes": [
         "(index)",
         "(layout)",
+        "(limite de erro)",
         "*",
         "ajustes",
         "ajustes/backup",
@@ -2355,6 +2608,7 @@
       "imports": [
         "src/app/devRoutes.tsx",
         "src/app/layout/AppLayout.tsx",
+        "src/app/layout/RouteErrorPage.tsx",
         "src/app/lazyPages.tsx",
         "src/features/home/HomePage.tsx"
       ],
@@ -2520,6 +2774,67 @@
         "src/test/matchMedia.ts",
         "src/test/renderApp.tsx",
         "src/test/themeReference.ts"
+      ],
+      "assets": [],
+      "testProject": "dom"
+    },
+    {
+      "id": "src/app/theme/ThemeProvider.errors.test.tsx",
+      "layer": "app",
+      "feature": null,
+      "group": "app/theme",
+      "kinds": [
+        "test"
+      ],
+      "loc": 24,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-09"
+      ],
+      "external": [
+        {
+          "package": "@testing-library/react",
+          "specifier": "@testing-library/react",
+          "kind": "static",
+          "names": [
+            "screen"
+          ]
+        },
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/lib/themeStorage.ts",
+        "src/repositories/themeRepository.ts",
+        "src/test/renderApp.tsx"
       ],
       "assets": [],
       "testProject": "dom"
@@ -4685,14 +5000,12 @@
       "kinds": [
         "component"
       ],
-      "loc": 29,
+      "loc": 24,
       "exports": [
         "Button",
         "ButtonVariant"
       ],
-      "typeExports": [
-        "ButtonVariant"
-      ],
+      "typeExports": [],
       "defaultExport": null,
       "functions": [
         {
@@ -4701,7 +5014,8 @@
         }
       ],
       "components": [
-        "Button"
+        "Button",
+        "ButtonVariant"
       ],
       "props": {},
       "hooksDefined": [],
@@ -4731,6 +5045,7 @@
         }
       ],
       "importedBy": [
+        "src/app/layout/RouteErrorPage.tsx",
         "src/components/periods/TodayButton.tsx",
         "src/components/recurrings/ConfirmOccurrenceDialog.tsx",
         "src/components/recurrings/PendingOccurrencesSection.tsx",
@@ -4760,6 +5075,56 @@
         "src/features/transactions/TransactionDetailPage.tsx",
         "src/features/transactions/filters/ClearFiltersButton.tsx",
         "src/features/transactions/filters/FilterToggle.tsx"
+      ],
+      "imports": [
+        "src/components/ui/buttonClasses.ts"
+      ],
+      "assets": [],
+      "testedBy": []
+    },
+    {
+      "id": "src/components/ui/buttonClasses.ts",
+      "layer": "components",
+      "feature": null,
+      "group": "components/ui",
+      "kinds": [
+        "module"
+      ],
+      "loc": 11,
+      "exports": [
+        "ButtonVariant",
+        "buttonVariantClasses"
+      ],
+      "typeExports": [
+        "ButtonVariant"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "buttonVariantClasses",
+          "signature": "buttonVariantClasses(variant: ButtonVariant): string"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [],
+      "external": [],
+      "importedBy": [
+        "src/app/layout/RouteErrorPage.tsx",
+        "src/components/ui/Button.tsx",
+        "src/features/transactions/TransactionsPage.tsx"
       ],
       "imports": [],
       "assets": [],
@@ -5594,7 +5959,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 4,
+      "loc": 6,
       "exports": [
         "TEXT_INPUT_CLASSES"
       ],
@@ -6265,6 +6630,7 @@
         }
       ],
       "importedBy": [
+        "src/app/layout/RouteErrorPage.tsx",
         "src/features/backup/BackupPage.tsx",
         "src/features/charts/ChartsPage.tsx",
         "src/features/home/HomePage.tsx",
@@ -7838,7 +8204,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 93,
+      "loc": 106,
       "exports": [
         "CompositionSection"
       ],
@@ -9457,7 +9823,7 @@
       "kinds": [
         "component"
       ],
-      "loc": 101,
+      "loc": 111,
       "exports": [
         "RoutesSection"
       ],
@@ -10140,7 +10506,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 150,
+      "loc": 156,
       "exports": [
         "RouteDetail",
         "TreeNode",
@@ -10202,7 +10568,7 @@
         "database",
         "data"
       ],
-      "loc": 9366,
+      "loc": 9633,
       "exports": [
         "ALLOWED_DEPENDENCIES",
         "ARCHITECTURE_FINDINGS",
@@ -10291,7 +10657,7 @@
       "kinds": [
         "data"
       ],
-      "loc": 2881,
+      "loc": 3011,
       "exports": [
         "TIMELINE"
       ],
@@ -10769,7 +11135,7 @@
       "kinds": [
         "types"
       ],
-      "loc": 445,
+      "loc": 450,
       "exports": [
         "AllowedDependency",
         "ArchitectureFinding",
@@ -12193,6 +12559,7 @@
         "src/domain/dates.timezone.test.ts",
         "src/domain/periodViews.ts",
         "src/domain/recurring.ts",
+        "src/domain/screens.performance.test.ts",
         "src/domain/transactionFilters.audit.test.ts",
         "src/domain/transactionFilters.properties.test.ts",
         "src/domain/transactionFilters.ts",
@@ -12215,6 +12582,7 @@
         "src/domain/balances.signedAmount.test.ts",
         "src/domain/balances.test.ts",
         "src/domain/dates.timezone.test.ts",
+        "src/domain/screens.performance.test.ts",
         "src/domain/transactionFilters.audit.test.ts",
         "src/domain/transactionFilters.properties.test.ts",
         "src/repositories/transactionsRepository.balances.test.ts"
@@ -12370,6 +12738,7 @@
       "external": [],
       "importedBy": [
         "src/domain/charts.test.ts",
+        "src/domain/screens.performance.test.ts",
         "src/features/charts/BalanceLineCard.tsx",
         "src/features/charts/ChartList.tsx",
         "src/features/charts/ChartsPage.tsx",
@@ -12386,7 +12755,8 @@
       ],
       "assets": [],
       "testedBy": [
-        "src/domain/charts.test.ts"
+        "src/domain/charts.test.ts",
+        "src/domain/screens.performance.test.ts"
       ]
     },
     {
@@ -12958,6 +13328,7 @@
         "src/domain/periodViews.ts",
         "src/domain/recurringSchema.test.ts",
         "src/domain/recurringSchema.ts",
+        "src/domain/screens.performance.test.ts",
         "src/domain/transactionSchema.ts",
         "src/features/charts/ChartList.tsx",
         "src/features/home/BalanceSummary.tsx",
@@ -13004,6 +13375,7 @@
         "src/domain/dates.timezone.test.ts",
         "src/domain/dates.views.test.ts",
         "src/domain/recurringSchema.test.ts",
+        "src/domain/screens.performance.test.ts",
         "src/features/home/HomePage.test.tsx",
         "src/features/transactions/TransactionsPage.pagination.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
@@ -13197,6 +13569,7 @@
         "src/dev/sampleData/sampleInstallments.ts",
         "src/domain/installmentSchema.ts",
         "src/domain/installments.test.ts",
+        "src/domain/screens.performance.test.ts",
         "src/features/transactions/DeleteInstallmentDialog.tsx",
         "src/features/transactions/InstallmentInfo.tsx",
         "src/features/transactions/useTransactionDetail.ts",
@@ -13209,7 +13582,8 @@
       ],
       "assets": [],
       "testedBy": [
-        "src/domain/installments.test.ts"
+        "src/domain/installments.test.ts",
+        "src/domain/screens.performance.test.ts"
       ]
     },
     {
@@ -13655,6 +14029,7 @@
         "src/components/periods/usePeriodView.ts",
         "src/domain/charts.ts",
         "src/domain/periodViews.test.ts",
+        "src/domain/screens.performance.test.ts",
         "src/features/charts/ChartsPage.test.tsx",
         "src/features/views/MonthDetail.tsx",
         "src/features/views/PeriodDetail.tsx",
@@ -13674,6 +14049,7 @@
       "assets": [],
       "testedBy": [
         "src/domain/periodViews.test.ts",
+        "src/domain/screens.performance.test.ts",
         "src/features/charts/ChartsPage.test.tsx",
         "src/features/views/ViewsPage.recurrings.test.tsx",
         "src/features/views/ViewsPage.test.tsx"
@@ -13864,6 +14240,7 @@
         "src/components/recurrings/PendingOccurrencesSection.tsx",
         "src/components/recurrings/useConfirmOccurrenceForm.ts",
         "src/domain/recurring.test.ts",
+        "src/domain/screens.performance.test.ts",
         "src/features/recurrings/ChangeAmountDialog.tsx",
         "src/features/recurrings/CurrentOccurrence.tsx",
         "src/features/recurrings/EndRecurringDialog.tsx",
@@ -13887,6 +14264,7 @@
       "assets": [],
       "testedBy": [
         "src/domain/recurring.test.ts",
+        "src/domain/screens.performance.test.ts",
         "src/repositories/recurringsRepository.test.ts"
       ]
     },
@@ -14038,6 +14416,67 @@
       "testedBy": [
         "src/domain/recurringSchema.test.ts"
       ]
+    },
+    {
+      "id": "src/domain/screens.performance.test.ts",
+      "layer": "domain",
+      "feature": null,
+      "group": "domain",
+      "kinds": [
+        "test"
+      ],
+      "loc": 112,
+      "exports": [],
+      "typeExports": [],
+      "defaultExport": null,
+      "functions": [],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "RF-02",
+        "RF-05",
+        "RF-06",
+        "RF-08",
+        "RNF-02"
+      ],
+      "external": [
+        {
+          "package": "vitest",
+          "specifier": "vitest",
+          "kind": "static",
+          "names": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        }
+      ],
+      "importedBy": [],
+      "imports": [
+        "src/domain/balances.ts",
+        "src/domain/charts.ts",
+        "src/domain/dates.ts",
+        "src/domain/installments.ts",
+        "src/domain/periodViews.ts",
+        "src/domain/recurring.ts",
+        "src/domain/transactions.ts",
+        "src/domain/types.ts",
+        "src/test/largeDataset.ts"
+      ],
+      "assets": [],
+      "testProject": "unit"
     },
     {
       "id": "src/domain/tagColor.test.ts",
@@ -15046,6 +15485,7 @@
       ],
       "external": [],
       "importedBy": [
+        "src/domain/screens.performance.test.ts",
         "src/domain/transactionFilters.audit.test.ts",
         "src/domain/transactionFilters.performance.test.ts",
         "src/domain/transactionFilters.properties.test.ts",
@@ -15059,6 +15499,7 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/domain/screens.performance.test.ts",
         "src/domain/transactionFilters.audit.test.ts",
         "src/domain/transactionFilters.performance.test.ts",
         "src/domain/transactionFilters.properties.test.ts",
@@ -15282,6 +15723,7 @@
         "src/domain/periodViews.ts",
         "src/domain/recurring.ts",
         "src/domain/recurringSchema.ts",
+        "src/domain/screens.performance.test.ts",
         "src/domain/tags.ts",
         "src/domain/transactionFilters.audit.test.ts",
         "src/domain/transactionFilters.performance.test.ts",
@@ -15348,6 +15790,7 @@
         "src/stores/uiStore.ts",
         "src/test/backupDataset.ts",
         "src/test/factories.ts",
+        "src/test/largeDataset.ts",
         "src/test/recurrings.ts",
         "src/test/seedDatabase.ts",
         "src/test/transactionList.ts"
@@ -15356,6 +15799,7 @@
       "assets": [],
       "testedBy": [
         "src/domain/balances.properties.test.ts",
+        "src/domain/screens.performance.test.ts",
         "src/domain/transactionFilters.audit.test.ts",
         "src/domain/transactionFilters.performance.test.ts",
         "src/domain/transactionFilters.properties.test.ts",
@@ -18648,7 +19092,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 174,
+      "loc": 176,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -21971,7 +22415,7 @@
       "kinds": [
         "test"
       ],
-      "loc": 125,
+      "loc": 128,
       "exports": [],
       "typeExports": [],
       "defaultExport": null,
@@ -22041,7 +22485,7 @@
         "component",
         "page"
       ],
-      "loc": 91,
+      "loc": 94,
       "exports": [
         "TransactionDetailPage"
       ],
@@ -22119,6 +22563,7 @@
         "src/features/transactions/DeleteConfirmedOccurrenceDialog.tsx",
         "src/features/transactions/DeleteInstallmentDialog.tsx",
         "src/features/transactions/InstallmentInfo.tsx",
+        "src/features/transactions/transactionListTexts.ts",
         "src/features/transactions/useTransactionDetail.ts"
       ],
       "assets": [],
@@ -22134,7 +22579,7 @@
       "kinds": [
         "module"
       ],
-      "loc": 23,
+      "loc": 26,
       "exports": [
         "CLEAR_FILTERS_LABEL",
         "INVERTED_PERIOD_MESSAGE",
@@ -22144,6 +22589,7 @@
         "NO_FILTER_RESULTS_MESSAGE",
         "NO_TRANSACTIONS_YET_MESSAGE",
         "SEARCH_DEBOUNCE_MS",
+        "TRANSACTION_NOT_FOUND_MESSAGE",
         "formatResultCount"
       ],
       "typeExports": [],
@@ -22172,11 +22618,13 @@
         "CA-04.3",
         "CA-04.4",
         "CA-04.6",
+        "RF-01",
         "RF-04",
         "RNF-02"
       ],
       "external": [],
       "importedBy": [
+        "src/features/transactions/TransactionDetailPage.tsx",
         "src/features/transactions/TransactionsPage.filters.test.tsx",
         "src/features/transactions/TransactionsPage.pagination.test.tsx",
         "src/features/transactions/TransactionsPage.test.tsx",
@@ -22408,7 +22856,7 @@
         "component",
         "page"
       ],
-      "loc": 57,
+      "loc": 58,
       "exports": [
         "TransactionsPage"
       ],
@@ -22474,6 +22922,7 @@
       "imports": [
         "src/components/ui/EmptyState.tsx",
         "src/components/ui/Page.tsx",
+        "src/components/ui/buttonClasses.ts",
         "src/features/transactions/filters/FilterBar.tsx",
         "src/features/transactions/list/FilterSummary.tsx",
         "src/features/transactions/list/TransactionDayList.tsx",
@@ -24930,6 +25379,7 @@
       ],
       "external": [],
       "importedBy": [
+        "src/app/theme/ThemeProvider.errors.test.tsx",
         "src/lib/themeStorage.test.ts",
         "src/repositories/backupRepository.ts",
         "src/repositories/themeRepository.ts",
@@ -24940,6 +25390,7 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/app/theme/ThemeProvider.errors.test.tsx",
         "src/lib/themeStorage.test.ts"
       ]
     },
@@ -26839,6 +27290,7 @@
         }
       ],
       "importedBy": [
+        "src/app/layout/RouteErrorPage.test.tsx",
         "src/components/recurrings/ConfirmOccurrenceDialog.tsx",
         "src/components/recurrings/PendingOccurrencesSection.tsx",
         "src/components/tags/useTagForm.ts",
@@ -26881,6 +27333,7 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/app/layout/RouteErrorPage.test.tsx",
         "src/features/backup/BackupPage.test.tsx",
         "src/features/home/BackupReminder.test.tsx",
         "src/features/home/HomePage.form.test.tsx",
@@ -27151,6 +27604,7 @@
       ],
       "external": [],
       "importedBy": [
+        "src/app/theme/ThemeProvider.errors.test.tsx",
         "src/features/charts/ChartsPage.test.tsx",
         "src/repositories/themePreference.test.ts",
         "src/repositories/themeRepository.test.ts",
@@ -27164,6 +27618,7 @@
       ],
       "assets": [],
       "testedBy": [
+        "src/app/theme/ThemeProvider.errors.test.tsx",
         "src/features/charts/ChartsPage.test.tsx",
         "src/repositories/themePreference.test.ts",
         "src/repositories/themeRepository.test.ts"
@@ -27854,7 +28309,7 @@
       "kinds": [
         "hook"
       ],
-      "loc": 44,
+      "loc": 49,
       "exports": [
         "ThemePreferenceState",
         "useThemePreference"
@@ -28632,6 +29087,7 @@
         "src/repositories/transactionsRepository.list.properties.test.ts",
         "src/repositories/transactionsRepository.list.test.ts",
         "src/repositories/transactionsRepository.test.ts",
+        "src/test/largeDataset.ts",
         "src/test/transactionList.ts"
       ],
       "imports": [
@@ -28668,6 +29124,69 @@
         "src/repositories/transactionsRepository.list.properties.test.ts",
         "src/repositories/transactionsRepository.list.test.ts",
         "src/repositories/transactionsRepository.test.ts"
+      ]
+    },
+    {
+      "id": "src/test/largeDataset.ts",
+      "layer": "test",
+      "feature": null,
+      "group": "test",
+      "kinds": [
+        "module"
+      ],
+      "loc": 61,
+      "exports": [
+        "LARGE_RECURRING_COUNT",
+        "LARGE_TAG_COUNT",
+        "LARGE_TRANSACTION_COUNT",
+        "LargeDataset",
+        "buildLargeDataset",
+        "measure"
+      ],
+      "typeExports": [
+        "LargeDataset"
+      ],
+      "defaultExport": null,
+      "functions": [
+        {
+          "name": "buildLargeDataset",
+          "signature": "buildLargeDataset({ year, month, seed = 2026 }: LargeDatasetOptions): LargeDataset"
+        },
+        {
+          "name": "measure",
+          "signature": "measure<T>(run: () => T):"
+        }
+      ],
+      "components": [],
+      "props": {},
+      "hooksDefined": [],
+      "hooksUsed": [],
+      "jsxUsed": [],
+      "storesUsed": [],
+      "dexieTables": {},
+      "usesTransaction": false,
+      "usesLiveQuery": false,
+      "devOnly": false,
+      "lazyImports": [],
+      "lazyComponents": {},
+      "routes": [],
+      "storeMembersUsed": [],
+      "requirementRefs": [
+        "CA-07.5",
+        "RNF-02"
+      ],
+      "external": [],
+      "importedBy": [
+        "src/domain/screens.performance.test.ts"
+      ],
+      "imports": [
+        "src/domain/types.ts",
+        "src/test/factories.ts",
+        "src/test/propertyHelpers.ts"
+      ],
+      "assets": [],
+      "testedBy": [
+        "src/domain/screens.performance.test.ts"
       ]
     },
     {
@@ -28819,7 +29338,8 @@
         "src/lib/crypto.audit.test.ts",
         "src/repositories/transactionsRepository.balances.test.ts",
         "src/repositories/transactionsRepository.list.properties.test.ts",
-        "src/test/backupDataset.ts"
+        "src/test/backupDataset.ts",
+        "src/test/largeDataset.ts"
       ],
       "imports": [],
       "assets": [],
@@ -29008,8 +29528,11 @@
       "importedBy": [
         "src/app/layout/AppLayout.test.tsx",
         "src/app/layout/BottomNav.test.tsx",
+        "src/app/layout/RouteErrorPage.lazy.test.tsx",
+        "src/app/layout/RouteErrorPage.test.tsx",
         "src/app/pwa/InstallHint.test.tsx",
         "src/app/routes.test.tsx",
+        "src/app/theme/ThemeProvider.errors.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/dev/architecture/ArchitecturePage.test.tsx",
         "src/features/backup/BackupPage.test.tsx",
@@ -29040,9 +29563,12 @@
       "testedBy": [
         "src/app/layout/AppLayout.test.tsx",
         "src/app/layout/BottomNav.test.tsx",
+        "src/app/layout/RouteErrorPage.lazy.test.tsx",
+        "src/app/layout/RouteErrorPage.test.tsx",
         "src/app/pwa/InstallHint.test.tsx",
         "src/app/routes.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
+        "src/app/theme/ThemeProvider.errors.test.tsx",
         "src/dev/architecture/ArchitecturePage.test.tsx",
         "src/features/backup/BackupPage.test.tsx",
         "src/features/charts/ChartsPage.test.tsx",
@@ -29991,6 +30517,81 @@
       ]
     },
     {
+      "from": "src/app/layout/RouteErrorPage.lazy.test.tsx",
+      "to": "src/app/lazyPages.tsx",
+      "kind": "type",
+      "names": [
+        "* as lazyPages"
+      ]
+    },
+    {
+      "from": "src/app/layout/RouteErrorPage.lazy.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/app/layout/RouteErrorPage.test.tsx",
+      "to": "src/app/pwa/usePwaUpdate.ts",
+      "kind": "static",
+      "names": [
+        "* as pwaUpdate"
+      ]
+    },
+    {
+      "from": "src/app/layout/RouteErrorPage.test.tsx",
+      "to": "src/repositories/tagsRepository.ts",
+      "kind": "static",
+      "names": [
+        "* as tagsRepository"
+      ]
+    },
+    {
+      "from": "src/app/layout/RouteErrorPage.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
+      ]
+    },
+    {
+      "from": "src/app/layout/RouteErrorPage.tsx",
+      "to": "src/app/layout/routeErrorTexts.ts",
+      "kind": "static",
+      "names": [
+        "GO_HOME_LABEL",
+        "RETRY_LABEL",
+        "ROUTE_ERROR_MESSAGE",
+        "ROUTE_ERROR_TITLE"
+      ]
+    },
+    {
+      "from": "src/app/layout/RouteErrorPage.tsx",
+      "to": "src/components/ui/Button.tsx",
+      "kind": "static",
+      "names": [
+        "Button"
+      ]
+    },
+    {
+      "from": "src/app/layout/RouteErrorPage.tsx",
+      "to": "src/components/ui/buttonClasses.ts",
+      "kind": "static",
+      "names": [
+        "buttonVariantClasses"
+      ]
+    },
+    {
+      "from": "src/app/layout/RouteErrorPage.tsx",
+      "to": "src/components/ui/Page.tsx",
+      "kind": "static",
+      "names": [
+        "Page"
+      ]
+    },
+    {
       "from": "src/app/lazyPages.tsx",
       "to": "src/features/backup/BackupPage.tsx",
       "kind": "dynamic",
@@ -30246,6 +30847,14 @@
     },
     {
       "from": "src/app/routes.tsx",
+      "to": "src/app/layout/RouteErrorPage.tsx",
+      "kind": "static",
+      "names": [
+        "RouteErrorPage"
+      ]
+    },
+    {
+      "from": "src/app/routes.tsx",
       "to": "src/app/lazyPages.tsx",
       "kind": "static",
       "names": [
@@ -30328,6 +30937,30 @@
       "kind": "static",
       "names": [
         "parseStoredThemePreference"
+      ]
+    },
+    {
+      "from": "src/app/theme/ThemeProvider.errors.test.tsx",
+      "to": "src/lib/themeStorage.ts",
+      "kind": "static",
+      "names": [
+        "writeThemeMirror"
+      ]
+    },
+    {
+      "from": "src/app/theme/ThemeProvider.errors.test.tsx",
+      "to": "src/repositories/themeRepository.ts",
+      "kind": "static",
+      "names": [
+        "* as themeRepository"
+      ]
+    },
+    {
+      "from": "src/app/theme/ThemeProvider.errors.test.tsx",
+      "to": "src/test/renderApp.tsx",
+      "kind": "static",
+      "names": [
+        "renderApp"
       ]
     },
     {
@@ -31524,6 +32157,15 @@
       ]
     },
     {
+      "from": "src/components/ui/Button.tsx",
+      "to": "src/components/ui/buttonClasses.ts",
+      "kind": "static",
+      "names": [
+        "buttonVariantClasses",
+        "ButtonVariant"
+      ]
+    },
+    {
       "from": "src/components/ui/createRadioGroup.test.tsx",
       "to": "src/components/ui/createRadioGroup.tsx",
       "kind": "static",
@@ -32091,6 +32733,7 @@
       "names": [
         "buildComponentTree",
         "routeDetails",
+        "RouteDetail",
         "TreeNode"
       ]
     },
@@ -34825,6 +35468,90 @@
       "kind": "type",
       "names": [
         "PeriodString"
+      ]
+    },
+    {
+      "from": "src/domain/screens.performance.test.ts",
+      "to": "src/domain/balances.ts",
+      "kind": "static",
+      "names": [
+        "overallBalance",
+        "totals"
+      ]
+    },
+    {
+      "from": "src/domain/screens.performance.test.ts",
+      "to": "src/domain/charts.ts",
+      "kind": "static",
+      "names": [
+        "balanceSeries",
+        "incomeExpenseSeries",
+        "tagSlices"
+      ]
+    },
+    {
+      "from": "src/domain/screens.performance.test.ts",
+      "to": "src/domain/dates.ts",
+      "kind": "static",
+      "names": [
+        "monthRange",
+        "periodsBetween",
+        "weekRange"
+      ]
+    },
+    {
+      "from": "src/domain/screens.performance.test.ts",
+      "to": "src/domain/installments.ts",
+      "kind": "static",
+      "names": [
+        "buildInstallmentTransactions",
+        "MAX_INSTALLMENTS"
+      ]
+    },
+    {
+      "from": "src/domain/screens.performance.test.ts",
+      "to": "src/domain/periodViews.ts",
+      "kind": "static",
+      "names": [
+        "summarizeActiveDays",
+        "summarizeDays",
+        "summarizeMonths"
+      ]
+    },
+    {
+      "from": "src/domain/screens.performance.test.ts",
+      "to": "src/domain/recurring.ts",
+      "kind": "static",
+      "names": [
+        "pendingOccurrences",
+        "projected"
+      ]
+    },
+    {
+      "from": "src/domain/screens.performance.test.ts",
+      "to": "src/domain/transactions.ts",
+      "kind": "static",
+      "names": [
+        "sortByRecency",
+        "takeMostRecent"
+      ]
+    },
+    {
+      "from": "src/domain/screens.performance.test.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/domain/screens.performance.test.ts",
+      "to": "src/test/largeDataset.ts",
+      "kind": "static",
+      "names": [
+        "buildLargeDataset",
+        "LARGE_TAG_COUNT",
+        "measure"
       ]
     },
     {
@@ -39296,6 +40023,14 @@
     },
     {
       "from": "src/features/transactions/TransactionDetailPage.tsx",
+      "to": "src/features/transactions/transactionListTexts.ts",
+      "kind": "static",
+      "names": [
+        "TRANSACTION_NOT_FOUND_MESSAGE"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionDetailPage.tsx",
       "to": "src/features/transactions/useTransactionDetail.ts",
       "kind": "static",
       "names": [
@@ -39410,6 +40145,14 @@
         "text",
         "transactionLinks",
         "typeSearch"
+      ]
+    },
+    {
+      "from": "src/features/transactions/TransactionsPage.tsx",
+      "to": "src/components/ui/buttonClasses.ts",
+      "kind": "static",
+      "names": [
+        "buttonVariantClasses"
       ]
     },
     {
@@ -41779,6 +42522,34 @@
       ]
     },
     {
+      "from": "src/test/largeDataset.ts",
+      "to": "src/domain/types.ts",
+      "kind": "type",
+      "names": [
+        "Recurring",
+        "Transaction"
+      ]
+    },
+    {
+      "from": "src/test/largeDataset.ts",
+      "to": "src/test/factories.ts",
+      "kind": "static",
+      "names": [
+        "makeRecurring",
+        "makeTransaction"
+      ]
+    },
+    {
+      "from": "src/test/largeDataset.ts",
+      "to": "src/test/propertyHelpers.ts",
+      "kind": "static",
+      "names": [
+        "createTestRandom",
+        "daysInMonth",
+        "toDateString"
+      ]
+    },
+    {
       "from": "src/test/matchMedia.ts",
       "to": "src/lib/displayMode.ts",
       "kind": "static",
@@ -42130,6 +42901,7 @@
       "importedBy": [
         "src/app/devRoutes.tsx",
         "src/app/layout/AppLayout.tsx",
+        "src/app/layout/RouteErrorPage.lazy.test.tsx",
         "src/app/lazyPages.tsx",
         "src/app/pwa/useIsStandalone.ts",
         "src/app/storage/usePersistentStorageRequest.ts",
@@ -42287,6 +43059,7 @@
         "src/app/App.tsx",
         "src/app/devRoutes.tsx",
         "src/app/layout/AppLayout.tsx",
+        "src/app/layout/RouteErrorPage.tsx",
         "src/app/routes.tsx",
         "src/components/transactions/TransactionRow.tsx",
         "src/components/ui/BackLink.test.tsx",
@@ -42368,9 +43141,12 @@
       "importedBy": [
         "src/app/layout/AppLayout.test.tsx",
         "src/app/layout/BottomNav.test.tsx",
+        "src/app/layout/RouteErrorPage.lazy.test.tsx",
+        "src/app/layout/RouteErrorPage.test.tsx",
         "src/app/pwa/InstallHint.test.tsx",
         "src/app/pwa/UpdateNotice.test.tsx",
         "src/app/routes.test.tsx",
+        "src/app/theme/ThemeProvider.errors.test.tsx",
         "src/components/tags/TagPicker.test.tsx",
         "src/components/ui/BackLink.test.tsx",
         "src/components/ui/DateInput.test.tsx",
@@ -42556,12 +43332,15 @@
       "importedBy": [
         "src/app/layout/AppLayout.test.tsx",
         "src/app/layout/BottomNav.test.tsx",
+        "src/app/layout/RouteErrorPage.lazy.test.tsx",
+        "src/app/layout/RouteErrorPage.test.tsx",
         "src/app/pwa/InstallHint.test.tsx",
         "src/app/pwa/UpdateNotice.test.tsx",
         "src/app/pwa/indexHtmlPwaTags.test.ts",
         "src/app/pwa/pwaOptions.test.ts",
         "src/app/pwa/registerPwa.test.ts",
         "src/app/routes.test.tsx",
+        "src/app/theme/ThemeProvider.errors.test.tsx",
         "src/app/theme/indexHtmlThemeScript.test.ts",
         "src/components/tags/TagPicker.test.tsx",
         "src/components/ui/BackLink.test.tsx",
@@ -42600,6 +43379,7 @@
         "src/domain/periodViews.test.ts",
         "src/domain/recurring.test.ts",
         "src/domain/recurringSchema.test.ts",
+        "src/domain/screens.performance.test.ts",
         "src/domain/tagColor.test.ts",
         "src/domain/tagSchema.test.ts",
         "src/domain/tags.test.ts",
@@ -42897,7 +43677,24 @@
       "lazyVia": null,
       "lazy": false,
       "devOnly": false,
-      "layout": true
+      "layout": true,
+      "errorBoundary": false,
+      "errorElement": "RouteErrorPage",
+      "errorModule": "src/app/layout/RouteErrorPage.tsx"
+    },
+    {
+      "path": "(limite de erro)",
+      "definedIn": "src/app/routes.tsx",
+      "element": null,
+      "elements": [],
+      "module": null,
+      "lazyVia": null,
+      "lazy": false,
+      "devOnly": false,
+      "layout": false,
+      "errorBoundary": true,
+      "errorElement": "RouteErrorPage",
+      "errorModule": "src/app/layout/RouteErrorPage.tsx"
     },
     {
       "path": "*",
@@ -42910,7 +43707,10 @@
       "lazyVia": null,
       "lazy": false,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/",
@@ -42923,7 +43723,10 @@
       "lazyVia": null,
       "lazy": false,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/__dev/arquitetura",
@@ -42937,7 +43740,10 @@
       "lazyVia": null,
       "lazy": true,
       "devOnly": true,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/ajustes",
@@ -42950,7 +43756,10 @@
       "lazyVia": "src/app/lazyPages.tsx",
       "lazy": true,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/ajustes/backup",
@@ -42963,7 +43772,10 @@
       "lazyVia": "src/app/lazyPages.tsx",
       "lazy": true,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/ajustes/recorrentes",
@@ -42976,7 +43788,10 @@
       "lazyVia": "src/app/lazyPages.tsx",
       "lazy": true,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/ajustes/recorrentes/:id",
@@ -42989,7 +43804,10 @@
       "lazyVia": "src/app/lazyPages.tsx",
       "lazy": true,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/ajustes/sobre",
@@ -43002,7 +43820,10 @@
       "lazyVia": "src/app/lazyPages.tsx",
       "lazy": true,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/ajustes/tags",
@@ -43015,7 +43836,10 @@
       "lazyVia": "src/app/lazyPages.tsx",
       "lazy": true,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/graficos",
@@ -43028,7 +43852,10 @@
       "lazyVia": "src/app/lazyPages.tsx",
       "lazy": true,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/lancamentos",
@@ -43041,7 +43868,10 @@
       "lazyVia": "src/app/lazyPages.tsx",
       "lazy": true,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/lancamentos/:id",
@@ -43054,7 +43884,10 @@
       "lazyVia": "src/app/lazyPages.tsx",
       "lazy": true,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/lancamentos/novo",
@@ -43067,7 +43900,10 @@
       "lazyVia": "src/app/lazyPages.tsx",
       "lazy": true,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     },
     {
       "path": "/visoes",
@@ -43080,7 +43916,10 @@
       "lazyVia": "src/app/lazyPages.tsx",
       "lazy": true,
       "devOnly": false,
-      "layout": false
+      "layout": false,
+      "errorBoundary": false,
+      "errorElement": null,
+      "errorModule": null
     }
   ],
   "publicFiles": {
@@ -43172,46 +44011,47 @@
     ]
   },
   "build": {
-    "builtAt": "2026-10-26T19:02:26.101Z",
+    "builtAt": "2026-10-26T21:03:30.361Z",
     "serviceWorker": "sw.js",
     "workboxRuntime": "workbox-2fbc6a65.js",
     "manifest": "manifest.webmanifest",
     "manifestLink": "<link rel=\"manifest\" href=\"/manifest.webmanifest\" crossorigin=\"use-credentials\">",
     "precache": [
       "apple-touch-icon.png",
-      "assets/AboutPage-D0ysvg8q.js",
-      "assets/BackLink-D40XnzcN.js",
-      "assets/BackupPage-BBLu8Z7S.js",
-      "assets/ChartsPage-CS7TxjvV.js",
-      "assets/DateInput-C_mEEy_u.js",
+      "assets/AboutPage-CeZPNf-b.js",
+      "assets/BackLink-CthSd6Y7.js",
+      "assets/BackupPage-Hd5D5MS3.js",
+      "assets/ChartsPage-c3dcMH3_.js",
+      "assets/DateInput-oXLyJ5q1.js",
       "assets/InfoList-C3J93wfy.js",
-      "assets/MoneyInput-C5m5iP4z.js",
-      "assets/NewTransactionPage-DfxndKXr.js",
+      "assets/MoneyInput-BZC6RmTy.js",
+      "assets/NewTransactionPage-k_1uBewN.js",
       "assets/Page-l_FoqQCp.js",
-      "assets/RecurringDetailPage-CduD-GRS.js",
-      "assets/RecurringsPage-_tZ0ai0h.js",
-      "assets/SettingsPage-DnfItwxM.js",
-      "assets/TagForm-fttXUsWL.js",
-      "assets/TagPicker-BkufdUn2.js",
-      "assets/TagsPage-D1Id-FCm.js",
-      "assets/TextInput-CVdGROdz.js",
-      "assets/TransactionDetailPage-hYfoYV5s.js",
-      "assets/TransactionsPage-7H-oeQsH.js",
-      "assets/ViewsPage-BXoGhjdk.js",
+      "assets/RecurringDetailPage-CVh55SqI.js",
+      "assets/RecurringsPage-deSIUht2.js",
+      "assets/SettingsPage-3wYAz-nk.js",
+      "assets/TagForm-XobbFcaP.js",
+      "assets/TagPicker-BVppbVJm.js",
+      "assets/TagsPage-CR2GzWRM.js",
+      "assets/TextInput-BQjUDhO0.js",
+      "assets/TransactionDetailPage-BZgwih1L.js",
+      "assets/TransactionsPage-D9ACKU0X.js",
+      "assets/ViewsPage-DyDnyNS_.js",
       "assets/database-Bnj1r7Is.js",
       "assets/dates-B_gSbfCT.js",
       "assets/dexie-react-hooks-C21-_aVv.js",
       "assets/formSubmit-CF9OztiO.js",
-      "assets/index-EdiNygCh.css",
-      "assets/index-sg4EIPcB.js",
-      "assets/inputClasses-BjbM2z3f.js",
+      "assets/index-C4GvAOCi.js",
+      "assets/index-Cpt-rUZT.css",
+      "assets/inputClasses-DIonthHF.js",
       "assets/installments-B-J5W-CX.js",
-      "assets/recurringsRepository-C81ORAyV.js",
+      "assets/recurringsRepository-CyqedA3M.js",
       "assets/tagsRepository-C9dXjatB.js",
+      "assets/transactionListTexts-C3u4BScp.js",
       "assets/transactionSchema-dv4AIf_Y.js",
-      "assets/usePeriodView-CJ3u0csu.js",
-      "assets/useRecurringForm-BpjAZSS0.js",
-      "assets/useTheme-uVIR8ryt.js",
+      "assets/usePeriodView-B2dHiSjA.js",
+      "assets/useRecurringForm-Bob-ukPT.js",
+      "assets/useTheme-CaXcFtne.js",
       "assets/useToday-CnuH0h2n.js",
       "assets/workbox-window.prod.es5-Bd17z0YL.js",
       "favicon.png",
@@ -43224,17 +44064,17 @@
     "navigationRoute": true,
     "css": [
       {
-        "file": "assets/index-EdiNygCh.css",
-        "bytes": 27072
+        "file": "assets/index-Cpt-rUZT.css",
+        "bytes": 27208
       }
     ],
     "js": [
       {
-        "file": "assets/index-sg4EIPcB.js",
-        "bytes": 356516
+        "file": "assets/index-C4GvAOCi.js",
+        "bytes": 357892
       },
       {
-        "file": "assets/ChartsPage-CS7TxjvV.js",
+        "file": "assets/ChartsPage-c3dcMH3_.js",
         "bytes": 174832
       },
       {
@@ -43254,87 +44094,87 @@
         "bytes": 31746
       },
       {
-        "file": "assets/RecurringDetailPage-CduD-GRS.js",
-        "bytes": 19476
+        "file": "assets/RecurringDetailPage-CVh55SqI.js",
+        "bytes": 19506
       },
       {
-        "file": "assets/BackupPage-BBLu8Z7S.js",
+        "file": "assets/BackupPage-Hd5D5MS3.js",
         "bytes": 19396
       },
       {
-        "file": "assets/TransactionsPage-7H-oeQsH.js",
-        "bytes": 14121
+        "file": "assets/TransactionsPage-D9ACKU0X.js",
+        "bytes": 13931
       },
       {
         "file": "assets/Page-l_FoqQCp.js",
         "bytes": 9634
       },
       {
-        "file": "assets/ViewsPage-BXoGhjdk.js",
+        "file": "assets/ViewsPage-DyDnyNS_.js",
         "bytes": 9351
       },
       {
-        "file": "assets/TransactionDetailPage-hYfoYV5s.js",
-        "bytes": 8895
+        "file": "assets/TransactionDetailPage-BZgwih1L.js",
+        "bytes": 8968
       },
       {
-        "file": "assets/recurringsRepository-C81ORAyV.js",
+        "file": "assets/recurringsRepository-CyqedA3M.js",
         "bytes": 7574
       },
       {
-        "file": "assets/RecurringsPage-_tZ0ai0h.js",
-        "bytes": 7161
+        "file": "assets/RecurringsPage-deSIUht2.js",
+        "bytes": 7181
       },
       {
-        "file": "assets/TagsPage-D1Id-FCm.js",
-        "bytes": 6235
+        "file": "assets/TagsPage-CR2GzWRM.js",
+        "bytes": 6255
       },
       {
         "file": "assets/workbox-window.prod.es5-Bd17z0YL.js",
         "bytes": 5653
       },
       {
-        "file": "assets/TagForm-fttXUsWL.js",
+        "file": "assets/TagForm-XobbFcaP.js",
         "bytes": 5632
       },
       {
-        "file": "assets/DateInput-C_mEEy_u.js",
+        "file": "assets/DateInput-oXLyJ5q1.js",
         "bytes": 3215
       },
       {
-        "file": "assets/MoneyInput-C5m5iP4z.js",
+        "file": "assets/MoneyInput-BZC6RmTy.js",
         "bytes": 3093
       },
       {
-        "file": "assets/TagPicker-BkufdUn2.js",
+        "file": "assets/TagPicker-BVppbVJm.js",
         "bytes": 2817
       },
       {
-        "file": "assets/usePeriodView-CJ3u0csu.js",
+        "file": "assets/usePeriodView-B2dHiSjA.js",
         "bytes": 2782
       },
       {
-        "file": "assets/useRecurringForm-BpjAZSS0.js",
-        "bytes": 2613
+        "file": "assets/useRecurringForm-Bob-ukPT.js",
+        "bytes": 2643
       },
       {
-        "file": "assets/AboutPage-D0ysvg8q.js",
+        "file": "assets/AboutPage-CeZPNf-b.js",
         "bytes": 2444
       },
       {
-        "file": "assets/SettingsPage-DnfItwxM.js",
-        "bytes": 2094
+        "file": "assets/SettingsPage-3wYAz-nk.js",
+        "bytes": 2114
       },
       {
         "file": "assets/tagsRepository-C9dXjatB.js",
         "bytes": 2003
       },
       {
-        "file": "assets/inputClasses-BjbM2z3f.js",
+        "file": "assets/inputClasses-DIonthHF.js",
         "bytes": 1920
       },
       {
-        "file": "assets/TextInput-CVdGROdz.js",
+        "file": "assets/TextInput-BQjUDhO0.js",
         "bytes": 1561
       },
       {
@@ -43346,7 +44186,7 @@
         "bytes": 995
       },
       {
-        "file": "assets/BackLink-D40XnzcN.js",
+        "file": "assets/BackLink-CthSd6Y7.js",
         "bytes": 889
       },
       {
@@ -43354,7 +44194,11 @@
         "bytes": 779
       },
       {
-        "file": "assets/NewTransactionPage-DfxndKXr.js",
+        "file": "assets/transactionListTexts-C3u4BScp.js",
+        "bytes": 531
+      },
+      {
+        "file": "assets/NewTransactionPage-k_1uBewN.js",
         "bytes": 452
       },
       {
@@ -43362,11 +44206,11 @@
         "bytes": 431
       },
       {
-        "file": "assets/useTheme-uVIR8ryt.js",
+        "file": "assets/useTheme-CaXcFtne.js",
         "bytes": 223
       }
     ],
-    "totalBytes": 989715,
+    "totalBytes": 991823,
     "devLeaks": []
   },
   "violations": [],
@@ -43374,35 +44218,59 @@
   "cycles": [],
   "git": {
     "branch": "main",
-    "head": "6b6b45a",
+    "head": "9a9b68d",
     "workingTree": [
+      {
+        "status": "M",
+        "path": ".claude/skills/atualizar-arquitetura/scan-architecture.mjs"
+      },
+      {
+        "status": "M",
+        "path": "README.md"
+      },
       {
         "status": "M",
         "path": "docs/SPEC.md"
       },
       {
         "status": "M",
-        "path": "src/components/transactions/TransactionForm.tsx"
+        "path": "scripts/generate-icons.mjs"
       },
       {
         "status": "M",
-        "path": "src/components/transactions/TransactionRow.tsx"
+        "path": "src/app/routes.tsx"
       },
       {
         "status": "M",
-        "path": "src/components/transactions/transactionTexts.ts"
+        "path": "src/components/tags/TagColorPicker.tsx"
       },
       {
         "status": "M",
-        "path": "src/components/transactions/useTransactionForm.ts"
+        "path": "src/components/ui/Button.tsx"
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/DomainSection.tsx"
+        "path": "src/components/ui/NavList.tsx"
       },
       {
         "status": "M",
-        "path": "src/dev/architecture/components/FlowsSection.tsx"
+        "path": "src/components/ui/inputClasses.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/components/CompositionSection.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/components/OverviewSection.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/components/RoutesSection.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/dev/architecture/composition.ts"
       },
       {
         "status": "M",
@@ -43414,11 +44282,27 @@
       },
       {
         "status": "M",
-        "path": "src/dev/sampleData/sampleInstallments.ts"
+        "path": "src/dev/architecture/types.ts"
       },
       {
         "status": "M",
-        "path": "src/features/transactions/NewTransactionPage.tsx"
+        "path": "src/features/recurrings/RecurringDetailPage.test.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/recurrings/RecurringList.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/recurrings/recurringsTexts.ts"
+      },
+      {
+        "status": "M",
+        "path": "src/features/tags/TagList.tsx"
+      },
+      {
+        "status": "M",
+        "path": "src/features/transactions/TransactionDetailPage.test.tsx"
       },
       {
         "status": "M",
@@ -43426,71 +44310,176 @@
       },
       {
         "status": "M",
-        "path": "src/features/transactions/useTransactionDetail.ts"
+        "path": "src/features/transactions/TransactionsPage.tsx"
       },
       {
         "status": "M",
-        "path": "src/lib/backupFormat.ts"
+        "path": "src/features/transactions/transactionListTexts.ts"
       },
       {
         "status": "M",
-        "path": "src/repositories/recurringsRepository.test.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/repositories/transactionsRepository.ts"
-      },
-      {
-        "status": "M",
-        "path": "src/test/seedDatabase.ts"
+        "path": "src/repositories/useThemePreference.ts"
       },
       {
         "status": "??",
-        "path": "src/components/transactions/InstallmentFields.tsx"
+        "path": "src/app/layout/RouteErrorPage.lazy.test.tsx"
       },
       {
         "status": "??",
-        "path": "src/components/transactions/TransactionDescription.tsx"
+        "path": "src/app/layout/RouteErrorPage.test.tsx"
       },
       {
         "status": "??",
-        "path": "src/components/ui/Checkbox.tsx"
+        "path": "src/app/layout/RouteErrorPage.tsx"
       },
       {
         "status": "??",
-        "path": "src/domain/installmentSchema.ts"
+        "path": "src/app/layout/routeErrorTexts.ts"
       },
       {
         "status": "??",
-        "path": "src/domain/installments.test.ts"
+        "path": "src/app/theme/ThemeProvider.errors.test.tsx"
       },
       {
         "status": "??",
-        "path": "src/domain/installments.ts"
+        "path": "src/components/ui/buttonClasses.ts"
       },
       {
         "status": "??",
-        "path": "src/features/transactions/DeleteInstallmentDialog.tsx"
+        "path": "src/domain/screens.performance.test.ts"
       },
       {
         "status": "??",
-        "path": "src/features/transactions/InstallmentInfo.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/features/transactions/InstallmentPurchase.test.tsx"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/installmentsRepository.test.ts"
-      },
-      {
-        "status": "??",
-        "path": "src/repositories/installmentsRepository.ts"
+        "path": "src/test/largeDataset.ts"
       }
     ]
   },
   "commits": [
+    {
+      "hash": "9a9b68d",
+      "date": "2026-10-26T17:23:41-03:00",
+      "author": "Fernando",
+      "subject": "feat/finishing phase 10",
+      "refs": [],
+      "files": [
+        {
+          "status": "M",
+          "path": "docs/SPEC.md"
+        },
+        {
+          "status": "A",
+          "path": "src/components/transactions/InstallmentFields.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/components/transactions/TransactionDescription.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/components/transactions/TransactionForm.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/components/transactions/TransactionRow.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/components/transactions/transactionTexts.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/components/transactions/useTransactionForm.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/components/ui/Checkbox.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/DomainSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/components/FlowsSection.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/curated.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/module-graph.json"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/architecture/data/timeline.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/dev/sampleData/sampleInstallments.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/installmentSchema.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/installments.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/domain/installments.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/DeleteInstallmentDialog.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/InstallmentInfo.tsx"
+        },
+        {
+          "status": "A",
+          "path": "src/features/transactions/InstallmentPurchase.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/transactions/NewTransactionPage.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/transactions/TransactionDetailPage.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/features/transactions/useTransactionDetail.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/lib/backupFormat.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/installmentsRepository.test.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/repositories/installmentsRepository.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/repositories/recurringsRepository.test.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/repositories/transactionsRepository.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/test/seedDatabase.ts"
+        }
+      ]
+    },
     {
       "hash": "6b6b45a",
       "date": "2026-10-26T13:53:02-03:00",
@@ -46737,7 +47726,11 @@
     "src/app/layout/AppLayout.tsx",
     "src/app/layout/BottomNav.test.tsx",
     "src/app/layout/BottomNav.tsx",
+    "src/app/layout/RouteErrorPage.lazy.test.tsx",
+    "src/app/layout/RouteErrorPage.test.tsx",
+    "src/app/layout/RouteErrorPage.tsx",
     "src/app/layout/navItems.ts",
+    "src/app/layout/routeErrorTexts.ts",
     "src/app/lazyPages.tsx",
     "src/app/pwa/InstallHint.test.tsx",
     "src/app/pwa/InstallHint.tsx",
@@ -46753,6 +47746,7 @@
     "src/app/routes.test.tsx",
     "src/app/routes.tsx",
     "src/app/storage/usePersistentStorageRequest.ts",
+    "src/app/theme/ThemeProvider.errors.test.tsx",
     "src/app/theme/ThemeProvider.tsx",
     "src/app/theme/applyThemeToDocument.ts",
     "src/app/theme/indexHtmlThemeScript.test.ts",
@@ -46812,6 +47806,7 @@
     "src/components/ui/TagChip.tsx",
     "src/components/ui/TextInput.tsx",
     "src/components/ui/Toast.tsx",
+    "src/components/ui/buttonClasses.ts",
     "src/components/ui/createRadioGroup.test.tsx",
     "src/components/ui/createRadioGroup.tsx",
     "src/components/ui/inputClasses.ts",
@@ -46924,6 +47919,7 @@
     "src/domain/recurring.ts",
     "src/domain/recurringSchema.test.ts",
     "src/domain/recurringSchema.ts",
+    "src/domain/screens.performance.test.ts",
     "src/domain/tagColor.test.ts",
     "src/domain/tagColor.ts",
     "src/domain/tagSchema.test.ts",
@@ -47130,6 +48126,7 @@
     "src/test/chartStubs.tsx",
     "src/test/dialog.ts",
     "src/test/factories.ts",
+    "src/test/largeDataset.ts",
     "src/test/matchMedia.ts",
     "src/test/propertyHelpers.ts",
     "src/test/recurrings.ts",

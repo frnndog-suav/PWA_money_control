@@ -4,7 +4,12 @@ import { CompositionTree } from '@/dev/architecture/components/CompositionTree'
 import { ModuleLink } from '@/dev/architecture/components/ModuleLink'
 import { ModuleList } from '@/dev/architecture/components/ModuleList'
 import { Section } from '@/dev/architecture/components/Section'
-import { buildComponentTree, routeDetails, type TreeNode } from '@/dev/architecture/composition'
+import {
+  buildComponentTree,
+  routeDetails,
+  type RouteDetail,
+  type TreeNode,
+} from '@/dev/architecture/composition'
 import { graph, isProductionId, isProductionModule } from '@/dev/architecture/model'
 
 interface CompositionRoot {
@@ -20,14 +25,23 @@ const stateFor = (route: string) => SCREEN_COMPOSITION.find((s) => s.route === r
 
 // Telas com a mesma árvore (ex.: placeholders só com Page + título) aparecem juntas.
 const screenGroups = new Map<string, { roots: CompositionRoot[]; tree: TreeNode[] }>()
+function rootTitle(route: RouteDetail): string {
+  if (route.layout) return 'Layout'
+  if (route.errorBoundary) return 'Tela de erro das rotas (errorElement)'
+  return `${route.path} — ${route.screen}`
+}
+
 for (const route of routeDetails) {
-  if (!route.module) continue
-  const tree = buildComponentTree(route.module)
-  const key = route.layout || stateFor(route.path) ? route.module : treeSignature(tree)
+  // O limite de erro não tem element: a árvore mostrada é a da tela de erro.
+  const moduleId = route.errorBoundary ? route.errorModule : route.module
+  if (!moduleId) continue
+  const tree = buildComponentTree(moduleId)
+  const key =
+    route.layout || route.errorBoundary || stateFor(route.path) ? moduleId : treeSignature(tree)
   const group = screenGroups.get(key) ?? { roots: [], tree }
   group.roots.push({
-    moduleId: route.module,
-    title: route.layout ? 'Layout' : `${route.path} — ${route.screen}`,
+    moduleId,
+    title: rootTitle(route),
     stateAndData: stateFor(route.path),
   })
   screenGroups.set(key, group)

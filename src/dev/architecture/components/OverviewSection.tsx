@@ -12,7 +12,7 @@ const STATS: readonly { label: string; value: number }[] = [
   { label: 'Hooks', value: graph.totals.hooks },
   { label: 'Arquivos de teste', value: graph.totals.tests },
   { label: 'Arestas de import', value: graph.totals.edges },
-  { label: 'Rotas', value: graph.routes.filter((r) => !r.layout).length },
+  { label: 'Rotas', value: graph.routes.filter((r) => !r.layout && !r.errorBoundary).length },
   { label: 'Arquivos de configuração', value: graph.totals.configFiles },
 ]
 

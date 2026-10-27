@@ -125,9 +125,12 @@ describe('TransactionDetailPage (CA-01.5 / CA-01.6)', () => {
     expect(await screen.findByRole('heading', { level: 1, name: 'Início' })).toBeDefined()
   })
 
+  // Fase 11 — id excluído ou inexistente aberto pela URL
   it('id inexistente → "Lançamento não encontrado"', async () => {
     renderApp(['/lancamentos/nao-existe'])
-    expect(await screen.findByText('Lançamento não encontrado')).toBeDefined()
+    expect(
+      await screen.findByText('Lançamento não encontrado. Ele pode ter sido excluído.'),
+    ).toBeDefined()
     expect(screen.queryByRole('button', { name: 'Salvar' })).toBeNull()
   })
 })

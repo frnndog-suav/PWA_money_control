@@ -25,7 +25,8 @@ function flattenComponents(nodes: readonly TreeNode[]): string[] {
 }
 
 function RouteCard({ route }: { route: RouteDetail }) {
-  const components = route.module ? flattenComponents(buildComponentTree(route.module)) : []
+  const rootModule = route.module ?? route.errorModule
+  const components = rootModule ? flattenComponents(buildComponentTree(rootModule)) : []
   const isPlaceholder = route.contentPhase !== null && route.contentPhase > currentPhase
 
   return (
@@ -34,7 +35,9 @@ function RouteCard({ route }: { route: RouteDetail }) {
         trailing={
           <>
             {route.layout && <Badge variant="info">layout</Badge>}
+            {route.errorBoundary && <Badge variant="info">limite de erro</Badge>}
             {!route.layout &&
+              !route.errorBoundary &&
               (route.lazy ? <Badge>lazy</Badge> : <Badge variant="ok">no pacote principal</Badge>)}
             {route.devOnly && <Badge variant="dev">somente DEV</Badge>}
             {isPlaceholder && (
@@ -52,12 +55,19 @@ function RouteCard({ route }: { route: RouteDetail }) {
         <Fields.Item label="Componente da rota">
           {route.module ? (
             <ModuleLink id={route.module} />
+          ) : route.errorBoundary ? (
+            <span className="text-sm">sem element (só agrupa as telas)</span>
           ) : (
             <span className="text-sm">elemento inline</span>
           )}
           <span className="text-xs text-slate-500"> declarado em </span>
           <ModuleLink id={route.definedIn} short />
         </Fields.Item>
+        {route.errorModule && (
+          <Fields.Item label="Tela de erro (errorElement)">
+            <ModuleLink id={route.errorModule} />
+          </Fields.Item>
+        )}
         <Fields.Item label="Requisitos">
           <CodeList items={route.requirements} />
         </Fields.Item>

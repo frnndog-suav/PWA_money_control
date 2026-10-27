@@ -17,6 +17,12 @@ export interface ThemePreferenceState {
 // continua valendo na sessão e no espelho.
 function ignoreStorageError(): void {}
 
+// O ThemeProvider fica acima do roteador e da tela de erro das rotas: uma leitura que falha
+// aqui deixaria a tela branca. Sem o Dexie, vale o espelho do localStorage (Fase 11).
+function readStoredPreferenceOrNull(): Promise<ThemePreference | null> {
+  return getStoredThemePreference().catch(() => null)
+}
+
 /**
  * RF-09 — preferência de tema com o Dexie como fonte da verdade (§6.7).
  * Enquanto o IndexedDB carrega, usa o espelho do localStorage, o mesmo valor que o script
@@ -24,7 +30,7 @@ function ignoreStorageError(): void {}
  */
 export function useThemePreference(): ThemePreferenceState {
   // undefined = carregando; null = nada salvo no Dexie.
-  const storedPreference = useLiveQuery(getStoredThemePreference)
+  const storedPreference = useLiveQuery(readStoredPreferenceOrNull)
   const [mirroredPreference] = useState(readThemeMirror)
   // Escolha feita nesta sessão: vale na hora (CA-09.3), sem esperar a gravação no Dexie.
   const [chosenPreference, setChosenPreference] = useState<ThemePreference | null>(null)

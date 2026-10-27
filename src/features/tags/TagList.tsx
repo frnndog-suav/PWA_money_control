@@ -25,7 +25,7 @@ export function TagList({ items, onSelect }: TagListProps) {
             <span className="shrink-0 text-sm text-slate-600 tabular-nums dark:text-slate-300">
               {formatTransactionCount(transactionCount)}
             </span>
-            <span aria-hidden="true" className="text-slate-400">
+            <span aria-hidden="true" className="text-slate-500 dark:text-slate-400">
               ›
             </span>
           </button>

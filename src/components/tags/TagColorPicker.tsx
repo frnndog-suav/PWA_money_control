@@ -53,7 +53,7 @@ export function TagColorPicker({ value, onChange }: TagColorPickerProps) {
           // O seletor nativo só aceita minúsculas.
           value={value.toLowerCase()}
           onChange={(event) => onChange(event.target.value.toUpperCase())}
-          className="h-11 w-14 cursor-pointer rounded-lg border border-slate-300 bg-transparent p-1 dark:border-slate-600"
+          className="h-11 w-14 cursor-pointer rounded-lg border border-slate-500 bg-transparent p-1 dark:border-slate-400"
         />
         <label htmlFor={customColorId}>Outra cor</label>
       </div>

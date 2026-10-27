@@ -198,6 +198,8 @@ describe('RecurringDetailPage — encerrar e excluir (RF-07 / D-51)', () => {
 
   it('recorrente inexistente', async () => {
     renderApp(['/ajustes/recorrentes/nao-existe'])
-    expect(await screen.findByText('Recorrente não encontrado')).toBeTruthy()
+    expect(
+      await screen.findByText('Recorrente não encontrado. Ele pode ter sido excluído.'),
+    ).toBeTruthy()
   })
 })

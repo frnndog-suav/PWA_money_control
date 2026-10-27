@@ -40,9 +40,9 @@ como acontece no Git Bash) o Vitest falha com "failed to find the runner".
 **PWA em desenvolvimento:** no `npm run dev` o service worker não é registrado. Para testar
 o modo offline e o aviso de nova versão no PC, use `npm run build` + `npm run preview`.
 
-**Ícones provisórios:** os PNGs de `public/` são gerados por
-`node scripts/generate-icons.mjs` (sem dependências). Nome e ícone definitivos ficam para a
-Fase 11.
+**Ícones:** os PNGs de `public/` são gerados por `node scripts/generate-icons.mjs` (sem
+dependências). Nome ("Meus Gastos" / "Gastos") e ícone (três barras brancas crescentes sobre
+azul) são os definitivos (D-09).
 
 ## Deploy no Cloudflare Pages
 
@@ -101,7 +101,7 @@ Service worker, `crypto.subtle` e `crypto.randomUUID` só funcionam em contexto 
    recebido por e-mail.
 3. Toque em **Compartilhar** → **Adicionar à Tela de Início** → **Adicionar**.
 4. Abra o app **pelo ícone**: ele deve abrir em tela cheia, sem a barra do Safari, com o
-   nome "Gastos" e o ícone provisório. O aviso "Para seus dados ficarem guardados com
+   nome "Gastos" e o ícone do app. O aviso "Para seus dados ficarem guardados com
    segurança…" só aparece quando o app é aberto numa aba comum do Safari.
 5. Feche o app, ative o **modo avião** e abra pelo ícone de novo: ele deve abrir normalmente.
 6. Para testar atualização: publique uma mudança visível, abra o app (online) e espere o

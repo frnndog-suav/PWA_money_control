@@ -15,7 +15,7 @@ function NavListLink({ to, children }: NavListLinkProps) {
     <li>
       <Link to={to} className="flex min-h-11 items-center justify-between px-4 py-2">
         <span>{children}</span>
-        <span aria-hidden="true" className="text-slate-400">
+        <span aria-hidden="true" className="text-slate-500 dark:text-slate-400">
           ›
         </span>
       </Link>

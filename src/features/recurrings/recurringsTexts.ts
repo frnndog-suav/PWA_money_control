@@ -8,7 +8,7 @@ export const RECURRINGS_TITLE = 'Recorrentes'
 export const NEW_RECURRING_LABEL = 'Novo recorrente'
 export const NO_RECURRINGS_MESSAGE =
   'Nenhum recorrente ainda. Crie um para os gastos e entradas que acontecem todo mês.'
-export const RECURRING_NOT_FOUND_MESSAGE = 'Recorrente não encontrado'
+export const RECURRING_NOT_FOUND_MESSAGE = 'Recorrente não encontrado. Ele pode ter sido excluído.'
 export const NO_END_LABEL = 'Sem término'
 
 export const RECURRING_UPDATED_MESSAGE = 'Recorrente salvo'

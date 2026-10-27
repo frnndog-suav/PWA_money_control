@@ -108,6 +108,11 @@ export interface GraphRoute {
   lazy: boolean
   devOnly: boolean
   layout: boolean
+  /** Rota sem caminho que só agrupa as telas para dar a elas um errorElement próprio. */
+  errorBoundary: boolean
+  /** Componente do errorElement da rota (null sem tela de erro própria). */
+  errorElement: string | null
+  errorModule: string | null
 }
 
 export interface GraphPackage {
